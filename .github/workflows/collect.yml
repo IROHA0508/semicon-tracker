@@ -1,0 +1,85 @@
+name: 기사 수집
+
+on:
+  schedule:
+    - cron: "10 22 * * *"   # 매일 한국 시간 07:10 (UTC 22:10). GitHub 사정으로 몇 분 늦게 시작할 수 있음
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "collect(수집+저장) / detect(수집 결과만 보기, 파일 변경 없음) / selftest(출처 점검)"
+        type: choice
+        options: [collect, detect, selftest]
+        default: collect
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "tests/**"
+      - ".github/workflows/collect.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  test:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r backend/requirements.txt pytest
+      - name: 오프라인 테스트
+        run: python -m pytest tests -q
+      - name: 실제 출처 점검 (각 피드 첫 페이지만 읽음)
+        run: python -m backend selftest
+
+  collect:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main   # "Re-run"도 항상 최신 main에서 시작
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r backend/requirements.txt
+      - name: 실행
+        run: python -m backend "${{ github.event.inputs.command || 'collect' }}"
+      - name: 바뀐 상태 파일 커밋
+        if: github.event.inputs.command != 'detect' && github.event.inputs.command != 'selftest'
+        run: |
+          git config user.name "semicon-tracker-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/state
+          if git diff --cached --quiet; then
+            echo "바뀐 내용 없음"
+            exit 0
+          fi
+          added=$(python -c "import json;print(len(json.load(open('backend/state/last-run.json'))['added']))")
+          if [ "$added" -gt 0 ]; then msg="기사 수집: 새 기사 ${added}건"; else msg="기사 수집: 새 기사 없음"; fi
+          git commit -m "$msg"
+          # 그사이 다른 실행이 올린 상태 파일과 겹치면 이번 실행 결과를 우선
+          git pull --rebase -X theirs origin main
+          git push origin HEAD:main
+      - name: 수집 실패 확인
+        if: github.event.inputs.command != 'detect' && github.event.inputs.command != 'selftest'
+        run: |
+          python - <<'EOF'
+          import json, sys
+          errors = json.load(open("backend/state/last-run.json")).get("errors") or {}
+          for key, message in errors.items():
+              print(f"::error title=수집 실패 {key}::{message}")
+          sys.exit(1 if errors else 0)
+          EOF
