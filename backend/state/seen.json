@@ -1,0 +1,1662 @@
+{
+  "backfill": {
+    "samsung-newsroom": {
+      "done": true,
+      "finishedAt": "2026-10-07"
+    },
+    "sk-fact": {
+      "done": true,
+      "finishedAt": "2026-10-07"
+    },
+    "sk-press": {
+      "done": true,
+      "finishedAt": "2026-10-07"
+    },
+    "sk-tech": {
+      "done": true,
+      "finishedAt": "2026-10-07"
+    }
+  },
+  "urls": {
+    "https://news.samsungsemiconductor.com/kr/2026-삼성-명장-인터뷰-cmp-설비-국산화의-꿈-실현-제조-혁신": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-14",
+      "id": "samsung-54afdd7f38",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[2026 삼성 명장 인터뷰] CMP 설비 국산화의 꿈 실현! 제조 혁신을 이끈 이동우 명장"
+    },
+    "https://news.samsungsemiconductor.com/kr/2026-삼성-명장-인터뷰-정확한-계측으로-hbm-불량률-제로에": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-14",
+      "id": "samsung-618f6e3081",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[2026 삼성 명장 인터뷰] 정확한 계측으로 HBM 불량률 제로에 도전하는 김주우 명장"
+    },
+    "https://news.samsungsemiconductor.com/kr/3d-메모리로-그린-ai의-미래삼성전자-fms-2026-참가-현장스케": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-05",
+      "id": "samsung-5776fb690f",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "3D 메모리로 그린 AI의 미래…삼성전자 FMS 2026 참가 현장 스케치"
+    },
+    "https://news.samsungsemiconductor.com/kr/ai-시대-메모리의-진화-더-빠르게·더-촘촘하게-삼성": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-05",
+      "id": "samsung-80c99a7b56",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "AI 시대 메모리의 진화, 더 빠르게·더 촘촘하게… 삼성전자, FMS 2026에서 차세대 3D 메모리 비전 공개"
+    },
+    "https://news.samsungsemiconductor.com/kr/ai시대-초저전력-기술로-4나노-파운드리-공정-완성도를": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-23",
+      "id": "samsung-d8e72fb6d4",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "HBM4 베이스 다이 경쟁력을 높인 4나노 초저전력 공정, 대한민국 엔지니어상 수상자 인터뷰"
+    },
+    "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-detachable-autossd-업계-최초의-탈부착-가능한-최": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-12",
+      "id": "samsung-3e8a03ba02",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[CES 2026 혁신상 수상작] Detachable AutoSSD: 업계 최초의 탈부착 가능한 최고 성능의 차량용 SSD"
+    },
+    "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-lpddr6-고성능-온디바이스-ai에-최적화된": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-08",
+      "id": "samsung-c23119a1a2",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[CES 2026 혁신상 수상작] LPDDR6: 고성능 온디바이스 AI에 최적화된 세계 최초의 차세대 저전력 DRAM"
+    },
+    "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-pm9e1-m-2-22x42-초소형·고성능의-ai-최적화-pcie-gen5-nvme": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-09",
+      "id": "samsung-65ae652d0b",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[CES 2026 혁신상 수상작] PM9E1 M.2 22×42: 초소형·고성능의 AI 최적화 PCIe Gen5 NVMe SSD"
+    },
+    "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-s3sse2a-양자-보안의-미래를-여는-하드웨": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-08",
+      "id": "samsung-ad1f050795",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[CES 2026 혁신상 수상작] S3SSE2A: 양자 보안의 미래를 여는 하드웨어 PQC"
+    },
+    "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-t7-resurrected-100-재활용-알루미늄-외장-케이스": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-12",
+      "id": "samsung-48c6128d1a",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[CES 2026 혁신상 수상작] T7 Resurrected: 100% 재활용 알루미늄 외장 케이스를 적용한 자원 선순환 포터블 SSD"
+    },
+    "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-아이소셀-hp5-더-많은-빛을-담은-0-5㎛픽": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-09",
+      "id": "samsung-5c9d1e5725",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[CES 2026 혁신상 수상작] 아이소셀 HP5: 더 많은 빛을 담은 0.5㎛픽셀 이미지 센서"
+    },
+    "https://news.samsungsemiconductor.com/kr/ds-딕셔너리현직자가-직접-설명하는-hbm-개념과-기": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-02",
+      "id": "samsung-7921c1df10",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[DS 딕셔너리]현직자가 직접 설명하는 ‘HBM’ 개념과 기술 알아보기"
+    },
+    "https://news.samsungsemiconductor.com/kr/fms-2026-3d-nand-innovation-award-v10-bv-nand-400단을-넘어-ai-스토리지의-한계를-확장하": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-31",
+      "id": "samsung-aac1657e2a",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[FMS 2026 3D & NAND Innovation Award] V10 BV-NAND: 400단을 넘어 AI 스토리지의 한계를 확장하다"
+    },
+    "https://news.samsungsemiconductor.com/kr/gtc-2026에서-만난-삼성전자-ai-반도체의-미래": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-18",
+      "id": "samsung-d7ce891ed8",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "GTC 2026에서 만난 삼성전자 AI 반도체의 미래"
+    },
+    "https://news.samsungsemiconductor.com/kr/hbm-성공의-또-다른-주역-삼성-파운드리가-열어갈-ai-혁신": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-27",
+      "id": "samsung-1d5ab7e684",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "HBM 성공의 또 다른 주역, 삼성 파운드리가 열어갈 AI 혁신"
+    },
+    "https://news.samsungsemiconductor.com/kr/거인의-도구들-반도체-라인을-누비는-설비-엔지니어": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-21",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[거인의 도구들] 반도체 라인을 누비는 설비 엔지니어의 필수 아이템은? 이동식 사무실 ‘툴박스’ 이야기"
+    },
+    "https://news.samsungsemiconductor.com/kr/거인의-도구들-안전은-발끝에서-시작된다-축구": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-27",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[거인의 도구들] “안전은 발끝에서 시작된다” 축구장 3배 크기의 반도체 라인을 걷는 20년 차 엔지니어의 필수품"
+    },
+    "https://news.samsungsemiconductor.com/kr/거인의-도구들-압박-속에서도-확실한-답을-보여주": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-31",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[거인의 도구들] “압박 속에서도 확실한 답을 보여주는 제2의 눈” 반도체 패키지 엔지니어에게 현미경이란?"
+    },
+    "https://news.samsungsemiconductor.com/kr/거인의-도구들10년의-동반자-안전모는-나만의-소방": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-12",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[거인의 도구들] “10년의 동반자, 안전모는 나만의 소방관입니다.” 반도체 현장의 숨은 히어로"
+    },
+    "https://news.samsungsemiconductor.com/kr/거인의-도구들15년째-이-옷을-입고-일하고-있습니다": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-15",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[거인의 도구들] “15년째 이 옷을 입고 일하고 있습니다.” 반도체 엔지니어가 소개하는 ‘방진복’"
+    },
+    "https://news.samsungsemiconductor.com/kr/게임스컴서-첫선-보인-삼성-포터블-ssd-p9·p7-글로벌-시장": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-22",
+      "id": "samsung-fd2e3034c8",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "게임스컴서 첫선 보인 삼성 포터블 SSD P9·P7, 글로벌 시장 본격 출시"
+    },
+    "https://news.samsungsemiconductor.com/kr/글로벌-메모리-표준의-중심에서-ㅣ-fms-2026-평생-공로상-수": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-20",
+      "id": "samsung-529b00c622",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "글로벌 메모리 표준의 중심에서 ㅣ FMS 2026 평생 공로상 수상자 Mian Quddus 인터뷰"
+    },
+    "https://news.samsungsemiconductor.com/kr/미래를-설계하는-젊은-과학도들이-모인-현장-수상자-2": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-13",
+      "id": "samsung-9d22c5a871",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "미래를 설계하는 젊은 과학도들이 모인 현장! 수상자 2인과 함께하는 제32회 삼성휴먼테크논문대상"
+    },
+    "https://news.samsungsemiconductor.com/kr/반도체가-세상과-만나는-곳-삼성전자-천안·온양캠": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-29",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "반도체가 세상과 만나는 곳, 삼성전자 천안·온양캠퍼스"
+    },
+    "https://news.samsungsemiconductor.com/kr/불이-꺼지지-않는-대한민국-반도체-산업의-중심-삼성": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-24",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "불이 꺼지지 않는 대한민국 반도체 산업의 중심, 삼성전자 평택캠퍼스"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-2026-삼성-명장-선정": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-04",
+      "id": "samsung-29c7865ed3",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, ‘2026 삼성 명장’ 선정"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-2026년-상반기-공채-실시": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-10",
+      "id": "samsung-6c8944a05e",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 2026년 상반기 공채 실시"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-2026년-상반기-삼성직무적성검사gsat실시": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-27",
+      "id": "samsung-e6157b1683",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 2026년 상반기 삼성직무적성검사(GSAT)실시"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-2026년-하반기-공채-실시": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-07",
+      "id": "samsung-91de5dcb74",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 2026년 하반기 공채 실시"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-국제올림피아드-수상자에게-장학금-이공계": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-17",
+      "id": "samsung-16aff0671c",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 국제올림피아드 수상자에게 장학금… 이공계 인재 육성에 기여"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-미래-성장-위해-2655조원-투자": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-30",
+      "id": "samsung-972586d584",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 미래 성장 위해 2,655조원 투자"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-미래-성장-위해-충청에-140조원-투자-계획": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-02",
+      "id": "samsung-f9798edab5",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 미래 성장 위해 충청에 140조 원 투자 계획"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-미래-성장-위해-호남에-425조원-투자": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-01",
+      "id": "samsung-a7d639418e",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 미래 성장 위해 호남에 425조원 투자"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-미취업-청년-대상-1000명-직무교육-지원-청년희": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-18",
+      "id": "samsung-068fe1b361",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 미취업 청년 1,000명 직무교육 지원… ‘청년희망배움터’ 교육생 모집"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-청년희망배움터-개강식-개최": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-30",
+      "id": "samsung-795c75a829",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, ‘청년희망배움터’ 개강식 개최"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-추석-맞아-내수경기-활성화에-앞장": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-14",
+      "id": "samsung-1950d27fec",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 추석 맞아 내수경기 활성화에 앞장"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성-협력회사와-상생-생태계-조성을-위한-협약-체결": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-29",
+      "id": "samsung-6d7836eeeb",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성, 협력회사와 상생 생태계 조성을 위한 협약 체결"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2025년-4분기-실적-발표": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-29",
+      "id": "samsung-6d235e9363",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 2025년 4분기 실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2025년-4분기-잠정실적-발표": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-08",
+      "id": "samsung-94ab7e1144",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 2025년 4분기 잠정실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-1분기-실적-발표": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-30",
+      "id": "samsung-4a595dac76",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 2026년 1분기 실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-1분기-잠정실적-발표": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-07",
+      "id": "samsung-fb59c49113",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 2026년 1분기 잠정실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-2분기-실적-발표": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-30",
+      "id": "samsung-47d70bc35a",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 2026년 2분기 실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-2분기-잠정실적-발표": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-07",
+      "id": "samsung-5ad1339171",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 2026년 2분기 잠정실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-신년사": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-02",
+      "id": "samsung-d2b24031d7",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자 2026년 신년사"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-지속가능경영보고서-발간수자": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-27",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "삼성전자, ‘2026년 지속가능경영보고서’ 발간…수자원 환원 확대"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-4나노-파운드리-공정-안정성-위에-확장성을": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-28",
+      "id": "samsung-c83c777ceb",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자 4나노 파운드리 공정: 안정성 위에 확장성을 더한 최적의 공정 솔루션"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-ai-인프라에-최적화된-기업용-ssd-pm1763-양산": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-08",
+      "id": "samsung-702582ea33",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, AI 인프라에 최적화된 기업용 SSD PM1763 양산"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-asml과-차세대-반도체-제조-협력-확대": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-09",
+      "id": "samsung-33fa93440f",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, ASML과 차세대 반도체 제조 협력 확대"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-ds부문-2026년-상생협력-day-개최": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-04",
+      "id": "samsung-5027c646a9",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, DS부문 ‘2026년 상생협력 DAY’ 개최"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-fms-2026서-차세대-3d-메모리-비전-제시": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-05",
+      "id": "samsung-3848c95f45",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, FMS 2026서 차세대 3D 메모리 비전 제시"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-gtc서-hbm4e-최초-공개토털-솔루션으로-엔": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-17",
+      "id": "samsung-ad1c8984e8",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, GTC서 HBM4E 최초 공개…‘토털 솔루션’으로 엔비디아와 AI 동맹 고도화"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-노사-2026년-임금협약-체결": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-27",
+      "id": "samsung-fe1d60645c",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자 노사, 2026년 임금협약 체결"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-미스트랄-ai와-전략적-파트너십-체결": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-09",
+      "id": "samsung-af2499b4f8",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 미스트랄 AI와 전략적 파트너십 체결"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-반도체-대한민국-국제물주간kiww-2026서-지": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-10",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "삼성전자 반도체, ‘대한민국 국제물주간(KIWW) 2026’서 지속가능한 수자원 관리 노력 선보여"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-반도체-제3회-samsung-supplier-sustainability-summit-개최-글로벌-공급": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-11",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "삼성전자 반도체, 제3회 ‘Samsung Supplier Sustainability Summit’ 개최: 글로벌 공급망 지속가능성 강화를 위한 협력 방안 모색"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-반도체의-탄소중립을-향한-한-걸음": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-24",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "삼성전자 반도체의 탄소중립을 향한 한 걸음"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-사상-최대-주주환원-실시-2026년-약-90조110조원-예": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-22",
+      "id": "samsung-84eddd0ae9",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 사상 최대 주주환원 실시 2026년 약 90조~110조원 예상"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-사장단-메시지": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-27",
+      "id": "samsung-a8f6bf571d",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자 사장단 메시지"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-세계-최초-hbm4e-12단-샘플-출하": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-29",
+      "id": "samsung-36184c3b19",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 세계 최초 HBM4E 12단 샘플 출하"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-세계-최초-업계-최고-성능의-hbm4-양산-출하": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-13",
+      "id": "samsung-59d5098f17",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 세계 최초 업계 최고 성능의 HBM4 양산 출하"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-세이프-포럼-2026-한국-개최ai-반도체-생태계": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-01",
+      "id": "samsung-41173b90c7",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, ‘세이프 포럼 2026’ 한국 개최…AI 반도체 생태계 지속 확대"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-업계-최초-온디바이스-ai-최적화-ufs-5-0-개발": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-23",
+      "id": "samsung-aec769deec",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 업계 최초 온디바이스 AI 최적화 UFS 5.0 개발"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-에이전틱-시프트-주제로-삼성-ai-포럼-2026-개최": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-30",
+      "id": "samsung-0e72b2980e",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, ‘에이전틱 시프트’ 주제로 삼성 AI 포럼 2026 개최"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-제57기-정기-주주총회-개최": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-18",
+      "id": "samsung-349771373e",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 제57기 정기 주주총회 개최"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-차세대-포터블-ssd-2종-p9-p7-공개": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-27",
+      "id": "samsung-a9b8614f55",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자, 차세대 포터블 SSD 2종 P9, P7 공개"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자·amd-차세대-ai-메모리-솔루션-협력-확대": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-19",
+      "id": "samsung-1398a16b89",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자·AMD, 차세대 AI 메모리 솔루션 협력 확대"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자·브로드컴-2000억-달러-규모-전략적-협력": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-25",
+      "id": "samsung-5c7ee13166",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "삼성전자·브로드컴, 2,000억 달러 규모 ‘전략적 협력’"
+    },
+    "https://news.samsungsemiconductor.com/kr/새로운-ai-인프라-사이클을-여는-메모리-혁신-1편-더-가": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-01",
+      "id": "samsung-41d8ce6f78",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 1편: 더 가까워진 엣지 AI, 더 중요해진 메모리"
+    },
+    "https://news.samsungsemiconductor.com/kr/새로운-ai-인프라-사이클을-여는-메모리-혁신-2편-엣지-ai": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-02",
+      "id": "samsung-e69a3e8270",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 2편: 엣지 AI 혁신을 연결하는 삼성전자 메모리 솔루션"
+    },
+    "https://news.samsungsemiconductor.com/kr/수평의-한계를-수직으로-돌파하다": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-17",
+      "id": "samsung-817c3cebb3",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "수평의 한계를 수직으로 돌파하다! 2026 VLSI Symposium 최고 논문상 수상자 인터뷰"
+    },
+    "https://news.samsungsemiconductor.com/kr/영상-인포그래픽으로-보는-hbm4": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-13",
+      "id": "samsung-3424cfa316",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[영상] 인포그래픽으로 보는 HBM4"
+    },
+    "https://news.samsungsemiconductor.com/kr/이론으로만-알고-있던-d램의-휘발성-유튜버-발명": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-06",
+      "id": "samsung-4770a91895",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "이론으로만 알고 있던 D램의 ‘휘발성’, 유튜버 발명킹밥테일과 함께 실험으로 알아보기"
+    },
+    "https://news.samsungsemiconductor.com/kr/인사이드-더-블루-ep-9-그때로-돌아간다면-취업": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-20",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[인사이드 더 블루 Ep.9] “그때로 돌아간다면…” 취업준비생 시절 나에게 보내주고 싶은 To-do list"
+    },
+    "https://news.samsungsemiconductor.com/kr/인포그래픽-온디바이스-ai-구현할-최적의-솔루션-ufs-5-0-메": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-23",
+      "id": "samsung-8b0bad143c",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[인포그래픽] 온디바이스 AI 구현할 최적의 솔루션 UFS 5.0 메모리"
+    },
+    "https://news.samsungsemiconductor.com/kr/인포그래픽-차세대-ai-플랫폼의-핵심-솔루션-삼성전자": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-08",
+      "id": "samsung-4a202a7566",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[인포그래픽] 차세대 AI 플랫폼의 핵심 솔루션, 삼성전자 SSD PM1763"
+    },
+    "https://news.samsungsemiconductor.com/kr/인포그래픽-한층-더-진화된-포터블-스토리지-경험을": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-27",
+      "id": "samsung-8212f74e59",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[인포그래픽] 한층 더 진화된 포터블 스토리지 경험을 제시할 삼성전자 SSD ‘P시리즈’를 만나다"
+    },
+    "https://news.samsungsemiconductor.com/kr/자원순환의-날-삼성전자-순환자원-인정-확대자원": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-05",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[자원순환의 날] 삼성전자, 순환자원 인정 확대…자원의 선순환 실천"
+    },
+    "https://news.samsungsemiconductor.com/kr/전원을-꺼도-데이터를-기억하는-메모리-과학-유튜버": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-10",
+      "id": "samsung-eeec4c9ea7",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "전원을 꺼도 데이터를 기억하는 메모리! 과학 유튜버 발명킹밥테일이 실험으로 재현한 낸드플래시의 원리"
+    },
+    "https://news.samsungsemiconductor.com/kr/지속-가능한-수자원-관리를-위한-삼성전자-반도체의": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-23",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "지속 가능한 수자원 관리를 위한 삼성전자 반도체의 워터 포지티브 활동"
+    },
+    "https://news.samsungsemiconductor.com/kr/첨단-반도체-생산을-위한-팀플레이-삼성-파운드리가": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-01",
+      "id": "samsung-96f4e6997d",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[인포그래픽] 첨단 반도체 생산을 위한 팀플레이, 삼성 파운드리가 구축한 시스템반도체 생태계 ‘SAFE™’"
+    },
+    "https://news.samsungsemiconductor.com/kr/첨단-반도체의-오늘을-만들고-미래를-준비하는-혁신": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-16",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "첨단 반도체의 오늘을 만들고 미래를 준비하는 혁신의 중심지, 삼성전자 화성·기흥캠퍼스"
+    },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-다가올-에이전틱-ai-시대-변화와-그-영향은": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-10-01",
+      "id": "samsung-eee2299079",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[칩스케치] 다가올 에이전틱 AI 시대, 변화와 그 영향은? 올해로 개최 10년째 맞은 ‘삼성 AI 포럼’"
+    },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-대학과-산업이-함께-그리는-반도체의-미래": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-28",
+      "id": "samsung-81cea496ae",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "queued",
+      "title": "[칩스케치] 대학과 산업이 함께 그리는 반도체의 미래, 산학협력 통합교류회 ‘SPARK 2026’"
+    },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-상생의-힘으로-키운-반도체-생태계-삼성전": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-01",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[칩스케치] 상생의 힘으로 키운 반도체 생태계, 삼성전자 ‘대한민국 동반성장 대상’ 수상"
+    },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-현장의-목소리가-모여-완성하는-안전문화-20": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-04",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[칩스케치] 현장의 목소리가 모여 완성하는 안전문화! 2026 DS부문 협력회사 안전경영대회"
+    },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-협력사와-함께-그리는-미래-2026-지속가능경": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-14",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[칩스케치] 협력사와 함께 그리는 미래, 2026 지속가능경영 세미나 & 반도체 테크 세미나"
+    },
+    "https://news.samsungsemiconductor.com/kr/협력사와-함께-성장하다-삼성전자-반도체의-상생을": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-10",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "협력사와 함께 성장하다! 삼성전자 반도체의 상생을 위한 노력"
+    },
+    "https://news.skhynix.com/en/1c-lpddr6-development-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-10",
+      "id": "skhynix-1c-lpddr6-development-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Develops 1c LPDDR6, 6th-Generation 10nm-Class DRAM"
+    },
+    "https://news.skhynix.com/en/2026-expert-column-series-ep3": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-24",
+      "id": "skhynix-2026-expert-column-series-ep3",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[Expert POV] The real battleground in the AI semiconductor race: Capital and energy infrastructure"
+    },
+    "https://news.skhynix.com/en/2026-expert-column-series-ep4": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-06",
+      "id": "skhynix-2026-expert-column-series-ep4",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[Expert POV] From AI semiconductors to AI services: How the ecosystem is evolving"
+    },
+    "https://news.skhynix.com/en/2026-ieee-awards-recipient": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-26",
+      "id": "skhynix-2026-ieee-awards-recipient",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix received 2026 IEEE Corporate Innovation Award for Driving AI Computing Expansion with HBM"
+    },
+    "https://news.skhynix.com/en/2026-market-outlook-focus-on-the-hbm-led-memory-supercycle": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-05",
+      "id": "skhynix-2026-market-outlook-focus-on-the-hbm-led-memory-supercycle",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "2026 Market Outlook – “Focus on the HBM-Led Memory Supercycle”"
+    },
+    "https://news.skhynix.com/en/5-things-about-skhynix": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-23",
+      "id": "skhynix-5-things-about-skhynix",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "Five things you need to know about SK hynix and the future of AI memory"
+    },
+    "https://news.skhynix.com/en/ai-competition-next-challenge": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-03",
+      "id": "skhynix-ai-competition-next-challenge",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "Why advanced memory matters in the AI infrastructure era"
+    },
+    "https://news.skhynix.com/en/ai-ecosystem-series-ep1": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-18",
+      "id": "skhynix-ai-ecosystem-series-ep1",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[AI Ecosystem] The paradigm shift in AI computing"
+    },
+    "https://news.skhynix.com/en/ai-ecosystem-series-ep2": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-03",
+      "id": "skhynix-ai-ecosystem-series-ep2",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[AI Ecosystem] The real bottleneck: Data, not compute"
+    },
+    "https://news.skhynix.com/en/ai-ecosystem-series-ep3": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-10-02",
+      "id": "skhynix-ai-ecosystem-series-ep3",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[AI Ecosystem] Redesigning infrastructure: Why architecture determines performance"
+    },
+    "https://news.skhynix.com/en/ai-infra-summit-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-17",
+      "id": "skhynix-ai-infra-summit-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Presents ‘New Spectrum’ for AI Infrastructure at ‘AI Infra Summit 2026’"
+    },
+    "https://news.skhynix.com/en/ai-infrastructure-insigh-ep1": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-10",
+      "id": "skhynix-ai-infrastructure-insigh-ep1",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[AI Infrastructure Insight] What is changing inside AI data centers?"
+    },
+    "https://news.skhynix.com/en/ai-infrastructure-insight-ep2": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-31",
+      "id": "skhynix-ai-infrastructure-insight-ep2",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[AI Infrastructure Insight] Why faster GPUs alone can’t deliver AI performance"
+    },
+    "https://news.skhynix.com/en/ai-infrastructure-insight-ep3": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-30",
+      "id": "skhynix-ai-infrastructure-insight-ep3",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[AI infrastructure insight] Why power and cooling have become the next challenge for AI data centers"
+    },
+    "https://news.skhynix.com/en/ai-partnership-foxconn-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-04",
+      "id": "skhynix-ai-partnership-foxconn-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "‘From Chips to AI Systems’… Chairman Chey Strengthens Partnership with Foxconn"
+    },
+    "https://news.skhynix.com/en/ai-partnership-tsmc-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-03",
+      "id": "skhynix-ai-partnership-tsmc-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK Group Chairman Chey Tae-won Meets TSMC Chairman and CEO C.C. Wei in Taiwan to Solidify Global AI Chip Partnership"
+    },
+    "https://news.skhynix.com/en/begin-supply-321-layer-qlc-nand-cssd": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-08",
+      "id": "skhynix-begin-supply-321-layer-qlc-nand-cssd",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Begins Supply of 321-layer QLC NAND cSSD, Reinforcing AI PC Storage Leadership"
+    },
+    "https://news.skhynix.com/en/ceo-2026-new-year-message": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-02",
+      "id": "skhynix-ceo-2026-new-year-message",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "CEO’s 2026 New Year Message"
+    },
+    "https://news.skhynix.com/en/computex-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-02",
+      "id": "skhynix-computex-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "Memory Solutions Grab the AI Wave — SK hynix Makes Its Mark at COMPUTEX 2026"
+    },
+    "https://news.skhynix.com/en/computex-2026-booth-tour": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-02",
+      "id": "skhynix-computex-2026-booth-tour",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "Chairman Chey Tae-won and CEO Jensen Huang Reunite at COMPUTEX Taipei 2026"
+    },
+    "https://news.skhynix.com/en/computex-2026-review": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-11",
+      "id": "skhynix-computex-2026-review",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[SOD’s Review] COMPUTEX 2026: SK hynix beyond memory – how the AI factory era is reshaping the company’s identity"
+    },
+    "https://news.skhynix.com/en/cpo-in-nature-electronics": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-20",
+      "id": "skhynix-cpo-in-nature-electronics",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix’s technology roadmap for co-packaged optics features in ‘Nature Electronics,’ as AI competition shifts from chips to systems"
+    },
+    "https://news.skhynix.com/en/dtf-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-26",
+      "id": "skhynix-dtf-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026"
+    },
+    "https://news.skhynix.com/en/dtw-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-20",
+      "id": "skhynix-dtw-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "What Brought Dell and SK hynix Together in Las Vegas? From HBM to cSSD, Reaffirming the Limitless Scalability of AI Memory"
+    },
+    "https://news.skhynix.com/en/fab-facility-investment-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-07",
+      "id": "skhynix-fab-facility-investment-2026",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand"
+    },
+    "https://news.skhynix.com/en/fact-05": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-29",
+      "id": "skhynix-fact-05",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "Explainer: SK hynix’s Mid-to-Long-Term Investment Strategy"
+    },
+    "https://news.skhynix.com/en/fact-06": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-30",
+      "id": "skhynix-fact-06",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "SK hynix Announces Investment Plan for Southwestern Region"
+    },
+    "https://news.skhynix.com/en/fact-07": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-02",
+      "id": "skhynix-fact-07",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "SK hynix Announces Investment Plan for the Chungcheong Region"
+    },
+    "https://news.skhynix.com/en/fact-09": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-11",
+      "id": "skhynix-fact-09",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "SK hynix CEO Kwak Noh-Jung’s Commemorative Remarks at the Nasdaq Opening Bell Ceremony in the U.S."
+    },
+    "https://news.skhynix.com/en/fact-10": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-16",
+      "id": "skhynix-fact-10",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "No plans have been confirmed regarding the reported talks between SK hynix and Intel on memory chip production in the U.S."
+    },
+    "https://news.skhynix.com/en/fact-11": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-10-01",
+      "id": "skhynix-fact-11",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "Clarification Regarding Recent Media Reports on Solidigm"
+    },
+    "https://news.skhynix.com/en/fms-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-07",
+      "id": "skhynix-fms-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "The Next-Generation Memory Architecture in the AI Era? SK hynix Charts the Direction at ‘FMS 2026’"
+    },
+    "https://news.skhynix.com/en/future-forum-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-09",
+      "id": "skhynix-future-forum-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Charts Its Business and Technology Direction at the 2026 Future Forum—”Now Is the Golden Time to Leap Forward”"
+    },
+    "https://news.skhynix.com/en/global-big-tech-ai-partnership-broadcom": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-13",
+      "id": "skhynix-global-big-tech-ai-partnership-broadcom",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "“Designing the Future of AI Chips — Together”… Chairman Chey Tae-won and CEO Hock Tan Declare ‘One Team’"
+    },
+    "https://news.skhynix.com/en/global-big-tech-ai-partnership-meta": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-13",
+      "id": "skhynix-global-big-tech-ai-partnership-meta",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "Chairman Chey Tae-won Joins Hands with Zuckerberg — From AI Chips to AI Glasses, Connected by Memory"
+    },
+    "https://news.skhynix.com/en/global-big-tech-ai-partnership-ms": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-13",
+      "id": "skhynix-global-big-tech-ai-partnership-ms",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "“From Chips to Cloud, SK and MS Connect the Dots”… Chairman Chey Tae-won Expands AI Partnership in Seattle"
+    },
+    "https://news.skhynix.com/en/global-big-tech-ai-partnership-nvidia": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-13",
+      "id": "skhynix-global-big-tech-ai-partnership-nvidia",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK Group Chairman Chey Tae-won and NVIDIA CEO Jensen Huang Meet To Discuss ‘AI One-Team Meeting’"
+    },
+    "https://news.skhynix.com/en/groundbreaking-ceremony-in-indiana": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-28",
+      "id": "skhynix-groundbreaking-ceremony-in-indiana",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Holds Groundbreaking Ceremony for HBM Production Base in Indiana, “Beginning a New Future for US-Korea AI”"
+    },
+    "https://news.skhynix.com/en/gtc-2026-ai-partnership": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-17",
+      "id": "skhynix-gtc-2026-ai-partnership",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "Chey Tae-won, Chairman of SK Group, Attends GTC 2026 for First Time, Strengthens Role as “Innovation Partner” in AI Ecosystem"
+    },
+    "https://news.skhynix.com/en/gtc-2026-exhibition-booth": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-17",
+      "id": "skhynix-gtc-2026-exhibition-booth",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Reaffirms Partnership With NVIDIA at GTC 2026, Unveiling Latest AI Memory Portfolio"
+    },
+    "https://news.skhynix.com/en/gtc-2026-review": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-27",
+      "id": "skhynix-gtc-2026-review",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[SOD’s Review] GTC 2026: From Models to Infrastructure – How the AI Race Is Shifting and What It Means for SK hynix"
+    },
+    "https://news.skhynix.com/en/gtc-taipei-2026-keynote": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-01",
+      "id": "skhynix-gtc-taipei-2026-keynote",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK Group Chairman Chey Tae-won Attends GTC Taipei 2026 Keynote, Reinforcing Vision as ‘An Innovative Partner to Build the Next-Gen AI Architecture Together’"
+    },
+    "https://news.skhynix.com/en/hbf-at-fms-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-04",
+      "id": "skhynix-hbf-at-fms-2026",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’"
+    },
+    "https://news.skhynix.com/en/hbm-to-essd": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-08",
+      "id": "skhynix-hbm-to-essd",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory"
+    },
+    "https://news.skhynix.com/en/hpe-discover-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-19",
+      "id": "skhynix-hpe-discover-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Showcases Tech Leadership as ‘Full Stack AI Memory Creator’ at HPED 2026, Reaffirming Strong Partnership with HPE"
+    },
+    "https://news.skhynix.com/en/ihbm-solution": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-26",
+      "id": "skhynix-ihbm-solution",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix unveils ‘iHBM’ thermal solution to boost AI performance"
+    },
+    "https://news.skhynix.com/en/mass-production-socamm2-192gb": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-20",
+      "id": "skhynix-mass-production-socamm2-192gb",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Begins Mass Production of 192GB SOCAMM2 ‘Setting a New Standard for AI Server Memory Performance’"
+    },
+    "https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-07",
+      "id": "skhynix-multi-year-tech-partnership-with-nvidia",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix and NVIDIA Announce Multi-year Technology Partnership to Advance Memory for AI Factories"
+    },
+    "https://news.skhynix.com/en/mwc-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-05",
+      "id": "skhynix-mwc-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Unveils Latest AI Memory Solutions at MWC 2026, Showcasing Its Technological Capabilities as a Full Stack AI Memory Creator"
+    },
+    "https://news.skhynix.com/en/new-facility-investment-for-yongin-semiconductor-cluster": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-25",
+      "id": "skhynix-new-facility-investment-for-yongin-semiconductor-cluster",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "New Facility Investment for Yongin Semiconductor Cluster"
+    },
+    "https://news.skhynix.com/en/opinion-local-economy-pt7": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-27",
+      "id": "skhynix-opinion-local-economy-pt7",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "The Economics of Reviving Struggling Regions Through Corporate-Led Initiatives"
+    },
+    "https://news.skhynix.com/en/q1-2026-business-results": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-23",
+      "id": "skhynix-q1-2026-business-results",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Announces 1Q26 Financial Results"
+    },
+    "https://news.skhynix.com/en/q1-2026-earnings-conference-call-invitation": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-22",
+      "id": "skhynix-q1-2026-earnings-conference-call-invitation",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "Q1 2026 Earnings Conference Call Invitation"
+    },
+    "https://news.skhynix.com/en/q2-2026-business-results": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-29",
+      "id": "skhynix-q2-2026-business-results",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Announces 2Q26 Financial Results"
+    },
+    "https://news.skhynix.com/en/q2-2026-earnings-conference-call-invitation": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-28",
+      "id": "skhynix-q2-2026-earnings-conference-call-invitation",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "Q2 2026 Earnings Conference Call Invitation"
+    },
+    "https://news.skhynix.com/en/q4-2025-earnings-conference-call-invitation": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-22",
+      "id": "skhynix-q4-2025-earnings-conference-call-invitation",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "Q4 2025 Earnings Conference Call Invitation"
+    },
+    "https://news.skhynix.com/en/research-inside-ep1": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-22",
+      "id": "skhynix-research-inside-ep1",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[Inside the Research] SK hynix’s CTI innovation advances 176-layer 3D NAND toward mass production"
+    },
+    "https://news.skhynix.com/en/share-buyback-and-retirement": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-19",
+      "id": "skhynix-share-buyback-and-retirement",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Accelerates 40 Trillion won Share Repurchase and Cancellation Program, Pursues Shareholder Return Expansion to ‘Over 50% of FCF’"
+    },
+    "https://news.skhynix.com/en/sk-hynix-and-gauss-labs-present-ai-based-semiconductor-virtual-metrology-research-at-spie-al-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-19",
+      "id": "skhynix-86c18348f2",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix and Gauss Labs Present AI-Based Semiconductor Virtual Metrology Research at SPIE AL 2026"
+    },
+    "https://news.skhynix.com/en/sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-26",
+      "id": "skhynix-74668435d9",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix and Sandisk Begin Global Standardization of Next-Generation Memory ‘HBF’"
+    },
+    "https://news.skhynix.com/en/sk-hynix-announces-fy25-financial-results": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-28",
+      "id": "skhynix-sk-hynix-announces-fy25-financial-results",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Announces FY25 Financial Results"
+    },
+    "https://news.skhynix.com/en/sk-hynix-ceo-kwak-noh-jung-finds-way-forward-for-ai-memory-on-the-ground-at-ces-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-08",
+      "id": "skhynix-4e6f0a2527",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix CEO Kwak Noh-Jung Finds Way Forward for AI Memory on the Ground at CES 2026"
+    },
+    "https://news.skhynix.com/en/sk-hynix-launches-ai-company-focusing-on-ai-solutions": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-28",
+      "id": "skhynix-sk-hynix-launches-ai-company-focusing-on-ai-solutions",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "queued",
+      "title": "Introducing Launch of ‘AI Company’ Focusing on AI Solutions"
+    },
+    "https://news.skhynix.com/en/sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-19",
+      "id": "skhynix-sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix LPDDR5X Achieves ASIL-D, the Highest Automotive Memory Functional Safety Rating"
+    },
+    "https://news.skhynix.com/en/sk-hynix-presents-ai-driven-rd-innovation-vision-at-semicon-korea-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-02-12",
+      "id": "skhynix-4f58978fe1",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "SK hynix Presents AI-Driven R&D Innovation Vision at SEMICON Korea 2026, Reaffirming Role as Global Technology Leader"
+    },
+    "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-06-18",
+      "id": "skhynix-sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’"
+    },
+    "https://news.skhynix.com/en/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-06",
+      "id": "skhynix-d5f0dc6ce1",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Showcases Next-Generation AI Memory Innovations at CES 2026"
+    },
+    "https://news.skhynix.com/en/sk-hynix-to-establish-ai-solutions-arm-in-us": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-01-28",
+      "id": "skhynix-sk-hynix-to-establish-ai-solutions-arm-in-us",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix to Establish U.S. Arm Specialized in AI Solutions"
+    },
+    "https://news.skhynix.com/en/sk-hynix-ventures": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-18",
+      "id": "skhynix-sk-hynix-ventures",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Launches ‘SK hynix Ventures’ in Silicon Valley to Expand Global AI Ecosystem Investment"
+    },
+    "https://news.skhynix.com/en/skhynix-at-gtc2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-03-17",
+      "id": "skhynix-skhynix-at-gtc2026",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix to Showcase AI Memory Leadership at NVIDIA GTC 2026"
+    },
+    "https://news.skhynix.com/en/skhynix-chungju-pt7": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-22",
+      "id": "skhynix-skhynix-chungju-pt7",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "What Does P&T7 Mean for Cheongju? A New AI Memory Production Hub and Catalyst for the Local Economy"
+    },
+    "https://news.skhynix.com/en/skhynix-lists-adrs-on-nasdaq": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-11",
+      "id": "skhynix-skhynix-lists-adrs-on-nasdaq",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK hynix Lists ADRs on NASDAQ, Elevating Global Status at the Heart of Capital Markets"
+    },
+    "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-07-25",
+      "id": "skhynix-skhynix-nvidia-partnership-2026",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory"
+    },
+    "https://news.skhynix.com/en/tech-note-series-ep1": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-05-13",
+      "id": "skhynix-tech-note-series-ep1",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[Tech Note EP.1] ‘It’s the Memory’, The Future of AI Will Be Decided by Memory"
+    },
+    "https://news.skhynix.com/en/tech-note-series-ep2": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-08-25",
+      "id": "skhynix-tech-note-series-ep2",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "[Tech Note] Hybrid Bonding: Evolving into a Foundational Technology for Improving Semiconductor Performance"
+    },
+    "https://news.skhynix.com/en/tsmc-oip-conference-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-09-28",
+      "id": "skhynix-tsmc-oip-conference-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "“Behind AI’s Rapid Growth Lies Memory” — SK hynix Shares Its Next-Generation Memory Portfolio at the TSMC OIP Conference"
+    },
+    "https://news.skhynix.com/en/tsmc-technology-symposium-2026": {
+      "checkedAt": "2026-10-07",
+      "date": "2026-04-23",
+      "id": "skhynix-tsmc-technology-symposium-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "queued",
+      "title": "“Overcoming Technological Limits Requires the Integration of Memory and Logic”: SK hynix Presents Vision at TSMC Symposium"
+    }
+  }
+}
