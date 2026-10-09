@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-08T10:49:06+09:00",
+  "startedAt": "2026-10-09T11:01:22+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,14 +41,7 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "samsung-2d58577d38",
-      "date": "2026-10-08",
-      "source": "samsung-newsroom",
-      "title": "삼성전자, 2026년 3분기 잠정실적 발표"
-    }
-  ],
+  "added": [],
   "queueSize": 146,
   "backfillDone": {
     "sk-fact": true,
@@ -56,5 +49,5 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-08T10:49:09+09:00"
+  "finishedAt": "2026-10-09T11:01:27+09:00"
 }
