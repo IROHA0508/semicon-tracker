@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-12T00:59:33+09:00",
+  "startedAt": "2026-10-12T01:09:08+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -49,12 +49,12 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-12T00:59:36+09:00",
+  "finishedAt": "2026-10-12T01:09:11+09:00",
   "summary": {
-    "startedAt": "2026-10-12T00:59:37+09:00",
+    "startedAt": "2026-10-12T01:09:11+09:00",
     "backend": "cli",
     "model": "claude-sonnet-5-5",
-    "limit": 10,
+    "limit": 20,
     "summarized": [
       {
         "id": "samsung-2d58577d38",
@@ -62,7 +62,7 @@
       },
       {
         "id": "skhynix-ai-ecosystem-series-ep3",
-        "title": "AI 인프라 재설계, 성능은 아키텍처가 좌우한다"
+        "title": "AI 인프라 재설계, 성능을 결정하는 것은 아키텍처라는 ETH 취리히 교수 기고"
       },
       {
         "id": "samsung-eee2299079",
@@ -78,7 +78,7 @@
       },
       {
         "id": "skhynix-ai-infrastructure-insight-ep3",
-        "title": "[AI 인프라 인사이트] AI 데이터센터의 다음 과제로 떠오른 전력과 냉각"
+        "title": "AI 데이터센터의 다음 과제로 떠오른 전력과 냉각"
       },
       {
         "id": "skhynix-tsmc-oip-conference-2026",
@@ -90,11 +90,51 @@
       },
       {
         "id": "skhynix-sk-hynix-ventures",
-        "title": "SK하이닉스, 실리콘밸리에서 CVC 브랜드 'SK hynix Ventures' 출범"
+        "title": "SK하이닉스, 실리콘밸리에 CVC 브랜드 'SK hynix Ventures' 출범"
       },
       {
         "id": "skhynix-ai-infra-summit-2026",
-        "title": "SK하이닉스, 'AI Infra Summit 2026'에서 AI 인프라용 '뉴 스펙트럼' 공개"
+        "title": "SK하이닉스, AI Infra Summit 2026에서 AI 인프라용 'New Spectrum' 공개"
+      },
+      {
+        "id": "skhynix-fact-10",
+        "title": "SK하이닉스, 인텔과 미국 메모리 생산 논의 보도에 확정된 계획 없다고 해명"
+      },
+      {
+        "id": "samsung-1950d27fec",
+        "title": "삼성, 추석 맞아 내수경기 활성화에 앞장"
+      },
+      {
+        "id": "samsung-af2499b4f8",
+        "title": "삼성전자, 미스트랄 AI와 전략적 파트너십 체결"
+      },
+      {
+        "id": "skhynix-future-forum-2026",
+        "title": "SK하이닉스, 2026 퓨처 포럼 개최…AI 시대 메모리 방향 논의"
+      },
+      {
+        "id": "samsung-33fa93440f",
+        "title": "삼성전자, ASML과 차세대 반도체 제조 협력 확대"
+      },
+      {
+        "id": "samsung-91de5dcb74",
+        "title": "삼성, 2026년 하반기 공채 실시"
+      },
+      {
+        "id": "skhynix-ai-ecosystem-series-ep2",
+        "title": "KAIST 유회준 교수 \"AI 진짜 병목은 연산 아닌 데이터\""
+      },
+      {
+        "id": "samsung-e69a3e8270",
+        "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 2편: 엣지 AI 혁신을 연결하는 삼성전자 메모리 솔루션"
+      },
+      {
+        "id": "samsung-41d8ce6f78",
+        "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 1편: 더 가까워진 엣지 AI, 더 중요해진 메모리"
+      },
+      {
+        "id": "samsung-aac1657e2a",
+        "title": "[FMS 2026 3D & NAND Innovation Award] V10 BV-NAND: 400단을 넘어 AI 스토리지의 한계를 확장하다"
       }
     ],
     "failed": {},
@@ -102,11 +142,11 @@
     "authError": false,
     "limitHit": false,
     "stoppedBy": "limit",
-    "queueLeft": 136,
-    "finishedAt": "2026-10-12T01:00:35+09:00"
+    "queueLeft": 126,
+    "finishedAt": "2026-10-12T01:10:54+09:00"
   },
   "manifest": {
-    "count": 10,
+    "count": 20,
     "changed": true
   }
 }

@@ -1,0 +1,41 @@
+{
+  "id": "skhynix-ai-ecosystem-series-ep3",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "AI 인프라 재설계, 성능을 결정하는 것은 아키텍처라는 ETH 취리히 교수 기고",
+  "originalTitle": "[AI Ecosystem] Redesigning infrastructure: Why architecture determines performance",
+  "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep3/",
+  "published": "2026-10-02T08:59:03+09:00",
+  "date": "2026-10-02",
+  "summary": [
+    "ETH 취리히의 오누르 무틀루 교수는 AI 생태계 연재의 세 번째 글에서, AI 추론 시대에는 부품 속도보다 데이터 이동을 줄이는 시스템 아키텍처가 성능을 좌우한다고 설명합니다.",
+    "그는 D램에서 데이터를 한 번 가져오는 에너지가 단순 연산보다 150~2,000배 클 수 있고, 대형 머신러닝 모델에서는 시스템 에너지의 90% 넘게 메모리 접근과 데이터 이동에 쓰일 수 있다고 밝혔습니다."
+  ],
+  "interview": "AI 성능의 병목이 연산이 아닌 데이터 이동으로 옮겨 갔다는 점은 메모리 엔지니어의 역할이 시스템 설계 전반으로 넓어지고 있음을 보여 줍니다.",
+  "tags": [
+    "CXL·PIM",
+    "AI 서버·데이터센터",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "구글"
+  ],
+  "author": "Onur Mutlu ETH Zurich Professor",
+  "categories": [
+    "TECH&AI",
+    "Agentic AI",
+    "CXL",
+    "GPU",
+    "HBM"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

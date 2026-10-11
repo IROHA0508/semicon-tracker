@@ -1,0 +1,34 @@
+{
+  "id": "samsung-2d58577d38",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 2026년 3분기 잠정실적 발표",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-3%eb%b6%84%ea%b8%b0-%ec%9e%a0%ec%a0%95%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+  "published": "2026-10-08T17:05:21+09:00",
+  "date": "2026-10-08",
+  "summary": [
+    "삼성전자가 연결기준으로 매출 195조 원, 영업이익 107.4조 원의 2026년 3분기 잠정실적을 발표했습니다.",
+    "전기 대비 매출은 13.70%, 영업이익은 20.01% 증가했고, 전년 동기 대비로는 매출 126.59%, 영업이익 782.50% 증가했습니다."
+  ],
+  "interview": "영업이익이 전년 동기 대비 782.50% 증가했다는 점은 메모리 중심 업황 변화가 회사 실적에 얼마나 크게 반영되는지 보여 줍니다.",
+  "tags": [
+    "실적"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2026년 3분기 잠정실적",
+    "삼성전자 잠정실적"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

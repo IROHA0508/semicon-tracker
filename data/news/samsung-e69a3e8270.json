@@ -1,0 +1,40 @@
+{
+  "id": "samsung-e69a3e8270",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 2편: 엣지 AI 혁신을 연결하는 삼성전자 메모리 솔루션",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%83%88%eb%a1%9c%ec%9a%b4-ai-%ec%9d%b8%ed%94%84%eb%9d%bc-%ec%82%ac%ec%9d%b4%ed%81%b4%ec%9d%84-%ec%97%ac%eb%8a%94-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ed%98%81%ec%8b%a0-2%ed%8e%b8-%ec%97%a3%ec%a7%80-ai/",
+  "published": "2026-09-02T18:00:08+09:00",
+  "date": "2026-09-02",
+  "summary": [
+    "삼성전자는 새로운 AI 인프라 사이클을 다루는 연재 2편에서 엣지 AI의 용량·대역폭·전력 효율 한계를 넘기 위한 zHBM, LPDDR-PIM, zNAND-O 메모리 솔루션을 소개했습니다.",
+    "zHBM은 웨이퍼 온 웨이퍼 방식과 HCB로 xPU와 HBM을 수직 통합하고, zNAND-O는 모델 가중치를 저장해 DRAM 의존도를 줄이며, 삼성전자는 메모리·로직·패키징을 함께 최적화하는 DTCO를 강조했습니다."
+  ],
+  "interview": "zHBM처럼 xPU와 메모리를 처음부터 함께 설계해야 한다는 점은 메모리 엔지니어에게 로직·패키징·열 관리까지 아우르는 시스템 관점이 필요함을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "CXL·PIM",
+    "온디바이스 AI"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "3D Memory",
+    "AI",
+    "EdgeAI",
+    "LPDDR-PIM",
+    "zHBM",
+    "zNAND-O"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

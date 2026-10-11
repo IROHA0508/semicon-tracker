@@ -145,7 +145,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[FMS 2026 3D & NAND Innovation Award] V10 BV-NAND: 400단을 넘어 AI 스토리지의 한계를 확장하다"
     },
     "https://news.samsungsemiconductor.com/kr/gtc-2026에서-만난-삼성전자-ai-반도체의-미래": {
@@ -225,7 +225,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "게임스컴서 첫선 보인 삼성 포터블 SSD P9·P7, 글로벌 시장 본격 출시"
     },
     "https://news.samsungsemiconductor.com/kr/글로벌-메모리-표준의-중심에서-ㅣ-fms-2026-평생-공로상-수": {
@@ -305,7 +305,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성, 2026년 하반기 공채 실시"
     },
     "https://news.samsungsemiconductor.com/kr/삼성-국제올림피아드-수상자에게-장학금-이공계": {
@@ -375,7 +375,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성, 추석 맞아 내수경기 활성화에 앞장"
     },
     "https://news.samsungsemiconductor.com/kr/삼성-협력회사와-상생-생태계-조성을-위한-협약-체결": {
@@ -455,7 +455,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, 2026년 3분기 잠정실적 발표"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-신년사": {
@@ -505,7 +505,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, ASML과 차세대 반도체 제조 협력 확대"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-ds부문-2026년-상생협력-day-개최": {
@@ -555,7 +555,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, 미스트랄 AI와 전략적 파트너십 체결"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-반도체-대한민국-국제물주간kiww-2026서-지": {
@@ -655,7 +655,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, ‘에이전틱 시프트’ 주제로 삼성 AI 포럼 2026 개최"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-제57기-정기-주주총회-개최": {
@@ -705,7 +705,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 1편: 더 가까워진 엣지 AI, 더 중요해진 메모리"
     },
     "https://news.samsungsemiconductor.com/kr/새로운-ai-인프라-사이클을-여는-메모리-혁신-2편-엣지-ai": {
@@ -715,7 +715,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 2편: 엣지 AI 혁신을 연결하는 삼성전자 메모리 솔루션"
     },
     "https://news.samsungsemiconductor.com/kr/수평의-한계를-수직으로-돌파하다": {
@@ -845,7 +845,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[칩스케치] 다가올 에이전틱 AI 시대, 변화와 그 영향은? 올해로 개최 10년째 맞은 ‘삼성 AI 포럼’"
     },
     "https://news.samsungsemiconductor.com/kr/칩스케치-대학과-산업이-함께-그리는-반도체의-미래": {
@@ -985,7 +985,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[AI Ecosystem] The real bottleneck: Data, not compute"
     },
     "https://news.skhynix.com/en/ai-ecosystem-series-ep3": {
@@ -995,7 +995,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[AI Ecosystem] Redesigning infrastructure: Why architecture determines performance"
     },
     "https://news.skhynix.com/en/ai-infra-summit-2026": {
@@ -1005,7 +1005,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Presents ‘New Spectrum’ for AI Infrastructure at ‘AI Infra Summit 2026’"
     },
     "https://news.skhynix.com/en/ai-infrastructure-insigh-ep1": {
@@ -1035,7 +1035,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[AI infrastructure insight] Why power and cooling have become the next challenge for AI data centers"
     },
     "https://news.skhynix.com/en/ai-partnership-foxconn-2026": {
@@ -1195,7 +1195,7 @@
       "sources": [
         "sk-fact"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "No plans have been confirmed regarding the reported talks between SK hynix and Intel on memory chip production in the U.S."
     },
     "https://news.skhynix.com/en/fact-11": {
@@ -1205,7 +1205,7 @@
       "sources": [
         "sk-fact"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "Clarification Regarding Recent Media Reports on Solidigm"
     },
     "https://news.skhynix.com/en/fms-2026": {
@@ -1225,7 +1225,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Charts Its Business and Technology Direction at the 2026 Future Forum—”Now Is the Golden Time to Leap Forward”"
     },
     "https://news.skhynix.com/en/global-big-tech-ai-partnership-broadcom": {
@@ -1585,7 +1585,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Launches ‘SK hynix Ventures’ in Silicon Valley to Expand Global AI Ecosystem Investment"
     },
     "https://news.skhynix.com/en/skhynix-at-gtc2026": {
@@ -1655,7 +1655,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "“Behind AI’s Rapid Growth Lies Memory” — SK hynix Shares Its Next-Generation Memory Portfolio at the TSMC OIP Conference"
     },
     "https://news.skhynix.com/en/tsmc-technology-symposium-2026": {

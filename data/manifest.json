@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T01:07:31+09:00",
-  "count": 0,
+  "generatedAt": "2026-10-12T01:10:54+09:00",
+  "count": 20,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-06",
   "kinds": {
@@ -61,5 +61,632 @@
       "url": "https://semiconductor.samsung.com/kr/news-events/tech-blog/"
     }
   ],
-  "items": []
+  "items": [
+    {
+      "id": "samsung-2d58577d38",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, 2026년 3분기 잠정실적 발표",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-3%eb%b6%84%ea%b8%b0-%ec%9e%a0%ec%a0%95%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+      "published": "2026-10-08T17:05:21+09:00",
+      "date": "2026-10-08",
+      "summary": [
+        "삼성전자가 연결기준으로 매출 195조 원, 영업이익 107.4조 원의 2026년 3분기 잠정실적을 발표했습니다.",
+        "전기 대비 매출은 13.70%, 영업이익은 20.01% 증가했고, 전년 동기 대비로는 매출 126.59%, 영업이익 782.50% 증가했습니다."
+      ],
+      "interview": "영업이익이 전년 동기 대비 782.50% 증가했다는 점은 메모리 중심 업황 변화가 회사 실적에 얼마나 크게 반영되는지 보여 줍니다.",
+      "tags": [
+        "실적"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "5-6",
+        "5-2"
+      ]
+    },
+    {
+      "id": "skhynix-ai-ecosystem-series-ep3",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "AI 인프라 재설계, 성능을 결정하는 것은 아키텍처라는 ETH 취리히 교수 기고",
+      "originalTitle": "[AI Ecosystem] Redesigning infrastructure: Why architecture determines performance",
+      "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep3/",
+      "published": "2026-10-02T08:59:03+09:00",
+      "date": "2026-10-02",
+      "summary": [
+        "ETH 취리히의 오누르 무틀루 교수는 AI 생태계 연재의 세 번째 글에서, AI 추론 시대에는 부품 속도보다 데이터 이동을 줄이는 시스템 아키텍처가 성능을 좌우한다고 설명합니다.",
+        "그는 D램에서 데이터를 한 번 가져오는 에너지가 단순 연산보다 150~2,000배 클 수 있고, 대형 머신러닝 모델에서는 시스템 에너지의 90% 넘게 메모리 접근과 데이터 이동에 쓰일 수 있다고 밝혔습니다."
+      ],
+      "interview": "AI 성능의 병목이 연산이 아닌 데이터 이동으로 옮겨 갔다는 점은 메모리 엔지니어의 역할이 시스템 설계 전반으로 넓어지고 있음을 보여 줍니다.",
+      "tags": [
+        "CXL·PIM",
+        "AI 서버·데이터센터",
+        "HBM"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "엔비디아",
+        "구글"
+      ],
+      "author": "Onur Mutlu ETH Zurich Professor",
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-4",
+        "4-7"
+      ]
+    },
+    {
+      "id": "samsung-eee2299079",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "[칩스케치] 다가올 에이전틱 AI 시대, 변화와 그 영향은? 올해로 개최 10년째 맞은 ‘삼성 AI 포럼’",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%b9%a9%ec%8a%a4%ec%bc%80%ec%b9%98-%eb%8b%a4%ea%b0%80%ec%98%ac-%ec%97%90%ec%9d%b4%ec%a0%84%ed%8b%b1-ai-%ec%8b%9c%eb%8c%80-%eb%b3%80%ed%99%94%ec%99%80-%ea%b7%b8-%ec%98%81%ed%96%a5%ec%9d%80/",
+      "published": "2026-10-01T17:00:07+09:00",
+      "date": "2026-10-01",
+      "summary": [
+        "삼성전자가 9월 30일 서초사옥에서 ‘삼성 AI 포럼 2026’을 열었고, 2017년 시작 이후 올해 10회째라고 밝혔습니다.",
+        "‘The Agentic Shift: From Intelligence to Impact’를 주제로 OpenAI, AWS 등의 강연이 이어졌고, DS부문은 반도체 R&D·개발·제조에 적용되는 AI 사례를 공유했습니다."
+      ],
+      "interview": "반도체 R&D·개발·제조에서 AI 자동화와 지능화를 함께 추진한다는 점은 엔지니어의 업무 방식이 AI 중심으로 재설계되고 있음을 보여 줍니다.",
+      "tags": [
+        "제조 AI",
+        "AI 서버·데이터센터"
+      ],
+      "companies": [
+        "삼성전자",
+        "오픈AI",
+        "AWS",
+        "Dell Technologies",
+        "Anthropic",
+        "아마존"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "3-13",
+        "0-4"
+      ]
+    },
+    {
+      "id": "skhynix-fact-11",
+      "company": "skhynix",
+      "source": "sk-fact",
+      "channel": "FACT",
+      "kind": "fact",
+      "lang": "en",
+      "title": "SK하이닉스, 솔리다임 관련 보도에 \"결정된 사항 없다\" 해명",
+      "originalTitle": "Clarification Regarding Recent Media Reports on Solidigm",
+      "url": "https://news.skhynix.com/en/fact-11/",
+      "published": "2026-10-01T10:22:33+09:00",
+      "date": "2026-10-01",
+      "summary": [
+        "SK하이닉스는 솔리다임의 향후 사업 운영과 자금 활용 계획, 이중 상장 우려를 다룬 최근 언론 보도에 대해 현재까지 결정된 사항이 없다고 밝혔습니다.",
+        "회사는 내부 자금이든 외부 자본이든 기존 주주에 미치는 경제적 영향을 따져 평가하고, 장기적인 기업가치와 주주가치를 최우선 기준으로 삼겠다고 설명했습니다."
+      ],
+      "interview": "메모리가 시장 사이클과 투자 시점이 경쟁력을 좌우하는 자본집약 산업이라는 점에서, 투자 재원 조달 방식이 중요한 경영 판단임을 보여 줍니다.",
+      "tags": [
+        "주주환원·자본",
+        "eSSD·SSD",
+        "AI 서버·데이터센터"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "솔리다임",
+        "인텔"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-4",
+        "4-7"
+      ]
+    },
+    {
+      "id": "samsung-0e72b2980e",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, ‘에이전틱 시프트’ 주제로 삼성 AI 포럼 2026 개최",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%97%90%ec%9d%b4%ec%a0%84%ed%8b%b1-%ec%8b%9c%ed%94%84%ed%8a%b8-%ec%a3%bc%ec%a0%9c%eb%a1%9c-%ec%82%bc%ec%84%b1-ai-%ed%8f%ac%eb%9f%bc-2026-%ea%b0%9c%ec%b5%9c/",
+      "published": "2026-09-30T18:00:02+09:00",
+      "date": "2026-09-30",
+      "summary": [
+        "삼성전자는 30일 서울 서초사옥에서 ‘에이전틱 시프트’를 주제로 10회째 ‘삼성 AI 포럼 2026’을 열었습니다.",
+        "포럼에는 400명이 참석했고, 오전 기조 강연과 오후 DX부문·DS부문 2개 트랙에서 에이전틱 AI와 피지컬 AI 연구 성과 및 적용 사례를 다뤘습니다."
+      ],
+      "interview": "DS부문 AX/PI센터가 AI를 설계·제조 업무 전반에 적용한 사례를 공유했다는 점에서, 반도체 엔지니어에게 AI 활용 역량이 직무의 일부가 되고 있음을 보여 줍니다.",
+      "tags": [
+        "제조 AI",
+        "AI 서버·데이터센터",
+        "온디바이스 AI"
+      ],
+      "companies": [
+        "삼성전자",
+        "오픈AI",
+        "AWS",
+        "델 테크놀로지스",
+        "앤트로픽"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-4",
+        "4-7"
+      ]
+    },
+    {
+      "id": "skhynix-ai-infrastructure-insight-ep3",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "AI 데이터센터의 다음 과제로 떠오른 전력과 냉각",
+      "originalTitle": "[AI infrastructure insight] Why power and cooling have become the next challenge for AI data centers",
+      "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep3/",
+      "published": "2026-09-30T08:59:07+09:00",
+      "date": "2026-09-30",
+      "summary": [
+        "SK하이닉스 뉴스룸은 AI Infrastructure Insight 시리즈의 세 번째 글에서 전력과 냉각이 AI 데이터센터의 다음 과제가 된 배경을 다뤘습니다.",
+        "IEA는 2024년 전 세계 데이터센터 전력 소비를 약 415 TWh로 추정했고, 2030년에는 약 945 TWh로 두 배 넘게 늘 수 있다고 전망했습니다."
+      ],
+      "interview": "AI 경쟁이 개별 칩 성능을 넘어 전력 효율과 발열 관리로 확장되고 있어, 와트당 성능을 높이는 메모리 설계의 가치가 커진다는 점을 보여 줍니다.",
+      "tags": [
+        "전력·냉각",
+        "AI 서버·데이터센터",
+        "전력·용수 인프라"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "구글",
+        "맥킨지"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-9",
+        "5-7"
+      ]
+    },
+    {
+      "id": "skhynix-tsmc-oip-conference-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, TSMC OIP서 차세대 메모리 공개…2년 연속 올해의 파트너상",
+      "originalTitle": "“Behind AI’s Rapid Growth Lies Memory” — SK hynix Shares Its Next-Generation Memory Portfolio at the TSMC OIP Conference",
+      "url": "https://news.skhynix.com/en/tsmc-oip-conference-2026/",
+      "published": "2026-09-28T14:23:44+09:00",
+      "date": "2026-09-28",
+      "summary": [
+        "SK하이닉스는 미국 캘리포니아 산타클라라에서 열린 TSMC OIP 콘퍼런스에서 차세대 메모리 포트폴리오와 개발 전략을 공유했고, 2년 연속 Partner of the Year를 수상했습니다.",
+        "수상 부문은 3DFabric-HBM Integration으로, TSMC의 CoWoS 기반에서 HBM5를 검증한 협업이 평가받았으며 부스에서는 HBM4, SOCAMM2, 서버 D램, SSD 제품을 전시했습니다."
+      ],
+      "interview": "HBM 성능을 실제 AI 가속기에서 구현하려면 첨단 패키징과 초기부터 함께 검증해야 한다는 점에서 패키지 엔지니어의 협업 역량이 중요함을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "패키징",
+        "SOCAMM"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "TSMC",
+        "엔비디아",
+        "케이던스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "4-7"
+      ]
+    },
+    {
+      "id": "samsung-fd2e3034c8",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "게임스컴서 첫선 보인 삼성 포터블 SSD P9·P7, 글로벌 시장 본격 출시",
+      "url": "https://news.samsungsemiconductor.com/kr/%ea%b2%8c%ec%9e%84%ec%8a%a4%ec%bb%b4%ec%84%9c-%ec%b2%ab%ec%84%a0-%eb%b3%b4%ec%9d%b8-%ec%82%bc%ec%84%b1-%ed%8f%ac%ed%84%b0%eb%b8%94-ssd-p9%c2%b7p7-%ea%b8%80%eb%a1%9c%eb%b2%8c-%ec%8b%9c%ec%9e%a5/",
+      "published": "2026-09-22T18:03:47+09:00",
+      "date": "2026-09-22",
+      "summary": [
+        "삼성전자가 차세대 포터블 SSD 라인업 ‘P 시리즈’의 첫 제품인 ‘P9’과 ‘P7’을 글로벌 시장에 본격 출시했습니다.",
+        "두 제품은 USB4 인터페이스 기반으로 최대 4,000MB/s의 읽기 속도와 최대 8TB의 용량을 지원하며, 지난 8월 말 게임스컴 2026에서 처음 공개됐습니다."
+      ],
+      "interview": "포터블 SSD에서도 인터페이스 속도와 용량을 함께 끌어올리는 경쟁이 이어진다는 점에서, SSD 사업이 소비자 시장까지 넓게 걸쳐 있음을 보여 줍니다.",
+      "tags": [
+        "eSSD·SSD"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-8"
+      ]
+    },
+    {
+      "id": "skhynix-sk-hynix-ventures",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "SK하이닉스, 실리콘밸리에 CVC 브랜드 'SK hynix Ventures' 출범",
+      "originalTitle": "SK hynix Launches ‘SK hynix Ventures’ in Silicon Valley to Expand Global AI Ecosystem Investment",
+      "url": "https://news.skhynix.com/en/sk-hynix-ventures/",
+      "published": "2026-09-18T14:59:25+09:00",
+      "date": "2026-09-18",
+      "summary": [
+        "SK하이닉스가 글로벌 AI 생태계 내 전략적 협력을 넓히고 미래 기술을 확보하기 위해 CVC 브랜드 'SK hynix Ventures'를 출범하고, 실리콘밸리에서 첫 'SK hynix Ventures Day'를 열었습니다.",
+        "회사는 2015년부터 CVC 조직을 운영해 왔으며, 앞으로 투자 범위를 반도체와 신기술에서 AI 컴퓨팅, 데이터센터, 시스템 소프트웨어, 광 인터커넥트 등 AI 생태계 전반으로 넓힐 계획입니다."
+      ],
+      "interview": "메모리 기업이 CVC로 AI 컴퓨팅과 광 인터커넥트 스타트업까지 투자 대상을 넓힌다는 점에서, 메모리 경쟁력이 생태계 협력과 맞물려 있음을 보여 줍니다.",
+      "tags": [
+        "AI 서버·데이터센터",
+        "밸류체인"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "5-1",
+        "0-4"
+      ]
+    },
+    {
+      "id": "skhynix-ai-infra-summit-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, AI Infra Summit 2026에서 AI 인프라용 'New Spectrum' 공개",
+      "originalTitle": "SK hynix Presents ‘New Spectrum’ for AI Infrastructure at ‘AI Infra Summit 2026’",
+      "url": "https://news.skhynix.com/en/ai-infra-summit-2026/",
+      "published": "2026-09-17T15:00:01+09:00",
+      "date": "2026-09-17",
+      "summary": [
+        "SK하이닉스는 9월 15일부터 17일까지(현지 시간) 미국 캘리포니아주 산타클라라에서 열린 AI Infra Summit 2026에 참가해 PIM, HBF, SALT-KV 등 차세대 AI 메모리 솔루션을 선보였습니다.",
+        "부스 규모를 전년의 두 배로 키웠고, 임의철 부사장(Solution AT 담당)은 세션 발표에서 GPU-HBM 구조만으로는 다양해지는 AI 워크로드 요구를 충족하기 어렵다고 말했습니다."
+      ],
+      "interview": "추론 중심으로 AI 워크로드가 다양해지면서 HBM과 SSD 사이를 메우는 HBF, PIM 같은 새 메모리 계층이 필요해지고 있음을 보여 줍니다.",
+      "tags": [
+        "HBF",
+        "CXL·PIM",
+        "eSSD·SSD"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-4"
+      ]
+    },
+    {
+      "id": "skhynix-fact-10",
+      "company": "skhynix",
+      "source": "sk-fact",
+      "channel": "FACT",
+      "kind": "fact",
+      "lang": "en",
+      "title": "SK하이닉스, 인텔과 미국 메모리 생산 논의 보도에 확정된 계획 없다고 해명",
+      "originalTitle": "No plans have been confirmed regarding the reported talks between SK hynix and Intel on memory chip production in the U.S.",
+      "url": "https://news.skhynix.com/en/fact-10/",
+      "published": "2026-09-16T19:01:11+09:00",
+      "date": "2026-09-16",
+      "summary": [
+        "SK하이닉스는 2026년 9월 16일 'SK하이닉스가 인텔과 미국에서 메모리 칩을 생산하는 방안을 논의 중'이라는 보도에 대해 설명했습니다.",
+        "보도는 인텔의 오하이오 공장 일부 임대와 인텔·대형 클라우드 기업과의 합작법인 설립을 언급했으나, 회사는 두 시나리오 모두 결정된 바 없고 미국 내 메모리 생산도 확정된 것이 없다고 밝혔습니다."
+      ],
+      "interview": "미국 내 메모리 생산은 글로벌 경쟁력 강화를 위한 선택지로 검토되는 사안이며, 확정 전에는 보도와 공식 입장을 구분해야 함을 보여 줍니다.",
+      "tags": [
+        "팹 투자",
+        "밸류체인"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "인텔"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "5-5"
+      ]
+    },
+    {
+      "id": "samsung-1950d27fec",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성, 추석 맞아 내수경기 활성화에 앞장",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%ec%b6%94%ec%84%9d-%eb%a7%9e%ec%95%84-%eb%82%b4%ec%88%98%ea%b2%bd%ea%b8%b0-%ed%99%9c%ec%84%b1%ed%99%94%ec%97%90-%ec%95%9e%ec%9e%a5/",
+      "published": "2026-09-14T23:00:02+09:00",
+      "date": "2026-09-14",
+      "summary": [
+        "삼성은 추석 명절을 앞두고 협력회사의 자금 운용을 돕기 위해 물품 대금을 조기 지급하고 임직원 대상 온라인 장터를 운영합니다.",
+        "물품 대금 1조3,000억원을 추석 연휴 이전에 13개 관계사가 약 7일 앞당겨 지급하며, 온라인 장터에는 17개 관계사가 참여합니다."
+      ],
+      "interview": "",
+      "tags": [],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": []
+    },
+    {
+      "id": "samsung-af2499b4f8",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, 미스트랄 AI와 전략적 파트너십 체결",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%eb%af%b8%ec%8a%a4%ed%8a%b8%eb%9e%84-ai%ec%99%80-%ec%a0%84%eb%9e%b5%ec%a0%81-%ed%8c%8c%ed%8a%b8%eb%84%88%ec%8b%ad-%ec%b2%b4%ea%b2%b0/",
+      "published": "2026-09-09T10:00:01+09:00",
+      "date": "2026-09-09",
+      "summary": [
+        "삼성전자가 프랑스 인공지능 기업 미스트랄 AI와 전략적 파트너십을 체결하고, 반도체 설계와 제조에 특화된 자체 AI 모델을 공동 개발하기로 했습니다.",
+        "삼성전자는 이 모델을 데이터 분석, 결함 예측, 공정 최적화 등에 단계적으로 적용하며, 반도체 데이터를 외부로 이전하지 않도록 온프레미스 방식으로 운영할 계획입니다."
+      ],
+      "interview": "반도체 설계와 제조 데이터를 사내 인프라에서 AI로 활용하려는 시도는 결함 예측과 공정 최적화가 엔지니어 업무의 핵심 과제가 되고 있음을 보여 줍니다.",
+      "tags": [
+        "제조 AI",
+        "수율·품질",
+        "파운드리"
+      ],
+      "companies": [
+        "삼성전자",
+        "미스트랄 AI",
+        "구글",
+        "메타"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "3-13",
+        "2-6"
+      ]
+    },
+    {
+      "id": "skhynix-future-forum-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, 2026 퓨처 포럼 개최…AI 시대 메모리 방향 논의",
+      "originalTitle": "SK hynix Charts Its Business and Technology Direction at the 2026 Future Forum—”Now Is the Golden Time to Leap Forward”",
+      "url": "https://news.skhynix.com/en/future-forum-2026/",
+      "published": "2026-09-09T09:00:08+09:00",
+      "date": "2026-09-09",
+      "summary": [
+        "SK하이닉스는 9월 8일 이천 캠퍼스 SUPEX 센터에서 'AI 시대의 골든타임'을 주제로 2026 SK hynix Future Forum을 열었습니다.",
+        "포럼은 기조 발표 세 차례와 패널 토론으로 구성됐고, 임의철 부사장은 3D 적층 D램, HBM, HBF를 워크로드에 맞게 조합하는 'Full-Stack AI Memory' 전략을 소개했습니다."
+      ],
+      "interview": "AI 에이전트 확산으로 워크로드별 메모리 계층 설계가 경쟁력이 된다는 논의는 범용 D램 공급을 넘어 시스템 공동 설계 역량이 필요함을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "3D D램",
+        "HBF"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "앤트로픽",
+        "TSMC",
+        "하이퍼엑셀",
+        "리벨리온"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-5"
+      ]
+    },
+    {
+      "id": "samsung-33fa93440f",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, ASML과 차세대 반도체 제조 협력 확대",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-asml%ea%b3%bc-%ec%b0%a8%ec%84%b8%eb%8c%80-%eb%b0%98%eb%8f%84%ec%b2%b4-%ec%a0%9c%ec%a1%b0-%ed%98%91%eb%a0%a5-%ed%99%95%eb%8c%80/",
+      "published": "2026-09-09T00:03:02+09:00",
+      "date": "2026-09-09",
+      "summary": [
+        "삼성전자가 ASML이 주도하는 '대형 마스크 컨소시엄'에 참여해 차세대 12인치 포토 마스크를 공동 개발하고, ASML과 High NA EUV 도입 협력도 강화한다고 밝혔습니다.",
+        "현재 6인치인 마스크를 12인치로 전환하면 High NA EUV의 stitching 제약을 해소해 팹 생산성을 높이고 칩 제조 비용을 낮출 수 있으며, 삼성전자는 2028년까지 첨단 D램 제조에 High NA EUV 도입을 추진한다고 밝혔습니다."
+      ],
+      "interview": "High NA EUV 도입이 마스크 크기 전환과 맞물려 있다는 점에서, 노광 공정 엔지니어에게는 장비뿐 아니라 마스크까지 함께 보는 시야가 필요함을 보여 줍니다.",
+      "tags": [
+        "EUV·노광",
+        "D램 미세화"
+      ],
+      "companies": [
+        "삼성전자",
+        "ASML"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "3-15",
+        "4-3"
+      ]
+    },
+    {
+      "id": "samsung-91de5dcb74",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성, 2026년 하반기 공채 실시",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-2026%eb%85%84-%ed%95%98%eb%b0%98%ea%b8%b0-%ea%b3%b5%ec%b1%84-%ec%8b%a4%ec%8b%9c/",
+      "published": "2026-09-07T23:00:01+09:00",
+      "date": "2026-09-07",
+      "summary": [
+        "삼성은 삼성전자를 비롯한 19개 관계사가 8일부터 15일까지 삼성커리어스에서 하반기 공채 지원서를 접수한다고 밝혔습니다.",
+        "채용절차는 9월 직무적합성 평가, 10월 GSAT, 11월 면접, 건강검진 순이며, SW 직군과 디자인 직군은 GSAT 대신 각각 SW 역량 테스트와 포트폴리오 심사를 거칩니다."
+      ],
+      "interview": "삼성전자 공채는 직무적합성 평가, GSAT, 면접 순으로 진행되며 SW 직군은 GSAT 대신 실기 테스트를 본다는 점에서 직군별 준비가 필요함을 보여 줍니다.",
+      "tags": [
+        "채용"
+      ],
+      "companies": [
+        "삼성전자",
+        "삼성물산",
+        "삼성바이오로직스",
+        "삼성디스플레이",
+        "삼성SDI",
+        "삼성전기"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "6-1"
+      ]
+    },
+    {
+      "id": "skhynix-ai-ecosystem-series-ep2",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "KAIST 유회준 교수 \"AI 진짜 병목은 연산 아닌 데이터\"",
+      "originalTitle": "[AI Ecosystem] The real bottleneck: Data, not compute",
+      "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep2/",
+      "published": "2026-09-03T08:59:52+09:00",
+      "date": "2026-09-03",
+      "summary": [
+        "KAIST의 유회준 교수는 AI가 추론과 에이전틱 AI로 옮겨 가면서 시스템 병목이 GPU 연산이 아니라 데이터의 위치와 이동에 있다고 설명합니다.",
+        "FlashAttention과 양자화 같은 소프트웨어 최적화는 효과가 있지만 한계에 가까워지고 있어, HBM·HBF·CXL·PIM처럼 메모리를 연산 장치 가까이 두는 구조 변화가 필요하다고 밝혔습니다."
+      ],
+      "interview": "소프트웨어 압축이 한계에 가까워질수록 메모리 구조 자체를 바꾸는 HBM 같은 기술의 역할이 커진다는 점을 보여 줍니다.",
+      "tags": [
+        "CXL·PIM",
+        "HBM",
+        "AI 서버·데이터센터"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "구글"
+      ],
+      "author": "Professor Hoi-Jun Yoo, KAIST",
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-4",
+        "4-7"
+      ]
+    },
+    {
+      "id": "samsung-e69a3e8270",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 2편: 엣지 AI 혁신을 연결하는 삼성전자 메모리 솔루션",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%83%88%eb%a1%9c%ec%9a%b4-ai-%ec%9d%b8%ed%94%84%eb%9d%bc-%ec%82%ac%ec%9d%b4%ed%81%b4%ec%9d%84-%ec%97%ac%eb%8a%94-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ed%98%81%ec%8b%a0-2%ed%8e%b8-%ec%97%a3%ec%a7%80-ai/",
+      "published": "2026-09-02T18:00:08+09:00",
+      "date": "2026-09-02",
+      "summary": [
+        "삼성전자는 새로운 AI 인프라 사이클을 다루는 연재 2편에서 엣지 AI의 용량·대역폭·전력 효율 한계를 넘기 위한 zHBM, LPDDR-PIM, zNAND-O 메모리 솔루션을 소개했습니다.",
+        "zHBM은 웨이퍼 온 웨이퍼 방식과 HCB로 xPU와 HBM을 수직 통합하고, zNAND-O는 모델 가중치를 저장해 DRAM 의존도를 줄이며, 삼성전자는 메모리·로직·패키징을 함께 최적화하는 DTCO를 강조했습니다."
+      ],
+      "interview": "zHBM처럼 xPU와 메모리를 처음부터 함께 설계해야 한다는 점은 메모리 엔지니어에게 로직·패키징·열 관리까지 아우르는 시스템 관점이 필요함을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "CXL·PIM",
+        "온디바이스 AI"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "0-4"
+      ]
+    },
+    {
+      "id": "samsung-41d8ce6f78",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "새로운 AI 인프라 사이클을 여는 메모리 혁신 1편: 더 가까워진 엣지 AI, 더 중요해진 메모리",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%83%88%eb%a1%9c%ec%9a%b4-ai-%ec%9d%b8%ed%94%84%eb%9d%bc-%ec%82%ac%ec%9d%b4%ed%81%b4%ec%9d%84-%ec%97%ac%eb%8a%94-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ed%98%81%ec%8b%a0-1%ed%8e%b8-%eb%8d%94-%ea%b0%80/",
+      "published": "2026-09-01T18:10:25+09:00",
+      "date": "2026-09-01",
+      "summary": [
+        "삼성전자는 AI가 클라우드를 넘어 스마트폰, AI PC, 자동차, 로봇, 산업 현장으로 확산되는 흐름 속에서 엣지 AI와 메모리의 역할을 다룬 연재 1편을 냈습니다.",
+        "엣지 AI는 용량, 대역폭, 제한된 전력 안에서의 에너지 효율이라는 세 과제를 안고 있으며, 이를 풀려면 데이터 이동을 줄이는 새로운 메모리 아키텍처가 필요하다고 설명합니다."
+      ],
+      "interview": "엣지 AI에서는 xPU 연산 성능보다 메모리의 용량·대역폭·전력 효율이 시스템 성능을 좌우한다는 점에서 메모리 엔지니어의 역할이 커지고 있음을 보여 줍니다.",
+      "tags": [
+        "온디바이스 AI",
+        "전력·냉각",
+        "CXL·PIM"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-9"
+      ]
+    },
+    {
+      "id": "samsung-aac1657e2a",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "[FMS 2026 3D & NAND Innovation Award] V10 BV-NAND: 400단을 넘어 AI 스토리지의 한계를 확장하다",
+      "url": "https://news.samsungsemiconductor.com/kr/fms-2026-3d-nand-innovation-award-v10-bv-nand-400%eb%8b%a8%ec%9d%84-%eb%84%98%ec%96%b4-ai-%ec%8a%a4%ed%86%a0%eb%a6%ac%ec%a7%80%ec%9d%98-%ed%95%9c%ea%b3%84%eb%a5%bc-%ed%99%95%ec%9e%a5%ed%95%98/",
+      "published": "2026-08-31T18:00:03+09:00",
+      "date": "2026-08-31",
+      "summary": [
+        "삼성전자의 V10 BV-NAND가 FMS 2026 Best of Show Awards의 3D & NAND Innovation Award를 수상했으며, 상품기획·개발 담당자들이 개발 배경과 핵심 기술을 설명했습니다.",
+        "V10은 3D 본딩 기술로 400단 이상의 WL을 구현해 이전 세대 대비 비트 밀도를 58% 이상 높였고, 4.8Gbps 이상의 I/O 속도로 성능은 33% 이상 향상하고 전력은 25% 이상 절감했다고 밝혔습니다."
+      ],
+      "interview": "웨이퍼 본딩으로 셀과 주변회로를 따로 만드는 구조는 낸드 고단화가 공정 간 협업과 통합 역량의 싸움임을 보여 줍니다.",
+      "tags": [
+        "3D 낸드",
+        "하이브리드 본딩",
+        "eSSD·SSD"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "3-16",
+        "2-8"
+      ]
+    }
+  ]
 }

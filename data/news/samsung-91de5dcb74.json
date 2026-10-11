@@ -1,0 +1,41 @@
+{
+  "id": "samsung-91de5dcb74",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, 2026년 하반기 공채 실시",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-2026%eb%85%84-%ed%95%98%eb%b0%98%ea%b8%b0-%ea%b3%b5%ec%b1%84-%ec%8b%a4%ec%8b%9c/",
+  "published": "2026-09-07T23:00:01+09:00",
+  "date": "2026-09-07",
+  "summary": [
+    "삼성은 삼성전자를 비롯한 19개 관계사가 8일부터 15일까지 삼성커리어스에서 하반기 공채 지원서를 접수한다고 밝혔습니다.",
+    "채용절차는 9월 직무적합성 평가, 10월 GSAT, 11월 면접, 건강검진 순이며, SW 직군과 디자인 직군은 GSAT 대신 각각 SW 역량 테스트와 포트폴리오 심사를 거칩니다."
+  ],
+  "interview": "삼성전자 공채는 직무적합성 평가, GSAT, 면접 순으로 진행되며 SW 직군은 GSAT 대신 실기 테스트를 본다는 점에서 직군별 준비가 필요함을 보여 줍니다.",
+  "tags": [
+    "채용"
+  ],
+  "companies": [
+    "삼성전자",
+    "삼성물산",
+    "삼성바이오로직스",
+    "삼성디스플레이",
+    "삼성SDI",
+    "삼성전기"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2026 하반기 공채",
+    "GSAT",
+    "공채",
+    "삼성 공채"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

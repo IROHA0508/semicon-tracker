@@ -1,0 +1,39 @@
+{
+  "id": "samsung-aac1657e2a",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[FMS 2026 3D & NAND Innovation Award] V10 BV-NAND: 400단을 넘어 AI 스토리지의 한계를 확장하다",
+  "url": "https://news.samsungsemiconductor.com/kr/fms-2026-3d-nand-innovation-award-v10-bv-nand-400%eb%8b%a8%ec%9d%84-%eb%84%98%ec%96%b4-ai-%ec%8a%a4%ed%86%a0%eb%a6%ac%ec%a7%80%ec%9d%98-%ed%95%9c%ea%b3%84%eb%a5%bc-%ed%99%95%ec%9e%a5%ed%95%98/",
+  "published": "2026-08-31T18:00:03+09:00",
+  "date": "2026-08-31",
+  "summary": [
+    "삼성전자의 V10 BV-NAND가 FMS 2026 Best of Show Awards의 3D & NAND Innovation Award를 수상했으며, 상품기획·개발 담당자들이 개발 배경과 핵심 기술을 설명했습니다.",
+    "V10은 3D 본딩 기술로 400단 이상의 WL을 구현해 이전 세대 대비 비트 밀도를 58% 이상 높였고, 4.8Gbps 이상의 I/O 속도로 성능은 33% 이상 향상하고 전력은 25% 이상 절감했다고 밝혔습니다."
+  ],
+  "interview": "웨이퍼 본딩으로 셀과 주변회로를 따로 만드는 구조는 낸드 고단화가 공정 간 협업과 통합 역량의 싸움임을 보여 줍니다.",
+  "tags": [
+    "3D 낸드",
+    "하이브리드 본딩",
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "3D & NAND Innovation Award",
+    "3D 낸드 플래시 메모리",
+    "FMS",
+    "FMS 2026",
+    "V10 BV-NAND"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

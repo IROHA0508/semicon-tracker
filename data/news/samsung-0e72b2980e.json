@@ -1,0 +1,43 @@
+{
+  "id": "samsung-0e72b2980e",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, ‘에이전틱 시프트’ 주제로 삼성 AI 포럼 2026 개최",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%97%90%ec%9d%b4%ec%a0%84%ed%8b%b1-%ec%8b%9c%ed%94%84%ed%8a%b8-%ec%a3%bc%ec%a0%9c%eb%a1%9c-%ec%82%bc%ec%84%b1-ai-%ed%8f%ac%eb%9f%bc-2026-%ea%b0%9c%ec%b5%9c/",
+  "published": "2026-09-30T18:00:02+09:00",
+  "date": "2026-09-30",
+  "summary": [
+    "삼성전자는 30일 서울 서초사옥에서 ‘에이전틱 시프트’를 주제로 10회째 ‘삼성 AI 포럼 2026’을 열었습니다.",
+    "포럼에는 400명이 참석했고, 오전 기조 강연과 오후 DX부문·DS부문 2개 트랙에서 에이전틱 AI와 피지컬 AI 연구 성과 및 적용 사례를 다뤘습니다."
+  ],
+  "interview": "DS부문 AX/PI센터가 AI를 설계·제조 업무 전반에 적용한 사례를 공유했다는 점에서, 반도체 엔지니어에게 AI 활용 역량이 직무의 일부가 되고 있음을 보여 줍니다.",
+  "tags": [
+    "제조 AI",
+    "AI 서버·데이터센터",
+    "온디바이스 AI"
+  ],
+  "companies": [
+    "삼성전자",
+    "오픈AI",
+    "AWS",
+    "델 테크놀로지스",
+    "앤트로픽"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "삼성 AI 포럼",
+    "삼성 AI 포럼 2026",
+    "에이전틱 시프트",
+    "에이전틱AI",
+    "피지컬 AI"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

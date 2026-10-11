@@ -1,0 +1,35 @@
+{
+  "id": "skhynix-fact-10",
+  "company": "skhynix",
+  "source": "sk-fact",
+  "channel": "FACT",
+  "kind": "fact",
+  "lang": "en",
+  "title": "SK하이닉스, 인텔과 미국 메모리 생산 논의 보도에 확정된 계획 없다고 해명",
+  "originalTitle": "No plans have been confirmed regarding the reported talks between SK hynix and Intel on memory chip production in the U.S.",
+  "url": "https://news.skhynix.com/en/fact-10/",
+  "published": "2026-09-16T19:01:11+09:00",
+  "date": "2026-09-16",
+  "summary": [
+    "SK하이닉스는 2026년 9월 16일 'SK하이닉스가 인텔과 미국에서 메모리 칩을 생산하는 방안을 논의 중'이라는 보도에 대해 설명했습니다.",
+    "보도는 인텔의 오하이오 공장 일부 임대와 인텔·대형 클라우드 기업과의 합작법인 설립을 언급했으나, 회사는 두 시나리오 모두 결정된 바 없고 미국 내 메모리 생산도 확정된 것이 없다고 밝혔습니다."
+  ],
+  "interview": "미국 내 메모리 생산은 글로벌 경쟁력 강화를 위한 선택지로 검토되는 사안이며, 확정 전에는 보도와 공식 입장을 구분해야 함을 보여 줍니다.",
+  "tags": [
+    "팹 투자",
+    "밸류체인"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "인텔"
+  ],
+  "categories": [
+    "FACT",
+    "semiconductor industry"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "skhynix-fact-11",
+  "company": "skhynix",
+  "source": "sk-fact",
+  "channel": "FACT",
+  "kind": "fact",
+  "lang": "en",
+  "title": "SK하이닉스, 솔리다임 관련 보도에 \"결정된 사항 없다\" 해명",
+  "originalTitle": "Clarification Regarding Recent Media Reports on Solidigm",
+  "url": "https://news.skhynix.com/en/fact-11/",
+  "published": "2026-10-01T10:22:33+09:00",
+  "date": "2026-10-01",
+  "summary": [
+    "SK하이닉스는 솔리다임의 향후 사업 운영과 자금 활용 계획, 이중 상장 우려를 다룬 최근 언론 보도에 대해 현재까지 결정된 사항이 없다고 밝혔습니다.",
+    "회사는 내부 자금이든 외부 자본이든 기존 주주에 미치는 경제적 영향을 따져 평가하고, 장기적인 기업가치와 주주가치를 최우선 기준으로 삼겠다고 설명했습니다."
+  ],
+  "interview": "메모리가 시장 사이클과 투자 시점이 경쟁력을 좌우하는 자본집약 산업이라는 점에서, 투자 재원 조달 방식이 중요한 경영 판단임을 보여 줍니다.",
+  "tags": [
+    "주주환원·자본",
+    "eSSD·SSD",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "솔리다임",
+    "인텔"
+  ],
+  "categories": [
+    "FACT",
+    "semiconductor industry"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

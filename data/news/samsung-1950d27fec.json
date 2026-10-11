@@ -1,0 +1,33 @@
+{
+  "id": "samsung-1950d27fec",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, 추석 맞아 내수경기 활성화에 앞장",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%ec%b6%94%ec%84%9d-%eb%a7%9e%ec%95%84-%eb%82%b4%ec%88%98%ea%b2%bd%ea%b8%b0-%ed%99%9c%ec%84%b1%ed%99%94%ec%97%90-%ec%95%9e%ec%9e%a5/",
+  "published": "2026-09-14T23:00:02+09:00",
+  "date": "2026-09-14",
+  "summary": [
+    "삼성은 추석 명절을 앞두고 협력회사의 자금 운용을 돕기 위해 물품 대금을 조기 지급하고 임직원 대상 온라인 장터를 운영합니다.",
+    "물품 대금 1조3,000억원을 추석 연휴 이전에 13개 관계사가 약 7일 앞당겨 지급하며, 온라인 장터에는 17개 관계사가 참여합니다."
+  ],
+  "interview": "",
+  "tags": [],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "내수경기 활성화",
+    "명절 맞이 온라인 장터",
+    "물품대금 조기 지급"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

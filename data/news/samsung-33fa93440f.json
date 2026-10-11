@@ -1,0 +1,38 @@
+{
+  "id": "samsung-33fa93440f",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, ASML과 차세대 반도체 제조 협력 확대",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-asml%ea%b3%bc-%ec%b0%a8%ec%84%b8%eb%8c%80-%eb%b0%98%eb%8f%84%ec%b2%b4-%ec%a0%9c%ec%a1%b0-%ed%98%91%eb%a0%a5-%ed%99%95%eb%8c%80/",
+  "published": "2026-09-09T00:03:02+09:00",
+  "date": "2026-09-09",
+  "summary": [
+    "삼성전자가 ASML이 주도하는 '대형 마스크 컨소시엄'에 참여해 차세대 12인치 포토 마스크를 공동 개발하고, ASML과 High NA EUV 도입 협력도 강화한다고 밝혔습니다.",
+    "현재 6인치인 마스크를 12인치로 전환하면 High NA EUV의 stitching 제약을 해소해 팹 생산성을 높이고 칩 제조 비용을 낮출 수 있으며, 삼성전자는 2028년까지 첨단 D램 제조에 High NA EUV 도입을 추진한다고 밝혔습니다."
+  ],
+  "interview": "High NA EUV 도입이 마스크 크기 전환과 맞물려 있다는 점에서, 노광 공정 엔지니어에게는 장비뿐 아니라 마스크까지 함께 보는 시야가 필요함을 보여 줍니다.",
+  "tags": [
+    "EUV·노광",
+    "D램 미세화"
+  ],
+  "companies": [
+    "삼성전자",
+    "ASML"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "12인치 포토 마스크",
+    "ASML",
+    "D램 미세화",
+    "High NA EUV"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "samsung-af2499b4f8",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 미스트랄 AI와 전략적 파트너십 체결",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%eb%af%b8%ec%8a%a4%ed%8a%b8%eb%9e%84-ai%ec%99%80-%ec%a0%84%eb%9e%b5%ec%a0%81-%ed%8c%8c%ed%8a%b8%eb%84%88%ec%8b%ad-%ec%b2%b4%ea%b2%b0/",
+  "published": "2026-09-09T10:00:01+09:00",
+  "date": "2026-09-09",
+  "summary": [
+    "삼성전자가 프랑스 인공지능 기업 미스트랄 AI와 전략적 파트너십을 체결하고, 반도체 설계와 제조에 특화된 자체 AI 모델을 공동 개발하기로 했습니다.",
+    "삼성전자는 이 모델을 데이터 분석, 결함 예측, 공정 최적화 등에 단계적으로 적용하며, 반도체 데이터를 외부로 이전하지 않도록 온프레미스 방식으로 운영할 계획입니다."
+  ],
+  "interview": "반도체 설계와 제조 데이터를 사내 인프라에서 AI로 활용하려는 시도는 결함 예측과 공정 최적화가 엔지니어 업무의 핵심 과제가 되고 있음을 보여 줍니다.",
+  "tags": [
+    "제조 AI",
+    "수율·품질",
+    "파운드리"
+  ],
+  "companies": [
+    "삼성전자",
+    "미스트랄 AI",
+    "구글",
+    "메타"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "미스트랄 AI",
+    "파트너십 체결"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T01:09:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}
