@@ -1,0 +1,37 @@
+{
+  "id": "samsung-a9b8614f55",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 차세대 포터블 SSD 2종 P9, P7 공개",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%b0%a8%ec%84%b8%eb%8c%80-%ed%8f%ac%ed%84%b0%eb%b8%94-ssd-2%ec%a2%85-p9-p7-%ea%b3%b5%ea%b0%9c/",
+  "published": "2026-08-27T01:00:02+09:00",
+  "date": "2026-08-27",
+  "summary": [
+    "삼성전자는 26일(현지 시간) 독일 쾰른에서 열린 게임스컴 2026에서 USB4를 탑재한 포터블 SSD P시리즈 P9과 P7 2종을 공개했습니다.",
+    "P9은 USB4 기반으로 최대 연속 읽기 초당 4,000MB, 연속 쓰기 초당 3,800MB를 지원하며, 이전 세대 T 시리즈 대비 연속 읽기·쓰기 속도가 약 2배 증가했다고 밝혔습니다."
+  ],
+  "interview": "포터블 SSD에서 인터페이스를 USB4로 바꿔 속도를 높인 점은, 낸드 성능뿐 아니라 연속 쓰기 안정성과 내구성 검증이 제품 경쟁력을 좌우함을 보여 줍니다.",
+  "tags": [
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "P 시리즈",
+    "P7",
+    "P9",
+    "USB4",
+    "포터블 SSD"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

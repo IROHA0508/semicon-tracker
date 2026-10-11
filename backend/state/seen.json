@@ -235,7 +235,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "글로벌 메모리 표준의 중심에서 ㅣ FMS 2026 평생 공로상 수상자 Mian Quddus 인터뷰"
     },
     "https://news.samsungsemiconductor.com/kr/미래를-설계하는-젊은-과학도들이-모인-현장-수상자-2": {
@@ -595,7 +595,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, 사상 최대 주주환원 실시 2026년 약 90조~110조원 예상"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-사장단-메시지": {
@@ -675,7 +675,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, 차세대 포터블 SSD 2종 P9, P7 공개"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자·amd-차세대-ai-메모리-솔루션-협력-확대": {
@@ -785,7 +785,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[인포그래픽] 한층 더 진화된 포터블 스토리지 경험을 제시할 삼성전자 SSD ‘P시리즈’를 만나다"
     },
     "https://news.samsungsemiconductor.com/kr/자원순환의-날-삼성전자-순환자원-인정-확대자원": {
@@ -855,7 +855,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[칩스케치] 대학과 산업이 함께 그리는 반도체의 미래, 산학협력 통합교류회 ‘SPARK 2026’"
     },
     "https://news.samsungsemiconductor.com/kr/칩스케치-상생의-힘으로-키운-반도체-생태계-삼성전": {
@@ -1025,7 +1025,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[AI Infrastructure Insight] Why faster GPUs alone can’t deliver AI performance"
     },
     "https://news.skhynix.com/en/ai-infrastructure-insight-ep3": {
@@ -1115,7 +1115,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix’s technology roadmap for co-packaged optics features in ‘Nature Electronics,’ as AI competition shifts from chips to systems"
     },
     "https://news.skhynix.com/en/dtf-2026": {
@@ -1125,7 +1125,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026"
     },
     "https://news.skhynix.com/en/dtw-2026": {
@@ -1275,7 +1275,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Holds Groundbreaking Ceremony for HBM Production Base in Indiana, “Beginning a New Future for US-Korea AI”"
     },
     "https://news.skhynix.com/en/gtc-2026-ai-partnership": {
@@ -1645,7 +1645,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[Tech Note] Hybrid Bonding: Evolving into a Foundational Technology for Improving Semiconductor Performance"
     },
     "https://news.skhynix.com/en/tsmc-oip-conference-2026": {

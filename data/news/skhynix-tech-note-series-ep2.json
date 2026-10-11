@@ -1,0 +1,46 @@
+{
+  "id": "skhynix-tech-note-series-ep2",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "[Tech Note] 하이브리드 본딩, 반도체 성능 향상의 핵심 기반 기술로 부상",
+  "originalTitle": "[Tech Note] Hybrid Bonding: Evolving into a Foundational Technology for Improving Semiconductor Performance",
+  "url": "https://news.skhynix.com/en/tech-note-series-ep2/",
+  "published": "2026-08-25T09:00:02+09:00",
+  "date": "2026-08-25",
+  "summary": [
+    "인하대 제조혁신대학원의 주승환 교수는 칩 미세화의 한계 속에서 범프 없이 칩을 직접 연결하는 하이브리드 본딩이 HBM 등 차세대 반도체의 핵심 기술로 부상하고 있다고 설명합니다.",
+    "주 교수는 HBM4부터 I/O가 1,024개에서 2,048개로 늘고 적층이 16~20단 이상으로 높아져 기존 TCB가 한계에 부딪히며, HBM4E나 HBM5에서 본격 도입될 가능성이 크다고 전망합니다."
+  ],
+  "interview": "하이브리드 본딩은 HBM 적층이 높아질수록 열과 높이의 한계를 푸는 해법이라는 점에서, 패키징 공정 엔지니어에게 기존 TCB 이후를 준비해야 한다는 과제를 보여 줍니다.",
+  "tags": [
+    "하이브리드 본딩",
+    "HBM",
+    "패키징"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "AMD",
+    "소니",
+    "인텔",
+    "엔비디아",
+    "애플"
+  ],
+  "author": "Professor Seunghwan Joo, Inha Manufacturing Innovation School",
+  "categories": [
+    "TECH&AI",
+    "Advanced Packaging",
+    "back-end process",
+    "HBM",
+    "HBM4",
+    "Hybrid Bonding",
+    "Packaging"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T01:11:49+09:00",
-  "count": 20,
+  "generatedAt": "2026-10-12T05:12:43+09:00",
+  "count": 30,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-06",
   "kinds": {
@@ -686,6 +686,314 @@
       "relatedUnits": [
         "3-16",
         "2-8"
+      ]
+    },
+    {
+      "id": "skhynix-ai-infrastructure-insight-ep2",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "[AI 인프라 인사이트] 빠른 GPU만으로는 AI 성능을 낼 수 없는 이유",
+      "originalTitle": "[AI Infrastructure Insight] Why faster GPUs alone can’t deliver AI performance",
+      "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep2/",
+      "published": "2026-08-31T08:59:33+09:00",
+      "date": "2026-08-31",
+      "summary": [
+        "SK하이닉스 뉴스룸은 AI Infrastructure Insight 시리즈의 두 번째 글에서 AI 성능이 연산 속도만으로 정해지지 않는다고 설명했습니다.",
+        "UC 버클리 등 연구진의 논문은 지난 20년간 서버 하드웨어의 최대 FLOPS가 2년마다 약 3배 늘 때 D램 대역폭은 1.6배, 인터커넥트 대역폭은 1.4배 늘었다고 밝혔습니다."
+      ],
+      "interview": "가속기가 데이터를 기다리며 놀지 않게 하는 메모리 구조 설계가 시스템 성능을 좌우하므로, 메모리 기업의 역할이 제품 공급을 넘어 확장된다는 점에서 의미가 있습니다.",
+      "tags": [
+        "CXL·PIM",
+        "AI 가속기",
+        "AI 서버·데이터센터"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "오픈AI",
+        "구글",
+        "인텔"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "5-4"
+      ]
+    },
+    {
+      "id": "samsung-81cea496ae",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "[칩스케치] 대학과 산업이 함께 그리는 반도체의 미래, 산학협력 통합교류회 ‘SPARK 2026’",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%b9%a9%ec%8a%a4%ec%bc%80%ec%b9%98-%eb%8c%80%ed%95%99%ea%b3%bc-%ec%82%b0%ec%97%85%ec%9d%b4-%ed%95%a8%ea%bb%98-%ea%b7%b8%eb%a6%ac%eb%8a%94-%eb%b0%98%eb%8f%84%ec%b2%b4%ec%9d%98-%eb%af%b8%eb%9e%98/",
+      "published": "2026-08-28T17:00:02+09:00",
+      "date": "2026-08-28",
+      "summary": [
+        "삼성전자가 8월 19일 경기도 용인 The UniverSE에서 국내 대학과의 산학협력 통합교류회 ‘SPARK 2026’을 개최했습니다.",
+        "국내 11개 대학과 미국 스탠퍼드 대학 교수진 등 총 1,177명이 참석했고, 6개 분야 358개 과제 포스터 전시와 올해 신설된 테크 세션, 우수 논문·특허 시상이 진행됐습니다."
+      ],
+      "interview": "삼성전자가 AI 시대의 복잡한 기술 과제를 풀기 위해 산학협력이 필수라고 밝힌 만큼, 엔지니어에게는 대학 연구를 실제 소자 플랫폼에서 검증하는 역량이 중요하다는 점을 보여 줍니다.",
+      "tags": [
+        "채용",
+        "후면 전력(BSPDN)",
+        "패키징"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "3-9",
+        "0-2"
+      ]
+    },
+    {
+      "id": "skhynix-groundbreaking-ceremony-in-indiana",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "SK하이닉스, 미국 인디애나 HBM 생산기지 착공식 개최",
+      "originalTitle": "SK hynix Holds Groundbreaking Ceremony for HBM Production Base in Indiana, “Beginning a New Future for US-Korea AI”",
+      "url": "https://news.skhynix.com/en/groundbreaking-ceremony-in-indiana/",
+      "published": "2026-08-28T01:01:24+09:00",
+      "date": "2026-08-28",
+      "summary": [
+        "SK하이닉스는 27일(현지시간) 미국 인디애나주 웨스트라피엣의 퍼듀대학교에서 AI 메모리용 어드밴스드 패키징 생산시설 착공식을 열었다고 밝혔습니다.",
+        "총 40억 달러 넘게 투자해 2028년 10월까지 클린룸을 열고 2029년 하반기에 차세대 HBM 양산을 시작할 예정이며, 약 1,000명이 근무할 것으로 예상됩니다."
+      ],
+      "interview": "HBM 후공정을 미국에 두고 한국산 웨이퍼를 가져와 패키징·테스트하는 구조는 메모리 공급망이 생산지 중심으로 재편되고 있음을 보여 줍니다.",
+      "tags": [
+        "패키징",
+        "HBM",
+        "팹 투자",
+        "반도체 지원법"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "5-5"
+      ]
+    },
+    {
+      "id": "samsung-8212f74e59",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "[인포그래픽] 한층 더 진화된 포터블 스토리지 경험을 제시할 삼성전자 SSD ‘P시리즈’를 만나다",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b8%ed%8f%ac%ea%b7%b8%eb%9e%98%ed%94%bd-%ed%95%9c%ec%b8%b5-%eb%8d%94-%ec%a7%84%ed%99%94%eb%90%9c-%ed%8f%ac%ed%84%b0%eb%b8%94-%ec%8a%a4%ed%86%a0%eb%a6%ac%ec%a7%80-%ea%b2%bd%ed%97%98%ec%9d%84/",
+      "published": "2026-08-27T01:00:14+09:00",
+      "date": "2026-08-27",
+      "summary": [
+        "삼성전자가 최신 인터페이스 USB4를 탑재한 새로운 포터블 SSD ‘P 시리즈’ 2종(P9·P7)을 8월 26일(현지 시간) 독일 쾰른의 ‘게임스컴 2026’에서 선보였습니다.",
+        "P9은 고성능 스토리지가 필요한 전문가를 위한 플래그십 제품이고, P7은 일상 속 다양한 기기와 환경에서 데이터를 저장하고 활용하는 모델이며, USB4는 40Gbps의 데이터 전송 속도를 갖습니다."
+      ],
+      "interview": "고해상도 영상과 AI 콘텐츠로 데이터가 늘면서 인터페이스 속도가 SSD 제품 경쟁력의 한 축이 된다는 점을 보여 줍니다.",
+      "tags": [
+        "eSSD·SSD"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-8"
+      ]
+    },
+    {
+      "id": "samsung-a9b8614f55",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, 차세대 포터블 SSD 2종 P9, P7 공개",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%b0%a8%ec%84%b8%eb%8c%80-%ed%8f%ac%ed%84%b0%eb%b8%94-ssd-2%ec%a2%85-p9-p7-%ea%b3%b5%ea%b0%9c/",
+      "published": "2026-08-27T01:00:02+09:00",
+      "date": "2026-08-27",
+      "summary": [
+        "삼성전자는 26일(현지 시간) 독일 쾰른에서 열린 게임스컴 2026에서 USB4를 탑재한 포터블 SSD P시리즈 P9과 P7 2종을 공개했습니다.",
+        "P9은 USB4 기반으로 최대 연속 읽기 초당 4,000MB, 연속 쓰기 초당 3,800MB를 지원하며, 이전 세대 T 시리즈 대비 연속 읽기·쓰기 속도가 약 2배 증가했다고 밝혔습니다."
+      ],
+      "interview": "포터블 SSD에서 인터페이스를 USB4로 바꿔 속도를 높인 점은, 낸드 성능뿐 아니라 연속 쓰기 안정성과 내구성 검증이 제품 경쟁력을 좌우함을 보여 줍니다.",
+      "tags": [
+        "eSSD·SSD"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-8"
+      ]
+    },
+    {
+      "id": "skhynix-dtf-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, DTF 2026에서 AI 인프라용 메모리 전 제품군 선보여",
+      "originalTitle": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+      "url": "https://news.skhynix.com/en/dtf-2026/",
+      "published": "2026-08-26T09:00:23+09:00",
+      "date": "2026-08-26",
+      "summary": [
+        "SK하이닉스는 8월 25일 서울 코엑스에서 열린 델 테크놀로지스 포럼 2026(DTF)에 참가해 AI 메모리 제품군을 전시했습니다.",
+        "HBM3E·HBM4·HBM4E, 192GB SOCAMM2, 서버 D램, eSSD·cSSD를 선보였고, 서울 DTF에서는 처음으로 기조연설도 진행했다고 밝혔습니다."
+      ],
+      "interview": "서버 랙 구조 안에 제품을 배치해 보여 준 전시는 메모리가 개별 부품이 아니라 시스템 안에서 역할을 갖는 AI 인프라 핵심 요소임을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "eSSD·SSD",
+        "서버 D램(DDR5)",
+        "SOCAMM"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "델 테크놀로지스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-10"
+      ]
+    },
+    {
+      "id": "skhynix-tech-note-series-ep2",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "[Tech Note] 하이브리드 본딩, 반도체 성능 향상의 핵심 기반 기술로 부상",
+      "originalTitle": "[Tech Note] Hybrid Bonding: Evolving into a Foundational Technology for Improving Semiconductor Performance",
+      "url": "https://news.skhynix.com/en/tech-note-series-ep2/",
+      "published": "2026-08-25T09:00:02+09:00",
+      "date": "2026-08-25",
+      "summary": [
+        "인하대 제조혁신대학원의 주승환 교수는 칩 미세화의 한계 속에서 범프 없이 칩을 직접 연결하는 하이브리드 본딩이 HBM 등 차세대 반도체의 핵심 기술로 부상하고 있다고 설명합니다.",
+        "주 교수는 HBM4부터 I/O가 1,024개에서 2,048개로 늘고 적층이 16~20단 이상으로 높아져 기존 TCB가 한계에 부딪히며, HBM4E나 HBM5에서 본격 도입될 가능성이 크다고 전망합니다."
+      ],
+      "interview": "하이브리드 본딩은 HBM 적층이 높아질수록 열과 높이의 한계를 푸는 해법이라는 점에서, 패키징 공정 엔지니어에게 기존 TCB 이후를 준비해야 한다는 과제를 보여 줍니다.",
+      "tags": [
+        "하이브리드 본딩",
+        "HBM",
+        "패키징"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "AMD",
+        "소니",
+        "인텔",
+        "엔비디아",
+        "애플"
+      ],
+      "author": "Professor Seunghwan Joo, Inha Manufacturing Innovation School",
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-5",
+        "0-2"
+      ]
+    },
+    {
+      "id": "samsung-84eddd0ae9",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, 사상 최대 주주환원 실시 2026년 약 90조~110조원 예상",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%82%ac%ec%83%81-%ec%b5%9c%eb%8c%80-%ec%a3%bc%ec%a3%bc%ed%99%98%ec%9b%90-%ec%8b%a4%ec%8b%9c-2026%eb%85%84-%ec%95%bd-90%ec%a1%b0110%ec%a1%b0%ec%9b%90-%ec%98%88/",
+      "published": "2026-08-22T03:23:25+09:00",
+      "date": "2026-08-22",
+      "summary": [
+        "삼성전자는 21일 이사회를 열고 약 90조~110조원 규모로 예상되는 2026년 주주환원 시행 방안을 의결했습니다.",
+        "2026년 3분기에는 정규배당을 포함해 약 30조원 규모의 현금배당을 시행할 계획이며, 임직원 보상용 자사주 약 15조원 매입도 의결했습니다."
+      ],
+      "interview": "잉여현금흐름의 50%를 환원한다는 정책을 이행한다는 점은 메모리 호황의 이익이 대규모 현금 창출로 이어지고 있음을 보여 줍니다.",
+      "tags": [
+        "주주환원·자본"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": []
+    },
+    {
+      "id": "samsung-529b00c622",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "글로벌 메모리 표준의 중심에서 ㅣ FMS 2026 평생 공로상 수상자 Mian Quddus 인터뷰",
+      "url": "https://news.samsungsemiconductor.com/kr/%ea%b8%80%eb%a1%9c%eb%b2%8c-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ed%91%9c%ec%a4%80%ec%9d%98-%ec%a4%91%ec%8b%ac%ec%97%90%ec%84%9c-%e3%85%a3-fms-2026-%ed%8f%89%ec%83%9d-%ea%b3%b5%eb%a1%9c%ec%83%81-%ec%88%98/",
+      "published": "2026-08-20T18:00:03+09:00",
+      "date": "2026-08-20",
+      "summary": [
+        "삼성전자 DS부문 미주총괄의 Mian Quddus 상무(VP)가 FMS 2026에서 평생 공로상을 수상했으며, 이 글은 그의 인터뷰를 다룹니다.",
+        "그는 22년간 JEDEC 이사회 의장을 맡아 메모리 기술 규격과 표준 정립에 기여한 공로를 인정받았고, 2016년 김기남 전 대표이사에 이어 삼성전자에서 두 번째 수상자입니다."
+      ],
+      "interview": "JEDEC 표준이 서로 다른 기업 제품의 호환성을 확보한다는 점은 메모리 엔지니어에게 표준 이해와 고객 요구 파악이 핵심 역량임을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "서버 D램(DDR5)",
+        "LPDDR"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "2-10",
+        "2-7"
+      ]
+    },
+    {
+      "id": "skhynix-cpo-in-nature-electronics",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, 공동패키지광학(CPO) 로드맵을 '네이처 일렉트로닉스'에 발표",
+      "originalTitle": "SK hynix’s technology roadmap for co-packaged optics features in ‘Nature Electronics,’ as AI competition shifts from chips to systems",
+      "url": "https://news.skhynix.com/en/cpo-in-nature-electronics/",
+      "published": "2026-08-20T08:00:03+09:00",
+      "date": "2026-08-20",
+      "summary": [
+        "SK하이닉스는 해외 연구진과 함께 차세대 AI 인프라의 핵심 기술인 공동패키지광학(CPO)의 로드맵 논문을 학술지 네이처 일렉트로닉스에 발표했다고 밝혔습니다.",
+        "논문은 연산 처리량이 2년마다 3배가 되는 동안 인터커넥트 대역폭은 1.4배 늘었다는 '대역폭 장벽'을 짚고, 노드당 100Tb/s 초과, 1pJ/bit 미만, 칩 간 지연 10나노초 미만을 목표로 제시했습니다."
+      ],
+      "interview": "HBM을 넘어 광 인터커넥트로 시스템 수준의 병목을 풀려는 방향은 메모리 기업이 부품 공급자에서 시스템 파트너로 역할을 넓히고 있음을 보여 줍니다.",
+      "tags": [
+        "패키징",
+        "AI 서버·데이터센터",
+        "HBM"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "0-4"
       ]
     }
   ]

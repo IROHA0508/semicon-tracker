@@ -1,0 +1,38 @@
+{
+  "id": "samsung-81cea496ae",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[칩스케치] 대학과 산업이 함께 그리는 반도체의 미래, 산학협력 통합교류회 ‘SPARK 2026’",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%b9%a9%ec%8a%a4%ec%bc%80%ec%b9%98-%eb%8c%80%ed%95%99%ea%b3%bc-%ec%82%b0%ec%97%85%ec%9d%b4-%ed%95%a8%ea%bb%98-%ea%b7%b8%eb%a6%ac%eb%8a%94-%eb%b0%98%eb%8f%84%ec%b2%b4%ec%9d%98-%eb%af%b8%eb%9e%98/",
+  "published": "2026-08-28T17:00:02+09:00",
+  "date": "2026-08-28",
+  "summary": [
+    "삼성전자가 8월 19일 경기도 용인 The UniverSE에서 국내 대학과의 산학협력 통합교류회 ‘SPARK 2026’을 개최했습니다.",
+    "국내 11개 대학과 미국 스탠퍼드 대학 교수진 등 총 1,177명이 참석했고, 6개 분야 358개 과제 포스터 전시와 올해 신설된 테크 세션, 우수 논문·특허 시상이 진행됐습니다."
+  ],
+  "interview": "삼성전자가 AI 시대의 복잡한 기술 과제를 풀기 위해 산학협력이 필수라고 밝힌 만큼, 엔지니어에게는 대학 연구를 실제 소자 플랫폼에서 검증하는 역량이 중요하다는 점을 보여 줍니다.",
+  "tags": [
+    "채용",
+    "후면 전력(BSPDN)",
+    "패키징"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "SPARK 2026",
+    "삼성전자 산학 통합교류회",
+    "삼성전자 산학협력",
+    "삼성전자 산학협력 통합교류회"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

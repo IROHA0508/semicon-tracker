@@ -1,0 +1,35 @@
+{
+  "id": "samsung-84eddd0ae9",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 사상 최대 주주환원 실시 2026년 약 90조~110조원 예상",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%82%ac%ec%83%81-%ec%b5%9c%eb%8c%80-%ec%a3%bc%ec%a3%bc%ed%99%98%ec%9b%90-%ec%8b%a4%ec%8b%9c-2026%eb%85%84-%ec%95%bd-90%ec%a1%b0110%ec%a1%b0%ec%9b%90-%ec%98%88/",
+  "published": "2026-08-22T03:23:25+09:00",
+  "date": "2026-08-22",
+  "summary": [
+    "삼성전자는 21일 이사회를 열고 약 90조~110조원 규모로 예상되는 2026년 주주환원 시행 방안을 의결했습니다.",
+    "2026년 3분기에는 정규배당을 포함해 약 30조원 규모의 현금배당을 시행할 계획이며, 임직원 보상용 자사주 약 15조원 매입도 의결했습니다."
+  ],
+  "interview": "잉여현금흐름의 50%를 환원한다는 정책을 이행한다는 점은 메모리 호황의 이익이 대규모 현금 창출로 이어지고 있음을 보여 줍니다.",
+  "tags": [
+    "주주환원·자본"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "삼성전자 주주환원",
+    "삼성전자 주주환원 계획",
+    "삼성전자 주주환원 정책"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

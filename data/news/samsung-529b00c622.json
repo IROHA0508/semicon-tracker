@@ -1,0 +1,40 @@
+{
+  "id": "samsung-529b00c622",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "글로벌 메모리 표준의 중심에서 ㅣ FMS 2026 평생 공로상 수상자 Mian Quddus 인터뷰",
+  "url": "https://news.samsungsemiconductor.com/kr/%ea%b8%80%eb%a1%9c%eb%b2%8c-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ed%91%9c%ec%a4%80%ec%9d%98-%ec%a4%91%ec%8b%ac%ec%97%90%ec%84%9c-%e3%85%a3-fms-2026-%ed%8f%89%ec%83%9d-%ea%b3%b5%eb%a1%9c%ec%83%81-%ec%88%98/",
+  "published": "2026-08-20T18:00:03+09:00",
+  "date": "2026-08-20",
+  "summary": [
+    "삼성전자 DS부문 미주총괄의 Mian Quddus 상무(VP)가 FMS 2026에서 평생 공로상을 수상했으며, 이 글은 그의 인터뷰를 다룹니다.",
+    "그는 22년간 JEDEC 이사회 의장을 맡아 메모리 기술 규격과 표준 정립에 기여한 공로를 인정받았고, 2016년 김기남 전 대표이사에 이어 삼성전자에서 두 번째 수상자입니다."
+  ],
+  "interview": "JEDEC 표준이 서로 다른 기업 제품의 호환성을 확보한다는 점은 메모리 엔지니어에게 표준 이해와 고객 요구 파악이 핵심 역량임을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "서버 D램(DDR5)",
+    "LPDDR"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "3D 아키텍처",
+    "FMS",
+    "FMS 2026",
+    "JEDEC",
+    "메모리",
+    "평생 공로상"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

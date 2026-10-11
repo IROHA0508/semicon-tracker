@@ -1,0 +1,38 @@
+{
+  "id": "samsung-8212f74e59",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[인포그래픽] 한층 더 진화된 포터블 스토리지 경험을 제시할 삼성전자 SSD ‘P시리즈’를 만나다",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b8%ed%8f%ac%ea%b7%b8%eb%9e%98%ed%94%bd-%ed%95%9c%ec%b8%b5-%eb%8d%94-%ec%a7%84%ed%99%94%eb%90%9c-%ed%8f%ac%ed%84%b0%eb%b8%94-%ec%8a%a4%ed%86%a0%eb%a6%ac%ec%a7%80-%ea%b2%bd%ed%97%98%ec%9d%84/",
+  "published": "2026-08-27T01:00:14+09:00",
+  "date": "2026-08-27",
+  "summary": [
+    "삼성전자가 최신 인터페이스 USB4를 탑재한 새로운 포터블 SSD ‘P 시리즈’ 2종(P9·P7)을 8월 26일(현지 시간) 독일 쾰른의 ‘게임스컴 2026’에서 선보였습니다.",
+    "P9은 고성능 스토리지가 필요한 전문가를 위한 플래그십 제품이고, P7은 일상 속 다양한 기기와 환경에서 데이터를 저장하고 활용하는 모델이며, USB4는 40Gbps의 데이터 전송 속도를 갖습니다."
+  ],
+  "interview": "고해상도 영상과 AI 콘텐츠로 데이터가 늘면서 인터페이스 속도가 SSD 제품 경쟁력의 한 축이 된다는 점을 보여 줍니다.",
+  "tags": [
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "P 시리즈",
+    "P7",
+    "P9",
+    "SSD",
+    "USB4",
+    "포터블 SSD"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

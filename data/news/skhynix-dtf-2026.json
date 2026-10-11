@@ -1,0 +1,44 @@
+{
+  "id": "skhynix-dtf-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, DTF 2026에서 AI 인프라용 메모리 전 제품군 선보여",
+  "originalTitle": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+  "url": "https://news.skhynix.com/en/dtf-2026/",
+  "published": "2026-08-26T09:00:23+09:00",
+  "date": "2026-08-26",
+  "summary": [
+    "SK하이닉스는 8월 25일 서울 코엑스에서 열린 델 테크놀로지스 포럼 2026(DTF)에 참가해 AI 메모리 제품군을 전시했습니다.",
+    "HBM3E·HBM4·HBM4E, 192GB SOCAMM2, 서버 D램, eSSD·cSSD를 선보였고, 서울 DTF에서는 처음으로 기조연설도 진행했다고 밝혔습니다."
+  ],
+  "interview": "서버 랙 구조 안에 제품을 배치해 보여 준 전시는 메모리가 개별 부품이 아니라 시스템 안에서 역할을 갖는 AI 인프라 핵심 요소임을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "eSSD·SSD",
+    "서버 D램(DDR5)",
+    "SOCAMM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "델 테크놀로지스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI Memory",
+    "cSSD",
+    "DellTechForum",
+    "DRAM",
+    "DTF",
+    "eSSD",
+    "HBM",
+    "NAND"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T05:11:48+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}
