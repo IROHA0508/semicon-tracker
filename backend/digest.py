@@ -26,6 +26,21 @@ log = logging.getLogger(__name__)
 
 MAX_COMPANIES = 6
 HANGUL = re.compile(r"[가-힣]")
+# Claude sometimes leaves company names in English. Folded (lower case) name -> Korean name.
+COMPANY_NAMES = {
+    "sk hynix": "SK하이닉스", "samsung electronics": "삼성전자", "samsung": "삼성전자", "nvidia": "엔비디아",
+    "openai": "오픈AI", "anthropic": "앤트로픽", "google": "구글", "meta": "메타", "microsoft": "마이크로소프트",
+    "amazon": "아마존", "apple": "애플", "intel": "인텔", "micron": "마이크론", "solidigm": "솔리다임",
+    "qualcomm": "퀄컴", "broadcom": "브로드컴", "cadence": "케이던스", "synopsys": "시놉시스",
+    "dell technologies": "델 테크놀로지스", "dell": "델", "mistral ai": "미스트랄 AI", "kioxia": "키옥시아",
+    "western digital": "웨스턴디지털", "sandisk": "샌디스크", "applied materials": "어플라이드 머티어리얼즈",
+    "lam research": "램리서치", "tokyo electron": "도쿄일렉트론", "hanmi semiconductor": "한미반도체",
+}
+
+
+def company_name(name: str) -> str:
+    name = _text(name)
+    return COMPANY_NAMES.get(name.lower(), name)
 
 
 class CardError(Exception):
@@ -53,7 +68,7 @@ def clean_card(raw: dict, item: dict, book: tags.TagBook) -> tuple[dict, list[st
     kept, unknown = book.normalize(raw.get("tags") or [])
     companies = []
     for c in raw.get("companies") or []:
-        c = _text(c)
+        c = company_name(c)
         if c and c not in companies:
             companies.append(c)
     return {

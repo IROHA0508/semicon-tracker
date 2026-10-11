@@ -362,6 +362,13 @@ def test_time_budget_stops_starting_new_articles(data, monkeypatch):
     assert report["stoppedBy"] == "time budget" and len(report["summarized"]) == 1
 
 
+def test_company_names_are_korean_and_deduplicated():
+    book = tags.tagbook()
+    c, _ = digest.clean_card({"companies": ["Anthropic", "앤트로픽", "Dell Technologies", " TSMC "]},
+                             queued("a", "2026-10-09T10:00:00+09:00"), book)
+    assert c["companies"] == ["앤트로픽", "델 테크놀로지스", "TSMC"]
+
+
 def test_sentences_splits_one_element_holding_two():
     assert digest.sentences(["첫 문장입니다. 둘째 문장입니다.", "셋째입니다."]) == ["첫 문장입니다.", "둘째 문장입니다."]
 
