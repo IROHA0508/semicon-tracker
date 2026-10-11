@@ -1,0 +1,37 @@
+{
+  "id": "samsung-fd2e3034c8",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "게임스컴서 첫선 보인 삼성 포터블 SSD P9·P7, 글로벌 시장 본격 출시",
+  "url": "https://news.samsungsemiconductor.com/kr/%ea%b2%8c%ec%9e%84%ec%8a%a4%ec%bb%b4%ec%84%9c-%ec%b2%ab%ec%84%a0-%eb%b3%b4%ec%9d%b8-%ec%82%bc%ec%84%b1-%ed%8f%ac%ed%84%b0%eb%b8%94-ssd-p9%c2%b7p7-%ea%b8%80%eb%a1%9c%eb%b2%8c-%ec%8b%9c%ec%9e%a5/",
+  "published": "2026-09-22T18:03:47+09:00",
+  "date": "2026-09-22",
+  "summary": [
+    "삼성전자가 차세대 포터블 SSD 라인업 'P 시리즈'의 첫 제품인 P9과 P7을 글로벌 시장에 본격 출시했습니다.",
+    "두 제품은 USB4 인터페이스 기반으로 최대 4,000MB/s의 읽기 속도와 최대 8TB의 용량을 지원하며, 지난 8월 말 독일 쾰른의 게임스컴 2026에서 처음 공개됐습니다."
+  ],
+  "interview": "삼성전자가 USB4 기반으로 최대 4,000MB/s 읽기 속도와 최대 8TB 용량을 지원하는 포터블 SSD P9·P7을 내놓았다는 점은, 메모리 회사가 데이터센터용뿐 아니라 소비자용 SSD에서도 성능과 용량 경쟁을 이어 간다는 것을 보여 주는 사례로 들 수 있습니다.",
+  "tags": [
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "Gamescom 2026",
+    "P 시리즈",
+    "P7",
+    "P9",
+    "게임스컴 2026",
+    "포터블 SSD"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T00:59:37+09:00",
+  "model": "claude-sonnet-5-5",
+  "bodyVia": "feed"
+}

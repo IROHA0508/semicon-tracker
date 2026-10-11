@@ -1,0 +1,43 @@
+{
+  "id": "samsung-eee2299079",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[칩스케치] 다가올 에이전틱 AI 시대, 변화와 그 영향은? 올해로 개최 10년째 맞은 ‘삼성 AI 포럼’",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%b9%a9%ec%8a%a4%ec%bc%80%ec%b9%98-%eb%8b%a4%ea%b0%80%ec%98%ac-%ec%97%90%ec%9d%b4%ec%a0%84%ed%8b%b1-ai-%ec%8b%9c%eb%8c%80-%eb%b3%80%ed%99%94%ec%99%80-%ea%b7%b8-%ec%98%81%ed%96%a5%ec%9d%80/",
+  "published": "2026-10-01T17:00:07+09:00",
+  "date": "2026-10-01",
+  "summary": [
+    "삼성전자가 9월 30일 서초사옥 다목적홀에서 ‘The Agentic Shift: From Intelligence to Impact’를 주제로 ‘삼성 AI 포럼 2026’을 개최했습니다.",
+    "2017년 첫 시작 이래 10회째를 맞은 이번 포럼에는 약 400명이 참석했으며, 오후 세션에서 DS부문은 반도체 R&D·개발·제조 현장에 적용되는 AI 사례와 자동화·지능화 방향을 공유했습니다."
+  ],
+  "interview": "삼성전자 DS부문이 R&D·개발·제조 전반에서 자동화와 지능화를 추진하며 AI 네이티브를 목표로 한다는 점은, 반도체 엔지니어에게 AI 에이전트를 안전하게 활용해 업무 방식을 재설계하는 역량이 요구되고 있음을 보여 주는 사례로 들 수 있습니다.",
+  "tags": [
+    "제조 AI",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "삼성전자",
+    "오픈AI",
+    "아마존",
+    "델 테크놀로지스",
+    "앤트로픽"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "AI 네이티브",
+    "AI 에이전트",
+    "AI 포럼",
+    "삼성 AI 포럼",
+    "삼성 AI 포럼 2026",
+    "에이전틱 AI",
+    "피지컬 AI"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T00:59:37+09:00",
+  "model": "claude-sonnet-5-5",
+  "bodyVia": "feed"
+}

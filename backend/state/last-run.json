@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-11T09:52:18+09:00",
+  "startedAt": "2026-10-12T00:59:33+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -49,5 +49,64 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-11T09:52:22+09:00"
+  "finishedAt": "2026-10-12T00:59:36+09:00",
+  "summary": {
+    "startedAt": "2026-10-12T00:59:37+09:00",
+    "backend": "cli",
+    "model": "claude-sonnet-5-5",
+    "limit": 10,
+    "summarized": [
+      {
+        "id": "samsung-2d58577d38",
+        "title": "삼성전자, 2026년 3분기 잠정실적 발표"
+      },
+      {
+        "id": "skhynix-ai-ecosystem-series-ep3",
+        "title": "AI 인프라 재설계, 성능은 아키텍처가 좌우한다"
+      },
+      {
+        "id": "samsung-eee2299079",
+        "title": "[칩스케치] 다가올 에이전틱 AI 시대, 변화와 그 영향은? 올해로 개최 10년째 맞은 ‘삼성 AI 포럼’"
+      },
+      {
+        "id": "skhynix-fact-11",
+        "title": "SK하이닉스, 솔리다임 관련 보도에 \"결정된 사항 없다\" 해명"
+      },
+      {
+        "id": "samsung-0e72b2980e",
+        "title": "삼성전자, ‘에이전틱 시프트’ 주제로 삼성 AI 포럼 2026 개최"
+      },
+      {
+        "id": "skhynix-ai-infrastructure-insight-ep3",
+        "title": "[AI 인프라 인사이트] AI 데이터센터의 다음 과제로 떠오른 전력과 냉각"
+      },
+      {
+        "id": "skhynix-tsmc-oip-conference-2026",
+        "title": "SK하이닉스, TSMC OIP서 차세대 메모리 공개…2년 연속 올해의 파트너상"
+      },
+      {
+        "id": "samsung-fd2e3034c8",
+        "title": "게임스컴서 첫선 보인 삼성 포터블 SSD P9·P7, 글로벌 시장 본격 출시"
+      },
+      {
+        "id": "skhynix-sk-hynix-ventures",
+        "title": "SK하이닉스, 실리콘밸리에서 CVC 브랜드 'SK hynix Ventures' 출범"
+      },
+      {
+        "id": "skhynix-ai-infra-summit-2026",
+        "title": "SK하이닉스, 'AI Infra Summit 2026'에서 AI 인프라용 '뉴 스펙트럼' 공개"
+      }
+    ],
+    "failed": {},
+    "gaveUp": [],
+    "authError": false,
+    "limitHit": false,
+    "stoppedBy": "limit",
+    "queueLeft": 136,
+    "finishedAt": "2026-10-12T01:00:35+09:00"
+  },
+  "manifest": {
+    "count": 10,
+    "changed": true
+  }
 }

@@ -1,0 +1,38 @@
+{
+  "id": "skhynix-ai-infrastructure-insight-ep3",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "[AI 인프라 인사이트] AI 데이터센터의 다음 과제로 떠오른 전력과 냉각",
+  "originalTitle": "[AI infrastructure insight] Why power and cooling have become the next challenge for AI data centers",
+  "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep3/",
+  "published": "2026-09-30T08:59:07+09:00",
+  "date": "2026-09-30",
+  "summary": [
+    "SK하이닉스 뉴스룸은 AI Infrastructure Insight 시리즈의 세 번째 글에서 전력과 냉각이 AI 데이터센터의 다음 과제가 된 이유를 다뤘습니다.",
+    "IEA는 2024년 전 세계 데이터센터 전력 소비량이 약 415 TWh로 전 세계 전력 소비의 약 1.5%였고 2030년에는 약 945 TWh로 두 배 넘게 늘 수 있다고 추정하며, 이에 따라 전력과 냉각이 설계 초기 단계부터 고려해야 할 핵심 요건이 되고 전력 효율이 경쟁력의 기준이 되고 있다고 설명합니다."
+  ],
+  "interview": "AI 데이터센터의 확장 한계가 개별 반도체 성능을 넘어 전력과 냉각 같은 운영 역량으로 옮겨 가고 있다는 점은, 메모리와 프로세서 설계에서도 성능과 함께 소비 전력과 데이터 이동을 고려해야 함을 보여 주는 사례로 들 수 있습니다.",
+  "tags": [
+    "전력·냉각",
+    "AI 서버·데이터센터",
+    "전력·용수 인프라",
+    "패키징"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "구글"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI data center",
+    "AI Infrastructure"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T00:59:37+09:00",
+  "model": "claude-sonnet-5-5",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "skhynix-ai-infra-summit-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, 'AI Infra Summit 2026'에서 AI 인프라용 '뉴 스펙트럼' 공개",
+  "originalTitle": "SK hynix Presents ‘New Spectrum’ for AI Infrastructure at ‘AI Infra Summit 2026’",
+  "url": "https://news.skhynix.com/en/ai-infra-summit-2026/",
+  "published": "2026-09-17T15:00:01+09:00",
+  "date": "2026-09-17",
+  "summary": [
+    "SK하이닉스는 9월 15일부터 17일까지(현지 시간) 미국 캘리포니아주 산타클라라에서 열린 'AI Infra Summit 2026'에 참가해 'New Spectrum'을 슬로건으로 차세대 AI 메모리 솔루션을 선보였습니다.",
+    "부스에서는 HBF 구조 모형, AiMX 카드를 장착한 서버와 LLM 시연으로 PIM, eSSD 서버와 SALT-KV 시연을 소개했고, 임의철 부사장(Solution AT 담당)은 PIM, HBF, SALT-KV를 준비하고 있다고 세션 발표에서 밝혔습니다."
+  ],
+  "interview": "HBF, PIM, SALT-KV가 AI 서비스가 학습에서 추론으로 옮겨 가며 GPU-HBM 구조만으로는 대응하기 어려운 요구에 대한 답으로 제시됐다는 점은, 메모리 업체가 HBM 이후의 계층 설계와 소프트웨어까지 함께 준비해야 함을 보여 주는 사례로 들 수 있습니다.",
+  "tags": [
+    "HBF",
+    "CXL·PIM",
+    "AI 서버·데이터센터",
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Infra Summit",
+    "AI Memory",
+    "eSSD",
+    "HBF",
+    "PIM",
+    "SALT-KV"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T00:59:37+09:00",
+  "model": "claude-sonnet-5-5",
+  "bodyVia": "feed"
+}
