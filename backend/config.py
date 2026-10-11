@@ -12,7 +12,23 @@ SEEN_FILE = STATE_DIR / "seen.json"        # every article URL the collector has
 QUEUE_FILE = STATE_DIR / "queue.json"      # collected articles waiting for the summary step
 REPORT_FILE = STATE_DIR / "last-run.json"  # what the latest run did
 
+DATA = ROOT / "data"
+NEWS_DIR = DATA / "news"                   # one summarized article = one JSON file
+MANIFEST = DATA / "manifest.json"          # card list for the site, rebuilt after every change
+TAGS_FILE = DATA / "tags.json"             # standard tag dictionary (55 tags, 9 groups)
+UNITS_FILE = DATA / "units.json"           # theory units with their standard tags
+
 TIMEZONE = "Asia/Seoul"
+
+# Summary step. Runs share the Claude subscription with release-radar, so each run summarizes at
+# most SUMMARY_LIMIT queued articles (newest first) and the backlog is worked off over several runs.
+SUMMARY_MODEL = os.environ.get("ST_MODEL", "claude-sonnet-5-5")
+SUMMARY_LIMIT = int(os.environ.get("ST_SUMMARY_LIMIT", "10"))
+MAX_ATTEMPTS = 3                           # failed runs before an article is given up on
+BODY_CHAR_LIMIT = 15_000                   # article text sent to Claude (two sentences need no more)
+MIN_BODY_CHARS = 200                       # shorter text means the body was not found
+# Stop starting new summaries after this many seconds so the workflow can still commit its work.
+SUMMARY_TIME_BUDGET = int(os.environ.get("ST_TIME_BUDGET", "1500"))
 
 # Keep articles published on or after this date (Korean time). Older pages are not walked.
 START_DATE = date.fromisoformat(os.environ.get("ST_START_DATE", "2026-01-01"))
@@ -61,6 +77,19 @@ SOURCES = (
            "https://news.samsungsemiconductor.com/kr/",
            categories=(("보도자료", "보도자료", "press"), ("기술", "기술", "tech"))),
 )
+
+SOURCE_BY_KEY = {s.key: s for s in SOURCES}
+
+# Feed authors that are the company itself; any other author may be an outside contributor.
+COMPANY_AUTHORS = {"SK hynix", "SK하이닉스", "삼성전자 반도체", "Samsung Semiconductor"}
+_COMPANY_WORDS = ("sk hynix", "skhynix", "하이닉스", "samsung", "삼성", "newsroom", "뉴스룸", "admin")
+
+
+def is_company_author(name: str) -> bool:
+    low = name.strip().lower()
+    return not low or name.strip() in COMPANY_AUTHORS or any(w in low for w in _COMPANY_WORDS)
+
+KIND_LABELS = {"press": "보도자료", "fact": "공식 해명", "tech": "기술 해설"}
 
 # Required pages that cannot be collected automatically (the article list is drawn by JavaScript).
 # The site shows them as "원문 보기" links only.

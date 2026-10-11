@@ -1,0 +1,1032 @@
+{
+ "version": "2026-10-06",
+ "note": "이론 원고 59단원의 목록과 표준 태그. tags는 원고 '관련 뉴스 태그'를 표준 태그로 바꾼 값. 기사 카드의 관련 단원 계산에 쓴다.",
+ "units": [
+  {
+   "code": "0-1",
+   "floor": 0,
+   "title": "반도체란 무엇인가",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "반도체 수출",
+    "메모리 가격"
+   ],
+   "tags": [
+    "반도체 수출",
+    "메모리 가격"
+   ]
+  },
+  {
+   "code": "0-2",
+   "floor": 0,
+   "title": "칩의 일생",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "팹 투자",
+    "패키징",
+    "HBM"
+   ],
+   "tags": [
+    "팹 투자",
+    "패키징",
+    "HBM"
+   ]
+  },
+  {
+   "code": "0-3",
+   "floor": 0,
+   "title": "반도체의 종류",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "메모리 가격",
+    "HBM",
+    "파운드리"
+   ],
+   "tags": [
+    "메모리 가격",
+    "HBM",
+    "파운드리"
+   ]
+  },
+  {
+   "code": "0-4",
+   "floor": 0,
+   "title": "반도체는 어디에 쓰이나",
+   "stars": 1,
+   "freq": "★",
+   "manuscriptTags": [
+    "AI 서버",
+    "HBM",
+    "eSSD",
+    "온디바이스 AI"
+   ],
+   "tags": [
+    "AI 서버·데이터센터",
+    "HBM",
+    "eSSD·SSD",
+    "온디바이스 AI"
+   ]
+  },
+  {
+   "code": "1-1",
+   "floor": 1,
+   "title": "전기 기초",
+   "stars": 1,
+   "freq": "★",
+   "manuscriptTags": [
+    "전력 효율",
+    "데이터센터 전력",
+    "BSPDN"
+   ],
+   "tags": [
+    "전력·냉각",
+    "후면 전력(BSPDN)"
+   ]
+  },
+  {
+   "code": "1-2",
+   "floor": 1,
+   "title": "커패시터와 전하",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "D램 미세화",
+    "1c D램",
+    "High-k",
+    "3D D램"
+   ],
+   "tags": [
+    "D램 미세화",
+    "High-k·HKMG",
+    "3D D램"
+   ]
+  },
+  {
+   "code": "1-3",
+   "floor": 1,
+   "title": "에너지 밴드",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "SiC",
+    "GaN",
+    "화합물 반도체",
+    "전력반도체"
+   ],
+   "tags": [
+    "전력·화합물 반도체"
+   ]
+  },
+  {
+   "code": "1-4",
+   "floor": 1,
+   "title": "왜 실리콘인가",
+   "stars": 1,
+   "freq": "★",
+   "manuscriptTags": [
+    "SiC 8인치",
+    "화합물 반도체",
+    "신소재"
+   ],
+   "tags": [
+    "전력·화합물 반도체"
+   ]
+  },
+  {
+   "code": "1-5",
+   "floor": 1,
+   "title": "도핑과 캐리어",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "이동도",
+    "SiGe 채널",
+    "도핑 공정"
+   ],
+   "tags": [
+    "이온주입·열처리"
+   ]
+  },
+  {
+   "code": "1-6",
+   "floor": 1,
+   "title": "0과 1의 세계",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "CMOS",
+    "저전력",
+    "LPDDR"
+   ],
+   "tags": [
+    "LPDDR"
+   ]
+  },
+  {
+   "code": "2-1",
+   "floor": 2,
+   "title": "PN 접합과 다이오드, 그리고 BJT",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "전력반도체",
+    "ESD",
+    "IGBT"
+   ],
+   "tags": [
+    "전력·화합물 반도체"
+   ]
+  },
+  {
+   "code": "2-2",
+   "floor": 2,
+   "title": "MOSFET 구조와 동작",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "트랜지스터",
+    "HKMG",
+    "게이트 산화막"
+   ],
+   "tags": [
+    "High-k·HKMG"
+   ]
+  },
+  {
+   "code": "2-3",
+   "floor": 2,
+   "title": "MOSFET 특성: 선형·포화, 문턱전압, 누설전류",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "저전력",
+    "누설전류",
+    "GAA"
+   ],
+   "tags": [
+    "GAA"
+   ]
+  },
+  {
+   "code": "2-4",
+   "floor": 2,
+   "title": "CMOS: 인버터 동작과 전력 소모",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "저전력",
+    "모바일 AP",
+    "파운드리 공정"
+   ],
+   "tags": [
+    "파운드리"
+   ]
+  },
+  {
+   "code": "2-5",
+   "floor": 2,
+   "title": "미세화와 한계: 무어의 법칙, 데나드 스케일링, 단채널 효과",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "2나노",
+    "미세공정",
+    "무어의 법칙"
+   ],
+   "tags": [
+    "로직 미세화"
+   ]
+  },
+  {
+   "code": "2-6",
+   "floor": 2,
+   "title": "트랜지스터 구조 진화: 플래너 → FinFET → GAA → CFET",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "GAA",
+    "2나노",
+    "CFET",
+    "파운드리"
+   ],
+   "tags": [
+    "GAA",
+    "로직 미세화",
+    "파운드리"
+   ]
+  },
+  {
+   "code": "2-7",
+   "floor": 2,
+   "title": "메모리 계층과 SRAM·DRAM",
+   "stars": 3,
+   "freq": "★★★(메모리 직무 필수)",
+   "manuscriptTags": [
+    "DDR5",
+    "LPDDR5X",
+    "1c DRAM",
+    "HBM"
+   ],
+   "tags": [
+    "서버 D램(DDR5)",
+    "LPDDR",
+    "D램 미세화",
+    "HBM"
+   ]
+  },
+  {
+   "code": "2-8",
+   "floor": 2,
+   "title": "NAND 플래시: 셀 구조, 쓰기·지우기, SLC~QLC",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "QLC",
+    "eSSD",
+    "3D NAND",
+    "321단"
+   ],
+   "tags": [
+    "3D 낸드",
+    "eSSD·SSD"
+   ]
+  },
+  {
+   "code": "2-9",
+   "floor": 2,
+   "title": "그 밖의 반도체: 차세대 메모리, 이미지센서, 전력반도체",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "SiC 8인치",
+    "GaN",
+    "eMRAM",
+    "이미지센서"
+   ],
+   "tags": [
+    "전력·화합물 반도체",
+    "차세대 메모리",
+    "이미지센서"
+   ]
+  },
+  {
+   "code": "2-10",
+   "floor": 2,
+   "title": "D램 동작 심화: 어레이, 감지 증폭기, 타이밍, 리프레시",
+   "stars": 3,
+   "freq": "★★★(메모리 PE·설계·소자 직무 단골)",
+   "manuscriptTags": [
+    "DDR5",
+    "로우해머",
+    "LPDDR5X",
+    "HBM"
+   ],
+   "tags": [
+    "서버 D램(DDR5)",
+    "신뢰성",
+    "LPDDR",
+    "HBM"
+   ]
+  },
+  {
+   "code": "2-11",
+   "floor": 2,
+   "title": "낸드 동작 심화: ISPP, 교란, 리텐션·내구성, 오류 관리",
+   "stars": 2,
+   "freq": "★★(낸드 제품·PE 직무는 ★★★)",
+   "manuscriptTags": [
+    "QLC",
+    "eSSD",
+    "SSD 컨트롤러",
+    "HBF"
+   ],
+   "tags": [
+    "3D 낸드",
+    "eSSD·SSD",
+    "HBF"
+   ]
+  },
+  {
+   "code": "3-0",
+   "floor": 3,
+   "title": "팹 입문: 클린룸, 전공정·후공정, FEOL·BEOL",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "팹 투자",
+    "클린룸",
+    "후공정",
+    "용인 클러스터"
+   ],
+   "tags": [
+    "팹 투자",
+    "패키징"
+   ]
+  },
+  {
+   "code": "3-1",
+   "floor": 3,
+   "title": "웨이퍼 제조: 잉곳에서 웨이퍼까지",
+   "stars": 1,
+   "freq": "★",
+   "manuscriptTags": [
+    "웨이퍼 가격",
+    "SK실트론",
+    "SiC 웨이퍼"
+   ],
+   "tags": [
+    "웨이퍼",
+    "전력·화합물 반도체"
+   ]
+  },
+  {
+   "code": "3-2",
+   "floor": 3,
+   "title": "세정: 오염원 5가지와 RCA 세정",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "세정 장비",
+    "초순수",
+    "패턴 쓰러짐",
+    "ESG"
+   ],
+   "tags": [
+    "세정",
+    "ESG·탄소중립"
+   ]
+  },
+  {
+   "code": "3-3",
+   "floor": 3,
+   "title": "산화: 건식·습식 산화와 게이트 절연막",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "게이트 산화막",
+    "High-k",
+    "퍼니스 장비"
+   ],
+   "tags": [
+    "High-k·HKMG",
+    "소부장"
+   ]
+  },
+  {
+   "code": "3-4",
+   "floor": 3,
+   "title": "포토: 노광 공정 순서와 해상도",
+   "stars": 3,
+   "freq": "★★★(직무 공통 최다 빈출)",
+   "manuscriptTags": [
+    "EUV",
+    "High-NA",
+    "ASML",
+    "포토레지스트",
+    "펠리클"
+   ],
+   "tags": [
+    "EUV·노광"
+   ]
+  },
+  {
+   "code": "3-5",
+   "floor": 3,
+   "title": "플라즈마 기초: 식각과 증착의 공통 기반",
+   "stars": 3,
+   "freq": "★★★(식각·증착·설비 직무)",
+   "manuscriptTags": [
+    "식각 장비",
+    "플라즈마",
+    "고종횡비 식각"
+   ],
+   "tags": [
+    "식각"
+   ]
+  },
+  {
+   "code": "3-6",
+   "floor": 3,
+   "title": "식각: 습식·건식, RIE, 고종횡비",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "식각 장비",
+    "고종횡비",
+    "극저온 식각",
+    "3D NAND"
+   ],
+   "tags": [
+    "식각",
+    "3D 낸드"
+   ]
+  },
+  {
+   "code": "3-7",
+   "floor": 3,
+   "title": "증착: CVD·ALD·PVD와 에피택시",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "ALD 장비",
+    "High-k",
+    "갭필",
+    "HBM TSV"
+   ],
+   "tags": [
+    "증착",
+    "High-k·HKMG",
+    "HBM 적층(TSV·MR-MUF)"
+   ]
+  },
+  {
+   "code": "3-8",
+   "floor": 3,
+   "title": "이온주입과 열처리: 도핑을 원하는 곳에, 원하는 깊이로",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "이온주입기",
+    "어닐링",
+    "얕은 접합"
+   ],
+   "tags": [
+    "이온주입·열처리"
+   ]
+  },
+  {
+   "code": "3-9",
+   "floor": 3,
+   "title": "금속배선: 다마신, 배리어 메탈, 텅스텐 플러그, 살리사이드, HKMG",
+   "stars": 3,
+   "freq": "★★★",
+   "manuscriptTags": [
+    "HKMG",
+    "구리 배선",
+    "BSPDN",
+    "몰리브덴 배선"
+   ],
+   "tags": [
+    "High-k·HKMG",
+    "배선 소재",
+    "후면 전력(BSPDN)"
+   ]
+  },
+  {
+   "code": "3-10",
+   "floor": 3,
+   "title": "CMP: 화학적·기계적 연마로 평탄화",
+   "stars": 2,
+   "freq": "★★(CMP·양산기술 직무는 ★★★)",
+   "manuscriptTags": [
+    "CMP 장비",
+    "슬러리",
+    "하이브리드 본딩"
+   ],
+   "tags": [
+    "CMP",
+    "하이브리드 본딩"
+   ]
+  },
+  {
+   "code": "3-11",
+   "floor": 3,
+   "title": "EDS와 테스트: 웨이퍼 테스트, 리페어, 패키지 테스트",
+   "stars": 2,
+   "freq": "★★(테스트·품질·패키징 직무는 ★★★)",
+   "manuscriptTags": [
+    "테스트",
+    "번인",
+    "HBM 테스트",
+    "KGD"
+   ],
+   "tags": [
+    "테스트",
+    "HBM"
+   ]
+  },
+  {
+   "code": "3-12",
+   "floor": 3,
+   "title": "패키징 공정: 자르고, 붙이고, 연결하고, 감싸기",
+   "stars": 2,
+   "freq": "★★(패키징·PKG 기술 직무는 ★★★)",
+   "manuscriptTags": [
+    "패키징",
+    "플립칩",
+    "MR-MUF",
+    "컴프레션 몰딩",
+    "팬아웃"
+   ],
+   "tags": [
+    "패키징",
+    "HBM 적층(TSV·MR-MUF)"
+   ]
+  },
+  {
+   "code": "3-13",
+   "floor": 3,
+   "title": "수율·결함·계측·데이터: 공정 엔지니어가 일하는 방식",
+   "stars": 3,
+   "freq": "★★★(공정기술·양산기술 직무의 핵심)",
+   "manuscriptTags": [
+    "수율",
+    "SPC",
+    "계측·검사 장비",
+    "AI 공정 제어"
+   ],
+   "tags": [
+    "수율·품질",
+    "제조 AI"
+   ]
+  },
+  {
+   "code": "3-14",
+   "floor": 3,
+   "title": "CMOS 전체 공정 흐름: 10개 모듈로 칩 하나 완성하기",
+   "stars": 2,
+   "freq": "★★(공정기술·소자 직무는 ★★★, PT 문제의 바탕)",
+   "manuscriptTags": [
+    "CMOS",
+    "FEOL",
+    "BEOL",
+    "공정 미세화"
+   ],
+   "tags": [
+    "로직 미세화"
+   ]
+  },
+  {
+   "code": "3-15",
+   "floor": 3,
+   "title": "D램 공정 흐름: 활성영역에서 커패시터까지",
+   "stars": 3,
+   "freq": "★★★(메모리 회사 공정 직무 단골)",
+   "manuscriptTags": [
+    "1c DRAM",
+    "EUV",
+    "High-k",
+    "4F²",
+    "3D D램"
+   ],
+   "tags": [
+    "D램 미세화",
+    "EUV·노광",
+    "High-k·HKMG",
+    "3D D램"
+   ]
+  },
+  {
+   "code": "3-16",
+   "floor": 3,
+   "title": "3D 낸드 공정 흐름: 쌓고, 뚫고, 바꾸기",
+   "stars": 3,
+   "freq": "★★★(낸드·식각·증착 직무 단골)",
+   "manuscriptTags": [
+    "321단",
+    "375단",
+    "몰리브덴",
+    "웨이퍼 본딩",
+    "극저온 식각"
+   ],
+   "tags": [
+    "3D 낸드",
+    "배선 소재",
+    "하이브리드 본딩",
+    "식각"
+   ]
+  },
+  {
+   "code": "3-17",
+   "floor": 3,
+   "title": "메모리 테스트와 불량 분석: PE가 하는 일",
+   "stars": 2,
+   "freq": "★★(PE·품질보증·양산기술(P&T) 직무는 ★★★)",
+   "manuscriptTags": [
+    "HBM 테스트",
+    "KGD",
+    "수율",
+    "품질"
+   ],
+   "tags": [
+    "테스트",
+    "HBM",
+    "수율·품질"
+   ]
+  },
+  {
+   "code": "4-1",
+   "floor": 4,
+   "title": "로직 미세화 로드맵: nm의 진짜 의미와 후면 전력 공급",
+   "stars": 2,
+   "freq": "★★(파운드리·로직 직무는 ★★★)",
+   "manuscriptTags": [
+    "GAA",
+    "2나노",
+    "후면전력",
+    "High-NA",
+    "파운드리"
+   ],
+   "tags": [
+    "GAA",
+    "로직 미세화",
+    "후면 전력(BSPDN)",
+    "EUV·노광",
+    "파운드리"
+   ]
+  },
+  {
+   "code": "4-2",
+   "floor": 4,
+   "title": "노광 심화: EUV, 멀티 패터닝, High-NA",
+   "stars": 2,
+   "freq": "★★(포토 직무는 ★★★)",
+   "manuscriptTags": [
+    "EUV",
+    "High-NA",
+    "ASML",
+    "멀티패터닝",
+    "포토레지스트"
+   ],
+   "tags": [
+    "EUV·노광"
+   ]
+  },
+  {
+   "code": "4-3",
+   "floor": 4,
+   "title": "D램 심화: 1a·1b·1c 세대, 커패시터, 4F²와 3D D램",
+   "stars": 3,
+   "freq": "★★★(메모리 회사 단골)",
+   "manuscriptTags": [
+    "1c D램",
+    "4F²",
+    "3D D램",
+    "DDR5",
+    "LPDDR"
+   ],
+   "tags": [
+    "D램 미세화",
+    "3D D램",
+    "서버 D램(DDR5)",
+    "LPDDR"
+   ]
+  },
+  {
+   "code": "4-4",
+   "floor": 4,
+   "title": "낸드 심화: 300단 이상 적층과 채널홀 식각",
+   "stars": 2,
+   "freq": "★★(낸드·식각·증착 직무는 ★★★)",
+   "manuscriptTags": [
+    "321단",
+    "4D 낸드",
+    "QLC",
+    "eSSD",
+    "HBF"
+   ],
+   "tags": [
+    "3D 낸드",
+    "eSSD·SSD",
+    "HBF"
+   ]
+  },
+  {
+   "code": "4-5",
+   "floor": 4,
+   "title": "HBM: TSV로 쌓은 D램과 MR-MUF·TC-NCF·하이브리드 본딩",
+   "stars": 3,
+   "freq": "★★★(SK하이닉스 면접 최빈출)",
+   "manuscriptTags": [
+    "HBM4",
+    "HBM3E",
+    "MR-MUF",
+    "하이브리드 본딩",
+    "커스텀 HBM",
+    "TSV"
+   ],
+   "tags": [
+    "HBM",
+    "HBM 적층(TSV·MR-MUF)",
+    "하이브리드 본딩"
+   ]
+  },
+  {
+   "code": "4-6",
+   "floor": 4,
+   "title": "첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛",
+   "stars": 2,
+   "freq": "★★(패키징 직무는 ★★★)",
+   "manuscriptTags": [
+    "CoWoS",
+    "하이브리드 본딩",
+    "칩렛",
+    "UCIe",
+    "유리 기판",
+    "FOPLP"
+   ],
+   "tags": [
+    "패키징",
+    "하이브리드 본딩",
+    "칩렛·UCIe"
+   ]
+  },
+  {
+   "code": "4-7",
+   "floor": 4,
+   "title": "AI 반도체와 메모리: 메모리 벽, HBM·GDDR·LPDDR 비교, CXL, PIM, HBF",
+   "stars": 3,
+   "freq": "★★★(메모리 회사 단골, 산업 이해 질문)",
+   "manuscriptTags": [
+    "메모리 벽",
+    "CXL",
+    "PIM",
+    "AiM",
+    "HBF",
+    "SOCAMM",
+    "LPDDR6",
+    "eSSD",
+    "온디바이스 AI"
+   ],
+   "tags": [
+    "CXL·PIM",
+    "HBF",
+    "SOCAMM",
+    "LPDDR",
+    "eSSD·SSD",
+    "온디바이스 AI"
+   ]
+  },
+  {
+   "code": "4-8",
+   "floor": 4,
+   "title": "소재·부품·장비: 공정별 장비와 소재 지도",
+   "stars": 1,
+   "freq": "★(장비·소재 회사 지원 시 ★★★)",
+   "manuscriptTags": [
+    "소부장",
+    "반도체 장비",
+    "TC 본더",
+    "수출 통제",
+    "몰리브덴",
+    "국산화"
+   ],
+   "tags": [
+    "소부장",
+    "수출 통제·미중",
+    "배선 소재"
+   ]
+  },
+  {
+   "code": "4-9",
+   "floor": 4,
+   "title": "열·전력·신뢰성: 오래, 뜨겁지 않게, 적은 전력으로",
+   "stars": 2,
+   "freq": "★★(품질·신뢰성·소자 직무는 ★★★)",
+   "manuscriptTags": [
+    "신뢰성",
+    "액체 냉각",
+    "전력 효율",
+    "HBM 발열",
+    "데이터센터 전력"
+   ],
+   "tags": [
+    "신뢰성",
+    "전력·냉각",
+    "HBM"
+   ]
+  },
+  {
+   "code": "5-1",
+   "floor": 5,
+   "title": "밸류체인: 설계부터 패키징까지 누가 무엇을 하나",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "팹리스",
+    "파운드리",
+    "OSAT",
+    "디자인하우스",
+    "커스텀 칩"
+   ],
+   "tags": [
+    "밸류체인",
+    "파운드리",
+    "AI 가속기"
+   ]
+  },
+  {
+   "code": "5-2",
+   "floor": 5,
+   "title": "비즈니스 모델: 메모리, 파운드리, 팹리스는 돈을 어떻게 버나",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "실적",
+    "ASP",
+    "가동률",
+    "장기공급계약",
+    "CUDA"
+   ],
+   "tags": [
+    "실적",
+    "메모리 가격",
+    "메모리 사이클",
+    "공급 계약",
+    "AI 가속기"
+   ]
+  },
+  {
+   "code": "5-3",
+   "floor": 5,
+   "title": "메모리 사이클: 수요·공급·재고와 가격",
+   "stars": 3,
+   "freq": "★★★(메모리 회사의 '업황을 어떻게 보나' 질문)",
+   "manuscriptTags": [
+    "D램 가격",
+    "고정거래가",
+    "재고",
+    "감산",
+    "슈퍼사이클",
+    "반도체 수출"
+   ],
+   "tags": [
+    "메모리 가격",
+    "메모리 사이클",
+    "반도체 수출"
+   ]
+  },
+  {
+   "code": "5-4",
+   "floor": 5,
+   "title": "기업 지형도: 분야별 주요 기업과 한국 기업의 위치",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "점유율",
+    "CXMT",
+    "TSMC",
+    "엔비디아",
+    "맞춤형 칩"
+   ],
+   "tags": [
+    "시장 통계·전망",
+    "AI 가속기"
+   ]
+  },
+  {
+   "code": "5-5",
+   "floor": 5,
+   "title": "지정학과 정책: 보조금, 수출 통제, 관세",
+   "stars": 2,
+   "freq": "★★(시사·임원 면접)",
+   "manuscriptTags": [
+    "수출 통제",
+    "반도체 관세",
+    "칩스법",
+    "반도체특별법",
+    "용인 클러스터",
+    "미중 갈등"
+   ],
+   "tags": [
+    "수출 통제·미중",
+    "관세·통상",
+    "반도체 지원법",
+    "팹 투자"
+   ]
+  },
+  {
+   "code": "5-6",
+   "floor": 5,
+   "title": "숫자 읽는 법: 실적·수출·시장 전망",
+   "stars": 2,
+   "freq": "★★",
+   "manuscriptTags": [
+    "실적",
+    "영업이익률",
+    "컨센서스",
+    "반도체 수출",
+    "WSTS"
+   ],
+   "tags": [
+    "실적",
+    "반도체 수출",
+    "시장 통계·전망"
+   ]
+  },
+  {
+   "code": "5-7",
+   "floor": 5,
+   "title": "ESG와 안전: 전력·물·온실가스·화학물질",
+   "stars": 1,
+   "freq": "★(인성 면접·기반기술·환경안전 직무는 ★★★)",
+   "manuscriptTags": [
+    "RE100",
+    "탄소중립",
+    "용수",
+    "전력망",
+    "중대재해",
+    "지속가능경영"
+   ],
+   "tags": [
+    "ESG·탄소중립",
+    "전력·용수 인프라",
+    "산업 안전"
+   ]
+  },
+  {
+   "code": "6-1",
+   "floor": 6,
+   "title": "직무별 지식 지도: 내 직무에는 어떤 단원이 중요한가",
+   "stars": 0,
+   "freq": "— (공부 전략 단원)",
+   "manuscriptTags": [
+    "채용",
+    "직무",
+    "인적성"
+   ],
+   "tags": [
+    "채용"
+   ]
+  },
+  {
+   "code": "6-2",
+   "floor": 6,
+   "title": "단골 질문 은행: 질문 → 단원 연결",
+   "stars": 0,
+   "freq": "— (실전 연습용)",
+   "manuscriptTags": [
+    "면접",
+    "기출"
+   ],
+   "tags": []
+  },
+  {
+   "code": "6-3",
+   "floor": 6,
+   "title": "답변 프레임: 현상 → 원리 → 시사점, 그리고 PT 실전 사례",
+   "stars": 0,
+   "freq": "— (실전 연습용, PT 면접 대비)",
+   "manuscriptTags": [
+    "PT 면접",
+    "공정 불량",
+    "수율"
+   ],
+   "tags": [
+    "수율·품질"
+   ]
+  },
+  {
+   "code": "6-4",
+   "floor": 6,
+   "title": "용어·약어 사전",
+   "stars": 0,
+   "freq": "— (찾아보기용)",
+   "manuscriptTags": [],
+   "tags": []
+  }
+ ]
+}

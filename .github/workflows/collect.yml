@@ -1,19 +1,28 @@
-name: 기사 수집
+name: 기사 수집·요약
 
 on:
   schedule:
-    - cron: "10 22 * * *"   # 매일 한국 시간 07:10 (UTC 22:10). GitHub 사정으로 몇 분 늦게 시작할 수 있음
+    # 하루 4번: 한국 시간 07:10·13:10·19:10·01:10 (UTC 22·04·10·16시 10분).
+    # 릴리스 레이더(한국 시간 00·06·12·18시)와 시간을 엇갈려 구독 사용량이 한꺼번에 몰리지 않게 함.
+    # GitHub 사정으로 몇 분~몇 시간 늦게 시작할 수 있음.
+    - cron: "10 22,4,10,16 * * *"
   workflow_dispatch:
     inputs:
       command:
-        description: "collect(수집+저장) / detect(수집 결과만 보기, 파일 변경 없음) / selftest(출처 점검)"
+        description: "update(수집+요약+반영) / collect(수집만) / detect(수집 결과만 보기, 파일 변경 없음) / selftest(출처 점검)"
         type: choice
-        options: [collect, detect, selftest]
-        default: collect
+        options: [update, collect, detect, selftest]
+        default: update
+      limit:
+        description: "이번에 요약할 최대 기사 수(비우면 10). 밀린 기사를 빨리 줄일 때만 늘리세요"
+        required: false
+        default: ""
   push:
     branches: [main]
     paths:
       - "backend/**"
+      - "data/tags.json"
+      - "data/units.json"
       - "tests/**"
       - ".github/workflows/collect.yml"
 
@@ -38,13 +47,18 @@ jobs:
       - run: pip install -r backend/requirements.txt pytest
       - name: 오프라인 테스트
         run: python -m pytest tests -q
-      - name: 실제 출처 점검 (각 피드 첫 페이지만 읽음)
+      - name: 데이터 점검 (태그 사전, 단원, 기사 파일, manifest)
+        run: python -m backend validate
+      - name: 실제 출처 점검 (각 피드 첫 페이지만 읽음, Claude 호출 없음)
         run: python -m backend selftest
 
-  collect:
+  update:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40   # 요약은 25분이 지나면 새 기사를 시작하지 않음(ST_TIME_BUDGET)
+    env:
+      COMMAND: ${{ github.event.inputs.command || 'update' }}
+      HAS_SUBSCRIPTION_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -55,31 +69,71 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
+      - name: Claude Code CLI 설치 (구독 토큰으로 요약)
+        if: env.COMMAND == 'update' && env.HAS_SUBSCRIPTION_TOKEN == 'true'
+        run: npm install -g @anthropic-ai/claude-code
       - name: 실행
-        run: python -m backend "${{ github.event.inputs.command || 'collect' }}"
-      - name: 바뀐 상태 파일 커밋
-        if: github.event.inputs.command != 'detect' && github.event.inputs.command != 'selftest'
+        env:
+          # 구독 토큰이 있으면 Claude Pro/Max 사용량으로 요약(API 과금 없음). 없을 때만 API 키 사용.
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ST_MODEL: ${{ vars.ST_MODEL }}
+          LIMIT: ${{ github.event.inputs.limit }}
+        run: |
+          [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && unset CLAUDE_CODE_OAUTH_TOKEN
+          [ -z "$ANTHROPIC_API_KEY" ] && unset ANTHROPIC_API_KEY
+          [ -z "$ST_MODEL" ] && unset ST_MODEL
+          [ -n "$LIMIT" ] && export ST_SUMMARY_LIMIT="$LIMIT"
+          python -m backend "$COMMAND"
+      - name: 바뀐 데이터 커밋
+        if: env.COMMAND == 'update' || env.COMMAND == 'collect'
         run: |
           git config user.name "semicon-tracker-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add backend/state
+          git add data backend/state
           if git diff --cached --quiet; then
             echo "바뀐 내용 없음"
             exit 0
           fi
-          added=$(python -c "import json;print(len(json.load(open('backend/state/last-run.json'))['added']))")
-          if [ "$added" -gt 0 ]; then msg="기사 수집: 새 기사 ${added}건"; else msg="기사 수집: 새 기사 없음"; fi
+          msg=$(python - <<'EOF'
+          import json
+          r = json.load(open("backend/state/last-run.json"))
+          parts = [f"새 기사 {len(r.get('added', []))}건"]
+          if "summary" in r:
+              parts.append(f"요약 {len(r['summary'].get('summarized', []))}건")
+              parts.append(f"대기 {r['summary'].get('queueLeft', 0)}건")
+          print("기사 수집·요약: " + ", ".join(parts))
+          EOF
+          )
           git commit -m "$msg"
-          # 그사이 다른 실행이 올린 상태 파일과 겹치면 이번 실행 결과를 우선
+          # 그사이 다른 실행이 올린 파일과 겹치면 이번 실행 결과를 우선
           git pull --rebase -X theirs origin main
           git push origin HEAD:main
-      - name: 수집 실패 확인
-        if: github.event.inputs.command != 'detect' && github.event.inputs.command != 'selftest'
+      - name: 결과 확인
+        if: env.COMMAND == 'update' || env.COMMAND == 'collect'
         run: |
           python - <<'EOF'
           import json, sys
-          errors = json.load(open("backend/state/last-run.json")).get("errors") or {}
-          for key, message in errors.items():
+          r = json.load(open("backend/state/last-run.json"))
+          failed = False
+          for key, message in (r.get("errors") or {}).items():
               print(f"::error title=수집 실패 {key}::{message}")
-          sys.exit(1 if errors else 0)
+              failed = True
+          s = r.get("summary")
+          if s and r.get("startedAt", "") <= s.get("startedAt", ""):
+              if s.get("authError"):
+                  print("::error title=Claude 인증 실패::CLAUDE_CODE_OAUTH_TOKEN이 잘못됐거나 만료됐습니다. "
+                        "claude setup-token으로 새로 만들어 GitHub Secret을 바꿔 주세요. " + s.get("message", ""))
+                  failed = True
+              if s.get("stoppedBy") == "no credentials":
+                  print("::warning title=요약 건너뜀::CLAUDE_CODE_OAUTH_TOKEN(또는 ANTHROPIC_API_KEY) Secret이 없어 요약하지 않았습니다.")
+              if s.get("limitHit"):
+                  print("::warning title=사용량 한도::Claude 사용량 한도에 걸려 이번 요약을 멈췄습니다. 다음 실행에서 이어 합니다. "
+                        + s.get("message", ""))
+              for aid, reason in (s.get("failed") or {}).items():
+                  print(f"::warning title=요약 실패 {aid}::{reason}")
+              for g in s.get("gaveUp") or []:
+                  print(f"::warning title=요약 포기 {g['id']}::3번 실패해 대기열에서 뺐습니다: {g['title']} ({g['reason']})")
+              print(f"요약 {len(s.get('summarized', []))}건, 대기 {s.get('queueLeft', 0)}건, 멈춘 이유: {s.get('stoppedBy')}")
+          sys.exit(1 if failed else 0)
           EOF

@@ -1,0 +1,852 @@
+{
+ "version": "2026-10-06",
+ "note": "표준 태그 사전. 프로젝트 문서 '뉴스트래커_태그사전.md'와 같은 내용. 기사 하나에 1~4개, 이 목록 밖의 태그는 쓰지 않는다.",
+ "groups": [
+  {
+   "name": "메모리",
+   "tags": [
+    {
+     "name": "HBM",
+     "synonyms": [
+      "HBM3E",
+      "HBM4",
+      "HBM4E",
+      "HBM5",
+      "커스텀 HBM",
+      "고대역폭 메모리"
+     ],
+     "keywords": [
+      "HBM",
+      "High Bandwidth Memory",
+      "custom HBM"
+     ]
+    },
+    {
+     "name": "서버 D램(DDR5)",
+     "synonyms": [
+      "DDR5",
+      "RDIMM",
+      "MRDIMM",
+      "서버 D램"
+     ],
+     "keywords": [
+      "DDR5",
+      "RDIMM",
+      "MRDIMM",
+      "server DRAM"
+     ]
+    },
+    {
+     "name": "LPDDR",
+     "synonyms": [
+      "LPDDR5X",
+      "LPDDR6",
+      "저전력 D램",
+      "모바일 D램"
+     ],
+     "keywords": [
+      "LPDDR5X",
+      "LPDDR6",
+      "mobile DRAM"
+     ]
+    },
+    {
+     "name": "SOCAMM",
+     "synonyms": [
+      "SOCAMM2",
+      "LPCAMM"
+     ],
+     "keywords": [
+      "SOCAMM",
+      "SOCAMM2"
+     ]
+    },
+    {
+     "name": "eSSD·SSD",
+     "synonyms": [
+      "eSSD",
+      "기업용 SSD",
+      "SSD 컨트롤러",
+      "포터블 SSD",
+      "솔리다임"
+     ],
+     "keywords": [
+      "eSSD",
+      "enterprise SSD",
+      "SSD controller",
+      "Solidigm"
+     ]
+    },
+    {
+     "name": "HBF",
+     "synonyms": [
+      "고대역폭 플래시"
+     ],
+     "keywords": [
+      "HBF",
+      "High Bandwidth Flash"
+     ]
+    },
+    {
+     "name": "CXL·PIM",
+     "synonyms": [
+      "CXL",
+      "CMM-D",
+      "메모리 풀링",
+      "PIM",
+      "AiM",
+      "AiMX",
+      "메모리 벽"
+     ],
+     "keywords": [
+      "CXL",
+      "PIM",
+      "processing-in-memory",
+      "memory wall"
+     ]
+    },
+    {
+     "name": "차세대 메모리",
+     "synonyms": [
+      "MRAM",
+      "eMRAM",
+      "PCRAM",
+      "ReRAM",
+      "FeRAM"
+     ],
+     "keywords": [
+      "MRAM",
+      "ReRAM",
+      "emerging memory"
+     ]
+    },
+    {
+     "name": "D램 미세화",
+     "synonyms": [
+      "1c D램",
+      "1c DRAM",
+      "1b D램",
+      "10나노급"
+     ],
+     "keywords": [
+      "1c DRAM",
+      "1b DRAM",
+      "DRAM scaling"
+     ]
+    },
+    {
+     "name": "3D D램",
+     "synonyms": [
+      "4F²",
+      "VCT",
+      "VG",
+      "수직 채널 트랜지스터"
+     ],
+     "keywords": [
+      "3D DRAM",
+      "4F2",
+      "vertical channel"
+     ]
+    },
+    {
+     "name": "3D 낸드",
+     "synonyms": [
+      "321단",
+      "375단",
+      "4D 낸드",
+      "3D NAND",
+      "QLC",
+      "TLC"
+     ],
+     "keywords": [
+      "3D NAND",
+      "321-layer",
+      "QLC",
+      "4D NAND"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "로직·소자",
+   "tags": [
+    {
+     "name": "GAA",
+     "synonyms": [
+      "MBCFET",
+      "나노시트",
+      "CFET",
+      "FinFET"
+     ],
+     "keywords": [
+      "GAA",
+      "gate-all-around",
+      "nanosheet",
+      "CFET"
+     ]
+    },
+    {
+     "name": "로직 미세화",
+     "synonyms": [
+      "2나노",
+      "2nm",
+      "1.4나노",
+      "미세공정",
+      "공정 미세화",
+      "A16",
+      "18A"
+     ],
+     "keywords": [
+      "2nm",
+      "A16",
+      "18A",
+      "process node"
+     ]
+    },
+    {
+     "name": "후면 전력(BSPDN)",
+     "synonyms": [
+      "BSPDN",
+      "후면전력",
+      "PowerVia"
+     ],
+     "keywords": [
+      "backside power",
+      "BSPDN",
+      "PowerVia"
+     ]
+    },
+    {
+     "name": "전력·화합물 반도체",
+     "synonyms": [
+      "전력반도체",
+      "SiC",
+      "GaN",
+      "IGBT",
+      "화합물 반도체",
+      "SiC 8인치"
+     ],
+     "keywords": [
+      "SiC",
+      "GaN",
+      "power semiconductor"
+     ]
+    },
+    {
+     "name": "이미지센서",
+     "synonyms": [
+      "CIS"
+     ],
+     "keywords": [
+      "image sensor",
+      "CIS"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "공정·소재·장비",
+   "tags": [
+    {
+     "name": "EUV·노광",
+     "synonyms": [
+      "EUV",
+      "High-NA",
+      "ASML",
+      "노광",
+      "멀티패터닝",
+      "포토마스크",
+      "포토레지스트",
+      "펠리클"
+     ],
+     "keywords": [
+      "EUV",
+      "High-NA",
+      "lithography",
+      "photomask",
+      "photoresist"
+     ]
+    },
+    {
+     "name": "식각",
+     "synonyms": [
+      "식각 장비",
+      "플라즈마",
+      "고종횡비 식각",
+      "극저온 식각",
+      "채널홀"
+     ],
+     "keywords": [
+      "etch",
+      "cryogenic etch",
+      "high aspect ratio"
+     ]
+    },
+    {
+     "name": "증착",
+     "synonyms": [
+      "ALD",
+      "ALD 장비",
+      "CVD",
+      "PVD",
+      "갭필",
+      "에피택시"
+     ],
+     "keywords": [
+      "deposition",
+      "ALD",
+      "CVD",
+      "gap-fill"
+     ]
+    },
+    {
+     "name": "High-k·HKMG",
+     "synonyms": [
+      "High-k",
+      "HKMG",
+      "게이트 산화막",
+      "게이트 절연막"
+     ],
+     "keywords": [
+      "high-k",
+      "HKMG",
+      "metal gate"
+     ]
+    },
+    {
+     "name": "이온주입·열처리",
+     "synonyms": [
+      "이온주입기",
+      "어닐링",
+      "도핑 공정",
+      "얕은 접합"
+     ],
+     "keywords": [
+      "ion implantation",
+      "anneal"
+     ]
+    },
+    {
+     "name": "배선 소재",
+     "synonyms": [
+      "구리 배선",
+      "몰리브덴",
+      "루테늄",
+      "텅스텐"
+     ],
+     "keywords": [
+      "molybdenum",
+      "ruthenium",
+      "interconnect"
+     ]
+    },
+    {
+     "name": "CMP",
+     "synonyms": [
+      "CMP 장비",
+      "슬러리"
+     ],
+     "keywords": [
+      "CMP",
+      "slurry"
+     ]
+    },
+    {
+     "name": "세정",
+     "synonyms": [
+      "세정 장비",
+      "초순수",
+      "패턴 쓰러짐"
+     ],
+     "keywords": [
+      "cleaning",
+      "ultrapure water"
+     ]
+    },
+    {
+     "name": "웨이퍼",
+     "synonyms": [
+      "웨이퍼 가격",
+      "웨이퍼 출하",
+      "SK실트론",
+      "SiC 웨이퍼"
+     ],
+     "keywords": [
+      "silicon wafer",
+      "wafer shipments"
+     ]
+    },
+    {
+     "name": "소부장",
+     "synonyms": [
+      "반도체 장비",
+      "반도체 소재",
+      "국산화",
+      "퍼니스 장비",
+      "TC 본더"
+     ],
+     "keywords": [
+      "semiconductor equipment",
+      "materials",
+      "TC bonder"
+     ]
+    },
+    {
+     "name": "제조 AI",
+     "synonyms": [
+      "AI 공정 제어",
+      "결함 예측",
+      "스마트 팩토리",
+      "반도체 특화 AI"
+     ],
+     "keywords": [
+      "AI manufacturing",
+      "smart fab"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "패키징·테스트",
+   "tags": [
+    {
+     "name": "패키징",
+     "synonyms": [
+      "후공정",
+      "첨단 패키징",
+      "CoWoS",
+      "2.5D",
+      "인터포저",
+      "팬아웃",
+      "FOPLP",
+      "유리 기판",
+      "플립칩",
+      "컴프레션 몰딩"
+     ],
+     "keywords": [
+      "advanced packaging",
+      "CoWoS",
+      "interposer",
+      "fan-out",
+      "glass substrate"
+     ]
+    },
+    {
+     "name": "HBM 적층(TSV·MR-MUF)",
+     "synonyms": [
+      "TSV",
+      "MR-MUF",
+      "TC-NCF",
+      "16단 적층"
+     ],
+     "keywords": [
+      "TSV",
+      "MR-MUF",
+      "TC-NCF",
+      "stacking"
+     ]
+    },
+    {
+     "name": "하이브리드 본딩",
+     "synonyms": [
+      "웨이퍼 본딩",
+      "Cu-Cu 본딩"
+     ],
+     "keywords": [
+      "hybrid bonding",
+      "wafer bonding"
+     ]
+    },
+    {
+     "name": "칩렛·UCIe",
+     "synonyms": [
+      "칩렛",
+      "UCIe"
+     ],
+     "keywords": [
+      "chiplet",
+      "UCIe"
+     ]
+    },
+    {
+     "name": "테스트",
+     "synonyms": [
+      "EDS",
+      "번인",
+      "KGD",
+      "HBM 테스트"
+     ],
+     "keywords": [
+      "test",
+      "burn-in",
+      "KGD"
+     ]
+    },
+    {
+     "name": "수율·품질",
+     "synonyms": [
+      "수율",
+      "품질",
+      "SPC",
+      "계측·검사 장비",
+      "불량 분석"
+     ],
+     "keywords": [
+      "yield",
+      "quality",
+      "metrology",
+      "inspection"
+     ]
+    },
+    {
+     "name": "신뢰성",
+     "synonyms": [
+      "로우해머",
+      "리텐션",
+      "내구성"
+     ],
+     "keywords": [
+      "reliability",
+      "RowHammer"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "AI·데이터센터",
+   "tags": [
+    {
+     "name": "AI 서버·데이터센터",
+     "synonyms": [
+      "AI 서버",
+      "AI 데이터센터",
+      "AIDC",
+      "하이퍼스케일러",
+      "추론",
+      "에이전틱 AI"
+     ],
+     "keywords": [
+      "AI server",
+      "AI data center",
+      "hyperscaler",
+      "inference",
+      "agentic AI"
+     ]
+    },
+    {
+     "name": "AI 가속기",
+     "synonyms": [
+      "GPU",
+      "ASIC",
+      "TPU",
+      "NPU",
+      "커스텀 칩",
+      "맞춤형 칩",
+      "CUDA"
+     ],
+     "keywords": [
+      "GPU",
+      "ASIC",
+      "TPU",
+      "accelerator",
+      "custom silicon"
+     ]
+    },
+    {
+     "name": "온디바이스 AI",
+     "synonyms": [
+      "AI PC",
+      "AI 스마트폰"
+     ],
+     "keywords": [
+      "on-device AI",
+      "AI PC"
+     ]
+    },
+    {
+     "name": "전력·냉각",
+     "synonyms": [
+      "전력 효율",
+      "데이터센터 전력",
+      "액체 냉각",
+      "발열"
+     ],
+     "keywords": [
+      "power efficiency",
+      "liquid cooling",
+      "thermal"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "시장·산업",
+   "tags": [
+    {
+     "name": "반도체 수출",
+     "synonyms": [
+      "수출입동향"
+     ],
+     "keywords": [
+      "exports"
+     ]
+    },
+    {
+     "name": "메모리 가격",
+     "synonyms": [
+      "D램 가격",
+      "낸드 가격",
+      "고정거래가",
+      "계약가",
+      "현물가",
+      "ASP"
+     ],
+     "keywords": [
+      "DRAM price",
+      "contract price",
+      "ASP"
+     ]
+    },
+    {
+     "name": "메모리 사이클",
+     "synonyms": [
+      "슈퍼사이클",
+      "재고",
+      "감산",
+      "가동률",
+      "공급 부족"
+     ],
+     "keywords": [
+      "supercycle",
+      "inventory",
+      "shortage",
+      "utilization"
+     ]
+    },
+    {
+     "name": "실적",
+     "synonyms": [
+      "영업이익",
+      "영업이익률",
+      "컨센서스",
+      "가이던스"
+     ],
+     "keywords": [
+      "earnings",
+      "operating profit",
+      "guidance"
+     ]
+    },
+    {
+     "name": "시장 통계·전망",
+     "synonyms": [
+      "WSTS",
+      "SIA",
+      "점유율",
+      "시장 전망"
+     ],
+     "keywords": [
+      "WSTS",
+      "market share",
+      "forecast"
+     ]
+    },
+    {
+     "name": "공급 계약",
+     "synonyms": [
+      "장기공급계약",
+      "LTA",
+      "수주"
+     ],
+     "keywords": [
+      "long-term agreement",
+      "supply deal"
+     ]
+    },
+    {
+     "name": "팹 투자",
+     "synonyms": [
+      "설비 투자",
+      "신규 팹",
+      "클린룸",
+      "용인 클러스터",
+      "청주 M17"
+     ],
+     "keywords": [
+      "fab",
+      "capex",
+      "investment",
+      "cleanroom"
+     ]
+    },
+    {
+     "name": "파운드리",
+     "synonyms": [
+      "파운드리 공정",
+      "위탁생산",
+      "모바일 AP"
+     ],
+     "keywords": [
+      "foundry"
+     ]
+    },
+    {
+     "name": "밸류체인",
+     "synonyms": [
+      "팹리스",
+      "OSAT",
+      "디자인하우스",
+      "IDM"
+     ],
+     "keywords": [
+      "fabless",
+      "OSAT",
+      "value chain"
+     ]
+    },
+    {
+     "name": "주주환원·자본",
+     "synonyms": [
+      "자사주",
+      "배당",
+      "상장",
+      "ADR"
+     ],
+     "keywords": [
+      "share buyback",
+      "dividend",
+      "ADR",
+      "listing"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "정책·지정학",
+   "tags": [
+    {
+     "name": "수출 통제·미중",
+     "synonyms": [
+      "수출 통제",
+      "미중 갈등",
+      "엔티티 리스트"
+     ],
+     "keywords": [
+      "export controls",
+      "US-China"
+     ]
+    },
+    {
+     "name": "관세·통상",
+     "synonyms": [
+      "반도체 관세",
+      "232조"
+     ],
+     "keywords": [
+      "tariff",
+      "Section 232"
+     ]
+    },
+    {
+     "name": "반도체 지원법",
+     "synonyms": [
+      "칩스법",
+      "반도체특별법",
+      "보조금",
+      "세액공제"
+     ],
+     "keywords": [
+      "CHIPS Act",
+      "subsidy",
+      "tax credit"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "ESG·인프라",
+   "tags": [
+    {
+     "name": "전력·용수 인프라",
+     "synonyms": [
+      "전력망",
+      "용수",
+      "공업용수"
+     ],
+     "keywords": [
+      "power grid",
+      "water supply"
+     ]
+    },
+    {
+     "name": "ESG·탄소중립",
+     "synonyms": [
+      "ESG",
+      "RE100",
+      "탄소중립",
+      "지속가능경영",
+      "자원순환"
+     ],
+     "keywords": [
+      "ESG",
+      "RE100",
+      "carbon neutral",
+      "sustainability"
+     ]
+    },
+    {
+     "name": "산업 안전",
+     "synonyms": [
+      "중대재해",
+      "안전경영"
+     ],
+     "keywords": [
+      "safety"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "취업",
+   "tags": [
+    {
+     "name": "채용",
+     "synonyms": [
+      "공채",
+      "직무",
+      "인적성",
+      "GSAT",
+      "SKCT"
+     ],
+     "keywords": [
+      "recruitment",
+      "hiring"
+     ]
+    }
+   ]
+  }
+ ],
+ "notTags": {
+  "theoryOnly": [
+   "BEOL",
+   "CMOS",
+   "ESD",
+   "FEOL",
+   "PT 면접",
+   "SiGe 채널",
+   "기출",
+   "누설전류",
+   "면접",
+   "무어의 법칙",
+   "신소재",
+   "이동도",
+   "저전력",
+   "트랜지스터"
+  ],
+  "companies": [
+   "CXMT",
+   "TSMC",
+   "엔비디아"
+  ]
+ }
+}

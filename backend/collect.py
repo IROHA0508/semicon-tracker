@@ -109,8 +109,10 @@ def collect_source(source: config.Source, fetch: Fetch, seen: dict, queue_by_key
 
 
 def run(*, dry_run: bool = False, fetch: Fetch = feeds.fetch_page, sources=config.SOURCES,
-        sleep: Callable[[float], None] | None = time.sleep, now: datetime | None = None) -> dict:
-    """Collect every source once. With dry_run, nothing is written."""
+        sleep: Callable[[float], None] | None = time.sleep, now: datetime | None = None,
+        save_report: bool = True) -> dict:
+    """Collect every source once. With dry_run, nothing is written. With save_report=False the caller
+    stores the report (the update command adds the summary step's report first)."""
     now = now or now_kst()
     seen = store.load_seen()
     queue = store.load_queue()
@@ -140,12 +142,15 @@ def run(*, dry_run: bool = False, fetch: Fetch = feeds.fetch_page, sources=confi
             queue["updatedAt"] = now.isoformat(timespec="seconds")
         store.save_seen(seen)
         store.save_queue(queue)
-        store.save_report(report)
+        if save_report:
+            store.save_report(report)
     return report
 
 
-def selftest(fetch: Fetch = feeds.fetch_page, sources=config.SOURCES) -> bool:
-    """Read page 1 of every source and check it still parses into dated articles. Writes nothing."""
+def selftest(fetch: Fetch = feeds.fetch_page, sources=config.SOURCES, notice: bool = False) -> bool:
+    """Read page 1 of every source and check it still parses into dated articles that carry their
+    text (the summary step reads it from the feed). Writes nothing. With notice, each result is also
+    printed as a GitHub Actions notice so it shows on the run's summary page."""
     ok = True
     for source in sources:
         try:
@@ -158,8 +163,15 @@ def selftest(fetch: Fetch = feeds.fetch_page, sources=config.SOURCES) -> bool:
             print(f"FAIL {source.key}: page 1 has no articles")
             ok = False
             continue
-        kept = sum(1 for i in items if feeds.classify(source, i.categories) is not None)
+        kept = [i for i in items if feeds.classify(source, i.categories) is not None]
         newest = max(i.published for i in items)
-        print(f"OK   {source.key}: {len(items)} articles on page 1, {kept} kept by category rules, "
-              f"newest {newest.date().isoformat()}")
+        lengths = [len(feeds.html_to_text(i.body)) for i in kept]
+        with_text = sum(1 for n in lengths if n >= config.MIN_BODY_CHARS)
+        authors = sorted({i.author or "(없음)" for i in kept})
+        line = (f"{source.key}: {len(items)} articles on page 1, {len(kept)} kept by category rules, "
+                f"newest {newest.date().isoformat()}, text in feed {with_text}/{len(kept)} "
+                f"(median {sorted(lengths)[len(lengths) // 2] if lengths else 0} chars), authors {', '.join(authors)}")
+        print(("OK   " if with_text else "WARN ") + line)
+        if notice:
+            print(f"::notice title=출처 점검 {source.key}::{line}")
     return ok

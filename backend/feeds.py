@@ -1,7 +1,7 @@
 """Read WordPress RSS feed pages and turn their items into article metadata.
 
-Only the title, link, publish time and feed categories are kept. Article bodies in the feed
-(description, content:encoded) are never stored.
+Only the title, link, publish time and feed categories are stored. The article body in the feed
+(content:encoded) is kept in memory for the summary step of the same run and never written out.
 """
 from __future__ import annotations
 
@@ -35,6 +35,9 @@ class Item:
     url: str              # canonical link without query string or fragment
     published: datetime   # timezone-aware, Korean time
     categories: list[str] = field(default_factory=list)
+    author: str = ""
+    # Article HTML from the feed. In memory only: the summary step reads it, nothing stores it.
+    body: str = field(default="", repr=False)
 
     @property
     def key(self) -> str:
@@ -92,8 +95,53 @@ def parse_feed(xml: bytes | str, source: config.Source) -> list[Item]:
             continue
         published = datetime(*stamp[:6], tzinfo=timezone.utc).astimezone(KST)
         categories = [t.get("term", "").strip() for t in entry.get("tags", []) if t.get("term")]
-        items.append(Item(source.key, source.company, source.lang, title, clean_url(link), published, categories))
+        content = entry.get("content") or []
+        body = (content[0].get("value") if content else "") or entry.get("summary") or ""
+        items.append(Item(source.key, source.company, source.lang, title, clean_url(link), published, categories,
+                          (entry.get("author") or "").strip(), body))
     return items
+
+
+# Feed footers and slider controls that are not part of the article.
+_NOISE_LINE = re.compile(r"^(The post .* first appeared on .*|previous arrow|next arrow|Choose slide to display\.?)$")
+_BLOCKS = ("p", "li", "h1", "h2", "h3", "h4", "h5", "td", "th", "figcaption", "blockquote", "br", "div", "tr")
+
+
+def html_to_text(html: str, limit: int | None = None) -> str:
+    """Readable plain text from article HTML: one block per line, no scripts, styles or image data."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html or "", "lxml")
+    for tag in soup(["script", "style", "noscript", "iframe", "svg", "img", "form", "button"]):
+        tag.decompose()
+    for tag in soup.find_all(_BLOCKS):
+        tag.insert_before("\n")
+    lines = []
+    for raw in soup.get_text().splitlines():
+        line = re.sub(r"\s+", " ", raw).strip()
+        if line and not _NOISE_LINE.match(line) and (not lines or lines[-1] != line):
+            lines.append(line)
+    text = "\n".join(lines)
+    return text[:limit] if limit else text
+
+
+def page_text(html: str) -> str:
+    """Main text of an article web page (fallback when the feed no longer carries the article)."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html or "", "lxml")
+    for tag in soup(["nav", "header", "footer", "aside"]):
+        tag.decompose()
+    node = (soup.select_one(".entry-content") or soup.select_one(".post-content") or soup.find("article")
+            or soup.find("main") or soup.body or soup)
+    return html_to_text(str(node))
+
+
+def fetch_article_page(url: str) -> str:
+    resp = requests.get(url, headers={"User-Agent": config.USER_AGENT, "Accept": "text/html,*/*;q=0.8"},
+                        timeout=config.HTTP_TIMEOUT)
+    resp.raise_for_status()
+    return page_text(resp.text)
 
 
 def fetch_page(source: config.Source, page: int) -> list[Item] | None:
