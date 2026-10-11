@@ -30,6 +30,7 @@
   "alsoIn": [],
   "summarizedAt": "2026-10-12T07:14:02+09:00",
   "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
   "bodyVia": "feed"
 }
 ```
@@ -44,7 +45,7 @@
 | `tags` | 표준 태그(`data/tags.json`의 이름) 0~4개, 글의 중심 주제부터. 맞는 태그가 없으면 빈 배열(미분류) |
 | `companies` | 글에 나온 기업(한국어 통용 표기), 최대 6개 |
 | `author` | 피드의 필자가 회사 계정이 아닐 때만 있음(외부 기고 배지 판단용) |
-| `summarizedAt`, `model` | 요약한 시각과 모델 |
+| `summarizedAt`, `model`, `rules` | 요약한 시각, 모델, 편집 원칙 버전(`summarize.RULES_VERSION`). 원칙을 고친 뒤 `requeue --outdated`로 옛 카드를 다시 요약 |
 | `bodyVia` | 본문을 읽은 곳: `feed`(RSS 본문) 또는 `page`(기사 페이지) |
 | `checks` | 점검 기록(있을 때만). `retriedFor`: 다시 쓰게 한 수치, `removed`: 수치가 원문과 안 맞아 지운 문장, `unknownTags`: 표준 태그가 아니라 버린 태그 |
 
@@ -66,7 +67,7 @@
 }
 ```
 
-카드 필드 중 `checks`, `model`, `summarizedAt`, `bodyVia`, `categories`는 manifest에 넣지 않습니다. 내용이 바뀌지 않으면 파일을 다시 쓰지 않습니다(`generatedAt`만 바뀌는 커밋을 막기 위해).
+카드 필드 중 `checks`, `model`, `rules`, `summarizedAt`, `bodyVia`, `categories`는 manifest에 넣지 않습니다. 내용이 바뀌지 않으면 파일을 다시 쓰지 않습니다(`generatedAt`만 바뀌는 커밋을 막기 위해).
 
 ## `data/tags.json`, `data/units.json`
 

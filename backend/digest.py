@@ -13,6 +13,7 @@ An authentication error or a usage limit stops the run; nothing is counted again
 """
 from __future__ import annotations
 
+import json
 import logging
 import re
 import time
@@ -128,7 +129,8 @@ def article_record(item: dict, card: dict, checks: dict, body: bodies.Body, now:
         record["author"] = body.author
     record.update({
         "categories": item.get("categories", []), "alsoIn": item.get("alsoIn", []),
-        "summarizedAt": now.isoformat(timespec="seconds"), "model": config.SUMMARY_MODEL, "bodyVia": body.via,
+        "summarizedAt": now.isoformat(timespec="seconds"), "model": config.SUMMARY_MODEL,
+        "rules": summarize.RULES_VERSION, "bodyVia": body.via,
     })
     if checks:
         record["checks"] = checks
@@ -226,3 +228,38 @@ def run(*, llm=None, finder: bodies.BodyFinder | None = None, limit: int | None 
         store.save_queue(queue)
     report["finishedAt"] = collect.now_kst().isoformat(timespec="seconds")
     return report
+
+
+def requeue(ids: list[str] | None = None, *, outdated: bool = False, now: datetime | None = None) -> list[str]:
+    """Put summarized articles back in the queue so the next run writes their cards again (after the
+    rules changed). ids=None with outdated=False means every card. Their card files are deleted."""
+    now = now or collect.now_kst()
+    seen = store.load_seen()
+    queue = store.load_queue()
+    queued = {i["id"] for i in queue["items"]}
+    moved = []
+    for path in sorted(config.NEWS_DIR.glob("*.json")) if config.NEWS_DIR.exists() else []:
+        a = json.loads(path.read_text(encoding="utf-8"))
+        if ids is not None and a["id"] not in ids:
+            continue
+        if outdated and a.get("rules") == summarize.RULES_VERSION:
+            continue
+        if a["id"] not in queued:
+            queue["items"].append({
+                "id": a["id"], "company": a["company"], "source": a["source"], "channel": a["channel"],
+                "kind": a["kind"], "lang": a["lang"], "title": a.get("originalTitle") or a["title"],
+                "url": a["url"], "published": a["published"], "date": a["date"],
+                "categories": a.get("categories", []), "alsoIn": a.get("alsoIn", []),
+                "collectedAt": now.isoformat(timespec="seconds"),
+            })
+        rec = seen["urls"].get(feeds.normalize_url(a["url"]))
+        if rec is not None:
+            rec["status"] = "queued"
+            rec.pop("reason", None)
+        path.unlink()
+        moved.append(a["id"])
+    if moved:
+        queue["updatedAt"] = now.isoformat(timespec="seconds")
+        store.save_seen(seen)
+        store.save_queue(queue)
+    return moved

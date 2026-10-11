@@ -4,6 +4,7 @@
   collect    Walk the feeds and queue new articles in backend/state/queue.json
   summarize  Summarize queued articles (newest first, --limit at most) and rebuild the manifest
   publish    Rebuild data/manifest.json from data/news/*.json
+  requeue    Put summarized articles back in the queue to redo them (--ids a,b | --outdated | --all)
   validate   Check data/ (tags, units, article files, manifest); exit 1 on any problem
   detect     Walk the feeds and print what would be queued, without changing any file
   selftest   Read page 1 of every source and check it still parses and carries article text
@@ -28,10 +29,13 @@ def _summarize(limit: int | None) -> dict:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m backend", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["update", "collect", "summarize", "publish", "validate",
+    parser.add_argument("command", choices=["update", "collect", "summarize", "publish", "requeue", "validate",
                                             "detect", "selftest"])
     parser.add_argument("--limit", type=int, default=None,
                         help=f"articles to summarize in this run (default {config.SUMMARY_LIMIT})")
+    parser.add_argument("--ids", default=None, help="requeue: comma-separated article ids")
+    parser.add_argument("--outdated", action="store_true", help="requeue: cards written with older rules")
+    parser.add_argument("--all", action="store_true", help="requeue: every card")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
@@ -47,6 +51,15 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if problems else 0
     if args.command == "publish":
         print(json.dumps(publish.build(), ensure_ascii=False))
+        return 0
+    if args.command == "requeue":
+        from . import digest
+
+        if not (args.ids or args.outdated or args.all):
+            parser.error("requeue needs --ids, --outdated or --all")
+        ids = [i.strip() for i in args.ids.split(",") if i.strip()] if args.ids else None
+        moved = digest.requeue(ids, outdated=args.outdated)
+        print(json.dumps({"requeued": moved, "manifest": publish.build()}, ensure_ascii=False, indent=2))
         return 0
     if args.command == "detect":
         print(json.dumps(collect.run(dry_run=True), ensure_ascii=False, indent=2))

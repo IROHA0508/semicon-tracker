@@ -366,6 +366,22 @@ def test_sentences_splits_one_element_holding_two():
     assert digest.sentences(["첫 문장입니다. 둘째 문장입니다.", "셋째입니다."]) == ["첫 문장입니다.", "둘째 문장입니다."]
 
 
+def test_requeue_puts_cards_back_with_their_original_title(data):
+    setup_queue(queued("a", "2026-10-09T10:00:00+09:00"), queued("b", "2026-10-01T10:00:00+09:00"))
+    run(FakeLLM(card(), card()))
+    path = config.NEWS_DIR / "skhynix-b.json"
+    b = json.loads(path.read_text(encoding="utf-8"))
+    b["rules"] = "old"
+    path.write_text(json.dumps(b, ensure_ascii=False), encoding="utf-8")
+    assert digest.requeue(outdated=True, now=NOW) == ["skhynix-b"]
+    item = store.load_queue()["items"][0]
+    assert item["title"] == "SK hynix Invests $15 Billion" and item["id"] == "skhynix-b"
+    assert store.load_seen()["urls"]["https://news.skhynix.com/en/b"]["status"] == "queued"
+    assert not path.exists() and (config.NEWS_DIR / "skhynix-a.json").exists()
+    run(FakeLLM(card()))
+    assert news(data, "skhynix-b")["rules"] == summarize.RULES_VERSION
+
+
 # ---------------------------------------------------------------- manifest
 
 

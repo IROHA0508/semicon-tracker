@@ -225,7 +225,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "게임스컴서 첫선 보인 삼성 포터블 SSD P9·P7, 글로벌 시장 본격 출시"
     },
     "https://news.samsungsemiconductor.com/kr/글로벌-메모리-표준의-중심에서-ㅣ-fms-2026-평생-공로상-수": {
@@ -455,7 +455,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "삼성전자, 2026년 3분기 잠정실적 발표"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-신년사": {
@@ -655,7 +655,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "삼성전자, ‘에이전틱 시프트’ 주제로 삼성 AI 포럼 2026 개최"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-제57기-정기-주주총회-개최": {
@@ -845,7 +845,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "[칩스케치] 다가올 에이전틱 AI 시대, 변화와 그 영향은? 올해로 개최 10년째 맞은 ‘삼성 AI 포럼’"
     },
     "https://news.samsungsemiconductor.com/kr/칩스케치-대학과-산업이-함께-그리는-반도체의-미래": {
@@ -995,7 +995,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "[AI Ecosystem] Redesigning infrastructure: Why architecture determines performance"
     },
     "https://news.skhynix.com/en/ai-infra-summit-2026": {
@@ -1005,7 +1005,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "SK hynix Presents ‘New Spectrum’ for AI Infrastructure at ‘AI Infra Summit 2026’"
     },
     "https://news.skhynix.com/en/ai-infrastructure-insigh-ep1": {
@@ -1035,7 +1035,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "[AI infrastructure insight] Why power and cooling have become the next challenge for AI data centers"
     },
     "https://news.skhynix.com/en/ai-partnership-foxconn-2026": {
@@ -1205,7 +1205,7 @@
       "sources": [
         "sk-fact"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "Clarification Regarding Recent Media Reports on Solidigm"
     },
     "https://news.skhynix.com/en/fms-2026": {
@@ -1585,7 +1585,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "SK hynix Launches ‘SK hynix Ventures’ in Silicon Valley to Expand Global AI Ecosystem Investment"
     },
     "https://news.skhynix.com/en/skhynix-at-gtc2026": {
@@ -1655,7 +1655,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "summarized",
+      "status": "queued",
       "title": "“Behind AI’s Rapid Growth Lies Memory” — SK hynix Shares Its Next-Generation Memory Portfolio at the TSMC OIP Conference"
     },
     "https://news.skhynix.com/en/tsmc-technology-symposium-2026": {

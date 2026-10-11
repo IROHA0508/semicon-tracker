@@ -104,6 +104,7 @@ python -m backend collect          # 수집하고 backend/state 갱신
 python -m backend summarize --limit 3   # 대기열에서 3건 요약(CLAUDE_CODE_OAUTH_TOKEN 필요)
 python -m backend update           # 수집 + 요약 + manifest(워크플로가 하는 일)
 python -m backend publish          # data/news로 manifest 다시 만들기
+python -m backend requeue --outdated    # 편집 원칙(RULES_VERSION)이 바뀐 뒤 옛 카드를 대기열로 되돌려 다시 요약
 python -m backend validate         # 데이터 점검
 ```
 
