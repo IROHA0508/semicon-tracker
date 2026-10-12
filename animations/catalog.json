@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "note": "단계별 웹 애니메이션 목록. 사이트의 단원 페이지가 unit 코드로 찾아 연결한다. planned는 아직 만들지 않은 후보.",
+  "animations": [
+    {
+      "id": "dram-cell",
+      "unit": "2-10",
+      "title": "D램 셀 읽기·쓰기·리프레시",
+      "file": "dram-cell.html",
+      "modes": [
+        {"id": "read", "label": "읽기", "steps": 6},
+        {"id": "write", "label": "쓰기", "steps": 6},
+        {"id": "refresh", "label": "리프레시", "steps": 6}
+      ],
+      "summary": "셀 하나, 비트라인 한 쌍, 감지 증폭기에서 명령 순서대로 전압이 바뀌는 모습과 비트라인 전압 그래프. 저장된 값 1·0을 바꿔 볼 수 있다."
+    },
+    {
+      "id": "dram-process",
+      "unit": "3-15",
+      "title": "D램 공정 흐름",
+      "file": "dram-process.html",
+      "modes": [
+        {"id": "main", "label": "공정", "steps": 15}
+      ],
+      "summary": "맨 웨이퍼에서 STI, 매립 워드라인, 비트라인, 스토리지 노드 콘택, 실린더 커패시터, 배선까지 쌓이는 단면. 위에서 본 배치와 주변 회로를 함께 보여 준다."
+    },
+    {
+      "id": "nand-process",
+      "unit": "3-16",
+      "title": "3D 낸드 공정 흐름",
+      "file": "nand-process.html",
+      "modes": [
+        {"id": "main", "label": "공정", "steps": 15}
+      ],
+      "summary": "주변 회로(PUC), 산화막·질화막 적층, 채널홀과 이음부, 계단, 슬릿, 워드라인 교체, 콘택, 웨이퍼 본딩까지의 단면."
+    }
+  ],
+  "planned": [
+    {"unit": "4-3", "title": "D램 셀 구조 진화(커패시터·4F²·3D D램)"},
+    {"unit": "2-11", "title": "낸드 ISPP와 문턱전압 분포"},
+    {"unit": "4-5", "title": "HBM 적층 방식(TSV·MR-MUF·하이브리드 본딩)"},
+    {"unit": "2-4", "title": "CMOS 인버터 동작"},
+    {"unit": "5-3", "title": "메모리 사이클(수요·공급·재고·가격)"},
+    {"unit": "4-1", "title": "후면 전력 공급"}
+  ]
+}

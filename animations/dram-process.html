@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D램 공정 흐름</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .si { fill: var(--m-si); }
+  .sin { fill: var(--m-si-n); }
+  .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: .8; }
+  .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: .8; }
+  .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: .8; }
+  .w { fill: var(--m-w); }
+  .tin { fill: var(--m-tin); }
+  .hk { fill: var(--m-hk); }
+  .plate { fill: var(--m-plate); }
+  .cu { fill: var(--m-cu); }
+  .air { fill: var(--m-air); }
+  .up { transform-origin: 50% 100%; }
+  .down { transform-origin: 50% 0%; }
+  svg rect[data-s="void"] { fill: var(--surface); stroke: var(--line-strong); stroke-width: .8; stroke-dasharray: 3 2; }
+  .chan { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 6 4; }
+  .imp line { stroke: var(--low); stroke-width: 2; }
+  .on-dark { fill: var(--surface) !important; }
+  .frame { fill: var(--surface); stroke: var(--line); }
+  .cut { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; }
+  .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); }
+  .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .mk circle { fill: var(--accent); }
+  .mk text { fill: var(--surface); font: 700 12px var(--font-sans); }
+  .lbl-a { fill: var(--accent) !important; font-weight: 600; }
+  .sw rect { stroke: var(--line-strong); stroke-width: .6; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-15</span><span>메모리 공정 심화</span><a href="./">애니메이션 목록</a></div>
+    <h1>D램 공정 흐름</h1>
+    <p class="lead">맨 실리콘 웨이퍼에서 셀 트랜지스터, 비트라인, 커패시터가 차례로 쌓이는 과정을 단면으로 따라갑니다. 단면은 셀 두 개가 비트라인 콘택 하나를 나눠 쓰는 활성 영역을 길이 방향(A–A′)으로 자른 모습입니다.</p>
+  </header>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 900 520" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">D램 셀 단면, 위에서 본 배치, 주변 회로가 공정 단계에 따라 쌓이는 그림</title>
+        <defs>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <clipPath id="ins-clip"><rect x="721" y="44" width="168" height="170"></rect></clipPath>
+        </defs>
+
+        <!-- ===== Cell cross-section (A–A′) ===== -->
+        <rect class="si" x="40" y="330" width="660" height="170"></rect>
+        <rect id="hm" class="nit t" x="130" y="318" width="500" height="12"></rect>
+        <rect id="sti-l" class="ox t down" x="40" y="330" width="90" height="100"></rect>
+        <rect id="sti-r" class="ox t down" x="630" y="330" width="70" height="100"></rect>
+        <rect id="j-l" class="sin t" x="130" y="330" width="120" height="20"></rect>
+        <rect id="j-m" class="sin t" x="290" y="330" width="180" height="20"></rect>
+        <rect id="j-r" class="sin t" x="510" y="330" width="120" height="20"></rect>
+        <rect id="wt-l" class="ox t down" x="250" y="330" width="40" height="80"></rect>
+        <rect id="wt-r" class="ox t down" x="470" y="330" width="40" height="80"></rect>
+        <rect id="wm-l" class="w t" x="255" y="372" width="30" height="33"></rect>
+        <rect id="wm-r" class="w t" x="475" y="372" width="30" height="33"></rect>
+        <rect id="wc-l" class="nit t" x="255" y="331" width="30" height="41"></rect>
+        <rect id="wc-r" class="nit t" x="475" y="331" width="30" height="41"></rect>
+        <path id="ch-l" class="chan t" d="M244,338 V416 H296 V338"></path>
+        <path id="ch-r" class="chan t" d="M464,338 V416 H516 V338"></path>
+
+        <rect id="ild1" class="ox t up" x="40" y="300" width="660" height="30"></rect>
+        <rect id="ild2" class="ox t up" x="40" y="230" width="660" height="70"></rect>
+        <rect id="blc" class="poly t" x="362" y="300" width="36" height="30"></rect>
+        <rect id="blm" class="w t" x="345" y="262" width="70" height="38"></rect>
+        <rect id="blcap" class="nit t" x="345" y="240" width="70" height="22"></rect>
+        <g id="sp-l" class="t"><rect class="nit" x="333" y="240" width="12" height="60"></rect><rect class="air" x="336" y="246" width="6" height="50"></rect></g>
+        <g id="sp-r" class="t"><rect class="nit" x="415" y="240" width="12" height="60"></rect><rect class="air" x="418" y="246" width="6" height="50"></rect></g>
+        <rect id="snc-l" class="poly t" x="165" y="230" width="30" height="100"></rect>
+        <rect id="snc-r" class="poly t" x="565" y="230" width="30" height="100"></rect>
+        <rect id="lp-l" class="w t" x="150" y="214" width="60" height="16"></rect>
+        <rect id="lp-r" class="w t" x="550" y="214" width="60" height="16"></rect>
+
+        <rect id="mold" class="ox t up" x="40" y="70" width="660" height="144"></rect>
+        <rect id="plate-o" class="plate t up" x="40" y="40" width="660" height="174"></rect>
+        <rect id="sup-m" class="nit t" x="40" y="136" width="660" height="10"></rect>
+        <rect id="sup-t" class="nit t" x="40" y="60" width="660" height="10"></rect>
+        <rect id="hole-l" class="ox t down" x="158" y="60" width="44" height="154"></rect>
+        <rect id="hole-r" class="ox t down" x="558" y="60" width="44" height="154"></rect>
+        <rect id="hko-l" class="hk t" x="154" y="56" width="52" height="158"></rect>
+        <rect id="hko-r" class="hk t" x="554" y="56" width="52" height="158"></rect>
+        <rect id="tin-l" class="tin t" x="158" y="60" width="44" height="154"></rect>
+        <rect id="tin-r" class="tin t" x="558" y="60" width="44" height="154"></rect>
+        <rect id="tinin-l" class="hk t" x="162" y="60" width="36" height="150"></rect>
+        <rect id="tinin-r" class="hk t" x="562" y="60" width="36" height="150"></rect>
+        <rect id="pli-l" class="plate t" x="166" y="40" width="28" height="166"></rect>
+        <rect id="pli-r" class="plate t" x="566" y="40" width="28" height="166"></rect>
+
+        <rect id="ild3" class="ox t up" x="40" y="22" width="660" height="18"></rect>
+        <g id="metal" class="t">
+          <rect class="cu" x="70" y="8" width="80" height="14"></rect>
+          <rect class="cu" x="300" y="8" width="120" height="14"></rect>
+          <rect class="w" x="354" y="22" width="12" height="18"></rect>
+          <rect class="cu" x="560" y="8" width="90" height="14"></rect>
+        </g>
+
+        <g id="implant" class="imp t">
+          <line x1="150" y1="262" x2="150" y2="318" marker-end="url(#arr-b)"></line>
+          <line x1="210" y1="262" x2="210" y2="318" marker-end="url(#arr-b)"></line>
+          <line x1="330" y1="262" x2="330" y2="318" marker-end="url(#arr-b)"></line>
+          <line x1="380" y1="262" x2="380" y2="318" marker-end="url(#arr-b)"></line>
+          <line x1="430" y1="262" x2="430" y2="318" marker-end="url(#arr-b)"></line>
+          <line x1="550" y1="262" x2="550" y2="318" marker-end="url(#arr-b)"></line>
+          <line x1="610" y1="262" x2="610" y2="318" marker-end="url(#arr-b)"></line>
+          <text x="380" y="252" text-anchor="middle" class="lbl" style="fill: var(--low)">n형 불순물(인·비소) 이온</text>
+        </g>
+
+        <!-- labels -->
+        <text x="60" y="488" class="lbl-s">실리콘 기판(p형)</text>
+        <text x="44" y="514" class="lbl-s mono">A</text>
+        <text x="696" y="514" text-anchor="end" class="lbl-s mono">A′</text>
+        <text id="L-hm" class="lbl-s t" x="380" y="312" text-anchor="middle">하드마스크(질화막)</text>
+        <text id="L-sti" class="lbl-s t" x="85" y="384" text-anchor="middle">STI</text>
+        <text id="L-wl" class="lbl-s t" x="270" y="442" text-anchor="middle">매립 워드라인</text>
+        <text id="L-ch" class="lbl-s lbl-a t" x="490" y="442" text-anchor="middle">채널: 홈을 따라 U자</text>
+        <text id="L-j" class="lbl-s t" x="434" y="344" text-anchor="middle">n+ 접합</text>
+        <text id="L-ild" class="lbl-s t" x="48" y="320">절연막</text>
+        <text id="L-bl" class="lbl-s on-dark t" x="380" y="285" text-anchor="middle">비트라인</text>
+        <text id="L-air" class="lbl-s t" x="433" y="250">에어갭</text>
+        <text id="L-snc" class="lbl-s t" x="202" y="278">스토리지 노드 콘택</text>
+        <text id="L-lp" class="lbl-s t" x="216" y="226">랜딩 패드</text>
+        <text id="L-sup" class="lbl-s t" x="420" y="131" text-anchor="middle">서포터(질화막)</text>
+        <text id="L-mold" class="lbl-s t" x="420" y="190" text-anchor="middle">몰드 산화막(거푸집)</text>
+        <text id="L-hole" class="lbl-s lbl-a t" x="212" y="100">깊은 구멍(종횡비 수십 : 1)</text>
+        <text id="L-tin" class="lbl-s t" x="212" y="100">하부 전극(TiN)</text>
+        <text id="L-hk" class="lbl-s t" x="548" y="100" text-anchor="end">고유전막(high-k)</text>
+        <text id="L-void" class="lbl-s lbl-a t" x="420" y="190" text-anchor="middle">몰드를 녹여 낸 빈 공간</text>
+        <text id="L-plate" class="lbl-s t" x="420" y="190" text-anchor="middle">상부 전극(플레이트)</text>
+        <text id="L-metal" class="lbl-s t" x="430" y="19">금속 배선</text>
+
+        <g id="mk" class="mk t">
+          <circle cx="226" cy="398" r="10"></circle><text x="226" y="402" text-anchor="middle">1</text>
+          <circle cx="446" cy="284" r="10"></circle><text x="446" y="288" text-anchor="middle">2</text>
+          <circle cx="230" cy="168" r="10"></circle><text x="230" y="172" text-anchor="middle">3</text>
+        </g>
+
+        <!-- ===== Top view inset ===== -->
+        <rect class="frame" x="720" y="20" width="170" height="214" rx="8"></rect>
+        <text x="728" y="37" class="lbl-s">위에서 본 배치(개념)</text>
+        <g clip-path="url(#ins-clip)">
+          <g id="ins-act" class="ins-act t"></g>
+          <g id="ins-wl" class="ins-wl t"></g>
+          <g id="ins-bl" class="ins-bl t"></g>
+          <g id="ins-sn" class="ins-sn t"></g>
+          <line class="cut" x1="740.1" y1="166.2" x2="869.9" y2="113.8"></line>
+        </g>
+        <text x="733" y="180" class="lbl-s mono lbl-a">A</text>
+        <text x="871" y="110" class="lbl-s mono lbl-a">A′</text>
+        <text id="ins-note" class="lbl-s t" x="728" y="228"></text>
+
+        <!-- ===== Periphery ===== -->
+        <rect class="frame" x="720" y="246" width="170" height="134" rx="8"></rect>
+        <text x="728" y="263" class="lbl-s">주변 회로(같은 웨이퍼)</text>
+        <rect class="si" x="726" y="330" width="158" height="44"></rect>
+        <rect id="p-sti-l" class="ox t down" x="726" y="330" width="16" height="30"></rect>
+        <rect id="p-sti-r" class="ox t down" x="868" y="330" width="16" height="30"></rect>
+        <g id="p-gate" class="t">
+          <rect class="sin" x="752" y="330" width="30" height="10"></rect>
+          <rect class="sin" x="828" y="330" width="30" height="10"></rect>
+          <rect class="nit" x="784" y="300" width="4" height="30"></rect>
+          <rect class="nit" x="822" y="300" width="4" height="30"></rect>
+          <rect class="w" x="788" y="300" width="34" height="26"></rect>
+          <rect class="hk" x="788" y="326" width="34" height="4"></rect>
+          <text x="805" y="292" text-anchor="middle" class="lbl-s">HKMG 트랜지스터</text>
+        </g>
+
+        <!-- ===== Legend ===== -->
+        <rect class="frame" x="720" y="390" width="170" height="122" rx="8"></rect>
+        <g class="sw" id="legend"></g>
+      </svg>
+      <figcaption>개념도입니다. 두께와 폭의 비율은 실제와 다르고, 실제 공정은 이보다 훨씬 많은 단계(세정, 계측, 열처리 등)를 거칩니다. 단계 순서도 회사와 세대마다 조금씩 다릅니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>큰 흐름은 <b>소자 분리(STI) → 매립 워드라인 → 접합 → 비트라인 → 스토리지 노드 콘택 → 커패시터 → 배선</b>입니다. 아래에서 위로, 트랜지스터를 먼저 만들고 커패시터를 그 위에 세웁니다.</li>
+      <li>커패시터 용량은 Cs = ε × 면적 ÷ 두께입니다. 실린더를 높게 세우고(면적), high-k를 쓰고(ε), 막을 얇게 입히는(두께) 세 방향이 모두 공정 과제입니다.</li>
+      <li>면접에서는 공정 불량이 어떤 전기적 불량으로 나타나는지 이어서 말할 수 있으면 좋습니다. 구멍이 덜 뚫리면(Not Open) 셀이 아예 동작하지 않고, 실린더가 기울어 이웃과 붙으면 두 셀이 단락되며, 접합 누설이 크면 리텐션 불량(리프레시 실패)으로 나타납니다.</li>
+    </ul>
+    <p class="foot">원고 3-15를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-10 D램 동작 심화, 3-16 3D 낸드 공정 흐름, 3-17 메모리 테스트와 불량 분석, 4-3 D램 셀 구조 진화.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  const mk = (parent, tag, attrs) => { const n = document.createElementNS(NS, tag); Object.keys(attrs).forEach((k) => n.setAttribute(k, attrs[k])); parent.appendChild(n); return n; };
+
+  // ---- Top view: staggered slanted active regions, word lines (vertical), bit lines (horizontal), storage nodes
+  const centers = [[725, 44], [805, 44], [885, 44], [765, 92], [845, 92], [725, 140], [805, 140], [885, 140], [765, 188], [845, 188], [725, 236], [805, 236], [885, 236]];
+  const act = document.getElementById("ins-act"), wl = document.getElementById("ins-wl"), bl = document.getElementById("ins-bl"), sn = document.getElementById("ins-sn");
+  const dx = 30.6, dy = 12.4;                        // half length of an active region along -22°
+  centers.forEach(([x, y]) => {
+    mk(act, "rect", { x: x - 40, y: y - 7, width: 80, height: 14, rx: 7, transform: `rotate(-22 ${x} ${y})`, class: x === 805 && y === 140 ? "main" : "" });
+  });
+  [705, 745, 785, 825, 865].forEach((x) => mk(wl, "rect", { x: x - 3.5, y: 40, width: 7, height: 200 }));
+  [44, 92, 140, 188, 236].forEach((y) => mk(bl, "rect", { x: 715, y: y - 3, width: 180, height: 6 }));
+  centers.forEach(([x, y]) => { mk(sn, "circle", { cx: x + dx, cy: y - dy, r: 7 }); mk(sn, "circle", { cx: x - dx, cy: y + dy, r: 7 }); });
+
+  // ---- Legend
+  const legend = document.getElementById("legend");
+  [["si", "실리콘"], ["sin", "n+ 실리콘"], ["ox", "산화막"], ["nit", "질화막"], ["poly", "폴리실리콘"], ["w", "텅스텐(W)"],
+   ["tin", "TiN"], ["hk", "high-k"], ["plate", "상부 전극"], ["cu", "구리 배선"], ["air", "공기(에어갭)"]].forEach(([c, label], i) => {
+    const x = 730 + (i % 2) * 80, y = 404 + Math.floor(i / 2) * 18;
+    mk(legend, "rect", { x: x, y: y - 9, width: 13, height: 10, rx: 2, class: c });
+    const t = mk(legend, "text", { x: x + 18, y: y, class: "lbl-s" });
+    t.textContent = label;
+  });
+
+  // ---- States
+  const on = { s: "on" }, off = { s: "off" };
+  const grow = { s: "on", style: { transform: "scaleY(1)" } };   // deposited (grows up) or etched (opens down)
+  const hole = { s: "void", style: { transform: "scaleY(1)" } };
+  const flat = { s: "off", style: { transform: "scaleY(0)" } };
+  const all = (ids, v) => { const o = {}; ids.forEach((i) => { o[i] = v; }); return o; };
+  const LR = (id) => [id + "-l", id + "-r"];
+
+  const scaled = [].concat(LR("sti"), LR("wt"), LR("hole"), ["ild1", "ild2", "mold", "plate-o", "ild3", "p-sti-l", "p-sti-r"]);
+  const faded = [].concat(["hm"], LR("j"), ["j-m"], LR("wm"), LR("wc"), LR("ch"), ["blc", "blm", "blcap"], LR("sp"), LR("snc"), LR("lp"),
+    ["sup-m", "sup-t"], LR("hko"), LR("tin"), LR("tinin"), LR("pli"), ["metal", "implant", "mk", "p-gate", "ins-act", "ins-wl", "ins-bl", "ins-sn"],
+    ["L-hm", "L-sti", "L-wl", "L-ch", "L-j", "L-ild", "L-bl", "L-air", "L-snc", "L-lp", "L-sup", "L-mold", "L-hole", "L-tin", "L-hk", "L-void", "L-plate", "L-metal"]);
+  const base = Object.assign(all(scaled, flat), all(faded, off), { "ins-note": { text: "" } });
+
+  const steps = [
+    { short: "웨이퍼 준비", title: "출발점: p형 실리콘 웨이퍼", cmd: "준비",
+      text: `붕소를 조금 넣은 <b>p형 실리콘 웨이퍼</b>에서 시작합니다. 셀 트랜지스터는 n형 채널(NMOS)이라 바탕이 p형이어야 합니다. 왼쪽 그림은 셀 두 개가 비트라인 콘택 하나를 나눠 쓰는 활성 영역을 길이 방향으로 자른 단면이고, 오른쪽 위는 같은 자리를 위에서 본 배치입니다.`,
+      set: {} },
+    { short: "활성 영역·STI 식각", title: "활성 영역을 남기고 둘레를 판다", cmd: "포토·식각",
+      text: `노광으로 트랜지스터가 들어설 <b>활성 영역</b> 모양을 찍고, 그 위를 하드마스크로 덮은 채 바깥쪽 실리콘을 깊게 식각합니다. 위에서 보면 활성 영역은 비스듬히 누운 막대가 엇갈려 늘어선 모양(6F² 배치)입니다. 같은 웨이퍼의 주변 회로 자리도 이때 함께 홈이 파입니다.`,
+      set: Object.assign({ hm: on, "L-hm": on, "ins-act": on, "ins-note": { text: "활성 영역(비스듬한 막대)" } }, all(LR("sti").concat(["p-sti-l", "p-sti-r"]), hole)),
+      hl: ["ins-act"] },
+    { short: "갭필·CMP", title: "홈을 산화막으로 채우고 평탄하게 간다", cmd: "증착·CMP",
+      text: `판 홈을 산화막으로 가득 채운 뒤 <b>CMP</b>(화학·기계 연마)로 윗면을 평평하게 갈아내고 하드마스크를 걷어냅니다. 이렇게 묻힌 산화막이 이웃 활성 영역끼리 전기가 통하지 않게 막는 <b>STI</b>(얕은 트렌치 소자 분리)입니다.`,
+      set: Object.assign({ hm: off, "L-hm": off, "L-sti": on }, all(LR("sti").concat(["p-sti-l", "p-sti-r"]), grow)) },
+    { short: "워드라인 홈 식각", title: "워드라인이 묻힐 홈을 판다", cmd: "포토·식각",
+      text: `활성 영역을 가로지르는 좁고 깊은 홈을 팝니다. 워드라인을 실리콘 위에 얹지 않고 <b>실리콘 속에 묻기</b> 위한 자리입니다. 위에서 보면 워드라인은 세로줄로 지나가며 활성 영역 하나를 두 번 가로지릅니다.`,
+      set: Object.assign({ "ins-wl": on, "ins-note": { text: "워드라인(세로줄)" } }, all(LR("wt"), hole)), hl: ["ins-wl"] },
+    { short: "게이트 산화·금속 매립·캡", title: "게이트 산화막, 금속, 질화막 뚜껑", cmd: "산화·증착·식각",
+      text: `홈 안벽에 얇은 <b>게이트 산화막</b>을 키우고 금속(TiN·W)으로 채운 다음, 금속 윗부분을 깎아 내리고(리세스) 질화막 뚜껑을 덮습니다. 전류가 흐르는 채널이 홈을 따라 <b>U자</b>로 돌아가서, 같은 면적에서도 채널이 길어져 누설이 줄어듭니다. 워드라인이 아래에 묻혀 있으니 위에 올 비트라인과의 기생 용량도 작아집니다(매립 채널 트랜지스터, BCAT).`,
+      set: Object.assign({ "L-wl": on, "L-ch": on }, all(LR("wt"), grow), all(LR("wm").concat(LR("wc"), LR("ch")), on)), hl: ["ch-l", "ch-r"] },
+    { short: "이온 주입(접합)", title: "이온 주입으로 n+ 접합을 만든다", cmd: "이온 주입",
+      text: `인(P)이나 비소(As) 같은 n형 불순물 이온을 쏘아 넣고 열처리로 활성화해 소스·드레인(<b>n+ 접합</b>)을 만듭니다. 가운데 접합은 비트라인 쪽, 양 끝 접합은 커패시터 쪽입니다. 커패시터 쪽 접합으로 새는 전류가 리텐션 시간을 좌우하므로 농도와 깊이를 조심스럽게 맞춥니다.`,
+      set: Object.assign({ "L-ch": off, implant: on, "L-j": on }, all(LR("ch"), off), all(LR("j").concat(["j-m"]), on)) },
+    { short: "비트라인 콘택·비트라인", title: "비트라인 콘택, 비트라인, 에어갭 스페이서", cmd: "증착·포토·식각",
+      text: `절연막을 덮고 가운데 접합 위에 <b>비트라인 콘택</b>(폴리실리콘)을 뚫은 뒤, 그 위에 텅스텐 비트라인과 질화막 뚜껑을 만듭니다. 비트라인 옆벽 스페이서 안에 공기층(<b>에어갭</b>)을 두는 세대도 있습니다. 공기는 유전율이 가장 낮아 비트라인 용량 Cb가 줄고, 그만큼 센싱 마진(2-10의 ΔV)이 커집니다.`,
+      set: Object.assign({ implant: off, ild1: grow, blc: on, blm: on, blcap: on, "ins-bl": on, "L-bl": on, "L-air": on, "L-ild": on, "ins-note": { text: "비트라인(가로줄)" } }, all(LR("sp"), on)),
+      hl: ["ins-bl"] },
+    { short: "스토리지 노드 콘택·랜딩 패드", title: "커패시터로 가는 길: 콘택과 랜딩 패드", cmd: "식각·증착·CMP",
+      text: `비트라인 사이 좁은 틈으로 양 끝 접합까지 <b>스토리지 노드 콘택</b>을 내리고, 그 위에 넓은 <b>랜딩 패드</b>를 얹습니다. 위에서 보면 커패시터는 벌집처럼 촘촘히 놓이는데, 콘택 자리와 커패시터 자리가 정확히 겹치지 않아서 랜딩 패드가 둘을 이어 줍니다.`,
+      set: Object.assign({ ild2: grow, "L-snc": on, "L-lp": on, "ins-sn": on, "ins-note": { text: "커패시터 자리(원)" } }, all(LR("snc").concat(LR("lp")), on)),
+      hl: ["ins-sn"] },
+    { short: "몰드·서포터 쌓기", title: "커패시터 높이만큼 거푸집을 쌓는다", cmd: "증착",
+      text: `커패시터 높이만큼 두꺼운 산화막(<b>몰드</b>)을 쌓고, 중간과 맨 위에 질화막 <b>서포터</b>를 끼워 넣습니다. 몰드는 커패시터 모양을 잡는 거푸집이라 나중에 녹여 없앨 막이고, 서포터는 남아서 키 큰 커패시터를 붙잡아 줍니다.`,
+      set: { mold: grow, "sup-m": on, "sup-t": on, "L-mold": on, "L-sup": on, "ins-note": { text: "" } } },
+    { short: "고종횡비 홀 식각", title: "몰드를 뚫어 깊은 구멍을 낸다", cmd: "고종횡비 식각",
+      text: `플라즈마 건식 식각으로 몰드와 서포터를 뚫어 랜딩 패드까지 내려가는 구멍을 냅니다. 지름은 수십 nm인데 깊이는 그 수십 배라 <b>종횡비가 수십 : 1</b>에 이릅니다. 구멍이 휘거나 아래가 좁아지거나 덜 뚫리면(Not Open) 그 셀은 동작하지 않습니다. D램 공정에서 가장 어려운 식각으로 꼽힙니다.`,
+      set: Object.assign({ "L-hole": on }, all(LR("hole"), hole)), hl: ["hole-l", "hole-r"] },
+    { short: "하부 전극(TiN)", title: "구멍 안벽에 하부 전극을 입힌다", cmd: "증착(ALD·CVD)",
+      text: `구멍 안벽과 바닥에 <b>TiN</b>을 얇고 고르게 입혀 컵 모양 하부 전극을 만듭니다. 몰드 윗면에 묻은 TiN은 걷어내 이웃 전극끼리 떨어뜨립니다. 깊은 구멍 바닥까지 두께가 같아야 해서 원자층 증착(ALD) 같은 방법을 씁니다.`,
+      set: Object.assign({ "L-hole": off, "L-tin": on }, all(LR("tin"), on), all(LR("tinin"), { s: "void" })) },
+    { short: "몰드 제거(습식)", title: "몰드를 녹여 실린더만 남긴다", cmd: "습식 식각",
+      text: `불산 계열 약액으로 몰드 산화막을 녹여 내면 하부 전극이 속이 빈 <b>실린더</b>로 서 있게 됩니다. 이제 실린더의 안쪽과 바깥쪽 표면을 모두 커패시터로 쓸 수 있습니다. 키 큰 실린더가 쓰러지거나 이웃과 들러붙지 않도록 서포터가 붙잡아 줍니다.`,
+      set: { mold: { s: "off", style: { transform: "scaleY(1)" } }, "L-mold": off, "L-void": on }, hl: ["sup-m", "sup-t"] },
+    { short: "high-k·상부 전극", title: "고유전막과 상부 전극으로 커패시터 완성", cmd: "증착(ALD)",
+      text: `실린더 안팎에 <b>고유전막(high-k)</b>을 원자층 단위로 얇게 입히고, 남은 공간을 상부 전극(플레이트)으로 채웁니다. 하부 전극(TiN) / high-k / 상부 전극, 이 샌드위치가 셀 커패시터 <b>Cs</b>입니다. 상부 전극은 모든 셀이 함께 쓰는 공통 전극입니다.`,
+      set: Object.assign({ "plate-o": grow, "L-void": off, "L-hk": on, "L-plate": on }, all(LR("hko").concat(LR("pli")), on), all(LR("tinin"), on)),
+      hl: ["hko-l", "hko-r"] },
+    { short: "주변 회로·금속 배선", title: "주변 회로와 금속 배선", cmd: "BEOL",
+      text: `셀 바깥의 주변 회로(감지 증폭기, 디코더)는 빠르게 동작해야 해서 고유전막·금속 게이트(<b>HKMG</b>) 트랜지스터를 쓰기도 합니다. 삼성은 DDR5에, SK하이닉스는 LPDDR5X에 HKMG를 적용했다고 발표했습니다. 주변 회로 게이트는 실제로는 비트라인을 만들 무렵 함께 만드는 경우가 많습니다. 마지막으로 그 위에 금속 배선을 여러 층 쌓아 셀과 주변 회로, 패드를 연결합니다.`,
+      set: { ild3: grow, metal: on, "L-metal": on, "p-gate": on }, hl: ["p-gate"] },
+    { short: "정리: 공정이 성능으로", title: "공정이 셀 성능으로 이어지는 세 곳", cmd: "정리",
+      text: `<b>①</b> 매립 워드라인의 U자 채널과 n+ 접합은 <b>누설</b>을 정해 리텐션·리프레시(2-10)로 이어집니다. <b>②</b> 에어갭 스페이서는 비트라인 용량 <b>Cb</b>를 줄이고, <b>③</b> 높은 실린더와 high-k는 셀 용량 <b>Cs</b>를 키웁니다. ΔV ∝ Cs ÷ (Cs + Cb)라서 ②와 ③은 모두 센싱 마진을 넓히는 방향입니다.`,
+      set: Object.assign({ mk: on }, all(LR("ch"), on)), hl: ["ch-l", "ch-r", "sp-l", "sp-r", "tin-l", "tin-r"] },
+  ];
+
+  StepPlayer.create({ root: document.getElementById("app"), base: base, steps: steps, dur: 6500 });
+})();
+</script>
+</body>
+</html>

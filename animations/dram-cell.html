@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D램 셀 읽기·쓰기·리프레시</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .wire { stroke: var(--line-strong); stroke-width: 2; fill: none; }
+  #wl { stroke: var(--line-strong); stroke-width: 5; stroke-linecap: round; }
+  #wl[data-s="on"], #gate-link[data-s="on"] { stroke: var(--accent); }
+  #gate { fill: var(--line-strong); }
+  #gate[data-s="on"] { fill: var(--accent); }
+  #ch { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+  #ch[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+  .lvl { transform-origin: 50% 100%; }
+  #cell-fill, #bl-fill { fill: var(--accent); opacity: .85; }
+  #blb-fill { fill: var(--low); opacity: .8; }
+  #eq { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.2; }
+  #eq[data-s="on"] { fill: var(--low-soft); stroke: var(--low); }
+  #sa-box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+  #sa-box[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .flow { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 7 6; }
+  .flow[data-s="on"] { animation: dash .7s linear infinite; }
+  .leak { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 5 5; }
+  .leak[data-s="on"] { animation: dash 1.1s linear infinite; }
+  .io { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+  @keyframes dash { to { stroke-dashoffset: -26; } }
+  #bl-path, .ret { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
+  #blb-path { fill: none; stroke: var(--low); stroke-width: 2.5; stroke-dasharray: 7 5; stroke-linejoin: round; }
+  .ret-alt { fill: none; stroke: var(--bad); stroke-width: 2; stroke-dasharray: 6 5; }
+  .ret-hot { fill: none; stroke: var(--low); stroke-width: 2; stroke-dasharray: 3 4; }
+  #cover { fill: var(--surface); transform-origin: 100% 50%; }
+  .chip rect { fill: var(--ink); }
+  .chip text { fill: var(--surface); font: 600 11px var(--font-mono); }
+  .chip.dim rect { fill: var(--line-strong); }
+  .brk line { stroke: var(--muted); stroke-width: 1.2; }
+  .brk text { fill: var(--muted); font: 500 11px var(--font-mono); }
+  .dv line { stroke: var(--ink); stroke-width: 1.2; }
+  .dv text { font: 600 12px var(--font-mono); }
+  .refbar rect.track { fill: var(--bg); stroke: var(--line); }
+  .refbar rect.cursor { fill: var(--accent); transform-box: view-box; }
+  .refbar[data-s="on"] rect.cursor { animation: sweep 3.2s linear infinite; }
+  @keyframes sweep { from { transform: translateX(0); } to { transform: translateX(318px); } }
+  .xmark line { stroke: var(--bad); stroke-width: 3; }
+  .tag { font: 600 11px var(--font-mono); fill: var(--muted); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-10</span><span>D램 동작 심화</span><a href="./">애니메이션 목록</a></div>
+    <h1>D램 셀 읽기·쓰기·리프레시</h1>
+    <p class="lead">셀 하나, 비트라인 한 쌍(BL·/BL), 감지 증폭기를 한 화면에 놓고 명령 순서대로 전압이 어떻게 바뀌는지 따라갑니다. 오른쪽 그래프는 같은 순간의 비트라인 전압입니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="동작 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 420" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">D램 셀과 감지 증폭기, 비트라인 전압 그래프</title>
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path>
+          </marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path>
+          </marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path>
+          </marker>
+        </defs>
+
+        <!-- ===== Cell, bit lines, sense amplifier ===== -->
+        <text x="40" y="52" class="lbl">워드라인(WL)</text>
+        <text x="440" y="52" text-anchor="end" class="tag" id="wl-tag">꺼짐</text>
+        <line id="wl" class="t" x1="40" y1="66" x2="440" y2="66"></line>
+        <line id="gate-link" class="wire t" x1="190" y1="66" x2="190" y2="118"></line>
+        <rect id="gate" class="t" x="150" y="118" width="80" height="7" rx="2"></rect>
+        <rect id="ch" class="t" x="150" y="130" width="80" height="24" rx="3"></rect>
+        <text x="190" y="176" text-anchor="middle" class="lbl-s">셀 트랜지스터</text>
+        <path class="wire" d="M150,142 H110 V176"></path>
+        <path class="wire" d="M230,142 H272"></path>
+
+        <rect class="box" x="66" y="176" width="88" height="140" rx="8"></rect>
+        <rect id="cell-fill" class="t lvl" x="70" y="180" width="80" height="132" rx="5"></rect>
+        <text x="110" y="336" text-anchor="middle" class="lbl">셀 커패시터(Cs)</text>
+        <text id="cell-v" x="110" y="356" text-anchor="middle" class="mono">1.10 V</text>
+
+        <path id="flow-out" class="flow t" d="M110,170 V136 H266" marker-end="url(#arr-a)"></path>
+        <path id="flow-in" class="flow t" d="M266,148 H116 V170" marker-end="url(#arr-a)"></path>
+        <g id="leak" class="t">
+          <path class="leak" d="M66,226 H34" marker-end="url(#arr-r)"></path>
+          <path class="leak" d="M66,286 H34" marker-end="url(#arr-r)"></path>
+          <text x="22" y="212" class="lbl-s" style="fill: var(--bad)">누설</text>
+        </g>
+
+        <text x="294" y="86" text-anchor="middle" class="lbl">BL</text>
+        <rect class="box" x="272" y="96" width="44" height="200" rx="6"></rect>
+        <rect id="bl-fill" class="t lvl" x="276" y="100" width="36" height="192" rx="3"></rect>
+        <text id="bl-v" x="266" y="290" text-anchor="end" class="mono" style="font-size:12px">0.55 V</text>
+
+        <text x="374" y="86" text-anchor="middle" class="lbl">/BL(기준)</text>
+        <rect class="box" x="352" y="96" width="44" height="200" rx="6"></rect>
+        <rect id="blb-fill" class="t lvl" x="356" y="100" width="36" height="192" rx="3"></rect>
+        <text id="blb-v" x="402" y="290" class="mono" style="font-size:12px">0.55 V</text>
+
+        <rect id="eq" class="t" x="318" y="104" width="32" height="16" rx="3"></rect>
+        <text x="334" y="116" text-anchor="middle" style="font-size:10px">EQ</text>
+
+        <line class="wire" x1="294" y1="296" x2="294" y2="314"></line>
+        <line class="wire" x1="374" y1="296" x2="374" y2="314"></line>
+        <rect id="sa-box" class="t" x="262" y="314" width="144" height="50" rx="8"></rect>
+        <text x="334" y="334" text-anchor="middle" style="font-size:13px;font-weight:600">감지 증폭기(SA)</text>
+        <text id="sa-tag" x="334" y="353" text-anchor="middle" class="tag">대기</text>
+        <path id="io-out" class="io t" d="M408,339 H446" marker-end="url(#arr-k)"></path>
+        <path id="io-in" class="io t" d="M446,339 H410" marker-end="url(#arr-k)"></path>
+        <text x="427" y="384" text-anchor="middle" class="lbl-s">입출력선</text>
+        <text x="110" y="398" text-anchor="middle" class="lbl-s">셀 = 트랜지스터 1개 + 커패시터 1개</text>
+
+        <!-- ===== Bit line voltage graph (read / write) ===== -->
+        <g id="g-wave" class="t">
+          <text x="520" y="78" class="lbl">비트라인 전압</text>
+          <line x1="742" y1="74" x2="766" y2="74" style="stroke: var(--accent); stroke-width: 2.5"></line>
+          <text x="772" y="78" class="lbl-s">BL</text>
+          <line x1="800" y1="74" x2="824" y2="74" style="stroke: var(--low); stroke-width: 2.5; stroke-dasharray: 7 5"></line>
+          <text x="830" y="78" class="lbl-s">/BL</text>
+          <path id="bl-path" d="M520,205 H860"></path>
+          <path id="blb-path" d="M520,205 H860"></path>
+          <g id="dv" class="dv t">
+            <line id="dv-line" x1="598" y1="205" x2="598" y2="188"></line>
+            <line id="dv-t1" x1="593" y1="205" x2="603" y2="205"></line>
+            <line id="dv-t2" x1="593" y1="188" x2="603" y2="188"></line>
+            <text id="dv-text" x="588" y="176" text-anchor="end">ΔV ≈ 0.1 V</text>
+          </g>
+        </g>
+
+        <!-- ===== Cell voltage over time (refresh) ===== -->
+        <g id="g-ret" class="t">
+          <text x="520" y="78" class="lbl">셀 전압(1을 저장, 개념도)</text>
+          <line x1="520" y1="182.5" x2="860" y2="182.5" style="stroke: var(--bad); stroke-width: 1; stroke-dasharray: 2 3"></line>
+          <text x="526" y="197" class="lbl-s" style="fill: var(--bad)">판별 한계</text>
+          <path id="ret-1" class="ret t" d="M520,110 C553,135 587,147 633,153"></path>
+          <path id="ret-j1" class="ret t" d="M633,153 V110"></path>
+          <path id="ret-2" class="ret t" d="M633,110 C666,135 700,147 746,153 V110 C779,135 813,147 859,153"></path>
+          <path id="ret-fail" class="ret-alt t" d="M633,153 C670,165 700,186 735,210 C760,226 790,238 830,248"></path>
+          <g id="ret-x" class="xmark t"><line x1="700" y1="178" x2="716" y2="194"></line><line x1="716" y1="178" x2="700" y2="194"></line></g>
+          <text id="ret-x-lbl" class="lbl-s t" x="724" y="200" style="fill: var(--bad)">1을 0으로 잘못 읽음</text>
+          <path id="ret-hot" class="ret-hot t" d="M520,110 C535,145 553,165 576,176 V110 C591,145 609,165 633,176 V110 C648,145 666,165 690,176 V110 C705,145 723,165 746,176 V110 C761,145 779,165 803,176 V110 C818,145 836,165 859,176"></path>
+          <text id="ret-hot-lbl" class="lbl-s t" x="580" y="102" style="fill: var(--low)">고온: 더 빨리 새서 주기를 절반으로</text>
+        </g>
+
+        <rect id="cover" class="t" x="520" y="90" width="342" height="214"></rect>
+
+        <!-- axes on top of the cover so the frame stays visible -->
+        <line class="grid-line" x1="520" y1="110" x2="860" y2="110"></line>
+        <line class="grid-line" x1="520" y1="205" x2="860" y2="205"></line>
+        <line class="axis" x1="520" y1="96" x2="520" y2="300"></line>
+        <line class="axis" x1="520" y1="300" x2="860" y2="300"></line>
+        <text x="514" y="114" text-anchor="end" class="lbl-s mono">1.1 V</text>
+        <text x="514" y="200" text-anchor="end" class="lbl-s mono">0.55 V</text>
+        <text x="514" y="213" text-anchor="end" class="lbl-s">VDD/2</text>
+        <text x="514" y="304" text-anchor="end" class="lbl-s mono">0 V</text>
+
+        <!-- command timeline (read / write) -->
+        <g id="g-cmd" class="t">
+          <g id="c-act" class="chip t"><rect x="538" y="314" width="36" height="17" rx="3"></rect><text x="556" y="326.5" text-anchor="middle">ACT</text></g>
+          <g id="c-col" class="chip t"><rect id="c-col-r" x="694" y="314" width="36" height="17" rx="3"></rect><text id="c-col-t" x="712" y="326.5" text-anchor="middle">RD</text></g>
+          <g id="c-pre" class="chip t"><rect x="766" y="314" width="36" height="17" rx="3"></rect><text x="784" y="326.5" text-anchor="middle">PRE</text></g>
+          <g id="c-next" class="chip dim t"><rect x="822" y="314" width="36" height="17" rx="3"></rect><text x="840" y="326.5" text-anchor="middle">ACT</text></g>
+          <g id="b-trcd" class="brk t"><line id="b-trcd-l" x1="556" y1="348" x2="712" y2="348"></line><line x1="556" y1="343" x2="556" y2="353"></line><line id="b-trcd-e" x1="712" y1="343" x2="712" y2="353"></line><text id="b-trcd-t" x="634" y="344" text-anchor="middle">tRCD</text></g>
+          <g id="b-tras" class="brk t"><line x1="556" y1="372" x2="784" y2="372"></line><line x1="556" y1="367" x2="556" y2="377"></line><line x1="784" y1="367" x2="784" y2="377"></line><text x="670" y="368" text-anchor="middle">tRAS(재기록이 끝날 때까지)</text></g>
+          <g id="b-twr" class="brk t"><line x1="728" y1="372" x2="784" y2="372"></line><line x1="728" y1="367" x2="728" y2="377"></line><line x1="784" y1="367" x2="784" y2="377"></line><text x="756" y="368" text-anchor="middle">tWR</text></g>
+          <g id="b-trp" class="brk t"><line x1="784" y1="348" x2="840" y2="348"></line><line x1="784" y1="343" x2="784" y2="353"></line><line x1="840" y1="343" x2="840" y2="353"></line><text x="812" y="344" text-anchor="middle">tRP</text></g>
+          <text x="520" y="404" class="lbl-s">명령 사이의 최소 시간(그림 비율은 개념)</text>
+        </g>
+
+        <!-- refresh timeline -->
+        <g id="g-ref" class="t">
+          <text x="520" y="318" class="lbl-s mono">0</text>
+          <text x="633" y="318" text-anchor="middle" class="lbl-s mono">32 ms</text>
+          <text x="746" y="318" text-anchor="middle" class="lbl-s mono">64 ms</text>
+          <text x="859" y="318" text-anchor="end" class="lbl-s mono">96 ms</text>
+          <g id="refbar" class="refbar t">
+            <rect class="track" x="520" y="332" width="340" height="16" rx="3"></rect>
+            <rect class="cursor" x="520" y="332" width="22" height="16" rx="3"></rect>
+            <text x="520" y="368" class="lbl-s">REF 명령 약 3.9 μs마다 · 8,192번이면 모든 행 한 바퀴(32 ms)</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 전압은 DDR5(VDD 1.1 V) 기준이고, ΔV는 Cs : Cb = 1 : 4.5로 잡은 예시 값입니다. 실제 회로에는 전원·접지 트랜지스터와 비트라인 여러 개가 더 있습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>읽기는 <b>프리차지 → ACT(전하 공유) → 감지 증폭 → 재기록 → RD → PRE</b> 순서입니다. 면접에서는 이 순서와 함께 각 사이의 시간 이름(tRCD, CL, tRAS, tRP)을 말할 수 있어야 합니다.</li>
+      <li>ΔV ≈ (V셀 − VDD/2) × Cs ÷ (Cs + Cb)입니다. Cs가 줄거나 Cb가 늘면 센싱 마진이 줄어, 커패시터를 높게 세우고(3-15) 비트라인 용량을 줄이는(에어갭 스페이서) 이유가 됩니다.</li>
+      <li>D램은 읽으면 셀 전하가 흩어지는 파괴적 읽기라 재기록이 필요하고, 가만히 둬도 전하가 새서 DDR5는 32 ms마다 모든 행을 리프레시합니다.</li>
+    </ul>
+    <p class="foot">원고 2-10의 ②~⑥을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-7 메모리 계층, 3-15 D램 공정 흐름, 3-17 메모리 테스트와 불량 분석.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const VDD = 1.1, HALF = 0.55;
+  const Y = (v) => +(300 - v * 190 / VDD).toFixed(2);
+  const lvl = (v) => ({ style: { transform: "scaleY(" + (v / VDD).toFixed(4) + ")" } });
+  const volts = (v) => ({ num: { v: v, d: 2, unit: " V" } });
+  const reveal = (x) => ({ style: { transform: "scaleX(" + ((860 - x) / 340).toFixed(4) + ")" } });
+  const on = { s: "on" }, off = { s: "off" }, idle = { s: "idle" };   // off hides, idle shows the part at rest
+  const one = (c) => c.bit === "1";
+  const share = (c) => one(c) ? 0.65 : 0.45;       // HALF ± ΔV, ΔV = 0.55 × 1/5.5 = 0.1 V
+  const cellV = (c) => one(c) ? VDD : 0;
+
+  // Time slots on the graph (x in SVG units)
+  const T = { start: 520, act: 556, shared: 568, senseA: 640, senseB: 668, rd: 712, wrA: 704, wrB: 728, pre: 784, preB: 806, next: 840, end: 860 };
+
+  function readPaths(c) {
+    const s = Y(share(c)), hi = Y(one(c) ? VDD : 0), lo = Y(one(c) ? 0 : VDD), h = Y(HALF);
+    return {
+      bl: `M${T.start},${h} H${T.act} L${T.shared},${s} H${T.senseA} L${T.senseB},${hi} H${T.pre} L${T.preB},${h} H${T.end}`,
+      blb: `M${T.start},${h} H${T.senseA} L${T.senseB},${lo} H${T.pre} L${T.preB},${h} H${T.end}`,
+    };
+  }
+  function writePaths(c) {
+    const s = Y(share(c)), hi = Y(one(c) ? VDD : 0), lo = Y(one(c) ? 0 : VDD), h = Y(HALF);
+    // the write flips the latch: BL goes to the new (opposite) value
+    return {
+      bl: `M${T.start},${h} H${T.act} L${T.shared},${s} H${T.senseA} L${T.senseB},${hi} H${T.wrA} L${T.wrB},${lo} H${T.pre} L${T.preB},${h} H${T.end}`,
+      blb: `M${T.start},${h} H${T.senseA} L${T.senseB},${lo} H${T.wrA} L${T.wrB},${hi} H${T.pre} L${T.preB},${h} H${T.end}`,
+    };
+  }
+  function dv(c) {
+    const h = Y(HALF), s = Y(share(c));
+    return {
+      "dv-line": { attr: { y1: h, y2: s } }, "dv-t1": { attr: { y1: h, y2: h } }, "dv-t2": { attr: { y1: s, y2: s } },
+      "dv-text": { attr: { y: one(c) ? s - 10 : s + 18 }, text: one(c) ? "ΔV ≈ +0.1 V" : "ΔV ≈ −0.1 V" },
+    };
+  }
+  const bitWord = (c) => one(c) ? "'1'(1.1 V)" : "'0'(0 V)";
+  const newWord = (c) => one(c) ? "'0'" : "'1'";
+
+  // Common resting state: precharged, word line off, nothing flowing
+  const rest = (c) => Object.assign({
+    wl: idle, "gate-link": idle, gate: idle, ch: idle, eq: on, "sa-box": idle,
+    "wl-tag": { text: "꺼짐" }, "sa-tag": { text: "대기" },
+    "flow-out": off, "flow-in": off, leak: off, "io-out": off, "io-in": off,
+    "bl-fill": lvl(HALF), "blb-fill": lvl(HALF), "bl-v": volts(HALF), "blb-v": volts(HALF),
+  });
+  const openRow = { wl: on, "gate-link": on, gate: on, ch: on, eq: idle, "wl-tag": { text: "켜짐" } };
+
+  const baseRW = (paths) => (c) => Object.assign(rest(c), {
+    "g-wave": on, "g-ret": off, "g-cmd": on, "g-ref": off, dv: off,
+    "bl-path": { attr: { d: paths(c).bl } }, "blb-path": { attr: { d: paths(c).blb } },
+    cover: reveal(T.start), "cell-fill": lvl(cellV(c)), "cell-v": volts(cellV(c)),
+    "c-act": off, "c-col": off, "c-pre": off, "c-next": off, "b-trcd": off, "b-tras": off, "b-twr": off, "b-trp": off,
+  }, dv(c));
+
+  const read = {
+    id: "read", label: "읽기", base: baseRW(readPaths),
+    steps: [
+      { short: "대기: 비트라인을 VDD/2로", title: "대기: 두 비트라인을 VDD/2로 맞춰 둔다", cmd: "대기",
+        text: (c) => `읽기 전에는 이퀄라이저(EQ)가 BL과 /BL을 똑같이 <b>VDD/2(0.55 V)</b>로 맞춰 둡니다. 셀에는 ${bitWord(c)}이 저장돼 있고, 워드라인이 꺼져 있어 셀은 비트라인과 떨어져 있습니다.`,
+        set: { cover: reveal(T.act) } },
+      { short: "ACT: 전하 공유", title: "ACT: 워드라인을 켜면 전하가 나눠진다", cmd: "ACT",
+        text: (c) => `행 주소의 워드라인이 켜지면 셀 트랜지스터가 열려 셀 커패시터가 BL에 붙습니다. 작은 셀(Cs)의 전하가 큰 비트라인(Cb)으로 퍼지면서 BL이 <b>ΔV ≈ 0.1 V</b>만큼만 ${one(c) ? "올라갑니다" : "내려갑니다"}. 작은 컵의 물을 큰 수조에 부은 것과 같습니다. 이 순간 셀 전압도 ${one(c) ? "0.65" : "0.45"} V로 바뀌어, 셀의 데이터는 깨진 상태입니다.`,
+        set: (c) => Object.assign({}, openRow, {
+          "flow-out": one(c) ? on : off, "flow-in": one(c) ? off : on,
+          "cell-fill": lvl(share(c)), "cell-v": volts(share(c)), "bl-fill": lvl(share(c)), "bl-v": volts(share(c)),
+          cover: reveal(612), dv: on, "c-act": on,
+        }), hl: ["wl", "ch"] },
+      { short: "감지 증폭", title: "감지 증폭: 작은 차이를 끝까지 벌린다", cmd: "ACT",
+        text: (c) => `감지 증폭기가 켜지면 서로 맞물린 인버터 두 개(래치)가 BL과 /BL의 작은 차이를 끝까지 벌립니다. ${one(c) ? "BL은 1.1 V, /BL은 0 V" : "BL은 0 V, /BL은 1.1 V"}가 됩니다. 이 차이를 틀리지 않고 가리려면 ΔV가 충분해야 하는데, 그 여유가 <b>센싱 마진</b>입니다.`,
+        set: (c) => ({
+          "sa-box": on, "sa-tag": { text: "증폭" }, "flow-out": off, "flow-in": one(c) ? on : off,
+          "bl-fill": lvl(cellV(c)), "bl-v": volts(cellV(c)), "blb-fill": lvl(VDD - cellV(c)), "blb-v": volts(VDD - cellV(c)),
+          "cell-fill": lvl(one(c) ? 0.95 : 0.15), "cell-v": volts(one(c) ? 0.95 : 0.15),
+          cover: reveal(T.senseB), dv: off,
+        }), hl: ["sa-box"] },
+      { short: "재기록", title: "재기록: 증폭된 전압이 셀을 다시 채운다", cmd: "ACT",
+        text: () => `워드라인이 아직 켜져 있어서 증폭된 BL 전압이 셀로 되돌아가 흩어진 전하를 다시 채웁니다. D램은 읽으면 셀 전하가 흩어지는 <b>파괴적 읽기</b>라서 이 단계가 꼭 필요합니다. 재기록이 끝나기 전에는 행을 닫으면 안 됩니다.`,
+        set: (c) => ({ "flow-in": off, "cell-fill": lvl(cellV(c)), "cell-v": volts(cellV(c)), cover: reveal(T.rd) }),
+        hl: ["cell-fill"] },
+      { short: "RD: 열 선택과 출력", title: "RD: 고른 열의 값만 내보낸다", cmd: "RD",
+        text: () => `행을 연 뒤 <b>tRCD</b>가 지나면 읽기 명령(RD)으로 열 주소를 고릅니다. 고른 감지 증폭기의 값만 입출력선으로 나가고, CL이 지나면 첫 데이터가 핀에 나옵니다. 감지 증폭·재기록·출력은 실제로는 시간상 겹쳐 일어납니다.`,
+        set: { "io-out": on, cover: reveal(T.pre - 3), "c-col": on, "b-trcd": on }, hl: ["io-out"] },
+      { short: "PRE: 닫고 다시 VDD/2로", title: "PRE: 행을 닫고 비트라인을 되돌린다", cmd: "PRE",
+        text: (c) => `PRE 명령으로 워드라인을 끄면 셀은 다시 떨어져 ${bitWord(c)}을 지킵니다. ACT부터 PRE까지의 최소 시간이 <b>tRAS</b>, 이퀄라이저가 BL과 /BL을 VDD/2로 되돌리는 시간이 <b>tRP</b>입니다. 같은 뱅크의 다음 행은 tRC = tRAS + tRP가 지나야 열 수 있습니다.`,
+        set: (c) => Object.assign(rest(c), { "cell-fill": lvl(cellV(c)), "cell-v": volts(cellV(c)), cover: reveal(T.end), "c-pre": on, "c-next": on, "b-tras": on, "b-trp": on }),
+        hl: ["eq"] },
+    ],
+  };
+
+  const write = {
+    id: "write", label: "쓰기", base: (c) => Object.assign(baseRW(writePaths)(c), { "c-col-t": { text: "WR", attr: { x: T.wrA } }, "c-col-r": { attr: { x: T.wrA - 18 } }, "b-trcd-l": { attr: { x2: T.wrA } }, "b-trcd-e": { attr: { x1: T.wrA, x2: T.wrA } }, "b-trcd-t": { attr: { x: (T.act + T.wrA) / 2 } } }),
+    steps: [
+      { short: "대기", title: (c) => `${bitWord(c)}이 든 셀에 ${newWord(c)}을 쓴다`, cmd: "대기",
+        text: () => `쓰기도 먼저 행을 열어야 하므로 시작은 읽기와 같습니다. 두 비트라인은 VDD/2로 맞춰져 있습니다.`,
+        set: { cover: reveal(T.act) } },
+      { short: "ACT: 전하 공유", title: "ACT: 행을 연다", cmd: "ACT",
+        text: () => `워드라인이 켜져 셀이 비트라인에 붙고, 읽기와 똑같이 작은 ΔV가 생깁니다. 워드라인 하나에 매달린 셀 수천 개가 모두 함께 열립니다.`,
+        set: (c) => Object.assign({}, openRow, {
+          "flow-out": one(c) ? on : off, "flow-in": one(c) ? off : on,
+          "cell-fill": lvl(share(c)), "cell-v": volts(share(c)), "bl-fill": lvl(share(c)), "bl-v": volts(share(c)),
+          cover: reveal(612), dv: on, "c-act": on,
+        }), hl: ["wl"] },
+      { short: "감지 증폭", title: "감지 증폭: 원래 값을 먼저 잡는다", cmd: "ACT",
+        text: () => `감지 증폭기가 원래 값을 먼저 잡아 키웁니다. 열린 행의 다른 셀들은 이렇게 원래 값으로 재기록되고, 쓰기 명령이 고른 열만 새 값으로 바뀝니다.`,
+        set: (c) => ({
+          "sa-box": on, "sa-tag": { text: "증폭" }, "flow-out": off, "flow-in": one(c) ? on : off,
+          "bl-fill": lvl(cellV(c)), "bl-v": volts(cellV(c)), "blb-fill": lvl(VDD - cellV(c)), "blb-v": volts(VDD - cellV(c)),
+          "cell-fill": lvl(one(c) ? 0.95 : 0.15), "cell-v": volts(one(c) ? 0.95 : 0.15),
+          cover: reveal(T.senseB), dv: off,
+        }) },
+      { short: "WR: 래치를 뒤집는다", title: "WR: 쓰기 드라이버가 래치를 뒤집는다", cmd: "WR",
+        text: (c) => `쓰기 명령(WR)이 열을 고르면 쓰기 드라이버가 감지 증폭기보다 세게 BL을 ${one(c) ? "0 V로 끌어내려" : "1.1 V로 끌어올려"} 래치를 뒤집습니다. /BL은 반대로 바뀌고, 열린 트랜지스터를 통해 셀 전압도 새 값 쪽으로 움직이기 시작합니다.`,
+        set: (c) => ({
+          "io-in": on, "c-col": on, "b-trcd": on, "sa-tag": { text: "쓰기" },
+          "flow-in": one(c) ? off : on, "flow-out": one(c) ? on : off,
+          "bl-fill": lvl(VDD - cellV(c)), "bl-v": volts(VDD - cellV(c)), "blb-fill": lvl(cellV(c)), "blb-v": volts(cellV(c)),
+          "cell-fill": lvl(one(c) ? 0.35 : 0.75), "cell-v": volts(one(c) ? 0.35 : 0.75),
+          cover: reveal(T.wrB),
+        }), hl: ["io-in", "sa-box"] },
+      { short: "tWR: 셀까지 써질 때까지", title: "tWR: 셀이 새 값으로 다 바뀔 때까지 기다린다", cmd: "WR",
+        text: () => `셀 커패시터가 새 값으로 충분히 바뀔 때까지 기다리는 시간이 <b>tWR</b>(쓰기 회복 시간)입니다. 이 시간이 모자라면 셀에 덜 써져 나중에 읽을 때 오류가 납니다. 그래서 PE 테스트에서 타이밍 여유를 확인하는 항목이 됩니다.`,
+        set: (c) => ({ "io-in": off, "flow-in": off, "flow-out": off, "cell-fill": lvl(VDD - cellV(c)), "cell-v": volts(VDD - cellV(c)), cover: reveal(T.pre - 3), "b-twr": on }),
+        hl: ["cell-fill"] },
+      { short: "PRE: 새 값을 지킨다", title: "PRE: 행을 닫으면 셀이 새 값을 지킨다", cmd: "PRE",
+        text: (c) => `워드라인이 꺼지면 셀은 새 값 ${newWord(c)}을 지키고, 비트라인은 다시 VDD/2로 돌아갑니다. tRP가 지나면 같은 뱅크의 다음 행을 열 수 있습니다.`,
+        set: (c) => Object.assign(rest(c), { "cell-fill": lvl(VDD - cellV(c)), "cell-v": volts(VDD - cellV(c)), cover: reveal(T.end), "c-pre": on, "c-next": on, "b-trp": on }) },
+    ],
+  };
+
+  const refresh = {
+    id: "refresh", label: "리프레시",
+    base: () => Object.assign(rest({}), {
+      "g-wave": off, "g-ret": on, "g-cmd": off, "g-ref": on, refbar: off,
+      "ret-1": on, "ret-j1": off, "ret-2": off, "ret-fail": off, "ret-x": off, "ret-x-lbl": off, "ret-hot": off, "ret-hot-lbl": off,
+      cover: reveal(520), "cell-fill": lvl(VDD), "cell-v": volts(VDD),
+    }),
+    steps: [
+      { short: "1을 써 둔 셀", title: "1을 써 둔 셀은 혼자 전하를 붙잡고 있다", cmd: "",
+        text: () => `셀에 1(1.1 V)을 써 두고 워드라인을 끈 상태입니다. 이제 셀은 비트라인과 떨어져 커패시터에 담긴 전하만으로 값을 지켜야 합니다.`,
+        set: { cover: reveal(522) } },
+      { short: "전하가 샌다", title: "전하가 조금씩 샌다", cmd: "",
+        text: () => `커패시터의 전하는 아주 조금씩 새어 나갑니다. 스토리지 노드 접합으로 빠지는 누설과, 꺼져 있는 셀 트랜지스터를 지나가는 누설(GIDL 등)이 대표적입니다. 셀 전압이 서서히 내려갑니다.`,
+        set: { leak: on, "cell-fill": lvl(0.85), "cell-v": volts(0.85), cover: reveal(633) } },
+      { short: "그대로 두면 데이터를 잃는다", title: "그대로 두면 1을 0으로 잘못 읽는다", cmd: "",
+        text: () => `리프레시를 하지 않으면 전압이 계속 내려가 <b>판별 한계</b> 아래로 떨어집니다. 그러면 행을 열어도 ΔV가 너무 작거나 반대로 나와서, 감지 증폭기가 1을 0으로 잘못 읽습니다.`,
+        set: { "ret-fail": on, "ret-x": on, "ret-x-lbl": on, "cell-fill": lvl(0.6), "cell-v": volts(0.6), cover: reveal(860) } },
+      { short: "REF: 열고·증폭·재기록·닫기", title: "리프레시: 열고, 키우고, 다시 쓰고, 닫는다", cmd: "REF",
+        text: () => `그 전에 행을 한 번 열어(ACT) 감지 증폭기로 값을 키우고 재기록한 뒤 닫으면(PRE) 셀이 다시 1.1 V로 채워집니다. 읽기와 같은 동작이지만 데이터를 밖으로 내보내지는 않습니다.`,
+        set: Object.assign({}, openRow, {
+          "ret-fail": off, "ret-x": off, "ret-x-lbl": off, "ret-j1": on, leak: off, "sa-box": on, "sa-tag": { text: "증폭" }, "flow-in": on,
+          "bl-fill": lvl(VDD), "bl-v": volts(VDD), "blb-fill": lvl(0), "blb-v": volts(0),
+          "cell-fill": lvl(VDD), "cell-v": volts(VDD), cover: reveal(640),
+        }), hl: ["sa-box"] },
+      { short: "32 ms마다 모든 행", title: "32 ms 안에 모든 행을 한 번씩", cmd: "REF",
+        text: () => `DDR5는 <b>32 ms</b>(DDR4는 64 ms) 안에 모든 행을 이렇게 다시 써야 합니다. 메모리 컨트롤러가 약 3.9 μs마다 REF 명령을 보내면 칩은 그때마다 몇 행씩 차례로 리프레시하고, 8,192번이면 모든 행이 한 바퀴 돕니다. 리프레시하는 동안 그 뱅크는 쓸 수 없어 성능과 전력을 깎아 먹습니다.`,
+        set: Object.assign(rest({}), { "ret-2": on, refbar: on, leak: on, "cell-fill": lvl(0.9), "cell-v": volts(0.9), cover: reveal(860) }),
+        hl: ["refbar"] },
+      { short: "뜨거우면 더 자주", title: "뜨거우면 더 빨리 새서 더 자주 한다", cmd: "REF",
+        text: () => `온도가 오르면 누설이 늘어 전압이 더 빨리 떨어집니다. 그래서 고온 구간에서는 리프레시 주기를 절반으로 줄입니다. 셀마다 버티는 시간(리텐션)도 제각각이라, 분포 왼쪽 꼬리의 약한 셀이 주기보다 먼저 데이터를 잃으면 불량입니다. 이런 셀은 테스트로 찾아 예비 행·열로 바꿉니다(3-17).`,
+        set: { "ret-hot": on, "ret-hot-lbl": on } },
+    ],
+  };
+
+  StepPlayer.create({
+    root: document.getElementById("app"),
+    modes: [read, write, refresh],
+    context: { bit: "1" },
+    toggles: [{ id: "bit", label: "셀에 저장된 값", options: [["1", "1"], ["0", "0"]] }],
+    onMode: (id) => { const t = document.querySelector("[data-p=toggles]"); if (t) t.hidden = id === "refresh"; },
+  });
+})();
+</script>
+</body>
+</html>

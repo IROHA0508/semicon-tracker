@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>반도체 동작·공정 애니메이션</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .card {
+    display: grid; gap: 10px; align-content: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 16px; color: var(--ink); text-decoration: none;
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .card h2 { margin: 0; font: 700 18px/1.35 var(--font-sans); }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+  .card .meta { display: flex; flex-wrap: wrap; gap: 6px; font: 500 12px/1 var(--font-mono); color: var(--muted); }
+  .card .meta span { border: 1px solid var(--line); border-radius: 999px; padding: 5px 8px; }
+  .card .go { font-weight: 600; color: var(--accent); font-size: 14px; }
+  .card svg { width: 100%; height: auto; display: block; border-radius: 6px; background: var(--bg); }
+  .planned { display: grid; gap: 6px; }
+  .planned h2 { margin: 0; font: 700 15px/1.4 var(--font-sans); }
+  .planned ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .planned li { font-size: 13px; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: 8px; padding: 6px 10px; }
+  .planned li b { font: 600 12px var(--font-mono); color: var(--ink); margin-right: 6px; }
+  kbd { font: 500 12px var(--font-mono); border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; padding: 1px 5px; background: var(--surface); }
+</style>
+</head>
+<body>
+<main class="anim">
+  <header class="anim-head">
+    <div class="eyebrow"><span>반도체 뉴스 트래커 · 이론</span></div>
+    <h1>반도체 동작·공정 애니메이션</h1>
+    <p class="lead">원고에서 그림만으로는 흐름이 잘 안 잡히는 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다.</p>
+  </header>
+
+  <div class="cards">
+    <a class="card" href="dram-cell.html">
+      <svg viewBox="0 0 320 120" aria-hidden="true">
+        <line x1="20" y1="22" x2="170" y2="22" style="stroke: var(--accent); stroke-width: 4; stroke-linecap: round"></line>
+        <rect x="26" y="44" width="34" height="58" rx="4" style="fill: var(--surface); stroke: var(--line-strong)"></rect>
+        <rect x="29" y="60" width="28" height="39" rx="2" style="fill: var(--accent)"></rect>
+        <rect x="96" y="32" width="18" height="70" rx="3" style="fill: var(--surface); stroke: var(--line-strong)"></rect>
+        <rect x="98" y="48" width="14" height="52" rx="2" style="fill: var(--accent)"></rect>
+        <rect x="130" y="32" width="18" height="70" rx="3" style="fill: var(--surface); stroke: var(--line-strong)"></rect>
+        <rect x="132" y="68" width="14" height="32" rx="2" style="fill: var(--low)"></rect>
+        <polyline points="190,70 210,70 216,62 236,62 246,30 290,30 298,70 306,70" style="fill: none; stroke: var(--accent); stroke-width: 2.5"></polyline>
+        <polyline points="190,70 236,70 246,104 290,104 298,70 306,70" style="fill: none; stroke: var(--low); stroke-width: 2.5; stroke-dasharray: 6 4"></polyline>
+      </svg>
+      <div class="meta"><span>2-10</span><span>읽기·쓰기·리프레시</span><span>18단계</span></div>
+      <h2>D램 셀 읽기·쓰기·리프레시</h2>
+      <p>셀 하나와 비트라인 한 쌍, 감지 증폭기에서 명령 순서대로 전압이 바뀌는 모습을 비트라인 전압 그래프와 함께 봅니다. 저장된 값 1·0을 바꿔 볼 수 있습니다.</p>
+      <span class="go">열기 →</span>
+    </a>
+
+    <a class="card" href="dram-process.html">
+      <svg viewBox="0 0 320 120" aria-hidden="true">
+        <rect x="20" y="78" width="280" height="36" style="fill: var(--m-si)"></rect>
+        <rect x="20" y="78" width="34" height="24" style="fill: var(--m-ox)"></rect>
+        <rect x="266" y="78" width="34" height="24" style="fill: var(--m-ox)"></rect>
+        <rect x="104" y="78" width="14" height="22" style="fill: var(--m-w)"></rect>
+        <rect x="190" y="78" width="14" height="22" style="fill: var(--m-w)"></rect>
+        <rect x="20" y="58" width="280" height="20" style="fill: var(--m-ox)"></rect>
+        <rect x="140" y="56" width="40" height="14" style="fill: var(--m-w)"></rect>
+        <rect x="20" y="10" width="280" height="44" style="fill: var(--m-plate)"></rect>
+        <path d="M66,12 V52 H84 V12" style="fill: none; stroke: var(--m-tin); stroke-width: 4"></path>
+        <path d="M236,12 V52 H254 V12" style="fill: none; stroke: var(--m-tin); stroke-width: 4"></path>
+      </svg>
+      <div class="meta"><span>3-15</span><span>단면</span><span>15단계</span></div>
+      <h2>D램 공정 흐름</h2>
+      <p>맨 웨이퍼에서 STI, 매립 워드라인, 비트라인, 스토리지 노드 콘택, 실린더 커패시터, 배선까지 쌓이는 단면입니다. 위에서 본 배치와 주변 회로를 함께 보여 줍니다.</p>
+      <span class="go">열기 →</span>
+    </a>
+
+    <a class="card" href="nand-process.html">
+      <svg viewBox="0 0 320 120" aria-hidden="true">
+        <rect x="20" y="100" width="280" height="14" style="fill: var(--m-poly)"></rect>
+        <g id="thumb-stack"></g>
+        <rect x="70" y="14" width="14" height="86" style="fill: var(--m-poly)"></rect>
+        <rect x="120" y="14" width="14" height="86" style="fill: var(--m-poly)"></rect>
+        <rect x="170" y="14" width="14" height="86" style="fill: var(--m-poly)"></rect>
+      </svg>
+      <div class="meta"><span>3-16</span><span>단면</span><span>15단계</span></div>
+      <h2>3D 낸드 공정 흐름</h2>
+      <p>주변 회로(PUC), 산화막·질화막 적층, 채널홀과 이음부, 계단, 슬릿, 워드라인 교체, 콘택, 웨이퍼 본딩까지의 단면입니다.</p>
+      <span class="go">열기 →</span>
+    </a>
+  </div>
+
+  <section class="planned">
+    <h2>다음 후보</h2>
+    <ul>
+      <li><b>4-3</b>D램 셀 구조 진화</li>
+      <li><b>2-11</b>낸드 ISPP와 문턱전압 분포</li>
+      <li><b>4-5</b>HBM 적층 방식</li>
+      <li><b>2-4</b>CMOS 인버터</li>
+      <li><b>5-3</b>메모리 사이클</li>
+      <li><b>4-1</b>후면 전력 공급</li>
+    </ul>
+  </section>
+  <p class="foot">모든 그림은 개념도입니다. 비율과 순서는 이해를 돕기 위해 단순화했습니다.</p>
+</main>
+<script>
+(function () {
+  // NAND thumbnail: alternating oxide / nitride layers, trimmed into a staircase at the right
+  var g = document.getElementById("thumb-stack");
+  if (!g) return;
+  for (var i = 0; i < 12; i++) {
+    var r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    r.setAttribute("x", 20);
+    r.setAttribute("y", 93 - i * 7);
+    r.setAttribute("width", 280 - Math.floor(i / 2) * 14);
+    r.setAttribute("height", 7);
+    r.setAttribute("style", "fill: var(" + (i % 2 ? "--m-w" : "--m-ox") + ")");
+    g.appendChild(r);
+  }
+})();
+</script>
+</body>
+</html>
