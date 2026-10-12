@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>반도체란 무엇인가</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .atom circle { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.5; }
+  .atom text { font: 700 13px var(--font-mono); fill: var(--ink); }
+  .atom[data-s="dopant"] circle { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.5; }
+  .bond { stroke: var(--line-strong); stroke-width: 3; }
+  .ed { fill: var(--low); }
+  .free { fill: var(--accent); }
+  .wander[data-s="on"] { animation: wander 3.2s ease-in-out infinite; }
+  @keyframes wander { 0% { transform: translate(0, 0); } 30% { transform: translate(60px, 40px); } 60% { transform: translate(110px, -10px); } 100% { transform: translate(0, 0); } }
+  .hole { fill: var(--surface); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 2 2; }
+  .band { fill: var(--accent-soft); }
+  .pipe { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+  .wall { fill: var(--ink); }
+  .ch[data-s="open"] { fill: var(--accent); }
+  .ch[data-s="shut"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 4 3; }
+  .big-v { font: 700 40px var(--font-mono); fill: var(--accent); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">0-1</span><span>입문</span><a href="./">애니메이션 목록</a></div>
+    <h1>반도체란 무엇인가</h1>
+    <p class="lead">반도체는 전기가 흐르는 정도를 불순물, 전압, 빛, 온도로 조절할 수 있는 물질입니다. 순수한 실리콘 결정에서 출발해 도핑, 열, 그리고 트랜지스터 스위치까지 차례로 봅니다.</p>
+  </header>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">반도체란 무엇인가</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+
+        </defs>
+        <!-- left: silicon lattice -->
+        <text x="30" y="34" class="lbl">실리콘 결정(평면으로 단순화)</text>
+        <g id="lattice"></g>
+        <text id="lat-note" class="card-l t" x="30" y="420"></text>
+        <g id="ehp" class="t">
+          <circle id="ehp-e" class="free" cx="330" cy="58" r="6"></circle>
+          <text x="342" y="54" class="lbl-s acc">자유 전자</text>
+          <circle class="hole" cx="330" cy="104" r="5"></circle>
+          <text x="342" y="98" class="lbl-s acc halo">정공(빈자리)</text>
+          <path d="M330,98 V68" class="flowing s-accent" data-s="on" marker-end="url(#ar-a)" style="stroke-width: 2"></path>
+        </g>
+        <g id="free-g" class="t"><g class="wander t" id="free-w"><circle class="free" cx="212" cy="184" r="6"></circle></g><text x="226" y="178" class="lbl-s acc halo">남는 전자 1개</text></g>
+
+        <!-- right top: resistivity scale -->
+        <g id="scale" class="t">
+          <text x="450" y="34" class="lbl">전기가 흐르기 어려운 정도(비저항, Ω·cm)</text>
+          <rect class="band" x="532" y="74" width="226" height="26" rx="4"></rect>
+          <text x="645" y="92" text-anchor="middle" class="lbl-s ink-b">반도체(그 사이)</text>
+          <line class="axis" x1="470" y1="100" x2="840" y2="100"></line>
+          <g id="ticks"></g>
+          <g><circle cx="475" cy="100" r="6" class="f-low"></circle><text x="475" y="146" text-anchor="middle" class="lbl-s">구리</text><text x="475" y="160" text-anchor="middle" class="lbl-s mono">1.7×10⁻⁶</text></g>
+          <g><circle cx="799" cy="100" r="6" class="f-ink"></circle><text x="799" y="146" text-anchor="middle" class="lbl-s">유리·산화막</text><text x="799" y="160" text-anchor="middle" class="lbl-s mono">10¹⁰ 이상</text></g>
+          <g id="si-mk" class="t"><path d="M0,72 L-7,60 H7 Z" class="f-accent"></path><text x="0" y="54" text-anchor="middle" class="lbl-s acc" id="si-mk-t">순수 실리콘</text></g>
+          <text x="470" y="190" class="lbl-s">← 전기가 잘 흐름</text><text x="840" y="190" text-anchor="end" class="lbl-s">안 흐름 →</text>
+        </g>
+
+        <!-- right bottom: three pipes -->
+        <g id="pipes" class="t">
+          <text x="450" y="236" class="lbl">수도관으로 보면</text>
+          <text x="450" y="276" class="card-l ink-b">도체</text>
+          <rect class="pipe" x="530" y="262" width="300" height="22" rx="11"></rect>
+          <path class="dots s-accent" data-s="on" d="M540,273 H820"></path>
+          <text x="836" y="278" class="lbl-s">늘 열림</text>
+          <text x="450" y="332" class="card-l ink-b">반도체</text>
+          <rect class="pipe" x="530" y="318" width="300" height="22" rx="11"></rect>
+          <path id="semi-flow" class="dots s-accent t" d="M540,329 H820"></path>
+          <g><rect x="668" y="306" width="24" height="46" rx="4" class="f-accent-soft" style="stroke: var(--accent); stroke-width: 2"></rect><circle cx="680" cy="300" r="9" class="f-accent"></circle></g>
+          <text x="836" y="334" class="lbl-s acc">여닫음</text>
+          <text x="450" y="388" class="card-l ink-b">절연체</text>
+          <rect class="pipe" x="530" y="374" width="300" height="22" rx="11"></rect>
+          <rect class="wall" x="672" y="370" width="16" height="30"></rect>
+          <text x="836" y="390" class="lbl-s">늘 막힘</text>
+        </g>
+
+        <!-- right bottom: transistor switch -->
+        <g id="tr" class="t">
+          <text x="450" y="236" class="lbl">트랜지스터: 게이트 전압으로 여닫는 스위치</text>
+          <rect class="m-nn" x="480" y="330" width="70" height="34" rx="3"></rect><text x="515" y="352" text-anchor="middle" class="lbl-s ink-b">소스</text>
+          <rect class="m-nn" x="730" y="330" width="70" height="34" rx="3"></rect><text x="765" y="352" text-anchor="middle" class="lbl-s ink-b">드레인</text>
+          <rect id="tr-ch" class="ch t" x="550" y="338" width="180" height="18" rx="2"></rect>
+          <rect class="m-hk" x="550" y="320" width="180" height="6"></rect>
+          <rect id="tr-g" class="m-poly t" x="550" y="292" width="180" height="28"></rect>
+          <text x="640" y="311" text-anchor="middle" class="lbl-s ink-b">게이트</text>
+          <path id="tr-flow" class="dots s-accent t" d="M490,347 H790"></path>
+          <text id="tr-v" class="big-v" x="830" y="314" text-anchor="end">1</text>
+          <text id="tr-state" class="card-l t" x="480" y="400"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 실리콘 결정은 평면으로 단순화했고, 비저항 눈금은 자릿수(10의 거듭제곱)로 그렸습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>반도체 = 전도도를 <b>도핑·전압·빛·온도로 조절할 수 있는</b> 물질. 핵심은 '중간'이 아니라 '조절 가능'입니다.</li>
+      <li>순수 실리콘은 공유결합에 전자가 묶여 전기가 잘 흐르지 않고, 인(P)·붕소(B)를 조금 넣으면 움직이는 전하가 생겨 전도도가 수백만 배 이상 커집니다.</li>
+      <li>면접 답 뼈대(30초): ① 도체와 절연체 사이의 전도도 ② 도핑·전압으로 조절 가능 ③ 그래서 스위치(0/1)와 저장이 가능해 모든 디지털 기기의 기반.</li>
+    </ul>
+    <p class="foot">원고 0-1을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 1-3 에너지 밴드, 1-5 도핑과 캐리어, 2-2 MOSFET.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  // ---- silicon lattice: 4 × 3 atoms, two shared electrons on every bond
+  const L = $("lattice"), X0 = 80, Y0 = 110, P = 100;
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
+    const x = X0 + c * P, y = Y0 + r * P;
+    if (c < 3) { mk(L, "line", { class: "bond", x1: x + 18, y1: y, x2: x + P - 18, y2: y }); mk(L, "circle", { id: `e-h-${c}-${r}-a`, class: "ed t", cx: x + 50, cy: y - 6, r: 4 }); mk(L, "circle", { class: "ed", cx: x + 50, cy: y + 6, r: 4 }); }
+    if (r < 2) { mk(L, "line", { class: "bond", x1: x, y1: y + 18, x2: x, y2: y + P - 18 }); mk(L, "circle", { class: "ed", cx: x - 6, cy: y + 50, r: 4 }); mk(L, "circle", { class: "ed", cx: x + 6, cy: y + 50, r: 4 }); }
+  }
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
+    const x = X0 + c * P, y = Y0 + r * P, g = mk(L, "g", { id: `at-${c}-${r}`, class: "atom t" });
+    mk(g, "circle", { cx: x, cy: y, r: 20 }); mk(g, "text", { id: `at-${c}-${r}-t`, x: x, y: y + 5, "text-anchor": "middle" }, "Si");
+  }
+  // ---- log scale
+  const SX = (lg) => 470 + (lg + 6) * (370 / 18);
+  [-6, 0, 6, 12].forEach((lg) => {
+    mk($("ticks"), "line", { class: "axis", x1: SX(lg), y1: 100, x2: SX(lg), y2: 106 });
+    const t = mk($("ticks"), "text", { x: SX(lg), y: 122, "text-anchor": "middle", class: "lbl-s mono" }, "10");
+    mk(t, "tspan", { dy: -5, "font-size": 9 }, String(lg));
+  });
+  const siAt = (lg) => at(SX(lg), 0);
+
+  const base = Object.assign({ lattice: off, "lat-note": txt(""), ehp: off, "free-g": off, "free-w": off, scale: on, "si-mk": Object.assign(siAt(5.4), { s: "off" }), pipes: on, "semi-flow": off, tr: off, "at-1-1": { s: "si" }, "at-1-1-t": txt("Si"), "e-h-2-0-a": on, "tr-state": txt("") });
+  const steps = [
+    { short: "흐르는 정도가 다르다", title: "물질마다 전기가 흐르는 정도가 다르다", cmd: "비저항",
+      text: `물질마다 전기가 흐르기 어려운 정도(<b>비저항</b>)가 다릅니다. 구리는 약 1.7×10⁻⁶ Ω·cm로 매우 작고, 유리나 산화막은 10¹⁰ Ω·cm보다 큽니다. 도체는 늘 열린 수도관, 절연체는 막힌 수도관이고, <b>반도체는 손잡이로 여닫는 수도꼭지</b>입니다.`,
+      set: { "semi-flow": on } },
+    { short: "순수 실리콘", title: "순수한 실리콘은 전기가 잘 흐르지 않는다", cmd: "결정",
+      text: `실리콘 원자는 이웃 원자 4개와 전자를 하나씩 나눠 가지는 <b>공유결합</b>을 합니다(결합선 위의 점 두 개가 나눠 가진 전자쌍). 전자가 모두 결합에 묶여 있어 자유롭게 움직이는 전자가 거의 없습니다. 그래서 순수 실리콘은 도체와 절연체의 중간입니다.`,
+      set: { lattice: on, "si-mk": siAt(5.4), "lat-note": txt("모든 전자가 결합에 묶여 있음 → 움직일 전하가 거의 없음"), pipes: off } },
+    { short: "도핑: 남는 전자", title: "인(P)을 조금 넣으면 남는 전자가 생긴다", cmd: "도핑",
+      text: `실리콘 자리에 <b>인(P)</b>을 아주 조금 넣으면(도핑) 인은 전자가 5개라 4개로 결합하고 1개가 남습니다. 이 전자는 결정 안을 자유롭게 움직이며 전기를 나릅니다. 이렇게 움직일 수 있는 전하가 생기면 전도도가 <b>수백만 배 이상</b> 커집니다. 붕소(B)를 넣으면 반대로 빈자리가 생깁니다(1-5).`,
+      set: { "at-1-1": { s: "dopant" }, "at-1-1-t": txt("P"), "free-g": on, "free-w": on, "si-mk": siAt(-0.3), "si-mk-t": txt("도핑한 실리콘"), "lat-note": txt("인(P): 전자 5개 → 결합 4개 + 남는 전자 1개") },
+      hl: [] },
+    { short: "열·빛: 전자-정공 쌍", title: "열이나 빛을 받아도 전하가 생긴다", cmd: "열·빛",
+      text: `열이나 빛을 받으면 결합에 묶인 전자가 튀어 나와 자유 전자가 되고, 그 자리에는 빈자리(<b>정공</b>)가 남습니다. 정공은 + 전하처럼 움직입니다. 그래서 반도체의 전도도는 온도와 빛에 따라서도 달라집니다. 이미지센서가 빛을 전기로 바꾸는 원리이기도 합니다.`,
+      set: { ehp: on, "e-h-2-0-a": off, "lat-note": txt("결합이 끊기면 자유 전자 + 정공 한 쌍") } },
+    { short: "스위치: 켜짐 = 1", title: "트랜지스터는 게이트 전압으로 흐름을 켠다", cmd: "1",
+      text: `트랜지스터는 <b>게이트</b>에 전압을 걸어 소스와 드레인 사이 통로를 엽니다. 통로가 열려 전류가 흐르면 <b>1</b>입니다. 반도체가 '중간'이어서가 아니라 <b>조절할 수 있어서</b> 스위치가 됩니다.`,
+      set: { lattice: off, "free-g": off, ehp: off, "lat-note": txt(""), tr: on, "tr-ch": { s: "open" }, "tr-flow": on, "tr-v": txt("1"), "tr-state": txt("게이트 전압 높음 → 통로 열림 → 전류 흐름") } },
+    { short: "스위치: 꺼짐 = 0", title: "게이트를 내리면 꺼진다: 0과 1", cmd: "0",
+      text: `게이트 전압을 내리면 통로가 닫혀 전류가 멈추고 <b>0</b>이 됩니다. 이 켜고 끄는 스위치 수십억 개로 계산하고 저장하는 것이 디지털 칩입니다. 도체는 늘 켜져 있고 절연체는 늘 꺼져 있어 스위치를 만들 수 없습니다.`,
+      set: { "tr-ch": { s: "shut" }, "tr-flow": off, "tr-v": Object.assign(txt("0"), {}), "tr-state": txt("게이트 전압 낮음 → 통로 닫힘 → 전류 없음") } },
+  ];
+  StepPlayer.create({ root: $("app"), base, steps, dur: 6000 });
+})();
+</script>
+</body>
+</html>

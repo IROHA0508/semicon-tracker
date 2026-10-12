@@ -9,24 +9,29 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="player.css">
 <style>
-  .floor { display: grid; gap: 10px; }
-  .floor > h2 { margin: 0; display: flex; gap: 10px; align-items: baseline; font: 700 16px/1.4 var(--font-sans); }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc a { font: 500 13px/1 var(--font-sans); color: var(--ink); text-decoration: none; border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 12px; background: var(--surface); }
+  .toc a:hover { border-color: var(--accent); color: var(--accent); }
+  .toc a span { font-family: var(--font-mono); color: var(--muted); margin-left: 4px; }
+  .floor { display: grid; gap: 10px; scroll-margin-top: 16px; }
+  .floor > h2 { margin: 0; display: flex; gap: 10px; align-items: baseline; font: 700 17px/1.4 var(--font-sans); }
   .floor > h2 span { font: 500 12px var(--font-mono); color: var(--muted); letter-spacing: .04em; }
-  .cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .cards { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
   .card {
-    display: grid; gap: 10px; align-content: start;
+    display: grid; gap: 8px; align-content: start; grid-template-rows: auto auto 1fr auto;
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 16px; color: var(--ink); text-decoration: none;
+    padding: 14px 16px; color: var(--ink); text-decoration: none;
     transition: border-color .2s, transform .2s;
   }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .card h3 { margin: 0; font: 700 18px/1.35 var(--font-sans); }
-  .card p { margin: 0; color: var(--muted); font-size: 14px; }
-  .card .meta { display: flex; flex-wrap: wrap; gap: 6px; font: 500 12px/1 var(--font-mono); color: var(--muted); }
-  .card .meta span { border: 1px solid var(--line); border-radius: 999px; padding: 5px 8px; }
-  .card .go { font-weight: 600; color: var(--accent); font-size: 14px; }
-  .card svg { width: 100%; height: auto; display: block; border-radius: 6px; background: var(--bg); }
+  .card .top { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+  .card .unit { font: 600 12px/1 var(--font-mono); color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 4px 8px; }
+  .card .meta { font: 500 12px/1 var(--font-mono); color: var(--muted); }
+  .card h3 { margin: 0; font: 700 17px/1.35 var(--font-sans); text-wrap: balance; }
+  .card p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+  .card .modes { display: flex; flex-wrap: wrap; gap: 4px; }
+  .card .modes span { font-size: 12px; color: var(--muted); background: var(--bg); border-radius: 4px; padding: 3px 6px; }
   kbd { font: 500 12px var(--font-mono); border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; padding: 1px 5px; background: var(--surface); }
   @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
 </style>
@@ -36,165 +41,138 @@
   <header class="anim-head">
     <div class="eyebrow"><span>반도체 뉴스 트래커 · 이론</span></div>
     <h1>반도체 동작·공정 애니메이션</h1>
-    <p class="lead">원고에서 그림만으로는 흐름이 잘 안 잡히는 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다.</p>
+    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 15개입니다.</p>
   </header>
 
-  <section class="floor">
-    <h2>2층 · 소자 동작 <span>3개</span></h2>
+  <nav class="toc" aria-label="층 바로가기">
+    <a href="#floor-0">0층 · 입문<span>2</span></a>
+    <a href="#floor-1">1층 · 기초 전기와 물리<span>6</span></a>
+    <a href="#floor-2">2층 · 소자<span>3</span></a>
+    <a href="#floor-3">3층 · 제조 공정<span>2</span></a>
+    <a href="#floor-4">4층 · 첨단 기술<span>2</span></a>
+  </nav>
+
+  <section class="floor" id="floor-0">
+    <h2>0층 · 입문 <span>2개</span></h2>
+    <div class="cards">
+      <a class="card" href="semiconductor-basics.html">
+        <div class="top"><span class="unit">0-1</span><span class="meta">6단계</span></div>
+        <h3>반도체란 무엇인가</h3>
+        <p>비저항 눈금 위의 도체·반도체·절연체, 공유결합한 실리콘 결정, 도핑으로 생기는 자유 전자, 열로 생기는 전자-정공 쌍, 게이트로 켜고 끄는 트랜지스터.</p>
+        <div class="modes"></div>
+      </a>
+      <a class="card" href="chip-life.html">
+        <div class="top"><span class="unit">0-2</span><span class="meta">8단계</span></div>
+        <h3>칩의 일생</h3>
+        <p>설계에서 출하까지 8단계를 두 줄 흐름도로 따라가며, 단계마다 레이아웃·마스크·잉곳·층 쌓기·웨이퍼 맵·패키지·테스트를 그림으로 보여 주고 8대 공정 두 가지 분류로 마무리.</p>
+        <div class="modes"></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="floor" id="floor-1">
+    <h2>1층 · 기초 전기와 물리 <span>6개</span></h2>
+    <div class="cards">
+      <a class="card" href="electricity-basics.html">
+        <div class="top"><span class="unit">1-1</span><span class="meta">6단계</span></div>
+        <h3>전기 기초: 전압·전류·저항</h3>
+        <p>물통 비유와 회로를 나란히 놓고 전하·전류(I = Q/t), 전압, 옴의 법칙(V = IR), 저항(R = ρL/A), 전력(P = VI = I²R), 밸브 역할의 능동소자를 숫자와 함께 따라감.</p>
+        <div class="modes"></div>
+      </a>
+      <a class="card" href="capacitor.html">
+        <div class="top"><span class="unit">1-2</span><span class="meta">11단계</span></div>
+        <h3>커패시터와 전하</h3>
+        <p>평행판 커패시터에 전하가 모이는 모습(Q = CV), 전하가 남았다가 새는 D램의 원리, 면적·간격·유전율로 용량을 키우는 세 방법(C = εA/d), 충전 시간 τ = RC와 기생 커패시턴스.</p>
+        <div class="modes"><span>충전과 저장</span><span>용량 키우기</span><span>RC 지연·기생</span></div>
+      </a>
+      <a class="card" href="energy-band.html">
+        <div class="top"><span class="unit">1-3</span><span class="meta">8단계</span></div>
+        <h3>에너지 밴드</h3>
+        <p>원자 1개의 에너지 준위가 원자 2개에서 갈라지고 결정에서 띠가 되는 과정, 가전자대·전도대·밴드갭, 도체·반도체·절연체 비교, 전자-정공 쌍과 직접·간접 재결합, 물질별 밴드갭.</p>
+        <div class="modes"><span>밴드가 생기는 과정</span><span>도체·반도체·절연체</span></div>
+      </a>
+      <a class="card" href="why-silicon.html">
+        <div class="top"><span class="unit">1-4</span><span class="meta">6단계</span></div>
+        <h3>왜 실리콘인가</h3>
+        <p>실리콘의 공유결합 결정과 4족이라 쉬운 도핑, 가열만으로 자라는 SiO₂(저마늄 산화막과 비교), 1414 °C 녹는점, (100) 웨이퍼, 이동도·산화막·웨이퍼 크기로 본 재료 비교.</p>
+        <div class="modes"></div>
+      </a>
+      <a class="card" href="doping.html">
+        <div class="top"><span class="unit">1-5</span><span class="meta">8단계</span></div>
+        <h3>도핑과 캐리어</h3>
+        <p>진성·N형·P형 실리콘의 결정과 페르미 준위 이동, 농도 막대로 보는 n × p = nᵢ², 이온주입 뒤 열처리로 불순물이 제자리에 앉는 활성화, 캐리어가 움직이는 두 방법(드리프트·확산).</p>
+        <div class="modes"><span>N형·P형</span><span>드리프트·확산</span></div>
+      </a>
+      <a class="card" href="logic-gates.html">
+        <div class="top"><span class="unit">1-6</span><span class="meta">8단계</span></div>
+        <h3>0과 1의 세계</h3>
+        <p>잡음이 섞여도 0·1로 읽히는 이유, 전압 스위치인 NMOS·PMOS, 직렬(AND)·병렬(OR) 스위치, 입력을 바꿔 보는 CMOS NAND 게이트와 만능 게이트, 반가산기, 클럭, SRAM·DRAM·NAND의 저장 방식.</p>
+        <div class="modes"><span>스위치와 게이트</span><span>계산과 저장</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="floor" id="floor-2">
+    <h2>2층 · 소자 <span>3개</span></h2>
     <div class="cards">
       <a class="card" href="cmos-inverter.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <line x1="40" y1="16" x2="120" y2="16" style="stroke: var(--ink); stroke-width: 2.5"></line>
-          <line x1="40" y1="104" x2="120" y2="104" style="stroke: var(--ink); stroke-width: 2.5"></line>
-          <path d="M80,16 V36 M80,58 V62 M80,84 V104" style="stroke: var(--ink); stroke-width: 2; fill: none"></path>
-          <rect x="76" y="36" width="8" height="22" rx="2" style="fill: var(--accent)"></rect>
-          <rect x="76" y="62" width="8" height="22" rx="2" style="fill: var(--surface); stroke: var(--bad); stroke-dasharray: 3 2"></rect>
-          <path d="M80,60 H120" style="stroke: var(--ink); stroke-width: 2"></path>
-          <path d="M170,24 H222 C236,24 240,96 254,96 H300" style="fill: none; stroke: var(--accent); stroke-width: 2.5"></path>
-          <line x1="170" y1="104" x2="300" y2="104" style="stroke: var(--line-strong)"></line>
-          <line x1="170" y1="16" x2="170" y2="104" style="stroke: var(--line-strong)"></line>
-        </svg>
-        <div class="meta"><span>2-4</span><span>동작·전력·래치업</span><span>13단계</span></div>
+        <div class="top"><span class="unit">2-4</span><span class="meta">13단계</span></div>
         <h3>CMOS 인버터</h3>
-        <p>입력에 따라 PMOS·NMOS가 번갈아 켜지는 모습, 전달 특성과 전환 순간의 전류, 전력 세 가지, 웨이퍼 단면 속 래치업까지 봅니다.</p>
-        <span class="go">열기 →</span>
+        <p>입력에 따라 PMOS·NMOS가 번갈아 켜지는 모습, 전달 특성과 단락 전류, PMOS를 넓히는 이유, 동적·단락·누설 전력, 웨이퍼 단면의 기생 PNPN과 래치업 대책.</p>
+        <div class="modes"><span>인버터 동작</span><span>전력</span><span>단면·래치업</span></div>
       </a>
-
       <a class="card" href="dram-cell.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <line x1="20" y1="22" x2="170" y2="22" style="stroke: var(--accent); stroke-width: 4; stroke-linecap: round"></line>
-          <rect x="26" y="44" width="34" height="58" rx="4" style="fill: var(--surface); stroke: var(--line-strong)"></rect>
-          <rect x="29" y="60" width="28" height="39" rx="2" style="fill: var(--accent)"></rect>
-          <rect x="96" y="32" width="18" height="70" rx="3" style="fill: var(--surface); stroke: var(--line-strong)"></rect>
-          <rect x="98" y="48" width="14" height="52" rx="2" style="fill: var(--accent)"></rect>
-          <rect x="130" y="32" width="18" height="70" rx="3" style="fill: var(--surface); stroke: var(--line-strong)"></rect>
-          <rect x="132" y="68" width="14" height="32" rx="2" style="fill: var(--low)"></rect>
-          <polyline points="190,70 210,70 216,62 236,62 246,30 290,30 298,70 306,70" style="fill: none; stroke: var(--accent); stroke-width: 2.5"></polyline>
-          <polyline points="190,70 236,70 246,104 290,104 298,70 306,70" style="fill: none; stroke: var(--low); stroke-width: 2.5; stroke-dasharray: 6 4"></polyline>
-        </svg>
-        <div class="meta"><span>2-10</span><span>읽기·쓰기·리프레시</span><span>18단계</span></div>
+        <div class="top"><span class="unit">2-10</span><span class="meta">18단계</span></div>
         <h3>D램 셀 읽기·쓰기·리프레시</h3>
-        <p>셀 하나와 비트라인 한 쌍, 감지 증폭기에서 명령 순서대로 전압이 바뀌는 모습을 비트라인 전압 그래프와 함께 봅니다. 저장된 값 1·0을 바꿔 볼 수 있습니다.</p>
-        <span class="go">열기 →</span>
+        <p>셀 하나, 비트라인 한 쌍, 감지 증폭기에서 명령 순서대로 전압이 바뀌는 모습과 비트라인 전압 그래프. 저장된 값 1·0을 바꿔 볼 수 있다.</p>
+        <div class="modes"><span>읽기</span><span>쓰기</span><span>리프레시</span></div>
       </a>
-
       <a class="card" href="nand-ispp.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <rect x="24" y="66" width="12" height="40" style="fill: var(--accent)"></rect>
-          <rect x="56" y="60" width="12" height="46" style="fill: var(--accent)"></rect>
-          <rect x="88" y="54" width="12" height="52" style="fill: var(--accent)"></rect>
-          <rect x="40" y="96" width="8" height="10" style="fill: var(--low)"></rect>
-          <rect x="72" y="96" width="8" height="10" style="fill: var(--low)"></rect>
-          <g id="thumb-dots"></g>
-          <line x1="226" y1="14" x2="226" y2="106" style="stroke: var(--accent); stroke-dasharray: 4 3"></line>
-          <line x1="130" y1="106" x2="306" y2="106" style="stroke: var(--line-strong)"></line>
-        </svg>
-        <div class="meta"><span>2-11</span><span>ISPP·쓰기 금지·읽기·분포</span><span>21단계</span></div>
+        <div class="top"><span class="unit">2-11</span><span class="meta">21단계</span></div>
         <h3>낸드 ISPP와 문턱전압 분포</h3>
-        <p>펄스와 검증을 되풀이해 분포를 좁히는 ISPP, 셀프 부스팅, 기준 전압으로 읽는 법, 교란·리텐션·P/E로 분포가 무너지고 읽기 재시도로 되찾는 과정을 봅니다.</p>
-        <span class="go">열기 →</span>
+        <p>펄스·검증 반복으로 분포를 좁히는 ISPP(셀 점 그래프), 셀프 부스팅 4단계, TLC 기준 전압으로 읽기, 교란·리텐션·P/E로 분포가 움직이고 읽기 재시도로 되찾는 과정.</p>
+        <div class="modes"><span>쓰기(ISPP)</span><span>쓰기 금지</span><span>읽기</span><span>분포가 무너질 때</span></div>
       </a>
     </div>
   </section>
 
-  <section class="floor">
-    <h2>3층 · 메모리 공정 <span>2개</span></h2>
+  <section class="floor" id="floor-3">
+    <h2>3층 · 제조 공정 <span>2개</span></h2>
     <div class="cards">
       <a class="card" href="dram-process.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <rect x="20" y="78" width="280" height="36" style="fill: var(--m-si)"></rect>
-          <rect x="20" y="78" width="34" height="24" style="fill: var(--m-ox)"></rect>
-          <rect x="266" y="78" width="34" height="24" style="fill: var(--m-ox)"></rect>
-          <rect x="104" y="78" width="14" height="22" style="fill: var(--m-w)"></rect>
-          <rect x="190" y="78" width="14" height="22" style="fill: var(--m-w)"></rect>
-          <rect x="20" y="58" width="280" height="20" style="fill: var(--m-ox)"></rect>
-          <rect x="140" y="56" width="40" height="14" style="fill: var(--m-w)"></rect>
-          <rect x="20" y="10" width="280" height="44" style="fill: var(--m-plate)"></rect>
-          <path d="M66,12 V52 H84 V12" style="fill: none; stroke: var(--m-tin); stroke-width: 4"></path>
-          <path d="M236,12 V52 H254 V12" style="fill: none; stroke: var(--m-tin); stroke-width: 4"></path>
-        </svg>
-        <div class="meta"><span>3-15</span><span>단면</span><span>15단계</span></div>
+        <div class="top"><span class="unit">3-15</span><span class="meta">15단계</span></div>
         <h3>D램 공정 흐름</h3>
-        <p>맨 웨이퍼에서 STI, 매립 워드라인, 비트라인, 스토리지 노드 콘택, 실린더 커패시터, 배선까지 쌓이는 단면입니다. 위에서 본 배치와 주변 회로를 함께 보여 줍니다.</p>
-        <span class="go">열기 →</span>
+        <p>맨 웨이퍼에서 STI, 매립 워드라인, 비트라인, 스토리지 노드 콘택, 실린더 커패시터, 배선까지 쌓이는 단면. 위에서 본 배치와 주변 회로를 함께 보여 준다.</p>
+        <div class="modes"></div>
       </a>
-
       <a class="card" href="nand-process.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <rect x="20" y="100" width="280" height="14" style="fill: var(--m-poly)"></rect>
-          <g id="thumb-stack"></g>
-          <rect x="70" y="14" width="14" height="86" style="fill: var(--m-poly)"></rect>
-          <rect x="120" y="14" width="14" height="86" style="fill: var(--m-poly)"></rect>
-          <rect x="170" y="14" width="14" height="86" style="fill: var(--m-poly)"></rect>
-        </svg>
-        <div class="meta"><span>3-16</span><span>단면</span><span>15단계</span></div>
+        <div class="top"><span class="unit">3-16</span><span class="meta">15단계</span></div>
         <h3>3D 낸드 공정 흐름</h3>
-        <p>주변 회로(PUC), 산화막·질화막 적층, 채널홀과 이음부, 계단, 슬릿, 워드라인 교체, 콘택, 웨이퍼 본딩까지의 단면입니다.</p>
-        <span class="go">열기 →</span>
+        <p>주변 회로(PUC), 산화막·질화막 적층, 채널홀과 이음부, 계단, 슬릿, 워드라인 교체, 콘택, 웨이퍼 본딩까지의 단면.</p>
+        <div class="modes"></div>
       </a>
     </div>
   </section>
 
-  <section class="floor">
-    <h2>4층 · 메모리 심화 <span>2개</span></h2>
+  <section class="floor" id="floor-4">
+    <h2>4층 · 첨단 기술 <span>2개</span></h2>
     <div class="cards">
       <a class="card" href="dram-evolution.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <g id="thumb-grid"></g>
-          <path d="M142,60 H170" style="stroke: var(--accent); stroke-width: 2.5"></path>
-          <path d="M166,54 L174,60 L166,66" style="fill: none; stroke: var(--accent); stroke-width: 2.5"></path>
-        </svg>
-        <div class="meta"><span>4-3</span><span>면적·구조·세대</span><span>10단계</span></div>
+        <div class="top"><span class="unit">4-3</span><span class="meta">10단계</span></div>
         <h3>D램 셀 구조 진화</h3>
-        <p>6F²에서 4F²로 셀 면적을 줄이는 방법, 매몰 채널(BCAT)에서 세로 채널(VG·VCT)과 3D D램으로 바뀌는 단면, 1x~1c 세대 이름과 EUV를 봅니다.</p>
-        <span class="go">열기 →</span>
+        <p>6F²에서 4F²로 줄이는 셀 면적, 매몰 채널(BCAT) → 세로 채널(VG·VCT) → 3D D램 단면 비교, 1x~1c 세대 이름과 EUV·HBM의 1b.</p>
+        <div class="modes"><span>셀 면적</span><span>셀 구조</span><span>세대 이름</span></div>
       </a>
-
       <a class="card" href="hbm-stack.html">
-        <svg viewBox="0 0 320 120" aria-hidden="true">
-          <rect x="20" y="100" width="280" height="14" style="fill: var(--m-si-n)"></rect>
-          <rect x="150" y="62" width="130" height="36" rx="2" style="fill: var(--m-si)"></rect>
-          <rect x="30" y="88" width="100" height="10" style="fill: var(--m-si-line)"></rect>
-          <g id="thumb-hbm"></g>
-          <rect x="52" y="14" width="3" height="74" style="fill: var(--m-cu)"></rect>
-          <rect x="78" y="14" width="3" height="74" style="fill: var(--m-cu)"></rect>
-          <rect x="104" y="14" width="3" height="74" style="fill: var(--m-cu)"></rect>
-        </svg>
-        <div class="meta"><span>4-5</span><span>패키지·TSV·본딩</span><span>17단계</span></div>
+        <div class="top"><span class="unit">4-5</span><span class="meta">17단계</span></div>
         <h3>HBM 적층과 본딩</h3>
-        <p>GPU 옆에 붙인 2.5D 패키지와 대역폭, TSV를 만드는 순서, TC-NCF·MR-MUF·하이브리드 본딩의 차이와 높이 한도를 봅니다.</p>
-        <span class="go">열기 →</span>
+        <p>GPU 옆 2.5D 패키지와 대역폭(2,048 × 8 Gb/s), 스택 수율, TSV 6단계, TC-NCF·MR-MUF·하이브리드 본딩 비교와 높이 한도.</p>
+        <div class="modes"><span>패키지·대역폭</span><span>TSV 만들기</span><span>본딩 3가지</span></div>
       </a>
     </div>
   </section>
 
   <p class="foot">모든 그림은 개념도입니다. 비율과 순서는 이해를 돕기 위해 단순화했습니다.</p>
 </main>
-<script>
-(function () {
-  var NS = "http://www.w3.org/2000/svg";
-  function rect(g, x, y, w, h, fill, extra) {
-    var r = document.createElementNS(NS, "rect");
-    r.setAttribute("x", x); r.setAttribute("y", y); r.setAttribute("width", w); r.setAttribute("height", h);
-    r.setAttribute("style", "fill: " + fill + (extra || ""));
-    g.appendChild(r);
-  }
-  var g;
-  // NAND process: alternating layers trimmed into a staircase
-  if ((g = document.getElementById("thumb-stack"))) for (var i = 0; i < 12; i++) rect(g, 20, 93 - i * 7, 280 - Math.floor(i / 2) * 14, 7, i % 2 ? "var(--m-w)" : "var(--m-ox)");
-  // NAND ISPP: narrow passed distribution beside a wider unfinished one
-  if ((g = document.getElementById("thumb-dots"))) {
-    var cols = [[150, 2], [160, 4], [170, 5], [180, 4], [190, 2], [232, 9], [242, 8]];
-    cols.forEach(function (c) { for (var k = 0; k < c[1]; k++) { var d = document.createElementNS(NS, "circle"); d.setAttribute("cx", c[0]); d.setAttribute("cy", 100 - k * 9); d.setAttribute("r", 4); d.setAttribute("style", "fill: " + (c[0] > 226 ? "var(--accent)" : "var(--low)")); g.appendChild(d); } });
-  }
-  // D-RAM evolution: 6F² cells next to 4F² cells on the same grid
-  if ((g = document.getElementById("thumb-grid"))) {
-    for (var r6 = 0; r6 < 2; r6++) for (var c6 = 0; c6 < 2; c6++) rect(g, 20 + c6 * 54, 24 + r6 * 36, 54, 36, "var(--surface)", "; stroke: var(--ink); stroke-width: 1.2");
-    for (var r4 = 0; r4 < 2; r4++) for (var c4 = 0; c4 < 3; c4++) rect(g, 186 + c4 * 36, 24 + r4 * 36, 36, 36, "var(--accent-soft)", "; stroke: var(--accent); stroke-width: 1.2");
-  }
-  // HBM: core dies stacked on a base die
-  if ((g = document.getElementById("thumb-hbm"))) for (var k = 0; k < 8; k++) rect(g, 30, 78 - k * 9, 100, 7, "var(--m-si)");
-})();
-</script>
 </body>
 </html>

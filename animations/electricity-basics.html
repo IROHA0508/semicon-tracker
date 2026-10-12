@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>전기 기초: 전압·전류·저항</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .tank { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+  .water { fill: var(--low); opacity: .55; }
+  .pipe { fill: var(--low-soft); stroke: var(--ink); stroke-width: 2; }
+  .res { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+  .heat { fill: var(--bad); opacity: .25; }
+  .num { font: 700 22px var(--font-mono); fill: var(--ink); }
+  .unit { font: 500 13px var(--font-mono); fill: var(--muted); }
+  .valve rect { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">1-1</span><span>기초 전기</span><a href="./">애니메이션 목록</a></div>
+    <h1>전기 기초: 전압·전류·저항</h1>
+    <p class="lead">전압은 전하를 미는 힘, 전류는 1초에 지나가는 전하의 양, 저항은 흐름을 방해하는 정도입니다. 높이가 다른 물통 두 개와 회로를 나란히 놓고 V = I × R을 따라갑니다.</p>
+  </header>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">전기 기초: 전압·전류·저항</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+
+        </defs>
+        <!-- water analogy -->
+        <text x="30" y="34" class="lbl">물통으로 보면</text>
+        <rect class="tank" x="60" y="120" width="110" height="220"></rect>
+        <rect id="wl" class="water t o-b" x="62" y="122" width="106" height="216"></rect>
+        <rect class="tank" x="330" y="200" width="110" height="140"></rect>
+        <rect class="water" x="332" y="290" width="106" height="48"></rect>
+        <rect id="pipe" class="pipe t o-c" x="170" y="310" width="160" height="22"></rect>
+        <path id="wflow" class="dots s-low t" d="M178,321 H322"></path>
+        <g id="hgap" class="t"><line id="hg-line" x1="196" y1="0" x2="196" y2="290" style="stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 4 3"></line><text id="hg-t" x="204" y="200" class="lbl-s acc">수위 차 = 전압</text></g>
+        <g id="valve" class="valve t"><rect x="240" y="296" width="20" height="50" rx="4"></rect><circle cx="250" cy="290" r="8" class="f-accent"></circle><text x="250" y="370" text-anchor="middle" class="lbl-s acc">밸브 = 트랜지스터</text></g>
+        <text x="115" y="364" text-anchor="middle" class="lbl-s">높은 물통</text><text x="385" y="364" text-anchor="middle" class="lbl-s">낮은 물통</text>
+        <text id="pipe-t" class="lbl-s t" x="250" y="300" text-anchor="middle">관 = 저항</text>
+
+        <!-- circuit -->
+        <text x="470" y="34" class="lbl">회로로 보면</text>
+        <path class="wire" d="M500,120 V70 H600 M700,70 H820 V210 H500 V150"></path>
+        <line x1="484" y1="120" x2="516" y2="120" style="stroke: var(--ink); stroke-width: 3"></line>
+        <line x1="492" y1="150" x2="508" y2="150" style="stroke: var(--ink); stroke-width: 3"></line>
+        <text x="474" y="118" text-anchor="end" class="lbl-s ink-b">+</text><text x="474" y="156" text-anchor="end" class="lbl-s ink-b">−</text>
+        <text x="528" y="140" class="lbl-s ink-b">전원 V</text>
+        <rect id="heat" class="heat blink t" x="596" y="54" width="108" height="32" rx="8"></rect>
+        <path class="res" d="M600,70 l8,-10 l12,20 l12,-20 l12,20 l12,-20 l12,20 l12,-20 l12,20 l8,-10"></path>
+        <text x="650" y="104" text-anchor="middle" class="lbl-s ink-b">저항 R</text>
+        <circle cx="820" cy="140" r="16" class="m-surface" style="stroke: var(--ink); stroke-width: 2"></circle><text x="820" y="145" text-anchor="middle" class="lbl-s ink-b">A</text>
+        <path id="cflow" class="flowing s-accent t" d="M505,64 H812 V204 H508" marker-end="url(#ar-a)"></path>
+        <path id="eflow" class="dots s-low t" d="M508,216 H828 V58 H505"></path>
+        <g id="dir" class="t"><text x="660" y="160" text-anchor="middle" class="lbl-s acc">전류: + → −</text><text x="660" y="182" text-anchor="middle" class="lbl-s low-t">전자: − → +(반대)</text></g>
+        <g id="count" class="t"><line x1="760" y1="56" x2="760" y2="84" style="stroke: var(--accent); stroke-width: 2"></line><text x="760" y="48" text-anchor="middle" class="lbl-s acc">여기를 1초에 지나는 전하 = 전류</text></g>
+
+        <!-- numbers -->
+        <rect class="frame" x="450" y="248" width="410" height="172" rx="8"></rect>
+        <text x="466" y="276" class="lbl-s">전압 V</text><text id="nv" class="num" x="466" y="306">6</text><text x="520" y="306" class="unit">V</text>
+        <text x="566" y="276" class="lbl-s">저항 R</text><text id="nr" class="num" x="566" y="306">3</text><text x="620" y="306" class="unit">Ω</text>
+        <text x="666" y="276" class="lbl-s">전류 I</text><text id="ni" class="num" x="666" y="306">2</text><text x="720" y="306" class="unit">A</text>
+        <text x="766" y="276" class="lbl-s">전력 P</text><text id="np" class="num" x="766" y="306">12</text><text x="826" y="306" class="unit">W</text>
+        <text id="fx" class="head-t" x="466" y="346"></text>
+        <text id="fx2" class="card-l" x="466" y="374"></text>
+        <text id="fx3" class="card-m" x="466" y="398"></text>
+      </svg>
+      <figcaption>개념도입니다. 물통 비유와 회로는 같은 순간을 보여 주며, 숫자는 계산하기 쉬운 예시 값입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li><b>V = I × R</b>: 전압(밀어 주는 힘) = 전류(흐르는 양) × 저항(방해). 전류 방향과 전자의 실제 이동 방향은 반대입니다.</li>
+      <li><b>R = ρL/A</b>: 배선이 가늘고 길수록 저항이 커져 신호가 늦어지고(RC 지연) 열이 납니다. 미세화가 배선에 부담을 주는 이유입니다.</li>
+      <li><b>P = VI = I²R</b>: 칩 발열의 출발점. 면접에서 "칩은 왜 뜨거워지나"에는 I²R 열, 스위칭 때 충·방전 전력, 누설전류 세 가지로 답합니다(2-4).</li>
+    </ul>
+    <p class="foot">원고 1-1을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 1-2 커패시터와 전하, 3-9 금속배선.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  const WL_FULL = 216;
+  const level = (v) => { const lv = Math.min(1, 0.22 + v / 15); return { wl: { style: { transform: `scaleY(${lv.toFixed(3)})` } }, "hg-line": { attr: { y1: (338 - WL_FULL * lv).toFixed(1), y2: 290 } }, "hg-t": { attr: { y: (338 - WL_FULL * lv + 26).toFixed(1) } } }; };
+  const speed = (i) => ({ s: "on", style: { "animation-duration": (2.4 / Math.max(i, 0.5)).toFixed(2) + "s" } });
+  const vals = (v, r) => { const i = v / r; return Object.assign(level(v), { nv: { num: { v: v, d: 0 } }, nr: { num: { v: r, d: 0 } }, ni: { num: { v: i, d: i % 1 ? 1 : 0 } }, np: { num: { v: v * i, d: 0 } }, wflow: speed(i), eflow: speed(i) }); };
+  const fx = (a, b, c) => ({ fx: txt(a), fx2: txt(b || ""), fx3: txt(c || "") });
+  const base = Object.assign(vals(6, 3), { cflow: off, eflow: off, wflow: off, dir: off, count: off, hgap: off, heat: off, valve: off, "pipe-t": on, pipe: { style: { transform: "scaleY(1)" } } }, fx(""));
+  const steps = [
+    { short: "전하와 전류", title: "전류: 1초에 지나가는 전하의 양", cmd: "I = Q/t",
+      text: `전자 하나의 전하는 1.6×10⁻¹⁹ C입니다. 어느 단면을 1초에 1 C가 지나가면 <b>1 A</b>입니다. 식으로는 <b>I = Q / t</b>입니다. 물로 치면 관을 1초에 지나가는 물의 양입니다.`,
+      set: Object.assign({ eflow: speed(2), wflow: speed(2), count: on }, fx("I = Q / t", "1초에 1 C가 지나가면 1 A", "전자 1개 = 1.6×10⁻¹⁹ C")) },
+    { short: "전압: 수위 차", title: "전압: 전하를 미는 힘(높이 차)", cmd: "V",
+      text: `전압은 전하 1 C가 두 지점 사이에서 갖는 에너지 차이입니다(<b>V = W / Q</b>). 물통의 수위 차와 같습니다. 전류는 전압이 높은 쪽(+)에서 낮은 쪽(−)으로 흐르고, 실제로 움직이는 <b>전자는 그 반대 방향</b>으로 움직입니다.`,
+      set: Object.assign({ hgap: on, cflow: on, dir: on, count: off }, fx("V = W / Q", "높은 쪽 → 낮은 쪽으로 흐름", "전류 방향과 전자의 방향은 반대")) },
+    { short: "옴의 법칙", title: "옴의 법칙: 전압을 2배로 하면 전류도 2배", cmd: "V = IR",
+      text: `세 값은 <b>V = I × R</b>로 묶입니다. 저항이 그대로일 때 전압을 6 V에서 12 V로 올리면 전류도 2 A에서 4 A로 두 배가 됩니다. 수위 차를 키우면 물이 더 빨리 흐르는 것과 같습니다.`,
+      set: Object.assign(vals(12, 3), fx("V = I × R", "12 V ÷ 3 Ω = 4 A", "전압 2배 → 전류 2배")) },
+    { short: "저항: R = ρL/A", title: "저항: 가늘고 길수록 커진다", cmd: "R = ρL/A",
+      text: `저항은 <b>R = ρ × L / A</b>입니다(ρ 비저항, L 길이, A 단면적). 관이 가늘고 길수록 물이 덜 흐르듯, 배선이 가늘고 길수록 저항이 커집니다. 저항이 3 Ω에서 6 Ω이 되면 같은 12 V에서 전류는 2 A로 줄어듭니다. 미세화가 배선에 부담을 주는 이유입니다.`,
+      set: Object.assign(vals(12, 6), { pipe: { style: { transform: "scaleY(0.5)" } } }, fx("R = ρ × L / A", "단면적 절반 → 저항 2배 → 전류 절반", "가는 배선 → RC 지연·발열(3-9, 4-1)")) },
+    { short: "전력과 열", title: "전력: 저항을 지나는 전류는 열을 낸다", cmd: "P = VI",
+      text: `전력은 <b>P = V × I = I²R = V²/R</b>입니다. 12 V에서 2 A가 흐르면 24 W입니다. 저항을 지나는 전류는 열을 내므로, 칩 발열과 전력 소모의 출발점이 됩니다. AI 데이터센터의 전력·냉각 문제도 결국 P = VI를 줄이는 문제입니다.`,
+      set: Object.assign({ heat: on }, fx("P = V × I = I²R", "12 V × 2 A = 24 W", "전류가 흐르는 곳마다 I²R만큼 열")) },
+    { short: "수동소자와 능동소자", title: "밸브를 달면: 수동소자와 능동소자", cmd: "소자",
+      text: `저항·커패시터·인덕터는 에너지를 쓰거나 담아 두기만 하는 <b>수동소자</b>입니다. 다이오드·BJT·MOSFET은 흐름을 켜고 끄거나 키우는 <b>능동소자</b>입니다. 트랜지스터는 관에 단 <b>밸브</b>이고, 다이오드·트랜지스터는 전압에 따라 저항이 크게 바뀌는 비선형 소자라 스위치가 됩니다.`,
+      set: Object.assign({ valve: on, heat: off, "pipe-t": off, pipe: { style: { transform: "scaleY(1)" } } }, vals(12, 3), fx("수동: R · C · L", "능동: 다이오드 · BJT · MOSFET", "밸브(트랜지스터)로 흐름을 켜고 끈다")) },
+  ];
+  StepPlayer.create({ root: $("app"), base, steps, dur: 6000 });
+})();
+</script>
+</body>
+</html>

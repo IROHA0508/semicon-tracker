@@ -243,5 +243,31 @@
     return api;
   }
 
-  window.StepPlayer = { create };
+  // Small drawing helpers shared by the pages.
+  const NS = "http://www.w3.org/2000/svg";
+  const kit = {
+    NS,
+    $: (id) => document.getElementById(id),
+    /** Create an SVG element, set attributes, optional text, append to parent. */
+    mk(parent, tag, attrs, text) {
+      const n = document.createElementNS(NS, tag);
+      Object.keys(attrs || {}).forEach((k) => n.setAttribute(k, attrs[k]));
+      if (text != null) n.textContent = text;
+      if (parent) parent.appendChild(n);
+      return n;
+    },
+    /** The same state for many ids. */
+    all(ids, v) { const o = {}; ids.forEach((i) => { o[i] = v; }); return o; },
+    txt: (t) => ({ text: t }),
+    on: { s: "on" },
+    off: { s: "off" },
+    /** Every id in `groups` hidden except those in `show`. */
+    only(groups, show) { const o = {}; groups.forEach((g) => { o[g] = { s: show.indexOf(g) >= 0 ? "on" : "off" }; }); return o; },
+    /** Text lines for ids prefix1..prefixN. */
+    lines(prefix, arr, n) { const o = {}; for (let i = 1; i <= n; i++) o[prefix + i] = { text: (arr && arr[i - 1]) || "" }; return o; },
+    /** Move an element to (x, y) with a CSS transform (animated by the player). */
+    at(x, y, extra) { return { s: "on", style: { transform: `translate(${(+x).toFixed(1)}px, ${(+y).toFixed(1)}px)` + (extra ? " " + extra : "") } }; },
+  };
+
+  window.StepPlayer = { create, kit };
 })();

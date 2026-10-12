@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>0과 1의 세계</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .sig { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+  .thr { stroke: var(--ink); stroke-width: 1.4; stroke-dasharray: 6 4; }
+  .bit { font: 700 18px var(--font-mono); fill: var(--ink); }
+  .lever { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+  .lamp { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .lamp[data-s="on"] { fill: #f2c94c; stroke: var(--accent); }
+  .ch { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+  .ch[data-s="on"] { fill: var(--accent); stroke: var(--accent); }
+  .ch[data-s="cut"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 3 3; }
+  .gate { stroke: var(--ink); stroke-width: 3; }
+  .bub { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .node { fill: var(--ink); }
+  .node[data-s="hi"] { fill: var(--accent); }
+  .node[data-s="lo"] { fill: var(--low); }
+  .val { font: 700 22px var(--font-mono); fill: var(--ink); }
+  .tt text { font: 600 15px var(--font-mono); fill: var(--ink); }
+  .tt rect.row { fill: transparent; }
+  .tt rect.row[data-s="on"] { fill: var(--accent-soft); }
+  .gsym { fill: var(--surface); stroke: var(--ink); stroke-width: 2.2; }
+  .gtxt { font: 700 12px var(--font-mono); fill: var(--ink); }
+  .clk { fill: none; stroke: var(--low); stroke-width: 2.5; }
+  .flow2 { stroke: var(--accent); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">1-6</span><span>디지털 기초</span><a href="./">애니메이션 목록</a></div>
+    <h1>0과 1의 세계</h1>
+    <p class="lead">디지털 칩은 트랜지스터를 전압으로 켜고 끄는 스위치로 써서 0과 1을 만들고, 스위치를 엮은 논리 게이트로 계산하고 저장합니다. 위의 A·B 버튼으로 입력을 바꿔 보세요.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">0과 1의 세계</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+
+        </defs>
+        <!-- ===== why 0 and 1 ===== -->
+        <g id="g-noise" class="t">
+          <text x="60" y="40" class="lbl">0.9 V 회로의 신호(잡음이 섞임)</text>
+          <line class="axis" x1="80" y1="60" x2="80" y2="250"></line><line class="axis" x1="80" y1="250" x2="820" y2="250"></line>
+          <text x="74" y="84" text-anchor="end" class="lbl-s mono">0.9 V</text><text x="74" y="254" text-anchor="end" class="lbl-s mono">0 V</text>
+          <rect x="82" y="60" width="738" height="95" class="f-accent-soft" opacity=".45"></rect>
+          <text x="814" y="76" text-anchor="end" class="lbl-s acc">절반보다 위 → 1</text><text x="814" y="242" text-anchor="end" class="lbl-s low-t">절반보다 아래 → 0</text>
+          <line class="thr" x1="80" y1="155" x2="820" y2="155"></line><text x="826" y="159" class="lbl-s">절반</text>
+          <path id="sig" class="sig"></path>
+          <g id="bits"></g>
+          <text x="60" y="350" class="card-l">높음·낮음 두 가지로만 읽으면 잡음이 조금 섞여도 틀리지 않습니다.</text>
+          <text x="60" y="374" class="card-l acc">그래서 수십억 개의 트랜지스터가 오차를 쌓지 않고 함께 일할 수 있습니다.</text>
+        </g>
+
+        <!-- ===== transistor = switch ===== -->
+        <g id="g-sw" class="t">
+          <text x="60" y="40" class="lbl">트랜지스터 = 전압으로 켜는 스위치(게이트 = 입력 A)</text>
+          <g transform="translate(110,70)">
+            <text x="100" y="0" text-anchor="middle" class="head-t">NMOS</text>
+            <path class="wire" d="M100,20 V70 M100,170 V220"></path>
+            <rect id="sw-n" class="ch t" x="94" y="70" width="12" height="100" rx="2"></rect>
+            <line class="gate" x1="80" y1="74" x2="80" y2="166"></line><path class="wire" d="M20,120 H80"></path>
+            <text x="14" y="116" text-anchor="end" class="card-l ink-b">A</text>
+            <text id="sw-n-t" x="130" y="126" class="card-l ink-b"></text>
+            <text x="100" y="260" text-anchor="middle" class="card-l">게이트 1일 때 켜짐</text>
+          </g>
+          <g transform="translate(470,70)">
+            <text x="100" y="0" text-anchor="middle" class="head-t">PMOS</text>
+            <path class="wire" d="M100,20 V70 M100,170 V220"></path>
+            <rect id="sw-p" class="ch t" x="94" y="70" width="12" height="100" rx="2"></rect>
+            <line class="gate" x1="80" y1="74" x2="80" y2="166"></line><circle class="bub" cx="72" cy="120" r="5"></circle><path class="wire" d="M20,120 H67"></path>
+            <text x="14" y="116" text-anchor="end" class="card-l ink-b">A</text>
+            <text id="sw-p-t" x="130" y="126" class="card-l ink-b"></text>
+            <text x="100" y="260" text-anchor="middle" class="card-l">게이트 0일 때 켜짐(동그라미)</text>
+          </g>
+        </g>
+
+        <!-- ===== series / parallel switches ===== -->
+        <g id="g-sp" class="t">
+          <text x="60" y="40" class="lbl">스위치 두 개를 이으면</text>
+          <text x="200" y="80" text-anchor="middle" class="head-t">직렬 = AND</text>
+          <path class="wire" d="M60,200 H110 M170,200 H230 M290,200 H330"></path>
+          <circle cx="110" cy="200" r="4" class="node"></circle><circle cx="230" cy="200" r="4" class="node"></circle>
+          <line id="lv-a1" class="lever t" x1="110" y1="200" x2="170" y2="200" style="transform-box: view-box; transform-origin: 110px 200px"></line>
+          <line id="lv-b1" class="lever t" x1="230" y1="200" x2="290" y2="200" style="transform-box: view-box; transform-origin: 230px 200px"></line>
+          <text x="140" y="236" text-anchor="middle" class="card-l ink-b">A</text><text x="260" y="236" text-anchor="middle" class="card-l ink-b">B</text>
+          <circle id="lamp1" class="lamp t" cx="350" cy="200" r="18"></circle>
+          <text x="200" y="290" text-anchor="middle" class="card-l">둘 다 켜야 불이 들어온다</text>
+          <text x="620" y="80" text-anchor="middle" class="head-t">병렬 = OR</text>
+          <path class="wire" d="M480,200 H510 V150 H550 M610,150 H650 V200 M510,200 V250 H550 M610,250 H650 V200 H700"></path>
+          <circle cx="550" cy="150" r="4" class="node"></circle><circle cx="550" cy="250" r="4" class="node"></circle>
+          <line id="lv-a2" class="lever t" x1="550" y1="150" x2="610" y2="150" style="transform-box: view-box; transform-origin: 550px 150px"></line>
+          <line id="lv-b2" class="lever t" x1="550" y1="250" x2="610" y2="250" style="transform-box: view-box; transform-origin: 550px 250px"></line>
+          <text x="580" y="134" text-anchor="middle" class="card-l ink-b">A</text><text x="580" y="284" text-anchor="middle" class="card-l ink-b">B</text>
+          <circle id="lamp2" class="lamp t" cx="720" cy="200" r="18"></circle>
+          <text x="620" y="320" text-anchor="middle" class="card-l">하나만 켜도 불이 들어온다</text>
+          <text x="60" y="380" class="card-l acc">손가락 대신 전압으로 켜는 스위치가 트랜지스터입니다.</text>
+        </g>
+
+        <!-- ===== CMOS NAND ===== -->
+        <g id="g-nand" class="t">
+          <text x="60" y="40" class="lbl">CMOS NAND: 트랜지스터 4개</text>
+          <line x1="160" y1="70" x2="520" y2="70" style="stroke: var(--ink); stroke-width: 3"></line><text x="150" y="75" text-anchor="end" class="card-l ink-b">VDD</text>
+          <line x1="160" y1="400" x2="520" y2="400" style="stroke: var(--ink); stroke-width: 3"></line><text x="150" y="405" text-anchor="end" class="card-l ink-b">GND</text>
+          <path class="wire" d="M280,70 V100 M280,160 V190 H400 M400,70 V100 M400,160 V190 M340,190 V230 M340,290 V310 M340,370 V400 M400,190 H470"></path>
+          <rect id="pa" class="ch t" x="275" y="100" width="10" height="60" rx="2"></rect><line class="gate" x1="264" y1="102" x2="264" y2="158"></line><circle class="bub" cx="256" cy="130" r="5"></circle>
+          <rect id="pb" class="ch t" x="395" y="100" width="10" height="60" rx="2"></rect><line class="gate" x1="384" y1="102" x2="384" y2="158"></line><circle class="bub" cx="376" cy="130" r="5"></circle>
+          <rect id="na" class="ch t" x="335" y="230" width="10" height="60" rx="2"></rect><line class="gate" x1="324" y1="232" x2="324" y2="288"></line>
+          <rect id="nb" class="ch t" x="335" y="310" width="10" height="60" rx="2"></rect><line class="gate" x1="324" y1="312" x2="324" y2="368"></line>
+          <path class="wire" d="M200,130 H251 M200,260 H324 M200,130 V260"></path><text x="190" y="200" text-anchor="end" class="card-l ink-b">A</text>
+          <path class="wire" d="M230,340 H324 M230,340 V150 H371 M371,130 V150"></path><text x="236" y="356" class="card-l ink-b">B</text>
+          <circle id="ny" class="node t" cx="470" cy="190" r="6"></circle><text x="482" y="182" class="card-l ink-b">Y</text>
+          <text id="ny-v" class="val" x="482" y="216"></text>
+          <text x="420" y="130" class="lbl-s">PMOS 병렬</text><text x="360" y="302" class="lbl-s">NMOS 직렬</text>
+          <g class="tt">
+            <text x="600" y="90" text-anchor="middle">A</text><text x="660" y="90" text-anchor="middle">B</text><text x="740" y="90" text-anchor="middle">Y</text>
+            <line x1="580" y1="98" x2="770" y2="98" style="stroke: var(--line-strong)"></line>
+            <g id="nrows"></g>
+          </g>
+          <text x="580" y="300" class="card-l">둘 다 1일 때만 0 = NOT(A AND B)</text>
+          <text x="580" y="324" class="card-l acc">입력 버튼을 눌러 바꿔 보세요</text>
+        </g>
+
+        <!-- ===== universal gate ===== -->
+        <g id="g-univ" class="t">
+          <text x="60" y="40" class="lbl">NAND만으로 모든 논리를 만든다</text>
+          <g id="gates"></g>
+          <text x="60" y="380" class="card-l">인버터(NOT)는 트랜지스터 2개, NAND·NOR는 4개. NAND가 설계의 기본 단위입니다.</text>
+          <text x="60" y="404" class="card-l acc">NAND 플래시의 이름도 셀을 잇는 방식이 NAND 게이트를 닮아서 붙었습니다(2-8).</text>
+        </g>
+
+        <!-- ===== half adder ===== -->
+        <g id="g-add" class="t">
+          <text x="60" y="40" class="lbl">반가산기: 1비트 덧셈</text>
+          <g id="addgates"></g>
+          <text x="560" y="150" class="card-l">합 S = A XOR B</text><text x="560" y="250" class="card-l">올림 C = A AND B</text>
+          <text id="sum-v" class="val" x="560" y="330"></text>
+          <text x="60" y="400" class="card-l acc">덧셈기와 비교기를 엮으면 연산 장치(ALU)가 됩니다.</text>
+        </g>
+        <!-- ===== clock ===== -->
+        <g id="g-clock" class="t">
+          <text x="60" y="40" class="lbl">클럭: 모두가 같은 박자에 맞춰 움직인다</text>
+          <path id="clkp" class="clk"></path>
+          <text x="60" y="290" class="card-l">박자 한 번마다 게이트들이 다음 값으로 넘어갑니다.</text>
+          <text x="60" y="314" class="card-l acc">1 GHz = 1초에 10억 번. CPU는 수 GHz로 계산합니다.</text>
+        </g>
+        <!-- ===== storage ===== -->
+        <g id="g-store" class="t">
+          <text x="60" y="40" class="lbl">0과 1을 붙잡아 두는 세 가지 방법</text>
+          <g transform="translate(70,80)">
+            <text x="100" y="0" text-anchor="middle" class="head-t">SRAM</text>
+            <path class="gsym" d="M50,60 L110,90 L50,120 Z"></path><circle class="bub" cx="115" cy="90" r="5"></circle>
+            <path class="gsym" d="M150,180 L90,150 L150,120 Z"></path><circle class="bub" cx="85" cy="150" r="5"></circle>
+            <path class="wire" d="M120,90 H170 V150 H155 M80,150 H30 V90 H50"></path>
+            <text x="100" y="230" text-anchor="middle" class="card-l">인버터 두 개가 맞물려 유지</text>
+            <text x="100" y="252" text-anchor="middle" class="card-l bad-t">전원 끄면 사라짐 · CPU 캐시</text>
+          </g>
+          <g transform="translate(340,80)">
+            <text x="100" y="0" text-anchor="middle" class="head-t">DRAM</text>
+            <rect x="70" y="60" width="60" height="22" class="m-nn"></rect><rect x="76" y="40" width="48" height="20" class="m-poly"></rect>
+            <rect x="80" y="100" width="40" height="80" rx="4" style="fill: var(--surface); stroke: var(--ink); stroke-width: 2"></rect>
+            <rect x="84" y="130" width="32" height="46" rx="2" class="f-accent"></rect>
+            <text x="100" y="230" text-anchor="middle" class="card-l">커패시터에 담긴 전하</text>
+            <text x="100" y="252" text-anchor="middle" class="card-l bad-t">사라짐 + 리프레시 필요 · 메인 메모리</text>
+          </g>
+          <g transform="translate(610,80)">
+            <text x="100" y="0" text-anchor="middle" class="head-t">NAND</text>
+            <rect x="50" y="60" width="100" height="24" class="m-w"></rect><rect x="50" y="84" width="100" height="12" class="m-ox"></rect>
+            <rect x="50" y="96" width="100" height="24" class="m-nit"></rect><rect x="50" y="120" width="100" height="10" class="m-ox"></rect>
+            <rect x="50" y="130" width="100" height="40" class="m-si"></rect>
+            <g><circle cx="70" cy="108" r="4" class="f-low"></circle><circle cx="90" cy="108" r="4" class="f-low"></circle><circle cx="110" cy="108" r="4" class="f-low"></circle><circle cx="130" cy="108" r="4" class="f-low"></circle></g>
+            <text x="100" y="230" text-anchor="middle" class="card-l">갇힌 전자 양 → 문턱전압</text>
+            <text x="100" y="252" text-anchor="middle" class="card-l ok-t" style="fill: var(--ok); font-weight: 600">전원 꺼도 유지 · SSD</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 회로 기호는 단순화했고, 전압 파형은 0.9 V 회로를 예로 든 모양입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>0과 1로 읽는 이유: 높음·낮음 두 가지로만 읽어 잡음에 강하기 때문입니다. NMOS는 게이트 1, PMOS는 게이트 0일 때 켜집니다.</li>
+      <li>CMOS: NMOS와 PMOS를 짝지어 어느 상태든 한쪽 길이 끊겨 있어, 값을 유지하는 동안 전류가 거의 없습니다. 전력은 주로 0↔1로 바뀌는 순간에 씁니다(2-4).</li>
+      <li>저장 방식: SRAM(맞물린 인버터, 캐시) · DRAM(커패시터 전하, 리프레시) · NAND(갇힌 전자, 비휘발성).</li>
+    </ul>
+    <p class="foot">원고 1-6을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-2 MOSFET, 2-4 CMOS 인버터, 2-7 메모리 계층, 2-8 NAND 플래시.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  // noisy digital waveform
+  const bitsSeq = [1, 0, 1, 1, 0, 1, 0];
+  let seed = 9; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - 0.5;
+  let d = ""; const W = 730 / bitsSeq.length;
+  bitsSeq.forEach((b, i) => { for (let k = 0; k <= 12; k++) { const x = 85 + i * W + k * W / 12, y = (b ? 84 : 240) + rnd() * 22; d += (d ? " L" : "M") + x.toFixed(1) + "," + y.toFixed(1); } mk($("bits"), "text", { x: 85 + i * W + W / 2, y: 300, "text-anchor": "middle", class: "bit" }, b); });
+  $("sig").setAttribute("d", d);
+  // NAND truth table rows
+  [[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 0]].forEach(([a, b, y], i) => {
+    mk($("nrows"), "rect", { id: "nr" + i, class: "row t", x: 580, y: 106 + i * 36, width: 190, height: 32, rx: 4 });
+    [a, b, y].forEach((v, j) => mk($("nrows"), "text", { x: [600, 660, 740][j], y: 128 + i * 36, "text-anchor": "middle" }, v));
+  });
+  // gate symbols
+  function gate(g, kind, x, y, label) {
+    const G = mk(g, "g", { transform: `translate(${x},${y})` });
+    if (kind === "and" || kind === "nand") mk(G, "path", { class: "gsym", d: "M0,0 H30 A30,30 0 0 1 30,60 H0 Z" });
+    if (kind === "or" || kind === "xor") mk(G, "path", { class: "gsym", d: "M0,0 Q50,0 70,30 Q50,60 0,60 Q18,30 0,0 Z" });
+    if (kind === "xor") mk(G, "path", { d: "M-8,0 Q10,30 -8,60", style: "fill: none; stroke: var(--ink); stroke-width: 2.2" });
+    if (kind === "not") mk(G, "path", { class: "gsym", d: "M0,5 L50,30 L0,55 Z" });
+    if (kind === "nand" || kind === "not") mk(G, "circle", { class: "bub", cx: kind === "not" ? 56 : 66, cy: 30, r: 6 });
+    if (label) mk(G, "text", { x: 30, y: 82, "text-anchor": "middle", class: "gtxt" }, label);
+    return G;
+  }
+  const U = $("gates");
+  gate(U, "nand", 80, 80, "NAND"); mk(U, "text", { x: 110, y: 186, "text-anchor": "middle", class: "card-l" }, "기본");
+  gate(U, "nand", 300, 80, "NOT"); mk(U, "path", { class: "wire", d: "M260,95 H300 M260,125 H300 M260,95 V125 M230,110 H260" }); mk(U, "text", { x: 330, y: 186, "text-anchor": "middle", class: "card-l" }, "입력을 묶으면 NOT");
+  gate(U, "nand", 500, 80, ""); gate(U, "nand", 600, 80, ""); mk(U, "path", { class: "wire", d: "M572,110 H585 M585,95 H600 M585,125 H600 M585,95 V125" }); mk(U, "text", { x: 600, y: 186, "text-anchor": "middle", class: "card-l" }, "NAND + NOT = AND");
+  gate(U, "nand", 300, 230, "OR"); gate(U, "nand", 200, 210, ""); gate(U, "nand", 200, 270, ""); mk(U, "text", { x: 330, y: 340, "text-anchor": "middle", class: "card-l" }, "입력을 뒤집고 NAND = OR");
+  mk(U, "path", { class: "wire", d: "M272,240 H285 V245 H300 M272,300 H285 V275 H300" });
+  const A = $("addgates");
+  gate(A, "xor", 300, 110, "XOR"); gate(A, "and", 300, 210, "AND");
+  mk(A, "path", { class: "wire", d: "M120,125 H300 M120,225 H300 M150,125 V225 M150,225 H300 M180,155 H292 M180,255 H300 M180,155 V255 M120,155 H180 M370,140 H540 M360,240 H540" });
+  mk(A, "text", { x: 112, y: 130, "text-anchor": "end", class: "card-l ink-b" }, "A"); mk(A, "text", { x: 112, y: 160, "text-anchor": "end", class: "card-l ink-b" }, "B");
+  // clock wave
+  let cd = "M60,220"; for (let i = 0; i < 12; i++) { const x = 60 + i * 60; cd += ` V120 H${x + 30} V220 H${x + 60}`; } $("clkp").setAttribute("d", cd);
+
+  const leverOn = { style: { transform: "rotate(0deg)" } }, leverOff = { style: { transform: "rotate(-30deg)" } };
+  const GROUPS = ["g-noise", "g-sw", "g-sp", "g-nand", "g-univ", "g-add", "g-clock", "g-store"];
+  const A1 = (c) => c.a === "1", B1 = (c) => c.b === "1";
+  const gate1 = {
+    id: "gate", label: "스위치와 게이트",
+    base: () => only(GROUPS, ["g-noise"]),
+    steps: [
+      { short: "왜 0과 1인가", title: "높음과 낮음, 두 가지로만 읽는다", cmd: "0·1",
+        text: `전압을 높음과 낮음 두 가지로만 읽으면 잡음이 조금 섞여도 틀리지 않습니다. 0.9 V 회로라면 대략 <b>절반보다 위는 1, 아래는 0</b>으로 읽습니다. 그래서 수십억 개의 트랜지스터가 오차를 쌓지 않고 함께 일할 수 있습니다.`,
+        set: {} },
+      { short: "트랜지스터 = 스위치", title: "트랜지스터: 전압으로 켜는 스위치", cmd: "스위치",
+        text: (c) => `MOSFET은 게이트 전압으로 소스와 드레인 사이 통로를 열고 닫습니다(2-2). <b>NMOS는 게이트가 1일 때</b>, <b>PMOS는 0일 때</b> 켜집니다. 지금 A = ${c.a}이라 ${A1(c) ? "NMOS가 켜지고 PMOS는 꺼져" : "PMOS가 켜지고 NMOS는 꺼져"} 있습니다. A 버튼으로 바꿔 보세요.`,
+        set: (c) => Object.assign(only(GROUPS, ["g-sw"]), { "sw-n": { s: A1(c) ? "on" : "cut" }, "sw-p": { s: A1(c) ? "cut" : "on" }, "sw-n-t": txt(A1(c) ? "켜짐" : "꺼짐"), "sw-p-t": txt(A1(c) ? "꺼짐" : "켜짐") }) },
+      { short: "직렬 = AND, 병렬 = OR", title: "스위치 두 개: 직렬은 AND, 병렬은 OR", cmd: "AND·OR",
+        text: (c) => `스위치 두 개를 <b>직렬</b>로 이으면 둘 다 켜야 불이 들어오고(<b>AND</b>), <b>병렬</b>로 이으면 하나만 켜도 들어옵니다(<b>OR</b>). 지금 A = ${c.a}, B = ${c.b}이라 AND는 ${A1(c) && B1(c) ? "켜짐" : "꺼짐"}, OR는 ${A1(c) || B1(c) ? "켜짐" : "꺼짐"}입니다.`,
+        set: (c) => Object.assign(only(GROUPS, ["g-sp"]), { "lv-a1": A1(c) ? leverOn : leverOff, "lv-a2": A1(c) ? leverOn : leverOff, "lv-b1": B1(c) ? leverOn : leverOff, "lv-b2": B1(c) ? leverOn : leverOff,
+          lamp1: { s: A1(c) && B1(c) ? "on" : "off-l" }, lamp2: { s: A1(c) || B1(c) ? "on" : "off-l" } }) },
+      { short: "CMOS NAND", title: "CMOS NAND: 위는 병렬 PMOS, 아래는 직렬 NMOS", cmd: "NAND",
+        text: (c) => `PMOS 두 개를 <b>병렬</b>로 VDD에, NMOS 두 개를 <b>직렬</b>로 GND에 붙이면 NAND 게이트가 됩니다. 둘 다 1일 때만 NMOS 길이 이어져 출력이 0이고, 그 밖에는 PMOS 하나라도 켜져 1입니다. 어느 경우든 한쪽 길은 끊겨 있어 VDD에서 GND로 곧장 흐르는 전류가 거의 없습니다. 지금 A = ${c.a}, B = ${c.b} → Y = ${A1(c) && B1(c) ? 0 : 1}.`,
+        set: (c) => { const y = !(A1(c) && B1(c)); return Object.assign(only(GROUPS, ["g-nand"]), { pa: { s: A1(c) ? "cut" : "on" }, pb: { s: B1(c) ? "cut" : "on" }, na: { s: A1(c) ? "on" : "cut" }, nb: { s: B1(c) ? "on" : "cut" }, ny: { s: y ? "hi" : "lo" }, "ny-v": txt(y ? "1" : "0") },
+          { nr0: { s: !A1(c) && !B1(c) ? "on" : "x" }, nr1: { s: !A1(c) && B1(c) ? "on" : "x" }, nr2: { s: A1(c) && !B1(c) ? "on" : "x" }, nr3: { s: A1(c) && B1(c) ? "on" : "x" } }); } },
+      { short: "만능 게이트", title: "NAND만 있으면 모든 논리를 만든다", cmd: "만능",
+        text: `NAND의 두 입력을 묶으면 NOT, NAND 뒤에 NOT을 붙이면 AND, 입력을 뒤집고 NAND에 넣으면 OR가 됩니다. 그래서 NAND를 <b>만능 게이트</b>라고 하고 실제 회로 설계의 기본 단위가 됩니다. 인버터는 트랜지스터 2개, NAND·NOR는 4개로 만듭니다.`,
+        set: only(GROUPS, ["g-univ"]) },
+    ],
+  };
+  const use = {
+    id: "use", label: "계산과 저장",
+    base: () => only(GROUPS, ["g-add"]),
+    steps: [
+      { short: "반가산기", title: "게이트를 엮으면 덧셈이 된다", cmd: "덧셈",
+        text: (c) => `XOR 게이트와 AND 게이트 하나씩으로 1비트 덧셈기(반가산기)를 만듭니다. 합은 <b>A XOR B</b>, 올림은 <b>A AND B</b>입니다. 지금 ${c.a} + ${c.b} = ${(+c.a) + (+c.b)}(2진수로 ${(A1(c) && B1(c)) ? "10" : ((+c.a) + (+c.b))})입니다. 덧셈기와 비교기를 엮으면 연산 장치(<b>ALU</b>)가 됩니다.`,
+        set: (c) => ({ "sum-v": txt(`${c.a} + ${c.b} → C=${A1(c) && B1(c) ? 1 : 0}, S=${A1(c) !== B1(c) ? 1 : 0}`) }) },
+      { short: "클럭", title: "클럭: 같은 박자로 1초에 수십억 번", cmd: "클럭",
+        text: `계산은 <b>클럭</b>이라는 박자 신호에 맞춰 한 단계씩 진행됩니다. 1 GHz는 1초에 10억 번입니다. 트랜지스터를 작게 만들면 커패시턴스가 줄어 더 빠르고 적은 전력으로 스위칭할 수 있습니다. 무어의 법칙과 미세화 경쟁의 출발점입니다(2-5).`,
+        set: only(GROUPS, ["g-clock"]) },
+      { short: "저장 세 가지", title: "0과 1을 붙잡아 두는 세 가지 방법", cmd: "저장",
+        text: `인버터 두 개를 맞물려 값을 유지하는 <b>SRAM</b>(CPU 캐시), 커패시터에 전하를 담는 <b>DRAM</b>(메인 메모리, HBM), 게이트 아래에 전자를 가두는 <b>NAND</b>(SSD)입니다. SRAM·DRAM은 전원을 끄면 사라지고(휘발성), DRAM은 켜져 있어도 주기적으로 다시 채워야 합니다. NAND는 전원을 꺼도 남습니다(2-7, 2-8).`,
+        set: only(GROUPS, ["g-store"]) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [gate1, use], context: { a: "1", b: "0" },
+    toggles: [{ id: "a", label: "입력 A", options: [["0", "0"], ["1", "1"]] }, { id: "b", label: "입력 B", options: [["0", "0"], ["1", "1"]] }], dur: 6000 });
+})();
+</script>
+</body>
+</html>

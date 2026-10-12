@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>에너지 밴드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .lvl { stroke: var(--ink); stroke-width: 2.5; }
+  .cb { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; }
+  .vb { fill: var(--low-soft); stroke: var(--low); stroke-width: 1.5; }
+  .bandline { stroke: var(--line-strong); stroke-width: 1; }
+  .el { fill: var(--low); }
+  .hl-e { fill: var(--accent); }
+  .hole { fill: var(--surface); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 2 2; }
+  .gap-t { font: 700 13px var(--font-mono); fill: var(--accent); }
+  .wave { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+  .heatw { fill: none; stroke: var(--bad); stroke-width: 2; stroke-dasharray: 3 3; }
+  .egbar { fill: var(--accent); }
+  .egbar.ins { fill: var(--ink); opacity: .7; }
+  .egbar.wide { fill: var(--low); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">1-3</span><span>기초 물리</span><a href="./">애니메이션 목록</a></div>
+    <h1>에너지 밴드</h1>
+    <p class="lead">원자가 모여 결정이 되면 전자가 가질 수 있는 에너지가 띠(밴드)로 묶입니다. 띠가 생기는 과정과, 띠 사이 틈(밴드갭)이 도체·반도체·절연체를 가르는 방식을 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">에너지 밴드</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+
+        </defs>
+        <!-- energy axis -->
+        <g id="eaxis" class="t"><path d="M40,400 V40" class="wire" marker-end="url(#ar-k)"></path>
+        <text x="48" y="48" class="lbl-s ink-b">전자의 에너지</text></g>
+
+        <!-- ===== Mode: how bands form ===== -->
+        <g id="form" class="t">
+          <g id="col1" class="t">
+            <line class="lvl" x1="120" y1="150" x2="200" y2="150"></line><line class="lvl" x1="120" y1="290" x2="200" y2="290"></line>
+            <circle class="el" cx="150" cy="290" r="5"></circle><circle class="el" cx="170" cy="290" r="5"></circle>
+            <text x="160" y="140" text-anchor="middle" class="lbl-s">위 준위</text><text x="160" y="312" text-anchor="middle" class="lbl-s">아래 준위</text>
+            <text x="160" y="370" text-anchor="middle" class="card-l ink-b">원자 1개</text>
+            <text x="160" y="390" text-anchor="middle" class="lbl-s">정해진 준위에만</text>
+          </g>
+          <g id="col2" class="t">
+            <line class="lvl" x1="320" y1="142" x2="400" y2="142"></line><line class="lvl" x1="320" y1="158" x2="400" y2="158"></line>
+            <line class="lvl" x1="320" y1="282" x2="400" y2="282"></line><line class="lvl" x1="320" y1="298" x2="400" y2="298"></line>
+            <circle class="el" cx="350" cy="282" r="5"></circle><circle class="el" cx="370" cy="282" r="5"></circle><circle class="el" cx="350" cy="298" r="5"></circle><circle class="el" cx="370" cy="298" r="5"></circle>
+            <text x="360" y="370" text-anchor="middle" class="card-l ink-b">원자 2개</text>
+            <text x="360" y="390" text-anchor="middle" class="lbl-s">준위가 둘로 갈라짐</text>
+          </g>
+          <g id="col3" class="t">
+            <rect class="cb" x="520" y="116" width="160" height="66" rx="3"></rect>
+            <rect class="vb" x="520" y="256" width="160" height="66" rx="3"></rect>
+            <g id="blines"></g>
+            <text x="600" y="370" text-anchor="middle" class="card-l ink-b">원자 아주 많이(결정)</text>
+            <text x="600" y="390" text-anchor="middle" class="lbl-s">수없이 갈라져 띠가 됨</text>
+          </g>
+          <g id="names" class="t">
+            <text x="692" y="146" class="card-l acc">전도대</text><text x="692" y="164" class="lbl-s">비어 있어 자유롭게 움직임</text>
+            <text x="692" y="286" class="card-l low-t">가전자대</text><text x="692" y="304" class="lbl-s">결합에 묶인 전자로 꽉 참</text>
+            <path d="M600,186 V252" style="stroke: var(--accent); stroke-width: 1.6" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path>
+            <text x="612" y="224" class="gap-t">밴드갭 Eg</text><text x="692" y="224" class="lbl-s">전자가 있을 수 없는 구간</text>
+          </g>
+          <path id="arr12" class="t" d="M220,220 H300" style="stroke: var(--muted); stroke-width: 2; fill: none" marker-end="url(#ar-m)"></path>
+          <path id="arr23" class="t" d="M420,220 H500" style="stroke: var(--muted); stroke-width: 2; fill: none" marker-end="url(#ar-m)"></path>
+        </g>
+
+        <!-- ===== Mode: compare materials ===== -->
+        <g id="cmp" class="t">
+          <rect class="cb" x="90" y="70" width="160" height="50" rx="3"></rect><rect class="vb" x="90" y="320" width="160" height="50" rx="3"></rect>
+          <path d="M170,124 V316" style="stroke: var(--accent); stroke-width: 1.4" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path>
+          <text x="180" y="226" class="gap-t">약 9 eV</text><text x="180" y="244" class="lbl-s">(SiO₂)</text>
+          <text x="170" y="400" text-anchor="middle" class="card-l ink-b">절연체</text>
+          <rect class="cb" x="330" y="166" width="160" height="50" rx="3"></rect><rect class="vb" x="330" y="246" width="160" height="50" rx="3"></rect>
+          <path d="M470,220 V242" style="stroke: var(--accent); stroke-width: 1.4" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path>
+          <text x="496" y="236" class="gap-t">1.12 eV</text><text x="496" y="252" class="lbl-s">(Si)</text>
+          <text x="410" y="400" text-anchor="middle" class="card-l ink-b">반도체</text>
+          <rect class="cb" x="590" y="170" width="160" height="70" rx="3"></rect><rect class="vb" x="590" y="218" width="160" height="70" rx="3" opacity=".9"></rect>
+          <text x="670" y="160" text-anchor="middle" class="lbl-s">띠가 겹침</text>
+          <text x="670" y="400" text-anchor="middle" class="card-l ink-b">도체</text>
+          <g id="vbdots"></g>
+          <rect id="dim-ins" class="t m-surface" x="80" y="60" width="180" height="350" opacity=".7"></rect>
+          <rect id="dim-con" class="t m-surface" x="580" y="60" width="180" height="350" opacity=".7"></rect>
+          <g id="ehp" class="t">
+            <path d="M410,268 V200" class="flowing s-accent" data-s="on" marker-end="url(#ar-a)" style="stroke-width: 2"></path>
+            <circle class="hl-e" cx="410" cy="190" r="6"></circle><text x="420" y="186" class="lbl-s acc halo">전자(전류를 나름)</text>
+            <circle class="hole" cx="410" cy="272" r="6"></circle><text x="420" y="290" class="lbl-s acc halo">정공(+처럼 행동)</text>
+            <text x="300" y="140" class="lbl-s bad-t">열·빛 에너지 ≥ Eg</text>
+          </g>
+          <g id="recomb" class="t">
+            <path d="M396,196 V264" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path>
+            <path class="wave" d="M500,150 q8,-10 16,0 t16,0 t16,0 t16,0 t16,0" marker-end="url(#ar-a)"></path>
+            <text x="500" y="128" class="lbl-s acc">직접 천이형(GaAs·GaN): 빛 → LED</text>
+            <path class="heatw" d="M300,320 q6,-8 12,0 t12,0 t12,0 t12,0"></path>
+            <text x="250" y="346" class="lbl-s bad-t">간접 천이형(Si): 결정 진동(열) → 빛을 잘 못 냄</text>
+          </g>
+        </g>
+        <g id="egc" class="t">
+          <text x="80" y="54" class="lbl">물질별 밴드갭(약)</text>
+          <g id="egbars"></g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 세로축은 전자의 에너지이며, 띠의 간격은 크기 순서만 맞춘 그림입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>원자가 모이면 파울리 배타 원리 때문에 준위가 갈라져 <b>띠</b>가 됩니다. 꽉 찬 가전자대와 빈 전도대 사이 틈이 <b>밴드갭</b>입니다.</li>
+      <li>면접 답 뼈대: 가전자대·전도대·밴드갭 정의 → 절연체는 틈이 커서(SiO₂ 약 9 eV) 못 올라감 → 반도체는 작아서(Si 1.12 eV) 열·빛·도핑으로 조절 → 도체는 띠가 겹쳐 늘 흐름.</li>
+      <li>직접 천이형(GaAs·GaN)은 빛을, 간접 천이형(Si)은 열을 냅니다. SiC·GaN은 넓은 밴드갭 덕분에 고전압·고온에 강합니다.</li>
+    </ul>
+    <p class="foot">원고 1-3을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 1-5 도핑과 캐리어, 2-1 PN 접합, 2-9 그 밖의 반도체.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  // band lines inside col3
+  for (let i = 0; i < 9; i++) { mk($("blines"), "line", { class: "bandline", x1: 524, y1: 122 + i * 7, x2: 676, y2: 122 + i * 7 }); mk($("blines"), "line", { class: "bandline", x1: 524, y1: 262 + i * 7, x2: 676, y2: 262 + i * 7 }); }
+  for (let i = 0; i < 8; i++) for (let j = 0; j < 3; j++) mk($("blines"), "circle", { class: "el", cx: 534 + i * 19, cy: 270 + j * 18, r: 3.5 });
+  // valence-band electrons in the compare view
+  [[90, 320, 50], [330, 246, 50], [590, 218, 60]].forEach(([x, y, h]) => { for (let i = 0; i < 8; i++) for (let j = 0; j < 2; j++) mk($("vbdots"), "circle", { class: "el", cx: x + 12 + i * 19, cy: y + 14 + j * (h - 28), r: 3.5 }); });
+  // band-gap bars
+  const EG = [["Ge(저마늄)", 0.66, "", "SiGe 채널"], ["Si(실리콘)", 1.12, "", "대부분의 칩"], ["GaAs", 1.42, "", "RF·광소자"], ["SiC", 3.3, "wide", "전기차 전력반도체"], ["GaN", 3.4, "wide", "고속 충전기·RF·LED"], ["Si₃N₄(질화막)", 5, "ins", "하드마스크·보호막"], ["SiO₂(산화막)", 9, "ins", "게이트·층간 절연막"]];
+  EG.forEach(([n, v, c, use], i) => {
+    const y = 76 + i * 46;
+    mk($("egbars"), "text", { x: 200, y: y + 17, "text-anchor": "end", class: "card-l ink-b" }, n);
+    mk($("egbars"), "rect", { id: "eg" + i, class: "egbar t o-l " + c, x: 210, y: y, width: v * 58, height: 24, rx: 3 });
+    mk($("egbars"), "text", { x: 216 + v * 58, y: y + 17, class: "card-l mono" }, (n.startsWith("Si₃") ? "약 " : n.startsWith("SiO") ? "약 " : "") + v + " eV");
+    mk($("egbars"), "text", { x: 216 + v * 58, y: y + 34, class: "card-m" }, use);
+  });
+  const egGrow = (on1) => { const o = {}; EG.forEach((_, i) => { o["eg" + i] = { style: { transform: `scaleX(${on1 ? 1 : 0})` } }; }); return o; };
+
+  const form = {
+    id: "form", label: "밴드가 생기는 과정",
+    base: () => Object.assign(only(["form", "cmp", "egc"], ["form"]), all(["col2", "col3", "names", "arr12", "arr23"], off), { col1: on }),
+    steps: [
+      { short: "원자 1개: 준위", title: "원자 하나: 전자는 정해진 준위에만", cmd: "원자 1개",
+        text: `원자 하나에서 전자는 정해진 에너지 준위(K·L·M 껍질)에만 있을 수 있습니다. n번째 껍질에는 최대 <b>2n²개</b>가 들어갑니다. 그림은 그중 위아래 두 준위만 그렸습니다.`,
+        set: {} },
+      { short: "원자 2개: 갈라짐", title: "원자 둘이 가까워지면 준위가 둘로 갈라진다", cmd: "원자 2개",
+        text: `원자 두 개가 가까워지면 같은 상태에 전자가 둘 이상 있을 수 없다는 <b>파울리 배타 원리</b> 때문에 준위 하나가 아주 가까운 두 준위로 갈라집니다.`,
+        set: { col2: on, arr12: on } },
+      { short: "결정: 띠가 된다", title: "원자가 아주 많으면 준위가 띠가 된다", cmd: "결정",
+        text: `결정처럼 원자가 아주 많이(1 cm³에 약 5×10²²개) 모이면 준위가 수없이 많이 갈라져 촘촘한 <b>띠(밴드)</b>가 됩니다. 띠 안에서는 에너지가 거의 연속처럼 이어집니다.`,
+        set: { col3: on, arr23: on } },
+      { short: "가전자대·전도대·밴드갭", title: "가전자대, 전도대, 그리고 밴드갭", cmd: "Eg",
+        text: `결합에 묶인 전자들이 꽉 찬 띠가 <b>가전자대</b>, 자유롭게 움직일 수 있는 자리의 띠가 <b>전도대</b>입니다. 그 사이 전자가 있을 수 없는 틈이 <b>밴드갭(Eg)</b>입니다. 2층 주차장으로 보면 1층(가전자대)은 꽉 차서 못 움직이고, 2층(전도대)은 비어 있어 마음대로 달리며, 경사로(밴드갭)가 낮을수록 올라가기 쉽습니다.`,
+        set: { names: on } },
+    ],
+  };
+
+  const cmp = {
+    id: "compare", label: "도체·반도체·절연체",
+    base: () => Object.assign(only(["form", "cmp", "egc"], ["cmp"]), all(["ehp", "recomb", "dim-ins", "dim-con"], off), egGrow(false), { eaxis: on }),
+    steps: [
+      { short: "밴드갭으로 가른다", title: "밴드갭 크기가 셋을 가른다", cmd: "비교",
+        text: `<b>절연체</b>는 틈이 커서(SiO₂ 약 9 eV) 전자가 올라가지 못하고, <b>반도체</b>는 틈이 작아(Si 1.12 eV) 열·빛·도핑으로 전도를 조절할 수 있으며, <b>도체</b>는 띠가 겹쳐 늘 전자가 움직입니다. 면접에서 이 그림을 손으로 그리며 말하면 가장 강력합니다.`,
+        set: {} },
+      { short: "전자-정공 쌍", title: "에너지를 받으면 전자가 뛰어오르고 정공이 남는다", cmd: "EHP",
+        text: `반도체의 전자가 열이나 빛으로 <b>Eg 이상</b>의 에너지를 받으면 전도대로 올라가 전류를 나르고, 떠난 자리에는 + 전하처럼 행동하는 <b>정공</b>이 남습니다. 이 한 쌍이 전자-정공 쌍(EHP)입니다. 주차장 1층에 생긴 빈자리를 옆 차가 차례로 메우면 빈자리가 움직이는 것처럼 보이는 것과 같습니다.`,
+        set: { ehp: on, "dim-ins": on, "dim-con": on } },
+      { short: "재결합: 빛 또는 열", title: "다시 떨어지면: 빛을 내거나 열을 낸다", cmd: "재결합",
+        text: `전자가 다시 정공으로 떨어지는 것이 <b>재결합</b>입니다. GaAs·GaN 같은 <b>직접 천이형</b>은 그 에너지를 빛으로 내서 LED가 되고, 실리콘 같은 <b>간접 천이형</b>은 결정 진동(열)으로 내서 빛을 잘 내지 못합니다. 실리콘으로 LED를 만들지 않는 이유입니다.`,
+        set: { ehp: off, recomb: on } },
+      { short: "물질별 밴드갭", title: "물질별 밴드갭과 쓰임", cmd: "Eg 비교",
+        text: `밴드갭이 실리콘의 약 3배인 <b>SiC·GaN</b>은 강한 전기장과 고온에서도 전자가 쉽게 튀어 오르지 않아 더 높은 전압을 견디고 누설이 적습니다. 그래서 전력반도체에 씁니다(2-9). 질화막·산화막은 틈이 커서 절연막으로 씁니다.`,
+        set: Object.assign({ cmp: off, egc: on, eaxis: off }, egGrow(true)) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [form, cmp], dur: 6000 });
+})();
+</script>
+</body>
+</html>

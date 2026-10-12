@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>왜 실리콘인가</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .atom circle { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.5; }
+  .atom text { font: 700 13px var(--font-mono); fill: var(--ink); }
+  .atom[data-s="p"] circle { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.5; }
+  .atom[data-s="b"] circle { fill: var(--low-soft); stroke: var(--low); stroke-width: 2.5; }
+  .bond { stroke: var(--line-strong); stroke-width: 3; }
+  .ed { fill: var(--low); }
+  .chk { font-size: 14px; fill: var(--muted); }
+  .chk[data-s="on"] { fill: var(--ink); font-weight: 600; }
+  .chk[data-s="now"] { fill: var(--accent); font-weight: 700; }
+  .pt rect { stroke: var(--line-strong); stroke-width: 1; }
+  .pt text { font: 700 14px var(--font-mono); }
+  .therm { fill: var(--bg); stroke: var(--line-strong); }
+  .bar { fill: var(--accent); }
+  .bar.si { fill: var(--accent); }
+  .bar.o { fill: var(--muted); }
+  .ok-t { fill: var(--ok); font-weight: 700; }
+  .no-t { fill: var(--bad); font-weight: 700; }
+  .plane { fill: var(--accent); opacity: .35; stroke: var(--accent); stroke-width: 1.5; }
+  .cube { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">1-4</span><span>기초 물리</span><a href="./">애니메이션 목록</a></div>
+    <h1>왜 실리콘인가</h1>
+    <p class="lead">실리콘은 흔하고 싸며, 상온에 알맞은 밴드갭(1.12 eV)을 갖고, 가열만으로 품질 좋은 산화막(SiO₂)을 만들 수 있어 반도체의 표준 재료가 되었습니다. 결정 구조부터 다른 재료와의 비교까지 차례로 봅니다.</p>
+  </header>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">왜 실리콘인가</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+
+        </defs>
+        <!-- left: lattice -->
+        <g id="lat" class="t">
+          <text x="30" y="34" class="lbl">실리콘 결정(평면으로 단순화)</text>
+          <g id="lattice"></g>
+          <text id="lat-note" class="card-l" x="30" y="404"></text>
+        </g>
+        <!-- left: checklist -->
+        <g id="list" class="t">
+          <text x="30" y="34" class="lbl">표준 재료가 된 이유</text>
+          <text id="c1" class="chk t" x="30" y="90">① 흔하고 싸다(모래)</text>
+          <text id="c2" class="chk t" x="30" y="140">② 밴드갭 1.12 eV: 상온에 알맞음</text>
+          <text id="c3" class="chk t" x="30" y="190">③ 가열만으로 좋은 SiO₂</text>
+          <text id="c4" class="chk t" x="30" y="240">④ 고온 공정을 견딤(1414 °C)</text>
+          <text id="c5" class="chk t" x="30" y="290">⑤ 대구경 고순도 단결정(300 mm)</text>
+          <text x="30" y="350" class="card-m">하나만 고르라면 ③을 말하면 됩니다.</text>
+        </g>
+
+        <!-- right panels -->
+        <g id="p-tetra" class="t">
+          <text x="460" y="34" class="lbl">원자 하나가 이웃 4개와 결합</text>
+          <line class="bond" x1="640" y1="210" x2="560" y2="130"></line><line class="bond" x1="640" y1="210" x2="730" y2="140"></line><line class="bond" x1="640" y1="210" x2="580" y2="300"></line><line class="bond" x1="640" y1="210" x2="720" y2="300"></line>
+          <g class="atom"><circle cx="640" cy="210" r="24"></circle><text x="640" y="215" text-anchor="middle">Si</text></g>
+          <g class="atom"><circle cx="560" cy="130" r="18"></circle></g><g class="atom"><circle cx="730" cy="140" r="18"></circle></g><g class="atom"><circle cx="580" cy="300" r="18"></circle></g><g class="atom"><circle cx="720" cy="300" r="18"></circle></g>
+          <text x="640" y="360" text-anchor="middle" class="card-l">다이아몬드와 같은 구조</text>
+          <text x="640" y="382" text-anchor="middle" class="card-l acc">1 cm³에 원자 약 5×10²²개</text>
+        </g>
+        <g id="p-group" class="t pt">
+          <text x="460" y="34" class="lbl">주기율표의 일부: 4족 옆에 3족·5족</text>
+          <rect x="520" y="80" width="90" height="70" class="f-low-soft"></rect><text x="565" y="122" text-anchor="middle" class="low-t">B</text>
+          <rect x="610" y="80" width="90" height="70" class="m-bg"></rect><text x="655" y="112" text-anchor="middle" class="ink-b">C</text>
+          <rect x="700" y="80" width="90" height="70" class="m-bg"></rect><text x="745" y="122" text-anchor="middle" class="ink-b">N</text>
+          <rect x="520" y="150" width="90" height="70" class="m-bg"></rect><text x="565" y="192" text-anchor="middle" class="ink-b">Al</text>
+          <rect x="610" y="150" width="90" height="70" class="f-accent-soft"></rect><text x="655" y="192" text-anchor="middle" class="acc">Si</text>
+          <rect x="700" y="150" width="90" height="70" class="f-accent-soft" opacity=".6"></rect><text x="745" y="192" text-anchor="middle" class="acc">P</text>
+          <rect x="610" y="220" width="90" height="70" class="m-bg"></rect><text x="655" y="262" text-anchor="middle" class="ink-b">Ge</text>
+          <rect x="700" y="220" width="90" height="70" class="m-bg"></rect><text x="745" y="262" text-anchor="middle" class="ink-b">As</text>
+          <text x="565" y="310" text-anchor="middle" class="lbl-s">3족(전자 3개)</text><text x="655" y="310" text-anchor="middle" class="lbl-s">4족(4개)</text><text x="745" y="310" text-anchor="middle" class="lbl-s">5족(5개)</text>
+          <text x="520" y="350" class="card-l">5족을 넣으면 전자가 하나 남고(N형),</text>
+          <text x="520" y="372" class="card-l">3족을 넣으면 하나 모자라(P형) 도핑이 쉽다(1-5)</text>
+        </g>
+        <g id="p-ox" class="t">
+          <text x="460" y="34" class="lbl">산소 분위기에서 가열하면</text>
+          <rect x="470" y="200" width="180" height="120" class="m-si"></rect>
+          <rect id="sio2" class="m-ox t o-b" x="470" y="160" width="180" height="40"></rect>
+          <text x="560" y="186" text-anchor="middle" class="lbl-s ink-b halo">SiO₂</text><text x="560" y="270" text-anchor="middle" class="lbl-s ink-b">Si</text>
+          <path d="M500,92 V140 M560,92 V140 M620,92 V140" style="stroke: var(--low); stroke-width: 2" marker-end="url(#ar-l)"></path><text x="560" y="84" text-anchor="middle" class="lbl-s low-t">O₂ + 열</text>
+          <text x="560" y="346" text-anchor="middle" class="card-l ok-t">계면이 매끄럽고 결함이 적다</text>
+          <rect x="690" y="200" width="160" height="120" style="fill: var(--m-si); opacity: .8"></rect>
+          <rect id="geo2" class="t" x="690" y="176" width="160" height="24" style="fill: var(--m-ox); stroke: var(--m-ox-line); stroke-dasharray: 3 3"></rect>
+          <text x="770" y="192" text-anchor="middle" class="lbl-s">GeO₂</text><text x="770" y="270" text-anchor="middle" class="lbl-s ink-b">Ge</text>
+          <path d="M770,120 q-10,16 0,24 q10,-8 0,-24" class="f-low"></path><text x="770" y="112" text-anchor="middle" class="lbl-s low-t">물</text>
+          <text x="770" y="346" text-anchor="middle" class="card-l no-t">물에 녹고 불안정</text>
+        </g>
+        <g id="p-temp" class="t">
+          <text x="460" y="34" class="lbl">온도(°C)</text>
+          <rect class="therm" x="560" y="60" width="40" height="320" rx="20"></rect>
+          <rect id="merc" class="t o-b f-bad" x="568" y="80" width="24" height="292" rx="12"></rect>
+          <g id="ticks"></g>
+          <rect x="610" y="172" width="10" height="140" class="f-accent" opacity=".6"></rect>
+          <text x="630" y="236" class="card-l acc">공정 온도</text><text x="630" y="254" class="card-l acc">수백~1000 °C</text>
+          <line x1="600" y1="91" x2="700" y2="91" style="stroke: var(--bad); stroke-width: 2"></line><text x="706" y="96" class="card-l bad-t">실리콘 녹는점 1414 °C</text>
+        </g>
+        <g id="p-plane" class="t">
+          <text x="460" y="34" class="lbl">결정 방향: 웨이퍼는 주로 (100) 면</text>
+          <g transform="translate(500,110)">
+            <path class="cube" d="M0,40 L40,0 H160 V120 L120,160 H0 Z M0,40 H120 V160 M120,40 L160,0"></path>
+            <path id="pl100" class="plane t" d="M0,40 H120 V160 H0 Z"></path>
+            <text x="60" y="190" text-anchor="middle" class="card-l acc">(100)</text>
+          </g>
+          <g transform="translate(690,110)">
+            <path class="cube" d="M0,40 L40,0 H160 V120 L120,160 H0 Z M0,40 H120 V160 M120,40 L160,0"></path>
+            <path id="pl111" class="plane t" d="M120,40 L0,160 L160,120 Z" style="fill: var(--low); stroke: var(--low)"></path>
+            <text x="80" y="190" text-anchor="middle" class="card-l low-t">(111)</text>
+          </g>
+          <text x="460" y="350" class="card-l">(100): Si/SiO₂ 계면 결함(계면 트랩)이 적어 MOSFET 특성이 안정</text>
+          <text x="460" y="374" class="card-l">면마다 결합 밀도가 달라 습식식각 속도도 다름, (111)이 가장 느림</text>
+        </g>
+        <g id="p-cmp" class="t">
+          <text x="460" y="34" class="lbl">전자 이동도(cm²/V·s, 약)</text>
+          <g id="mob"></g>
+          <text x="460" y="250" class="lbl">자체 산화막 · 주력 웨이퍼</text>
+          <text x="460" y="280" class="card-l ink-b">Si</text><text x="530" y="280" class="card-l ok-t">SiO₂ 매우 안정 · 300 mm</text>
+          <text x="460" y="304" class="card-l ink-b">Ge</text><text x="530" y="304" class="card-l no-t">GeO₂ 불안정 · 주로 Si 위 박막</text>
+          <text x="460" y="328" class="card-l ink-b">GaAs</text><text x="530" y="328" class="card-l no-t">산화막 없음 · 150 mm</text>
+          <text x="460" y="352" class="card-l ink-b">SiC</text><text x="530" y="352" class="card-l">SiO₂ 가능 · 150→200 mm 전환 중</text>
+          <text x="460" y="390" class="card-l acc">이동도만 보면 Ge·GaAs가 빠르지만, 모두 합치면 실리콘</text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 결정 구조는 평면으로 단순화했고, 막대 길이는 원고 표의 대략값을 비율대로 그렸습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>면접 답 뼈대: ① 풍부하고 싸다 ② 밴드갭 1.12 eV로 상온 동작에 알맞다 ③ 열산화로 양질의 SiO₂를 만든다 ④ 대구경 고순도 단결정이 가능하다. 하나만 고르라면 ③.</li>
+      <li>(100) 웨이퍼를 쓰는 이유: 산화막과의 계면 결함이 적어 문턱전압과 이동도가 안정적이기 때문입니다.</li>
+      <li>한계와 대안: 이동도가 낮아 SiGe로 채널에 응력을 주고, 고전압·고온에는 SiC·GaN을 씁니다(2-9).</li>
+    </ul>
+    <p class="foot">원고 1-4를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-1 웨이퍼 제조, 3-3 산화, 2-9 그 밖의 반도체.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  const L = $("lattice"), X0 = 80, Y0 = 110, P = 100;
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
+    const x = X0 + c * P, y = Y0 + r * P;
+    if (c < 3) { mk(L, "line", { class: "bond", x1: x + 18, y1: y, x2: x + P - 18, y2: y }); mk(L, "circle", { class: "ed", cx: x + 50, cy: y - 6, r: 4 }); mk(L, "circle", { class: "ed", cx: x + 50, cy: y + 6, r: 4 }); }
+    if (r < 2) { mk(L, "line", { class: "bond", x1: x, y1: y + 18, x2: x, y2: y + P - 18 }); mk(L, "circle", { class: "ed", cx: x - 6, cy: y + 50, r: 4 }); mk(L, "circle", { class: "ed", cx: x + 6, cy: y + 50, r: 4 }); }
+  }
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) { const x = X0 + c * P, y = Y0 + r * P, g = mk(L, "g", { id: `at-${c}-${r}`, class: "atom t" }); mk(g, "circle", { cx: x, cy: y, r: 20 }); mk(g, "text", { id: `at-${c}-${r}-t`, x: x, y: y + 5, "text-anchor": "middle" }, "Si"); }
+  // thermometer ticks: 0..1500 °C mapped to y 372..72
+  const TY = (t) => 372 - t * 300 / 1500;
+  [0, 500, 1000, 1500].forEach((t) => { mk($("ticks"), "line", { x1: 548, y1: TY(t), x2: 560, y2: TY(t), class: "thin" }); mk($("ticks"), "text", { x: 542, y: TY(t) + 4, "text-anchor": "end", class: "lbl-s mono" }, t); });
+  // mobility bars
+  [["Si", 1400, "si"], ["Ge", 3900, "o"], ["GaAs", 8500, "o"], ["SiC", 900, "o"]].forEach(([n, v, c], i) => {
+    const y = 60 + i * 40;
+    mk($("mob"), "text", { x: 506, y: y + 17, "text-anchor": "end", class: "card-l ink-b" }, n);
+    mk($("mob"), "rect", { id: "mb" + i, class: "bar t o-l " + c, x: 514, y: y, width: v * 0.036, height: 24, rx: 3 });
+    mk($("mob"), "text", { x: 520 + v * 0.036, y: y + 17, class: "card-l mono" }, v.toLocaleString("en-US"));
+  });
+  const PANELS = ["p-tetra", "p-group", "p-ox", "p-temp", "p-plane", "p-cmp"];
+  const panel = (id) => only(PANELS, [id]);
+  const chk = (now, done) => { const o = {}; for (let i = 1; i <= 5; i++) o["c" + i] = { s: i === now ? "now" : done.indexOf(i) >= 0 ? "on" : "todo" }; return o; };
+  const base = Object.assign(panel("p-tetra"), { lat: on, list: off, "lat-note": txt(""), sio2: { style: { transform: "scaleY(0)" } }, geo2: on, merc: { style: { transform: "scaleY(0.1)" } }, pl100: on, pl111: on }, chk(0, []));
+  const steps = [
+    { short: "결정 구조", title: "이웃 4개와 전자를 나누는 결정", cmd: "결정",
+      text: `실리콘은 다이아몬드와 같은 구조로, 원자마다 이웃 4개와 전자를 하나씩 나눠 갖는 <b>공유결합</b>을 합니다. 1 cm³에 원자가 약 <b>5×10²²개</b> 들어 있습니다. 반도체용 실리콘은 9가 11개인 99.999999999%(11N)까지 정제합니다.`,
+      set: { "lat-note": txt("결합선 위 점 두 개 = 이웃과 나눠 가진 전자쌍") } },
+    { short: "4족: 도핑이 쉽다", title: "4족 원소라 도핑하기 쉽다", cmd: "4족",
+      text: `최외각 전자가 4개인 4족이라, 5족(인)을 넣으면 전자가 하나 남고 3족(붕소)을 넣으면 하나 모자랍니다. 이렇게 원하는 성질(N형·P형)을 쉽게 만들 수 있습니다(1-5).`,
+      set: Object.assign(panel("p-group"), { "at-1-1": { s: "p" }, "at-1-1-t": txt("P"), "at-2-1": { s: "b" }, "at-2-1-t": txt("B"), "lat-note": txt("인(P): 전자 남음 · 붕소(B): 전자 모자람") }) },
+    { short: "가열만으로 SiO₂", title: "가열만 해도 품질 좋은 산화막이 자란다", cmd: "산화막",
+      text: `산소 분위기에서 가열만 해도 표면에 <b>SiO₂</b>가 자라고, Si/SiO₂ 계면이 매끄럽고 결함이 적습니다. MOSFET 게이트 절연막의 출발점입니다(3-3). 저마늄의 산화막(GeO₂)은 물에 녹고 불안정해 이 역할을 못 합니다. 실리콘이 표준이 된 가장 큰 이유입니다.`,
+      set: Object.assign(panel("p-ox"), { lat: off, list: on, sio2: { style: { transform: "scaleY(1)" } }, geo2: { s: "fade", style: { opacity: ".3" } } }, chk(3, [])) },
+    { short: "녹는점 1414 °C", title: "고온 공정을 견딘다", cmd: "1414 °C",
+      text: `실리콘의 녹는점은 <b>1414 °C</b>로 높아, 산화·확산·어닐처럼 수백~1000 °C에 이르는 고온 공정을 견딥니다.`,
+      set: Object.assign(panel("p-temp"), { merc: { style: { transform: "scaleY(0.69)" } } }, chk(4, [3])) },
+    { short: "(100) 웨이퍼", title: "웨이퍼는 주로 (100) 면을 쓴다", cmd: "(100)",
+      text: `결정은 자르는 방향에 따라 표면의 원자 배열이 다릅니다. 웨이퍼는 주로 <b>(100) 면</b>을 씁니다. Si/SiO₂ 계면의 결함(계면 트랩)이 적어 MOSFET의 문턱전압과 이동도가 안정적이기 때문입니다. 면마다 결합 밀도가 달라 습식식각 속도도 다르며, (111) 면이 가장 느립니다.`,
+      set: Object.assign(panel("p-plane"), chk(0, [3, 4])) },
+    { short: "다른 재료와 비교", title: "더 빠른 재료는 있어도, 다 갖춘 재료는 실리콘", cmd: "비교",
+      text: `전자 이동도만 보면 Ge(약 3,900)·GaAs(약 8,500)가 실리콘(약 1,400)보다 빠릅니다. 하지만 모래에서 얻어 <b>흔하고 싸며</b>, 밴드갭이 상온에 알맞은 <b>1.12 eV</b>이고, 안정한 산화막과 300 mm 대형 웨이퍼까지 합치면 실리콘을 이길 재료가 없습니다. 실리콘의 한계는 SiGe로 채널에 응력을 주거나, 고전압·고온에는 SiC·GaN을 써서 보완합니다.`,
+      set: Object.assign(panel("p-cmp"), chk(5, [1, 2, 3, 4])) },
+  ];
+  StepPlayer.create({ root: $("app"), base, steps, dur: 6000 });
+})();
+</script>
+</body>
+</html>

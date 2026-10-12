@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>칩의 일생</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .node rect { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+  .node text { font: 600 13px var(--font-sans); fill: var(--muted); }
+  .node[data-s="now"] rect { fill: var(--accent); stroke: var(--accent); }
+  .node[data-s="now"] text { fill: var(--surface); }
+  .node[data-s="done"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .node[data-s="done"] text { fill: var(--ink); }
+  .code { font: 500 12px var(--font-mono); fill: var(--ink); }
+  .die { stroke: var(--surface); stroke-width: 1; }
+  .die.good { fill: var(--ok); opacity: .8; }
+  .die.bad { fill: var(--bad); }
+  .die.fix { fill: var(--accent); }
+  .cycle text { font: 600 12px var(--font-sans); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+  .ring { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 10 8; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">0-2</span><span>입문</span><a href="./">애니메이션 목록</a></div>
+    <h1>칩의 일생</h1>
+    <p class="lead">칩은 설계 → 포토마스크 → 웨이퍼 → 전공정 → EDS → 패키징 → 최종 테스트 순서로 태어납니다. 윗줄은 회로를 새기는 앞단, 아랫줄은 칩을 골라 포장하는 뒷단입니다.</p>
+  </header>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">칩의 일생</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+
+        </defs>
+        <g id="flow"></g>
+        <path d="M850,56 h12 v70 h-12" class="thin" marker-end="url(#ar-m)"></path>
+        <text x="30" y="24" class="lbl-s">앞단: 회로를 새긴다</text>
+        <text x="30" y="166" class="lbl-s">뒷단: 칩을 골라 포장한다</text>
+        <line x1="30" y1="176" x2="850" y2="176" style="stroke: var(--line)"></line>
+
+        <!-- 1 design -->
+        <g id="s-design" class="t">
+          <rect class="frame" x="60" y="200" width="250" height="150" rx="6"></rect>
+          <text x="74" y="226" class="code">module adder(a, b, s, c);</text>
+          <text x="74" y="250" class="code">  assign s = a ^ b;</text>
+          <text x="74" y="274" class="code">  assign c = a &amp; b;</text>
+          <text x="74" y="298" class="code">endmodule</text>
+          <text x="74" y="336" class="lbl-s">회로를 HDL(Verilog)로 작성</text>
+          <path d="M330,275 H400" class="wire" marker-end="url(#ar-k)"></path>
+          <g id="layout"></g>
+          <text x="420" y="410" class="lbl-s">트랜지스터와 배선의 배치도(레이아웃)</text>
+        </g>
+        <!-- 2 mask -->
+        <g id="s-mask" class="t">
+          <g id="masks"></g>
+          <text x="560" y="250" class="card-l ink-b">고순도 석영 유리판</text>
+          <text x="560" y="272" class="card-l">레이아웃을 층별로 나눠 새김</text>
+          <text x="560" y="300" class="card-l acc">칩 하나에 수십 장이 한 세트</text>
+        </g>
+        <!-- 3 wafer -->
+        <g id="s-wafer" class="t">
+          <ellipse cx="150" cy="210" rx="60" ry="16" class="m-si" style="stroke: var(--m-si-line)"></ellipse>
+          <rect x="90" y="210" width="120" height="170" class="m-si"></rect>
+          <ellipse cx="150" cy="380" rx="60" ry="16" class="m-si" style="stroke: var(--m-si-line)"></ellipse>
+          <path d="M90,250 Q150,266 210,250 M90,290 Q150,306 210,290 M90,330 Q150,346 210,330" style="stroke: var(--bad); stroke-dasharray: 4 3; fill: none"></path>
+          <text x="150" y="420" text-anchor="middle" class="lbl-s">잉곳(초고순도 단결정)</text>
+          <path d="M240,295 H330" class="wire" marker-end="url(#ar-k)"></path>
+          <text x="285" y="285" text-anchor="middle" class="lbl-s">얇게 자르고 갈기</text>
+          <ellipse cx="460" cy="260" rx="90" ry="28" class="m-si" style="stroke: var(--m-si-line)"></ellipse>
+          <ellipse cx="460" cy="320" rx="90" ry="28" class="m-si" style="stroke: var(--m-si-line)"></ellipse>
+          <ellipse cx="460" cy="380" rx="90" ry="28" class="m-si" style="stroke: var(--m-si-line)"></ellipse>
+          <text x="600" y="300" class="card-l">모래에서 얻은 실리콘을</text>
+          <text x="600" y="320" class="card-l">원기둥으로 키우고 원판으로(3-1)</text>
+        </g>
+        <!-- 4 fab -->
+        <g id="s-fab" class="t">
+          <g class="cycle">
+            <ellipse cx="170" cy="300" rx="120" ry="90" class="ring spin" data-s="on"></ellipse>
+            <text x="170" y="222" text-anchor="middle">산화</text><text x="276" y="268" text-anchor="middle">포토</text><text x="276" y="340" text-anchor="middle">식각</text>
+            <text x="170" y="384" text-anchor="middle">증착</text><text x="64" y="340" text-anchor="middle">이온주입</text><text x="64" y="268" text-anchor="middle">금속배선</text>
+            <text x="170" y="296" text-anchor="middle" class="acc" style="font-size: 13px">층마다</text><text x="170" y="314" text-anchor="middle" class="acc" style="font-size: 13px">되풀이</text>
+          </g>
+          <g id="stack"></g>
+          <text x="790" y="236" class="lbl-s ink-b">BEOL</text><text x="790" y="250" class="lbl-s">배선</text>
+          <text x="790" y="340" class="lbl-s ink-b">FEOL</text><text x="790" y="354" class="lbl-s">트랜지스터</text>
+        </g>
+        <!-- 5 EDS -->
+        <g id="s-eds" class="t">
+          <circle cx="230" cy="306" r="112" class="m-si" style="stroke: var(--m-si-line); stroke-width: 2"></circle>
+          <g id="dies"></g>
+          <rect x="420" y="214" width="150" height="20" rx="3" class="f-ink"></rect>
+          <path d="M440,234 l6,26 M470,234 l2,26 M500,234 l-2,26 M530,234 l-4,26" style="stroke: var(--ink); stroke-width: 1.5"></path>
+          <text x="580" y="228" class="lbl-s">프로브 카드(바늘로 접촉)</text>
+          <rect x="440" y="300" width="14" height="14" class="die good"></rect><text x="462" y="312" class="card-l">양품</text>
+          <rect x="440" y="326" width="14" height="14" class="die fix"></rect><text x="462" y="338" class="card-l">수선해서 살린 칩(리페어)</text>
+          <rect x="440" y="352" width="14" height="14" class="die bad"></rect><text x="462" y="364" class="card-l">불량(표시해 두고 버림)</text>
+        </g>
+        <!-- 6 package -->
+        <g id="s-pkg" class="t">
+          <circle cx="130" cy="300" r="80" class="m-si"></circle>
+          <path d="M60,270 H200 M60,300 H210 M60,330 H200 M100,226 V374 M130,220 V380 M160,226 V374" style="stroke: var(--bad); stroke-dasharray: 4 3"></path>
+          <text x="130" y="408" text-anchor="middle" class="lbl-s">칩 단위로 자르기</text>
+          <path d="M225,300 H275" class="wire" marker-end="url(#ar-k)"></path>
+          <rect x="300" y="330" width="200" height="20" class="m-plate"></rect>
+          <rect x="350" y="300" width="100" height="30" class="m-si"></rect>
+          <path d="M355,300 Q330,286 320,330 M445,300 Q470,286 480,330" style="stroke: var(--m-tin); stroke-width: 2; fill: none"></path>
+          <text x="400" y="408" text-anchor="middle" class="lbl-s">기판에 붙이고 전기 잇기</text>
+          <path d="M525,300 H575" class="wire" marker-end="url(#ar-k)"></path>
+          <rect x="600" y="330" width="200" height="20" class="m-plate"></rect>
+          <rect x="620" y="270" width="160" height="60" rx="6" class="f-ink"></rect>
+          <g><circle cx="620" cy="356" r="4" class="m-w"></circle><circle cx="660" cy="356" r="4" class="m-w"></circle><circle cx="700" cy="356" r="4" class="m-w"></circle><circle cx="740" cy="356" r="4" class="m-w"></circle><circle cx="780" cy="356" r="4" class="m-w"></circle></g>
+          <text x="700" y="408" text-anchor="middle" class="lbl-s">수지로 감싸기(몰딩)</text>
+        </g>
+        <!-- 7 final test -->
+        <g id="s-final" class="t">
+          <rect x="80" y="300" width="220" height="40" rx="4" class="m-plate"></rect>
+          <rect x="130" y="250" width="120" height="50" rx="6" class="f-ink"></rect>
+          <text x="190" y="280" text-anchor="middle" style="fill: var(--surface); font-weight: 700">칩</text>
+          <text x="190" y="370" text-anchor="middle" class="lbl-s">테스트 소켓</text>
+          <text x="360" y="250" class="card-l ink-b" style="fill: var(--bad)">고온</text><text x="410" y="250" class="card-l ink-b" style="fill: var(--low)">저온</text>
+          <text x="360" y="276" class="card-l">실제 동작 속도에서 확인</text>
+          <g id="bins"></g>
+        </g>
+        <!-- summary -->
+        <g id="s-sum" class="t">
+          <text x="60" y="210" class="head-t">8대 공정, 두 가지 분류</text>
+          <text x="60" y="244" class="card-l ink-b">삼성전자식 8대 공정(칩의 일생 전체)</text>
+          <text x="60" y="266" class="card-l">웨이퍼 제조 · 산화 · 포토 · 식각 · 증착·이온주입 · 금속배선 · EDS · 패키징</text>
+          <text x="60" y="304" class="card-l ink-b">공정기술 직무식 전공정 분류(팹 안만 잘게)</text>
+          <text x="60" y="326" class="card-l">세정 · 산화·확산 · 포토 · 식각 · 박막 증착 · 이온주입 · 금속배선 · CMP</text>
+          <text x="60" y="372" class="card-l acc">TAT 팹에서만 2~3개월 · 800개가 넘는 공정 단계 · 로트 = 보통 25장</text>
+          <text x="60" y="398" class="card-m">공정기술 직무면 두 번째 분류로, 그 외 직무면 첫 번째 분류로 말하면 자연스럽습니다.</text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 각 단계의 그림은 무엇을 하는지만 보여 주며, 실제 공정은 이보다 훨씬 많은 단계로 나뉩니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>순서: <b>설계 → 마스크 → 웨이퍼 → 전공정(층마다 반복) → EDS → 패키징 → 최종 테스트</b>. 마지막에 지원하는 공정 하나를 한 단계 더 깊게 설명하면 좋습니다.</li>
+      <li>전공정은 웨이퍼 위에 회로를 새기는 단계, 후공정은 칩을 검사하고 자르고 포장하는 단계입니다. HBM처럼 패키징이 성능을 좌우하면서 경계가 흐려지고 있다는 한마디를 덧붙이면 좋습니다.</li>
+      <li>TAT(팹에서만 2~3개월), 로트(보통 25장), FEOL(트랜지스터) / BEOL(배선)을 함께 알아 두세요.</li>
+    </ul>
+    <p class="foot">원고 0-2를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-0 팹 입문, 3-14 CMOS 전체 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  const NODES = ["설계", "포토마스크", "웨이퍼 제조", "전공정(반복)", "EDS", "패키징", "최종 테스트", "출하"];
+  NODES.forEach((n, i) => {
+    const row = i < 4 ? 0 : 1, col = row ? 3 - (i - 4) : i;
+    const x = 40 + col * 210, y = row ? 106 : 36;
+    const g = mk($("flow"), "g", { id: "n" + i, class: "node t" });
+    mk(g, "rect", { x: x, y: y, width: 180, height: 40, rx: 8 });
+    mk(g, "text", { x: x + 90, y: y + 25, "text-anchor": "middle" }, (i + 1) + ". " + n);
+    if (i < 3) mk($("flow"), "path", { d: `M${x + 182},${y + 20} H${x + 208}`, class: "thin", "marker-end": "url(#ar-m)" });
+    if (i >= 4 && i < 7) mk($("flow"), "path", { d: `M${x - 2},${y + 20} H${x - 28}`, class: "thin", "marker-end": "url(#ar-m)" });
+  });
+  // layout
+  [[430, 200, 60, 180, "m-nn"], [520, 200, 60, 180, "m-nn"], [610, 200, 60, 180, "m-nn"], [400, 230, 330, 22, "m-poly"], [400, 300, 330, 22, "m-poly"], [455, 214, 20, 150, "m-cu"], [545, 214, 20, 150, "m-cu"], [635, 214, 20, 150, "m-cu"], [400, 360, 330, 14, "m-w"]].forEach(([x, y, w, h, c]) => mk($("layout"), "rect", { x, y, width: w, height: h, class: c, opacity: .85 }));
+  // masks
+  for (let i = 0; i < 3; i++) {
+    const ox = 120 + i * 40, oy = 200 + i * 40, g = mk($("masks"), "g", {});
+    mk(g, "path", { d: `M${ox},${oy + 40} L${ox + 120},${oy} H${ox + 380} L${ox + 260},${oy + 40} Z`, style: "fill: var(--m-ox); stroke: var(--m-ox-line); opacity: .95" });
+    for (let k = 0; k < 4; k++) mk(g, "path", { d: `M${ox + 70 + k * 50},${oy + 32} l18,-24 h22 l-18,24 z`, class: "f-ink", opacity: .7 });
+  }
+  mk($("masks"), "text", { x: 140, y: 380, class: "lbl-s" }, "층마다 한 장씩(예: 1층, 2층, 3층 …)");
+  // fab stack: FEOL then BEOL layers
+  const ST = $("stack");
+  mk(ST, "rect", { x: 420, y: 370, width: 360, height: 40, class: "m-si" });
+  [450, 540, 630, 720].forEach((x) => { mk(ST, "rect", { x: x - 6, y: 360, width: 52, height: 10, class: "m-nn" }); mk(ST, "rect", { x: x + 10, y: 346, width: 20, height: 14, class: "m-poly" }); });
+  for (let k = 0; k < 5; k++) {
+    const y = 330 - k * 26;
+    mk(ST, "rect", { id: "ly" + k, x: 420, y: y, width: 360, height: 26, class: "m-ox t" });
+    for (let j = 0; j < 4; j++) mk(ST, "rect", { x: 440 + j * 90 + (k % 2) * 30, y: y + 8, width: 50 - k * 4, height: 10, class: "m-cu" });
+  }
+  // wafer map
+  const D = $("dies");
+  let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let r = -5; r <= 4; r++) for (let c = -5; c <= 4; c++) {
+    const x = 230 + c * 20, y = 306 + r * 20, cx = x + 10, cy = y + 10;
+    if ((cx - 230) ** 2 + (cy - 306) ** 2 > 100 ** 2) continue;
+    const u = rnd(), edge = (cx - 230) ** 2 + (cy - 306) ** 2 > 80 ** 2;
+    mk(D, "rect", { x: x + 1, y: y + 1, width: 18, height: 18, class: "die " + (u < (edge ? 0.25 : 0.06) ? "bad" : u < (edge ? 0.33 : 0.13) ? "fix" : "good") });
+  }
+  // bins
+  [["1등급", "ok"], ["2등급", "accent"], ["불량", "bad"]].forEach(([n, c], i) => { mk($("bins"), "rect", { x: 360 + i * 120, y: 310, width: 100, height: 60, rx: 6, class: "f-" + c, opacity: .85 }); mk($("bins"), "text", { x: 410 + i * 120, y: 346, "text-anchor": "middle", style: "fill: var(--surface); font-weight: 700" }, n); });
+  mk($("bins"), "text", { x: 360, y: 398, class: "lbl-s" }, "결과에 따라 등급(빈)을 나눠 출하");
+
+  const SCENES = ["s-design", "s-mask", "s-wafer", "s-fab", "s-eds", "s-pkg", "s-final", "s-sum"];
+  const node = (k) => { const o = {}; NODES.forEach((_, i) => { o["n" + i] = { s: i < k ? "done" : i === k ? "now" : "todo" }; }); return o; };
+  const scene = (k) => Object.assign(node(k), only(SCENES, [SCENES[k]]));
+  const base = scene(-1);
+  const steps = [
+    { short: "설계", title: "1. 설계: 회로를 짜고 배치도로 바꾼다", cmd: "설계",
+      text: `칩의 기능을 정하고 회로를 하드웨어 기술 언어(Verilog 같은 <b>HDL</b>)로 작성합니다. 이를 트랜지스터와 배선의 배치도(<b>레이아웃</b>)로 바꿉니다. 아파트로 치면 설계도를 그리는 단계입니다.`,
+      set: scene(0) },
+    { short: "포토마스크", title: "2. 포토마스크: 층별 판화 틀", cmd: "마스크",
+      text: `레이아웃을 층별로 나눠 고순도 석영 유리판에 새깁니다. 이 <b>포토마스크</b>가 웨이퍼에 회로를 찍어 내는 판화 틀이 되고, 칩 하나에 <b>수십 장</b>이 한 세트입니다.`,
+      set: scene(1) },
+    { short: "웨이퍼 제조", title: "3. 웨이퍼: 잉곳을 얇게 잘라 원판으로", cmd: "웨이퍼",
+      text: `모래에서 얻은 초고순도 실리콘을 원기둥(<b>잉곳</b>)으로 키우고, 얇게 잘라 매끄럽게 갈아 원판(<b>웨이퍼</b>)을 만듭니다(3-1). 아파트를 지을 땅입니다.`,
+      set: scene(2) },
+    { short: "전공정(반복)", title: "4. 전공정: 같은 공정을 층마다 되풀이", cmd: "전공정",
+      text: `산화, 포토, 식각, 증착, 이온주입, 금속배선을 <b>층마다 되풀이</b>해 회로를 쌓습니다. 트랜지스터를 만드는 아래쪽이 <b>FEOL</b>, 그 위를 배선으로 잇는 부분이 <b>BEOL</b>입니다. 웨이퍼가 팹에 들어가서 나오기까지만 2~3개월, 800개가 넘는 단계를 거칩니다.`,
+      set: scene(3) },
+    { short: "EDS", title: "5. EDS: 웨이퍼 위에서 칩마다 검사", cmd: "EDS",
+      text: `웨이퍼 상태에서 칩마다 바늘(프로브)을 대고 전기 신호를 넣어 양품과 불량을 고릅니다. 예비 회로로 고칠 수 있는 칩은 <b>수선(리페어)</b>합니다(3-11). 준공 검사에 해당합니다.`,
+      set: scene(4) },
+    { short: "패키징", title: "6. 패키징: 자르고, 붙이고, 잇고, 감싼다", cmd: "패키징",
+      text: `웨이퍼를 칩 단위로 자르고, 기판에 붙여 전기를 잇고, 수지로 감쌉니다(3-12). HBM처럼 패키징이 성능을 좌우하면서 전공정과 후공정의 경계가 흐려지고 있습니다.`,
+      set: scene(5) },
+    { short: "최종 테스트", title: "7. 최종 테스트: 실제 조건에서 확인", cmd: "테스트",
+      text: `고온·저온과 실제 동작 속도에서 칩을 다시 확인하고, 결과에 따라 <b>등급을 나눠</b> 출하합니다.`,
+      set: scene(6) },
+    { short: "정리: 8대 공정", title: "8. 출하, 그리고 8대 공정 두 가지 분류", cmd: "정리",
+      text: `면접에서 자주 헷갈리는 부분입니다. <b>삼성전자식 8대 공정</b>은 칩의 일생 전체를 8단계로 나눈 것이고, <b>공정기술 직무식 분류</b>는 팹 안의 전공정만 더 잘게 나눈 것입니다. 공정 단계가 많을수록 작은 불량이 곱해져 수율이 떨어집니다(3-13).`,
+      set: scene(7) },
+  ];
+  StepPlayer.create({ root: $("app"), base, steps, dur: 6000 });
+})();
+</script>
+</body>
+</html>
