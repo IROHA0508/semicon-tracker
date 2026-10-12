@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PN 접합·다이오드·BJT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .preg { fill: var(--m-pp); }
+  .nreg { fill: var(--m-nn); }
+  .el { fill: var(--ink); }
+  .ho { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+  .ion text { font: 700 13px var(--font-mono); fill: var(--muted); text-anchor: middle; }
+  .ion { opacity: .6; }
+  .ion[data-s="dep"] { opacity: 1; }
+  .ion[data-s="dep"] text { fill: var(--accent); font-size: 17px; }
+  .dep { fill: var(--surface); opacity: .55; stroke: var(--accent); stroke-dasharray: 5 4; stroke-width: 1.5; }
+  .barrier { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+  .iv { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+  .iv-bd { fill: none; stroke: var(--accent); stroke-width: 3; }
+  .bat { stroke: var(--ink); stroke-width: 3; }
+  .flow-e { stroke: var(--ink); }
+  .casc circle { fill: var(--ink); }
+  .casc circle.h { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+  .casc path { fill: none; stroke: var(--accent); stroke-width: 1.8; }
+  .tbl-h { font: 700 12px var(--font-sans); fill: var(--muted); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-1</span><span>소자</span><a href="./">애니메이션 목록</a></div>
+    <h1>PN 접합·다이오드·BJT</h1>
+    <p class="lead">P형과 N형 반도체를 붙인 경계(PN 접합)는 한쪽 방향으로만 전류를 잘 흘리는 다이오드가 되고, 이 접합을 두 개 겹치면 작은 전류로 큰 전류를 조절하는 BJT가 됩니다. 캐리어가 움직이는 모습, 전자가 넘어야 하는 장벽, 전류-전압 곡선을 한 화면에서 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">PN 접합·다이오드·BJT</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== PN bar (junction + bias) ===== -->
+        <g id="pn" class="t">
+          <g id="bat" class="t">
+            <path class="wire" d="M60,130 H40 V40 H296"></path>
+            <path class="wire" d="M560,130 H580 V40 H324"></path>
+            <line class="bat" x1="300" y1="24" x2="300" y2="56"></line>
+            <line class="bat" x1="320" y1="32" x2="320" y2="48"></line>
+            <text id="bat-l" x="280" y="30" class="card-l ink-b" text-anchor="middle">+</text>
+            <text id="bat-r" x="340" y="30" class="card-l ink-b" text-anchor="middle">−</text>
+            <text id="bat-t" x="310" y="74" class="lbl-s" text-anchor="middle"></text>
+          </g>
+          <g id="pside" class="t"><rect class="preg" x="60" y="80" width="250" height="110"></rect><g id="pcar"></g></g>
+          <g id="nside" class="t"><rect class="nreg" x="310" y="80" width="250" height="110"></rect><g id="ncar"></g></g>
+          <text id="lab-p" x="80" y="208" class="card-l ink-b">P형(정공 많음)</text>
+          <text id="lab-n" x="540" y="208" class="card-l ink-b" text-anchor="end">N형(전자 많음)</text>
+          <rect id="dep" class="dep t o-c" x="190" y="80" width="240" height="110"></rect>
+          <text id="dep-t" x="310" y="208" class="card-l acc t" text-anchor="middle">공핍층</text>
+          <g id="field" class="t"><path d="M350,135 H272" style="stroke: var(--accent); stroke-width: 3" marker-end="url(#ar-a)"></path><text x="310" y="124" text-anchor="middle" class="lbl-s acc halo">내부 전기장</text></g>
+          <g id="diff" class="t">
+            <path d="M360,64 H262" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path><text x="364" y="68" class="lbl-s">전자 → P쪽</text>
+            <path d="M260,224 H358" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path><text x="256" y="228" class="lbl-s" text-anchor="end">정공 → N쪽</text>
+          </g>
+          <g id="rec" class="blink t"><circle cx="310" cy="112" r="9" style="fill: var(--accent); opacity: .8"></circle><circle cx="310" cy="160" r="9" style="fill: var(--accent); opacity: .8"></circle><text x="324" y="190" class="lbl-s acc halo">재결합</text></g>
+          <path id="flow-f" class="dots flow-e t" d="M70,135 H550"></path>
+          <g id="leak" class="t"><path d="M380,150 H246" style="stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 3" marker-end="url(#ar-m)"></path><text x="310" y="176" class="lbl-s halo" text-anchor="middle">아주 작은 누설</text></g>
+          <g id="tun" class="t"><path d="M372,108 H250" style="stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 2 4" marker-end="url(#ar-a)"></path><text x="310" y="100" class="lbl-s acc halo" text-anchor="middle">터널링</text></g>
+          <g id="casc" class="casc t">
+            <circle cx="210" cy="135" r="5"></circle><path d="M216,135 H262"></path>
+            <circle cx="270" cy="128" r="5"></circle><circle class="h" cx="270" cy="146" r="5"></circle>
+            <path d="M276,128 L322,114"></path><path d="M276,128 L322,140"></path>
+            <circle cx="330" cy="112" r="5"></circle><circle cx="330" cy="140" r="5"></circle><circle class="h" cx="330" cy="158" r="5"></circle><circle class="h" cx="330" cy="96" r="5"></circle>
+            <path d="M336,112 L382,104"></path><path d="M336,140 L382,148"></path>
+            <circle cx="390" cy="102" r="5"></circle><circle cx="390" cy="150" r="5"></circle><circle cx="390" cy="122" r="5"></circle><circle cx="390" cy="170" r="5"></circle>
+            <text x="300" y="186" class="lbl-s acc halo" text-anchor="middle">부딪힐 때마다 전자-정공 쌍이 늘어남</text>
+          </g>
+
+          <!-- barrier plot -->
+          <g id="bar" class="t">
+            <text x="60" y="238" class="lbl">N쪽 전자가 P쪽으로 가려면 넘어야 하는 언덕(전자의 에너지)</text>
+            <line class="grid-line" x1="60" y1="370" x2="560" y2="370"></line>
+            <path id="bar-c" class="barrier" d="M60,310 H250 C310,310 310,370 370,370 H560"></path>
+            <path id="bar-h" d="M574,370 V310" style="stroke: var(--accent); stroke-width: 2" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path>
+            <text id="bar-t" x="566" y="396" class="card-l acc" text-anchor="end">장벽 ≈ 내부 전위 0.6~0.8 V</text>
+            <text x="70" y="392" class="lbl-s">P쪽</text><text x="550" y="360" class="lbl-s" text-anchor="end">N쪽</text>
+          </g>
+        </g>
+
+        <!-- legend (junction mode) -->
+        <g id="legend" class="t">
+          <rect class="frame" x="620" y="80" width="236" height="150" rx="8"></rect>
+          <circle class="ho" cx="644" cy="108" r="6"></circle><text x="658" y="112" class="card-l">정공: P형의 다수 캐리어</text>
+          <circle class="el" cx="644" cy="138" r="6"></circle><text x="658" y="142" class="card-l">전자: N형의 다수 캐리어</text>
+          <g class="ion" style="opacity: 1"><text x="644" y="176">−</text></g><text x="658" y="172" class="card-l">억셉터 이온(움직이지 못함)</text>
+          <g class="ion" style="opacity: 1"><text x="644" y="206">+</text></g><text x="658" y="202" class="card-l">도너 이온(움직이지 못함)</text>
+          <g id="vbi" class="t"><text x="620" y="274" class="head-t">평형</text><text x="620" y="300" class="card-l">확산하려는 힘 = 전기장이 막는 힘</text><text x="620" y="324" class="card-l acc">내부 전위: 실리콘 약 0.6~0.8 V</text></g>
+        </g>
+
+        <!-- I-V plot (bias mode) -->
+        <g id="ivp" class="t">
+          <text x="612" y="34" class="lbl">다이오드 전류-전압</text>
+          <line class="axis" x1="606" y1="250" x2="862" y2="250"></line>
+          <line class="axis" x1="740" y1="56" x2="740" y2="380"></line>
+          <text x="858" y="268" class="lbl-s" text-anchor="end">V</text><text x="748" y="66" class="lbl-s">I</text>
+          <line class="grid-line" x1="822" y1="56" x2="822" y2="250"></line><text x="822" y="268" class="lbl-s mono" text-anchor="middle">0.7 V</text>
+          <path class="iv" d="M608,253 L740,251 C788,250 808,248 816,236 C824,220 830,150 836,62"></path>
+          <path id="bd-z" class="iv-bd t" d="M692,253 C688,262 686,320 684,376"></path>
+          <path id="bd-a" class="iv-bd t" d="M632,253 C628,262 626,320 624,376"></path>
+          <text id="bd-zt" x="684" y="394" class="lbl-s acc t" text-anchor="middle">제너</text><text id="bd-zt2" x="684" y="408" class="lbl-s acc t" text-anchor="middle">5 V 이하</text>
+          <text id="bd-at" x="624" y="394" class="lbl-s acc t" text-anchor="middle">애벌런치</text><text id="bd-at2" x="624" y="408" class="lbl-s acc t" text-anchor="middle">7 V 이상</text>
+          <text x="612" y="242" class="lbl-s">역방향</text><text x="752" y="242" class="lbl-s">순방향</text>
+          <circle id="iv-dot" class="t" cx="0" cy="0" r="7" style="fill: var(--accent); stroke: var(--surface); stroke-width: 2"></circle>
+          <text id="iv-t" x="612" y="434" class="card-l acc t"></text>
+        </g>
+
+        <!-- ===== BJT ===== -->
+        <g id="m-bjt" class="t">
+          <rect class="m-sin" x="80" y="110" width="220" height="110"></rect>
+          <rect class="preg" x="300" y="110" width="40" height="110"></rect>
+          <rect class="nreg" x="340" y="110" width="260" height="110"></rect>
+          <text x="190" y="100" class="card-l ink-b" text-anchor="middle">이미터 E · N⁺(고농도)</text>
+          <text x="320" y="86" class="card-l ink-b" text-anchor="middle">베이스 B · P</text><text x="320" y="102" class="lbl-s" text-anchor="middle">아주 얇음</text>
+          <text x="470" y="100" class="card-l ink-b" text-anchor="middle">컬렉터 C · N</text>
+          <path class="wire" d="M80,165 H44"></path><text x="38" y="170" class="card-l ink-b" text-anchor="end">E</text>
+          <path class="wire" d="M320,220 V300"></path><text x="320" y="318" class="card-l ink-b" text-anchor="middle">B</text>
+          <path class="wire" d="M600,165 H636"></path><text x="642" y="170" class="card-l ink-b">C</text>
+          <text id="j1" x="300" y="236" class="lbl-s" text-anchor="middle">접합 1</text><text id="j2" x="340" y="250" class="lbl-s" text-anchor="middle">접합 2</text>
+          <path id="bj-flow" class="dots flow-e t" d="M96,165 H590"></path>
+          <path id="bj-ib" class="dots t" d="M320,170 V292" style="stroke: var(--ink); stroke-width: 4"></path>
+          <g id="bj-lab" class="t"><text x="330" y="276" class="card-l acc">Ib: 작은 전류</text><text x="606" y="140" class="card-l acc">Ic: 큰 전류</text><text x="190" y="242" class="lbl-s" text-anchor="middle">전자가 베이스를 거의 그대로 통과 →</text></g>
+          <g id="beta" class="t"><rect class="frame" x="680" y="110" width="176" height="110" rx="8"></rect><text x="768" y="156" text-anchor="middle" style="font: 700 22px var(--font-mono); fill: var(--accent)">β = Ic / Ib</text><text x="768" y="188" class="card-l" text-anchor="middle">보통 수십~수백</text></g>
+          <g id="cmp" class="t">
+            <line class="thin" x1="80" y1="352" x2="856" y2="352"></line>
+            <text x="80" y="344" class="tbl-h">구분</text><text x="240" y="344" class="tbl-h">BJT</text><text x="560" y="344" class="tbl-h">MOSFET</text>
+            <text x="80" y="374" class="card-l">제어</text><text x="240" y="374" class="card-l">베이스 전류(전류 제어)</text><text x="560" y="374" class="card-l">게이트 전압(전압 제어)</text>
+            <text x="80" y="398" class="card-l">입력 쪽 전류</text><text x="240" y="398" class="card-l">계속 흐름</text><text x="560" y="398" class="card-l">거의 없음</text>
+            <text x="80" y="422" class="card-l">주 쓰임</text><text x="240" y="422" class="card-l">아날로그 증폭, RF, 일부 전력 소자(IGBT)</text><text x="560" y="422" class="card-l acc">디지털 로직·메모리 거의 전부</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 캐리어와 이온 수, 곡선의 눈금은 이해를 돕기 위해 단순화했습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>공핍층이 생기는 순서는 <b>확산 → 재결합 → 이온만 남음 → 내부 전기장 → 평형</b>입니다. 단면을 그리며 이 순서로 말하면 됩니다.</li>
+      <li>순방향은 장벽이 낮아져 다수 캐리어의 확산 전류가 흐르고, 역방향은 장벽이 높아져 소수 캐리어의 작은 누설전류만 흐릅니다. MOSFET의 소스·드레인과 기판 사이도 PN 접합이며 평소 역방향으로 두는데, 이 누설이 D램의 데이터 유지 시간을 깎습니다(2-7).</li>
+      <li>제너 항복(고농도·얇은 공핍층·터널링·낮은 전압)과 애벌런치 항복(저농도·넓은 공핍층·충돌 이온화·높은 전압)은 온도 계수가 반대라는 점까지 말하면 좋습니다.</li>
+    </ul>
+    <p class="foot">원고 2-1을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-2 MOSFET 구조와 동작, 2-9 이미지센서·전력반도체.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, at } = StepPlayer.kit;
+  // carriers and ions: column k counts outward from the junction (x = 310)
+  const ROWS = [92, 116, 140, 164];
+  for (let k = 0; k < 8; k++) {
+    const xp = 295 - 30 * k, xn = 325 + 30 * k;
+    const gp = mk($("pcar"), "g", { id: "pc" + k, class: "t" }), gn = mk($("ncar"), "g", { id: "nc" + k, class: "t" });
+    ROWS.forEach((y) => { mk(gp, "circle", { class: "ho", cx: xp, cy: y - 4, r: 5 }); mk(gn, "circle", { class: "el", cx: xn, cy: y - 4, r: 5 }); });
+    const ip = mk($("pcar"), "g", { id: "pi" + k, class: "ion t" }), inn = mk($("ncar"), "g", { id: "ni" + k, class: "ion t" });
+    ROWS.forEach((y) => { mk(ip, "text", { x: xp, y: y + 13 }, "−"); mk(inn, "text", { x: xn, y: y + 13 }, "+"); });
+  }
+  // hw: half width of the depletion region; lift: barrier height in px (60 = equilibrium)
+  const pn = (hw, lift) => {
+    const o = {};
+    for (let k = 0; k < 8; k++) {
+      const gone = 15 + 30 * k < hw;
+      o["pc" + k] = gone ? off : on; o["nc" + k] = gone ? off : on;
+      o["pi" + k] = { s: gone ? "dep" : "on" }; o["ni" + k] = { s: gone ? "dep" : "on" };
+    }
+    o.dep = { s: hw ? "on" : "off", style: { transform: `scaleX(${(Math.max(hw, 1) / 120).toFixed(3)})` } };
+    const yp = 370 - lift, a = 310 - Math.max(hw, 20), b = 310 + Math.max(hw, 20);
+    o["bar-c"] = { attr: { d: `M60,${yp} H${a} C310,${yp} 310,370 ${b},370 H560` } };
+    o["bar-h"] = { attr: { d: `M574,370 V${yp}` } };
+    return o;
+  };
+  const ivAt = (x, y, t) => ({ "iv-dot": at(x, y), "iv-t": txt(t) });
+  const FX = ["diff", "rec", "field", "flow-f", "leak", "tun", "casc", "bat", "vbi", "bd-z", "bd-a", "bd-zt", "bd-zt2", "bd-at", "bd-at2", "bj-flow", "bj-ib", "bj-lab", "beta", "cmp"];
+  const BFX = ["flow-f", "leak", "tun", "casc", "bd-z", "bd-a", "bd-zt", "bd-zt2", "bd-at", "bd-at2"];
+  const fx = (list) => Object.assign(all(BFX, off), all(list, on));
+
+  const junction = {
+    id: "junction", label: "접합과 공핍층",
+    base: () => Object.assign(only(["pn", "legend", "ivp", "m-bjt"], ["pn", "legend"]), all(FX, off), pn(0, 0), { bar: off, "dep-t": off, pside: { style: { transform: "translateX(-22px)" } }, nside: { style: { transform: "translateX(22px)" } } }),
+    steps: [
+      { short: "P형과 N형", title: "P형에는 정공, N형에는 전자가 많다", cmd: "준비",
+        text: `P형 반도체에는 <b>정공</b>(○)이, N형 반도체에는 <b>전자</b>(●)가 많습니다(1-5). 각 영역에는 캐리어를 내놓은 불순물 이온(−·+)이 제자리에 묶여 있어, 따로 있을 때는 어느 쪽도 전기적으로 중성입니다.`,
+        set: {} },
+      { short: "붙이면 확산", title: "붙이는 순간 농도 차로 퍼지고, 만나면 사라진다", cmd: "확산",
+        text: `두 반도체를 붙이면 농도 차이 때문에 전자는 P쪽으로, 정공은 N쪽으로 <b>확산</b>합니다. 경계에서 만난 전자와 정공은 <b>재결합</b>해 사라집니다. 비유하면 두 마을 사람들이 섞이다가 경계에서 짝을 이뤄 사라지는 장면입니다.`,
+        set: Object.assign({ pside: { style: { transform: "translateX(0)" } }, nside: { style: { transform: "translateX(0)" } }, diff: on, rec: on }, pn(20, 0), { dep: off }) },
+      { short: "공핍층", title: "경계에 이온만 남은 공핍층", cmd: "공핍층",
+        text: `캐리어가 빠져나간 경계에는 움직이지 못하는 이온만 남습니다. P쪽에는 <b>−이온</b>(억셉터), N쪽에는 <b>+이온</b>(도너)입니다. 캐리어가 없어 전기가 잘 통하지 않는 이 영역이 <b>공핍층</b>입니다. 두 마을 사이에 아무도 없는 강이 생긴 셈입니다.`,
+        set: Object.assign({ diff: off, rec: off, "dep-t": on }, pn(60, 0)) },
+      { short: "내부 전기장·전위", title: "전기장이 확산을 막아 평형이 된다", cmd: "평형",
+        text: `남은 이온이 <b>N → P 방향의 전기장</b>을 만들고, 이 전기장이 더 이상의 확산을 막아 평형이 됩니다. 이때 생기는 전위 장벽(<b>내부 전위</b>, built-in potential)은 실리콘에서 약 <b>0.6~0.8 V</b>입니다. 아래 곡선은 N쪽 전자가 P쪽으로 넘어가려면 올라야 하는 언덕입니다.`,
+        set: Object.assign({ field: on, bar: on, vbi: on }, pn(60, 60)) },
+    ],
+  };
+
+  const bias = {
+    id: "bias", label: "바이어스와 항복",
+    base: () => Object.assign(only(["pn", "legend", "ivp", "m-bjt"], ["pn", "ivp"]), all(FX, off), pn(60, 60), { bar: on, "dep-t": on, bat: on, pside: { style: { transform: "translateX(0)" } }, nside: { style: { transform: "translateX(0)" } } }),
+    steps: [
+      { short: "순방향(P에 +)", title: "순방향: 장벽이 낮아져 전류가 쏟아진다", cmd: "순방향",
+        text: `P쪽에 +, N쪽에 −를 걸면 장벽이 낮아지고 공핍층이 얇아집니다. 약 <b>0.7 V</b>를 넘으면 다수 캐리어가 장벽을 넘어 전류가 <b>지수적으로</b> 늘어납니다(I ∝ e^(qV/kT)). 강에 다리가 놓인 상태입니다.`,
+        set: Object.assign(pn(30, 26), fx(["flow-f"]), { "bat-l": txt("+"), "bat-r": txt("−"), "bat-t": txt("P에 +, N에 −"), "bar-t": txt("장벽이 낮아짐") }, ivAt(830, 120, "0.7 V를 넘으면 전류 급증")) },
+      { short: "역방향(P에 −)", title: "역방향: 장벽이 높아져 거의 막힌다", cmd: "역방향",
+        text: `반대로 걸면 장벽이 높아지고 공핍층이 넓어져, 소수 캐리어에 의한 <b>아주 작은 누설전류</b>만 흐릅니다. 이때 공핍층은 양쪽에 전하가 쌓인 절연층이라 커패시터처럼 동작합니다(<b>접합 커패시턴스</b>). 한쪽으로만 전류를 흘리는 이 성질이 다이오드의 <b>정류 작용</b>입니다.`,
+        set: Object.assign(pn(120, 100), fx(["leak"]), { "bat-l": txt("−"), "bat-r": txt("+"), "bat-t": txt("P에 −, N에 +"), "bar-t": txt("장벽이 높아짐") }, ivAt(704, 252, "거의 0(작은 누설)")) },
+      { short: "제너 항복", title: "제너 항복: 얇은 공핍층을 뚫고 지나간다", cmd: "제너",
+        text: `역방향 전압이 너무 커지면 전류가 갑자기 흐릅니다(<b>항복</b>). 양쪽을 고농도로 도핑해 공핍층이 매우 얇으면, 강한 전기장에서 전자가 장벽을 뚫고 지나갑니다(<b>터널링</b>). 항복 전압이 낮고(대략 5 V 이하), 일정한 전압을 만드는 <b>제너 다이오드</b>에 씁니다.`,
+        set: Object.assign(pn(30, 110), fx(["tun", "bd-z", "bd-zt", "bd-zt2"]), { "bat-l": txt("−"), "bat-r": txt("+"), "bat-t": txt("고농도 접합, 큰 역방향 전압"), "bar-t": txt("높고 얇은 장벽") }, ivAt(685, 350, "제너: 낮은 전압에서 항복")) },
+      { short: "애벌런치 항복", title: "애벌런치 항복: 부딪힐 때마다 불어난다", cmd: "애벌런치",
+        text: `도핑이 상대적으로 낮아 공핍층이 넓으면, 그 안에서 가속된 전자가 원자와 부딪혀 전자-정공 쌍을 연쇄로 만듭니다(<b>충돌 이온화</b>, 눈사태). 항복 전압이 높고(대략 7 V 이상) 전력 소자의 내압 설계와 ESD 보호에 쓰입니다. 온도가 오르면 제너는 항복 전압이 <b>낮아지고</b> 애벌런치는 <b>높아집니다</b>.`,
+        set: Object.assign(pn(120, 120), fx(["casc", "bd-z", "bd-a", "bd-zt", "bd-zt2", "bd-at", "bd-at2"]), { "bat-l": txt("−"), "bat-r": txt("+"), "bat-t": txt("저농도 접합, 더 큰 역방향 전압"), "bar-t": txt("넓은 공핍층") }, ivAt(625, 350, "애벌런치: 높은 전압에서 항복")) },
+    ],
+  };
+
+  const bjt = {
+    id: "bjt", label: "BJT",
+    base: () => Object.assign(only(["pn", "legend", "ivp", "m-bjt"], ["m-bjt"]), all(FX, off)),
+    steps: [
+      { short: "NPN 구조", title: "PN 접합 두 개를 겹친 NPN", cmd: "구조",
+        text: `NPN BJT(바이폴라 접합 트랜지스터)는 N(이미터)–P(베이스)–N(컬렉터)을 겹친 구조로, <b>PN 접합이 두 개</b>입니다. 이미터는 <b>고농도</b>로, 베이스는 <b>아주 얇게</b> 만듭니다.`,
+        set: {} },
+      { short: "작은 Ib → 큰 Ic", title: "베이스의 작은 전류가 큰 전류를 연다", cmd: "증폭",
+        text: `베이스에 작은 전류(<b>Ib</b>)를 넣으면 이미터의 전자가 얇은 베이스를 거의 그대로 지나 컬렉터로 넘어가 큰 전류(<b>Ic</b>)가 됩니다. 베이스로 빠지는 전자는 아주 조금뿐입니다.`,
+        set: { "bj-flow": on, "bj-ib": on, "bj-lab": on } },
+      { short: "β와 MOSFET 비교", title: "증폭률 β, 그리고 디지털에는 MOSFET", cmd: "β",
+        text: `증폭률 <b>β = Ic/Ib</b>는 보통 수십~수백입니다. BJT는 베이스 <b>전류</b>로, MOSFET은 게이트 <b>전압</b>으로 제어합니다. 입력 쪽으로 전류가 거의 흐르지 않고 작게 만들기 쉬운 MOSFET이 디지털 로직·메모리의 거의 전부를 차지하고, BJT는 아날로그 증폭·RF·일부 전력 소자(IGBT)에 쓰입니다.`,
+        set: { "bj-flow": on, "bj-ib": on, "bj-lab": on, beta: on, cmp: on } },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [junction, bias, bjt], dur: 6000 });
+})();
+</script>
+</body>
+</html>

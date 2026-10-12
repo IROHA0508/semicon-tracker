@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>차세대 메모리·이미지센서·전력반도체</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .el-t { fill: var(--m-w); }
+  .fl { fill: var(--m-nn); stroke: var(--m-si-line); }
+  .pl { fill: var(--m-pp); stroke: var(--m-si-line); }
+  .mgo { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .mag { stroke: var(--ink); stroke-width: 3; fill: none; }
+  .gst { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .atomd { fill: var(--ink); }
+  .vac { fill: var(--accent); }
+  .fe { fill: var(--m-hk); fill-opacity: .55; stroke: var(--m-hk); }
+  .pol { stroke: var(--accent); stroke-width: 3; fill: none; }
+  .panel-f { fill: var(--surface); stroke: var(--line); }
+  .res { font: 700 14px var(--font-sans); }
+  .lens { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1.2; }
+  .cf-r { fill: #d0605a; } .cf-g { fill: #5ba36b; } .cf-b { fill: #4f7fc9; }
+  .pd { fill: var(--m-nn); stroke: var(--m-si-line); }
+  .si { fill: var(--m-pp); }
+  .wire-m { fill: var(--m-cu); }
+  .ph { stroke: var(--accent); stroke-width: 2.2; }
+  .eh { fill: var(--ink); }
+  .sw { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .gapbar { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .drift { fill: var(--m-si-n); stroke: var(--m-si-line); }
+  .drift.sic { fill: var(--m-hk); fill-opacity: .6; stroke: var(--m-hk); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-9</span><span>소자</span><a href="./">애니메이션 목록</a></div>
+    <h1>차세대 메모리·이미지센서·전력반도체</h1>
+    <p class="lead">DRAM·NAND·로직 외에도 새 원리로 0과 1을 저장하는 차세대 메모리, 빛을 전기로 바꾸는 이미지센서(눈), 높은 전압과 큰 전류를 다루는 전력반도체(심장과 혈관)가 각자의 시장을 이룹니다. 세 분야의 핵심 원리를 그림으로 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">차세대 메모리·이미지센서·전력반도체</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== next-gen memory ===== -->
+        <g id="m-mem" class="t">
+          <rect class="panel-f" x="40" y="56" width="220" height="300" rx="8"></rect>
+          <rect class="panel-f" x="290" y="56" width="220" height="300" rx="8"></rect>
+          <text id="pa-t" x="150" y="80" class="card-l ink-b" text-anchor="middle"></text>
+          <text id="pb-t" x="400" y="80" class="card-l ink-b" text-anchor="middle"></text>
+          <!-- MRAM -->
+          <g id="mram" class="t"></g>
+          <!-- PRAM -->
+          <g id="pram" class="t"></g>
+          <!-- ReRAM -->
+          <g id="reram" class="t"></g>
+          <!-- FeRAM -->
+          <g id="feram" class="t"></g>
+          <text id="ra" x="150" y="330" class="res" text-anchor="middle"></text>
+          <text id="rb" x="400" y="330" class="res" text-anchor="middle"></text>
+          <text id="mm1" x="560" y="80" class="head-t"></text>
+          <text id="mm2" x="560" y="112" class="card-l"></text>
+          <text id="mm3" x="560" y="136" class="card-l"></text>
+          <text id="mm4" x="560" y="170" class="card-l acc"></text>
+          <text id="mm5" x="560" y="194" class="card-l bad-t"></text>
+          <text id="mm6" x="560" y="228" class="card-l"></text>
+          <text id="mm7" x="560" y="252" class="card-m"></text>
+          <text x="560" y="390" class="card-m">공통 목표: DRAM처럼 빠르고 NAND처럼 꺼도 남는 메모리</text>
+        </g>
+
+        <!-- ===== image sensor ===== -->
+        <g id="m-cis" class="t">
+          <g id="bsi" class="t">
+            <g id="lenses"></g>
+            <rect class="cf-r" x="80" y="118" width="120" height="26"></rect><rect class="cf-g" x="200" y="118" width="120" height="26"></rect><rect class="cf-b" x="320" y="118" width="120" height="26"></rect>
+            <rect class="si" x="80" y="144" width="360" height="120"></rect>
+            <g id="pds"></g>
+            <rect x="80" y="264" width="360" height="70" style="fill: var(--m-ox)"></rect>
+            <g id="wires"></g>
+            <text x="452" y="104" class="lbl-s">마이크로렌즈</text>
+            <text x="452" y="136" class="lbl-s">컬러 필터</text>
+            <text x="452" y="206" class="lbl-s">포토다이오드(PN 접합)</text>
+            <text x="452" y="304" class="lbl-s">배선(아래쪽)</text>
+            <g id="photons" class="t"><path class="ph" d="M244,34 L250,60 L242,80 L256,110" marker-end="url(#ar-a)"></path><path class="ph" d="M276,30 L270,56 L280,78 L268,110" marker-end="url(#ar-a)"></path><text x="292" y="40" class="lbl-s acc">빛(초록)</text></g>
+            <g id="pairs" class="t"></g>
+            <g id="readout" class="t"><path d="M260,244 V356 H524" style="fill: none; stroke: var(--accent); stroke-width: 2.5" marker-end="url(#ar-a)"></path><rect class="sw" x="528" y="340" width="96" height="32" rx="6"></rect><text x="576" y="361" class="card-l" text-anchor="middle">디지털 값</text></g>
+          </g>
+          <g id="fsibsi" class="t">
+            <text x="60" y="60" class="card-l ink-b">전면조사(FSI)</text>
+            <path class="lens" d="M70,110 Q120,74 170,110 Z"></path><path class="lens" d="M170,110 Q220,74 270,110 Z"></path>
+            <rect class="cf-g" x="70" y="110" width="100" height="20"></rect><rect class="cf-r" x="170" y="110" width="100" height="20"></rect>
+            <rect x="70" y="130" width="200" height="80" style="fill: var(--m-ox)"></rect>
+            <rect class="wire-m" x="76" y="148" width="30" height="8"></rect><rect class="wire-m" x="140" y="168" width="40" height="8"></rect><rect class="wire-m" x="230" y="148" width="34" height="8"></rect><rect class="wire-m" x="100" y="188" width="44" height="8"></rect><rect class="wire-m" x="196" y="188" width="48" height="8"></rect>
+            <rect class="si" x="70" y="210" width="200" height="90"></rect><rect class="pd" x="86" y="214" width="68" height="50" rx="6"></rect><rect class="pd" x="186" y="214" width="68" height="50" rx="6"></rect>
+            <path class="ph" d="M120,40 V104" marker-end="url(#ar-a)"></path><path d="M120,130 V160" style="stroke: var(--bad); stroke-width: 2; stroke-dasharray: 3 3"></path><text x="128" y="330" class="lbl-s bad-t">배선이 빛을 일부 가림</text>
+            <text x="330" y="60" class="card-l ink-b">후면조사(BSI)</text>
+            <path class="lens" d="M340,110 Q390,74 440,110 Z"></path><path class="lens" d="M440,110 Q490,74 540,110 Z"></path>
+            <rect class="cf-g" x="340" y="110" width="100" height="20"></rect><rect class="cf-r" x="440" y="110" width="100" height="20"></rect>
+            <rect class="si" x="340" y="130" width="200" height="90"></rect><rect class="pd" x="356" y="134" width="68" height="70" rx="6"></rect><rect class="pd" x="456" y="134" width="68" height="70" rx="6"></rect>
+            <rect x="340" y="220" width="200" height="80" style="fill: var(--m-ox)"></rect>
+            <rect class="wire-m" x="346" y="240" width="30" height="8"></rect><rect class="wire-m" x="410" y="260" width="40" height="8"></rect><rect class="wire-m" x="500" y="240" width="34" height="8"></rect><rect class="wire-m" x="370" y="280" width="44" height="8"></rect><rect class="wire-m" x="466" y="280" width="48" height="8"></rect>
+            <path class="ph" d="M390,40 V128" marker-end="url(#ar-a)"></path><text x="398" y="330" class="lbl-s acc">배선을 뒤로 → 빛 손실 ↓</text>
+            <text x="590" y="120" class="card-l ink-b">적층형 센서</text>
+            <rect x="590" y="134" width="180" height="40" rx="4" style="fill: var(--m-pp)"></rect><text x="680" y="159" class="card-l" text-anchor="middle">픽셀층</text>
+            <rect x="590" y="180" width="180" height="40" rx="4" style="fill: var(--m-si)"></rect><text x="680" y="205" class="card-l" text-anchor="middle">회로층</text>
+            <text x="590" y="244" class="card-m">따로 만들어 붙임 → 표준</text>
+            <text x="590" y="290" class="card-l">시장: 소니 1위, 삼성전자 2위</text>
+          </g>
+          <text id="ci1" x="560" y="80" class="head-t t"></text>
+          <text id="ci2" x="560" y="112" class="card-l t"></text>
+          <text id="ci3" x="560" y="136" class="card-l t"></text>
+          <text id="ci4" x="560" y="160" class="card-l acc t"></text>
+        </g>
+
+        <!-- ===== power ===== -->
+        <g id="m-pow" class="t">
+          <g id="conv" class="t">
+            <path d="M60,150 C80,110 100,110 120,150 S160,190 180,150 S220,110 240,150" style="fill: none; stroke: var(--ink); stroke-width: 2.5"></path>
+            <text x="150" y="210" class="card-l" text-anchor="middle">교류(AC)</text>
+            <path d="M250,150 H282" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path>
+            <rect class="sw" x="290" y="118" width="130" height="64" rx="8"></rect><text x="355" y="146" class="card-l ink-b" text-anchor="middle">전력반도체</text><text x="355" y="166" class="lbl-s" text-anchor="middle">빠르게 켜고 끔</text>
+            <path d="M428,150 H460" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path>
+            <path d="M470,130 H600" style="stroke: var(--accent); stroke-width: 3"></path><text x="535" y="210" class="card-l" text-anchor="middle">직류(DC)·다른 전압</text>
+            <text x="60" y="270" class="card-l">교류↔직류 변환, 전압 변환처럼 전기를 켜고 끄며 바꾸는 소자</text>
+            <text x="60" y="296" class="card-l acc">주력: 실리콘 MOSFET·IGBT → 빠르게 늘어나는 SiC·GaN</text>
+            <text x="60" y="330" class="card-m">아날로그·PMIC·DDI는 미세 공정보다 설계·공정 안정성이 중요해 8인치 팹에서 많이 만듦</text>
+          </g>
+          <g id="wbg" class="t">
+            <text x="60" y="64" class="lbl">밴드갭(띠 사이 간격)</text>
+            <g id="gaps"></g>
+            <text x="400" y="64" class="lbl">같은 전압을 견디는 데 필요한 두께</text>
+            <rect class="drift" x="410" y="90" width="80" height="200"></rect><text x="450" y="310" class="card-l" text-anchor="middle">Si</text>
+            <rect class="drift sic" x="540" y="250" width="80" height="40"></rect><text x="580" y="310" class="card-l" text-anchor="middle">SiC</text>
+            <text x="640" y="262" class="card-l acc">훨씬 얇게</text><text x="640" y="284" class="card-m">→ 켜졌을 때 저항(손실) ↓</text>
+            <text x="400" y="352" class="card-l">밴드갭이 넓음 → 항복 전기장 약 10배 → 얇은 소자로 높은 전압</text>
+            <text x="400" y="376" class="card-l">높은 온도에서도 누설이 적고, SiC는 열도 잘 빠짐</text>
+          </g>
+          <g id="apps" class="t">
+            <rect class="frame" x="60" y="70" width="360" height="150" rx="8"></rect>
+            <text x="80" y="102" class="head-t">SiC</text><text x="80" y="132" class="card-l">전기차 인버터, 충전기</text><text x="80" y="156" class="card-l">높은 전압·온도에 강함, 열이 잘 빠짐</text><text x="80" y="196" class="card-m">웨이퍼: 6인치 → 8인치로 넘어가는 중</text>
+            <rect class="frame" x="460" y="70" width="360" height="150" rx="8"></rect>
+            <text x="480" y="102" class="head-t">GaN</text><text x="480" y="132" class="card-l">고속 충전기, 데이터센터 전원, RF</text><text x="480" y="156" class="card-l">높은 주파수에서 손실이 적음</text>
+            <text x="60" y="270" class="card-l bad-t">과제: 웨이퍼 결함과 가격</text>
+            <text x="60" y="300" class="card-l">성장 동력: 전기차, AI 데이터센터 전원 수요</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 층 두께, 밴드갭 막대와 소자 두께는 비율이 아니라 크고 작음만 보여 줍니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>차세대 메모리를 하나 골라 <b>원리 → 장점 → 과제 → 쓰임</b> 순서로 말합니다. 예: MRAM은 자화 방향에 따른 저항 차이로 저장하고, 빠르고 내구성이 좋아 임베디드 메모리(eMRAM)로 쓰이지만 셀이 커서 DRAM을 대체하기는 어렵습니다.</li>
+      <li>SiC·GaN이 주목받는 이유: 와이드 밴드갭 → 높은 항복 전기장 → 얇은 소자로 높은 전압을 견딤 → 손실 감소·고온 동작·빠른 스위칭. 전기차와 AI 데이터센터 전원 수요가 성장을 이끕니다.</li>
+      <li>이미지센서의 BSI는 배선이 빛을 가리지 않아 감도가 좋고, 픽셀이 작아져도 빛 손실이 적습니다. AI 시대에는 저장 원리보다 '데이터를 덜 옮기는 구조'(PIM, CXL)가 먼저 상용화되고 있습니다(4-7).</li>
+    </ul>
+    <p class="foot">원고 2-9를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-1 PN 접합, 4-7 AI 반도체와 메모리, 4-8 소재·부품·장비.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // ---- memory cells: draw each in two panels (A at cx 150, B at cx 400)
+  const both = (fn) => { fn(150, "a"); fn(400, "b"); };
+  const M = $("mram");
+  both((cx, s) => {
+    mk(M, "rect", { class: "el-t", x: cx - 60, y: 100, width: 120, height: 18 });
+    mk(M, "rect", { class: "fl", x: cx - 60, y: 128, width: 120, height: 44 });
+    mk(M, "rect", { class: "mgo", x: cx - 60, y: 172, width: 120, height: 12 });
+    mk(M, "rect", { class: "pl", x: cx - 60, y: 184, width: 120, height: 44 });
+    mk(M, "rect", { class: "el-t", x: cx - 60, y: 238, width: 120, height: 18 });
+    const dir = s === "a" ? 1 : -1;
+    mk(M, "path", { class: "mag", d: `M${cx - 30 * dir},150 H${cx + 30 * dir}`, "marker-end": "url(#ar-k)" });
+    mk(M, "path", { class: "mag", d: `M${cx - 30},206 H${cx + 30}`, "marker-end": "url(#ar-k)" });
+    mk(M, "text", { x: cx + 66, y: 154, class: "lbl-s" }, "자유층"); mk(M, "text", { x: cx + 66, y: 182, class: "lbl-s" }, "MgO"); mk(M, "text", { x: cx + 66, y: 210, class: "lbl-s" }, "고정층");
+  });
+  const P = $("pram");
+  const rnd = (i) => (Math.sin(i * 12.9898) * 43758.5453) % 1;
+  both((cx, s) => {
+    mk(P, "rect", { class: "el-t", x: cx - 60, y: 100, width: 120, height: 18 });
+    mk(P, "rect", { class: "gst", x: cx - 60, y: 118, width: 120, height: 100 });
+    mk(P, "rect", { class: "el-t", x: cx - 10, y: 218, width: 20, height: 30 });
+    mk(P, "rect", { class: "el-t", x: cx - 60, y: 248, width: 120, height: 14 });
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 4; j++) {
+      const ox = s === "a" ? 0 : Math.abs(rnd(i * 7 + j)) * 10 - 5, oy = s === "a" ? 0 : Math.abs(rnd(i * 3 + j * 11)) * 10 - 5;
+      mk(P, "circle", { class: "atomd", cx: cx - 50 + i * 20 + ox, cy: 134 + j * 22 + oy, r: 4 });
+    }
+    mk(P, "text", { x: cx, y: 286, class: "lbl-s", "text-anchor": "middle" }, s === "a" ? "결정(원자가 가지런함)" : "비정질(원자가 흐트러짐)");
+    // pulse
+    const px = cx - 60, py = 312;
+    mk(P, "path", { d: s === "a" ? `M${px},${py} H${px + 20} V${py - 14} H${px + 90} V${py} H${px + 120}` : `M${px},${py} H${px + 40} V${py - 26} H${px + 56} V${py} H${px + 120}`, style: "fill: none; stroke: var(--accent); stroke-width: 2" });
+  });
+  mk(P, "text", { x: 150, y: 350, class: "lbl-s", "text-anchor": "middle" }, "낮게 오래 데움(천천히 식힘)"); mk(P, "text", { x: 400, y: 350, class: "lbl-s", "text-anchor": "middle" }, "녹였다 급히 식힘");
+  const R = $("reram");
+  both((cx, s) => {
+    mk(R, "rect", { class: "el-t", x: cx - 60, y: 100, width: 120, height: 18 });
+    mk(R, "rect", { class: "mgo", x: cx - 60, y: 118, width: 120, height: 120 });
+    mk(R, "rect", { class: "el-t", x: cx - 60, y: 238, width: 120, height: 18 });
+    for (let k = 0; k < 10; k++) { if (s === "b" && (k === 4 || k === 5)) continue; mk(R, "circle", { class: "vac", cx: cx + (k % 2 ? 4 : -4), cy: 126 + k * 12, r: 5 }); }
+    mk(R, "text", { x: cx, y: 286, class: "lbl-s", "text-anchor": "middle" }, s === "a" ? "산소 빈자리 통로가 이어짐" : "통로가 끊김");
+  });
+  mk(R, "text", { x: 214, y: 180, class: "lbl-s acc" }, "필라멘트");
+  const F = $("feram");
+  both((cx, s) => {
+    mk(F, "rect", { class: "el-t", x: cx - 60, y: 100, width: 120, height: 18 });
+    mk(F, "rect", { class: "fe", x: cx - 60, y: 118, width: 120, height: 120 });
+    mk(F, "rect", { class: "el-t", x: cx - 60, y: 238, width: 120, height: 18 });
+    for (let k = 0; k < 4; k++) { const x = cx - 45 + k * 30; mk(F, "path", { class: "pol", d: s === "a" ? `M${x},222 V136` : `M${x},134 V220`, "marker-end": "url(#ar-a)" }); }
+    mk(F, "text", { x: cx, y: 286, class: "lbl-s", "text-anchor": "middle" }, s === "a" ? "분극: 위" : "분극: 아래");
+  });
+  const MEM = ["mram", "pram", "reram", "feram"];
+  const mm = (a) => lines("mm", a, 7);
+  const memStep = (k, a, b, ra, rb) => Object.assign(only(MEM, [MEM[k]]), { "pa-t": txt(a), "pb-t": txt(b), ra: txt(ra), rb: txt(rb) });
+
+  // ---- image sensor
+  for (let i = 0; i < 3; i++) {
+    const x = 80 + i * 120;
+    mk($("lenses"), "path", { class: "lens", d: `M${x},118 Q${x + 60},74 ${x + 120},118 Z` });
+    mk($("pds"), "rect", { id: "pd" + i, class: "pd", x: x + 20, y: 160, width: 80, height: 84, rx: 8 });
+    mk($("wires"), "rect", { class: "wire-m", x: x + 8 + (i % 2) * 30, y: 280, width: 50, height: 8 }); mk($("wires"), "rect", { class: "wire-m", x: x + 50, y: 304, width: 56, height: 8 });
+  }
+  [[230, 190], [252, 214], [276, 198], [244, 232], [286, 224]].forEach(([x, y]) => { mk($("pairs"), "circle", { class: "eh", cx: x, cy: y, r: 4 }); mk($("pairs"), "circle", { cx: x + 9, cy: y + 4, r: 4, style: "fill: var(--surface); stroke: var(--ink); stroke-width: 1.3" }); });
+  const ci = (a) => lines("ci", a, 4);
+
+  // ---- power: band gaps
+  [["Si", 50, "좁음"], ["SiC", 130, "넓음"], ["GaN", 136, "넓음"]].forEach(([n, h, t], i) => {
+    const x = 70 + i * 100, base = 290;
+    mk($("gaps"), "line", { x1: x, y1: base - h, x2: x + 70, y2: base - h, style: "stroke: var(--ink); stroke-width: 2.5" });
+    mk($("gaps"), "line", { x1: x, y1: base, x2: x + 70, y2: base, style: "stroke: var(--ink); stroke-width: 2.5" });
+    mk($("gaps"), "rect", { class: "gapbar", x: x + 26, y: base - h, width: 18, height: h });
+    mk($("gaps"), "text", { x: x + 35, y: 316, class: "card-l ink-b", "text-anchor": "middle" }, n);
+    mk($("gaps"), "text", { x: x + 35, y: base - h - 10, class: "lbl-s", "text-anchor": "middle" }, t);
+  });
+  const G = ["m-mem", "m-cis", "m-pow"];
+
+  const mem = {
+    id: "memory", label: "차세대 메모리",
+    base: () => Object.assign(only(G, ["m-mem"]), only(MEM, ["mram"])),
+    steps: [
+      { short: "MRAM", title: "MRAM: 자화 방향으로 저항을 바꾼다", cmd: "MRAM",
+        text: `두 자성층 사이에 얇은 절연막(MgO)을 끼운 <b>MTJ</b> 구조입니다. 위쪽 자유층의 자화 방향이 아래 고정층과 <b>같으면 저항이 낮고, 반대면 높습니다</b>. 스핀을 띤 전류로 방향을 바꿔 씁니다(STT-MRAM). 빠르고 오래 써도 닳지 않아 파운드리가 칩 안에 넣는 임베디드 메모리(<b>eMRAM</b>)로 제공합니다.`,
+        set: Object.assign(memStep(0, "같은 방향(평행)", "반대 방향(반평행)", "저항 낮음", "저항 높음"), mm(["MRAM", "원리: 자화 방향 → 저항", "쓰기: 스핀 전류(STT)", "강점: 빠름, 내구성", "과제: 셀 크기, 쓰기 전류", "현재: 임베디드(eMRAM) 양산", ""])) },
+      { short: "PRAM", title: "PRAM: 녹였다 식히는 속도로 결정 상태를 바꾼다", cmd: "PRAM",
+        text: `칼코게나이드(<b>GST</b>) 물질을 전류의 열로 녹였다가 <b>급히 식히면 비정질(고저항)</b>, <b>천천히 식히면 결정(저저항)</b>이 됩니다. 집적도가 장점입니다. 인텔·마이크론의 3D XPoint(옵테인)가 대표 제품이었지만 2022년 사업이 종료되었습니다.`,
+        set: Object.assign(memStep(1, "결정", "비정질", "저항 낮음", "저항 높음"), mm(["PRAM(PCM)", "원리: 결정 ↔ 비정질 → 저항", "쓰기: 전류의 열(펄스 모양)", "강점: 집적도", "과제: 쓰기 전력, 열 간섭", "현재: 3D XPoint 종료 뒤 연구", ""])) },
+      { short: "ReRAM", title: "ReRAM: 전도성 통로를 만들었다 끊는다", cmd: "ReRAM",
+        text: `금속 산화막 안에 <b>산소 빈자리로 된 전도성 통로(필라멘트)</b>를 만들었다 끊어 저항을 바꿉니다. 구조가 단순하고 전력이 적어, 메모리 안에서 계산하는 인메모리 컴퓨팅 후보로 연구됩니다. 셀마다 특성이 들쭉날쭉한 것(산포)이 과제입니다.`,
+        set: Object.assign(memStep(2, "통로 연결", "통로 끊김", "저항 낮음", "저항 높음"), mm(["ReRAM", "원리: 필라멘트 유무 → 저항", "구조: 전극–금속 산화막–전극", "강점: 단순 구조, 저전력", "과제: 셀마다 특성 산포", "현재: 임베디드 일부", ""])) },
+      { short: "FeRAM", title: "FeRAM: 강유전체의 분극 방향으로 저장한다", cmd: "FeRAM",
+        text: `강유전체의 <b>분극 방향(위/아래)</b>으로 0과 1을 저장합니다. 앞의 셋과 달리 저항이 아니라 분극을 씁니다. 하프늄 산화물(<b>HfO₂</b>)도 강유전성을 띨 수 있다는 사실이 알려진 뒤, CMOS 공정과 잘 맞는 FeRAM·FeFET 연구가 활발합니다.`,
+        set: Object.assign(memStep(3, "분극 위", "분극 아래", "0", "1"), mm(["FeRAM", "원리: 분극 방향", "재료: HfO₂ 기반 연구 활발", "강점: 저전력, 빠른 쓰기", "과제: 집적도, 내구성", "MRAM·PRAM·ReRAM은", "'저항 높음/낮음'으로 0·1 구분"])) },
+    ],
+  };
+
+  const cis = {
+    id: "cis", label: "이미지센서",
+    base: () => Object.assign(only(G, ["m-cis"]), { bsi: on, fsibsi: off, photons: off, pairs: off, readout: off, ci1: on, ci2: on, ci3: on, ci4: on }),
+    steps: [
+      { short: "픽셀 구조", title: "픽셀: 렌즈 → 컬러 필터 → 포토다이오드", cmd: "픽셀",
+        text: `CMOS 이미지센서(CIS)의 픽셀마다 <b>마이크로렌즈 → 컬러 필터 → 포토다이오드</b>가 쌓여 있습니다. 렌즈가 빛을 모으고, 필터가 빨강·초록·파랑 중 한 색만 통과시키고, 포토다이오드(PN 접합, 2-1)가 빛을 전하로 바꿉니다.`,
+        set: ci(["픽셀 한 칸", "렌즈: 빛을 모음", "필터: 한 색만 통과", "포토다이오드: 빛 → 전하"]) },
+      { short: "빛 → 전하 → 값", title: "빛이 전자-정공 쌍을 만들고, 모인 전하를 읽는다", cmd: "광전 변환",
+        text: `빛이 PN 접합에 닿으면 <b>전자-정공 쌍</b>이 생기고, 노출 시간 동안 전하가 모입니다. 모인 전하를 읽어 <b>디지털 값</b>으로 바꾸면 그 픽셀의 밝기가 됩니다. 빛이 셀수록 전하가 많이 모입니다.`,
+        set: Object.assign({ photons: on, pairs: on, readout: on }, ci(["광전 변환", "빛 → 전자-정공 쌍", "노출 동안 전하가 모임", "읽어서 디지털 값으로"])) },
+      { short: "BSI·적층형", title: "배선을 뒤로 보낸 BSI, 회로를 따로 붙인 적층형", cmd: "BSI",
+        text: `예전 전면조사(FSI)는 빛이 들어오는 쪽에 배선이 있어 빛을 일부 가렸습니다. 배선을 반대쪽으로 보낸 <b>후면조사(BSI)</b>는 감도가 좋고 픽셀이 작아져도 빛 손실이 적습니다. 픽셀층과 회로층을 따로 만들어 붙이는 <b>적층형 센서</b>가 표준입니다. 시장은 소니가 1위, 삼성전자가 2위입니다.`,
+        set: { bsi: off, fsibsi: on, ci1: off, ci2: off, ci3: off, ci4: off } },
+    ],
+  };
+
+  const pow = {
+    id: "power", label: "전력반도체",
+    base: () => Object.assign(only(G, ["m-pow"]), only(["conv", "wbg", "apps"], ["conv"])),
+    steps: [
+      { short: "하는 일", title: "전력반도체: 전기를 켜고 끄며 바꾼다", cmd: "변환",
+        text: `<b>전력반도체</b>는 교류↔직류 변환, 전압 변환처럼 전기를 빠르게 켜고 끄며 바꾸는 소자입니다. 실리콘 MOSFET과 IGBT가 주력이지만, 밴드갭이 넓은 <b>SiC와 GaN</b>은 높은 전압·온도·주파수에서 손실이 적어 빠르게 늘고 있습니다.`,
+        set: {} },
+      { short: "와이드 밴드갭", title: "밴드갭이 넓으면 얇게 만들어도 견딘다", cmd: "WBG",
+        text: `밴드갭이 넓으면 전자를 억지로 떼어 내는 데 더 큰 전기장이 필요해 <b>항복 전기장이 실리콘의 약 10배</b>입니다. 같은 전압을 견디는 소자를 <b>훨씬 얇게</b> 만들 수 있어 켜졌을 때 저항(손실)이 줄고, 높은 온도에서도 누설이 적습니다. SiC는 열도 잘 빠집니다.`,
+        set: only(["conv", "wbg", "apps"], ["wbg"]) },
+      { short: "쓰임과 과제", title: "SiC는 전기차, GaN은 충전기·데이터센터", cmd: "응용",
+        text: `<b>SiC</b>는 전기차 인버터와 충전기, <b>GaN</b>은 고속 충전기·데이터센터 전원·RF에 쓰입니다. 과제는 웨이퍼 결함과 가격으로, SiC 웨이퍼는 6인치에서 8인치로 넘어가는 중입니다. 전기차와 AI 데이터센터 전원 수요가 성장을 이끕니다.`,
+        set: only(["conv", "wbg", "apps"], ["apps"]) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [mem, cis, pow], dur: 6500 });
+})();
+</script>
+</body>
+</html>

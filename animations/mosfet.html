@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MOSFET 구조와 동작</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .preg { fill: var(--m-pp); }
+  .nreg { fill: var(--m-nn); }
+  .sd { fill: var(--m-si-n); stroke: var(--m-si-line); stroke-width: .8; }
+  .sd[data-s="p"] { fill: #b98ccf; }
+  :root[data-theme="dark"] .sd[data-s="p"] { fill: #7d5a92; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sd[data-s="p"] { fill: #7d5a92; } }
+  .el { fill: var(--ink); }
+  .ho { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+  .dep { fill: var(--surface); opacity: .5; stroke: var(--accent); stroke-dasharray: 5 4; stroke-width: 1.5; }
+  .chan { fill: var(--accent); opacity: .35; }
+  .gq { font: 700 14px var(--font-mono); fill: var(--accent); text-anchor: middle; }
+  .gauge-f { fill: var(--accent); }
+  #flow { stroke: var(--ink); }
+  #flow[data-s="hole"] { stroke: var(--accent); animation: sp-dots 1s linear infinite; }
+  .mob { fill: var(--accent); }
+  .mob.h { fill: var(--low); }
+  .sw { stroke: var(--line-strong); stroke-width: .8; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-2</span><span>소자</span><a href="./">애니메이션 목록</a></div>
+    <h1>MOSFET 구조와 동작</h1>
+    <p class="lead">MOSFET은 게이트에 건 전압으로 소스와 드레인 사이에 전자 통로(채널)를 만들었다 없앴다 하는 전압 제어 스위치입니다. 오늘날 칩 속 트랜지스터의 거의 전부입니다. 게이트 전압을 조금씩 올리며 산화막 아래가 어떻게 바뀌는지 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">MOSFET 구조와 동작</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- cross-section -->
+        <rect class="preg" x="40" y="200" width="480" height="190"></rect>
+        <path id="nwell" class="nreg t" d="M60,200 V330 Q60,352 82,352 H478 Q500,352 500,330 V200 Z"></path>
+        <text id="sub-t" x="56" y="380" class="card-l ink-b">P형 기판(웨이퍼)</text>
+        <text id="well-t" class="card-l ink-b t" x="76" y="340">N웰(P형 웨이퍼 안의 N형 영역)</text>
+        <g id="subh"></g>
+        <g id="wellc"></g>
+        <path id="src" class="sd t" d="M70,200 V244 Q70,262 88,262 H190 V200 Z"></path>
+        <path id="drn" class="sd t" d="M370,200 V262 H472 Q490,262 490,244 V200 Z"></path>
+        <text id="src-t" x="128" y="282" class="card-l ink-b" text-anchor="middle">소스 N⁺</text>
+        <text id="drn-t" x="432" y="282" class="card-l ink-b" text-anchor="middle">드레인 N⁺</text>
+        <g id="sd-e"></g>
+        <g id="sd-h" class="t"></g>
+        <rect id="dep" class="dep t" x="190" y="200" width="180" height="48"></rect>
+        <g id="surf" class="t"></g>
+        <rect id="chan" class="chan t" x="190" y="200" width="180" height="10"></rect>
+        <g id="ch-e" class="t"></g>
+        <g id="ch-h" class="t"></g>
+        <rect id="ox" class="m-ox t" x="190" y="188" width="180" height="12"></rect>
+        <rect class="m-poly" x="190" y="132" width="180" height="56"></rect>
+        <g id="gq" class="t"></g>
+        <path class="wire" d="M130,200 V96"></path><text x="130" y="86" class="card-l ink-b" text-anchor="middle">S 소스</text>
+        <path class="wire" d="M280,132 V96"></path><text x="280" y="86" class="card-l ink-b" text-anchor="middle">G 게이트</text>
+        <path class="wire" d="M430,200 V96"></path><text x="430" y="86" class="card-l ink-b" text-anchor="middle">D 드레인</text>
+        <path class="wire" d="M280,390 V420"></path><text x="292" y="418" class="card-l ink-b">B 바디</text>
+        <text id="vg-t" x="280" y="112" class="lbl-s acc halo t" text-anchor="middle"></text>
+        <text id="vd-t" x="438" y="112" class="lbl-s acc halo t"></text>
+        <g id="pnj" class="t"><text x="280" y="310" class="card-l bad-t halo" text-anchor="middle">PN 접합 두 개가 등을 맞댐 → 전류 못 흐름</text>
+          <path d="M190,214 V262" style="stroke: var(--bad); stroke-width: 3"></path><path d="M370,214 V262" style="stroke: var(--bad); stroke-width: 3"></path></g>
+        <text id="dep-t" x="280" y="264" class="lbl-s acc halo t" text-anchor="middle">정공이 밀려난 공핍층</text>
+        <text id="chan-t" x="280" y="226" class="lbl-s acc halo t" text-anchor="middle"></text>
+        <path id="flow" class="dots t" d="M120,226 Q160,206 192,205 H368 Q400,206 440,226"></path>
+        <g id="flow-t" class="t"><path d="M400,300 H160" style="stroke: var(--accent); stroke-width: 2" marker-end="url(#ar-a)"></path><text x="280" y="320" class="card-l acc" text-anchor="middle">전류 방향: 드레인 → 소스</text></g>
+        <g id="tunnel" class="t"><path d="M330,170 V222" style="stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 3 3" marker-end="url(#ar-b)"></path><text x="338" y="240" class="lbl-s bad-t halo">너무 얇으면 새어 나감</text></g>
+
+        <!-- right column: legend -->
+        <g id="legend">
+          <rect class="frame" x="556" y="28" width="300" height="132" rx="8"></rect>
+          <rect id="lg-sd" class="sd sw t" x="572" y="44" width="18" height="12"></rect><text id="lg-sd-t" x="598" y="54" class="card-m">N⁺ 소스·드레인</text>
+          <rect id="lg-b" class="preg sw t" x="572" y="68" width="18" height="12"></rect><text id="lg-b-t" x="598" y="78" class="card-m">P형 기판</text>
+          <rect class="m-ox sw" x="572" y="92" width="18" height="12"></rect><text x="598" y="102" class="card-m">O: 산화막(절연막)</text>
+          <rect class="m-poly sw" x="572" y="116" width="18" height="12"></rect><text x="598" y="126" class="card-m">M: 게이트</text>
+          <circle class="el" cx="730" cy="50" r="5"></circle><text x="742" y="54" class="card-m">전자</text>
+          <circle class="ho" cx="730" cy="74" r="5"></circle><text x="742" y="78" class="card-m">정공</text>
+          <text x="572" y="148" class="lbl-s">S: 반도체 기판 · 이름은 이 3층에서</text>
+        </g>
+        <!-- gauge -->
+        <g id="gauge" class="t">
+          <text x="556" y="196" class="lbl">게이트 전압</text>
+          <rect class="frame" x="572" y="210" width="34" height="180" rx="4"></rect>
+          <rect id="g-fill" class="gauge-f t o-b" x="572" y="210" width="34" height="180" rx="4"></rect>
+          <line x1="564" y1="300" x2="616" y2="300" style="stroke: var(--ink); stroke-width: 2; stroke-dasharray: 4 3"></line>
+          <text id="g-vth" x="622" y="304" class="lbl-s mono">Vth</text>
+          <text id="g-zero" x="622" y="394" class="lbl-s mono">0 V</text>
+        </g>
+        <g id="state" class="t">
+          <text id="st1" x="670" y="230" class="head-t"></text>
+          <text id="st2" x="670" y="258" class="card-l"></text>
+          <text id="st3" x="670" y="280" class="card-l"></text>
+          <text id="st4" x="670" y="302" class="card-l acc"></text>
+        </g>
+        <g id="mobi" class="t">
+          <text x="556" y="210" class="head-t">이동도(cm²/V·s)</text>
+          <text x="556" y="246" class="card-l">전자</text><rect class="mob" x="600" y="232" width="250" height="20" rx="3"></rect><text x="844" y="247" class="card-l mono" text-anchor="end" style="fill: var(--surface); font-weight: 700">약 1,400</text>
+          <text x="556" y="282" class="card-l">정공</text><rect class="mob h" x="600" y="268" width="80" height="20" rx="3"></rect><text x="688" y="283" class="card-l mono">약 450 (약 1/3)</text>
+          <text x="556" y="326" class="card-l">같은 전류를 내려면 채널 폭(W)을</text>
+          <rect x="556" y="342" width="40" height="40" class="frame"></rect><rect x="568" y="342" width="16" height="40" class="m-poly"></rect><text x="576" y="400" class="lbl-s" text-anchor="middle">NMOS W</text>
+          <rect x="650" y="342" width="110" height="40" class="frame"></rect><rect x="698" y="342" width="16" height="40" class="m-poly"></rect><text x="706" y="400" class="lbl-s" text-anchor="middle">PMOS W × 2~3</text>
+          <text x="776" y="368" class="card-l acc">→ 속도 맞춤</text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 산화막 두께와 캐리어 수는 실제 비율이 아닙니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>동작 원리는 <b>구조(S·G·D·B와 산화막) → Vg = 0에서 PN 접합 두 개로 꺼짐 → 공핍 → Vth 이상에서 반전층(채널) → Vds를 걸면 전류</b> 순서로, 단면을 그리며 말하면 됩니다.</li>
+      <li>게이트가 산화막으로 절연되어 있어 정상 상태에서 게이트 전류가 흐르지 않고 전압(전기장)만으로 채널을 조절하므로 전압 제어 소자입니다.</li>
+      <li>산화막이 얇아지면 터널링으로 게이트 누설이 급증해, 물리적으로는 두껍지만 전기적으로는 얇은 효과를 내는 High-k 절연막을 씁니다(3-9). PMOS는 N웰 안에 만들고, 정공 이동도가 전자의 약 1/3이라 폭을 2~3배로 넓힙니다.</li>
+    </ul>
+    <p class="foot">원고 2-2를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-3 MOSFET 특성, 2-4 CMOS 인버터, 3-14 CMOS 전체 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // substrate holes (NMOS) and well electrons (PMOS)
+  [[70, 300], [120, 330], [180, 296], [240, 340], [300, 300], [360, 334], [420, 298], [480, 330], [100, 366], [210, 372], [330, 368], [450, 370]].forEach(([x, y], i) => {
+    mk($("subh"), "circle", { class: "ho", cx: x, cy: y, r: 5 });
+  });
+  [[100, 300], [170, 324], [250, 296], [320, 322], [390, 300], [460, 320]].forEach(([x, y]) => mk($("wellc"), "circle", { class: "el", cx: x, cy: y, r: 5 }));
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) {
+    mk($("sd-e"), "circle", { class: "el", cx: 92 + i * 26, cy: 214 + j * 16, r: 4 }); mk($("sd-e"), "circle", { class: "el", cx: 392 + i * 26, cy: 214 + j * 16, r: 4 });
+    mk($("sd-h"), "circle", { class: "ho", cx: 92 + i * 26, cy: 214 + j * 16, r: 4 }); mk($("sd-h"), "circle", { class: "ho", cx: 392 + i * 26, cy: 214 + j * 16, r: 4 });
+  }
+  for (let i = 0; i < 6; i++) { mk($("surf"), "circle", { class: "ho", cx: 205 + i * 30, cy: 216, r: 5 }); mk($("surf"), "circle", { class: "ho", cx: 220 + i * 26, cy: 236, r: 5 }); }
+  for (let i = 0; i < 9; i++) { mk($("ch-e"), "circle", { class: "el", cx: 200 + i * 20, cy: 205, r: 4 }); mk($("ch-h"), "circle", { class: "ho", cx: 200 + i * 20, cy: 205, r: 4 }); }
+  for (let i = 0; i < 7; i++) mk($("gq"), "text", { id: "gq" + i, x: 205 + i * 25, y: 184 }, "+");
+  const charge = (ch) => { const o = {}; for (let i = 0; i < 7; i++) o["gq" + i] = txt(ch); return o; };
+  const gauge = (f, vg) => ({ "g-fill": { style: { transform: `scaleY(${f})` } }, "vg-t": txt(vg) });
+  const state = (a, b, c, d) => lines("st", [a, b, c, d], 4);
+  const FX = ["dep", "surf", "chan", "ch-e", "ch-h", "gq", "flow", "flow-t", "tunnel", "pnj", "dep-t", "chan-t", "vd-t"];
+  const fx = (list) => Object.assign(all(FX, off), all(list, on));
+
+  const nmos = {
+    id: "nmos", label: "NMOS 켜기",
+    base: () => Object.assign(fx(["surf"]), { nwell: off, "well-t": off, subh: on, wellc: off, "sd-e": on, "sd-h": off, src: { s: "n" }, drn: { s: "n" }, "src-t": txt("소스 N⁺"), "drn-t": txt("드레인 N⁺"),
+      "lg-sd": { s: "n" }, "lg-sd-t": txt("N⁺ 소스·드레인"), "lg-b-t": txt("P형 기판"), "sub-t": on, gauge: on, state: on, mobi: off, "g-vth": txt("Vth"), "g-zero": txt("0 V"), surf: { s: "on", style: { transform: "translateY(0)" } } }, gauge(0.02, "")),
+    steps: [
+      { short: "구조", title: "Metal–Oxide–Semiconductor, 그리고 네 단자", cmd: "구조",
+        text: `MOSFET은 <b>게이트(Metal)–산화막(Oxide)–기판(Semiconductor)</b> 3층 구조에서 전기장 효과(Field Effect)로 전류를 바꾸는 트랜지스터입니다. NMOS는 P형 웨이퍼에 고농도 N형(<b>N⁺</b>) 소스·드레인을 만듭니다. 네 단자는 소스(캐리어 공급), 드레인(수거), 게이트(제어), 바디(기판)입니다.`,
+        set: state("NMOS", "P형 기판 + N⁺ 소스·드레인", "⁺ = 불순물을 아주 많이 넣음", "") },
+      { short: "꺼짐(Vg = 0)", title: "게이트 0 V: PN 접합 두 개가 막는다", cmd: "Vg = 0",
+        text: `게이트 전압이 0이면 소스(N⁺)–기판(P)–드레인(N⁺) 사이에 <b>PN 접합 두 개가 등을 맞대고</b> 있어, 드레인에 전압을 걸어도 전류가 흐르지 못합니다(2-1). 수문이 닫힌 수로입니다.`,
+        set: Object.assign(fx(["surf", "pnj"]), state("꺼짐", "S–기판–D 사이가 막힘", "", "")) },
+      { short: "공핍(Vg 조금 +)", title: "게이트에 + 조금: 정공이 밀려난다", cmd: "공핍",
+        text: `게이트에 + 전압을 조금 걸면, 산화막 바로 아래의 정공(P형의 다수 캐리어)이 밀려나 캐리어가 없는 <b>공핍층</b>이 생깁니다. 아직 전류가 흐를 길은 없습니다.`,
+        set: Object.assign(fx(["surf", "gq", "dep", "dep-t"]), charge("+"), gauge(0.35, "Vg 조금 +"), { surf: { s: "on", style: { transform: "translateY(70px)", opacity: "0" } } }, state("공핍", "정공이 아래로 밀려남", "Vg < Vth", "")) },
+      { short: "반전(Vg > Vth)", title: "Vth를 넘으면 전자가 모여 채널이 된다", cmd: "반전",
+        text: `게이트 전압이 <b>문턱전압(Vth)</b>을 넘으면, 기판 속 소수 캐리어인 전자가 산화막 바로 아래로 끌려와 얇은 N형 층이 생깁니다. P형이 N형처럼 뒤집혔다고 해서 <b>반전층</b>이라 하고, 이것이 <b>채널</b>입니다. 소스와 드레인이 이 길로 이어집니다.`,
+        set: Object.assign(fx(["surf", "gq", "dep", "chan", "ch-e", "chan-t"]), charge("+"), gauge(0.72, "Vg > Vth"), { "chan-t": { s: "on", text: "반전층(채널)" } }, state("반전", "전자가 표면에 모여 채널", "Vg > Vth", "S와 D가 이어짐")) },
+      { short: "전류(Vd +)", title: "드레인에 +: 전자가 소스에서 드레인으로", cmd: "켜짐",
+        text: `이제 드레인에 + 전압을 걸면 전자가 소스에서 채널을 따라 드레인으로 흐릅니다. 전류의 방향은 그 반대인 <b>드레인 → 소스</b>입니다. 수문 손잡이(게이트)를 일정 이상 돌려 물길을 연 셈입니다.`,
+        set: Object.assign(fx(["surf", "gq", "dep", "chan", "ch-e", "flow", "flow-t", "vd-t"]), charge("+"), gauge(0.72, "Vg > Vth"), { "vd-t": { s: "on", text: "Vd +" } }, { "flow-t": on }, state("켜짐", "전자: S → D", "전류: D → S", "게이트 전압으로 켜고 끔")) },
+      { short: "산화막의 역할", title: "산화막: 전류는 막고, 힘은 전달한다", cmd: "산화막",
+        text: `산화막은 게이트와 채널을 전기적으로 끊어 게이트로 전류가 새지 않게 하면서, 커패시터처럼 전압의 힘을 채널에 전달합니다. 얇을수록 같은 전압으로 채널을 강하게 만들 수 있지만(<b>Cox 증가</b>), 너무 얇으면 전자가 뚫고 새어 나가(터널링) <b>High-k</b> 절연막으로 바꿨습니다(3-9).`,
+        hl: ["ox"],
+        set: Object.assign(fx(["surf", "gq", "dep", "chan", "ch-e", "tunnel"]), charge("+"), gauge(0.72, "Vg > Vth"), state("산화막", "얇을수록 Cox↑, 채널 강해짐", "너무 얇으면 게이트 누설↑", "→ High-k 절연막")) },
+    ],
+  };
+
+  const pmos = {
+    id: "pmos", label: "PMOS",
+    base: () => Object.assign(fx([]), { nwell: on, "well-t": on, wellc: on, "sd-e": off, "sd-h": on, src: { s: "p" }, drn: { s: "p" }, "src-t": txt("소스 P⁺"), "drn-t": txt("드레인 P⁺"),
+      "lg-sd": { s: "p" }, "lg-sd-t": txt("P⁺ 소스·드레인"), "lg-b-t": txt("P형 기판(N웰은 파랑)"), "sub-t": on, gauge: on, state: on, mobi: off, "g-vth": txt("Vth"), "g-zero": txt("0 V"), surf: off, subh: off }, charge("−"), gauge(0.02, "")),
+    steps: [
+      { short: "N웰 속 PMOS", title: "PMOS는 N웰 안에 만든다", cmd: "N웰",
+        text: `한 웨이퍼에 NMOS와 PMOS를 함께 만들려면 PMOS 자리만 반대 형으로 바꿔야 합니다. P형 웨이퍼 일부에 인(P)을 이온주입해 N형으로 바꾼 우물 모양 영역이 <b>N웰</b>이고, 그 안에 고농도 P형(<b>P⁺</b>) 소스·드레인을 만듭니다. 'N형 웨이퍼'가 따로 있는 것이 아닙니다. NMOS 쪽에 P웰도 함께 만들면 <b>트윈 웰</b>입니다.`,
+        set: state("PMOS", "N웰(바디) + P⁺ 소스·드레인", "같은 P형 웨이퍼 위", "") },
+      { short: "게이트에 −", title: "게이트에 −: 정공 채널이 생긴다", cmd: "Vg < Vth",
+        text: `PMOS는 게이트에 <b>− 전압</b>을 걸어(Vgs < Vth, Vth는 음수) 켭니다. N웰 표면에 정공이 끌려와 P형 채널이 생기고, 정공이 소스에서 드레인으로 흐릅니다. NMOS와 모든 극성이 반대입니다.`,
+        set: Object.assign(fx(["gq", "dep", "chan", "ch-h", "chan-t"]), charge("−"), gauge(0.72, "Vg: − 쪽으로"), { flow: { s: "hole" }, "chan-t": { s: "on", text: "정공 채널" } }, state("켜짐", "정공: S → D", "Vgs < Vth (음수)", "극성이 NMOS와 반대")) },
+      { short: "PMOS가 느린 이유", title: "정공은 빈자리라 느리다 → 폭을 넓힌다", cmd: "이동도",
+        text: `정공은 실제 입자가 아니라 전자가 빠진 빈자리라, 이웃 전자가 한 칸씩 메워야 옮겨 갑니다. 꽉 찬 극장에서 빈자리 하나가 뒤로 옮겨 가는 것과 같습니다. 실리콘에서 전자 이동도는 약 <b>1,400</b>, 정공은 약 <b>450</b> cm²/V·s로 1/3 수준이라, 같은 크기면 PMOS 전류가 1/2~1/3입니다. 그래서 <b>PMOS 채널 폭(W)을 2~3배</b>로 넓혀 속도를 맞춥니다(2-4).`,
+        set: Object.assign(fx(["gq", "dep", "chan", "ch-h"]), charge("−"), { flow: { s: "hole" }, gauge: off, state: off, mobi: on }) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [nmos, pmos], dur: 6000 });
+})();
+</script>
+</body>
+</html>

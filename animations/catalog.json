@@ -140,6 +140,73 @@
       "summary": "잡음이 섞여도 0·1로 읽히는 이유, 전압 스위치인 NMOS·PMOS, 직렬(AND)·병렬(OR) 스위치, 입력을 바꿔 보는 CMOS NAND 게이트와 만능 게이트, 반가산기, 클럭, SRAM·DRAM·NAND의 저장 방식."
     },
     {
+      "id": "pn-junction",
+      "unit": "2-1",
+      "title": "PN 접합·다이오드·BJT",
+      "file": "pn-junction.html",
+      "modes": [
+        {
+          "id": "junction",
+          "label": "접합과 공핍층",
+          "steps": 4
+        },
+        {
+          "id": "bias",
+          "label": "바이어스와 항복",
+          "steps": 4
+        },
+        {
+          "id": "bjt",
+          "label": "BJT",
+          "steps": 3
+        }
+      ],
+      "summary": "P형과 N형을 붙일 때 생기는 공핍층과 내부 전위, 순방향·역방향 바이어스와 I-V 곡선, 제너·애벌런치 항복, NPN BJT의 작은 Ib로 큰 Ic를 만드는 원리."
+    },
+    {
+      "id": "mosfet",
+      "unit": "2-2",
+      "title": "MOSFET 구조와 동작",
+      "file": "mosfet.html",
+      "modes": [
+        {
+          "id": "nmos",
+          "label": "NMOS 켜기",
+          "steps": 6
+        },
+        {
+          "id": "pmos",
+          "label": "PMOS",
+          "steps": 3
+        }
+      ],
+      "summary": "NMOS 단면에서 게이트 전압을 올리며 꺼짐 → 공핍 → 반전(채널) → 전류를 따라가고, 산화막의 역할, N웰 속 PMOS와 PMOS가 느린 이유까지."
+    },
+    {
+      "id": "mosfet-iv",
+      "unit": "2-3",
+      "title": "MOSFET 특성: 선형·포화, 문턱전압, 누설",
+      "file": "mosfet-iv.html",
+      "modes": [
+        {
+          "id": "output",
+          "label": "선형·포화",
+          "steps": 4
+        },
+        {
+          "id": "transfer",
+          "label": "Vth·SS·누설",
+          "steps": 4
+        },
+        {
+          "id": "cv",
+          "label": "C-V 곡선",
+          "steps": 4
+        }
+      ],
+      "summary": "드레인 전압을 올리며 채널이 얇아지다 끊기는 핀치오프와 Id-Vds 곡선, 로그 눈금 Id-Vgs에서 Vth·SS 60 mV/dec·Ion·Ioff, 누설전류 4가지, C-V 곡선의 축적·공핍·반전."
+    },
+    {
       "id": "cmos-inverter",
       "unit": "2-4",
       "title": "CMOS 인버터",
@@ -162,6 +229,121 @@
         }
       ],
       "summary": "입력에 따라 PMOS·NMOS가 번갈아 켜지는 모습, 전달 특성과 단락 전류, PMOS를 넓히는 이유, 동적·단락·누설 전력, 웨이퍼 단면의 기생 PNPN과 래치업 대책."
+    },
+    {
+      "id": "scaling",
+      "unit": "2-5",
+      "title": "미세화와 한계",
+      "file": "scaling.html",
+      "modes": [
+        {
+          "id": "dennard",
+          "label": "무어·데나드",
+          "steps": 3
+        },
+        {
+          "id": "sce",
+          "label": "단채널 효과",
+          "steps": 5
+        },
+        {
+          "id": "fix",
+          "label": "해법",
+          "steps": 3
+        }
+      ],
+      "summary": "무어의 법칙과 데나드 스케일링(k = 2 계산 예시)이 깨진 이유, 채널이 짧아질 때의 Vth 롤오프·DIBL·펀치스루·핫 캐리어를 단면과 에너지 장벽으로, 할로·LDD·스트레인·HKMG·FinFET·GAA·SOI 해법까지."
+    },
+    {
+      "id": "transistor-evolution",
+      "unit": "2-6",
+      "title": "트랜지스터 구조 진화: 플래너 → FinFET → GAA → CFET",
+      "file": "transistor-evolution.html",
+      "modes": [
+        {
+          "id": "struct",
+          "label": "네 가지 구조",
+          "steps": 5
+        },
+        {
+          "id": "process",
+          "label": "GAA 만들기",
+          "steps": 4
+        }
+      ],
+      "summary": "전류가 흐르는 방향에서 본 단면으로 게이트가 채널을 1면·3면·4면에서 감싸는 변화와 CFET, 핀 개수 단위 대 시트 폭 조절, GAA를 만드는 Si/SiGe 적층·선택 식각·게이트 채움 4단계."
+    },
+    {
+      "id": "memory-hierarchy",
+      "unit": "2-7",
+      "title": "메모리 계층과 SRAM·DRAM",
+      "file": "memory-hierarchy.html",
+      "modes": [
+        {
+          "id": "pyramid",
+          "label": "메모리 계층",
+          "steps": 3
+        },
+        {
+          "id": "sram",
+          "label": "SRAM 6T",
+          "steps": 3
+        },
+        {
+          "id": "dram",
+          "label": "DRAM 1T1C",
+          "steps": 4
+        }
+      ],
+      "summary": "캐시(SRAM)–메인 메모리(DRAM)–저장장치(NAND) 피라미드와 데이터가 위층으로 올라오는 과정, 인버터 두 개를 맞물린 6T SRAM의 저장과 읽기, 물컵 비유로 보는 1T1C DRAM의 쓰기·읽기·리프레시와 누설."
+    },
+    {
+      "id": "nand-flash",
+      "unit": "2-8",
+      "title": "NAND 플래시: 셀, 스트링, SLC~QLC",
+      "file": "nand-flash.html",
+      "modes": [
+        {
+          "id": "cell",
+          "label": "셀 동작",
+          "steps": 5
+        },
+        {
+          "id": "string",
+          "label": "스트링·페이지·블록",
+          "steps": 3
+        },
+        {
+          "id": "mlc",
+          "label": "SLC~QLC",
+          "steps": 4
+        }
+      ],
+      "summary": "전하 트랩 셀에 약 20 V로 전자를 넣는 쓰기(F-N 터널링), 전원을 꺼도 남는 이유, 블록 단위 지우기와 기준 전압 읽기, 셀을 직렬로 이은 스트링과 페이지·블록, SLC~QLC 문턱전압 분포."
+    },
+    {
+      "id": "other-devices",
+      "unit": "2-9",
+      "title": "차세대 메모리·이미지센서·전력반도체",
+      "file": "other-devices.html",
+      "modes": [
+        {
+          "id": "memory",
+          "label": "차세대 메모리",
+          "steps": 4
+        },
+        {
+          "id": "cis",
+          "label": "이미지센서",
+          "steps": 3
+        },
+        {
+          "id": "power",
+          "label": "전력반도체",
+          "steps": 3
+        }
+      ],
+      "summary": "MRAM·PRAM·ReRAM·FeRAM이 저항이나 분극의 두 상태로 0과 1을 가르는 원리, 마이크로렌즈–컬러 필터–포토다이오드 픽셀과 BSI, 와이드 밴드갭 SiC·GaN이 얇고 손실 적은 전력 소자가 되는 이유."
     },
     {
       "id": "dram-cell",

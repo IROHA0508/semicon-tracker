@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAND 플래시: 셀, 스트링, SLC~QLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .preg { fill: var(--m-pp); }
+  .sd { fill: var(--m-si-n); stroke: var(--m-si-line); stroke-width: .8; }
+  .el { fill: var(--ink); }
+  #tun-dots path { stroke: var(--ink); }
+  #flow { stroke: var(--low); }
+  .pk { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .pk.e { fill: var(--low-soft); stroke: var(--low); }
+  .pk2 { stroke-width: 1.6; }
+  .mark { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+  .vref { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 5 4; }
+  .cellb { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .selb { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+  .wl { stroke: var(--m-w); stroke-width: 3; }
+  .str { stroke: var(--ink); stroke-width: 2; }
+  .hlbox { fill: var(--accent); fill-opacity: .12; stroke: var(--accent); stroke-width: 2.5; }
+  .bits { font: 600 12px var(--font-mono); fill: var(--ink); text-anchor: middle; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-8</span><span>소자</span><a href="./">애니메이션 목록</a></div>
+    <h1>NAND 플래시: 셀, 스트링, SLC~QLC</h1>
+    <p class="lead">NAND 플래시는 트랜지스터의 게이트 아래 절연층에 전자를 가둬 문턱전압을 바꾸는 방식으로 정보를 저장합니다. 전원이 꺼져도 전자가 갇혀 있어 데이터가 남습니다. 셀 하나의 동작, 셀을 잇는 방식, 한 셀에 여러 비트를 담는 방식을 차례로 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">NAND 플래시: 셀, 스트링, SLC~QLC</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== cell ===== -->
+        <g id="m-cell" class="t">
+          <rect class="preg" x="60" y="270" width="400" height="90"></rect>
+          <path class="sd" d="M70,270 V292 Q70,302 80,302 H170 V270 Z"></path>
+          <path class="sd" d="M330,270 V302 H440 Q450,302 450,292 V270 Z"></path>
+          <text x="120" y="292" class="lbl-s" text-anchor="middle">S</text><text x="390" y="292" class="lbl-s" text-anchor="middle">D</text>
+          <rect class="m-ox" x="170" y="258" width="160" height="12"></rect>
+          <rect id="trap" class="m-nit t" x="170" y="228" width="160" height="30"></rect>
+          <rect class="m-ox" x="170" y="206" width="160" height="22"></rect>
+          <rect id="cg" class="m-w t" x="170" y="150" width="160" height="56"></rect>
+          <g id="lay-l">
+            <text x="162" y="182" class="lbl-s" text-anchor="end">제어 게이트(워드라인)</text>
+            <text x="162" y="221" class="lbl-s" text-anchor="end">블로킹 산화막</text>
+            <text x="162" y="247" class="lbl-s acc" text-anchor="end">전하 트랩층(질화막)</text>
+            <text x="162" y="268" class="lbl-s" text-anchor="end">터널 산화막(얇음)</text>
+            <text x="70" y="352" class="lbl-s">P형 기판(채널)</text>
+          </g>
+          <g id="trapped" class="t"></g>
+          <g id="tun-dots" class="t"></g>
+          <g id="ers-dots" class="t"></g>
+          <path id="flow" class="dots t" d="M120,280 H392"></path>
+          <text id="vg" x="250" y="138" class="card-l acc t" text-anchor="middle"></text>
+          <text id="vsub" x="260" y="384" class="card-l acc t" text-anchor="middle"></text>
+          <text id="cell-t" x="250" y="410" class="card-l ink-b t" text-anchor="middle"></text>
+
+          <text x="500" y="70" class="lbl">셀 문턱전압(Vth) 분포</text>
+          <line class="axis" x1="500" y1="270" x2="860" y2="270"></line>
+          <text x="858" y="290" class="lbl-s" text-anchor="end">Vth →</text>
+          <path id="pk-e" class="pk e t" d=""></path>
+          <path id="pk-p" class="pk t" d=""></path>
+          <text id="pk-e-t" x="580" y="290" class="lbl-s low-t t" text-anchor="middle">지운 상태(E)</text>
+          <text id="pk-p-t" x="760" y="290" class="lbl-s acc t" text-anchor="middle">쓴 상태(P)</text>
+          <g id="rref" class="t"><line class="vref" x1="670" y1="90" x2="670" y2="270"></line><text x="670" y="84" class="lbl-s mono" text-anchor="middle">기준 전압</text></g>
+          <circle id="mark" class="mark t" cx="0" cy="0" r="7"></circle>
+          <text id="c1" x="500" y="330" class="head-t"></text>
+          <text id="c2" x="500" y="358" class="card-l"></text>
+          <text id="c3" x="500" y="382" class="card-l"></text>
+          <text id="c4" x="500" y="408" class="card-l acc"></text>
+        </g>
+
+        <!-- ===== string ===== -->
+        <g id="m-str" class="t">
+          <g id="strings"></g>
+          <rect id="hl-page" class="hlbox t" x="0" y="96" width="44" height="244" rx="6"></rect>
+          <rect id="hl-blk" class="hlbox t" x="84" y="96" width="626" height="248" rx="8"></rect>
+          <text id="s1" x="40" y="390" class="head-t"></text>
+          <text id="s2" x="40" y="416" class="card-l"></text>
+          <g id="nor" class="t">
+            <text x="740" y="110" class="card-l ink-b">NOR와 비교</text>
+            <text x="740" y="134" class="card-m">셀을 비트라인에</text><text x="740" y="152" class="card-m">병렬 연결</text>
+            <text x="740" y="176" class="card-m">→ 임의 접근 빠름</text><text x="740" y="194" class="card-m">→ 코드 저장</text>
+            <text x="740" y="228" class="card-m">NAND: 직렬 연결</text><text x="740" y="246" class="card-m">→ 집적도 높음</text><text x="740" y="264" class="card-m">→ 대용량 저장</text>
+          </g>
+        </g>
+
+        <!-- ===== SLC~QLC ===== -->
+        <g id="m-mlc" class="t">
+          <text x="60" y="60" class="lbl">같은 문턱전압 범위를 몇 칸으로 나누나</text>
+          <line class="axis" x1="60" y1="300" x2="820" y2="300"></line>
+          <text x="818" y="320" class="lbl-s" text-anchor="end">Vth →</text>
+          <g id="peaks"></g>
+          <text id="m1" x="60" y="352" class="head-t"></text>
+          <text id="m2" x="60" y="380" class="card-l"></text>
+          <text id="m3" x="60" y="404" class="card-l"></text>
+          <text id="m4" x="460" y="380" class="card-l"></text>
+          <text id="m5" x="460" y="404" class="card-l acc"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 층 두께와 분포 모양은 실제 비율이 아니며, 지금 3D NAND는 이 셀을 세로로 수백 층 쌓은 것입니다(3-16, 4-4).</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>쓰기·지우기는 고전압으로 <b>F-N 터널링</b>을 일으켜 트랩층에 전자를 넣거나 빼고, 그 결과 바뀐 문턱전압을 읽습니다. 지우기는 블록 단위라는 점까지 말합니다.</li>
+      <li>DRAM과 NAND의 차이: 휘발성/비휘발성, 저장 원리(커패시터 전하/갇힌 전자의 문턱전압), 속도(ns/μs), 접근 단위(바이트/페이지·블록), 수명(사실상 무한/P/E 한계).</li>
+      <li>3D NAND가 전하 트랩(CTF)을 쓰는 이유: 절연체에 전자가 따로따로 붙잡혀 이웃 셀 간섭과 결함에 강하고, 얇게 만들 수 있어 수백 층을 쌓기 유리합니다. 플로팅 게이트(폴리실리콘)는 결함 하나로 전하가 한꺼번에 빠질 수 있습니다.</li>
+    </ul>
+    <p class="foot">원고 2-8을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-11 낸드 동작 심화(ISPP), 3-16 3D 낸드 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  for (let i = 0; i < 7; i++) mk($("trapped"), "circle", { class: "el", cx: 186 + i * 21, cy: 243, r: 5 });
+  [195, 235, 275, 305].forEach((x) => { mk($("tun-dots"), "path", { class: "dots", d: `M${x},284 V246` }); mk($("ers-dots"), "path", { class: "dots", d: `M${x},246 V292`, style: "stroke: var(--ink)" }); });
+  const bell = (cx, sd, h, base) => { let d = ""; for (let k = -3.2; k <= 3.2001; k += 0.2) { const x = cx + k * sd, y = base - h * Math.exp(-k * k / 2); d += (d ? " L" : "M") + x.toFixed(1) + "," + y.toFixed(1); } return d + " Z"; };
+  $("pk-e").setAttribute("d", bell(580, 22, 150, 270));
+  $("pk-p").setAttribute("d", bell(760, 18, 150, 270));
+  const card = (a) => lines("c", a, 4);
+
+  // strings: 3 strings x 8 cells
+  const S = $("strings");
+  const ROWY = [130, 220, 310], CX = (k) => 190 + k * 56;
+  for (let k = 0; k < 8; k++) { mk(S, "line", { class: "wl", x1: CX(k), y1: 96, x2: CX(k), y2: 340 }); mk(S, "text", { x: CX(k), y: 88, class: "lbl-s mono", "text-anchor": "middle" }, "WL" + k); }
+  ROWY.forEach((y, r) => {
+    mk(S, "line", { class: "str", x1: 70, y1: y, x2: 700, y2: y });
+    mk(S, "text", { x: 66, y: y + 4, class: "lbl-s", "text-anchor": "end" }, "SL");
+    mk(S, "rect", { class: "selb", x: 112, y: y - 12, width: 32, height: 24, rx: 3 }); mk(S, "text", { x: 128, y: y - 18, class: "lbl-s", "text-anchor": "middle" }, "선택");
+    for (let k = 0; k < 8; k++) mk(S, "rect", { class: "cellb", x: CX(k) - 16, y: y - 12, width: 32, height: 24, rx: 3 });
+    mk(S, "rect", { class: "selb", x: 640, y: y - 12, width: 32, height: 24, rx: 3 }); mk(S, "text", { x: 656, y: y - 18, class: "lbl-s", "text-anchor": "middle" }, "선택");
+    mk(S, "circle", { cx: 700, cy: y, r: 5, style: "fill: var(--ink)" }); mk(S, "text", { x: 710, y: y + 4, class: "lbl-s mono" }, "BL" + r);
+  });
+  // SLC..QLC peaks
+  const PK = $("peaks");
+  const NS = [2, 4, 8, 16];
+  NS.forEach((n, j) => {
+    const g = mk(PK, "g", { id: "set" + n, class: "t" });
+    const sd = [30, 17, 9, 4.2][j];
+    for (let i = 0; i < n; i++) {
+      const cx = 120 + i * (620 / (n - 1));
+      mk(g, "path", { class: "pk pk2" + (i === 0 ? " e" : ""), d: bell(cx, sd, 190, 300) });
+    }
+    const labels = { 2: ["1", "0"], 4: ["11", "10", "00", "01"] }[n];
+    if (labels) labels.forEach((b, i) => mk(g, "text", { class: "bits", x: 120 + i * (620 / (n - 1)), y: 322 }, b));
+  });
+  const showSet = (n) => { const o = {}; NS.forEach((m) => { o["set" + m] = m === n ? on : off; }); return o; };
+  const mc = (a) => lines("m", a, 5);
+  const G = ["m-cell", "m-str", "m-mlc"];
+
+  const cell = {
+    id: "cell", label: "셀 동작",
+    base: () => Object.assign(only(G, ["m-cell"]), all(["trapped", "tun-dots", "ers-dots", "flow", "rref"], off), { "pk-e": on, "pk-p": { s: "on", style: { opacity: ".25" } }, mark: at(580, 270), vg: txt(""), vsub: txt(""), "cell-t": txt("") }),
+    steps: [
+      { short: "셀 구조", title: "게이트 아래에 전자를 가두는 층이 하나 더", cmd: "구조",
+        text: `NAND 셀은 일반 MOSFET의 게이트와 채널 사이에 <b>전자를 가두는 층</b>을 하나 더 넣은 트랜지스터입니다. 예전에는 도체(폴리실리콘) <b>플로팅 게이트</b>를, 지금 3D NAND에서는 절연체(질화막 SiN)가 전자를 붙잡는 <b>전하 트랩(CTF)</b> 방식을 주로 씁니다. 지금은 비어 있는 '지운 상태'입니다.`,
+        set: Object.assign({ "cell-t": txt("지운 상태: 트랩층이 비어 있음") }, card(["전하 트랩 셀", "제어 게이트 / 블로킹 산화막", "질화막(트랩) / 터널 산화막", "갇힌 전자 수 = 저장한 값"])) },
+      { short: "쓰기(약 20 V)", title: "쓰기: 고전압으로 전자를 밀어 넣는다", cmd: "PROGRAM",
+        text: `제어 게이트에 약 <b>20 V</b>의 고전압을 걸면 채널의 전자가 얇은 터널 산화막을 양자역학적으로 뚫고(<b>F-N 터널링</b>) 트랩층에 갇힙니다. 갇힌 음전하 때문에 이 셀을 켜려면 더 높은 게이트 전압이 필요해져 <b>문턱전압이 올라갑니다</b>.`,
+        set: Object.assign({ "tun-dots": on, trapped: on, cg: { s: "on" }, vg: txt("제어 게이트 ≈ 20 V"), "pk-p": { s: "on", style: { opacity: "1" } }, "pk-e": { s: "on", style: { opacity: ".25" } }, mark: at(760, 270), "cell-t": txt("전자가 터널 산화막을 뚫고 갇힘") }, card(["쓰기(프로그램)", "F-N 터널링으로 전자 주입", "Vth ↑ → 쓴 상태", "읽기·쓰기는 페이지 단위"])) },
+      { short: "꺼도 남는다", title: "전원을 꺼도 전자는 갇혀 있다", cmd: "비휘발",
+        text: `전압을 빼도 전자는 사방이 절연막인 트랩층에 갇혀 그대로 남습니다. 높은 압력으로 둑 너머 저수지에 밀어 넣은 물이 압력을 빼도 남는 것과 같습니다. 그래서 NAND는 전원이 꺼져도 데이터가 남는 <b>비휘발성</b> 메모리입니다.`,
+        set: Object.assign({ "tun-dots": off, vg: txt("0 V(전원 꺼짐)"), "cell-t": txt("전자가 그대로 남음") }, card(["비휘발성", "트랩층 = 사방이 절연막", "전원 없이도 Vth 유지", "DRAM과 가장 큰 차이"])) },
+      { short: "지우기(블록 단위)", title: "지우기: 기판 쪽 고전압으로 전자를 빼낸다", cmd: "ERASE",
+        text: `반대로 기판(채널) 쪽에 고전압을 걸어 갇힌 전자를 빼내면 문턱전압이 내려가 지운 상태로 돌아갑니다. 지우기는 <b>블록(수 MB) 단위</b>로만 한꺼번에 합니다. 쓰고 지울 때마다 터널 산화막이 조금씩 손상되어 견디는 횟수(<b>P/E 사이클</b>)에 한계가 있습니다.`,
+        set: Object.assign({ "ers-dots": on, trapped: off, vg: txt("0 V"), vsub: txt("기판 쪽 고전압"), "pk-e": { s: "on", style: { opacity: "1" } }, "pk-p": { s: "on", style: { opacity: ".25" } }, mark: at(580, 270), "cell-t": txt("전자가 빠져나감") }, card(["지우기(소거)", "기판 고전압으로 전자 제거", "블록 단위로만 가능", "반복할수록 산화막 손상"])) },
+      { short: "읽기", title: "읽기: 기준 전압에서 켜지는지 본다", cmd: "READ",
+        text: `제어 게이트에 두 봉우리 사이의 <b>기준 전압</b>을 걸고 셀이 켜지는지(전류가 흐르는지) 봅니다. 지운 셀은 Vth가 낮아 <b>켜지고</b>, 쓴 셀은 Vth가 높아 <b>꺼진 채</b>로 남습니다. 그림은 지운 셀이라 전류가 흐릅니다.`,
+        set: Object.assign({ "ers-dots": off, vsub: txt(""), vg: txt("기준 전압"), rref: on, flow: on, "pk-p": { s: "on", style: { opacity: "1" } }, "cell-t": txt("지운 셀: 켜짐 → 전류 흐름") }, card(["읽기", "Vth < 기준 전압 → 켜짐", "Vth > 기준 전압 → 꺼짐", "켜짐/꺼짐으로 0·1 판별"])) },
+    ],
+  };
+
+  const str = {
+    id: "string", label: "스트링·페이지·블록",
+    base: () => Object.assign(only(G, ["m-str"]), { "hl-page": off, "hl-blk": off, nor: on }),
+    steps: [
+      { short: "직렬 스트링", title: "셀을 직렬로 잇고 끝에만 비트라인을 단다", cmd: "NAND",
+        text: `셀 수십~수백 개를 <b>직렬로 이어</b> 하나의 줄(스트링)을 만들고 끝에만 비트라인(BL)을 연결합니다. 이 연결이 NAND 논리 게이트와 닮아 붙은 이름입니다. 셀마다 연결선이 필요 없어 <b>집적도가 매우 높습니다</b>. 셀을 병렬로 단 NOR는 임의 접근이 빨라 코드 저장에 씁니다.`,
+        set: lines("s", ["스트링 = 직렬로 이은 셀 + 양 끝 선택 트랜지스터", "가로줄 하나가 스트링, 세로줄(WL)은 여러 스트링이 공유"], 2) },
+      { short: "페이지", title: "읽기·쓰기는 페이지 단위", cmd: "PAGE",
+        text: `같은 워드라인(WL)을 공유하는 셀들을 한꺼번에 읽고 씁니다. 이 묶음이 <b>페이지</b>(수~수십 KB)입니다. 워드라인 하나에 전압을 걸면 그 줄의 셀이 모든 스트링에서 동시에 동작합니다.`,
+        set: Object.assign({ "hl-page": { s: "on", attr: { x: "336" } }, nor: off }, lines("s", ["페이지 = 한 워드라인의 셀들", "읽기·쓰기 단위(수~수십 KB)"], 2)) },
+      { short: "블록", title: "지우기는 블록 단위", cmd: "BLOCK",
+        text: `워드라인을 공유하는 스트링 묶음 전체가 <b>블록</b>(수 MB)이고, 지우기는 블록 단위로만 합니다. 그래서 한 페이지만 고치려 해도 다른 곳에 새로 쓰고 옛 블록은 나중에 통째로 지웁니다. SSD 컨트롤러가 <b>웨어 레벨링</b>(골고루 쓰기)과 ECC(오류 정정)로 수명을 관리합니다.`,
+        set: Object.assign({ "hl-page": off, "hl-blk": on, nor: off }, lines("s", ["블록 = 워드라인을 공유하는 스트링 전체", "지우기 단위(수 MB) · 웨어 레벨링 · ECC"], 2)) },
+    ],
+  };
+
+  const mlc = {
+    id: "mlc", label: "SLC~QLC",
+    base: () => Object.assign(only(G, ["m-mlc"]), showSet(2)),
+    steps: [
+      { short: "SLC: 2상태", title: "SLC: 셀당 1비트, 상태 2개", cmd: "1 bit",
+        text: `문턱전압을 두 칸으로만 나누면 셀당 1비트(<b>SLC</b>)입니다. 칸 사이가 넓어 가장 빠르고 수명이 가장 길지만(수만 회) 가장 비쌉니다. 캐시 영역이나 산업용에 씁니다.`,
+        set: Object.assign(showSet(2), mc(["SLC · 셀당 1비트 · 상태 2개", "속도·수명: 가장 빠름, 수만 회", "가격: 가장 비쌈", "쓰임: 캐시 영역, 산업용", "상태 수 = 2^(비트 수)"])) },
+      { short: "MLC: 4상태", title: "MLC: 셀당 2비트, 상태 4개", cmd: "2 bit",
+        text: `네 칸으로 나누면 셀당 2비트(<b>MLC</b>)입니다. 같은 셀에 두 배를 담지만, 칸이 좁아져 더 정밀하게 써야 해 느려지고 수명도 줄어듭니다(수천 회). 예전 고급 SSD에 썼습니다.`,
+        set: Object.assign(showSet(4), mc(["MLC · 셀당 2비트 · 상태 4개", "속도·수명: 빠름, 수천 회", "가격: 비쌈", "쓰임: 고급 SSD(과거)", "칸이 좁아질수록 정밀하게 써야 함"])) },
+      { short: "TLC: 8상태", title: "TLC: 셀당 3비트, 지금의 주력", cmd: "3 bit",
+        text: `여덟 칸이면 셀당 3비트(<b>TLC</b>)입니다. 속도·수명(1천~3천 회)·가격의 균형이 좋아 대부분의 SSD와 스마트폰이 쓰는 <b>주력</b>입니다. 봉우리가 좁아야 하므로 계단 펄스로 조금씩 쓰는 ISPP가 필요합니다(2-11).`,
+        set: Object.assign(showSet(8), mc(["TLC · 셀당 3비트 · 상태 8개", "속도·수명: 중간, 1천~3천 회", "가격: 주력", "쓰임: 대부분 SSD·스마트폰", "좁은 봉우리 → ISPP(2-11)"])) },
+      { short: "QLC: 16상태", title: "QLC: 셀당 4비트, 싸지만 촘촘하다", cmd: "4 bit",
+        text: `열여섯 칸이면 셀당 4비트(<b>QLC</b>)입니다. 같은 면적에 용량이 커 가장 싸지만, 상태 간격이 좁아 느리고 수명(수백~1천 회)·신뢰성이 낮습니다. 읽기 위주의 대용량 <b>데이터센터 eSSD</b>와 AI 데이터 저장에 수요가 늘고 있습니다. 눈금을 촘촘히 나눌수록 잘못 읽기 쉬운 셈입니다.`,
+        set: Object.assign(showSet(16), mc(["QLC · 셀당 4비트 · 상태 16개", "속도·수명: 느림, 수백~1천 회", "가격: 가장 쌈", "쓰임: 데이터센터 대용량 eSSD", "간격이 좁아 잘못 읽기 쉬움"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [cell, str, mlc], dur: 6500 });
+})();
+</script>
+</body>
+</html>

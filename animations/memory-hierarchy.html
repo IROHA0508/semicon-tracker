@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>메모리 계층과 SRAM·DRAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .tier { stroke: var(--surface); stroke-width: 3; }
+  .tier.a { fill: var(--accent-soft); }
+  .tier.b { fill: var(--low-soft); }
+  .tier.c { fill: var(--m-si); }
+  .tier[data-hl="1"] { stroke: var(--accent) !important; }
+  .blk { fill: var(--accent); }
+  .rise[data-s="on"] { animation: rise 3.6s ease-in-out infinite; }
+  @keyframes rise { 0%, 12% { transform: translateY(200px); opacity: 0; } 20% { opacity: 1; } 45% { transform: translateY(100px); } 70%, 100% { transform: translateY(0); opacity: 1; } }
+  .ln { fill: none; stroke: var(--ink); stroke-width: 2; }
+  .ln[data-s="hi"] { stroke: var(--accent); stroke-width: 3.5; }
+  .inv { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .tr { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .tr[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .val { font: 700 15px var(--font-mono); fill: var(--accent); }
+  .val0 { font: 700 15px var(--font-mono); fill: var(--low); }
+  .plate { stroke: var(--ink); stroke-width: 4; }
+  .cup { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+  .water { fill: var(--low); opacity: .55; }
+  .drip[data-s="on"] { animation: drip 1.2s linear infinite; }
+  @keyframes drip { from { transform: translateY(0); opacity: 1; } to { transform: translateY(34px); opacity: 0; } }
+  .lk { stroke: var(--bad); stroke-width: 2; fill: none; }
+  .qp { font: 700 14px var(--font-mono); fill: var(--accent); }
+  .th { font: 700 12px var(--font-sans); fill: var(--muted); }
+  .tc { font-size: 11.5px; fill: var(--ink); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-7</span><span>소자</span><a href="./">애니메이션 목록</a></div>
+    <h1>메모리 계층과 SRAM·DRAM</h1>
+    <p class="lead">컴퓨터는 빠르지만 비싼 SRAM을 CPU 가까이 조금, 적당히 빠른 DRAM을 많이, 느리지만 싸고 전원이 꺼져도 남는 NAND를 가장 많이 계층처럼 쌓아 씁니다. 계층 전체를 본 뒤 SRAM과 DRAM 셀이 1비트를 어떻게 저장하는지 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">메모리 계층과 SRAM·DRAM</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== pyramid ===== -->
+        <g id="m-pyr" class="t">
+          <rect class="frame" x="216" y="10" width="88" height="34" rx="6"></rect><text x="260" y="32" class="card-l ink-b" text-anchor="middle">CPU</text>
+          <path d="M260,44 V66" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path>
+          <polygon id="t1" class="tier a" points="260,70 327,170 193,170"></polygon>
+          <polygon id="t2" class="tier b" points="193,170 327,170 393,270 127,270"></polygon>
+          <polygon id="t3" class="tier c" points="127,270 393,270 460,370 60,370"></polygon>
+          <text x="260" y="140" class="card-l ink-b" text-anchor="middle">캐시</text><text x="260" y="158" class="lbl-s" text-anchor="middle">SRAM</text>
+          <text x="260" y="226" class="card-l ink-b" text-anchor="middle">메인 메모리</text><text x="260" y="244" class="lbl-s" text-anchor="middle">DRAM</text>
+          <text x="260" y="326" class="card-l ink-b" text-anchor="middle">저장장치</text><text x="260" y="344" class="lbl-s" text-anchor="middle">NAND SSD</text>
+          <path d="M30,350 V90" style="stroke: var(--accent); stroke-width: 2" marker-end="url(#ar-a)"></path>
+          <text x="40" y="96" class="lbl-s acc">빠름·비쌈·작음</text><text x="40" y="364" class="lbl-s">느림·쌈·큼</text>
+          <g id="lift" class="t"><rect id="blk" class="blk rise t" x="300" y="128" width="46" height="22" rx="4"></rect><text x="352" y="144" class="lbl-s acc">데이터</text></g>
+          <g id="pyr-step" class="t">
+            <text x="410" y="140" class="lbl-s">① 캐시에 있으면 바로</text>
+            <text x="410" y="226" class="lbl-s">② 없으면 DRAM에서(수십 ns)</text>
+            <text x="466" y="326" class="lbl-s">③ 그래도 없으면 SSD에서</text><text x="466" y="342" class="lbl-s">(읽기 수십 μs)</text>
+          </g>
+          <g id="analogy" class="t">
+            <text x="520" y="92" class="head-t">비유: 책상 – 책장 – 창고</text>
+            <text x="520" y="126" class="card-l">책상(캐시): 지금 보는 책 몇 권</text>
+            <text x="520" y="152" class="card-l">책장(DRAM): 이번 주에 볼 책</text>
+            <text x="520" y="178" class="card-l">창고(SSD): 나머지 전부</text>
+            <text x="520" y="222" class="card-l acc">원하는 데이터가 윗층에 있을 확률을</text>
+            <text x="520" y="244" class="card-l acc">높이는 것이 시스템 성능의 핵심</text>
+            <text x="520" y="288" class="card-m">레지스터·캐시(SRAM) → DRAM → NAND SSD</text>
+            <text x="520" y="308" class="card-m">위로 갈수록 빠르고 비싸고 작음</text>
+          </g>
+          <g id="cmp" class="t">
+            <text x="500" y="70" class="th">구분</text><text x="576" y="70" class="th">SRAM</text><text x="666" y="70" class="th">DRAM</text><text x="782" y="70" class="th">NAND</text>
+            <line class="thin" x1="500" y1="78" x2="864" y2="78"></line>
+            <g id="cmp-rows"></g>
+            <text x="500" y="300" class="card-l ink-b">DRAM 제품 갈래(같은 1T1C 셀)</text>
+            <text x="500" y="324" class="card-m">DDR: PC·서버용 표준 · LPDDR: 모바일 저전력</text>
+            <text x="500" y="344" class="card-m">GDDR: 그래픽용 고대역폭</text>
+            <text x="500" y="364" class="card-m">HBM: 칩을 수직으로 쌓아 대역폭 극대화(4-5)</text>
+          </g>
+        </g>
+
+        <!-- ===== SRAM 6T ===== -->
+        <g id="m-sram" class="t">
+          <path id="s-wl" class="ln t" d="M60,80 H500"></path><text x="504" y="84" class="lbl-s">WL</text>
+          <path id="s-bl" class="ln t" d="M80,60 V390"></path><text x="80" y="54" class="lbl-s" text-anchor="middle">BL</text>
+          <path id="s-blb" class="ln t" d="M480,60 V390"></path><text x="480" y="54" class="lbl-s" text-anchor="middle">BLB</text>
+          <g id="acc" class="t">
+            <path class="ln" d="M80,230 H110 M150,230 H190 M130,220 V80"></path><rect id="m5" class="tr t" x="110" y="218" width="40" height="24" rx="4"></rect><text x="130" y="234" class="lbl-s" text-anchor="middle">스위치</text>
+            <path class="ln" d="M480,230 H450 M410,230 H330 M430,220 V80"></path><rect id="m6" class="tr t" x="410" y="218" width="40" height="24" rx="4"></rect><text x="430" y="234" class="lbl-s" text-anchor="middle">스위치</text>
+          </g>
+          <path class="ln" d="M190,180 V280 M190,180 H220 M190,280 H238"></path>
+          <path class="ln" d="M330,180 V280 M282,180 H330 M300,280 H330"></path>
+          <polygon class="inv" points="220,158 220,202 270,180"></polygon><circle class="inv" cx="276" cy="180" r="6"></circle>
+          <polygon class="inv" points="300,258 300,302 250,280"></polygon><circle class="inv" cx="244" cy="280" r="6"></circle>
+          <rect x="206" y="146" width="108" height="168" rx="10" style="fill: none; stroke: var(--line-strong); stroke-dasharray: 4 4"></rect>
+          <text x="260" y="336" class="lbl-s" text-anchor="middle">인버터 두 개를 맞물린 래치(트랜지스터 4개)</text>
+          <text id="q-v" x="184" y="168" class="val" text-anchor="end">Q = 1</text>
+          <text id="qb-v" x="338" y="168" class="val0">Q̄ = 0</text>
+          <path id="loop" class="dots t" d="M196,180 H220 M282,180 H324 V274 H300 M244,280 H196 V186" style="stroke: var(--accent); stroke-width: 5"></path>
+          <path id="rd-flow" class="dots t" d="M476,236 H452 M410,236 H336" style="stroke: var(--low); stroke-width: 5"></path>
+          <text id="bl-v" x="88" y="380" class="lbl-s mono t"></text>
+          <text id="blb-v" x="472" y="380" class="lbl-s mono t" text-anchor="end"></text>
+          <g id="s-card"><text id="sc1" x="560" y="96" class="head-t"></text><text id="sc2" x="560" y="126" class="card-l"></text><text id="sc3" x="560" y="150" class="card-l"></text><text id="sc4" x="560" y="174" class="card-l"></text><text id="sc5" x="560" y="206" class="card-l acc"></text></g>
+          <g id="area" class="t">
+            <text x="560" y="250" class="card-l ink-b">셀 면적 비교(개념)</text>
+            <rect x="560" y="264" width="120" height="120" style="fill: var(--accent-soft); stroke: var(--accent)"></rect><text x="620" y="330" class="card-l" text-anchor="middle">SRAM 셀</text>
+            <rect x="700" y="364" width="20" height="20" style="fill: var(--low-soft); stroke: var(--low)"></rect><text x="728" y="380" class="card-l">DRAM 셀</text>
+            <text x="700" y="290" class="card-l acc">DRAM의 수십 배</text><text x="700" y="312" class="card-m">→ 비싸서 캐시로만</text>
+          </g>
+        </g>
+
+        <!-- ===== DRAM 1T1C ===== -->
+        <g id="m-dram" class="t">
+          <path id="d-wl" class="ln t" d="M60,100 H470"></path><text x="474" y="104" class="lbl-s">WL(워드라인)</text>
+          <path id="d-bl" class="ln t" d="M140,70 V330"></path><text x="140" y="62" class="lbl-s" text-anchor="middle">BL(비트라인)</text>
+          <path class="ln" d="M140,200 H200 M250,200 H300 V236 M225,190 V100"></path>
+          <rect id="d-tr" class="tr t" x="200" y="188" width="50" height="24" rx="4"></rect><text x="225" y="226" class="lbl-s" text-anchor="middle">트랜지스터</text>
+          <line class="plate" x1="270" y1="238" x2="330" y2="238"></line><line class="plate" x1="270" y1="254" x2="330" y2="254"></line>
+          <path class="ln" d="M300,256 V290 M286,290 H314 M291,296 H309 M296,302 H304"></path>
+          <text x="340" y="250" class="lbl-s">커패시터</text>
+          <g id="cq" class="t"></g>
+          <path id="d-flow" class="dots t" d="M140,206 H200 M250,206 H296 V232" style="stroke: var(--accent); stroke-width: 5"></path>
+          <polygon points="120,334 160,334 140,370" style="fill: var(--surface); stroke: var(--ink); stroke-width: 2"></polygon><text x="168" y="358" class="lbl-s">감지 증폭기</text>
+          <text id="d-blv" x="150" y="88" class="lbl-s mono acc t"></text>
+          <g id="leaks" class="t">
+            <path class="lk" d="M284,258 L264,290" marker-end="url(#ar-b)"></path><path class="lk" d="M316,258 L336,290" marker-end="url(#ar-b)"></path><path class="lk" d="M240,212 L240,240" marker-end="url(#ar-b)"></path>
+            <text x="230" y="312" class="lbl-s bad-t" text-anchor="end">접합 누설·GIDL</text><text x="340" y="304" class="lbl-s bad-t">유전막 누설</text><text x="216" y="262" class="lbl-s bad-t" text-anchor="end">트랜지스터 누설</text>
+          </g>
+          <!-- cup analogy -->
+          <text x="380" y="150" class="lbl">비유: 바닥에 구멍 난 물컵</text>
+          <rect id="water" class="water t o-b" x="392" y="182" width="56" height="80"></rect>
+          <path class="cup" d="M388,170 L392,262 H448 L452,170"></path>
+          <g id="drips" class="t"><circle class="drip t" id="dr1" cx="420" cy="268" r="3" style="fill: var(--low)"></circle></g>
+          <text id="cup-t" x="420" y="290" class="lbl-s" text-anchor="middle"></text>
+          <!-- right column -->
+          <g id="d-card" class="t">
+            <text id="dc1" x="540" y="90" class="head-t"></text>
+            <text id="dc2" x="540" y="120" class="card-l"></text>
+            <text id="dc3" x="540" y="144" class="card-l"></text>
+            <text id="dc4" x="540" y="168" class="card-l"></text>
+            <text id="dc5" x="540" y="200" class="card-l acc"></text>
+          </g>
+          <g id="graph" class="t">
+            <text x="540" y="236" class="lbl">비트라인 전압(1을 읽을 때)</text>
+            <line class="axis" x1="540" y1="380" x2="860" y2="380"></line><line class="axis" x1="540" y1="380" x2="540" y2="248"></line>
+            <line class="grid-line" x1="540" y1="316" x2="860" y2="316"></line><text x="536" y="320" class="lbl-s mono" text-anchor="end">½</text>
+            <line class="grid-line" x1="540" y1="262" x2="860" y2="262"></line><text x="536" y="266" class="lbl-s mono" text-anchor="end">VDD</text>
+            <path d="M540,316 H620 L640,308 H700 C720,308 730,262 760,262 H860" style="fill: none; stroke: var(--accent); stroke-width: 2.5"></path>
+            <text x="580" y="340" class="lbl-s" text-anchor="middle">프리차지</text><text x="660" y="300" class="lbl-s" text-anchor="middle">전하 공유 +ΔV</text><text x="810" y="254" class="lbl-s" text-anchor="middle">증폭·재기록</text>
+          </g>
+          <g id="cap-tips" class="t">
+            <text x="540" y="236" class="lbl">작아져도 전하는 지키고, 누설은 줄이고</text>
+            <rect x="544" y="256" width="26" height="110" rx="12" style="fill: var(--m-tin)"></rect><rect x="550" y="262" width="14" height="98" rx="7" style="fill: var(--m-hk)"></rect>
+            <text x="584" y="276" class="card-l">높고 가는 원통 커패시터</text><text x="584" y="296" class="card-m">High-k 유전막(ZrO₂ 계열), 약 10 fF 안팎</text>
+            <text x="584" y="330" class="card-l">매립 채널 트랜지스터(BCAT)</text><text x="584" y="350" class="card-m">게이트를 실리콘 속에 묻어 채널 길이 확보</text>
+            <text x="584" y="384" class="card-l">셀 면적 6F² → VCT로 4F²(4-3)</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 회로는 셀 하나만 단순화했고, 셀 면적 그림은 비율을 과장했습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>DRAM 동작은 <b>1T1C 구조 → 쓰기(WL on, BL로 충·방전) → 읽기(프리차지, 전하 공유, 감지 증폭, 다시 쓰기) → 리프레시</b> 순서로 말합니다. 자세한 타이밍은 2-10 애니메이션에서 봅니다.</li>
+      <li>SRAM과 DRAM은 저장 방식(래치 대 커패시터), 리프레시 유무, 속도, 셀 크기와 가격, 쓰임을 표처럼 대칭으로 비교합니다.</li>
+      <li>DRAM 미세화가 어려운 이유: ① 커패시터 용량 확보(종횡비가 커져 쓰러짐·식각 한계) ② 누설 증가 ③ 셀 트랜지스터의 단채널 효과 ④ 비트라인 용량이 커져 감지 여유 감소. 그래서 VCT·3D DRAM이 거론됩니다(4-3).</li>
+    </ul>
+    <p class="foot">원고 2-7을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-10 D램 동작 심화, 2-8 NAND 플래시, 4-5 HBM.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  const ROWS = [["셀 구성", "트랜지스터 6개", "1T + 1C", "전자 가두는 셀"], ["속도", "가장 빠름", "빠름(수십 ns)", "느림(수십 μs)"], ["전원 끄면", "사라짐", "사라짐(+리프레시)", "남음"], ["집적도·가격", "낮음·비쌈", "중간", "높음·쌈"], ["쓰임", "CPU·GPU 캐시", "메인·모바일·HBM", "SSD·폰 저장"]];
+  ROWS.forEach((r, i) => { const y = 104 + i * 34; [500, 576, 666, 782].forEach((x, k) => mk($("cmp-rows"), "text", { x, y, class: k ? "tc" : "th" }, r[k])); });
+  for (let i = 0; i < 4; i++) mk($("cq"), "text", { x: 278 + i * 15, y: 232, class: "qp" }, "+");
+  const G = ["m-pyr", "m-sram", "m-dram"];
+  const dc = (a) => lines("dc", a, 5);
+  const cup = (f, t) => ({ water: { style: { transform: `scaleY(${f})` } }, "cup-t": txt(t) });
+
+  const pyr = {
+    id: "pyramid", label: "메모리 계층",
+    base: () => Object.assign(only(G, ["m-pyr"]), { lift: off, blk: off, "pyr-step": off, analogy: on, cmp: off }),
+    steps: [
+      { short: "피라미드", title: "빠르고 비싼 것은 조금, 느리고 싼 것은 많이", cmd: "계층",
+        text: `레지스터·캐시(<b>SRAM</b>) → 메인 메모리(<b>DRAM</b>) → 저장장치(<b>NAND SSD</b>). 위로 갈수록 빠르고 비싸고 작으며, 아래로 갈수록 느리고 싸고 큽니다. 책상(캐시)–책장(DRAM)–창고(SSD)와 같습니다.`,
+        set: {} },
+      { short: "데이터가 올라온다", title: "없으면 아래층에서 가져와 위층에 올려 둔다", cmd: "요청",
+        text: `CPU는 먼저 캐시를 찾고, 없으면 DRAM(수십 ns), 그래도 없으면 SSD(읽기 수십 μs)에서 가져와 위층에 올려 둡니다. 원하는 데이터가 <b>윗층에 있을 확률</b>을 높이는 것이 시스템 성능의 핵심입니다.`,
+        set: { lift: on, blk: on, "pyr-step": on, analogy: off } },
+      { short: "세 메모리 비교", title: "SRAM·DRAM·NAND 한눈에 비교", cmd: "비교",
+        text: `SRAM은 트랜지스터 6개, DRAM은 트랜지스터 1개와 커패시터 1개(1T1C), NAND는 전자를 가두는 트랜지스터 하나에 여러 비트를 담습니다. DRAM 제품은 같은 1T1C 셀을 쓰지만 입출력 방식과 전압이 다른 DDR·LPDDR·GDDR·HBM으로 갈립니다.`,
+        set: { lift: off, blk: off, "pyr-step": off, analogy: off, cmp: on } },
+    ],
+  };
+
+  const sram = {
+    id: "sram", label: "SRAM 6T",
+    base: () => Object.assign(only(G, ["m-sram"]), { loop: on, "rd-flow": off, area: off, "s-wl": { s: "on" }, "s-bl": { s: "on" }, "s-blb": { s: "on" }, m5: { s: "off-" }, m6: { s: "off-" }, "bl-v": txt(""), "blb-v": txt("") }),
+    steps: [
+      { short: "래치(4T)", title: "인버터 두 개를 맞물리면 값이 스스로 유지된다", cmd: "래치",
+        text: `인버터 두 개를 서로 맞물리면, Q = 1이면 맞은편이 0을 만들고 그 0이 다시 Q를 1로 붙잡습니다. 이 고리(래치, 트랜지스터 4개)는 <b>전원만 있으면 값이 유지</b>되어 DRAM과 달리 리프레시가 필요 없습니다.`,
+        set: lines("sc", ["래치(트랜지스터 4개)", "Q = 1이면 Q̄ = 0", "Q̄ = 0이 다시 Q = 1을 붙잡음", "전원만 있으면 유지", "리프레시 불필요"], 5) },
+      { short: "스위치 2개 = 6T", title: "스위치 2개를 더해 읽고 쓴다: 6T", cmd: "WL on",
+        text: `래치 양쪽에 스위치(트랜지스터) 2개를 달아 비트라인(BL·BLB)과 연결하면 <b>트랜지스터 6개</b>로 1비트가 됩니다. 워드라인(WL)을 켜면 두 스위치가 열려, 0을 쥔 쪽(Q̄)이 BLB를 조금 끌어내리고 BL은 그대로라 그 차이로 값을 읽습니다.`,
+        set: Object.assign({ "s-wl": { s: "hi" }, m5: on, m6: on, "rd-flow": on, "bl-v": txt("BL: 그대로"), "blb-v": txt("BLB: 조금 내려감") }, lines("sc", ["6T = 래치 4 + 스위치 2", "WL on → 두 스위치 열림", "Q̄(0) 쪽이 BLB를 끌어내림", "BL과 BLB의 차이로 판별", "쓰기: BL·BLB로 래치를 뒤집음"], 5)) },
+      { short: "빠르지만 크다", title: "가장 빠르지만 셀이 커서 캐시로만 쓴다", cmd: "면적",
+        text: `SRAM은 매우 빠르지만 셀 면적이 DRAM의 <b>수십 배</b>라 비쌉니다. 그래서 CPU·GPU 안의 캐시로만 씁니다. 메인 메모리처럼 많은 용량이 필요한 곳에는 1T1C로 작게 만든 DRAM을 씁니다.`,
+        set: Object.assign({ "s-wl": { s: "on" }, m5: { s: "off-" }, m6: { s: "off-" }, "rd-flow": off, "bl-v": txt(""), "blb-v": txt(""), area: on }, lines("sc", ["SRAM의 장단점", "가장 빠름, 리프레시 없음", "셀이 커서 비쌈", "", "→ CPU·GPU 캐시"], 5)) },
+    ],
+  };
+
+  const dram = {
+    id: "dram", label: "DRAM 1T1C",
+    base: () => Object.assign(only(G, ["m-dram"]), { "d-flow": off, cq: off, leaks: off, drips: off, dr1: off, graph: off, "cap-tips": off, "d-card": on, "d-wl": { s: "on" }, "d-bl": { s: "on" }, "d-tr": { s: "off-" }, "d-blv": txt("") }, cup(0.05, "")),
+    steps: [
+      { short: "쓰기", title: "쓰기: 워드라인을 켜고 비트라인으로 채운다", cmd: "WRITE",
+        text: `DRAM 셀은 트랜지스터 1개와 커패시터 1개(<b>1T1C</b>)입니다. 워드라인(WL)으로 트랜지스터를 켜고 비트라인(BL) 전압으로 커패시터를 충전하면 1, 방전하면 0입니다. 물이 차 있으면 1, 비어 있으면 0인 물컵과 같습니다.`,
+        set: Object.assign({ "d-wl": { s: "hi" }, "d-bl": { s: "hi" }, "d-tr": on, "d-flow": on, cq: on, "d-blv": txt("BL = VDD") }, cup(1, "가득 = 1"), dc(["1T1C", "WL: 스위치를 켬", "BL: 전하를 넣고 뺌", "충전 = 1, 방전 = 0", "물이 차 있으면 1"])) },
+      { short: "읽기", title: "읽기: 아주 작은 차이를 키워 읽고 다시 쓴다", cmd: "READ",
+        text: `비트라인을 <b>VDD/2</b>로 맞춰 둔 뒤(프리차지) 워드라인을 켜면 셀 전하가 비트라인과 나눠지며 전압이 아주 조금 오르거나 내립니다(<b>전하 공유</b>). 감지 증폭기가 이 차이를 키워 0/1을 판별하고, 읽는 동안 셀 전하가 바뀌므로(<b>파괴적 읽기</b>) 곧바로 다시 써넣습니다. 자세한 과정은 2-10에서 봅니다.`,
+        set: Object.assign({ "d-wl": { s: "hi" }, "d-bl": { s: "on" }, "d-tr": on, "d-flow": off, cq: on, graph: on, "d-blv": txt("BL: ½VDD → +ΔV → VDD") }, cup(1, "읽고 다시 채움"), dc(["읽기 4단계", "① 프리차지(VDD/2)", "② 전하 공유(+ΔV)", "③ 감지 증폭", "④ 재기록(파괴적 읽기)"])) },
+      { short: "리프레시", title: "리프레시: 새는 물을 주기적으로 다시 채운다", cmd: "REFRESH",
+        text: `커패시터 전하는 접합 누설, GIDL, 트랜지스터(서브스레숄드) 누설, 유전막 누설로 조금씩 새어 나갑니다. 그래서 표준상 <b>64 ms</b>(고온에서는 32 ms) 안에 모든 셀을 한 번씩 읽고 다시 써야 합니다. 데이터를 오래 버티는 능력(<b>리텐션</b>)이 DRAM 품질의 핵심 지표입니다.`,
+        set: Object.assign({ "d-wl": { s: "on" }, "d-bl": { s: "on" }, "d-tr": { s: "off-" }, "d-flow": off, cq: on, graph: off, leaks: on, drips: on, dr1: on, "d-blv": txt("") }, cup(0.55, "조금씩 샘"), dc(["리프레시", "64 ms 안에 모든 셀을 다시 씀", "(고온에서는 32 ms)", "리텐션 = 품질 핵심 지표", "새는 길: 접합·GIDL·트랜지스터·유전막"])) },
+      { short: "크게, 덜 새게", title: "커패시터는 크게, 누설은 작게", cmd: "설계",
+        text: `셀이 작아져도 감지할 수 있는 전하(대략 <b>10 fF</b> 안팎)를 지키려고 커패시터를 <b>높고 가는 원통</b>으로 세우고 High-k 유전막(ZrO₂ 계열 등)을 씁니다. 셀 트랜지스터는 게이트를 실리콘 속에 묻은 <b>매립 채널(BCAT)</b>로 채널 길이를 확보해 누설을 줄입니다. 셀 면적은 6F²이고, 수직 채널 트랜지스터(VCT)로 4F²까지 줄일 수 있습니다(4-3).`,
+        set: Object.assign({ leaks: off, drips: off, dr1: off, "cap-tips": on }, cup(1, ""), dc(["셀 설계의 두 축", "전하 확보: 커패시턴스 ↑", "누설 억제: 트랜지스터·유전막", "", "F = 최소 선폭"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [pyr, sram, dram], dur: 6500 });
+})();
+</script>
+</body>
+</html>

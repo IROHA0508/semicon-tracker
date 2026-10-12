@@ -41,13 +41,13 @@
   <header class="anim-head">
     <div class="eyebrow"><span>반도체 뉴스 트래커 · 이론</span></div>
     <h1>반도체 동작·공정 애니메이션</h1>
-    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 15개입니다.</p>
+    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 23개입니다.</p>
   </header>
 
   <nav class="toc" aria-label="층 바로가기">
     <a href="#floor-0">0층 · 입문<span>2</span></a>
     <a href="#floor-1">1층 · 기초 전기와 물리<span>6</span></a>
-    <a href="#floor-2">2층 · 소자<span>3</span></a>
+    <a href="#floor-2">2층 · 소자<span>11</span></a>
     <a href="#floor-3">3층 · 제조 공정<span>2</span></a>
     <a href="#floor-4">4층 · 첨단 기술<span>2</span></a>
   </nav>
@@ -113,13 +113,61 @@
   </section>
 
   <section class="floor" id="floor-2">
-    <h2>2층 · 소자 <span>3개</span></h2>
+    <h2>2층 · 소자 <span>11개</span></h2>
     <div class="cards">
+      <a class="card" href="pn-junction.html">
+        <div class="top"><span class="unit">2-1</span><span class="meta">11단계</span></div>
+        <h3>PN 접합·다이오드·BJT</h3>
+        <p>P형과 N형을 붙일 때 생기는 공핍층과 내부 전위, 순방향·역방향 바이어스와 I-V 곡선, 제너·애벌런치 항복, NPN BJT의 작은 Ib로 큰 Ic를 만드는 원리.</p>
+        <div class="modes"><span>접합과 공핍층</span><span>바이어스와 항복</span><span>BJT</span></div>
+      </a>
+      <a class="card" href="mosfet.html">
+        <div class="top"><span class="unit">2-2</span><span class="meta">9단계</span></div>
+        <h3>MOSFET 구조와 동작</h3>
+        <p>NMOS 단면에서 게이트 전압을 올리며 꺼짐 → 공핍 → 반전(채널) → 전류를 따라가고, 산화막의 역할, N웰 속 PMOS와 PMOS가 느린 이유까지.</p>
+        <div class="modes"><span>NMOS 켜기</span><span>PMOS</span></div>
+      </a>
+      <a class="card" href="mosfet-iv.html">
+        <div class="top"><span class="unit">2-3</span><span class="meta">12단계</span></div>
+        <h3>MOSFET 특성: 선형·포화, 문턱전압, 누설</h3>
+        <p>드레인 전압을 올리며 채널이 얇아지다 끊기는 핀치오프와 Id-Vds 곡선, 로그 눈금 Id-Vgs에서 Vth·SS 60 mV/dec·Ion·Ioff, 누설전류 4가지, C-V 곡선의 축적·공핍·반전.</p>
+        <div class="modes"><span>선형·포화</span><span>Vth·SS·누설</span><span>C-V 곡선</span></div>
+      </a>
       <a class="card" href="cmos-inverter.html">
         <div class="top"><span class="unit">2-4</span><span class="meta">13단계</span></div>
         <h3>CMOS 인버터</h3>
         <p>입력에 따라 PMOS·NMOS가 번갈아 켜지는 모습, 전달 특성과 단락 전류, PMOS를 넓히는 이유, 동적·단락·누설 전력, 웨이퍼 단면의 기생 PNPN과 래치업 대책.</p>
         <div class="modes"><span>인버터 동작</span><span>전력</span><span>단면·래치업</span></div>
+      </a>
+      <a class="card" href="scaling.html">
+        <div class="top"><span class="unit">2-5</span><span class="meta">11단계</span></div>
+        <h3>미세화와 한계</h3>
+        <p>무어의 법칙과 데나드 스케일링(k = 2 계산 예시)이 깨진 이유, 채널이 짧아질 때의 Vth 롤오프·DIBL·펀치스루·핫 캐리어를 단면과 에너지 장벽으로, 할로·LDD·스트레인·HKMG·FinFET·GAA·SOI 해법까지.</p>
+        <div class="modes"><span>무어·데나드</span><span>단채널 효과</span><span>해법</span></div>
+      </a>
+      <a class="card" href="transistor-evolution.html">
+        <div class="top"><span class="unit">2-6</span><span class="meta">9단계</span></div>
+        <h3>트랜지스터 구조 진화: 플래너 → FinFET → GAA → CFET</h3>
+        <p>전류가 흐르는 방향에서 본 단면으로 게이트가 채널을 1면·3면·4면에서 감싸는 변화와 CFET, 핀 개수 단위 대 시트 폭 조절, GAA를 만드는 Si/SiGe 적층·선택 식각·게이트 채움 4단계.</p>
+        <div class="modes"><span>네 가지 구조</span><span>GAA 만들기</span></div>
+      </a>
+      <a class="card" href="memory-hierarchy.html">
+        <div class="top"><span class="unit">2-7</span><span class="meta">10단계</span></div>
+        <h3>메모리 계층과 SRAM·DRAM</h3>
+        <p>캐시(SRAM)–메인 메모리(DRAM)–저장장치(NAND) 피라미드와 데이터가 위층으로 올라오는 과정, 인버터 두 개를 맞물린 6T SRAM의 저장과 읽기, 물컵 비유로 보는 1T1C DRAM의 쓰기·읽기·리프레시와 누설.</p>
+        <div class="modes"><span>메모리 계층</span><span>SRAM 6T</span><span>DRAM 1T1C</span></div>
+      </a>
+      <a class="card" href="nand-flash.html">
+        <div class="top"><span class="unit">2-8</span><span class="meta">12단계</span></div>
+        <h3>NAND 플래시: 셀, 스트링, SLC~QLC</h3>
+        <p>전하 트랩 셀에 약 20 V로 전자를 넣는 쓰기(F-N 터널링), 전원을 꺼도 남는 이유, 블록 단위 지우기와 기준 전압 읽기, 셀을 직렬로 이은 스트링과 페이지·블록, SLC~QLC 문턱전압 분포.</p>
+        <div class="modes"><span>셀 동작</span><span>스트링·페이지·블록</span><span>SLC~QLC</span></div>
+      </a>
+      <a class="card" href="other-devices.html">
+        <div class="top"><span class="unit">2-9</span><span class="meta">10단계</span></div>
+        <h3>차세대 메모리·이미지센서·전력반도체</h3>
+        <p>MRAM·PRAM·ReRAM·FeRAM이 저항이나 분극의 두 상태로 0과 1을 가르는 원리, 마이크로렌즈–컬러 필터–포토다이오드 픽셀과 BSI, 와이드 밴드갭 SiC·GaN이 얇고 손실 적은 전력 소자가 되는 이유.</p>
+        <div class="modes"><span>차세대 메모리</span><span>이미지센서</span><span>전력반도체</span></div>
       </a>
       <a class="card" href="dram-cell.html">
         <div class="top"><span class="unit">2-10</span><span class="meta">18단계</span></div>

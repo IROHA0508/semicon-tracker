@@ -4,14 +4,30 @@
 
 | 파일 | 단원 | 내용 |
 |---|---|---|
-| `index.html` | | 목록 |
-| `cmos-inverter.html` | 2-4 | CMOS 인버터: 동작·전력·단면과 래치업(모드 3개) |
-| `dram-cell.html` | 2-10 | D램 셀 읽기·쓰기·리프레시(모드 3개, 저장 값 1·0 전환) |
-| `nand-ispp.html` | 2-11 | 낸드 ISPP·쓰기 금지·읽기·분포 변화(모드 4개) |
-| `dram-process.html` | 3-15 | D램 공정 흐름 15단계 |
-| `nand-process.html` | 3-16 | 3D 낸드 공정 흐름 15단계 |
-| `dram-evolution.html` | 4-3 | D램 셀 면적·구조·세대(모드 3개) |
-| `hbm-stack.html` | 4-5 | HBM 패키지·TSV·본딩(모드 3개) |
+| `index.html` | | 목록(`tools/build_animation_index.py`가 catalog.json으로 만듦) |
+| `semiconductor-basics.html` | 0-1 | 반도체란 무엇인가 (6단계) |
+| `chip-life.html` | 0-2 | 칩의 일생 (8단계) |
+| `electricity-basics.html` | 1-1 | 전기 기초: 전압·전류·저항 (6단계) |
+| `capacitor.html` | 1-2 | 커패시터와 전하 (모드 3개: 충전과 저장, 용량 키우기, RC 지연·기생) |
+| `energy-band.html` | 1-3 | 에너지 밴드 (모드 2개: 밴드가 생기는 과정, 도체·반도체·절연체) |
+| `why-silicon.html` | 1-4 | 왜 실리콘인가 (6단계) |
+| `doping.html` | 1-5 | 도핑과 캐리어 (모드 2개: N형·P형, 드리프트·확산) |
+| `logic-gates.html` | 1-6 | 0과 1의 세계 (모드 2개: 스위치와 게이트, 계산과 저장) |
+| `pn-junction.html` | 2-1 | PN 접합·다이오드·BJT (모드 3개: 접합과 공핍층, 바이어스와 항복, BJT) |
+| `mosfet.html` | 2-2 | MOSFET 구조와 동작 (모드 2개: NMOS 켜기, PMOS) |
+| `mosfet-iv.html` | 2-3 | MOSFET 특성: 선형·포화, 문턱전압, 누설 (모드 3개: 선형·포화, Vth·SS·누설, C-V 곡선) |
+| `cmos-inverter.html` | 2-4 | CMOS 인버터 (모드 3개: 인버터 동작, 전력, 단면·래치업) |
+| `scaling.html` | 2-5 | 미세화와 한계 (모드 3개: 무어·데나드, 단채널 효과, 해법) |
+| `transistor-evolution.html` | 2-6 | 트랜지스터 구조 진화: 플래너 → FinFET → GAA → CFET (모드 2개: 네 가지 구조, GAA 만들기) |
+| `memory-hierarchy.html` | 2-7 | 메모리 계층과 SRAM·DRAM (모드 3개: 메모리 계층, SRAM 6T, DRAM 1T1C) |
+| `nand-flash.html` | 2-8 | NAND 플래시: 셀, 스트링, SLC~QLC (모드 3개: 셀 동작, 스트링·페이지·블록, SLC~QLC) |
+| `other-devices.html` | 2-9 | 차세대 메모리·이미지센서·전력반도체 (모드 3개: 차세대 메모리, 이미지센서, 전력반도체) |
+| `dram-cell.html` | 2-10 | D램 셀 읽기·쓰기·리프레시 (모드 3개: 읽기, 쓰기, 리프레시) |
+| `nand-ispp.html` | 2-11 | 낸드 ISPP와 문턱전압 분포 (모드 4개: 쓰기(ISPP), 쓰기 금지, 읽기, 분포가 무너질 때) |
+| `dram-process.html` | 3-15 | D램 공정 흐름 (15단계) |
+| `nand-process.html` | 3-16 | 3D 낸드 공정 흐름 (15단계) |
+| `dram-evolution.html` | 4-3 | D램 셀 구조 진화 (모드 3개: 셀 면적, 셀 구조, 세대 이름) |
+| `hbm-stack.html` | 4-5 | HBM 적층과 본딩 (모드 3개: 패키지·대역폭, TSV 만들기, 본딩 3가지) |
 | `player.js`, `player.css` | | 공통 플레이어와 스타일 |
 | `catalog.json` | | 사이트가 단원 코드로 애니메이션을 찾는 목록 |
 
