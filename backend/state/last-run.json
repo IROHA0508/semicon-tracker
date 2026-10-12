@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-12T20:51:46+09:00",
+  "startedAt": "2026-10-13T07:53:41+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -49,9 +49,9 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-12T20:51:49+09:00",
+  "finishedAt": "2026-10-13T07:53:44+09:00",
   "summary": {
-    "startedAt": "2026-10-12T20:51:49+09:00",
+    "startedAt": "2026-10-13T07:53:44+09:00",
     "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
@@ -63,7 +63,7 @@
     "stoppedBy": "usage limit",
     "queueLeft": 106,
     "message": "claude CLI 실패(1): \"\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{},\"permission_denials\":[],\"terminal_reason\":\"api_error\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"un",
-    "finishedAt": "2026-10-12T20:51:53+09:00"
+    "finishedAt": "2026-10-13T07:53:48+09:00"
   },
   "manifest": {
     "count": 40,
