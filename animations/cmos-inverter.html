@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CMOS 인버터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .wire { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .rail { stroke: var(--ink); stroke-width: 3; }
+  .gate { stroke: var(--ink); stroke-width: 3; }
+  .bubble { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .ch { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+  .ch[data-s="on"] { fill: var(--accent); stroke: var(--accent); }
+  .ch[data-s="half"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .ch[data-s="cut"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 3 3; }
+  .node { fill: var(--ink); }
+  .node[data-s="hi"] { fill: var(--accent); }
+  .node[data-s="lo"] { fill: var(--low); }
+  .flow { fill: none; stroke-width: 3.5; stroke-dasharray: 7 6; }
+  .flow[data-s="on"] { animation: dash .7s linear infinite; }
+  .f-a { stroke: var(--accent); }
+  .f-l { stroke: var(--low); }
+  .f-b { stroke: var(--bad); }
+  .f-thin { stroke-width: 1.6; stroke-dasharray: 2 5; }
+  .f-thin[data-s="on"] { animation-duration: 2s; }
+  .f-big { stroke-width: 7; }
+  @keyframes dash { to { stroke-dashoffset: -26; } }
+  .val { font: 700 20px var(--font-mono); fill: var(--ink); }
+  .st { font: 600 11px var(--font-sans); }
+  .st[data-s="on"] { fill: var(--accent); }
+  .st[data-s="cut"] { fill: var(--bad); }
+  .tt rect.row { fill: transparent; }
+  .tt rect.row[data-s="on"] { fill: var(--accent-soft); }
+  .tt text.tv { font: 600 16px var(--font-mono); fill: var(--ink); }
+  .curve { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+  .curve.weak { stroke: var(--low); stroke-dasharray: 6 4; }
+  .curve.cur { stroke: var(--bad); }
+  .mkr { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+  .mkr.cur { fill: var(--bad); }
+  .vm line { stroke: var(--muted); stroke-dasharray: 3 3; }
+  .card-l { font-size: 12px; fill: var(--ink); }
+  .card-m { font-size: 11px; fill: var(--muted); }
+  .big { font: 700 22px var(--font-mono); fill: var(--ink); }
+  .bar { fill: var(--accent); }
+  .bar.b { fill: var(--low); }
+  .frame { fill: var(--surface); stroke: var(--line); }
+  .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+  /* cross-section */
+  .psub { fill: var(--m-si); }
+  .nwell { fill: var(--m-si-n); opacity: .75; }
+  .np { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: .8; }
+  :root { --m-pp: #c7a4d8; --m-nn: #7fb0e0; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --m-pp: #6d4f80; --m-nn: #3d5b86; } }
+  :root[data-theme="dark"] { --m-pp: #6d4f80; --m-nn: #3d5b86; }
+  .pp { fill: var(--m-pp); }
+  .nn { fill: var(--m-nn); }
+  .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: .6; }
+  .gox { fill: var(--m-hk); }
+  .ret { fill: var(--low); opacity: .35; }
+  .bjt { fill: none; stroke: var(--bad); stroke-width: 2; }
+  .res { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+  .loop { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 6 4; }
+  .loop[data-s="on"] { animation: dash 1s linear infinite; }
+  .term { font: 600 12px var(--font-mono); fill: var(--ink); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-4</span><span>CMOS</span><a href="./">애니메이션 목록</a></div>
+    <h1>CMOS 인버터</h1>
+    <p class="lead">NMOS와 PMOS를 짝지어 한쪽이 켜지면 다른 쪽은 꺼지게 만든 회로가 CMOS입니다. 가장 단순한 CMOS 회로인 인버터로 동작, 전력, 그리고 웨이퍼 단면 속에 숨은 래치업까지 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">CMOS 인버터 회로, 전달 특성, 웨이퍼 단면</title>
+        <defs>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <!-- ================= Circuit ================= -->
+        <g id="circuit" class="t">
+          <line class="rail" x1="90" y1="60" x2="300" y2="60"></line>
+          <text x="82" y="65" text-anchor="end" class="term">VDD</text>
+          <line class="rail" x1="90" y1="390" x2="300" y2="390"></line>
+          <text x="82" y="395" text-anchor="end" class="term">GND</text>
+          <path class="wire" d="M181,60 V110 M181,172 V270 M181,332 V390"></path>
+          <rect id="pm-ch" class="ch t" x="176" y="110" width="10" height="62" rx="2"></rect>
+          <line class="gate" x1="164" y1="112" x2="164" y2="170"></line>
+          <circle class="bubble" cx="157" cy="141" r="4.5"></circle>
+          <rect id="nm-ch" class="ch t" x="176" y="270" width="10" height="62" rx="2"></rect>
+          <line class="gate" x1="164" y1="272" x2="164" y2="330"></line>
+          <path class="wire" d="M124,141 H152 M124,301 H164 M124,141 V301 M54,221 H124"></path>
+          <text x="198" y="138" class="lbl" style="fill: var(--ink); font-weight: 600">PMOS</text>
+          <text id="pm-st" class="st t" x="198" y="156">꺼짐</text>
+          <text x="198" y="298" class="lbl" style="fill: var(--ink); font-weight: 600">NMOS</text>
+          <text id="nm-st" class="st t" x="198" y="316">꺼짐</text>
+          <path class="wire" d="M181,221 H280 V252 M280,260 V390"></path>
+          <line class="gate" x1="264" y1="252" x2="296" y2="252"></line><line class="gate" x1="264" y1="260" x2="296" y2="260"></line>
+          <text x="302" y="262" class="lbl-s">부하 C</text>
+          <circle id="in-dot" class="node t" cx="54" cy="221" r="6"></circle>
+          <circle id="out-dot" class="node t" cx="181" cy="221" r="5"></circle>
+          <text x="40" y="200" class="lbl">입력 A</text>
+          <text id="in-v" class="val" x="40" y="252">–</text>
+          <text x="220" y="212" class="lbl">출력 Y</text>
+          <text id="out-v" class="val" x="218" y="246">–</text>
+          <path id="f-charge" class="flow f-a t" d="M190,64 V214 H272 V246"></path>
+          <path id="f-dis" class="flow f-l t" d="M272,246 V228 H190 V386"></path>
+          <path id="f-short" class="flow f-b t" d="M194,64 V386"></path>
+          <path id="leak-n" class="flow f-b f-thin t" d="M196,226 V386"></path>
+          <path id="leak-p" class="flow f-b f-thin t" d="M196,64 V216"></path>
+        </g>
+
+        <!-- right top: truth table + notes -->
+        <g id="tt" class="tt t">
+          <text x="400" y="40" class="lbl">진리표</text>
+          <rect id="tt-r0" class="row t" x="400" y="92" width="160" height="34" rx="4"></rect>
+          <rect id="tt-r1" class="row t" x="400" y="130" width="160" height="34" rx="4"></rect>
+          <text class="tv" x="440" y="78" text-anchor="middle">A</text><text class="tv" x="520" y="78" text-anchor="middle">Y</text>
+          <line x1="404" y1="86" x2="556" y2="86" style="stroke: var(--line-strong)"></line>
+          <text class="tv" x="440" y="115" text-anchor="middle">0</text><text class="tv" x="520" y="115" text-anchor="middle">1</text>
+          <text class="tv" x="440" y="153" text-anchor="middle">1</text><text class="tv" x="520" y="153" text-anchor="middle">0</text>
+          <text id="nt-1" class="card-l" x="600" y="78"></text>
+          <text id="nt-2" class="card-l" x="600" y="98"></text>
+          <text id="nt-3" class="card-m" x="600" y="128"></text>
+          <text id="nt-4" class="card-m" x="600" y="146"></text>
+        </g>
+
+        <!-- right: VTC and current -->
+        <g id="vtc-g" class="t">
+          <text x="400" y="38" class="lbl">전달 특성(VTC)</text>
+          <line class="axis" x1="400" y1="50" x2="400" y2="230"></line><line class="axis" x1="400" y1="230" x2="620" y2="230"></line>
+          <text x="394" y="56" text-anchor="end" class="lbl-s mono">VDD</text><text x="394" y="234" text-anchor="end" class="lbl-s mono">0</text>
+          <text x="620" y="246" text-anchor="end" class="lbl-s mono">VDD</text><text x="510" y="246" text-anchor="middle" class="lbl-s mono">VDD/2</text>
+          <text x="620" y="262" text-anchor="end" class="lbl-s">입력 →</text><text x="406" y="64" class="lbl-s">출력</text>
+          <g class="vm"><line x1="510" y1="50" x2="510" y2="230"></line></g>
+          <path id="vtc-weak" class="curve weak t"></path>
+          <path id="vtc" class="curve"></path>
+          <circle id="vt-mk" class="mkr t" cx="0" cy="0" r="6"></circle>
+          <text id="vtc-weak-t" class="lbl-s t" x="406" y="216" style="fill: var(--low)">같은 크기: 전환점이 왼쪽으로</text>
+        </g>
+        <g id="ic-g" class="t">
+          <text x="660" y="38" class="lbl">VDD → GND 전류</text>
+          <line class="axis" x1="660" y1="50" x2="660" y2="230"></line><line class="axis" x1="660" y1="230" x2="860" y2="230"></line>
+          <text x="860" y="246" text-anchor="end" class="lbl-s mono">VDD</text><text x="760" y="246" text-anchor="middle" class="lbl-s mono">VDD/2</text>
+          <text x="860" y="262" text-anchor="end" class="lbl-s">입력 →</text>
+          <path id="icurve" class="curve cur"></path>
+          <circle id="ic-mk" class="mkr cur t" cx="0" cy="0" r="6"></circle>
+          <text x="666" y="64" class="lbl-s">전환 순간에만 흐름</text>
+        </g>
+
+        <!-- right bottom: transistor widths -->
+        <g id="width" class="t">
+          <text x="400" y="296" class="lbl">위에서 본 트랜지스터(개념)</text>
+          <rect x="420" y="330" width="70" height="36" rx="3" style="fill: var(--m-si-n)"></rect><rect x="448" y="320" width="14" height="56" style="fill: var(--m-poly)"></rect>
+          <text x="455" y="398" text-anchor="middle" class="card-l">NMOS 폭 W</text>
+          <rect x="560" y="310" width="70" height="90" rx="3" style="fill: var(--m-pp)"></rect><rect x="588" y="300" width="14" height="110" style="fill: var(--m-poly)"></rect>
+          <text x="595" y="428" text-anchor="middle" class="card-l">PMOS 폭 약 2~3 W</text>
+          <text x="660" y="332" class="card-l">정공 이동도 ≈ 전자의 1/3</text>
+          <text x="660" y="352" class="card-l">→ 같은 크기면 PMOS가 약함</text>
+          <text x="660" y="380" class="card-l" style="fill: var(--accent); font-weight: 600">PMOS를 넓혀 위아래 세기를</text>
+          <text x="660" y="398" class="card-l" style="fill: var(--accent); font-weight: 600">맞추면 전환점이 VDD/2로</text>
+        </g>
+
+        <!-- power -->
+        <g id="pw-dyn" class="t">
+          <text x="400" y="38" class="lbl">① 동적 전력(대부분)</text>
+          <text x="400" y="84" class="big">P = α · C · V² · f</text>
+          <text x="400" y="116" class="card-l">α 얼마나 자주 바뀌나  ·  C 출력에 달린 커패시턴스</text>
+          <text x="400" y="136" class="card-l">V 전원 전압  ·  f 클럭 주파수</text>
+          <text x="400" y="186" class="lbl">전압만 바꿔 보면(계산)</text>
+          <text x="400" y="222" class="card-l">V = 1.0</text><rect class="bar" x="470" y="208" width="300" height="20" rx="3"></rect><text x="778" y="223" class="card-l">1.00</text>
+          <text x="400" y="258" class="card-l">V = 0.8</text><rect class="bar" x="470" y="244" width="192" height="20" rx="3"></rect><text x="670" y="259" class="card-l">0.64</text>
+          <text x="400" y="298" class="card-l" style="fill: var(--accent); font-weight: 600">전압을 20% 낮추면 동적 전력은 36% 줄어든다(제곱)</text>
+          <text x="400" y="330" class="card-m">입력이 바뀔 때마다 부하 C를 VDD로 채우고(PMOS) 비운다(NMOS).</text>
+          <text x="400" y="348" class="card-m">그때마다 C·V²만큼의 에너지를 쓴다.</text>
+        </g>
+        <g id="pw-sc" class="t">
+          <text x="400" y="298" class="lbl">② 단락 전력</text>
+          <text x="400" y="322" class="card-l">입력이 중간을 지나는 짧은 순간 PMOS·NMOS가 둘 다 살짝 켜져</text>
+          <text x="400" y="342" class="card-l">VDD에서 GND로 직접 흐르는 전류. 입력이 빨리 바뀔수록 작다.</text>
+        </g>
+        <g id="pw-leak" class="t">
+          <text x="400" y="38" class="lbl">③ 누설 전력</text>
+          <text x="400" y="74" class="card-l">꺼진 트랜지스터로도 전류가 조금씩 샌다(문턱 아래 누설, 게이트 누설 등).</text>
+          <text x="400" y="94" class="card-l">미세화로 커져서, 아무 일도 안 할 때의 전력을 좌우한다.</text>
+          <text x="400" y="140" class="lbl">칩 전력을 줄이는 방법</text>
+          <text x="400" y="168" class="card-l">· 전압 낮추기(제곱으로 효과)</text>
+          <text x="400" y="190" class="card-l">· 클럭 게이팅: 안 쓰는 블록의 클럭 끄기</text>
+          <text x="400" y="212" class="card-l">· DVFS: 부하에 따라 전압·주파수 조절</text>
+          <text x="400" y="234" class="card-l">· 파워 게이팅: 전원 자체를 끄기</text>
+          <text x="400" y="256" class="card-l">· 누설이 적은 고Vth 셀 섞어 쓰기</text>
+        </g>
+
+        <!-- ================= Cross-section and latch-up ================= -->
+        <g id="xs" class="t">
+          <rect class="psub" x="30" y="240" width="610" height="180"></rect>
+          <text x="44" y="410" class="lbl-s" style="fill: var(--ink); font-weight: 600">P형 기판</text>
+          <rect class="nwell" x="320" y="240" width="300" height="130" rx="6"></rect>
+          <text x="604" y="362" text-anchor="end" class="lbl-s" style="fill: var(--ink); font-weight: 600">N-웰</text>
+          <rect id="retro" class="ret t" x="320" y="330" width="300" height="40" rx="6"></rect>
+          <text id="retro-t" class="lbl-s t" x="330" y="352" style="fill: var(--ink)">레트로그레이드 웰(깊은 곳 농도↑)</text>
+          <rect class="ox" x="262" y="240" width="46" height="40"></rect>
+          <text x="285" y="296" text-anchor="middle" class="lbl-s">STI</text>
+          <rect class="pp" x="44" y="240" width="30" height="16"></rect>
+          <rect class="nn" x="84" y="240" width="50" height="16"></rect>
+          <rect class="nn" x="196" y="240" width="50" height="16"></rect>
+          <rect class="gox" x="134" y="234" width="62" height="6"></rect><rect class="np" x="134" y="214" width="62" height="20"></rect>
+          <rect class="pp" x="340" y="240" width="50" height="16"></rect>
+          <rect class="pp" x="452" y="240" width="50" height="16"></rect>
+          <rect class="nn" x="520" y="240" width="30" height="16"></rect>
+          <rect class="gox" x="390" y="234" width="62" height="6"></rect><rect class="np" x="390" y="214" width="62" height="20"></rect>
+          <text x="165" y="206" text-anchor="middle" class="lbl-s" style="fill: var(--ink); font-weight: 600">NMOS</text>
+          <text x="421" y="206" text-anchor="middle" class="lbl-s" style="fill: var(--ink); font-weight: 600">PMOS</text>
+          <!-- terminals -->
+          <path class="wire" d="M59,240 V170 M109,240 V170 M59,170 H109"></path><text x="84" y="162" text-anchor="middle" class="term">GND</text>
+          <path class="wire" d="M221,240 V180 H365 V240"></path><text x="293" y="174" text-anchor="middle" class="term">출력</text>
+          <path class="wire" d="M165,214 V196 M421,214 V196"></path>
+          <text x="165" y="190" text-anchor="middle" class="term" style="font-size: 10px">입력</text><text x="421" y="190" text-anchor="middle" class="term" style="font-size: 10px">입력</text>
+          <path class="wire" d="M477,240 V170 M535,240 V170 M477,170 H535"></path><text x="506" y="162" text-anchor="middle" class="term">VDD</text>
+          <text x="40" y="290" class="lbl-s">기판 탭</text>
+          <text x="560" y="236" class="lbl-s">웰 탭</text>
+          <text x="84" y="270" text-anchor="middle" class="lbl-s mono">n+</text><text x="221" y="270" text-anchor="middle" class="lbl-s mono">n+</text>
+          <text x="365" y="270" text-anchor="middle" class="lbl-s mono">p+</text><text x="477" y="270" text-anchor="middle" class="lbl-s mono">p+</text>
+          <!-- parasitic devices -->
+          <g id="para" class="t">
+            <path class="bjt" d="M477,258 V300 M462,300 H492 M477,300 L470,318 M477,300 L484,318"></path>
+            <text x="498" y="300" class="lbl-s" style="fill: var(--bad); font-weight: 600">기생 PNP</text>
+            <path class="bjt" d="M180,296 V314 M165,314 H195 M180,314 L173,332 M180,314 L187,332"></path>
+            <text x="200" y="320" class="lbl-s" style="fill: var(--bad); font-weight: 600">기생 NPN</text>
+            <path class="res" d="M560,300 l6,-6 l6,12 l6,-12 l6,12 l6,-6"></path><text x="560" y="322" class="lbl-s">웰 저항</text>
+            <path class="res" d="M60,330 l6,-6 l6,12 l6,-6 l6,12 l6,-6"></path><text x="60" y="352" class="lbl-s">기판 저항</text>
+          </g>
+          <path id="pnpn" class="loop t" d="M477,256 V330 Q477,385 400,385 H200 Q109,385 109,300 V258"></path>
+          <text id="pnpn-t" class="lbl-s halo t" x="300" y="380" text-anchor="middle" style="fill: var(--bad); font-weight: 600">P⁺ → N-웰 → P 기판 → N⁺: 숨은 PNPN(사이리스터)</text>
+          <path id="latch" class="flow f-b f-big t" d="M506,152 V130 H84 V152"></path>
+          <text id="latch-t" class="lbl t" x="295" y="122" text-anchor="middle" style="fill: var(--bad); font-weight: 700">VDD → GND로 큰 전류가 계속 흐름</text>
+          <g id="rings" class="t">
+            <rect class="pp" x="248" y="240" width="12" height="16" style="stroke: var(--accent); stroke-width: 2"></rect>
+            <rect class="nn" x="322" y="240" width="14" height="16" style="stroke: var(--accent); stroke-width: 2"></rect>
+            <path d="M254,258 L276,312 M329,258 L300,312" style="stroke: var(--accent); stroke-width: 1.2; fill: none"></path>
+            <text x="288" y="326" text-anchor="middle" class="lbl-s halo" style="fill: var(--accent); font-weight: 600">가드링</text>
+          </g>
+        </g>
+        <g id="xs-card" class="t">
+          <rect class="frame" x="664" y="28" width="208" height="392" rx="8"></rect>
+          <text id="xc-t" class="lbl" x="674" y="46"></text>
+          <text id="xc-1" class="card-l" x="674" y="78"></text><text id="xc-2" class="card-l" x="674" y="96"></text>
+          <text id="xc-3" class="card-l" x="674" y="126"></text><text id="xc-4" class="card-l" x="674" y="144"></text>
+          <text id="xc-5" class="card-l" x="674" y="174"></text><text id="xc-6" class="card-l" x="674" y="192"></text>
+          <text id="xc-7" class="card-l" x="674" y="222"></text><text id="xc-8" class="card-l" x="674" y="240"></text>
+          <text id="xc-9" class="card-l" x="674" y="270"></text><text id="xc-10" class="card-l" x="674" y="288"></text>
+          <text id="xc-11" class="card-m" x="674" y="330"></text><text id="xc-12" class="card-m" x="674" y="348"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 전압은 VDD로 정규화했고, 전달 특성과 전류 곡선은 모양만 보여 줍니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>입력 0 → PMOS 켜짐·NMOS 꺼짐 → 출력 1, 입력 1 → 반대 → 출력 0. 어느 쪽이든 VDD에서 GND로 바로 가는 길이 없어 <b>대기 전력이 거의 없고</b>, 출력이 전원 끝까지 가서(rail-to-rail) 잡음에 강합니다.</li>
+      <li>전력은 <b>동적(αCV²f, 대부분)</b>, <b>단락</b>, <b>누설</b> 세 가지입니다. 전압을 낮추는 것이 제곱으로 효과가 큽니다.</li>
+      <li><b>래치업</b>은 CMOS 안의 기생 PNPN(사이리스터)이 켜져 VDD와 GND가 단락되는 현상입니다. 대책: STI로 간격, 가드링, 레트로그레이드 웰, 웰 탭, SOI.</li>
+    </ul>
+    <p class="foot">원고 2-4를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 1-6 0과 1의 세계, 2-2 MOSFET, 2-5 미세화와 한계, 3-14 CMOS 전체 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const on = { s: "on" }, off = { s: "off" };
+  const all = (ids, v) => { const o = {}; ids.forEach((i) => { o[i] = v; }); return o; };
+  const txt = (t) => ({ text: t });
+
+  // ---------------- Curves (VDD normalised to 1)
+  const VX = (v) => 400 + v * 220, VY = (v) => 230 - v * 180;
+  const IX = (v) => 660 + v * 200, IY = (i) => 230 - i * 150;
+  const vtc = (vm) => (v) => 1 / (1 + Math.exp((v - vm) / 0.035));
+  const cur = (vm) => (v) => Math.exp(-(((v - vm) / 0.09) ** 2));
+  const path = (f, X, Y) => { let d = ""; for (let i = 0; i <= 120; i++) { const v = i / 120; d += (i ? " L" : "M") + X(v).toFixed(1) + "," + Y(f(v)).toFixed(1); } return d; };
+  $("vtc").setAttribute("d", path(vtc(0.5), VX, VY));
+  $("vtc-weak").setAttribute("d", path(vtc(0.4), VX, VY));
+  $("icurve").setAttribute("d", path(cur(0.5), IX, IY));
+  const mkAt = (v) => ({
+    "vt-mk": { s: "on", style: { transform: `translate(${VX(v).toFixed(1)}px, ${VY(vtc(0.5)(v)).toFixed(1)}px)` } },
+    "ic-mk": { s: "on", style: { transform: `translate(${IX(v).toFixed(1)}px, ${IY(cur(0.5)(v)).toFixed(1)}px)` } },
+  });
+
+  const groups = ["circuit", "tt", "vtc-g", "ic-g", "width", "pw-dyn", "pw-sc", "pw-leak", "xs", "xs-card"];
+  const only = (ids) => { const o = all(groups, off); ids.forEach((i) => { o[i] = on; }); return o; };
+  const flows = ["f-charge", "f-dis", "f-short", "leak-n", "leak-p"];
+  const tr = (p, n) => ({ "pm-ch": { s: p }, "nm-ch": { s: n }, "pm-st": { s: p === "on" ? "on" : p === "half" ? "on" : "cut", text: p === "on" ? "켜짐" : p === "half" ? "살짝 켜짐" : "꺼짐" },
+    "nm-st": { s: n === "on" ? "on" : n === "half" ? "on" : "cut", text: n === "on" ? "켜짐" : n === "half" ? "살짝 켜짐" : "꺼짐" } });
+  const io = (a, y, ad, yd) => ({ "in-v": txt(a), "out-v": txt(y), "in-dot": { s: ad }, "out-dot": { s: yd } });
+  const notes = (a, b, c, d) => ({ "nt-1": txt(a || ""), "nt-2": txt(b || ""), "nt-3": txt(c || ""), "nt-4": txt(d || "") });
+  const circuitBase = () => Object.assign(all(flows, off), { "pm-ch": { s: "idle" }, "nm-ch": { s: "idle" }, "pm-st": txt(""), "nm-st": txt(""), "in-dot": { s: "idle" }, "out-dot": { s: "idle" }, "in-v": txt("–"), "out-v": txt("–") });
+
+  const inv = {
+    id: "inverter", label: "인버터 동작",
+    base: () => Object.assign(only(["circuit", "tt"]), circuitBase(), all(["tt-r0", "tt-r1", "vt-mk", "ic-mk", "vtc-weak", "vtc-weak-t"], off), notes()),
+    steps: [
+      { short: "구성", title: "PMOS는 위, NMOS는 아래, 입력은 함께", cmd: "구성",
+        text: `PMOS의 소스는 VDD(전원)에, NMOS의 소스는 GND(접지)에 붙입니다. 두 게이트를 묶어 <b>입력</b>으로, 두 드레인을 묶어 <b>출력</b>으로 씁니다. 출력에는 다음 단 게이트와 배선이 만드는 부하 커패시턴스(C)가 달려 있습니다. 위아래로 교대하는 두 문지기처럼, 한쪽이 열리면 다른 쪽은 반드시 닫힙니다.`,
+        set: notes("두 문지기: 위가 열리면", "아래는 닫힌다", "PMOS: 게이트 0일 때 켜짐", "NMOS: 게이트 1일 때 켜짐") },
+      { short: "입력 0 → 출력 1", title: "입력 0: PMOS가 켜져 출력을 VDD로 채운다", cmd: "A = 0",
+        text: `입력이 0이면 <b>PMOS가 켜지고 NMOS는 꺼집니다</b>. 전류가 VDD에서 PMOS를 지나 부하 C를 채우고, 출력은 VDD 끝까지 올라가 <b>1</b>이 됩니다.`,
+        set: Object.assign(tr("on", "cut"), io("0", "1", "lo", "hi"), { "f-charge": on, "tt-r0": on }, notes("입력 0", "→ 출력 1(VDD)")), hl: ["pm-ch"] },
+      { short: "입력 1 → 출력 0", title: "입력 1: NMOS가 켜져 출력을 GND로 비운다", cmd: "A = 1",
+        text: `입력이 1이면 반대로 <b>NMOS가 켜지고 PMOS는 꺼집니다</b>. 부하 C에 차 있던 전하가 NMOS를 지나 GND로 빠지고, 출력은 0 V까지 내려가 <b>0</b>이 됩니다.`,
+        set: Object.assign(tr("cut", "on"), io("1", "0", "hi", "lo"), { "f-charge": off, "f-dis": on, "tt-r0": off, "tt-r1": on }, notes("입력 1", "→ 출력 0(GND)")), hl: ["nm-ch"] },
+      { short: "가만히 있을 때", title: "가만히 있을 때는 전류가 거의 없다", cmd: "정적",
+        text: `출력이 다 바뀐 뒤에는 꺼진 쪽 트랜지스터가 길을 막고 있어 <b>VDD에서 GND로 바로 가는 길이 없습니다</b>. 그래서 상태를 유지하는 동안에는 꺼진 트랜지스터로 새는 아주 작은 누설 전류만 흐릅니다. 출력이 전원 끝까지 완전히 올라가고 내려가(rail-to-rail) 잡음 여유도 큽니다.`,
+        set: Object.assign({ "f-dis": off, "leak-p": on }, notes("CMOS의 장점", "대기 전력이 거의 없다", "출력이 전원 끝까지 감", "→ 잡음에 강하고 집적에 유리")) },
+      { short: "전달 특성·전환 순간", title: "입력을 천천히 올리면 중간에서 급격히 바뀐다", cmd: "VTC",
+        text: `입력을 0에서 VDD로 천천히 올리면 출력은 한동안 1에 머물다가 <b>VDD/2 근처</b>에서 급격히 0으로 떨어집니다(전달 특성, VTC). 이 전환 순간에는 PMOS와 NMOS가 <b>둘 다 살짝 켜져</b> VDD에서 GND로 전류가 잠깐 흐릅니다. 이것이 단락 전류입니다.`,
+        set: Object.assign(only(["circuit", "vtc-g", "ic-g"]), tr("half", "half"), io("½", "½", "idle", "idle"), { "leak-p": off, "f-short": on }, mkAt(0.5)) },
+      { short: "PMOS를 넓게", title: "PMOS를 2~3배 넓게 만드는 이유", cmd: "W",
+        text: `정공 이동도는 전자의 약 1/3이라, 같은 크기면 PMOS 쪽 전류가 약해 0→1 전환이 느리고 전환점도 왼쪽으로 치우칩니다(파란 점선). 그래서 <b>PMOS의 폭(W)을 2~3배</b> 넓혀 위아래 세기를 맞추고, 전환점이 VDD/2에 오도록 합니다. 그래야 상승·하강 시간이 대칭이 됩니다.`,
+        set: Object.assign(only(["circuit", "vtc-g", "width"]), { "vtc-weak": on, "vtc-weak-t": on, "f-short": off, "ic-mk": off }, tr("idle", "idle"), io("", "", "idle", "idle"), { "pm-st": txt(""), "nm-st": txt("") }) },
+    ],
+  };
+
+  const power = {
+    id: "power", label: "전력",
+    base: () => Object.assign(only(["circuit"]), circuitBase()),
+    steps: [
+      { short: "① 동적 전력", title: "① 동적 전력: 부하를 채우고 비우는 데 쓰는 에너지", cmd: "αCV²f",
+        text: `입력이 바뀔 때마다 PMOS가 부하 C를 VDD로 채우고 NMOS가 다시 비웁니다. 한 번 채우고 비울 때마다 C·V²만큼의 에너지를 쓰므로 전력은 <b>P = α·C·V²·f</b>입니다. 칩 전력의 대부분이고, 전압이 <b>제곱</b>으로 들어가 전압을 낮추는 효과가 가장 큽니다.`,
+        set: Object.assign({ "pw-dyn": on, "f-charge": on, "f-dis": on }, tr("half", "half"), { "pm-st": txt("번갈아 켜짐"), "nm-st": txt("번갈아 켜짐") }) },
+      { short: "② 단락 전력", title: "② 단락 전력: 전환 순간의 직통 전류", cmd: "단락",
+        text: `입력이 0과 1 사이를 지나는 짧은 순간에는 두 트랜지스터가 함께 살짝 켜져 VDD에서 GND로 직접 전류가 흐릅니다. 입력 신호가 천천히 바뀔수록 이 시간이 길어져 단락 전력이 커집니다.`,
+        set: Object.assign({ "pw-dyn": off, "pw-sc": on, "ic-g": on, "f-charge": off, "f-dis": off, "f-short": on }, mkAt(0.5), { "vt-mk": off }) },
+      { short: "③ 누설 전력", title: "③ 누설 전력: 꺼져 있어도 새는 전류", cmd: "누설",
+        text: `꺼진 트랜지스터로도 전류가 조금씩 샙니다. 미세화로 문턱전압과 게이트 산화막이 함께 작아지면서 누설이 커져, 아무 일도 하지 않을 때의 전력을 좌우하게 됐습니다. 그래서 클럭 게이팅, DVFS, 파워 게이팅, 고Vth 셀 같은 기법을 함께 씁니다.`,
+        set: Object.assign({ "pw-sc": off, "ic-g": off, "ic-mk": off, "f-short": off, "pw-leak": on, "leak-n": on }, tr("on", "cut"), io("0", "1", "lo", "hi")) },
+    ],
+  };
+
+  const xcard = (t, l) => { const o = { "xc-t": txt(t) }; for (let i = 1; i <= 12; i++) o["xc-" + i] = txt(l[i - 1] || ""); return o; };
+  const latch = {
+    id: "latchup", label: "단면·래치업",
+    base: () => Object.assign(only(["xs", "xs-card"]), all(["para", "pnpn", "pnpn-t", "latch", "latch-t", "rings", "retro", "retro-t"], off)),
+    steps: [
+      { short: "웨이퍼 단면", title: "인버터를 웨이퍼 위에 옮기면", cmd: "단면",
+        text: `NMOS는 P형 기판에, PMOS는 그 안에 만든 <b>N-웰</b>에 만듭니다(서로 다른 형의 바탕이 필요해서). 두 소자 사이는 얕은 홈에 산화막을 채운 <b>STI</b>가 떼어 놓습니다. 기판 탭은 P형 기판을 GND에, 웰 탭은 N-웰을 VDD에 묶어 둡니다.`,
+        set: xcard("단면 구조", ["NMOS: P형 기판 위", "n+ 소스·드레인", "PMOS: N-웰 안", "p+ 소스·드레인", "STI: 소자 사이 분리", "(예전 LOCOS는 버즈빅", "때문에 미세화에 불리)", "", "탭: 기판은 GND,", "웰은 VDD에 고정"]) },
+      { short: "숨은 PNPN", title: "그 안에 숨은 PNPN 사이리스터", cmd: "기생",
+        text: `PMOS 소스(P⁺) – N-웰 – P형 기판 – NMOS 소스(N⁺)를 이으면 <b>P-N-P-N 네 겹</b>이 됩니다. 이것은 기생 PNP와 기생 NPN 트랜지스터가 서로 맞물린 사이리스터와 같습니다. 웰과 기판의 저항이 클수록 이 기생 트랜지스터가 켜지기 쉽습니다.`,
+        set: Object.assign({ para: on, pnpn: on, "pnpn-t": on }, xcard("기생 PNPN", ["PNP: P⁺ 소스 – N-웰", "– P 기판", "NPN: N⁺ 소스 – P 기판", "– N-웰", "", "서로의 베이스를", "구동하는 구조", "", "웰·기판 저항이 크면", "켜지기 쉬움"])) },
+      { short: "래치업", title: "래치업: 한 번 켜지면 스스로 유지된다", cmd: "래치업",
+        text: `잡음이나 순간 과전압으로 한쪽 기생 트랜지스터에 전류가 흐르면, 그 전류가 다른 쪽을 켜고, 다시 처음 것을 더 세게 켭니다(양의 되먹임). 그러면 <b>VDD에서 GND로 큰 전류가 계속</b> 흘러 칩이 망가질 수 있습니다. 전원을 끄기 전까지 스스로 풀리지 않습니다.`,
+        set: Object.assign({ pnpn: { s: "on" }, latch: on, "latch-t": on }, xcard("래치업", ["계기: 잡음, 순간 과전압", "", "PNP 켜짐 → NPN 켜짐", "→ PNP 더 세게…", "(양의 되먹임)", "", "VDD–GND 단락", "→ 큰 전류, 발열, 파손", "", "전원을 꺼야 풀림"])) },
+      { short: "대책", title: "래치업 대책", cmd: "대책",
+        text: `소자 사이 간격을 STI로 확보하고, 소자 둘레에 <b>가드링</b>을 둘러 새는 전류를 먼저 빼냅니다. 웰 깊은 곳 농도를 높인 <b>레트로그레이드 웰</b>로 웰 저항을 낮추고, <b>웰 탭(바디 컨택)</b>을 촘촘히 두며, 아예 절연층 위에 소자를 만드는 <b>SOI</b> 기판을 쓰기도 합니다.`,
+        set: Object.assign({ latch: off, "latch-t": off, pnpn: off, "pnpn-t": off, rings: on, retro: on, "retro-t": on }, xcard("대책", ["① STI로 간격 확보", "", "② 가드링", "(새는 전류를 먼저 뺌)", "③ 레트로그레이드 웰", "(웰 저항↓)", "④ 웰 탭 촘촘히", "", "⑤ SOI 기판", "(PNPN 경로 자체를 끊음)", "면접: 대책 두세 가지를", "함께 말하기"])) },
+    ],
+  };
+
+  StepPlayer.create({ root: $("app"), modes: [inv, power, latch], dur: 6500 });
+})();
+</script>
+</body>
+</html>

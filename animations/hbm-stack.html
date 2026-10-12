@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HBM 적층과 본딩</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: .8; }
+  .logic { fill: var(--m-si-line); stroke: var(--m-si-line); stroke-width: .8; }
+  .inter { fill: var(--m-si-n); }
+  .sub { fill: var(--m-plate); }
+  .cu { fill: var(--m-cu); }
+  .sol { fill: var(--m-w); }
+  .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: .6; }
+  .tin { fill: var(--m-tin); }
+  .poly { fill: var(--m-poly); }
+  .ncf { fill: var(--m-pr); opacity: .9; }
+  .muf { fill: var(--m-nit); }
+  .ball { fill: var(--m-w); }
+  .top { transform-origin: 50% 0%; }
+  svg rect[data-s="void"] { fill: var(--surface); stroke: var(--line-strong); stroke-width: .8; stroke-dasharray: 3 2; }
+  svg rect[data-s="cu"] { fill: var(--m-cu); }
+  .lane { stroke: var(--m-cu); stroke-width: 1.2; fill: none; }
+  .lanes[data-s="on"] .lane, .fast[data-s="on"] .lane { stroke-dasharray: 6 5; animation: dash .9s linear infinite; }
+  .fast .lane { stroke-width: 4.5; }
+  .fast[data-s="on"] .lane { animation-duration: .35s; }
+  @keyframes dash { to { stroke-dashoffset: -22; } }
+  .frame { fill: var(--surface); stroke: var(--line); }
+  .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+  .big { font: 700 17px var(--font-sans); fill: var(--ink); }
+  .card-l { font-size: 12px; fill: var(--ink); }
+  .card-m { font-size: 12px; fill: var(--muted); }
+  .acc { fill: var(--accent) !important; font-weight: 600; }
+  .ybar { fill: var(--accent); }
+  .head rect { fill: var(--m-w); }
+  .head text { fill: var(--surface); font: 600 12px var(--font-sans); }
+  .arrowk { stroke: var(--bad); stroke-width: 2.5; fill: none; }
+  .wave { fill: none; stroke: var(--bad); stroke-width: 2; stroke-linecap: round; }
+  .lim line { stroke: var(--bad); stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .ghost { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 4 3; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">4-5</span><span>HBM</span><a href="./">애니메이션 목록</a></div>
+    <h1>HBM 적층과 본딩</h1>
+    <p class="lead">D램 다이를 수직으로 쌓고 TSV로 꿰어 GPU 바로 옆에 붙인 메모리가 HBM입니다. 패키지 구조와 대역폭, TSV를 만드는 순서, 다이를 붙이는 세 가지 방식을 차례로 봅니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">HBM 패키지 단면, TSV 공정, 적층 본딩 방식</title>
+        <defs>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+
+        <!-- ================= Mode 1: 2.5D package ================= -->
+        <g id="pkg" class="t">
+          <rect class="sub" x="40" y="372" width="620" height="26" rx="3"></rect>
+          <g id="balls"></g>
+          <g id="c4"></g>
+          <rect class="inter" x="70" y="334" width="560" height="26"></rect>
+          <g id="lanes" class="lanes t">
+            <path class="lane" d="M160,340 H330"></path><path class="lane" d="M150,345 H330"></path><path class="lane" d="M140,350 H330"></path><path class="lane" d="M130,355 H330"></path>
+            <path class="lane" d="M370,340 H540"></path><path class="lane" d="M370,345 H550"></path><path class="lane" d="M370,350 H560"></path><path class="lane" d="M370,355 H570"></path>
+          </g>
+          <g id="ubumps"></g>
+          <rect class="si" x="250" y="250" width="200" height="76" rx="2"></rect>
+          <text x="350" y="292" text-anchor="middle" style="font-weight: 700">GPU</text>
+          <g id="hbm-l"></g>
+          <g id="hbm-r"></g>
+          <text x="155" y="190" text-anchor="middle" style="font-weight: 700">HBM</text>
+          <text x="545" y="190" text-anchor="middle" style="font-weight: 700">HBM</text>
+          <text x="350" y="388" text-anchor="middle" class="lbl-s">패키지 기판</text>
+          <text x="350" y="351" text-anchor="middle" class="lbl-s halo">실리콘 인터포저</text>
+          <text id="pk-ub" class="lbl-s t" x="350" y="244" text-anchor="middle">아래 점: 마이크로 범프</text>
+          <path id="lead" class="t" d="M220,206 L676,90" style="stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none"></path>
+          <rect id="hl-l" class="t" x="86" y="200" width="138" height="130" rx="4" style="fill: none; stroke: var(--accent); stroke-width: 2"></rect>
+          <text id="pk-note" class="lbl-s t" x="40" y="430"></text>
+        </g>
+
+        <!-- right column: zoom of one stack -->
+        <g id="zoom" class="t">
+          <rect class="frame" x="676" y="28" width="196" height="390" rx="8"></rect>
+          <text x="686" y="46" class="lbl">HBM 한 스택 확대</text>
+          <g id="zstack"></g>
+          <text x="774" y="378" text-anchor="middle" class="lbl-s halo" style="fill: var(--ink); font-weight: 600">베이스 다이(로직)</text>
+          <text x="686" y="404" class="lbl-s">세로선 = TSV, 틈 = 마이크로 범프</text>
+          <text x="774" y="74" text-anchor="middle" class="lbl-s" style="fill: var(--ink); font-weight: 600">코어 D램 다이 8장(12·16장도)</text>
+        </g>
+
+        <!-- right column: bandwidth -->
+        <g id="bw" class="t">
+          <rect class="frame" x="676" y="28" width="196" height="390" rx="8"></rect>
+          <text x="686" y="46" class="lbl">대역폭 = 입출력 수 × 핀당 속도</text>
+          <text x="686" y="78" style="font-weight: 700">HBM4: 길을 넓힌다</text>
+          <g id="bw-hbm" class="lanes t"></g>
+          <text x="686" y="160" class="card-l">입출력 2,048개 × 8 Gb/s</text>
+          <text x="686" y="178" class="card-l acc">= 스택당 약 2 TB/s</text>
+          <text x="686" y="226" style="font-weight: 700">GDDR: 한 길을 빠르게</text>
+          <g id="bw-gddr" class="fast t">
+            <path class="lane" d="M705,240 V296"></path><path class="lane" d="M745,240 V296"></path><path class="lane" d="M785,240 V296"></path><path class="lane" d="M825,240 V296"></path>
+          </g>
+          <text x="686" y="316" class="card-l">입출력은 적게,</text>
+          <text x="686" y="334" class="card-l">핀당 속도는 극한까지</text>
+          <text x="686" y="368" class="card-m">HBM은 GPU 바로 옆이라</text>
+          <text x="686" y="386" class="card-m">길이 짧고 비트당 전력이 낮음</text>
+        </g>
+
+        <!-- right column: stack yield -->
+        <g id="yield" class="t">
+          <rect class="frame" x="676" y="28" width="196" height="390" rx="8"></rect>
+          <text x="686" y="46" class="lbl">쌓을수록 수율이 곱해진다</text>
+          <text x="686" y="78" class="card-l">스택 수율 ≈ (다이 수율)<tspan baseline-shift="super" font-size="9">단수</tspan></text>
+          <text x="686" y="100" class="card-m">계산 예시: 다이 수율 99%</text>
+          <text x="686" y="136" class="card-l">8단</text><rect class="ybar" x="720" y="124" width="129" height="16" rx="2"></rect><text x="852" y="136" text-anchor="end" class="card-l" style="fill: var(--surface); font-weight: 600">92%</text>
+          <text x="686" y="170" class="card-l">12단</text><rect class="ybar" x="720" y="158" width="124" height="16" rx="2"></rect><text x="840" y="170" text-anchor="end" class="card-l" style="fill: var(--surface); font-weight: 600">89%</text>
+          <text x="686" y="204" class="card-l">16단</text><rect class="ybar" x="720" y="192" width="119" height="16" rx="2"></rect><text x="835" y="204" text-anchor="end" class="card-l" style="fill: var(--surface); font-weight: 600">85%</text>
+          <text x="686" y="248" class="card-l">다이 한 장만 불량이어도</text>
+          <text x="686" y="266" class="card-l">스택 전체가 불량</text>
+          <text x="686" y="304" class="card-l acc">→ 쌓기 전 KGD 테스트로</text>
+          <text x="686" y="322" class="card-l acc">양품 다이만 쌓는다</text>
+          <text x="686" y="360" class="card-m">TSV·본딩 불량, 휘어짐,</text>
+          <text x="686" y="378" class="card-m">열 관리도 수율의 핵심</text>
+        </g>
+
+        <!-- ================= Mode 2: TSV process ================= -->
+        <g id="tsv" class="t">
+          <rect id="carrier" class="logic t" x="60" y="22" width="600" height="30" rx="3"></rect>
+          <text id="carrier-t" class="lbl-s t" x="360" y="41" text-anchor="middle" style="fill: var(--surface); font-weight: 600">임시 캐리어 웨이퍼(앞면을 붙여 받침)</text>
+          <rect id="t-si" class="si t top" x="60" y="150" width="600" height="230"></rect>
+          <rect id="t-ground" class="ghost t" x="60" y="322" width="600" height="58"></rect>
+          <text id="t-ground-t" class="lbl-s t" x="360" y="372" text-anchor="middle">갈아 낸 부분(웨이퍼 뒷면)</text>
+          <rect class="ox" x="60" y="128" width="600" height="22"></rect>
+          <g id="feol"></g>
+          <g id="holes"></g>
+          <rect id="overburden" class="cu t" x="60" y="116" width="600" height="12"></rect>
+          <g id="beol" class="t">
+            <rect class="ox" x="60" y="84" width="600" height="32"></rect>
+            <rect class="cu" x="80" y="104" width="250" height="6"></rect><rect class="cu" x="380" y="104" width="260" height="6"></rect>
+            <rect class="cu" x="120" y="92" width="200" height="6"></rect><rect class="cu" x="420" y="92" width="200" height="6"></rect>
+          </g>
+          <g id="fbump" class="t"></g>
+          <g id="bback" class="t"></g>
+          <text x="72" y="244" class="lbl-s">실리콘(D램 다이)</text>
+          <text id="t-feol" class="lbl-s t" x="72" y="164">트랜지스터·셀</text>
+          <text id="t-hole" class="lbl-s lbl-a t" x="378" y="240">깊고 좁은 구멍</text>
+          <text id="t-liner" class="lbl-s t" x="378" y="240">절연막 → 배리어 → 씨드</text>
+          <text id="t-cu" class="lbl-s t" x="378" y="240">구리로 채운 TSV</text>
+          <text id="t-ob" class="lbl-s halo t" x="672" y="126" text-anchor="end">넘친 구리</text>
+          <text id="t-beol" class="lbl-s halo t" x="72" y="80">배선층 + 앞면 범프</text>
+          <text id="t-back" class="lbl-s halo t" x="378" y="346">뒷면 범프</text>
+        </g>
+        <g id="tsv-card" class="t">
+          <rect class="frame" x="676" y="28" width="196" height="200" rx="8"></rect>
+          <text x="686" y="46" class="lbl">지금 하는 공정</text>
+          <text id="pc-name" class="big" x="686" y="82"></text>
+          <text id="pc-1" class="card-l" x="686" y="112"></text>
+          <text id="pc-2" class="card-l" x="686" y="132"></text>
+          <text id="pc-3" class="card-m" x="686" y="160"></text>
+          <text id="pc-4" class="card-m" x="686" y="180"></text>
+          <text id="pc-5" class="card-m" x="686" y="200"></text>
+        </g>
+
+        <!-- ================= Mode 3: bonding ================= -->
+        <g id="bond" class="t">
+          <rect id="muf-mold" class="muf t" x="166" y="186" width="388" height="154" rx="4"></rect>
+          <rect class="logic" x="150" y="340" width="420" height="24" rx="2"></rect>
+          <text x="360" y="357" text-anchor="middle" class="lbl-s" style="fill: var(--ink); font-weight: 600">베이스 다이</text>
+          <g id="films" class="t"></g>
+          <g id="mufs" class="t"></g>
+          <g id="bumps" class="t"></g>
+          <g id="dies"></g>
+          <g id="head" class="head t">
+            <rect x="170" y="150" width="380" height="30" rx="4"></rect>
+            <text x="360" y="170" text-anchor="middle">본딩 헤드: 열 + 압력</text>
+            <path class="arrowk" d="M220,128 V146" marker-end="url(#arr-r)"></path><path class="arrowk" d="M360,128 V146" marker-end="url(#arr-r)"></path><path class="arrowk" d="M500,128 V146" marker-end="url(#arr-r)"></path>
+          </g>
+          <g id="reflow" class="t">
+            <path class="wave" d="M130,330 q8,-10 0,-20 q-8,-10 0,-20 q8,-10 0,-20 q-8,-10 0,-20 q8,-10 0,-20 q-8,-10 0,-20"></path>
+            <path class="wave" d="M590,330 q8,-10 0,-20 q-8,-10 0,-20 q8,-10 0,-20 q-8,-10 0,-20 q8,-10 0,-20 q-8,-10 0,-20"></path>
+            <text x="360" y="172" text-anchor="middle" class="lbl" style="fill: var(--bad); font-weight: 600">리플로: 스택 전체를 한꺼번에 가열</text>
+          </g>
+          <g id="lim" class="lim t"><line x1="120" y1="192" x2="600" y2="192"></line><text x="604" y="196" class="lbl-s" style="fill: var(--bad)">높이 한도</text></g>
+          <rect id="ghost4" class="ghost t" x="180" y="196" width="360" height="144"></rect>
+          <text id="bd-note" class="lbl-s halo t" x="360" y="420" text-anchor="middle"></text>
+        </g>
+        <g id="bond-card" class="t">
+          <rect class="frame" x="676" y="28" width="196" height="390" rx="8"></rect>
+          <text id="cd-k" x="686" y="46" class="lbl"></text>
+          <text id="cd-t" class="big" x="686" y="80"></text>
+          <text x="686" y="112" class="card-m">붙이는 법</text>
+          <text id="cd-1" class="card-l" x="686" y="132"></text>
+          <text id="cd-2" class="card-l" x="686" y="150"></text>
+          <text x="686" y="184" class="card-m">장점</text>
+          <text id="cd-3" class="card-l" x="686" y="204"></text>
+          <text id="cd-4" class="card-l" x="686" y="222"></text>
+          <text x="686" y="256" class="card-m">과제</text>
+          <text id="cd-5" class="card-l" x="686" y="276"></text>
+          <text id="cd-6" class="card-l" x="686" y="294"></text>
+          <text x="686" y="328" class="card-m">주로 쓰는 곳</text>
+          <text id="cd-7" class="card-l acc" x="686" y="348"></text>
+          <text id="cd-8" class="card-l acc" x="686" y="366"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 다이 두께, 범프 크기, 단수는 이해를 돕도록 단순화했습니다. 수율 막대는 다이 수율 99%를 가정한 계산 예시입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>HBM은 핀 속도 대신 <b>입출력 수</b>로 대역폭을 키웁니다. HBM4는 2,048개 × 8 Gb/s로 스택당 약 2 TB/s이고, GPU 바로 옆에 붙어 비트당 전력도 낮습니다.</li>
+      <li>TSV는 <b>식각(보쉬) → 절연막·배리어·씨드 → 구리 도금 → CMP → 배선 → 뒷면 연마·노출·범프</b> 순서입니다.</li>
+      <li>본딩: TC-NCF는 한 장씩 필름과 열·압력으로(휘어짐 억제, 생산성·열은 불리), MR-MUF는 한꺼번에 리플로하고 액상 보호재로 채움(열 방출·생산성, SK하이닉스), 하이브리드 본딩은 범프 없이 구리끼리 직접(최소 간격, 평탄도·비용이 과제).</li>
+    </ul>
+    <p class="foot">원고 4-5를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-11 EDS(KGD), 3-12 패키징, 4-6 첨단 패키징, 4-7 AI 반도체와 메모리.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  const $ = (id) => document.getElementById(id);
+  const mk = (parent, tag, attrs, text) => { const n = document.createElementNS(NS, tag); Object.keys(attrs || {}).forEach((k) => n.setAttribute(k, attrs[k])); if (text != null) n.textContent = text; parent.appendChild(n); return n; };
+  const on = { s: "on" }, off = { s: "off" };
+  const all = (ids, v) => { const o = {}; ids.forEach((i) => { o[i] = v; }); return o; };
+  const txt = (t) => ({ text: t });
+
+  // ---------------- Package drawing
+  for (let x = 58; x <= 642; x += 29.2) mk($("balls"), "circle", { class: "ball", cx: x.toFixed(1), cy: 406, r: 6 });
+  for (let x = 88; x <= 612; x += 26.2) mk($("c4"), "circle", { class: "ball", cx: x.toFixed(1), cy: 365, r: 4 });
+  [[90, 220], [480, 610], [250, 450]].forEach(([a, b]) => { for (let x = a + 6; x < b - 4; x += 10) mk($("ubumps"), "rect", { class: "cu", x: x, y: 327, width: 5, height: 7 }); });
+  function drawStack(g, x0) {
+    mk(g, "rect", { class: "logic", x: x0, y: 308, width: 130, height: 18, rx: 2 });
+    for (let k = 1; k <= 8; k++) mk(g, "rect", { class: "si", x: x0, y: 308 - k * 13, width: 130, height: 11, rx: 1 });
+  }
+  drawStack($("hbm-l"), 90); drawStack($("hbm-r"), 480);
+  // zoom stack
+  const zs = $("zstack");
+  mk(zs, "rect", { class: "logic", x: 690, y: 356, width: 168, height: 30, rx: 3 });
+  const ZT = [712, 752, 798, 838];
+  for (let k = 1; k <= 8; k++) mk(zs, "rect", { class: "si", x: 690, y: 356 - k * 34, width: 168, height: 28, rx: 2 });
+  ZT.forEach((x) => mk(zs, "rect", { class: "cu", x: x - 2, y: 84, width: 4, height: 296 }));
+  for (let k = 1; k <= 8; k++) ZT.forEach((x) => mk(zs, "rect", { class: "cu", x: x - 5, y: 356 - (k - 1) * 34 - 6, width: 10, height: 6 }));
+  // bandwidth lanes
+  for (let i = 0; i < 32; i++) mk($("bw-hbm"), "path", { class: "lane", d: `M${(692 + i * 5.3).toFixed(1)},88 V146` });
+
+  // ---------------- TSV drawing
+  [90, 130, 250, 290, 410, 450, 570, 610].forEach((x) => mk($("feol"), "rect", { class: "poly", x: x, y: 141, width: 18, height: 9, rx: 1 }));
+  const TX = [200, 360, 520];
+  TX.forEach((cx, i) => {
+    mk($("holes"), "rect", { id: "h" + i, class: "t", x: cx - 14, y: 128, width: 28, height: 200 });
+    mk($("holes"), "rect", { id: "ln" + i, class: "ox t", x: cx - 14, y: 128, width: 28, height: 200 });
+    mk($("holes"), "rect", { id: "br" + i, class: "tin t", x: cx - 11, y: 128, width: 22, height: 197 });
+    mk($("holes"), "rect", { id: "in" + i, class: "t", x: cx - 9, y: 128, width: 18, height: 195 });
+    mk($("fbump"), "rect", { class: "cu", x: cx - 10, y: 66, width: 20, height: 18 });
+    mk($("fbump"), "rect", { class: "sol", x: cx - 10, y: 58, width: 20, height: 8, rx: 3 });
+    mk($("fbump"), "rect", { class: "cu", x: cx - 3, y: 84, width: 6, height: 44 });
+    mk($("bback"), "rect", { class: "cu", x: cx - 10, y: 328, width: 20, height: 10, rx: 2 });
+  });
+  const ids3 = (p) => [0, 1, 2].map((i) => p + i);
+
+  // ---------------- Bonding drawing
+  const BX = [240, 300, 360, 420, 480];
+  const dieTop = (k) => 340 - k * 36;          // with bump gaps
+  const dieTopH = (k) => 340 - k * 24;         // hybrid (no gap)
+  for (let k = 1; k <= 6; k++) {
+    const y = k <= 4 ? dieTop(k) : dieTopH(k);
+    const g = mk($("dies"), "g", { id: "die" + k, class: "t" });
+    mk(g, "rect", { class: "si", x: 180, y: y, width: 360, height: 24, rx: 2 });
+    BX.forEach((x) => mk(g, "rect", { class: "cu", x: x - 2, y: y, width: 4, height: 24 }));
+    const pads = mk(g, "g", { id: "pads" + k, class: "t" });
+    BX.forEach((x) => { mk(pads, "rect", { class: "cu", x: x - 7, y: y + 20, width: 14, height: 4 }); });
+    if (k <= 4) {
+      const gt = y + 24;
+      mk($("films"), "rect", { class: "ncf", x: 180, y: gt, width: 360, height: 12 });
+      mk($("mufs"), "rect", { class: "muf", x: 180, y: gt, width: 360, height: 12 });
+      BX.forEach((x) => { mk($("bumps"), "rect", { class: "sol", x: x - 5, y: gt + 6, width: 10, height: 6, rx: 2 }); mk($("bumps"), "rect", { class: "cu", x: x - 5, y: gt, width: 10, height: 6 }); });
+    }
+  }
+
+  // ---------------- Shared state helpers
+  const groups = ["pkg", "zoom", "bw", "yield", "tsv", "tsv-card", "bond", "bond-card"];
+  const only = (ids) => { const o = all(groups, off); ids.forEach((i) => { o[i] = on; }); return o; };
+
+  // ---------------- Mode 1: package and bandwidth
+  const pkg = {
+    id: "package", label: "패키지·대역폭",
+    base: () => Object.assign(only(["pkg"]), all(["lanes", "lead", "hl-l", "pk-ub"], off), { "pk-note": txt("") }),
+    steps: [
+      { short: "2.5D 패키지", title: "GPU 바로 옆에 HBM을 붙인 2.5D 패키지", cmd: "구조",
+        text: `HBM은 GPU(또는 AI 가속기) 바로 옆에 놓입니다. 둘은 <b>실리콘 인터포저</b>라는 얇은 실리콘 판 위에 나란히 올라가 아주 가는 배선으로 연결되고, 인터포저는 다시 패키지 기판에 붙습니다. 칩을 옆으로 나란히 놓고 아래 판으로 잇는다고 해서 2.5D 패키지라고 부릅니다(4-6).`,
+        set: { "pk-ub": on } },
+      { short: "한 스택 확대", title: "한 스택: 베이스 다이 위에 D램 다이를 쌓는다", cmd: "적층",
+        text: `맨 아래 <b>베이스 다이</b>(입출력·테스트·전원 회로가 든 로직 다이) 위에 코어 D램 다이를 8·12·16장 쌓습니다. 각 다이는 수십 μm로 얇게 갈아 내고, 다이를 관통하는 구리 기둥 <b>TSV</b>와 다이 사이의 <b>마이크로 범프</b>로 위아래를 잇습니다.`,
+        set: { zoom: on, lead: on, "hl-l": on } },
+      { short: "대역폭: 길을 넓힌다", title: "대역폭: 핀 속도 대신 길의 수를 늘린다", cmd: "대역폭",
+        text: `대역폭은 <b>입출력 수 × 핀당 속도</b>입니다. HBM4는 입출력 2,048개에 핀당 8 Gb/s(JEDEC 표준)라 스택당 약 2 TB/s입니다(2,048 × 8 = 16,384 Gb/s ≈ 2,048 GB/s). 입출력은 적고 핀 속도를 극한까지 올리는 GDDR과 반대 전략이고, 인터포저 위의 짧은 길 덕분에 비트당 전력도 낮습니다.`,
+        set: { zoom: off, lead: off, "hl-l": off, bw: on, lanes: on, "bw-hbm": on, "bw-gddr": on } },
+      { short: "쌓을수록 수율이 곱해진다", title: "수율: 한 장만 불량이어도 스택 전체가 불량", cmd: "수율",
+        text: `다이 한 장만 불량이어도 스택 전체를 버려야 해서 수율이 단수만큼 곱해집니다. 다이 수율이 99%라도 8단이면 약 92%, 16단이면 약 85%입니다(계산 예시). 그래서 쌓기 전에 양품 다이만 골라내는 <b>KGD 테스트</b>(3-11)와 TSV·본딩 불량, 휘어짐, 열 관리가 HBM 수율의 핵심입니다.`,
+        set: { bw: off, lanes: off, yield: on } },
+    ],
+  };
+
+  // ---------------- Mode 2: TSV process (via middle)
+  const card = (name, l1, l2, m1, m2, m3) => ({ "pc-name": txt(name), "pc-1": txt(l1 || ""), "pc-2": txt(l2 || ""), "pc-3": txt(m1 || ""), "pc-4": txt(m2 || ""), "pc-5": txt(m3 || "") });
+  const tsv = {
+    id: "tsv", label: "TSV 만들기",
+    base: () => Object.assign(only(["tsv", "tsv-card"]),
+      all(["carrier", "carrier-t", "t-ground", "t-ground-t", "overburden", "beol", "fbump", "bback", "t-hole", "t-liner", "t-cu", "t-ob", "t-beol", "t-back"], off),
+      all(ids3("h").concat(ids3("ln"), ids3("br"), ids3("in")), off), { "t-si": { style: { transform: "scaleY(1)" } }, "t-feol": on }),
+    steps: [
+      { short: "트랜지스터를 만든 다이", title: "출발: 트랜지스터까지 만든 웨이퍼", cmd: "출발",
+        text: `D램 셀과 트랜지스터를 만든 웨이퍼에서 시작합니다(그림은 위가 앞면). TSV를 트랜지스터 다음, 배선 전에 만드는 방식을 <b>비아 미들</b>이라고 합니다. 만드는 시점에 따라 비아 퍼스트·미들·라스트로 나눕니다.`,
+        set: card("출발", "트랜지스터 완성 후", "배선 전(비아 미들)", "TSV 만드는 시점에 따라", "비아 퍼스트·미들·라스트") },
+      { short: "깊은 구멍 식각(보쉬)", title: "1. 깊고 좁은 구멍을 판다", cmd: "식각",
+        text: `실리콘에 깊고 좁은 구멍을 식각합니다. 식각과 옆벽 보호막 증착을 빠르게 번갈아 하는 <b>보쉬 공정</b>(3-6)으로 곧게 내려갑니다. 구멍은 다이를 끝까지 뚫지 않고, 나중에 뒷면을 갈아 드러낼 깊이까지만 팝니다.`,
+        set: Object.assign(all(ids3("h"), { s: "void" }), { "t-hole": on }, card("식각", "보쉬 공정(DRIE)", "식각 ↔ 옆벽 보호 반복", "옆벽에 물결 모양 자국", "(스캘럽)이 남는다")) },
+      { short: "절연막·배리어·씨드", title: "2. 절연막, 배리어, 씨드를 입힌다", cmd: "증착",
+        text: `구멍 벽에 먼저 <b>절연막</b>(산화막)을 입혀 구리와 실리콘을 떼어 놓고, 구리가 실리콘으로 번지지 못하게 막는 <b>배리어</b>, 도금이 시작될 얇은 구리 <b>씨드</b>를 차례로 입힙니다. 깊은 구멍 바닥까지 고르게 입히는 것이 어렵습니다.`,
+        set: Object.assign(all(ids3("ln"), on), all(ids3("br"), on), all(ids3("in"), { s: "void" }), { "t-hole": off, "t-liner": on },
+          card("증착", "절연막(CVD)", "배리어·씨드(PVD)", "구리가 실리콘으로", "번지면 소자가 망가짐")) },
+      { short: "구리 전해 도금", title: "3. 구리를 도금해 구멍을 채운다", cmd: "도금",
+        text: `씨드를 전극 삼아 <b>구리 전해 도금</b>으로 구멍을 아래부터 채웁니다. 가운데에 빈 틈(보이드)이 남지 않게 바닥부터 차오르도록 약품과 전류를 조절합니다. 구멍을 다 채우려면 윗면에도 구리가 두껍게 덮입니다.`,
+        set: Object.assign(all(ids3("in"), { s: "cu" }), { overburden: on, "t-ob": on, "t-liner": off, "t-cu": on }, card("도금", "구리 전해 도금(ECP)", "바닥부터 차오르게", "가운데 빈 틈(보이드)은", "저항·신뢰성 불량")) },
+      { short: "CMP", title: "4. 넘친 구리를 갈아 낸다", cmd: "CMP",
+        text: `윗면에 넘친 구리를 <b>CMP</b>(화학·기계 연마)로 갈아 내 평평하게 만듭니다. 이제 TSV 윗면만 드러나 배선과 이어질 준비가 됩니다.`,
+        set: Object.assign({ overburden: off, "t-ob": off }, card("CMP", "화학·기계 연마", "넘친 구리 제거·평탄화")) },
+      { short: "배선·앞면 범프", title: "5. 배선층과 앞면 범프를 만든다", cmd: "배선",
+        text: `그 위에 금속 배선층(BEOL)을 쌓아 TSV를 회로와 잇고, 맨 위에 다른 다이와 붙을 <b>앞면 범프</b>(구리 기둥 + 솔더)를 만듭니다.`,
+        set: Object.assign({ beol: on, fbump: on, "t-beol": on }, card("배선", "금속 배선(BEOL)", "앞면 범프 형성")) },
+      { short: "뒷면 연마·노출·범프", title: "6. 뒷면을 갈아 TSV 끝을 드러낸다", cmd: "박형화",
+        text: `앞면을 임시 캐리어 웨이퍼에 붙여 받친 뒤 뒷면을 <b>수십 μm 두께</b>까지 갈아 내면(백그라인딩, 3-11) TSV 끝이 드러납니다. 여기에 <b>뒷면 범프</b>를 만들면 위아래로 이어지는 다이가 완성됩니다. 얇을수록 휘어지고 깨지기 쉬워 다루기가 어렵습니다.`,
+        set: Object.assign({ carrier: on, "carrier-t": on, "t-si": { style: { transform: "scaleY(" + (172 / 230).toFixed(4) + ")" } }, "t-ground": on, "t-ground-t": on, bback: on, "t-back": on, "t-cu": off },
+          card("박형화", "캐리어에 붙이고", "뒷면 연마(백그라인딩)", "TSV 끝 노출 →", "뒷면 범프 형성")) },
+    ],
+  };
+
+  // ---------------- Mode 3: bonding
+  const bc = (k, t, a, b, c, d, e, f, g, h) => ({ "cd-k": txt(k), "cd-t": txt(t), "cd-1": txt(a), "cd-2": txt(b), "cd-3": txt(c), "cd-4": txt(d), "cd-5": txt(e), "cd-6": txt(f), "cd-7": txt(g), "cd-8": txt(h) });
+  const dieIds = [1, 2, 3, 4, 5, 6].map((k) => "die" + k), padIds = [1, 2, 3, 4, 5, 6].map((k) => "pads" + k);
+  const hybridDown = () => { const o = {}; for (let k = 1; k <= 4; k++) o["die" + k] = { s: "on", style: { transform: `translateY(${12 * k}px)` } }; return o; };
+  const bond = {
+    id: "bond", label: "본딩 3가지",
+    base: () => Object.assign(only(["bond", "bond-card"]), all(["films", "mufs", "muf-mold", "head", "reflow", "lim", "ghost4", "die5", "die6"], off),
+      all(padIds, off), { bumps: on, die1: on, die2: on, die3: on, die4: on, "bd-note": txt("") }, bc("", "", "", "", "", "", "", "", "", "")),
+    steps: [
+      { short: "다이 사이를 어떻게 붙일까", title: "다이 사이를 붙이는 방법이 경쟁력이다", cmd: "문제",
+        text: `다이마다 TSV 끝에 범프가 달려 있고, 위아래 다이의 범프를 정확히 맞대어 붙여야 합니다. 다이 사이 틈을 무엇으로 채우고 어떻게 열을 가하느냐에 따라 <b>TC-NCF</b>, <b>MR-MUF</b>, <b>하이브리드 본딩</b>으로 나뉘고, 이 선택이 열 방출, 생산성, 쌓을 수 있는 단수를 가릅니다.`,
+        set: { "bd-note": txt("다이 사이 틈과 범프(구리 기둥 + 솔더)") } },
+      { short: "TC-NCF", title: "TC-NCF: 필름을 깔고 한 장씩 눌러 붙인다", cmd: "TC-NCF",
+        text: `다이 사이에 <b>비전도성 필름(NCF)</b>을 깔고, 본딩 헤드로 한 장씩 열과 압력을 가해 붙입니다(열압착, TC). 눌러 가며 붙이니 얇은 칩의 휘어짐을 잡기 좋고 오래 검증된 방식입니다. 다만 한 장씩 오래 눌러야 해 생산성이 낮고, 필름이 열 방출에 불리합니다.`,
+        set: Object.assign({ films: on, head: on, "bd-note": txt("한 장 올릴 때마다 헤드로 누른다") },
+          bc("방식 1", "TC-NCF", "필름 + 열압착,", "한 장씩", "휘어짐 억제,", "오래 검증됨", "생산성이 낮고", "필름이 열 방출에 불리", "삼성전자·마이크론", "(주로 써 온 방식)")) },
+      { short: "MR-MUF ①: 한꺼번에 리플로", title: "MR-MUF ①: 쌓아 두고 한꺼번에 녹여 붙인다", cmd: "MR-MUF",
+        text: `다이를 임시로 고정해 쌓아 둔 뒤, 스택 전체를 한꺼번에 가열해 범프의 솔더를 녹여 붙입니다(<b>매스 리플로</b>). 한 장씩 누르지 않으니 생산성이 높습니다.`,
+        set: Object.assign({ films: off, head: off, reflow: on, "bd-note": txt("필름 없이 쌓은 뒤 한 번에 가열") },
+          bc("방식 2", "MR-MUF", "한꺼번에 리플로", "+ 액상 보호재", "", "", "", "", "", "")) },
+      { short: "MR-MUF ②: 액상 보호재", title: "MR-MUF ②: 틈을 액상 보호재로 한 번에 채운다", cmd: "MR-MUF",
+        text: `이어서 다이 사이 틈과 둘레를 <b>액상 보호재</b>로 한 번에 채워 굳힙니다(몰디드 언더필). 보호재가 열을 잘 빼내 열 방출에 유리합니다. SK하이닉스 HBM 경쟁력의 핵심으로 꼽히며, 얇은 칩의 휘어짐을 잡는 기술과 열 방출이 좋은 새 보호재를 더한 <b>어드밴스드 MR-MUF</b>를 12단·16단에 적용했습니다.`,
+        set: Object.assign({ reflow: off, mufs: on, "muf-mold": on, "bd-note": txt("틈과 둘레를 보호재로 채움") },
+          bc("방식 2", "MR-MUF", "한꺼번에 리플로", "+ 액상 보호재", "열 방출,", "생산성", "얇은 칩의", "휘어짐 제어", "SK하이닉스", "(어드밴스드 MR-MUF)")), hl: ["mufs"] },
+      { short: "하이브리드 본딩", title: "하이브리드 본딩: 범프 없이 맞붙인다", cmd: "하이브리드",
+        text: `범프를 없애고 다이 표면의 <b>구리 패드와 절연막을 직접</b> 맞붙입니다. 다이 사이 간격이 거의 없어 연결 밀도와 열 특성이 좋습니다. 대신 표면이 나노미터 수준으로 평평하고(CMP, 3-10) 먼지 하나 없이 깨끗해야 하며, 정렬이 정확해야 하고 비용이 큽니다.`,
+        set: Object.assign(hybridDown(), all(padIds.slice(0, 4), on), { mufs: off, "muf-mold": off, bumps: off, "bd-note": txt("구리–구리, 절연막–절연막 직접 접합") },
+          bc("방식 3", "하이브리드 본딩", "범프 없이 Cu·절연막", "직접 접합", "최소 간격, 고밀도,", "열 특성", "평탄도·청정도·", "정렬·비용", "차세대 HBM", "(16단 이상 후보)")) },
+      { short: "높이 한도 안에 더 많이", title: "같은 높이 한도 안에 더 많이 쌓는다", cmd: "비교",
+        text: `JEDEC은 패키지 높이를 정해 둡니다(HBM4는 775 μm로 완화). 단수가 늘면 다이를 더 얇게 갈아야 하고, 얇을수록 휘어짐과 깨짐, 열 문제가 커집니다. 범프 틈이 사라지면 같은 높이에 다이를 더 넣을 수 있어(점선 = 범프로 쌓은 높이), 16단 이상·차세대 HBM에서 하이브리드 본딩이 주목받습니다.`,
+        set: Object.assign({ die5: on, die6: on, pads5: on, pads6: on, lim: on, ghost4: on, "bd-note": txt("점선: 범프로 4장 쌓은 높이 → 같은 높이에 6장") },
+          bc("비교", "높이 한도", "HBM4 패키지 높이", "775 μm(JEDEC)", "틈이 없으면", "같은 높이에 더 많이", "단수↑ → 다이↓ 두께", "→ 휘어짐·깨짐·열", "16단 이상·차세대", "HBM에서 주목")) },
+    ],
+  };
+
+  StepPlayer.create({ root: $("app"), modes: [pkg, tsv, bond], dur: 6500 });
+})();
+</script>
+</body>
+</html>

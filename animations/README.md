@@ -5,9 +5,13 @@
 | 파일 | 단원 | 내용 |
 |---|---|---|
 | `index.html` | | 목록 |
+| `cmos-inverter.html` | 2-4 | CMOS 인버터: 동작·전력·단면과 래치업(모드 3개) |
 | `dram-cell.html` | 2-10 | D램 셀 읽기·쓰기·리프레시(모드 3개, 저장 값 1·0 전환) |
+| `nand-ispp.html` | 2-11 | 낸드 ISPP·쓰기 금지·읽기·분포 변화(모드 4개) |
 | `dram-process.html` | 3-15 | D램 공정 흐름 15단계 |
 | `nand-process.html` | 3-16 | 3D 낸드 공정 흐름 15단계 |
+| `dram-evolution.html` | 4-3 | D램 셀 면적·구조·세대(모드 3개) |
+| `hbm-stack.html` | 4-5 | HBM 패키지·TSV·본딩(모드 3개) |
 | `player.js`, `player.css` | | 공통 플레이어와 스타일 |
 | `catalog.json` | | 사이트가 단원 코드로 애니메이션을 찾는 목록 |
 

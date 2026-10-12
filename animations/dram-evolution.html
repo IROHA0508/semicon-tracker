@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D램 셀 구조 진화</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .si { fill: var(--m-si); }
+  .sin { fill: var(--m-si-n); }
+  .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: .6; }
+  .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: .6; }
+  .poly { fill: var(--m-poly); }
+  .w { fill: var(--m-w); }
+  .tin { fill: var(--m-tin); }
+  .plate { fill: var(--m-plate); }
+  .hk { fill: var(--m-hk); }
+  .chan { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 5 4; }
+  .grid line { stroke: var(--line); stroke-width: 1; }
+  .cellbox { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+  .cellbox.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.2; }
+  .cap { fill: none; stroke: var(--m-tin); stroke-width: 3; }
+  .pillar { fill: var(--ink); }
+  .wlv { stroke: var(--m-w); stroke-width: 6; opacity: .45; }
+  .blh { stroke: var(--low); stroke-width: 4; opacity: .45; }
+  .act { fill: var(--m-si); stroke: var(--m-si-line); }
+  .dim { stroke: var(--accent); stroke-width: 1.4; fill: none; }
+  .dimt { fill: var(--accent); font: 600 12px var(--font-mono); }
+  .count-big { font: 700 22px var(--font-sans); fill: var(--ink); }
+  .frame { fill: var(--surface); stroke: var(--line); }
+  .card-l { font-size: 12px; fill: var(--ink); }
+  .card-m { font-size: 11px; fill: var(--muted); }
+  .big { font: 700 16px var(--font-sans); fill: var(--ink); }
+  .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+  .node circle { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .node text { font: 700 14px var(--font-mono); fill: var(--ink); }
+  .node[data-s="hot"] circle { fill: var(--accent); stroke: var(--accent); }
+  .euv { fill: var(--low-soft); stroke: var(--low); stroke-width: 1; }
+  .shrink { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.2; }
+  .call { fill: var(--accent); font-size: 12px; font-weight: 600; }
+  .lead-l { stroke: var(--accent); stroke-width: 1.2; }
+  .bondl { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .thumb-l { font: 600 13px var(--font-sans); fill: var(--ink); }
+  .thumb-s { font-size: 11px; fill: var(--muted); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">4-3</span><span>D램 심화</span><a href="./">애니메이션 목록</a></div>
+    <h1>D램 셀 구조 진화</h1>
+    <p class="lead">D램 셀 하나는 트랜지스터 1개와 커패시터 1개(1T1C)입니다. 같은 면적에 셀을 더 넣으려고 셀 면적을 6F²에서 4F²로 줄이고, 트랜지스터를 묻었다가 세우고, 끝내 셀을 눕혀 쌓는 방향으로 가고 있습니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">D램 셀 면적, 단면 구조, 세대 이름</title>
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+        </defs>
+
+        <!-- ================= Mode 1: cell area (top view) ================= -->
+        <g id="area" class="t">
+          <g id="ar-a" class="t">
+            <text x="60" y="100" style="font-weight: 700; font-size: 15px">6F²</text>
+            <text x="98" y="100" class="lbl">셀 하나 = 3F × 2F</text>
+            <g id="grid-a" class="grid"></g>
+            <g id="cells-a" class="t"></g>
+            <text id="cnt-a" class="count-big t" x="204" y="326" text-anchor="middle">12개</text>
+          </g>
+          <g id="f-def" class="t">
+            <path class="dim" d="M60,132 V126 H84 V132"></path>
+            <text class="dimt" x="72" y="122" text-anchor="middle">F</text>
+            <text x="60" y="360" class="lbl">F = 그 세대에서 그릴 수 있는 가장 가는 선의 폭(최소 선폭)</text>
+            <text x="60" y="380" class="lbl">칸 하나 = F × F = 1F²</text>
+          </g>
+          <g id="ar-b" class="t">
+            <text x="480" y="100" style="font-weight: 700; font-size: 15px">4F²</text>
+            <text x="518" y="100" class="lbl">셀 하나 = 2F × 2F</text>
+            <g id="grid-b" class="grid"></g>
+            <g id="lines-b"></g>
+            <g id="cells-b"></g>
+            <text id="cnt-b" class="count-big" x="624" y="326" text-anchor="middle">18개</text>
+            <text x="624" y="350" text-anchor="middle" class="lbl" style="fill: var(--accent); font-weight: 600">같은 면적에 1.5배</text>
+          </g>
+          <path id="ar-arrow" class="t" d="M368,212 H452" style="stroke: var(--accent); stroke-width: 2.5; fill: none" marker-end="url(#arr-a)"></path>
+          <g id="ar-legend" class="t">
+            <circle cx="66" cy="404" r="7" class="cap"></circle><text x="80" y="408" class="lbl-s">커패시터</text>
+            <circle cx="150" cy="404" r="4" class="pillar"></circle><text x="160" y="408" class="lbl-s">세로 채널(4F²)</text>
+            <line x1="250" y1="404" x2="270" y2="404" class="wlv"></line><text x="276" y="408" class="lbl-s">워드라인</text>
+            <line x1="336" y1="404" x2="356" y2="404" class="blh"></line><text x="362" y="408" class="lbl-s">비트라인</text>
+          </g>
+        </g>
+
+        <!-- ================= Mode 2: structures (cross-sections) ================= -->
+        <g id="struct" class="t">
+          <!-- A: 6F² + BCAT -->
+          <g id="st-a" class="t" style="transform-box: view-box; transform-origin: 0 0">
+            <rect class="plate" x="40" y="58" width="600" height="162"></rect>
+            <rect class="si" x="40" y="300" width="600" height="120"></rect>
+            <rect class="ox" x="40" y="300" width="60" height="70"></rect><rect class="ox" x="580" y="300" width="60" height="70"></rect>
+            <rect class="sin" x="100" y="300" width="90" height="14"></rect><rect class="sin" x="220" y="300" width="200" height="14"></rect><rect class="sin" x="450" y="300" width="130" height="14"></rect>
+            <rect class="ox" x="190" y="300" width="30" height="62"></rect><rect class="ox" x="420" y="300" width="30" height="62"></rect>
+            <rect class="w" x="194" y="330" width="22" height="28"></rect><rect class="w" x="424" y="330" width="22" height="28"></rect>
+            <rect class="nit" x="194" y="301" width="22" height="29"></rect><rect class="nit" x="424" y="301" width="22" height="29"></rect>
+            <path class="chan" d="M184,306 V368 H226 V306"></path><path class="chan" d="M414,306 V368 H456 V306"></path>
+            <rect class="ox" x="40" y="220" width="600" height="80"></rect>
+            <rect class="poly" x="305" y="262" width="30" height="38"></rect>
+            <rect class="w" x="285" y="236" width="70" height="26"></rect><rect class="nit" x="285" y="226" width="70" height="10"></rect>
+            <rect class="poly" x="130" y="230" width="30" height="70"></rect><rect class="poly" x="500" y="230" width="30" height="70"></rect>
+            <rect class="w" x="115" y="220" width="60" height="10"></rect><rect class="w" x="485" y="220" width="60" height="10"></rect>
+            <rect class="hk" x="121" y="66" width="48" height="154"></rect><rect class="tin" x="125" y="70" width="40" height="150"></rect><rect class="plate" x="131" y="62" width="28" height="152"></rect>
+            <rect class="hk" x="491" y="66" width="48" height="154"></rect><rect class="tin" x="495" y="70" width="40" height="150"></rect><rect class="plate" x="501" y="62" width="28" height="152"></rect>
+            <text x="320" y="392" text-anchor="middle" class="lbl halo" style="fill: var(--ink)">매립 워드라인: 채널이 홈을 따라 U자로(BCAT)</text>
+            <text x="320" y="140" text-anchor="middle" class="lbl halo" style="fill: var(--ink)">커패시터: 위로 높게 세운 실린더</text>
+            <text x="320" y="252" text-anchor="middle" class="lbl-s" style="fill: var(--surface); font-weight: 600">비트라인</text>
+          </g>
+          <!-- B: 4F² VG / VCT -->
+          <g id="st-b" class="t" style="transform-box: view-box; transform-origin: 0 0">
+            <rect class="plate" x="40" y="58" width="600" height="168"></rect>
+            <rect class="ox" x="40" y="228" width="600" height="128"></rect>
+            <g id="vg-parts"></g>
+            <rect class="w" x="60" y="340" width="540" height="16"></rect>
+            <line class="bondl" x1="40" y1="364" x2="640" y2="364"></line>
+            <rect class="ox" x="40" y="368" width="600" height="52"></rect>
+            <g id="peri-b"></g>
+            <text x="620" y="352" text-anchor="end" class="lbl-s" style="fill: var(--surface); font-weight: 600">매립 비트라인</text>
+            <text x="320" y="140" text-anchor="middle" class="lbl halo" style="fill: var(--ink)">커패시터: 여전히 위로 높게</text>
+            <text x="626" y="300" text-anchor="end" class="lbl-s halo" style="fill: var(--ink)">세로 채널 + 옆 게이트</text>
+            <text x="340" y="384" text-anchor="middle" class="lbl-s" style="fill: var(--accent); font-weight: 600">웨이퍼 본딩 ↑ 아래 웨이퍼: 주변 회로(셀 아래)</text>
+          </g>
+          <!-- C: 3D DRAM -->
+          <g id="st-c" class="t" style="transform-box: view-box; transform-origin: 0 0">
+            <rect class="ox" x="40" y="58" width="600" height="362"></rect>
+            <rect class="w" x="60" y="66" width="22" height="330"></rect>
+            <g id="layers3d"></g>
+            <text x="71" y="412" text-anchor="middle" class="lbl-s halo" style="fill: var(--ink)">세로 비트라인</text>
+            <text x="200" y="412" text-anchor="middle" class="lbl-s halo" style="fill: var(--ink)">트랜지스터(눕힘)</text>
+            <text x="440" y="412" text-anchor="middle" class="lbl-s halo" style="fill: var(--ink)">커패시터(눕힘)</text>
+          </g>
+          <g id="thumbs" class="t">
+            <text class="thumb-l" x="24" y="250">6F² + BCAT</text><text class="thumb-s" x="24" y="268">지금 양산 중</text>
+            <text class="thumb-l" x="308" y="250">4F² VG·VCT</text><text class="thumb-s" x="308" y="268">10nm 이하 세대 후보</text>
+            <text class="thumb-l" x="592" y="250">3D D램</text><text class="thumb-s" x="592" y="268">연구·개발</text>
+            <text class="lbl" x="24" y="320">묻고(BCAT) → 세우고(VG) → 눕혀 쌓는다(3D)</text>
+          </g>
+        </g>
+        <g id="st-card" class="t">
+          <rect class="frame" x="664" y="28" width="208" height="392" rx="8"></rect>
+          <text x="674" y="46" class="lbl">이 구조는</text>
+          <text id="sc-t" class="big" x="674" y="76"></text>
+          <text x="674" y="108" class="card-m">셀 면적</text><text id="sc-1" class="card-l" x="674" y="126"></text>
+          <text x="674" y="156" class="card-m">채널</text><text id="sc-2" class="card-l" x="674" y="174"></text>
+          <text x="674" y="204" class="card-m">커패시터</text><text id="sc-3" class="card-l" x="674" y="222"></text>
+          <text x="674" y="252" class="card-m">주변 회로</text><text id="sc-4" class="card-l" x="674" y="270"></text>
+          <text x="674" y="300" class="card-m">상태</text><text id="sc-5" class="card-l" x="674" y="318" style="fill: var(--accent); font-weight: 600"></text>
+          <text id="sc-6" class="card-m" x="674" y="356"></text>
+          <text id="sc-7" class="card-m" x="674" y="374"></text>
+          <text id="sc-8" class="card-m" x="674" y="392"></text>
+        </g>
+
+        <!-- ================= Mode 3: generations ================= -->
+        <g id="gen" class="t">
+          <rect id="euv" class="euv t" x="380" y="232" width="262" height="36" rx="18"></rect>
+          <text id="euv-t" class="lbl-s t" x="511" y="226" text-anchor="middle" style="fill: var(--low); font-weight: 600">EUV(SK하이닉스는 1a부터, 2021년)</text>
+          <line class="axis" x1="60" y1="250" x2="640" y2="250"></line>
+          <g id="nodes"></g>
+          <g id="squares" class="t"></g>
+          <text id="sq-t" class="lbl-s t" x="60" y="104">셀이 작아짐(개념)</text>
+          <g id="c-1c" class="t"><line class="lead-l" x1="615" y1="296" x2="615" y2="330"></line><text class="call" x="640" y="346" text-anchor="end">1c 16Gb DDR5 세계 첫 개발</text><text class="lbl-s" x="640" y="364" text-anchor="end">SK하이닉스 발표, 2024년 8월</text></g>
+          <g id="c-1b" class="t"><line class="lead-l" x1="510" y1="296" x2="510" y2="384"></line><text class="call" x="360" y="400">HBM3E·HBM4는 1b 기반</text><text class="lbl-s" x="360" y="418">안정성이 중요한 제품은 검증된 세대로</text></g>
+          <g id="c-next" class="t"><path d="M650,250 H700" style="stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; fill: none" marker-end="url(#arr-a)"></path></g>
+        </g>
+        <g id="gen-card" class="t">
+          <rect class="frame" x="712" y="28" width="160" height="392" rx="8"></rect>
+          <text id="gc-t" class="lbl" x="722" y="46"></text>
+          <text id="gc-1" class="card-l" x="722" y="78"></text><text id="gc-2" class="card-l" x="722" y="96"></text>
+          <text id="gc-3" class="card-l" x="722" y="130"></text><text id="gc-4" class="card-l" x="722" y="148"></text>
+          <text id="gc-5" class="card-l" x="722" y="182"></text><text id="gc-6" class="card-l" x="722" y="200"></text>
+          <text id="gc-7" class="card-l" x="722" y="234"></text><text id="gc-8" class="card-l" x="722" y="252"></text>
+          <text id="gc-9" class="card-m" x="722" y="300"></text><text id="gc-10" class="card-m" x="722" y="318"></text>
+          <text id="gc-11" class="card-m" x="722" y="336"></text><text id="gc-12" class="card-m" x="722" y="354"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 칸 수와 구조의 비율은 단순화했고, 세대별 셀 크기 막대는 크기 변화의 방향만 보여 줍니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>지금 셀은 <b>6F²</b>(3F × 2F)입니다. 채널을 세우고 게이트를 옆에 두는 <b>4F² VG</b>(삼성전자는 VCT라고 부름)는 같은 면적에 약 1.5배를 넣습니다. <b>3D D램</b>은 셀을 눕혀 층으로 쌓아 면적 대신 층수로 용량을 늘립니다.</li>
+      <li>셀이 작아질수록 <b>커패시터 용량</b>, <b>누설과 리프레시</b>, <b>배선 저항</b>이 어려워집니다. 고종횡비 커패시터·고유전율 막(ALD), 매립 채널(BCAT), 주변 회로 HKMG, EUV로 대응해 왔습니다.</li>
+      <li>1x·1y·1z·1a·1b·1c는 10nm급 1~6세대의 <b>이름</b>이지 실제 선폭이 아닙니다. 셀이 촘촘해지면 로우해머 같은 신뢰성 문제도 커집니다(4-9).</li>
+    </ul>
+    <p class="foot">원고 4-3을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-10 D램 동작 심화, 3-15 D램 공정 흐름, 4-5 HBM, 4-7 AI 반도체와 메모리.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  const $ = (id) => document.getElementById(id);
+  const mk = (parent, tag, attrs, text) => { const n = document.createElementNS(NS, tag); Object.keys(attrs || {}).forEach((k) => n.setAttribute(k, attrs[k])); if (text != null) n.textContent = text; parent.appendChild(n); return n; };
+  const on = { s: "on" }, off = { s: "off" };
+  const all = (ids, v) => { const o = {}; ids.forEach((i) => { o[i] = v; }); return o; };
+  const txt = (t) => ({ text: t });
+
+  // ---------------- Area: 12F × 6F grids
+  const F = 24;
+  function grid(g, x0, y0) {
+    for (let i = 0; i <= 12; i++) mk(g, "line", { x1: x0 + i * F, y1: y0, x2: x0 + i * F, y2: y0 + 6 * F });
+    for (let j = 0; j <= 6; j++) mk(g, "line", { x1: x0, y1: y0 + j * F, x2: x0 + 12 * F, y2: y0 + j * F });
+  }
+  grid($("grid-a"), 60, 140); grid($("grid-b"), 480, 140);
+  // 6F²: 4 × 3 cells of 3F × 2F; slanted active, capacitor at the end
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
+    const x = 60 + c * 3 * F, y = 140 + r * 2 * F;
+    mk($("cells-a"), "rect", { class: "cellbox" + (r === 0 && c === 0 ? " main" : ""), x: x, y: y, width: 3 * F, height: 2 * F });
+    mk($("cells-a"), "rect", { class: "act", x: x + 10, y: y + 20, width: 44, height: 9, rx: 4.5, transform: `rotate(-18 ${x + 32} ${y + 24})` });
+    mk($("cells-a"), "circle", { class: "cap", cx: x + 56, cy: y + 16, r: 9 });
+  }
+  const dimA = mk($("cells-a"), "g", {});
+  mk(dimA, "path", { class: "dim", d: "M60,136 V130 H132 V136" }); mk(dimA, "text", { class: "dimt", x: 96, y: 126, "text-anchor": "middle" }, "3F");
+  mk(dimA, "path", { class: "dim", d: "M56,140 H50 V188 H56" }); mk(dimA, "text", { class: "dimt", x: 46, y: 168, "text-anchor": "end" }, "2F");
+  // 4F²: 6 × 3 cells of 2F × 2F, vertical channel at every word-line × bit-line crossing
+  for (let c = 0; c < 6; c++) mk($("lines-b"), "line", { class: "wlv", x1: 480 + (2 * c + 1) * F, y1: 140, x2: 480 + (2 * c + 1) * F, y2: 284 });
+  for (let r = 0; r < 3; r++) mk($("lines-b"), "line", { class: "blh", x1: 480, y1: 140 + (2 * r + 1) * F, x2: 768, y2: 140 + (2 * r + 1) * F });
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++) {
+    const x = 480 + c * 2 * F, y = 140 + r * 2 * F;
+    mk($("cells-b"), "rect", { class: "cellbox" + (r === 0 && c === 0 ? " main" : ""), x: x, y: y, width: 2 * F, height: 2 * F });
+    mk($("cells-b"), "circle", { class: "cap", cx: x + F, cy: y + F, r: 13 });
+    mk($("cells-b"), "circle", { class: "pillar", cx: x + F, cy: y + F, r: 5 });
+  }
+  const dimB = mk($("cells-b"), "g", {});
+  mk(dimB, "path", { class: "dim", d: "M480,136 V130 H528 V136" }); mk(dimB, "text", { class: "dimt", x: 504, y: 126, "text-anchor": "middle" }, "2F");
+
+  // ---------------- 4F² vertical-gate cross-section parts
+  const vg = $("vg-parts");
+  [110, 210, 310, 410, 510].forEach((cx) => {
+    mk(vg, "rect", { class: "si", x: cx - 17, y: 240, width: 34, height: 100 });
+    mk(vg, "rect", { class: "sin", x: cx - 17, y: 240, width: 34, height: 14 });
+    mk(vg, "rect", { class: "sin", x: cx - 17, y: 326, width: 34, height: 14 });
+    mk(vg, "rect", { class: "w", x: cx - 27, y: 262, width: 8, height: 56 });
+    mk(vg, "rect", { class: "w", x: cx + 19, y: 262, width: 8, height: 56 });
+    mk(vg, "rect", { class: "w", x: cx - 22, y: 228, width: 44, height: 12 });
+    mk(vg, "rect", { class: "hk", x: cx - 18, y: 66, width: 36, height: 162 });
+    mk(vg, "rect", { class: "tin", x: cx - 14, y: 70, width: 28, height: 158 });
+    mk(vg, "rect", { class: "plate", x: cx - 8, y: 62, width: 16, height: 160 });
+  });
+  [90, 200, 310, 420, 530].forEach((x) => mk($("peri-b"), "rect", { class: "poly", x: x, y: 404, width: 30, height: 8, rx: 1 }));
+  // 3D DRAM layers: transistor and capacitor lying down, stacked
+  for (let k = 0; k < 4; k++) {
+    const y = 76 + k * 82, L = $("layers3d");
+    mk(L, "rect", { class: "si", x: 82, y: y + 24, width: 150, height: 16 });
+    mk(L, "rect", { class: "sin", x: 82, y: y + 24, width: 24, height: 16 });
+    mk(L, "rect", { class: "w", x: 140, y: y + 12, width: 50, height: 9 });
+    mk(L, "rect", { class: "w", x: 140, y: y + 43, width: 50, height: 9 });
+    mk(L, "rect", { class: "hk", x: 232, y: y + 6, width: 390, height: 52, rx: 4 });
+    mk(L, "rect", { class: "tin", x: 236, y: y + 10, width: 380, height: 44, rx: 3 });
+    mk(L, "rect", { class: "plate", x: 244, y: y + 18, width: 368, height: 28, rx: 2 });
+  }
+
+  // ---------------- Generations
+  const GEN = ["1x", "1y", "1z", "1a", "1b", "1c"], GX = (i) => 90 + i * 105;
+  GEN.forEach((g, i) => {
+    const n = mk($("nodes"), "g", { id: "n-" + g, class: "node t" });
+    mk(n, "circle", { cx: GX(i), cy: 250, r: 9 });
+    mk(n, "text", { x: GX(i), y: 284, "text-anchor": "middle" }, g);
+    mk($("nodes"), "text", { x: GX(i), y: 302, "text-anchor": "middle", class: "lbl-s" }, (i + 1) + "세대");
+    const s = 60 - i * 6;
+    mk($("squares"), "rect", { class: "shrink", x: GX(i) - s / 2, y: 214 - s, width: s, height: s, rx: 2 });
+  });
+  mk($("c-next"), "text", { x: 704, y: 236, class: "call", "text-anchor": "end" }, "");
+
+  // ---------------- Modes
+  const groups = ["area", "struct", "st-card", "gen", "gen-card"];
+  const only = (ids) => { const o = all(groups, off); ids.forEach((i) => { o[i] = on; }); return o; };
+
+  const area = {
+    id: "area", label: "셀 면적",
+    base: () => Object.assign(only(["area"]), { "ar-b": off, "ar-arrow": off, "f-def": on, "cells-a": off, "cnt-a": off, "ar-legend": off }),
+    steps: [
+      { short: "F: 최소 선폭", title: "셀 면적은 F의 몇 배인가로 센다", cmd: "F",
+        text: `D램 셀 면적은 <b>F</b>(그 세대에서 그릴 수 있는 가장 가는 선의 폭)를 한 변으로 하는 칸이 몇 개인지로 셉니다. 같은 F에서 칸 수를 줄이면 공정 미세화 없이도 셀을 더 촘촘히 넣을 수 있습니다.`,
+        set: {} },
+      { short: "지금: 6F²", title: "지금의 셀: 3F × 2F = 6F²", cmd: "6F²",
+        text: `지금 양산하는 D램 셀은 <b>6F²</b>(3F × 2F)입니다. 비스듬히 누운 활성 영역 하나에 트랜지스터와 커패시터가 들어가고, 워드라인·비트라인·콘택이 지나갈 자리까지 합쳐 칸 6개를 씁니다. 그림의 면적(12F × 6F)에는 셀이 12개 들어갑니다.`,
+        set: { "cells-a": on, "cnt-a": on, "f-def": off, "ar-legend": on } },
+      { short: "다음: 4F²", title: "채널을 세우면 2F × 2F = 4F²", cmd: "4F²",
+        text: `채널을 <b>세로로 세우고</b> 게이트(워드라인)를 그 옆에 세로로 두면, 워드라인과 비트라인이 만나는 자리마다 셀을 하나씩 놓을 수 있어 셀이 <b>4F²</b>로 줄어듭니다. 같은 면적에 18개, 약 <b>1.5배</b>가 들어갑니다(셀 면적은 약 33% 작음). SK하이닉스는 이를 4F² VG, 삼성전자는 VCT라고 부릅니다.`,
+        set: { "ar-b": on, "ar-arrow": on } },
+    ],
+  };
+
+  const card = (t, a, b, c, d, e, f, g, h) => ({ "sc-t": txt(t), "sc-1": txt(a), "sc-2": txt(b), "sc-3": txt(c), "sc-4": txt(d), "sc-5": txt(e), "sc-6": txt(f || ""), "sc-7": txt(g || ""), "sc-8": txt(h || "") });
+  const TS = 0.44;
+  const thumb = (x0) => ({ s: "on", style: { transform: `translate(${(x0 - 40 * TS).toFixed(1)}px, ${(64 - 58 * TS).toFixed(1)}px) scale(${TS})` } });
+  const full = { s: "on", style: { transform: "translate(0px, 0px) scale(1)" } };
+  const structure = {
+    id: "structure", label: "셀 구조",
+    base: () => Object.assign(only(["struct", "st-card"]), { "st-a": full, "st-b": Object.assign({}, full, { s: "off" }), "st-c": Object.assign({}, full, { s: "off" }), thumbs: off }),
+    steps: [
+      { short: "6F² + BCAT(지금)", title: "지금: 트랜지스터를 묻고 커패시터를 높이 세운다", cmd: "BCAT",
+        text: `지금 셀은 워드라인을 실리콘 속에 묻어 채널이 홈을 따라 <b>U자</b>로 길게 돌아가게 한 <b>매몰 채널 트랜지스터(BCAT)</b>입니다. 채널이 길어 누설이 줄어듭니다. 커패시터는 바닥 면적이 줄어드는 만큼 원통형 전극을 <b>높고 가늘게</b>(종횡비 수십 대 1) 세우고 고유전율 막을 ALD로 입혀 용량을 지킵니다(3-15).`,
+        set: card("6F² + BCAT", "6F²(3F × 2F)", "실리콘 속에 묻은 매몰 채널", "위로 높게 세운 실린더", "셀 옆", "양산 중", "누설: 매몰 채널로 대응", "용량: 고종횡비·high-k·ALD", "") },
+      { short: "4F² VG·VCT", title: "다음: 채널을 세우고 회로를 셀 아래로", cmd: "VG",
+        text: `<b>4F² VG</b>는 실리콘 기둥을 채널로 세우고 그 옆에 게이트를 세로로 둡니다. 비트라인은 기둥 아래에 묻고, 커패시터는 기둥 위에 그대로 높게 세웁니다. SK하이닉스는 IEEE VLSI 2025에서 4F² VG와 3D D램을 10nm 이하 세대의 핵심 축으로 제시했고, 주변 회로를 따로 만든 웨이퍼에 두고 셀 아래로 붙이는 <b>웨이퍼 본딩</b>을 함께 쓰겠다고 밝혔습니다.`,
+        set: Object.assign({ "st-a": Object.assign({}, full, { s: "off" }), "st-b": full }, card("4F² VG·VCT", "4F²(약 33% 작음)", "세로로 세운 채널", "위로 높게(그대로)", "셀 아래(웨이퍼 본딩)", "10nm 이하 세대 후보", "삼성전자는 VCT", "(수직 채널 트랜지스터)", "")) },
+      { short: "3D D램", title: "그다음: 셀을 눕혀 층층이 쌓는다", cmd: "3D",
+        text: `<b>3D D램</b>은 트랜지스터와 커패시터를 <b>눕혀</b> 한 층을 만들고, 이 층을 낸드처럼 위로 쌓습니다. 비트라인은 층을 세로로 꿰고, 면적 대신 층수로 용량을 늘립니다. 커패시터를 옆으로 눕혀 만드는 공정, 층마다 고른 특성, 적층 비용이 과제이고, 커패시터 없는 셀과 IGZO 같은 산화물 반도체 채널도 함께 연구됩니다.`,
+        set: Object.assign({ "st-b": Object.assign({}, full, { s: "off" }), "st-c": full }, card("3D D램", "층수로 집적", "눕힌 채널을 층층이", "옆으로 눕힘", "셀 아래·옆", "연구·개발", "과제: 눕힌 커패시터,", "층마다 고른 특성,", "적층 비용")) },
+      { short: "세 구조 비교", title: "묻고 → 세우고 → 쌓는다", cmd: "비교",
+        text: `물탱크(커패시터)를 같은 땅에 더 많이 놓으려고 처음엔 탱크를 가늘고 높게 만들고 밸브(트랜지스터)는 땅속에 묻었다가(6F² BCAT), 이제 밸브를 세우고(4F² VG), 결국 탱크를 눕혀 층층이 쌓는(3D D램) 단계로 가고 있습니다.`,
+        set: Object.assign({ "st-a": thumb(24), "st-b": thumb(308), "st-c": thumb(592), thumbs: on, "st-card": off }) },
+    ],
+  };
+
+  const gcard = (t, lines) => { const o = { "gc-t": txt(t) }; for (let i = 1; i <= 12; i++) o["gc-" + i] = txt(lines[i - 1] || ""); return o; };
+  const gen = {
+    id: "gen", label: "세대 이름",
+    base: () => Object.assign(only(["gen", "gen-card"]), all(["euv", "euv-t", "c-1c", "c-1b", "c-next", "squares", "sq-t"], off), all(GEN.map((g) => "n-" + g), { s: "idle" })),
+    steps: [
+      { short: "1x → 1c: 10nm급 6세대", title: "10nm급 D램은 1x부터 1c까지 6세대", cmd: "세대",
+        text: `10nm급 D램은 <b>1x → 1y → 1z → 1a → 1b → 1c</b> 순으로 6세대가 이어졌습니다. 세대마다 셀이 작아지고 속도와 전력이 좋아집니다. 1a·1b·1c는 10nm급 4·5·6세대의 <b>이름</b>이고, 실제 선폭을 뜻하지 않습니다.`,
+        set: Object.assign({ squares: on, "sq-t": on }, gcard("세대 이름", ["1a·1b·1c는", "10nm급 4·5·6세대", "실제 선폭이 아니라", "세대의 이름", "", "", "", "", "세대마다 셀이 작아지고", "속도와 전력이 좋아짐"])) },
+      { short: "EUV와 1c", title: "1a부터 EUV, 1c에서 16Gb DDR5", cmd: "EUV",
+        text: `SK하이닉스는 <b>1a부터 EUV</b>를 양산에 쓰기 시작했고(2021년), 2024년 8월 <b>1c 공정으로 16Gb DDR5</b>를 세계 처음 개발했다고 발표했습니다. EUV는 미세 패턴을 한 번에 찍어 여러 번 나눠 찍는 멀티 패터닝 단계를 줄이고 원가와 생산성을 개선합니다.`,
+        set: Object.assign({ euv: on, "euv-t": on, "c-1c": on, "n-1a": { s: "hot" }, "n-1b": { s: "hot" }, "n-1c": { s: "hot" } },
+          gcard("왜 EUV인가", ["미세 패턴을 한 번에", "찍어", "멀티 패터닝", "단계를 줄임", "→ 원가·생산성 개선", "", "", "", "", ""])) },
+      { short: "HBM은 1b, 그리고 다음", title: "HBM은 검증된 1b로, 10nm 이하는 구조 혁신으로", cmd: "다음",
+        text: `HBM처럼 안정성이 중요한 제품은 검증된 세대를 쓰는 경우가 많아, SK하이닉스의 <b>HBM3E와 HBM4는 1b</b> 기반입니다. 셀이 작아질수록 커패시터 용량, 누설과 리프레시, 배선 저항이 어려워지고 로우해머 같은 신뢰성 문제도 커져, 10nm 아래에서는 4F² VG와 3D D램 같은 <b>구조 변화</b>가 제시되고 있습니다.`,
+        set: Object.assign({ "c-1b": on, "c-next": on, "n-1a": { s: "idle" }, "n-1c": { s: "idle" } },
+          gcard("작아질수록 어려운 것", ["① 커패시터 용량", "높게·high-k·ALD", "② 누설·리프레시", "매몰 채널(BCAT)", "③ 배선 저항", "HKMG·저저항 배선", "④ 로우해머", "보호 회로·ECC", "10nm 이하:", "4F² VG, 3D D램"])) },
+    ],
+  };
+
+  StepPlayer.create({ root: $("app"), modes: [area, structure, gen], dur: 6500 });
+})();
+</script>
+</body>
+</html>

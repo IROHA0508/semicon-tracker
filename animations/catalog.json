@@ -1,7 +1,19 @@
 {
-  "version": 1,
-  "note": "단계별 웹 애니메이션 목록. 사이트의 단원 페이지가 unit 코드로 찾아 연결한다. planned는 아직 만들지 않은 후보.",
+  "version": 2,
+  "note": "단계별 웹 애니메이션 목록. 사이트의 단원 페이지가 unit 코드로 찾아 연결한다. planned는 아직 만들지 않은 후보(5-3 메모리 사이클, 4-1 후면 전력은 만들지 않기로 함).",
   "animations": [
+    {
+      "id": "cmos-inverter",
+      "unit": "2-4",
+      "title": "CMOS 인버터",
+      "file": "cmos-inverter.html",
+      "modes": [
+        {"id": "inverter", "label": "인버터 동작", "steps": 6},
+        {"id": "power", "label": "전력", "steps": 3},
+        {"id": "latchup", "label": "단면·래치업", "steps": 4}
+      ],
+      "summary": "입력에 따라 PMOS·NMOS가 번갈아 켜지는 모습, 전달 특성과 단락 전류, PMOS를 넓히는 이유, 동적·단락·누설 전력, 웨이퍼 단면의 기생 PNPN과 래치업 대책."
+    },
     {
       "id": "dram-cell",
       "unit": "2-10",
@@ -13,6 +25,19 @@
         {"id": "refresh", "label": "리프레시", "steps": 6}
       ],
       "summary": "셀 하나, 비트라인 한 쌍, 감지 증폭기에서 명령 순서대로 전압이 바뀌는 모습과 비트라인 전압 그래프. 저장된 값 1·0을 바꿔 볼 수 있다."
+    },
+    {
+      "id": "nand-ispp",
+      "unit": "2-11",
+      "title": "낸드 ISPP와 문턱전압 분포",
+      "file": "nand-ispp.html",
+      "modes": [
+        {"id": "ispp", "label": "쓰기(ISPP)", "steps": 6},
+        {"id": "inhibit", "label": "쓰기 금지", "steps": 5},
+        {"id": "read", "label": "읽기", "steps": 5},
+        {"id": "reliability", "label": "분포가 무너질 때", "steps": 5}
+      ],
+      "summary": "펄스·검증 반복으로 분포를 좁히는 ISPP(셀 점 그래프), 셀프 부스팅 4단계, TLC 기준 전압으로 읽기, 교란·리텐션·P/E로 분포가 움직이고 읽기 재시도로 되찾는 과정."
     },
     {
       "id": "dram-process",
@@ -33,14 +58,31 @@
         {"id": "main", "label": "공정", "steps": 15}
       ],
       "summary": "주변 회로(PUC), 산화막·질화막 적층, 채널홀과 이음부, 계단, 슬릿, 워드라인 교체, 콘택, 웨이퍼 본딩까지의 단면."
+    },
+    {
+      "id": "dram-evolution",
+      "unit": "4-3",
+      "title": "D램 셀 구조 진화",
+      "file": "dram-evolution.html",
+      "modes": [
+        {"id": "area", "label": "셀 면적", "steps": 3},
+        {"id": "structure", "label": "셀 구조", "steps": 4},
+        {"id": "gen", "label": "세대 이름", "steps": 3}
+      ],
+      "summary": "6F²에서 4F²로 줄이는 셀 면적, 매몰 채널(BCAT) → 세로 채널(VG·VCT) → 3D D램 단면 비교, 1x~1c 세대 이름과 EUV·HBM의 1b."
+    },
+    {
+      "id": "hbm-stack",
+      "unit": "4-5",
+      "title": "HBM 적층과 본딩",
+      "file": "hbm-stack.html",
+      "modes": [
+        {"id": "package", "label": "패키지·대역폭", "steps": 4},
+        {"id": "tsv", "label": "TSV 만들기", "steps": 7},
+        {"id": "bond", "label": "본딩 3가지", "steps": 6}
+      ],
+      "summary": "GPU 옆 2.5D 패키지와 대역폭(2,048 × 8 Gb/s), 스택 수율, TSV 6단계, TC-NCF·MR-MUF·하이브리드 본딩 비교와 높이 한도."
     }
   ],
-  "planned": [
-    {"unit": "4-3", "title": "D램 셀 구조 진화(커패시터·4F²·3D D램)"},
-    {"unit": "2-11", "title": "낸드 ISPP와 문턱전압 분포"},
-    {"unit": "4-5", "title": "HBM 적층 방식(TSV·MR-MUF·하이브리드 본딩)"},
-    {"unit": "2-4", "title": "CMOS 인버터 동작"},
-    {"unit": "5-3", "title": "메모리 사이클(수요·공급·재고·가격)"},
-    {"unit": "4-1", "title": "후면 전력 공급"}
-  ]
+  "planned": []
 }
