@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-12T10:12:54+09:00",
+  "startedAt": "2026-10-12T20:51:46+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -42,71 +42,31 @@
   },
   "errors": {},
   "added": [],
-  "queueSize": 116,
+  "queueSize": 106,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-12T10:12:57+09:00",
+  "finishedAt": "2026-10-12T20:51:49+09:00",
   "summary": {
-    "startedAt": "2026-10-12T10:12:57+09:00",
+    "startedAt": "2026-10-12T20:51:49+09:00",
     "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "skhynix-share-buyback-and-retirement",
-        "title": "SK하이닉스, 40조 원 자사주 매입·소각 추진... 주주환원 'FCF 50% 초과'로 확대"
-      },
-      {
-        "id": "skhynix-ai-ecosystem-series-ep1",
-        "title": "KAIST 신진우 교수, AI 연산의 패러다임 전환 설명"
-      },
-      {
-        "id": "samsung-16aff0671c",
-        "title": "삼성, 국제올림피아드 수상자에게 장학금… 이공계 인재 육성에 기여"
-      },
-      {
-        "id": "skhynix-ai-infrastructure-insigh-ep1",
-        "title": "[AI 인프라 인사이트] AI 데이터센터 내부에서 무엇이 달라지고 있나"
-      },
-      {
-        "id": "skhynix-fab-facility-investment-2026",
-        "title": "SK하이닉스, 용인 Y2·청주 M17에 54조 원 투자 결정"
-      },
-      {
-        "id": "skhynix-fms-2026",
-        "title": "SK하이닉스, FMS 2026서 티어드 메모리 기반 차세대 AI 메모리 방향 제시"
-      },
-      {
-        "id": "samsung-5776fb690f",
-        "title": "3D 메모리로 그린 AI의 미래…삼성전자 FMS 2026 참가 현장 스케치"
-      },
-      {
-        "id": "samsung-80c99a7b56",
-        "title": "AI 시대 메모리의 진화, 더 빠르게·더 촘촘하게… 삼성전자, FMS 2026에서 차세대 3D 메모리 비전 공개"
-      },
-      {
-        "id": "samsung-3848c95f45",
-        "title": "삼성전자, FMS 2026서 차세대 3D 메모리 비전 제시"
-      },
-      {
-        "id": "skhynix-hbf-at-fms-2026",
-        "title": "SK하이닉스, 샌디스크와 첫 HBF 표준 규격 공개… FMS 2026에서 AI 메모리 솔루션 선보여"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
-    "limitHit": false,
-    "stoppedBy": "limit",
+    "limitHit": true,
+    "stoppedBy": "usage limit",
     "queueLeft": 106,
-    "finishedAt": "2026-10-12T10:14:01+09:00"
+    "message": "claude CLI 실패(1): \"\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{},\"permission_denials\":[],\"terminal_reason\":\"api_error\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"un",
+    "finishedAt": "2026-10-12T20:51:53+09:00"
   },
   "manifest": {
     "count": 40,
-    "changed": true
+    "changed": false
   }
 }
