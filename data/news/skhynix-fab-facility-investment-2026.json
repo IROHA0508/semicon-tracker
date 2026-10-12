@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-fab-facility-investment-2026",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 용인 Y2·청주 M17에 54조 원 투자 결정",
+  "originalTitle": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
+  "url": "https://news.skhynix.com/en/fab-facility-investment-2026/",
+  "published": "2026-08-07T16:21:10+09:00",
+  "date": "2026-08-07",
+  "summary": [
+    "SK하이닉스는 AI 시대 메모리 수요에 대응하기 위해 용인 Y2 팹에 35.2조 원, 청주 M17 팹에 19.1조 원 등 약 54조 원을 투자하기로 이사회에서 의결했다고 밝혔습니다.",
+    "Y2는 2029년 6월, M17은 2028년 12월에 첫 클린룸을 열 계획이며, 고객 수요 시점에 맞춰 클린룸과 장비를 순차적으로 확충한다고 밝혔습니다."
+  ],
+  "interview": "팹은 짓고 클린룸·장비는 수요에 맞춰 순차 증설하는 방식은 메모리 사업이 자본 효율과 적기 공급을 함께 노린다는 점을 보여 줍니다.",
+  "tags": [
+    "팹 투자",
+    "메모리 사이클",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "PRESS",
+    "AI Infra",
+    "Cheongju",
+    "semiconductor",
+    "semiconductor industry",
+    "Yongin Semiconductor Cluster"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T10:12:57+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

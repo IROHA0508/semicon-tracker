@@ -1,0 +1,40 @@
+{
+  "id": "samsung-80c99a7b56",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "AI 시대 메모리의 진화, 더 빠르게·더 촘촘하게… 삼성전자, FMS 2026에서 차세대 3D 메모리 비전 공개",
+  "url": "https://news.samsungsemiconductor.com/kr/ai-%ec%8b%9c%eb%8c%80-%eb%a9%94%eb%aa%a8%eb%a6%ac%ec%9d%98-%ec%a7%84%ed%99%94-%eb%8d%94-%eb%b9%a0%eb%a5%b4%ea%b2%8c%c2%b7%eb%8d%94-%ec%b4%98%ec%b4%98%ed%95%98%ea%b2%8c-%ec%82%bc%ec%84%b1/",
+  "published": "2026-08-05T13:30:15+09:00",
+  "date": "2026-08-05",
+  "summary": [
+    "삼성전자가 FMS 2026에서 차세대 3D 메모리 기술인 zHBM, zNAND-O, V10 BV-NAND를 공개했습니다.",
+    "zHBM은 메모리를 프로세서 상단에 직접 적층하는 구조이고, V10 BV-NAND는 400단 이상 구조로 전 세대(V9) 대비 약 58% 높은 메모리 집적도를 구현했다고 설명했습니다."
+  ],
+  "interview": "메모리를 프로세서 위에 쌓고 셀과 주변 회로를 별도 웨이퍼로 접합하는 방식은, 본딩 기술이 AI 메모리 경쟁력의 핵심이 되고 있음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "3D 낸드",
+    "하이브리드 본딩"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "3D 메모리",
+    "FMS",
+    "FMS 2026",
+    "V10 BV-NAND",
+    "zHBM",
+    "zNAND-O"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T10:12:57+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

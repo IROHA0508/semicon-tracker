@@ -1,0 +1,45 @@
+{
+  "id": "skhynix-fms-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, FMS 2026서 티어드 메모리 기반 차세대 AI 메모리 방향 제시",
+  "originalTitle": "The Next-Generation Memory Architecture in the AI Era? SK hynix Charts the Direction at ‘FMS 2026’",
+  "url": "https://news.skhynix.com/en/fms-2026/",
+  "published": "2026-08-07T14:00:04+09:00",
+  "date": "2026-08-07",
+  "summary": [
+    "SK하이닉스는 8월 4일부터 6일까지(현지시간) 미국 캘리포니아 산타클라라에서 열린 FMS 2026에서 HBM, 낸드 기반 서버 메모리, CXL 기반 메모리 확장 기술을 선보이고 티어드 메모리 기반 전략을 기조연설로 발표했습니다.",
+    "김천성 부사장과 강욱성 부사장은 AI 인프라 경쟁력이 개별 메모리 성능만으로 정해지지 않는다며 HBM, D램, 낸드(HBF), SSD 각 계층의 배치와 연결이 효율을 좌우한다고 밝혔고, 회사는 총 12건의 기술 세션 발표도 진행했습니다."
+  ],
+  "interview": "AI 인프라 경쟁력이 개별 제품이 아니라 HBM부터 SSD까지 계층 전체의 배치와 연결에서 갈린다는 점에서, 메모리 엔지니어에게 시스템 관점의 이해가 필요함을 보여 줍니다.",
+  "tags": [
+    "CXL·PIM",
+    "HBF",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "델",
+    "구글",
+    "샌디스크"
+  ],
+  "categories": [
+    "TECH&AI",
+    "CXL",
+    "DRAM",
+    "FMS",
+    "HBF",
+    "HBM",
+    "NAND",
+    "SSD"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-12T10:12:57+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

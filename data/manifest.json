@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T05:12:43+09:00",
-  "count": 30,
+  "generatedAt": "2026-10-12T10:14:01+09:00",
+  "count": 40,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-06",
   "kinds": {
@@ -994,6 +994,317 @@
       "relatedUnits": [
         "0-2",
         "0-4"
+      ]
+    },
+    {
+      "id": "skhynix-share-buyback-and-retirement",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "SK하이닉스, 40조 원 자사주 매입·소각 추진... 주주환원 'FCF 50% 초과'로 확대",
+      "originalTitle": "SK hynix Accelerates 40 Trillion won Share Repurchase and Cancellation Program, Pursues Shareholder Return Expansion to ‘Over 50% of FCF’",
+      "url": "https://news.skhynix.com/en/share-buyback-and-retirement/",
+      "published": "2026-08-19T15:42:05+09:00",
+      "date": "2026-08-19",
+      "summary": [
+        "SK하이닉스는 8월 19일 이사회에서 40조 원 규모의 자사주를 매입해 전량 소각하기로 의결했다고 발표했습니다.",
+        "매입 기간은 8월 20일부터 약 3개월이며, 2025~2027년 누적 FCF의 주주환원 목표를 '50% 이내'에서 '50% 초과'로 확대하는 방안도 추진한다고 밝혔습니다."
+      ],
+      "interview": "회사가 순현금 약 69조 원의 현금 창출력을 바탕으로 주주환원을 앞당긴다는 점에서 AI 메모리 사업의 수익성이 재무 정책까지 바꾸고 있음을 보여 줍니다.",
+      "tags": [
+        "주주환원·자본"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": []
+    },
+    {
+      "id": "skhynix-ai-ecosystem-series-ep1",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "KAIST 신진우 교수, AI 연산의 패러다임 전환 설명",
+      "originalTitle": "[AI Ecosystem] The paradigm shift in AI computing",
+      "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep1/",
+      "published": "2026-08-18T08:59:58+09:00",
+      "date": "2026-08-18",
+      "summary": [
+        "KAIST의 신진우 교수는 AI 경쟁의 중심이 대규모 학습에서 추론과 스스로 행동하는 에이전틱 AI로 옮겨 가고 있다고 설명합니다.",
+        "이 글은 SK하이닉스 뉴스룸 'AI Ecosystem' 연재의 첫 번째 글입니다."
+      ],
+      "interview": "추론과 에이전틱 AI로 토큰 처리량이 크게 늘어난다는 점은 연산력만으로는 부족해 메모리가 AI 인프라 성능을 좌우하게 됨을 보여 줍니다.",
+      "tags": [
+        "AI 서버·데이터센터",
+        "AI 가속기"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "엔비디아",
+        "오픈AI",
+        "구글",
+        "메타"
+      ],
+      "author": "Professor Jinwoo Shin, KAIST",
+      "alsoIn": [],
+      "relatedUnits": [
+        "5-4",
+        "5-2"
+      ]
+    },
+    {
+      "id": "samsung-16aff0671c",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성, 국제올림피아드 수상자에게 장학금… 이공계 인재 육성에 기여",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%ea%b5%ad%ec%a0%9c%ec%98%ac%eb%a6%bc%ed%94%bc%ec%95%84%eb%93%9c-%ec%88%98%ec%83%81%ec%9e%90%ec%97%90%ea%b2%8c-%ec%9e%a5%ed%95%99%ea%b8%88-%ec%9d%b4%ea%b3%b5%ea%b3%84/",
+      "published": "2026-08-17T21:00:00+09:00",
+      "date": "2026-08-17",
+      "summary": [
+        "삼성전자와 삼성바이오로직스·삼성바이오에피스가 7월 국제올림피아드 수학·물리·생물 대회에서 메달을 획득한 한국 대표 15명에게 장학금을 수여했습니다.",
+        "수학 6명, 물리 5명, 생물 4명이 대상이며, 삼성전자는 2025년 6월 대한수학회·한국물리학회와 후원 협약을 맺고 선발·교육·대회 참가 비용을 지원하고 있습니다."
+      ],
+      "interview": "",
+      "tags": [],
+      "companies": [
+        "삼성전자",
+        "삼성바이오로직스",
+        "삼성바이오에피스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": []
+    },
+    {
+      "id": "skhynix-ai-infrastructure-insigh-ep1",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "[AI 인프라 인사이트] AI 데이터센터 내부에서 무엇이 달라지고 있나",
+      "originalTitle": "[AI Infrastructure Insight] What is changing inside AI data centers?",
+      "url": "https://news.skhynix.com/en/ai-infrastructure-insigh-ep1/",
+      "published": "2026-08-10T10:00:05+09:00",
+      "date": "2026-08-10",
+      "summary": [
+        "SK하이닉스 뉴스룸은 AI 인프라 시리즈의 첫 번째 글에서 AI 데이터센터의 구조 변화를 다뤘습니다.",
+        "컴퓨트, 메모리, 스토리지, 네트워크, 전력·냉각이 하나의 시스템으로 통합돼야 하며, 설계 단위도 서버에서 랙과 클러스터로 넓어지고 있다고 설명합니다."
+      ],
+      "interview": "AI 시대에는 HBM과 서버 D램이 서로 다른 역할을 맡는 계층형 구조로 쓰인다는 점에서, 메모리 엔지니어도 시스템 전체를 이해해야 함을 보여 줍니다.",
+      "tags": [
+        "AI 서버·데이터센터",
+        "HBM",
+        "전력·냉각"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "마이크로소프트",
+        "구글",
+        "엔비디아",
+        "스타클라우드"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-9",
+        "0-4"
+      ]
+    },
+    {
+      "id": "skhynix-fab-facility-investment-2026",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "SK하이닉스, 용인 Y2·청주 M17에 54조 원 투자 결정",
+      "originalTitle": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
+      "url": "https://news.skhynix.com/en/fab-facility-investment-2026/",
+      "published": "2026-08-07T16:21:10+09:00",
+      "date": "2026-08-07",
+      "summary": [
+        "SK하이닉스는 AI 시대 메모리 수요에 대응하기 위해 용인 Y2 팹에 35.2조 원, 청주 M17 팹에 19.1조 원 등 약 54조 원을 투자하기로 이사회에서 의결했다고 밝혔습니다.",
+        "Y2는 2029년 6월, M17은 2028년 12월에 첫 클린룸을 열 계획이며, 고객 수요 시점에 맞춰 클린룸과 장비를 순차적으로 확충한다고 밝혔습니다."
+      ],
+      "interview": "팹은 짓고 클린룸·장비는 수요에 맞춰 순차 증설하는 방식은 메모리 사업이 자본 효율과 적기 공급을 함께 노린다는 점을 보여 줍니다.",
+      "tags": [
+        "팹 투자",
+        "메모리 사이클",
+        "AI 서버·데이터센터"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "5-3",
+        "0-2"
+      ]
+    },
+    {
+      "id": "skhynix-fms-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, FMS 2026서 티어드 메모리 기반 차세대 AI 메모리 방향 제시",
+      "originalTitle": "The Next-Generation Memory Architecture in the AI Era? SK hynix Charts the Direction at ‘FMS 2026’",
+      "url": "https://news.skhynix.com/en/fms-2026/",
+      "published": "2026-08-07T14:00:04+09:00",
+      "date": "2026-08-07",
+      "summary": [
+        "SK하이닉스는 8월 4일부터 6일까지(현지시간) 미국 캘리포니아 산타클라라에서 열린 FMS 2026에서 HBM, 낸드 기반 서버 메모리, CXL 기반 메모리 확장 기술을 선보이고 티어드 메모리 기반 전략을 기조연설로 발표했습니다.",
+        "김천성 부사장과 강욱성 부사장은 AI 인프라 경쟁력이 개별 메모리 성능만으로 정해지지 않는다며 HBM, D램, 낸드(HBF), SSD 각 계층의 배치와 연결이 효율을 좌우한다고 밝혔고, 회사는 총 12건의 기술 세션 발표도 진행했습니다."
+      ],
+      "interview": "AI 인프라 경쟁력이 개별 제품이 아니라 HBM부터 SSD까지 계층 전체의 배치와 연결에서 갈린다는 점에서, 메모리 엔지니어에게 시스템 관점의 이해가 필요함을 보여 줍니다.",
+      "tags": [
+        "CXL·PIM",
+        "HBF",
+        "AI 서버·데이터센터"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "엔비디아",
+        "델",
+        "구글",
+        "샌디스크"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-4"
+      ]
+    },
+    {
+      "id": "samsung-5776fb690f",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "3D 메모리로 그린 AI의 미래…삼성전자 FMS 2026 참가 현장 스케치",
+      "url": "https://news.samsungsemiconductor.com/kr/3d-%eb%a9%94%eb%aa%a8%eb%a6%ac%eb%a1%9c-%ea%b7%b8%eb%a6%b0-ai%ec%9d%98-%eb%af%b8%eb%9e%98%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-fms-2026-%ec%b0%b8%ea%b0%80-%ed%98%84%ec%9e%a5%ec%8a%a4%ec%bc%80/",
+      "published": "2026-08-05T23:44:49+09:00",
+      "date": "2026-08-05",
+      "summary": [
+        "삼성전자는 8월 4일부터 6일까지 미국 산타클라라에서 열린 FMS 2026에서 기조연설과 전시를 통해 zHBM, zNAND-O, V10 BV-NAND를 공개했습니다.",
+        "전시관에는 약 30개의 메모리·스토리지 제품이 나왔고, 삼성전자는 V10 BV-NAND와 LPDDR5X-PIM으로 FMS Best of Show Award를 수상했습니다."
+      ],
+      "interview": "LPDDR5X-PIM처럼 메모리 안에서 연산해 데이터 이동을 줄이는 접근은 AI 시스템의 병목을 메모리 설계로 풀려는 흐름을 보여 줍니다.",
+      "tags": [
+        "3D 낸드",
+        "CXL·PIM",
+        "HBM"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-5"
+      ]
+    },
+    {
+      "id": "samsung-80c99a7b56",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "AI 시대 메모리의 진화, 더 빠르게·더 촘촘하게… 삼성전자, FMS 2026에서 차세대 3D 메모리 비전 공개",
+      "url": "https://news.samsungsemiconductor.com/kr/ai-%ec%8b%9c%eb%8c%80-%eb%a9%94%eb%aa%a8%eb%a6%ac%ec%9d%98-%ec%a7%84%ed%99%94-%eb%8d%94-%eb%b9%a0%eb%a5%b4%ea%b2%8c%c2%b7%eb%8d%94-%ec%b4%98%ec%b4%98%ed%95%98%ea%b2%8c-%ec%82%bc%ec%84%b1/",
+      "published": "2026-08-05T13:30:15+09:00",
+      "date": "2026-08-05",
+      "summary": [
+        "삼성전자가 FMS 2026에서 차세대 3D 메모리 기술인 zHBM, zNAND-O, V10 BV-NAND를 공개했습니다.",
+        "zHBM은 메모리를 프로세서 상단에 직접 적층하는 구조이고, V10 BV-NAND는 400단 이상 구조로 전 세대(V9) 대비 약 58% 높은 메모리 집적도를 구현했다고 설명했습니다."
+      ],
+      "interview": "메모리를 프로세서 위에 쌓고 셀과 주변 회로를 별도 웨이퍼로 접합하는 방식은, 본딩 기술이 AI 메모리 경쟁력의 핵심이 되고 있음을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "3D 낸드",
+        "하이브리드 본딩"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-5",
+        "3-16"
+      ]
+    },
+    {
+      "id": "samsung-3848c95f45",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, FMS 2026서 차세대 3D 메모리 비전 제시",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-fms-2026%ec%84%9c-%ec%b0%a8%ec%84%b8%eb%8c%80-3d-%eb%a9%94%eb%aa%a8%eb%a6%ac-%eb%b9%84%ec%a0%84-%ec%a0%9c%ec%8b%9c/",
+      "published": "2026-08-05T13:30:02+09:00",
+      "date": "2026-08-05",
+      "summary": [
+        "삼성전자가 미국 산타클라라에서 열린 FMS 2026에서 차세대 3D 메모리 아키텍처인 zHBM과 zNAND-O 목업을 업계 최초로 공개했다고 밝혔습니다.",
+        "zHBM은 AI 가속기 상단에 HBM을 수직으로 적층하는 구조로 HBM5 대비 최대 8배 높은 성능을 제공한다고 하며, 400단 이상의 V10 BV-NAND도 함께 공개했습니다."
+      ],
+      "interview": "AI 가속기 위에 HBM을 수직으로 쌓는 zHBM은 메모리 성능 경쟁이 적층과 패키징 설계 영역까지 넓어지고 있음을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "3D 낸드",
+        "패키징"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "4-5"
+      ]
+    },
+    {
+      "id": "skhynix-hbf-at-fms-2026",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "SK하이닉스, 샌디스크와 첫 HBF 표준 규격 공개… FMS 2026에서 AI 메모리 솔루션 선보여",
+      "originalTitle": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
+      "url": "https://news.skhynix.com/en/hbf-at-fms-2026/",
+      "published": "2026-08-04T08:30:04+09:00",
+      "date": "2026-08-04",
+      "summary": [
+        "SK하이닉스가 8월 4일 샌디스크와 함께 차세대 스토리지 기술인 HBF(High Bandwidth Flash)의 첫 표준 규격을 OCP를 통해 공개했다고 밝혔습니다.",
+        "규격은 최대 512GB 용량과 약 0.4TB/s에서 3.0TB/s까지 세 등급의 대역폭을 담았고, 프로세서 연결에는 UCIe를 채택했습니다."
+      ],
+      "interview": "[\"HBF가 HBM과 SSD 사이의 새로운 메모리 계층을 개방형 표준으로 제시했다는 점에서, 메모리 업체의 역할이 단품 공급에서 시스템 아키텍처 설계로 넓어지고 있음을 보여 줍니다.\"][0]",
+      "tags": [
+        "HBF",
+        "3D 낸드",
+        "칩렛·UCIe"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "샌디스크",
+        "구글",
+        "텐스토렌트"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-4",
+        "2-11"
       ]
     }
   ]

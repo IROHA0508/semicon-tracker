@@ -45,7 +45,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "3D 메모리로 그린 AI의 미래…삼성전자 FMS 2026 참가 현장 스케치"
     },
     "https://news.samsungsemiconductor.com/kr/ai-시대-메모리의-진화-더-빠르게·더-촘촘하게-삼성": {
@@ -55,7 +55,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "AI 시대 메모리의 진화, 더 빠르게·더 촘촘하게… 삼성전자, FMS 2026에서 차세대 3D 메모리 비전 공개"
     },
     "https://news.samsungsemiconductor.com/kr/ai시대-초저전력-기술로-4나노-파운드리-공정-완성도를": {
@@ -315,7 +315,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성, 국제올림피아드 수상자에게 장학금… 이공계 인재 육성에 기여"
     },
     "https://news.samsungsemiconductor.com/kr/삼성-미래-성장-위해-2655조원-투자": {
@@ -525,7 +525,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, FMS 2026서 차세대 3D 메모리 비전 제시"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-gtc서-hbm4e-최초-공개토털-솔루션으로-엔": {
@@ -975,7 +975,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[AI Ecosystem] The paradigm shift in AI computing"
     },
     "https://news.skhynix.com/en/ai-ecosystem-series-ep2": {
@@ -1015,7 +1015,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[AI Infrastructure Insight] What is changing inside AI data centers?"
     },
     "https://news.skhynix.com/en/ai-infrastructure-insight-ep2": {
@@ -1145,7 +1145,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand"
     },
     "https://news.skhynix.com/en/fact-05": {
@@ -1215,7 +1215,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "The Next-Generation Memory Architecture in the AI Era? SK hynix Charts the Direction at ‘FMS 2026’"
     },
     "https://news.skhynix.com/en/future-forum-2026": {
@@ -1325,7 +1325,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’"
     },
     "https://news.skhynix.com/en/hbm-to-essd": {
@@ -1475,7 +1475,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Accelerates 40 Trillion won Share Repurchase and Cancellation Program, Pursues Shareholder Return Expansion to ‘Over 50% of FCF’"
     },
     "https://news.skhynix.com/en/sk-hynix-and-gauss-labs-present-ai-based-semiconductor-virtual-metrology-research-at-spie-al-2026": {

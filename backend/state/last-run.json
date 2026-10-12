@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-12T05:11:44+09:00",
+  "startedAt": "2026-10-12T10:12:54+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -42,59 +42,59 @@
   },
   "errors": {},
   "added": [],
-  "queueSize": 126,
+  "queueSize": 116,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-12T05:11:48+09:00",
+  "finishedAt": "2026-10-12T10:12:57+09:00",
   "summary": {
-    "startedAt": "2026-10-12T05:11:48+09:00",
+    "startedAt": "2026-10-12T10:12:57+09:00",
     "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
     "summarized": [
       {
-        "id": "skhynix-ai-infrastructure-insight-ep2",
-        "title": "[AI 인프라 인사이트] 빠른 GPU만으로는 AI 성능을 낼 수 없는 이유"
+        "id": "skhynix-share-buyback-and-retirement",
+        "title": "SK하이닉스, 40조 원 자사주 매입·소각 추진... 주주환원 'FCF 50% 초과'로 확대"
       },
       {
-        "id": "samsung-81cea496ae",
-        "title": "[칩스케치] 대학과 산업이 함께 그리는 반도체의 미래, 산학협력 통합교류회 ‘SPARK 2026’"
+        "id": "skhynix-ai-ecosystem-series-ep1",
+        "title": "KAIST 신진우 교수, AI 연산의 패러다임 전환 설명"
       },
       {
-        "id": "skhynix-groundbreaking-ceremony-in-indiana",
-        "title": "SK하이닉스, 미국 인디애나 HBM 생산기지 착공식 개최"
+        "id": "samsung-16aff0671c",
+        "title": "삼성, 국제올림피아드 수상자에게 장학금… 이공계 인재 육성에 기여"
       },
       {
-        "id": "samsung-8212f74e59",
-        "title": "[인포그래픽] 한층 더 진화된 포터블 스토리지 경험을 제시할 삼성전자 SSD ‘P시리즈’를 만나다"
+        "id": "skhynix-ai-infrastructure-insigh-ep1",
+        "title": "[AI 인프라 인사이트] AI 데이터센터 내부에서 무엇이 달라지고 있나"
       },
       {
-        "id": "samsung-a9b8614f55",
-        "title": "삼성전자, 차세대 포터블 SSD 2종 P9, P7 공개"
+        "id": "skhynix-fab-facility-investment-2026",
+        "title": "SK하이닉스, 용인 Y2·청주 M17에 54조 원 투자 결정"
       },
       {
-        "id": "skhynix-dtf-2026",
-        "title": "SK하이닉스, DTF 2026에서 AI 인프라용 메모리 전 제품군 선보여"
+        "id": "skhynix-fms-2026",
+        "title": "SK하이닉스, FMS 2026서 티어드 메모리 기반 차세대 AI 메모리 방향 제시"
       },
       {
-        "id": "skhynix-tech-note-series-ep2",
-        "title": "[Tech Note] 하이브리드 본딩, 반도체 성능 향상의 핵심 기반 기술로 부상"
+        "id": "samsung-5776fb690f",
+        "title": "3D 메모리로 그린 AI의 미래…삼성전자 FMS 2026 참가 현장 스케치"
       },
       {
-        "id": "samsung-84eddd0ae9",
-        "title": "삼성전자, 사상 최대 주주환원 실시 2026년 약 90조~110조원 예상"
+        "id": "samsung-80c99a7b56",
+        "title": "AI 시대 메모리의 진화, 더 빠르게·더 촘촘하게… 삼성전자, FMS 2026에서 차세대 3D 메모리 비전 공개"
       },
       {
-        "id": "samsung-529b00c622",
-        "title": "글로벌 메모리 표준의 중심에서 ㅣ FMS 2026 평생 공로상 수상자 Mian Quddus 인터뷰"
+        "id": "samsung-3848c95f45",
+        "title": "삼성전자, FMS 2026서 차세대 3D 메모리 비전 제시"
       },
       {
-        "id": "skhynix-cpo-in-nature-electronics",
-        "title": "SK하이닉스, 공동패키지광학(CPO) 로드맵을 '네이처 일렉트로닉스'에 발표"
+        "id": "skhynix-hbf-at-fms-2026",
+        "title": "SK하이닉스, 샌디스크와 첫 HBF 표준 규격 공개… FMS 2026에서 AI 메모리 솔루션 선보여"
       }
     ],
     "failed": {},
@@ -102,11 +102,11 @@
     "authError": false,
     "limitHit": false,
     "stoppedBy": "limit",
-    "queueLeft": 116,
-    "finishedAt": "2026-10-12T05:12:43+09:00"
+    "queueLeft": 106,
+    "finishedAt": "2026-10-12T10:14:01+09:00"
   },
   "manifest": {
-    "count": 30,
+    "count": 40,
     "changed": true
   }
 }
