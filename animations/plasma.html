@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>플라즈마 기초: 식각과 증착의 공통 기반</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .elec { fill: var(--m-w); }
+  .waf { fill: var(--m-si); }
+  .glow { fill: var(--accent-soft); opacity: .9; }
+  .e { fill: var(--ink); }
+  .ion { fill: var(--accent); }
+  .ion-t { font: 700 10px var(--font-mono); fill: var(--surface); text-anchor: middle; }
+  .rad { fill: var(--low); }
+  .neu { fill: var(--line-strong); }
+  .sheath { fill: var(--bg); opacity: .9; }
+  .pot { fill: none; stroke: var(--accent); stroke-width: 3; }
+  .band { stroke: var(--surface); stroke-width: 2; }
+  .cascade[data-s="on"] { animation: casc 2.4s linear infinite; }
+  @keyframes casc { from { stroke-dashoffset: 300; } to { stroke-dashoffset: 0; } }
+  .casc-p { fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 300; }
+  .fall[data-s="on"] { animation: fall2 1.2s linear infinite; }
+  @keyframes fall2 { from { transform: translateY(-60px); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(0); opacity: 1; } }
+  .coil { fill: none; stroke: var(--m-cu); stroke-width: 4; }
+  .win { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .rf { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-5</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>플라즈마 기초: 식각과 증착의 공통 기반</h1>
+    <p class="lead">플라즈마는 기체에 높은 에너지를 가해 전자·양이온·라디칼로 쪼갠 상태입니다. 반도체에서는 이온의 방향성(물리)과 라디칼의 반응성(화학)을 낮은 온도에서 쓰려고 식각·증착·세정에 넓게 씁니다. 전기장이 공(전자)을 굴리고, 공이 핀(기체)을 맞히면 조각과 새 공이 생겨 연쇄가 이어지는 볼링장과 같습니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">플라즈마 기초: 식각과 증착의 공통 기반</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- chamber shared by make/sheath -->
+        <g id="cham" class="t">
+          <rect x="60" y="56" width="420" height="300" rx="10" class="frame"></rect>
+          <rect class="elec" x="80" y="70" width="380" height="16"></rect>
+          <rect class="elec" x="80" y="318" width="380" height="18"></rect>
+          <rect class="waf" x="140" y="308" width="260" height="10"></rect>
+          <text x="452" y="82" class="lbl-s" text-anchor="end" style="fill: var(--surface)">전극(접지)</text>
+          <text x="452" y="331" class="lbl-s" text-anchor="end" style="fill: var(--surface)">전극(RF)</text>
+          <text x="270" y="304" class="lbl-s" text-anchor="middle">웨이퍼</text>
+          <rect id="glow" class="glow t" x="80" y="104" width="380" height="186" rx="12"></rect>
+          <rect id="sh-top" class="sheath t" x="80" y="86" width="380" height="18"></rect>
+          <rect id="sh-bot" class="sheath t" x="80" y="290" width="380" height="18"></rect>
+          <text id="sh-t" x="90" y="300" class="lbl-s t">시스(어두운 층)</text>
+          <g id="parts"></g>
+          <g id="casc" class="t"><path class="casc-p cascade t" id="casc-p" d="M120,150 L190,180 L230,160 L300,200 L340,170 L420,230"></path></g>
+          <g id="ionrain" class="t"></g>
+          <g id="legend" class="t">
+            <circle class="e" cx="96" cy="384" r="4"></circle><text x="106" y="388" class="lbl-s">전자</text>
+            <circle class="ion" cx="160" cy="384" r="8"></circle><text x="160" y="388" class="ion-t">+</text><text x="174" y="388" class="lbl-s">양이온(방향 조절 → 망치)</text>
+            <circle class="rad" cx="340" cy="384" r="6"></circle><text x="352" y="388" class="lbl-s">라디칼(반응성 큼 → 약품)</text>
+            <circle class="neu" cx="96" cy="410" r="6"></circle><text x="106" y="414" class="lbl-s">중성 기체</text>
+          </g>
+        </g>
+        <!-- energy ladder -->
+        <g id="ladder" class="t">
+          <text x="60" y="70" class="lbl">전자가 기체와 부딪힐 때(전자 에너지, Ar 기준 대략값)</text>
+          <g id="bands"></g>
+        </g>
+        <!-- Paschen -->
+        <g id="pasch" class="t">
+          <text x="70" y="70" class="lbl">방전 개시 전압</text>
+          <line class="axis" x1="70" y1="340" x2="480" y2="340"></line><line class="axis" x1="70" y1="340" x2="70" y2="80"></line>
+          <text x="478" y="360" class="lbl-s" text-anchor="end">압력 × 전극 간격(p·d) →</text>
+          <path d="M100,90 C140,300 200,300 240,300 C300,300 380,220 470,120" style="fill: none; stroke: var(--accent); stroke-width: 3"></path>
+          <circle cx="225" cy="300" r="6" style="fill: var(--accent)"></circle><text x="225" y="324" class="lbl-s acc" text-anchor="middle">최적점</text>
+          <text x="134" y="140" class="lbl-s">너무 작음: 부딪힐 기체가 적음</text><text x="134" y="156" class="lbl-s">/ 간격이 가까워 그냥 전극에 도달</text>
+          <text x="236" y="232" class="lbl-s">너무 큼: 가속 전에 부딪힘</text><text x="236" y="248" class="lbl-s">(MFP 짧음) / 전기장 약함</text>
+        </g>
+        <!-- potential profile (sheath mode) -->
+        <g id="potp" class="t">
+          <text x="500" y="50" class="lbl-s" text-anchor="middle">전위</text>
+          <line class="axis" x1="500" y1="70" x2="500" y2="336"></line>
+          <path id="pot" class="pot" d="M500,78 L530,104 V290 L470,312"></path>
+          <text x="506" y="200" class="lbl-s acc">플라즈마</text><text x="506" y="216" class="lbl-s acc">전위</text><text x="500" y="372" class="lbl-s acc" text-anchor="middle">자기 바이어스(−)</text>
+        </g>
+        <!-- CCP / ICP -->
+        <g id="cmpx" class="t">
+          <g id="ccp" class="t">
+            <rect x="60" y="80" width="200" height="240" rx="8" class="frame"></rect>
+            <rect class="elec" x="72" y="92" width="176" height="14"></rect><rect class="elec" x="72" y="292" width="176" height="14"></rect>
+            <rect class="glow" x="72" y="120" width="176" height="158" rx="8"></rect>
+            <g id="ccp-d"></g>
+            <circle class="rf" cx="160" cy="350" r="14"></circle><text x="160" y="355" class="lbl-s" text-anchor="middle">RF</text><path d="M160,306 V336" style="stroke: var(--ink); stroke-width: 1.6"></path>
+            <text x="160" y="70" class="card-l ink-b" text-anchor="middle">CCP(용량 결합)</text>
+          </g>
+          <g id="icp" class="t">
+            <rect x="300" y="80" width="200" height="240" rx="8" class="frame"></rect>
+            <rect class="win" x="312" y="92" width="176" height="14"></rect>
+            <g id="coils"></g>
+            <rect class="elec" x="312" y="292" width="176" height="14"></rect>
+            <rect class="glow" x="312" y="120" width="176" height="158" rx="8"></rect>
+            <g id="icp-d"></g>
+            <circle class="rf" cx="470" cy="56" r="13"></circle><text x="470" y="61" class="lbl-s" text-anchor="middle">RF</text>
+            <circle class="rf" cx="400" cy="350" r="14"></circle><text x="400" y="355" class="lbl-s" text-anchor="middle">RF</text><path d="M400,306 V336" style="stroke: var(--ink); stroke-width: 1.6"></path>
+            <text x="330" y="56" class="lbl-s">코일(소스: 밀도)</text><text x="420" y="378" class="lbl-s">바이어스(에너지)</text>
+            <text x="400" y="30" class="card-l ink-b" text-anchor="middle">ICP(유도 결합)</text>
+          </g>
+        </g>
+        <text id="c1" x="590" y="80" class="head-t"></text>
+        <text id="c2" x="590" y="112" class="card-l"></text>
+        <text id="c3" x="590" y="136" class="card-l"></text>
+        <text id="c4" x="590" y="160" class="card-l"></text>
+        <text id="c5" x="590" y="184" class="card-l"></text>
+        <text id="c6" x="590" y="218" class="card-l acc"></text>
+        <text id="c7" x="590" y="242" class="card-m"></text>
+        <text id="c8" x="590" y="264" class="card-m"></text>
+      </svg>
+      <figcaption>개념도입니다. 입자 수와 시스 두께, 전위의 크기는 비율이 아닙니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>플라즈마는 양이온·전자·라디칼이 <b>준중성</b>을 유지하며 집단적으로 움직이는 상태입니다. 이온은 바이어스로 운동을 제어해 건식 식각·PVD에, 라디칼은 높은 반응성으로 CVD·식각에 씁니다.</li>
+      <li>시스는 전자와 이온의 이동도 차이 → 양이온 공간전하 → 전위 급강 → 이온 수직 가속 → 이방성 식각·스퍼터링의 순서로 설명합니다.</li>
+      <li>DC로 절연체를 스퍼터할 수 없는 이유는 차징업으로 시스 전압이 사라지기 때문이고, RF는 교류로 양이온을 중화하며 블로킹 커패시터로 자기 바이어스를 만듭니다. 절연막 식각은 CCP, 도체·실리콘 식각은 ICP로 연결합니다.</li>
+    </ul>
+    <p class="foot">원고 3-5를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-6 식각, 3-7 증착(PECVD·스퍼터).</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  const P = $("parts");
+  const rnd = (i) => Math.abs(Math.sin(i * 91.7) * 1000) % 1;
+  for (let i = 0; i < 46; i++) {
+    const x = 96 + rnd(i) * 350, y = 118 + rnd(i + 99) * 160, kind = i % 4;
+    if (kind === 0) mk(P, "circle", { class: "e", cx: x, cy: y, r: 3 });
+    else if (kind === 1) { mk(P, "circle", { class: "ion", cx: x, cy: y, r: 7 }); mk(P, "text", { class: "ion-t", x, y: y + 3.5 }, "+"); }
+    else if (kind === 2) mk(P, "circle", { class: "rad", cx: x, cy: y, r: 5 });
+    else mk(P, "circle", { class: "neu", cx: x, cy: y, r: 5 });
+  }
+  for (let i = 0; i < 6; i++) { const g = mk($("ionrain"), "g", { class: "fall t", id: "ir" + i, style: `animation-delay: ${(i * .2).toFixed(1)}s` }); mk(g, "circle", { class: "ion", cx: 160 + i * 44, cy: 296, r: 7 }); mk(g, "text", { class: "ion-t", x: 160 + i * 44, y: 299.5 }, "+"); mk(g, "path", { d: `M${160 + i * 44},270 V286`, style: "stroke: var(--accent); stroke-width: 2" }); }
+  const irs = (v) => all(Array.from({ length: 6 }, (_, i) => "ir" + i), v);
+  // energy ladder
+  [["약 2 eV 이하", "열로 사라짐", "var(--line)", 0, 2], ["약 2~6 eV", "여기: 들떴다 돌아오며 빛 → 식각 종점 검출(OES)", "var(--low-soft)", 2, 6], ["약 6~15 eV", "해리: 분자가 쪼개져 라디칼(CF₄ → CF₃ + F)", "var(--accent-soft)", 6, 15], ["약 15.8 eV 이상", "이온화: 전자가 떨어져 양이온 → 플라즈마 유지", "var(--accent)", 15.8, 20]].forEach(([a, b, c, lo, hi], i) => {
+    const y0 = 360 - hi * 13.5, y1 = 360 - lo * 13.5;
+    mk($("bands"), "rect", { class: "band", x: 70, y: y0, width: 90, height: y1 - y0, style: `fill: ${c}` });
+    mk($("bands"), "text", { x: 176, y: (y0 + y1) / 2 - 4, class: "card-l ink-b" }, a);
+    mk($("bands"), "text", { x: 176, y: (y0 + y1) / 2 + 14, class: "lbl-s" }, b);
+  });
+  mk($("bands"), "path", { d: "M58,360 V90", style: "stroke: var(--ink); stroke-width: 2", "marker-end": "url(#ar-k)" });
+  mk($("bands"), "text", { x: 52, y: 100, class: "lbl-s", "text-anchor": "end" }, "에너지");
+  // CCP/ICP densities
+  for (let i = 0; i < 18; i++) mk($("ccp-d"), "circle", { class: "ion", cx: 86 + rnd(i + 5) * 150, cy: 130 + rnd(i + 55) * 140, r: 4 });
+  for (let i = 0; i < 70; i++) { const side = rnd(i + 7) < .5 ? 0 : 1; const x = side ? 410 + rnd(i + 3) * 70 : 322 + rnd(i + 3) * 70; mk($("icp-d"), "circle", { class: "ion", cx: x, cy: 130 + rnd(i + 77) * 140, r: 3.4 }); }
+  for (let i = 0; i < 5; i++) mk($("coils"), "circle", { class: "coil", cx: 330 + i * 35, cy: 84, r: 7 });
+  const cc = (a) => lines("c", a, 8);
+  const G = ["cham", "ladder", "pasch", "potp", "cmpx"];
+  const CH = ["glow", "sh-top", "sh-bot", "sh-t", "parts", "casc", "ionrain", "legend"];
+
+  const make = {
+    id: "make", label: "플라즈마 만들기",
+    base: () => Object.assign(only(G, ["cham"]), all(CH, off), irs(off), { glow: on, parts: on, legend: on, "casc-p": off, cham: { s: "on", style: { transform: "translateX(0)" } } }),
+    steps: [
+      { short: "구성", title: "전자·양이온·라디칼, 전체로는 중성", cmd: "구성",
+        text: `양이온은 전기장으로 방향과 에너지를 조절할 수 있어 건식 식각과 스퍼터링의 <b>'망치'</b>가 됩니다. 라디칼은 전하가 없어 전기장으로 움직이지 못하지만 반응성이 매우 커서 확산으로 이동하며 화학 반응의 <b>'약품'</b> 역할을 합니다. 전체적으로는 전기적 중성(<b>준중성</b>)이고, 하전 입자들이 서로 끌고 밀며 집단적으로 움직입니다.`,
+        set: cc(["플라즈마의 구성", "양이온: 방향·에너지 조절(망치)", "라디칼: 높은 반응성(약품)", "전자: 충돌로 플라즈마 유지", "", "준중성 + 집단 거동", "낮은 온도에서 물리 + 화학", ""]) },
+      { short: "글로우 방전", title: "전자가 부딪혀 이온을 만들고, 연쇄로 유지된다", cmd: "방전",
+        text: `전기장으로 가속된 자유전자가 중성 기체와 부딪혀 전자를 떼어 내면(<b>이온화</b>) 양이온과 전자가 생깁니다. 양이온은 음극으로 가속돼 부딪히며 <b>2차 전자</b>를 내고, 이 전자가 다시 가속돼 충돌하는 연쇄로 방전이 유지됩니다. 들떴다 돌아오는 전자가 내는 빛이 '글로우'입니다.`,
+        set: Object.assign({ casc: on, "casc-p": on }, cc(["글로우 방전", "① 전자 가속", "② 기체와 충돌 → 이온화", "③ 이온 → 음극 충돌 → 2차 전자", "④ 다시 ①로(연쇄)", "빛 = 들뜬 전자가 돌아올 때", "손실을 메우려 마그네트론 등으로 밀도 유지", ""])) },
+      { short: "여기·해리·이온화", title: "전자 에너지에 따라 결과가 다르다", cmd: "eV",
+        text: `에너지가 아주 작으면(약 2 eV 이하) 열로 사라집니다. 약 2~6 eV면 전자가 들떴다 돌아오며 원소 고유의 빛을 내는 <b>여기</b>(식각 종점 검출에 이용), 약 6~15 eV면 분자가 쪼개져 라디칼이 생기는 <b>해리</b>(CF₄ → CF₃ + F), Ar은 약 15.8 eV 이상에서 전자가 떨어지는 <b>이온화</b>가 일어나 플라즈마가 유지됩니다.`,
+        set: Object.assign(only(G, ["ladder"]), { casc: off, "casc-p": off }, cc(["충돌의 세 가지 결과", "여기 → 빛(OES 종점 검출)", "해리 → 라디칼(화학 반응)", "이온화 → 양이온(플라즈마 유지)", "", "이온화보다 작은 에너지로 부딪히면", "열·여기·해리 중 하나", ""])) },
+      { short: "파셴 법칙", title: "파셴 법칙: 방전이 가장 쉬운 압력·간격이 있다", cmd: "p·d",
+        text: `방전 개시 전압은 <b>압력 × 전극 간격(p·d)</b>과 기체 종류로 정해지며 최적점이 있습니다. 압력이 너무 낮으면 부딪힐 기체가 적고, 너무 높으면 평균 자유 행로가 짧아 전자가 충분히 가속되기 전에 부딪힙니다. 간격이 너무 가까우면 부딪히기 전에 전극에 도달하고, 너무 멀면 전기장이 약해집니다. 볼링 레인이 너무 붐비거나 텅 빈 것과 같습니다.`,
+        set: Object.assign(only(G, ["pasch"]), cc(["파셴 법칙", "방전 전압 = f(p·d, 기체)", "너무 낮음: 충돌 대상 부족", "너무 높음: 가속 전 충돌", "", "어느 쪽이든 더 높은 전압 필요", "", ""])) },
+    ],
+  };
+
+  const sheath = {
+    id: "sheath", label: "시스와 바이어스",
+    base: () => Object.assign(only(G, ["cham", "potp"]), all(CH, off), irs(off), { glow: on, parts: on, "sh-top": on, "sh-bot": on, "sh-t": on, cham: { s: "on", style: { transform: "translateX(-20px)" } } }),
+    steps: [
+      { short: "시스", title: "시스: 전위가 급격히 떨어지는 얇은 층", cmd: "Sheath",
+        text: `전자는 가볍고 빨라 전극·벽으로 먼저 빠져나가므로, 전극 앞에는 양이온이 쌓인 얇은 층(<b>시스</b>)이 생기고 여기서 전위가 급격히 떨어집니다. 이 시스 전압이 양이온을 웨이퍼 쪽으로 <b>수직 가속</b>해 이방성 식각과 스퍼터링을 가능하게 합니다. 시스는 빛을 내는 입자가 적어 어둡게 보이고, 플라즈마 전위는 항상 전극·벽보다 높습니다.`,
+        set: Object.assign({ ionrain: on }, irs(on), cc(["시스(sheath)", "전자가 먼저 빠져나감", "→ 양이온이 남은 얇은 층", "→ 전위 급강", "→ 이온을 수직으로 가속", "= 이방성 식각의 원리", "디바이 길이 < 플라즈마 크기여야 중성 유지", ""])) },
+      { short: "DC와 RF·자기 바이어스", title: "절연체에는 RF: 자기 바이어스가 생긴다", cmd: "13.56 MHz",
+        text: `DC 플라즈마로 절연체를 다루면 표면에 양이온이 쌓여(<b>차징</b>) 시스 전압이 무너지고 방전이 꺼집니다. <b>RF</b>(보통 13.56 MHz)는 극성이 빠르게 바뀌어 쌓인 양이온이 전자로 중화됩니다. 전자가 이온보다 훨씬 빨리 전극에 들어오므로 전극이 평균적으로 음전위가 되는데(<b>자기 바이어스</b>), 전원 사이의 블로킹 커패시터가 이 음전하가 빠져나가지 못하게 막아야 생깁니다. 음극 면적이 작을수록 커집니다.`,
+        set: Object.assign({ ionrain: on }, irs(on), cc(["DC vs RF", "DC: 금속 스퍼터링", "절연체 → 차징으로 방전 꺼짐", "RF: 교류로 중화", "→ 절연막 스퍼터·식각·PECVD", "자기 바이어스 + 블로킹 커패시터", "음극 면적 ↓ → 자기 바이어스 ↑", ""])) },
+      { short: "주파수와 이온 에너지", title: "바이어스 주파수를 낮추면 이온 에너지가 커진다", cmd: "듀얼 주파수",
+        text: `무거운 이온은 빠른 주파수를 따라가지 못해 평균 에너지만 받습니다. 바이어스 주파수를 낮추면 이온이 충분히 가속돼 에너지가 커지므로, 단단한 절연막 식각에는 낮은 바이어스 주파수를 씁니다. 그래서 CCP는 <b>밀도용 고주파</b>와 <b>에너지용 저주파</b>를 함께 쓰는 듀얼 주파수 방식을 씁니다.`,
+        set: Object.assign({ ionrain: on }, irs(on), cc(["주파수의 역할", "고주파: 밀도(라디칼·이온 수)", "저주파: 이온 에너지", "단단한 절연막 → 저주파 바이어스", "", "자기 바이어스: 주파수 ↓, 전압 ↑,", "압력 ↓일수록 커짐", ""])) },
+    ],
+  };
+
+  const cmp = {
+    id: "ccp-icp", label: "CCP·ICP",
+    base: () => Object.assign(only(G, ["cmpx"]), { ccp: on, icp: { s: "on", style: { opacity: ".25" } } }),
+    steps: [
+      { short: "CCP", title: "CCP: 평행한 두 전극 사이에 RF", cmd: "CCP",
+        text: `<b>CCP</b>(용량 결합)는 평행한 두 전극 사이에 RF를 걸어 플라즈마를 만듭니다. 밀도는 낮고 이온 에너지는 높은데, 밀도와 에너지를 따로 조절하기 어렵습니다. 균일도가 좋아 대면적에 유리하고, CFx 같은 큰 조각이 많아 측벽 보호막(폴리머)에 유리해 <b>산화막·질화막 같은 절연막 식각</b>에 씁니다.`,
+        set: Object.assign({ ccp: { s: "on", style: { opacity: "1" } }, icp: { s: "on", style: { opacity: ".25" } } }, cc(["CCP(용량 결합)", "밀도: 낮음", "이온 에너지: 높음", "독립 제어: 어려움", "균일도: 좋음", "큰 CFx 조각 → 폴리머", "주 쓰임: 절연막 식각", ""])) },
+      { short: "ICP", title: "ICP: 코일로 고밀도, 바이어스는 따로", cmd: "ICP",
+        text: `<b>ICP</b>(유도 결합)는 챔버 위 코일에 RF를 걸어 유도 전기장으로 플라즈마를 만듭니다. 저압에서도 밀도가 약 <b>100배</b> 높고, 소스(밀도)와 바이어스(에너지)를 <b>독립 제어</b>합니다. 분포가 도넛 모양이라 안테나 설계로 보완하고, 더 잘게 쪼개져 F 라디칼이 많아 <b>실리콘·금속 식각</b>, HDP-CVD, 스퍼터의 이온화에 씁니다.`,
+        set: Object.assign({ ccp: { s: "on", style: { opacity: ".25" } }, icp: { s: "on", style: { opacity: "1" } } }, cc(["ICP(유도 결합)", "밀도: 높음(약 100배)", "저압에서도 고밀도", "소스·바이어스 독립 제어", "균일도: 도넛 모양 → 안테나로 보완", "F 라디칼 많음", "주 쓰임: Si·금속 식각, HDP-CVD", ""])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [make, sheath, cmp], dur: 6500 });
+})();
+</script>
+</body>
+</html>

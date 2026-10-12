@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>산화: 건식·습식 산화와 게이트 절연막</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: .8; }
+  .orig { stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .mol circle { fill: var(--accent); }
+  .diffuse[data-s="on"] { animation: diffuse 2.6s linear infinite; }
+  @keyframes diffuse { from { transform: translateY(0); opacity: 1; } 80% { opacity: 1; } to { transform: translateY(92px); opacity: 0; } }
+  .cv2 { fill: none; stroke-width: 2.8; }
+  .cv2.w { stroke: var(--accent); } .cv2.d { stroke: var(--low); }
+  .ion-ar { stroke: var(--accent); stroke-width: 2; }
+  .nit { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .dop { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .ray { fill: none; stroke: var(--accent); stroke-width: 2.4; }
+  .ray2 { fill: none; stroke: var(--low); stroke-width: 2.4; }
+  .needle { stroke: var(--ink); stroke-width: 3; }
+  .db { fill: var(--surface); stroke: var(--bad); stroke-width: 1.5; }
+  .hh { font: 700 11px var(--font-mono); fill: var(--low); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-3</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>산화: 건식·습식 산화와 게이트 절연막</h1>
+    <p class="lead">산화는 실리콘 웨이퍼를 고온에서 산소나 수증기와 반응시켜 표면에 SiO₂ 막을 키우는 공정입니다. 깎아 둔 사과가 갈변하듯 실리콘도 산소를 만나면 표면이 산화막으로 변하는데, 덧칠이 아니라 속살(실리콘)을 먹어 들어가며 자랍니다. 이 '갈변'을 온도와 시간으로 정밀하게 조절합니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">산화: 건식·습식 산화와 게이트 절연막</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== grow ===== -->
+        <g id="m-grow" class="t">
+          <text x="60" y="56" class="card-l">건식: Si + O₂ → SiO₂</text>
+          <text x="60" y="80" class="card-l">습식: Si + 2H₂O → SiO₂ + 2H₂</text>
+          <rect class="m-si" x="60" y="200" width="340" height="170"></rect>
+          <rect id="ox-up" class="ox t o-b" x="60" y="128" width="340" height="72"></rect>
+          <rect id="ox-dn" class="ox t o-t" x="60" y="200" width="340" height="58"></rect>
+          <line class="orig" x1="50" y1="200" x2="410" y2="200"></line>
+          <text x="414" y="204" class="lbl-s">원래 표면</text>
+          <text id="up-t" x="414" y="166" class="lbl-s acc t">위로 약 56%</text>
+          <text id="dn-t" x="414" y="236" class="lbl-s acc t">Si 쪽으로 약 44%</text>
+          <text x="80" y="350" class="card-l ink-b">Si</text>
+          <g id="mols" class="t"></g>
+          <text id="mol-t" x="230" y="100" class="lbl-s acc halo t" text-anchor="middle">산화제가 막을 뚫고 계면까지 확산 → 계면에서 반응</text>
+          <g id="dg" class="t">
+            <text x="560" y="70" class="lbl">산화막 두께</text>
+            <line class="axis" x1="560" y1="320" x2="860" y2="320"></line><line class="axis" x1="560" y1="320" x2="560" y2="80"></line>
+            <text x="858" y="340" class="lbl-s" text-anchor="end">시간 →</text>
+            <path class="cv2 w" d="M560,320 C590,250 680,150 850,112"></path>
+            <path class="cv2 d" d="M560,320 C610,290 720,240 850,214"></path>
+            <text x="852" y="104" class="lbl-s acc" text-anchor="end">습식(빠름)</text><text x="852" y="206" class="lbl-s low-t" text-anchor="end">건식(느림)</text>
+            <text x="574" y="372" class="lbl-s">처음: 두께 ∝ 시간(선형)</text><text x="574" y="390" class="lbl-s">← 계면 반응 속도가 결정</text>
+            <text x="720" y="372" class="lbl-s">두꺼워지면: 두께 ∝ √시간</text><text x="720" y="390" class="lbl-s">← 막을 통과하는 확산이 결정</text>
+          </g>
+          <g id="g-card" class="t">
+            <text id="g1" x="590" y="140" class="head-t"></text>
+            <text id="g2" x="590" y="172" class="card-l"></text>
+            <text id="g3" x="590" y="196" class="card-l"></text>
+            <text id="g4" x="590" y="220" class="card-l"></text>
+            <text id="g5" x="590" y="254" class="card-l acc"></text>
+            <text id="g6" x="590" y="278" class="card-m"></text>
+          </g>
+        </g>
+
+        <!-- ===== uses ===== -->
+        <g id="m-use" class="t">
+          <g id="u-prot" class="t">
+            <rect class="m-si" x="80" y="220" width="380" height="120"></rect><rect class="ox" x="80" y="196" width="380" height="24"></rect>
+            <circle cx="170" cy="150" r="10" style="fill: var(--muted)"></circle><path d="M178,158 L196,190" style="stroke: var(--muted); stroke-width: 2" marker-end="url(#ar-m)"></path>
+            <path d="M300,140 L340,190" style="stroke: var(--bad); stroke-width: 2.5" marker-end="url(#ar-b)"></path><text x="292" y="132" class="lbl-s bad-t">긁힘</text><text x="150" y="132" class="lbl-s">먼지</text>
+            <text x="270" y="212" class="lbl-s" text-anchor="middle">산화막이 막아 줌</text>
+            <text x="270" y="290" class="card-l" text-anchor="middle">소자 특성에 가장 큰 영향을 주는 실리콘 표면</text>
+          </g>
+          <g id="u-iso" class="t">
+            <text x="60" y="110" class="card-l ink-b">LOCOS(예전)</text>
+            <rect class="m-si" x="60" y="200" width="200" height="120"></rect>
+            <path class="ox" d="M110,200 C120,200 124,188 134,176 H186 C196,188 200,200 210,200 C200,206 190,232 160,240 C130,232 120,206 110,200 Z"></path>
+            <rect class="nit" x="60" y="190" width="58" height="10"></rect><rect class="nit" x="202" y="190" width="58" height="10"></rect>
+            <path d="M118,184 L108,166" style="stroke: var(--bad); stroke-width: 2" marker-start="url(#ar-b)"></path><text x="70" y="160" class="lbl-s bad-t">버즈빅(옆으로 번짐)</text>
+            <text x="300" y="110" class="card-l ink-b">STI(지금)</text>
+            <rect class="m-si" x="300" y="200" width="200" height="120"></rect>
+            <rect class="ox" x="370" y="200" width="60" height="80"></rect>
+            <text x="400" y="300" class="lbl-s" text-anchor="middle">트렌치에 절연막을 채움</text>
+            <text x="280" y="360" class="card-l" text-anchor="middle">미세화에 불리한 버즈빅 → 좁고 깊게 절연하는 STI로(3-14)</text>
+          </g>
+          <g id="u-imp" class="t">
+            <rect class="m-si" x="80" y="220" width="380" height="120"></rect>
+            <rect class="ox" x="80" y="160" width="180" height="60"></rect><rect class="ox" x="260" y="212" width="200" height="8"></rect>
+            <g id="ions"></g>
+            <path class="dop" d="M262,222 V258 H458"></path>
+            <text x="170" y="196" class="lbl-s" text-anchor="middle">두꺼운 산화막: 이온을 막음(마스크)</text>
+            <text x="360" y="204" class="lbl-s" text-anchor="middle">얇은 버퍼층</text>
+            <text x="360" y="284" class="lbl-s acc" text-anchor="middle">도핑된 영역</text>
+          </g>
+          <g id="u-gate" class="t">
+            <rect class="m-si" x="80" y="230" width="220" height="110"></rect><rect class="ox" x="130" y="222" width="120" height="8"></rect><rect class="m-poly" x="130" y="170" width="120" height="52"></rect>
+            <text x="190" y="202" class="card-l ink-b" text-anchor="middle">게이트</text><text x="190" y="252" class="lbl-s acc" text-anchor="middle">↑ 게이트 산화막</text>
+            <rect x="330" y="160" width="160" height="150" class="frame" style="stroke: var(--accent)"></rect>
+            <rect class="ox" x="330" y="160" width="160" height="60"></rect><rect class="m-si" x="330" y="220" width="160" height="90"></rect>
+            <g id="dbs"></g>
+            <text x="410" y="330" class="lbl-s" text-anchor="middle">계면: 끊어진 결합(댕글링 본드)</text>
+            <text id="h-t" x="410" y="348" class="lbl-s low-t t" text-anchor="middle">→ 수소 열처리로 막음(패시베이션)</text>
+          </g>
+          <text id="u1" x="560" y="90" class="head-t"></text>
+          <text id="u2" x="560" y="122" class="card-l"></text>
+          <text id="u3" x="560" y="146" class="card-l"></text>
+          <text id="u4" x="560" y="170" class="card-l"></text>
+          <text id="u5" x="560" y="194" class="card-l"></text>
+          <text id="u6" x="560" y="228" class="card-l acc"></text>
+          <text id="u7" x="560" y="252" class="card-m"></text>
+        </g>
+
+        <!-- ===== measure ===== -->
+        <g id="m-meas" class="t">
+          <g id="x-thk" class="t">
+            <rect class="m-si" x="80" y="250" width="380" height="90"></rect><rect class="ox" x="80" y="210" width="380" height="40"></rect>
+            <path class="ray" d="M120,80 L220,210"></path><path class="ray" d="M220,210 L320,80" marker-end="url(#ar-a)"></path>
+            <path class="ray2" d="M220,210 L250,250 L280,210 L370,90" marker-end="url(#ar-l)"></path>
+            <text x="112" y="72" class="lbl-s">빛</text><text x="330" y="74" class="lbl-s acc">공기/SiO₂에서 반사</text><text x="372" y="104" class="lbl-s low-t">SiO₂/Si에서 반사</text>
+            <text x="270" y="300" class="card-l" text-anchor="middle">두 반사광의 간섭 → 두께</text>
+          </g>
+          <g id="x-dop" class="t">
+            <rect class="m-si" x="60" y="220" width="200" height="110"></rect>
+            <g id="needles"></g>
+            <text x="160" y="140" class="card-l ink-b" text-anchor="middle">4-포인트 프로브</text>
+            <text x="160" y="356" class="lbl-s" text-anchor="middle">바깥 둘: 전류 · 안쪽 둘: 전압</text>
+            <text x="160" y="374" class="lbl-s acc" text-anchor="middle">면저항 → 활성화된 도펀트만</text>
+            <rect class="m-si" x="300" y="220" width="200" height="110"></rect>
+            <path d="M360,220 Q400,262 440,220" style="fill: var(--surface); stroke: var(--line-strong)"></path>
+            <path d="M330,150 L392,226" style="stroke: var(--accent); stroke-width: 3" marker-end="url(#ar-a)"></path>
+            <path d="M408,228 L470,160" style="stroke: var(--low); stroke-width: 2; stroke-dasharray: 3 3" marker-end="url(#ar-l)"></path>
+            <text x="400" y="140" class="card-l ink-b" text-anchor="middle">SIMS</text>
+            <text x="300" y="168" class="lbl-s acc">이온으로 깎음</text><text x="476" y="158" class="lbl-s low-t">2차 이온</text>
+            <text x="400" y="356" class="lbl-s" text-anchor="middle">깊이별 농도(질량 분석)</text>
+            <text x="400" y="374" class="lbl-s acc" text-anchor="middle">비활성 불순물까지 측정</text>
+          </g>
+          <g id="x-cv" class="t">
+            <text x="80" y="110" class="card-l ink-b">C-V 곡선</text>
+            <line class="axis" x1="80" y1="300" x2="300" y2="300"></line><line class="axis" x1="80" y1="300" x2="80" y2="130"></line>
+            <path class="cv2 d" d="M80,150 H140 C170,150 180,260 210,262 H290"></path>
+            <path class="cv2 w" d="M80,150 H120 C150,150 160,260 190,262 H290" style="stroke-dasharray: 5 4"></path>
+            <text x="84" y="144" class="lbl-s">Cox → 두께·유전율</text><text x="96" y="324" class="lbl-s acc">옆으로 이동 → 산화막 속 고정 전하</text>
+            <text x="340" y="110" class="card-l ink-b">신뢰성</text>
+            <line class="axis" x1="340" y1="300" x2="500" y2="300"></line><line class="axis" x1="340" y1="300" x2="340" y2="130"></line>
+            <path d="M340,300 L450,170 L452,300" style="fill: none; stroke: var(--bad); stroke-width: 2.5"></path>
+            <text x="344" y="324" class="lbl-s">TZDB: 전압을 올려 즉시 파괴 전압</text>
+            <text x="344" y="344" class="lbl-s">TDDB: 일정 전기장에서 파괴까지 시간</text>
+          </g>
+          <text id="x1" x="560" y="90" class="head-t"></text>
+          <text id="x2" x="560" y="122" class="card-l"></text>
+          <text id="x3" x="560" y="146" class="card-l"></text>
+          <text id="x4" x="560" y="170" class="card-l"></text>
+          <text id="x5" x="560" y="204" class="card-l acc"></text>
+          <text id="x6" x="560" y="228" class="card-m"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 막 두께와 곡선의 모양은 비율이 아니라 경향만 보여 줍니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>산화막의 쓰임 네 가지: <b>표면 보호, 소자 분리, 이온주입 마스크·버퍼, 게이트 절연막</b>.</li>
+      <li>건식(O₂)은 느리지만 치밀하고 계면이 좋아 게이트 산화막·STI 라이너·패드 산화막에, 습식(H₂O)은 빠르고 두꺼운 막에 유리해 필드 산화막·희생 산화막에 씁니다.</li>
+      <li>가장 중요한 산화막은 게이트 산화막입니다. 문턱전압, 게이트 누설, 서브스레숄드 특성, 이동도, 신뢰성을 직접 결정하고, 계면이 나쁘면 계면 트랩이 늘어 이동도가 떨어집니다. 1~2 nm까지 얇아지자 터널링 누설로 High-k + 금속 게이트로 넘어갔습니다(3-9).</li>
+    </ul>
+    <p class="foot">원고 3-3을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-3 MOSFET 특성(C-V), 3-8 이온주입과 열처리, 3-9 금속배선(HKMG).</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  for (let i = 0; i < 7; i++) { const g = mk($("mols"), "g", { class: "mol diffuse t", id: "mol" + i, style: `animation-delay: ${(i * 0.37).toFixed(2)}s` }); mk(g, "circle", { cx: 90 + i * 46, cy: 112, r: 5 }); mk(g, "circle", { cx: 100 + i * 46, cy: 112, r: 5 }); }
+  const molIds = Array.from({ length: 7 }, (_, i) => "mol" + i);
+  for (let i = 0; i < 6; i++) mk($("ions"), "path", { class: "ion-ar", d: `M${110 + i * 64},100 V${i < 3 ? 150 : 206}`, "marker-end": "url(#ar-a)" });
+  for (let i = 0; i < 4; i++) mk($("needles"), "line", { class: "needle", x1: 100 + i * 40, y1: 160, x2: 100 + i * 40, y2: 220 });
+  mk($("needles"), "text", { x: 100, y: 156, class: "lbl-s", "text-anchor": "middle" }, "I"); mk($("needles"), "text", { x: 220, y: 156, class: "lbl-s", "text-anchor": "middle" }, "I");
+  mk($("needles"), "text", { x: 140, y: 156, class: "lbl-s acc", "text-anchor": "middle" }, "V"); mk($("needles"), "text", { x: 180, y: 156, class: "lbl-s acc", "text-anchor": "middle" }, "V");
+  for (let i = 0; i < 8; i++) { mk($("dbs"), "circle", { class: "db", cx: 345 + i * 19, cy: 220, r: 4 }); mk($("dbs"), "text", { id: "hh" + i, class: "hh t", x: 341 + i * 19, y: 212 }, "H"); }
+  const hhs = (v) => all(Array.from({ length: 8 }, (_, i) => "hh" + i), v);
+  const thick = (t) => ({ "ox-up": { style: { transform: `scaleY(${(t * .56 / 72).toFixed(3)})` } }, "ox-dn": { style: { transform: `scaleY(${(t * .44 / 58).toFixed(3)})` } } });
+  const gg = (a) => lines("g", a, 6), uu = (a) => lines("u", a, 7), xx = (a) => lines("x", a, 6);
+  const G = ["m-grow", "m-use", "m-meas"];
+
+  const grow = {
+    id: "grow", label: "자라는 원리",
+    base: () => Object.assign(only(G, ["m-grow"]), thick(10), all(["mols", "mol-t", "dg", "up-t", "dn-t"].concat(molIds), off), { "g-card": on }),
+    steps: [
+      { short: "실리콘을 먹어 들어간다", title: "산화막은 원래 표면 위아래로 자란다", cmd: "산화",
+        text: `실리콘이 산소(건식)나 수증기(습식)와 반응해 SiO₂가 됩니다. 실리콘 원자를 재료로 쓰기 때문에 막은 원래 표면(점선) 위로만 쌓이지 않고 <b>실리콘 쪽으로도</b> 자랍니다. 산화막 두께의 <b>약 44%</b>만큼 실리콘이 소모됩니다.`,
+        set: Object.assign(thick(60), { "up-t": on, "dn-t": on }, gg(["실리콘을 소모하며 자람", "두께의 약 44%만큼 Si 소모", "약 800~1,200 °C", "증착과 달리 계면이 좋음", "건식: O₂ / 습식: H₂O", ""])) },
+      { short: "계면에서 반응", title: "산화제가 막을 뚫고 계면에서 반응한다", cmd: "확산",
+        text: `산화제(O₂ 또는 H₂O)가 이미 생긴 산화막을 <b>뚫고 확산</b>해 Si/SiO₂ <b>계면</b>에서 반응합니다. 그래서 새 막은 언제나 계면, 즉 실리콘 쪽에서 만들어집니다. 막이 두꺼울수록 산화제가 계면까지 가는 길이 길어져 느려집니다.`,
+        set: Object.assign(thick(110), { mols: on, "mol-t": on }, all(molIds, on), gg(["산화제의 여정", "① 막 표면에 도착", "② 막을 뚫고 확산", "③ 계면에서 Si와 반응", "막이 두꺼울수록 ② 가 느려짐", ""])) },
+      { short: "딜-그로브", title: "얇을 때는 선형, 두꺼워지면 포물선", cmd: "Deal-Grove",
+        text: `<b>딜-그로브 모델</b>: 얇을 때는 계면 반응 속도가 결정해 두께가 시간에 <b>비례</b>(선형)하고, 두꺼워지면 산화제가 막을 통과하는 확산이 느려져 두께가 <b>시간의 제곱근</b>에 비례(포물선)합니다. 습식이 건식보다 훨씬 빠릅니다.`,
+        set: Object.assign(thick(110), { mols: off, "mol-t": off, dg: on, "g-card": off }, all(molIds, off)) },
+      { short: "속도를 바꾸는 것", title: "산화 속도를 바꾸는 요인", cmd: "속도",
+        text: `① 산화 방식(습식이 훨씬 빠름) ② <b>온도와 챔버 압력</b>이 높을수록 빠름 ③ 불순물이 많이 주입된 영역은 빠름. 여기에 <b>결정면</b>도 영향을 주어 (111) 면이 (100) 면보다 빠릅니다. 얇고 정밀한 게이트 산화막은 느린 건식으로, 두꺼운 필드 산화막은 빠른 습식으로 키웁니다.`,
+        set: Object.assign(thick(110), { dg: off, "g-card": on }, gg(["산화 속도 요인", "① 습식 > 건식", "② 온도·압력 ↑ → 빠름", "③ 고농도 도핑 영역 → 빠름", "④ 결정면: (111) > (100)", "얇고 정밀 → 건식, 두꺼움 → 습식"])) },
+    ],
+  };
+
+  const use = {
+    id: "use", label: "쓰임 4가지",
+    base: () => Object.assign(only(G, ["m-use"]), only(["u-prot", "u-iso", "u-imp", "u-gate"], ["u-prot"]), hhs(off), { "h-t": off }),
+    steps: [
+      { short: "표면 보호", title: "① 표면 보호", cmd: "보호",
+        text: `소자 특성에 가장 큰 영향을 주는 <b>실리콘 표면</b>을 긁힘·먼지로부터 보호합니다.`,
+        set: uu(["① 표면 보호", "실리콘 표면 = 소자 특성의 핵심", "긁힘·먼지·오염 차단", "", "", "", ""]) },
+      { short: "소자 분리", title: "② 소자 분리: LOCOS에서 STI로", cmd: "분리",
+        text: `인접 소자를 물리·전기적으로 절연합니다. 예전에는 질화막으로 덮지 않은 곳만 두껍게 산화해 분리(<b>LOCOS</b>)했지만, 산화막이 질화막 아래로 옆으로 번지는 <b>버즈빅</b> 때문에 미세화에 불리해, 트렌치를 파고 절연막을 채우는 <b>STI</b>로 바뀌었습니다.`,
+        set: Object.assign(only(["u-prot", "u-iso", "u-imp", "u-gate"], ["u-iso"]), uu(["② 소자 분리", "LOCOS: 국부 산화", "→ 버즈빅이 면적을 잡아먹음", "STI: 트렌치 + 절연막 채움", "", "좁은 폭에서 깊게, CMP로 평탄", ""])) },
+      { short: "이온주입 마스크·버퍼", title: "③ 이온주입의 마스크·버퍼·하드마스크", cmd: "마스크",
+        text: `두꺼운 산화막은 이온이 들어가지 못하게 막는 <b>블로킹 마스크</b>가 되고, 얇은 산화막은 이온주입 때 표면을 보호하는 <b>버퍼층</b>이 됩니다. 식각할 때 패턴을 옮기는 하드마스크로도 씁니다.`,
+        set: Object.assign(only(["u-prot", "u-iso", "u-imp", "u-gate"], ["u-imp"]), uu(["③ 마스크·버퍼", "두꺼운 막: 이온 차단", "얇은 막: 표면 보호(버퍼)", "식각용 하드마스크", "", "", ""])) },
+      { short: "게이트 절연막", title: "④ 게이트 절연막: 가장 중요한 산화막", cmd: "GOX",
+        text: `게이트 산화막은 채널과 게이트 사이에서 <b>문턱전압, 게이트 누설, 서브스레숄드 특성, 이동도, 신뢰성</b>을 직접 결정합니다. 계면의 끊어진 결합(댕글링 본드)이 적을수록 좋은 막이고, 산화 뒤 <b>수소 분위기 열처리</b>로 남은 결합을 막아(패시베이션) 계면 트랩을 더 줄입니다.`,
+        set: Object.assign(only(["u-prot", "u-iso", "u-imp", "u-gate"], ["u-gate"]), hhs(on), { "h-t": on }, uu(["④ 게이트 절연막", "Vth · 게이트 누설 · SS", "이동도 · 신뢰성을 결정", "계면 트랩 ↑ → 이동도 ↓", "1~2 nm에서 터널링 한계", "→ High-k + 금속 게이트(3-9)", ""])) },
+    ],
+  };
+
+  const meas = {
+    id: "measure", label: "평가 방법",
+    base: () => Object.assign(only(G, ["m-meas"]), only(["x-thk", "x-dop", "x-cv"], ["x-thk"])),
+    steps: [
+      { short: "두께", title: "두께: 두 계면에서 반사된 빛의 간섭", cmd: "두께",
+        text: `산화막 두께는 공기/SiO₂, SiO₂/Si 두 계면에서 반사된 빛의 <b>간섭</b>으로 정밀하게 잽니다(간섭식 측정기). 반사광의 편광 변화를 보는 <b>엘립소미터</b>는 두께와 굴절률을 함께 봅니다. 두께에 따라 반사색이 달라지는 컬러 차트는 간이용이고, FIB로 잘라 SEM으로 단면을 보는 방법은 웨이퍼를 깨뜨립니다.`,
+        set: xx(["두께 측정", "컬러 차트: 간이, 오차 큼", "간섭식 측정기: 비파괴, 정밀", "엘립소미터: 두께 + 굴절률", "FIB + SEM 단면: 파괴", "파티클: 레이저 산란 검사"]) },
+      { short: "도핑", title: "도핑: 4-포인트 프로브와 SIMS", cmd: "도핑",
+        text: `<b>4-포인트 프로브</b>는 바깥 두 탐침으로 전류를 흘리고 안쪽 둘로 전압을 재 면저항을 구하는 전기적 측정이라 <b>활성화된 도펀트만</b> 반영합니다. <b>SIMS</b>는 이온으로 표면을 깎으며 튀어나온 2차 이온을 질량 분석해 <b>비활성 불순물까지</b> 깊이별로 봅니다. 비스듬히 연마해 깊이별 저항을 재는 SRP도 있습니다.`,
+        set: Object.assign(only(["x-thk", "x-dop", "x-cv"], ["x-dop"]), xx(["도핑 측정", "4PP: 면저항, 활성 도펀트만", "SRP: 깊이별 저항", "SIMS: 질량 분석, 깊이별", "→ 비활성 불순물까지", ""])) },
+      { short: "전기적 품질·신뢰성", title: "C-V로 품질을, TZDB·TDDB로 수명을 본다", cmd: "C-V",
+        text: `<b>C-V 곡선</b>의 축적 영역 최대 용량(Cox)으로 두께·유전율을, 곡선이 옆으로 밀린 정도(평탄대 전압 이동)로 산화막 속 고정 전하를 봅니다(2-3). 신뢰성은 전압을 올려 즉시 파괴되는 전압(<b>TZDB</b>)과 일정 전기장에서 파괴되기까지 걸리는 시간(<b>TDDB</b>)으로 평가합니다.`,
+        set: Object.assign(only(["x-thk", "x-dop", "x-cv"], ["x-cv"]), xx(["전기적 평가", "C-V: Cox → 두께·유전율", "평탄대 이동 → 고정 전하", "TZDB: 즉시 파괴 전압", "TDDB: 파괴까지 시간", ""])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [grow, use, meas], dur: 6500 });
+})();
+</script>
+</body>
+</html>

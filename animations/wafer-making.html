@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>웨이퍼 제조: 잉곳에서 웨이퍼까지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .box.end { fill: var(--accent-soft); stroke: var(--accent); }
+  .cruc { fill: none; stroke: var(--ink); stroke-width: 3; }
+  .melt { fill: var(--accent); opacity: .45; }
+  .heat { fill: none; stroke: var(--bad); stroke-width: 2; }
+  .ingot { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .grow[data-s="on"] { animation: grow 4.5s ease-out infinite; }
+  @keyframes grow { from { transform: scaleY(.08); } 85%, 100% { transform: scaleY(1); } }
+  .slice { stroke: var(--surface); stroke-width: 2; }
+  .saw { stroke: var(--low); stroke-width: 1.5; stroke-dasharray: 6 3; }
+  .wf { fill: var(--m-si); stroke: var(--m-si-line); }
+  .epi { fill: var(--m-si-n); stroke: var(--m-si-line); }
+  .die { fill: var(--m-si-n); stroke: var(--surface); stroke-width: 1; }
+  .die.edge { fill: var(--bad); opacity: .35; }
+  .disc { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.5; }
+  .surf { fill: none; stroke: var(--ink); stroke-width: 2; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-1</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>웨이퍼 제조: 잉곳에서 웨이퍼까지</h1>
+    <p class="lead">웨이퍼는 모래에서 뽑아 11N(99.999999999%)까지 정제한 실리콘을 단결정 잉곳으로 키운 뒤 얇게 잘라 거울처럼 연마한 원판입니다. 피자 도우처럼 반죽을 키우고, 얇게 썰고, 표면을 다듬어 회로를 올릴 준비를 합니다. 도우가 울퉁불퉁하면 어떤 토핑을 올려도 망칩니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">웨이퍼 제조: 잉곳에서 웨이퍼까지</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== make ===== -->
+        <g id="m-make" class="t">
+          <g id="refine" class="t"></g>
+          <g id="cz" class="t">
+            <path class="heat" d="M118,240 l8,10 l-8,10 l8,10 l-8,10 l8,10 l-8,10 l8,10 l-8,10"></path>
+            <path class="heat" d="M382,240 l-8,10 l8,10 l-8,10 l8,10 l-8,10 l8,10 l-8,10 l8,10"></path>
+            <rect class="melt" x="152" y="276" width="196" height="72"></rect>
+            <path class="cruc" d="M150,236 V330 Q150,350 170,350 H330 Q350,350 350,330 V236"></path>
+            <line x1="250" y1="40" x2="250" y2="112" style="stroke: var(--ink); stroke-width: 3"></line>
+            <rect class="ingot" x="242" y="104" width="16" height="16"></rect>
+            <rect id="ing" class="ingot grow t o-b" x="212" y="120" width="76" height="160" rx="6"></rect>
+            <path d="M300,70 A40,10 0 1,1 300,90" style="fill: none; stroke: var(--accent); stroke-width: 2" marker-end="url(#ar-a)"></path>
+            <path d="M200,96 V58" style="stroke: var(--accent); stroke-width: 2" marker-end="url(#ar-a)"></path>
+            <text x="194" y="54" class="lbl-s acc" text-anchor="end">천천히 끌어올림</text><text x="346" y="76" class="lbl-s acc">회전</text>
+            <text x="262" y="108" class="lbl-s">종자 결정</text>
+            <text x="250" y="374" class="lbl-s" text-anchor="middle">석영 도가니 · 녹은 실리콘(1,414 °C 이상)</text>
+            <text x="110" y="232" class="lbl-s bad-t" text-anchor="end">히터</text>
+            <text x="300" y="200" class="lbl-s">단결정 잉곳</text>
+          </g>
+          <g id="slice" class="t">
+            <ellipse class="ingot" cx="80" cy="200" rx="18" ry="70"></ellipse>
+            <rect class="ingot" x="80" y="130" width="360" height="140" style="stroke: none"></rect>
+            <line x1="80" y1="130" x2="440" y2="130" style="stroke: var(--m-si-line)"></line><line x1="80" y1="270" x2="440" y2="270" style="stroke: var(--m-si-line)"></line>
+            <ellipse class="ingot" cx="440" cy="200" rx="18" ry="70"></ellipse>
+            <line x1="104" y1="120" x2="104" y2="280" style="stroke: var(--bad); stroke-dasharray: 4 3; stroke-width: 2"></line><line x1="420" y1="120" x2="420" y2="280" style="stroke: var(--bad); stroke-dasharray: 4 3; stroke-width: 2"></line>
+            <text x="104" y="112" class="lbl-s bad-t" text-anchor="middle">양 끝 잘라 냄</text><text x="420" y="112" class="lbl-s bad-t" text-anchor="middle">양 끝 잘라 냄</text>
+            <rect x="110" y="262" width="300" height="8" style="fill: var(--ink)"></rect><text x="260" y="296" class="lbl-s" text-anchor="middle">결정 방향 표시 홈(노치)</text>
+            <g id="cuts"></g>
+            <text x="260" y="330" class="card-l acc" text-anchor="middle">다이아몬드 와이어 쏘로 얇게 자름</text>
+          </g>
+          <g id="polish" class="t">
+            <g id="prof"></g>
+            <text x="470" y="250" class="lbl-s mono">≈ 775 μm</text>
+          </g>
+          <g id="kinds" class="t">
+            <rect class="wf" x="60" y="160" width="120" height="120"></rect>
+            <text x="120" y="304" class="card-l ink-b" text-anchor="middle">폴리시드</text><text x="120" y="324" class="lbl-s" text-anchor="middle">메모리 대부분</text>
+            <rect class="wf" x="200" y="172" width="120" height="108"></rect><rect class="epi" x="200" y="160" width="120" height="12"></rect>
+            <text x="260" y="304" class="card-l ink-b" text-anchor="middle">에피</text><text x="260" y="324" class="lbl-s" text-anchor="middle">로직·이미지센서·전력</text>
+            <rect class="wf" x="340" y="186" width="120" height="94"></rect><rect class="m-ox" x="340" y="174" width="120" height="12"></rect><rect class="epi" x="340" y="160" width="120" height="14" style="fill: var(--m-si)"></rect>
+            <text x="400" y="304" class="card-l ink-b" text-anchor="middle">SOI</text><text x="400" y="324" class="lbl-s" text-anchor="middle">RF·FD-SOI 로직</text>
+            <text x="270" y="150" class="lbl-s acc" text-anchor="middle">위층: 새로 키운 단결정층</text>
+            <text x="470" y="182" class="lbl-s">산화막</text>
+          </g>
+          <text id="k1" x="560" y="90" class="head-t"></text>
+          <text id="k2" x="560" y="122" class="card-l"></text>
+          <text id="k3" x="560" y="146" class="card-l"></text>
+          <text id="k4" x="560" y="170" class="card-l"></text>
+          <text id="k5" x="560" y="204" class="card-l acc"></text>
+          <text id="k6" x="560" y="228" class="card-m"></text>
+        </g>
+
+        <!-- ===== wafer ===== -->
+        <g id="m-waf" class="t">
+          <g id="sizes" class="t">
+            <g id="w200"></g><g id="w300"></g>
+            <text x="130" y="306" class="card-l ink-b" text-anchor="middle">200 mm(8인치)</text>
+            <text x="370" y="346" class="card-l ink-b" text-anchor="middle">300 mm(12인치)</text>
+            <text x="370" y="370" class="card-l acc" text-anchor="middle">면적 2.25배</text>
+            <rect class="die edge" x="60" y="400" width="14" height="14"></rect><text x="80" y="412" class="lbl-s">가장자리에서 버려지는 칩</text>
+          </g>
+          <g id="struct" class="t">
+            <g id="wbig"></g>
+            <path d="M222,364 L230,352 L238,364" style="fill: var(--surface); stroke: var(--ink); stroke-width: 1.5"></path>
+            <text x="230" y="386" class="lbl-s" text-anchor="middle">노치(결정 방향)</text>
+            <rect x="404" y="60" width="120" height="120" class="frame" style="stroke: var(--accent)"></rect>
+            <rect class="die" x="410" y="66" width="48" height="48"></rect><rect class="die" x="470" y="66" width="48" height="48"></rect><rect class="die" x="410" y="126" width="48" height="48"></rect><rect class="die" x="470" y="126" width="48" height="48"></rect>
+            <rect x="460" y="76" width="8" height="10" style="fill: var(--accent)"></rect><rect x="460" y="146" width="8" height="10" style="fill: var(--accent)"></rect>
+            <text x="464" y="204" class="lbl-s acc" text-anchor="middle">절단선 속 시험 소자(TEG)</text>
+          </g>
+          <g id="epiwhy" class="t">
+            <rect class="wf" x="80" y="190" width="380" height="150" style="fill: var(--m-pp)"></rect>
+            <rect class="epi" x="80" y="150" width="380" height="40" style="fill: #e3cdee"></rect>
+            <text x="270" y="176" class="card-l ink-b" text-anchor="middle">저농도 에피층(소자가 만들어질 곳)</text>
+            <text x="270" y="270" class="card-l ink-b" text-anchor="middle">고농도 기판</text>
+            <text x="80" y="140" class="lbl-s">기판의 결정 방향을 그대로 이어 받아 자람</text>
+          </g>
+          <text id="w1" x="560" y="90" class="head-t"></text>
+          <text id="w2" x="560" y="122" class="card-l"></text>
+          <text id="w3" x="560" y="146" class="card-l"></text>
+          <text id="w4" x="560" y="170" class="card-l"></text>
+          <text id="w5" x="560" y="204" class="card-l acc"></text>
+          <text id="w6" x="560" y="228" class="card-m"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 장치와 웨이퍼 크기, 칩 수는 비율을 맞추지 않았습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>웨이퍼 제조 순서: <b>정제(11N 폴리실리콘) → CZ 단결정 성장 → 슬라이싱 → 래핑·식각·연마 → 세정·검사</b>.</li>
+      <li>300 mm로 커진 이유: 칩 수 증가, 칩당 원가 절감, 가장자리 손실 비율 감소. 450 mm 전환은 장비 투자 부담 때문에 사실상 멈춰 있습니다.</li>
+      <li>노치는 결정 방향을 표시해 모든 장비가 웨이퍼를 같은 방향으로 정렬하게 합니다. 결정면에 따라 식각 속도와 소자 특성이 달라지기 때문입니다(1-4).</li>
+    </ul>
+    <p class="foot">원고 3-1을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 1-4 왜 실리콘인가, 3-7 증착(에피택시).</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  [["규석(SiO₂)", "모래·석영"], ["금속급 실리콘", "탄소로 환원, 순도 약 98%"], ["트리클로로실레인", "기체로 바꿔 증류·정제"], ["폴리실리콘 11N", "다시 실리콘으로 석출"]].forEach(([a, b], i) => {
+    const y = 64 + i * 80, g = $("refine");
+    mk(g, "rect", { class: "box" + (i === 3 ? " end" : ""), x: 100, y, width: 300, height: 56, rx: 8 });
+    mk(g, "text", { x: 120, y: y + 24, class: "card-l ink-b" }, a); mk(g, "text", { x: 120, y: y + 44, class: "lbl-s" }, b);
+    if (i < 3) mk(g, "path", { d: `M250,${y + 58} V${y + 78}`, style: "stroke: var(--ink); stroke-width: 1.6", "marker-end": "url(#ar-k)" });
+  });
+  for (let x = 124; x < 412; x += 12) { mk($("cuts"), "line", { class: "slice", x1: x, y1: 132, x2: x, y2: 268 }); }
+  mk($("cuts"), "line", { class: "saw", x1: 112, y1: 116, x2: 412, y2: 116 });
+  [["래핑", "절단 손상·굴곡을 갈아 냄", "M60,96 l10,-8 l10,10 l10,-12 l10,9 l10,-6 l10,10 l10,-9 l10,7 l10,-10 l10,8 l10,-6 l10,9 l10,-8 l10,10 l10,-7 l10,6 l10,-9 l10,8 l10,-6 l10,8 l10,-10 l10,9 l10,-6 l10,8 l10,-7 l10,7 l10,-8 l10,9 l10,-6 l10,8 l10,-7 l10,6 l10,-8 l10,7 l10,-6 l10,7 l10,-5 l10,6 l10,-7"],
+   ["식각", "화학 식각으로 손상층을 녹임", "M60,196 q20,-6 40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0"],
+   ["연마(CMP)", "거울면 완성", "M60,296 H460"]].forEach(([a, b, d], i) => {
+    const y = 90 + i * 100, g = $("prof");
+    mk(g, "rect", { class: "wf", x: 60, y: y + 6, width: 400, height: 44 });
+    mk(g, "path", { class: "surf", d, style: i === 2 ? "stroke: var(--accent); stroke-width: 3" : "" });
+    mk(g, "text", { x: 60, y: y - 14, class: "card-l ink-b" }, a); mk(g, "text", { x: 130, y: y - 14, class: "lbl-s" }, b);
+  });
+  // wafers with dies
+  const dies = (parent, cx, cy, r, s) => {
+    const id = "clip-" + parent.id;
+    const cp = mk(parent, "clipPath", { id }); mk(cp, "circle", { cx, cy, r });
+    mk(parent, "circle", { class: "disc", cx, cy, r });
+    const g = mk(parent, "g", { "clip-path": `url(#${id})` });
+    for (let x = cx - r; x < cx + r; x += s) for (let y = cy - r; y < cy + r; y += s) {
+      const corners = [[x, y], [x + s, y], [x, y + s], [x + s, y + s]].map(([a, b]) => Math.hypot(a - cx, b - cy) <= r - 3);
+      if (corners.every(Boolean)) mk(g, "rect", { class: "die", x, y, width: s, height: s });
+      else if (corners.some(Boolean)) mk(g, "rect", { class: "die edge", x, y, width: s, height: s });
+    }
+  };
+  dies($("w200"), 130, 200, 80, 20); dies($("w300"), 370, 200, 120, 20); dies($("wbig"), 230, 220, 140, 28);
+  const kk = (a) => lines("k", a, 6), ww = (a) => lines("w", a, 6);
+  const MK = ["refine", "cz", "slice", "polish", "kinds"];
+
+  const make = {
+    id: "make", label: "만드는 순서",
+    base: () => Object.assign(only(["m-make", "m-waf"], ["m-make"]), only(MK, ["refine"]), { ing: off }),
+    steps: [
+      { short: "정제(11N)", title: "모래에서 11N 폴리실리콘까지", cmd: "정제",
+        text: `규석(SiO₂)을 탄소로 환원해 순도 약 98%의 금속급 실리콘을 만들고, 이를 기체 화합물(트리클로로실레인)로 바꿔 증류·정제한 뒤 다시 실리콘으로 석출해 <b>11N</b>(99.999999999%) 폴리실리콘을 얻습니다. 아직은 결정 방향이 제각각인 다결정입니다.`,
+        set: kk(["정제", "순도를 11N까지", "= 9가 11개", "아직은 다결정", "", ""]) },
+      { short: "CZ 단결정 성장", title: "녹인 실리콘에서 단결정을 끌어올린다(CZ법)", cmd: "CZ",
+        text: `석영 도가니에서 폴리실리콘을 녹는점(<b>1,414 °C</b>) 이상으로 녹이고, 원하는 결정 방향의 <b>종자 결정</b>을 담갔다가 천천히 회전시키며 끌어올립니다. 원자가 종자의 배열을 그대로 따라 붙어 지름 300 mm, 길이 2 m 안팎의 <b>단결정 잉곳</b>이 됩니다. 이때 붕소나 인을 섞어 웨이퍼의 기본 도핑(P형·N형)을 정합니다.`,
+        set: Object.assign(only(MK, ["cz"]), { ing: on }, kk(["CZ법(초크랄스키)", "종자의 배열을 따라 자람", "지름 300 mm, 길이 2 m 안팎", "붕소·인으로 기본 도핑", "FZ법: 도가니 없이 일부만 녹임", "순도↑, 큰 지름 어려움 → 일부 전력소자"])) },
+      { short: "슬라이싱", title: "양 끝을 자르고 노치를 새기고 얇게 썬다", cmd: "슬라이싱",
+        text: `잉곳 양 끝을 잘라 내고 지름을 다듬은 뒤, 결정 방향 표시인 <b>노치</b>를 새기고 <b>다이아몬드 와이어 쏘</b>로 얇게 자릅니다. 결정 방향은 6인치 이하에서는 가장자리를 일자로 잘라 낸 플랫존으로, 8·12인치에서는 작은 홈인 노치로 표시합니다.`,
+        set: Object.assign(only(MK, ["slice"]), { ing: off }, kk(["슬라이싱", "양 끝 절단, 지름 다듬기", "노치 = 결정 방향 표시", "다이아몬드 와이어 쏘", "", ""])) },
+      { short: "래핑·식각·연마", title: "갈고, 녹이고, 거울처럼 닦는다", cmd: "연마",
+        text: `절단할 때 생긴 손상과 굴곡을 갈아 내고(<b>래핑</b>), 화학 식각으로 손상층을 녹이고, <b>CMP</b>로 거울면을 만듭니다. 300 mm 웨이퍼의 두께는 약 <b>775 μm</b>입니다. 표면이 평평하지 않으면 그 위의 모든 공정이 흔들립니다.`,
+        set: Object.assign(only(MK, ["polish"]), kk(["표면 다듬기", "래핑 → 식각 → CMP", "300 mm 두께 약 775 μm", "200 mm는 약 725 μm", "", ""])) },
+      { short: "검사·웨이퍼 종류", title: "검사 후 출하, 필요하면 에피·SOI로 가공", cmd: "출하",
+        text: `파티클, 평탄도, 결함을 검사해 출하합니다. 필요하면 표면에 단결정 실리콘을 한 겹 더 키운 <b>에피 웨이퍼</b>, 실리콘 사이에 산화막을 끼운 <b>SOI 웨이퍼</b>로 가공합니다. SiC·GaN·GaAs처럼 실리콘이 아닌 <b>화합물 웨이퍼</b>는 전력·RF·광소자에 씁니다(2-9).`,
+        set: Object.assign(only(MK, ["kinds"]), kk(["웨이퍼 종류", "폴리시드: 연마까지만", "에피: 단결정층 추가", "SOI: Si-산화막-Si", "화합물: SiC·GaN·GaAs", "전력·RF·광소자(2-9)"])) },
+    ],
+  };
+
+  const waf = {
+    id: "wafer", label: "웨이퍼 크기·구조",
+    base: () => Object.assign(only(["m-make", "m-waf"], ["m-waf"]), only(["sizes", "struct", "epiwhy"], ["sizes"])),
+    steps: [
+      { short: "200 → 300 mm", title: "웨이퍼가 클수록 칩당 원가가 내려간다", cmd: "300 mm",
+        text: `지름이 200 mm에서 300 mm로 커지면 면적이 <b>2.25배</b>라 한 장에서 나오는 칩이 크게 늘고, 가장자리에서 버려지는 칩(붉은 칸)의 비율도 줄어 칩당 원가가 내려갑니다. 450 mm 전환은 장비 투자 부담 때문에 사실상 멈춰 있습니다.`,
+        set: ww(["웨이퍼 크기", "200 → 300 mm: 면적 2.25배", "칩 수 ↑, 가장자리 손실 비율 ↓", "칩당 원가 ↓", "450 mm: 사실상 멈춤", ""]) },
+      { short: "다이·절단선·TEG", title: "칩은 바둑판처럼, 절단선에는 시험 소자", cmd: "TEG",
+        text: `웨이퍼 위에는 칩(<b>다이</b>)이 바둑판처럼 놓이고, 칩 사이의 절단선(<b>스크라이브 라인</b>)에는 공정을 점검하는 시험용 소자(<b>TEG</b>)를 넣어 전기적 특성을 잽니다(3-11). 아래쪽 작은 홈이 결정 방향을 알려 주는 노치입니다.`,
+        set: Object.assign(only(["sizes", "struct", "epiwhy"], ["struct"]), ww(["웨이퍼 위 구조", "다이: 칩 하나", "스크라이브 라인: 절단선", "TEG: 절단선 속 시험 소자", "노치: 8·12인치의 방향 표시", "플랫존: 6인치 이하"])) },
+      { short: "에피 웨이퍼", title: "에피층을 키우면 표면을 따로 맞출 수 있다", cmd: "에피",
+        text: `에피택시는 기판의 결정 방향을 그대로 이어 받아 단결정층을 키우는 공정이라, 소자가 만들어질 <b>표면층의 결정 품질과 도핑을 따로</b> 정밀하게 맞출 수 있습니다. 고농도 기판 위에 저농도 에피층을 키우면 <b>래치업 억제</b>, 접합 분리 개선, 항복 특성 향상 효과가 있고, 전력소자에서는 두꺼운 저농도 에피층이 높은 전압을 견디는 드리프트 영역이 됩니다.`,
+        set: Object.assign(only(["sizes", "struct", "epiwhy"], ["epiwhy"]), ww(["에피 웨이퍼를 쓰는 이유", "표면층 품질·도핑을 따로 조절", "래치업 억제(2-4)", "접합 분리·항복 특성 향상", "전력소자: 드리프트 영역", "선택적 에피(SiGe)는 3-7"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [make, waf], dur: 6500 });
+})();
+</script>
+</body>
+</html>

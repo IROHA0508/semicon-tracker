@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>세정: 오염원 5가지와 RCA 세정</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .feat { fill: var(--m-w); }
+  .ild { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .pt { fill: var(--muted); stroke: var(--ink); stroke-width: 1.2; }
+  .nox { fill: var(--m-ox); stroke: var(--accent); stroke-width: 2; }
+  .met { fill: var(--bad); }
+  .org { fill: var(--m-pr); opacity: .8; }
+  .tag { fill: var(--accent); }
+  .tag-t { font: 700 12px var(--font-mono); fill: var(--surface); }
+  .tank { fill: none; stroke: var(--ink); stroke-width: 2; }
+  .liq { opacity: .55; }
+  .liq.a { fill: var(--accent); } .liq.b { fill: var(--low); } .liq.c { fill: var(--ok); } .liq.d { fill: var(--bad); }
+  .wafer-l { stroke: var(--ink); stroke-width: 3; }
+  .drop { fill: var(--low); opacity: .45; stroke: var(--low); stroke-width: 1.5; }
+  .pillar { fill: var(--m-si); stroke: var(--m-si-line); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .8s; }
+  .water { fill: var(--low); opacity: .35; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-2</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>세정: 오염원 5가지와 RCA 세정</h1>
+    <p class="lead">세정은 웨이퍼 표면의 파티클·자연산화막·금속·유기물 오염을 물리·화학적으로 없애는 공정으로, 전체 공정 단계의 약 3분의 1을 차지할 만큼 자주 들어갑니다. 요리사가 요리 사이사이 도마와 칼을 씻듯, 오염마다 맞는 약을 골라 씁니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">세정: 오염원 5가지와 RCA 세정</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== contaminants ===== -->
+        <g id="m-con" class="t">
+          <rect class="m-si" x="40" y="260" width="460" height="80"></rect>
+          <path id="rough" class="t" d="M40,260 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l8,5 l8,-7 l8,6 l8,-5 l8,7 l8,-6 l4,3" style="fill: none; stroke: var(--bad); stroke-width: 2.5"></path>
+          <rect class="feat" x="70" y="200" width="40" height="60"></rect><rect class="feat" x="150" y="200" width="40" height="60"></rect><rect class="feat" x="230" y="200" width="40" height="60"></rect>
+          <path class="ild" d="M320,180 H390 V260 H320 Z M430,180 H500 V260 H430 Z"></path>
+          <text x="170" y="356" class="lbl-s" text-anchor="middle">배선 패턴(위)·실리콘(아래)</text><text x="410" y="172" class="lbl-s" text-anchor="middle">콘택 홀</text>
+          <g id="c-pt" class="t"><circle class="pt" cx="130" cy="232" r="19"></circle><text x="130" y="296" class="lbl-s bad-t halo" text-anchor="middle">패턴 사이에 끼어 단락</text></g>
+          <g id="c-nox" class="t"><rect class="nox" x="390" y="252" width="40" height="8"></rect><path d="M410,186 V240" style="stroke: var(--accent); stroke-width: 2.5" marker-end="url(#ar-a)"></path><text x="440" y="236" class="lbl-s acc">식각이 여기서 멈춤</text><text x="410" y="296" class="lbl-s bad-t" text-anchor="middle">홀이 안 열림(not open)</text></g>
+          <g id="c-met" class="t"><g id="mets"></g><text x="290" y="296" class="lbl-s bad-t" text-anchor="middle">눈·스캔으로 잘 안 보임</text></g>
+          <g id="c-org" class="t"><path class="org" d="M60,196 Q90,188 120,196 T180,194 T240,196 T290,194 L290,200 L60,200 Z M320,176 Q350,170 390,176 L390,180 L320,180 Z M430,176 Q470,170 500,176 L500,180 L430,180 Z"></path><text x="180" y="180" class="lbl-s halo" text-anchor="middle" style="fill: var(--ink)">남은 감광제·탄소 막</text></g>
+          <g id="c-rgh" class="t"><path d="M60,320 l40,-6 l40,6 l40,-6 l40,6 l40,-6 l40,6" style="fill: none; stroke: var(--low); stroke-width: 2" marker-end="url(#ar-l)"></path><text x="250" y="380" class="lbl-s low-t">표면을 따라 흐르는 전류가 방해받음 → 저항 ↑</text></g>
+          <g id="tag" class="t"><rect class="tag" x="0" y="0" width="1" height="28" rx="6" id="tag-r"></rect><text id="tag-t" class="tag-t" x="0" y="19"></text></g>
+          <text x="40" y="400" class="card-m">오염은 장비·반응 가스·약액·공기·감광제에서 계속 쌓임(800단계 이상, 2~3개월)</text>
+        </g>
+
+        <!-- ===== RCA ===== -->
+        <g id="m-rca" class="t">
+          <g id="tanks"></g>
+          <g id="carrier" class="t"><rect x="-38" y="-70" width="76" height="70" rx="4" style="fill: none; stroke: var(--ink); stroke-width: 2"></rect><g id="wls"></g></g>
+          <text x="270" y="380" class="card-l" text-anchor="middle">약액 사이마다 초순수(DIW)로 헹굼 → 마지막에 건조</text>
+          <text x="270" y="404" class="card-m" text-anchor="middle">실제 순서와 조합은 공정마다 다름(한 예)</text>
+        </g>
+
+        <!-- ===== drying ===== -->
+        <g id="m-dry" class="t">
+          <g id="wet" class="t">
+            <rect class="m-ox" x="60" y="200" width="200" height="40"></rect><rect class="m-si" x="60" y="240" width="200" height="40"></rect>
+            <path class="drop" d="M90,200 Q160,176 230,200 Z"></path>
+            <text x="160" y="300" class="card-l ink-b" text-anchor="middle">SiO₂ 표면: 친수성</text><text x="160" y="320" class="lbl-s" text-anchor="middle">물이 퍼짐(접촉각 30° 이하)</text>
+            <rect class="m-si" x="300" y="200" width="200" height="80"></rect>
+            <path class="drop" d="M370,200 C362,150 438,150 430,200 Z"></path>
+            <text x="400" y="300" class="card-l ink-b" text-anchor="middle">HF 처리한 Si: 소수성</text><text x="400" y="320" class="lbl-s" text-anchor="middle">물이 뭉침(60° 이상)</text>
+            <g id="wm" class="t"><ellipse cx="400" cy="200" rx="30" ry="5" style="fill: none; stroke: var(--bad); stroke-width: 3"></ellipse><text x="400" y="140" class="lbl-s bad-t" text-anchor="middle">덜 마르면: 녹아 있던 산소 + Si → SiO₂ 얼룩</text></g>
+          </g>
+          <g id="pat" class="t">
+            <text x="160" y="96" class="card-l ink-b" text-anchor="middle">물로 말릴 때</text>
+            <rect class="m-si" x="60" y="280" width="200" height="30"></rect>
+            <g id="pl-a"></g>
+            <text x="160" y="334" class="lbl-s bad-t" text-anchor="middle">표면 장력이 끌어당겨 쓰러짐·붙음</text>
+            <text x="400" y="96" class="card-l ink-b" text-anchor="middle">초임계 CO₂로 말릴 때</text>
+            <rect class="m-si" x="300" y="280" width="200" height="30"></rect>
+            <g id="pl-b"></g>
+            <text x="400" y="334" class="lbl-s low-t" text-anchor="middle">압력을 내리면 기화 → 표면 장력 없이 건조</text>
+          </g>
+        </g>
+
+        <text id="c1" x="550" y="90" class="head-t"></text>
+        <text id="c2" x="550" y="122" class="card-l"></text>
+        <text id="c3" x="550" y="146" class="card-l"></text>
+        <text id="c4" x="550" y="170" class="card-l"></text>
+        <text id="c5" x="550" y="204" class="card-l acc"></text>
+        <text id="c6" x="550" y="228" class="card-m"></text>
+        <text id="c7" x="550" y="252" class="card-m"></text>
+      </svg>
+      <figcaption>개념도입니다. 오염물과 패턴의 크기는 비율을 맞추지 않았습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>가장 크리티컬한 오염원을 꼽으라면 <b>금속 오염</b>: 극소량으로 전기적 특성을 바꾸고 눈에 잘 띄지 않아, 문제가 생기면 영향 구간을 찾기 어렵고 대량 폐기로 이어질 수 있습니다.</li>
+      <li>RCA 세정은 <b>SPM(유기물), DHF(산화막), SC1(파티클), SC2(금속)</b>의 조성과 목적을 짝지어 말합니다. 메인 공정 앞의 프리 클리닝과 식각·CMP 뒤의 포스트 클리닝으로도 나눕니다.</li>
+      <li>습식은 선택적 제거가 우수하고 효율적이지만 약액이 유독하고 폐액 비용이 들며, 건식(가스 플라즈마)은 린스·건조가 필요 없어 컨택·비아 계면 개선에 쓰지만 파티클 제거력이 약하고 비쌉니다. 그래서 대부분은 습식, 건식은 제한적으로 씁니다.</li>
+    </ul>
+    <p class="foot">원고 3-2를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-3 산화, 3-6 식각, 3-13 수율·결함.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  [[118, 262], [196, 262], [214, 262], [282, 262], [300, 262], [140, 262]].forEach(([x, y]) => mk($("mets"), "circle", { class: "met", cx: x, cy: y - 3, r: 2.6 }));
+  const tagAt = (x, y, t) => ({ tag: { s: "on", style: { transform: `translate(${x}px, ${y}px)` } }, "tag-r": { attr: { width: String([...t].reduce((w, ch) => w + (ch.charCodeAt(0) > 0x1100 ? 13 : 8), 0) + 16) } }, "tag-t": { text: t, attr: { x: "8" } } });
+  const cc = (a) => lines("c", a, 7);
+  const CON = ["c-pt", "c-nox", "c-met", "c-org", "c-rgh", "rough"];
+  // RCA tanks
+  const TK = [["SPM", "a", "황산 + 과산화수소", "약 120 °C·10분"], ["DHF", "b", "희석한 불산", "과산화수소 없음"], ["SC1", "c", "암모니아수 + 과산화수소", "+ 초순수"], ["SC2", "d", "염산 + 과산화수소", "+ 초순수"]];
+  TK.forEach(([n, c, a, b], i) => {
+    const x = 50 + i * 120, g = mk($("tanks"), "g", { id: "tk" + i, class: "t" });
+    mk(g, "rect", { class: "liq " + c, x: x + 4, y: 230, width: 92, height: 86 });
+    mk(g, "path", { class: "tank", d: `M${x},200 V320 H${x + 100} V200` });
+    mk(g, "text", { x: x + 50, y: 342, class: "card-l ink-b", "text-anchor": "middle" }, n);
+    if (i < 3) mk($("tanks"), "path", { d: `M${x + 104},260 H${x + 116}`, style: "stroke: var(--ink); stroke-width: 1.6", "marker-end": "url(#ar-k)" });
+  });
+  for (let i = 0; i < 6; i++) mk($("wls"), "line", { class: "wafer-l", x1: -28 + i * 11, y1: -64, x2: -28 + i * 11, y2: -6 });
+  const dip = (i) => ({ carrier: { s: "on", style: { transform: `translate(${100 + i * 120}px, 300px)` } } });
+  // pillars
+  const pillars = (gid, x0, lean) => { for (let i = 0; i < 6; i++) mk($(gid), "rect", { id: gid + i, class: "pillar", x: x0 + i * 30, y: 120, width: 12, height: 160 }); if (lean) for (let i = 0; i < 5; i++) mk($(gid), "rect", { class: "water", x: x0 + 12 + i * 30, y: 160, width: 18, height: 120 }); };
+  pillars("pl-a", 76, true); pillars("pl-b", 316, false);
+  const leanSet = (on2) => { const o = {}; for (let i = 0; i < 6; i++) o["pl-a" + i] = { style: { transform: on2 ? `rotate(${i % 2 ? -4.5 : 4.5}deg)` : "rotate(0deg)" } }; return o; };
+  const G = ["m-con", "m-rca", "m-dry"];
+
+  const con = {
+    id: "contam", label: "오염원 5가지",
+    base: () => Object.assign(only(G, ["m-con"]), all(CON, off), { tag: off }),
+    steps: [
+      { short: "파티클 → SC1", title: "파티클: 패턴 사이에 끼면 단락", cmd: "SC1",
+        text: `장비나 반응 가스에서 생긴 <b>파티클</b>이 패턴 사이에 끼면 단락(short)이나 누설을 일으킵니다. 암모니아수 + 과산화수소 + 초순수로 만든 <b>SC1</b>로 떼어 내고 다시 붙지 않게 합니다. 약액 없이 물이나 브러시로 파티클만 떼는 스크러버도 씁니다.`,
+        set: Object.assign(only(CON, ["c-pt"]), tagAt(104, 140, "SC1"), cc(["파티클", "출처: 장비, 반응 가스", "문제: 단락·누설", "제거: SC1(파티클·재흡착 방지)", "스크러버: 약액 없이 물·브러시", "얇은 박막 공정 뒤에 씀", ""])) },
+      { short: "자연산화막 → DHF", title: "자연산화막: 콘택 홀이 열리지 않는다", cmd: "DHF",
+        text: `실리콘이 공기 중 산소와 반응해 저절로 생기는 얇은 <b>자연산화막</b>입니다. 콘택·비아 홀을 뚫을 때 식각이 여기서 멈춰(에치 스톱) 홀이 열리지 않는 불량(<b>not open</b>)을 만듭니다. 물에 희석한 불산(<b>DHF</b>)으로 벗기거나 오버에치를 강화한 레시피를 씁니다.`,
+        set: Object.assign(only(CON, ["c-nox"]), tagAt(380, 120, "DHF"), cc(["자연산화막", "출처: 공기 중 산소", "문제: 식각이 멈춰 홀 미개통", "제거: DHF(희석 불산)", "또는 오버에치 강화", "", ""])) },
+      { short: "금속 → SC2", title: "금속 오염: 가장 크리티컬한 오염원", cmd: "SC2",
+        text: `장비나 약액 속 불순물에서 온 <b>금속 오염</b>은 극소량으로도 전기적 특성을 바꾸는데, 눈이나 스캔으로는 잘 보이지 않습니다. 사고가 나면 영향 구간을 특정하기 어렵고 최악의 경우 진행 중인 웨이퍼를 모두 폐기해야 해서 가장 크리티컬한 오염원으로 꼽힙니다. 염산 + 과산화수소 + 초순수인 <b>SC2</b>로 없앱니다.`,
+        set: Object.assign(only(CON, ["c-met"]), tagAt(260, 140, "SC2"), cc(["금속 오염", "출처: 장비, 약액 속 불순물", "문제: 극소량으로 특성 변화", "제거: SC2", "잘 안 보여 영향 구간 특정 어려움", "→ 대량 폐기 위험", ""])) },
+      { short: "유기물 → SPM", title: "유기물: 산화·증착 두께를 흔든다", cmd: "SPM",
+        text: `공기 중 탄소나 포토 후 남은 감광제(PR)에서 온 <b>유기물</b>은 산화 속도와 산화막 특성을 바꾸고 증착 두께 제어를 어렵게 합니다. 황산 + 과산화수소인 <b>SPM</b>(약 120 °C)이나 산화력이 강한 <b>오존수</b>로 없앱니다. 오존수는 더 싸고 빠르지만 파티클 제거력은 떨어집니다.`,
+        set: Object.assign(only(CON, ["c-org"]), tagAt(150, 120, "SPM·오존수"), cc(["유기물", "출처: 공기 중 탄소, 남은 PR", "문제: 산화·증착 두께 흔들림", "제거: SPM, 오존수", "오존수: 싸고 빠르지만", "파티클 제거력은 약함", ""])) },
+      { short: "마이크로 러프니스", title: "마이크로 러프니스: 오염은 아니지만 관리 대상", cmd: "조건",
+        text: `표면이 거칠면 표면을 따라 흐르는 전류가 방해를 받아 저항이 커집니다. 오염물은 아니지만 세정 약액의 농도·온도·시간 같은 <b>세정 조건으로 반드시 제어</b>해야 합니다. 세정이 오히려 표면을 상하게 하거나 새 오염원이 되어서는 안 됩니다.`,
+        set: Object.assign(only(CON, ["c-rgh", "rough"]), tagAt(330, 296, "세정 조건"), cc(["마이크로 러프니스", "표면이 거칠어짐", "문제: 저항 증가", "대책: 세정 조건으로 제어", "세정의 요구 사항:", "웨이퍼를 손상시키지 않을 것", "세정이 오염원이 되지 않을 것"])) },
+    ],
+  };
+
+  const rca = {
+    id: "rca", label: "RCA 세정",
+    base: () => Object.assign(only(G, ["m-rca"]), dip(0)),
+    steps: [
+      { short: "SPM", title: "SPM: 유기물과 남은 감광제", cmd: "SPM",
+        text: `<b>SPM</b>(황산 + 과산화수소)을 약 120 °C에서 10분 정도 써서 유기물과 PR 잔여물을 없앱니다.`,
+        set: Object.assign(dip(0), cc(["SPM", "황산 + 과산화수소", "약 120 °C·10분", "", "대상: 유기물·PR 잔여물", "", ""])) },
+      { short: "DHF", title: "DHF: 산화막을 벗긴다", cmd: "DHF",
+        text: `물에 희석한 불산(<b>DHF</b>)으로 얇은 산화막(자연산화막 포함)을 벗깁니다. 과산화수소가 없는 것이 다른 약액과 다릅니다. 벗긴 뒤 표면은 물이 뭉치는 소수성이 됩니다.`,
+        set: Object.assign(dip(1), cc(["DHF", "물에 희석한 불산", "과산화수소 없음", "", "대상: 산화막", "", ""])) },
+      { short: "SC1", title: "SC1: 파티클을 떼고 다시 못 붙게", cmd: "SC1",
+        text: `<b>SC1</b>(암모니아수 + 과산화수소 + 초순수)은 파티클을 떼어 내고 다시 붙지 않게(재흡착 방지) 합니다.`,
+        set: Object.assign(dip(2), cc(["SC1", "암모니아수 + 과산화수소", "+ 초순수", "", "대상: 파티클", "", ""])) },
+      { short: "SC2", title: "SC2: 금속 오염을 녹인다", cmd: "SC2",
+        text: `<b>SC2</b>(염산 + 과산화수소 + 초순수)로 금속 오염을 녹여 없앱니다. RCA 세정은 이 네 약액을 조합하며 대부분의 라인에 적용됩니다.`,
+        set: Object.assign(dip(3), cc(["SC2", "염산 + 과산화수소", "+ 초순수", "", "대상: 금속", "", ""])) },
+    ],
+  };
+
+  const dry = {
+    id: "dry", label: "건조",
+    base: () => Object.assign(only(G, ["m-dry"]), { wet: on, pat: off, wm: off }, leanSet(false)),
+    steps: [
+      { short: "친수·소수와 워터마크", title: "물이 퍼지는 표면, 뭉치는 표면, 그리고 얼룩", cmd: "워터마크",
+        text: `SiO₂ 표면은 극성이 커서 물이 잘 퍼지고(<b>친수성</b>, 접촉각 30° 이하), HF로 산화막을 벗긴 실리콘은 물이 뭉칩니다(<b>소수성</b>, 60° 이상). 물방울 모양으로 HF 처리가 끝났는지도 판단합니다. 소수성 표면에서 덜 말리면 물방울 속 산소가 실리콘과 반응해 SiO₂ 얼룩(<b>워터마크</b>)이 남아, 스핀 건조나 IPA 건조로 빠르고 고르게 말립니다.`,
+        set: Object.assign({ wm: on }, cc(["친수성과 소수성", "SiO₂: 물이 퍼짐(≤30°)", "HF 처리 Si: 물이 뭉침(≥60°)", "", "워터마크: 덜 마른 물방울 → SiO₂ 얼룩", "대책: 스핀 건조, IPA 건조", ""])) },
+      { short: "패턴 쓰러짐·초임계", title: "높고 가는 패턴은 물에 쓰러진다", cmd: "초임계",
+        text: `패턴이 높고 가늘어질수록 세정 후 건조 과정에서 물의 <b>표면 장력</b>이 패턴을 끌어당겨 쓰러지거나 서로 붙습니다. <b>초임계 이산화탄소</b>는 기체와 액체의 성질을 함께 가져 오염물을 녹인 뒤 압력을 내리면 기화해 버려지므로 표면 장력 없이 말릴 수 있습니다. 교차 오염을 줄이는 싱글 웨이퍼 세정 장비도 중요해졌습니다.`,
+        set: Object.assign({ wet: off, pat: on, wm: off }, leanSet(true), cc(["패턴 쓰러짐", "물의 표면 장력 → 쓰러짐·붙음", "", "초임계 유체(CO₂)", "압력을 내리면 기화", "표면 장력 없이 건조", ""])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [con, rca, dry], dur: 6500 });
+})();
+</script>
+</body>
+</html>

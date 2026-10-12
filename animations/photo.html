@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>포토: 노광 공정 순서와 해상도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .film { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .barc { fill: var(--low); opacity: .55; }
+  .pr { fill: var(--m-pr); }
+  .prx { fill: var(--m-pr); transition: fill .6s, opacity .6s; }
+  .prx[data-s="exp"] { fill: var(--accent); opacity: .55; }
+  .prx[data-s="gone"] { fill: var(--surface); opacity: 1; }
+  .prx[data-s="hard"] { fill: var(--m-pr); }
+  .glass { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .chrome { fill: var(--ink); }
+  .ray { stroke: var(--accent); stroke-width: 2.5; }
+  .hot { fill: var(--bad); opacity: .25; }
+  .heatw { fill: none; stroke: var(--bad); stroke-width: 1.6; }
+  .vap[data-s="on"] { animation: vap 1.8s linear infinite; }
+  @keyframes vap { from { transform: translateY(0); opacity: .9; } to { transform: translateY(-30px); opacity: 0; } }
+  .acid circle { fill: var(--accent); }
+  .acidmove[data-s="on"] { animation: acid 2s ease-in-out infinite alternate; }
+  @keyframes acid { from { transform: scale(.7); } to { transform: scale(1.15); } }
+  .spin[data-s="on"] { animation: sp-spin 1.5s linear infinite; }
+  .ord { stroke-width: 2.4; fill: none; }
+  .ord.z { stroke: var(--muted); } .ord.p { stroke: var(--accent); }
+  .lens { fill: var(--low-soft); stroke: var(--low); stroke-width: 1.6; }
+  .mand { fill: var(--m-poly); } .spc { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .mir { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+  .mo { fill: var(--m-w); } .si2 { fill: var(--m-si); }
+  .bar { fill: var(--accent); }
+  .bead { fill: var(--low); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-4</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>포토: 노광 공정 순서와 해상도</h1>
+    <p class="lead">포토(리소그래피)는 감광액(PR)을 바른 웨이퍼에 마스크를 통해 빛을 쬐어 회로 무늬를 옮기는 공정입니다. 인화지(PR)에 필름(마스크)을 대고 빛을 비춘 뒤 현상액에 담그는 필름 사진 인화와 같습니다. 얼마나 작게(해상도), 얼마나 정확히 겹쳐(오버레이) 그릴 수 있는지가 미세화의 한계를 정합니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">포토: 노광 공정 순서와 해상도</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== flow ===== -->
+        <g id="m-flow" class="t">
+          <rect class="m-si" x="60" y="300" width="420" height="56"></rect>
+          <rect class="film" x="60" y="280" width="420" height="20"></rect>
+          <rect id="barc" class="barc t" x="60" y="274" width="420" height="6"></rect>
+          <rect id="pr" class="pr t" x="60" y="230" width="420" height="44"></rect>
+          <g id="prxs"></g>
+          <text x="488" y="296" class="lbl-s">패턴을 옮길 막</text><text x="488" y="336" class="lbl-s">웨이퍼</text>
+          <text id="pr-t" x="488" y="256" class="lbl-s t">PR(감광액)</text>
+          <text id="barc-t" x="488" y="276" class="lbl-s low-t t">HMDS·BARC</text>
+          <g id="hotp" class="t"><rect class="hot" x="60" y="358" width="420" height="14"></rect><path class="heatw" d="M80,384 q10,-8 20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0"></path><text id="hot-t" x="270" y="406" class="lbl-s bad-t" text-anchor="middle">핫플레이트</text></g>
+          <g id="vapor" class="vap t"><path d="M120,222 q6,-8 0,-16 q-6,-8 0,-16" class="heatw" style="stroke: var(--muted)"></path><path d="M240,222 q6,-8 0,-16 q-6,-8 0,-16" class="heatw" style="stroke: var(--muted)"></path><path d="M360,222 q6,-8 0,-16 q-6,-8 0,-16" class="heatw" style="stroke: var(--muted)"></path><text x="420" y="200" class="lbl-s">용매가 날아감</text></g>
+          <g id="spinner" class="t"><g class="spin t" id="spin-i"><path d="M270,150 a30,10 0 1,1 -1,0" style="fill: none; stroke: var(--accent); stroke-width: 2.5" marker-end="url(#ar-a)"></path></g><circle cx="270" cy="96" r="7" style="fill: var(--m-pr)"></circle><path d="M270,104 V140" style="stroke: var(--m-pr); stroke-width: 3; stroke-dasharray: 4 4"></path><text x="310" y="100" class="lbl-s">PR을 떨어뜨리고 빠르게 회전</text></g>
+          <g id="mask" class="t">
+            <rect class="glass" x="60" y="120" width="420" height="14"></rect>
+            <g id="chromes"></g>
+            <text x="60" y="112" class="lbl-s">마스크(레티클)</text>
+            <ellipse cx="270" cy="182" rx="200" ry="10" class="lens"></ellipse><text x="476" y="186" class="lbl-s low-t">투영 렌즈</text>
+          </g>
+          <g id="light" class="t"></g>
+          <g id="acids" class="t"></g>
+          <g id="cd" class="t"><path d="M240,222 H280" style="stroke: var(--accent); stroke-width: 2" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path><text x="260" y="214" class="lbl-s acc" text-anchor="middle">CD</text>
+            <path d="M160,210 H240" style="stroke: var(--low); stroke-width: 2" marker-start="url(#ar-l)" marker-end="url(#ar-l)"></path><text x="200" y="202" class="lbl-s low-t" text-anchor="middle">피치</text></g>
+          <g id="ovl" class="t"><rect x="380" y="70" width="80" height="80" style="fill: none; stroke: var(--ink); stroke-width: 3"></rect><rect x="402" y="96" width="40" height="40" style="fill: none; stroke: var(--accent); stroke-width: 3"></rect><text x="420" y="168" class="lbl-s" text-anchor="middle">박스 인 박스</text><text x="420" y="58" class="lbl-s acc" text-anchor="middle">중심 어긋남 = 오버레이</text></g>
+          <text id="f1" x="560" y="80" class="head-t"></text>
+          <text id="f2" x="560" y="110" class="card-l"></text>
+          <text id="f3" x="560" y="134" class="card-l"></text>
+          <text id="f4" x="560" y="158" class="card-l"></text>
+          <text id="f5" x="560" y="192" class="card-l acc"></text>
+          <text id="f6" x="560" y="216" class="card-m"></text>
+          <text id="f7" x="560" y="238" class="card-m"></text>
+          <g id="track"></g>
+        </g>
+
+        <!-- ===== resolution ===== -->
+        <g id="m-res" class="t">
+          <g id="optics" class="t">
+            <rect class="glass" x="80" y="70" width="400" height="12"></rect>
+            <g id="grating"></g>
+            <path d="M280,30 V64" class="ray" marker-end="url(#ar-a)"></path><text x="290" y="44" class="lbl-s acc">빛(파장 λ)</text>
+            <path id="o0" class="ord z" d="M280,84 V226"></path>
+            <path id="op1" class="ord p t" d="M280,84 L340,226"></path>
+            <path id="om1" class="ord p t" d="M280,84 L220,226"></path>
+            <ellipse id="lens" class="lens t o-c" cx="280" cy="232" rx="120" ry="12"></ellipse>
+            <text x="420" y="262" class="lbl-s low-t">렌즈(크기 = NA)</text>
+            <text id="op-t" x="352" y="160" class="lbl-s acc t">+1차</text><text id="om-t" x="208" y="160" class="lbl-s acc t" text-anchor="end">−1차</text><text x="288" y="160" class="lbl-s">0차</text>
+            <rect class="m-si" x="80" y="330" width="400" height="30"></rect>
+            <g id="img" class="t"></g>
+            <text id="img-t" x="280" y="386" class="card-l t" text-anchor="middle"></text>
+            <path id="miss" class="t" d="M400,212 l12,12 m0,-12 l-12,12 M160,212 l-12,12 m0,-12 l12,12" style="stroke: var(--bad); stroke-width: 3"></path>
+          </g>
+          <g id="sadp" class="t"></g>
+          <text id="r1" x="560" y="80" class="head-t"></text>
+          <text id="r2" x="560" y="112" class="card-l"></text>
+          <text id="r3" x="560" y="136" class="card-l"></text>
+          <text id="r4" x="560" y="160" class="card-l"></text>
+          <text id="r5" x="560" y="194" class="card-l acc"></text>
+          <text id="r6" x="560" y="218" class="card-m"></text>
+          <text id="r7" x="560" y="240" class="card-m"></text>
+          <g id="ray-eq" class="t"><rect class="frame" x="560" y="280" width="290" height="96" rx="8"></rect>
+            <text x="705" y="316" text-anchor="middle" style="font: 700 20px var(--font-mono); fill: var(--accent)">R = k₁·λ / NA</text>
+            <text x="705" y="350" text-anchor="middle" style="font: 600 15px var(--font-mono); fill: var(--ink)">DOF = k₂·λ / NA²</text></g>
+        </g>
+
+        <!-- ===== EUV ===== -->
+        <g id="m-euv" class="t">
+          <g id="euvpath" class="t">
+            <rect x="50" y="40" width="460" height="350" rx="12" style="fill: none; stroke: var(--line-strong); stroke-dasharray: 6 5"></rect><text x="60" y="60" class="lbl-s">진공 챔버</text>
+            <g id="drops"></g>
+            <path d="M70,330 H150" style="stroke: var(--bad); stroke-width: 4" marker-end="url(#ar-b)"></path><text x="70" y="352" class="lbl-s bad-t">CO₂ 레이저</text>
+            <circle cx="170" cy="330" r="12" class="blink t" id="plasma" style="fill: var(--accent)"></circle><text x="186" y="350" class="lbl-s acc">주석 플라즈마 → 13.5 nm</text>
+            <path class="mir" d="M110,380 Q170,400 230,380"></path><text x="236" y="392" class="lbl-s">콜렉터 거울</text>
+            <path class="ray" d="M170,330 L300,250 L190,160 L330,90" style="fill: none; stroke-dasharray: 6 4"></path>
+            <path class="mir" d="M286,262 L314,238"></path><path class="mir" d="M176,172 L204,148"></path>
+            <rect x="300" y="72" width="140" height="14" style="fill: var(--ink)"></rect><text x="370" y="66" class="lbl-s" text-anchor="middle">반사형 마스크</text>
+            <path class="ray" d="M346,90 L420,200 L380,300 L420,360" style="fill: none; stroke-dasharray: 6 4"></path>
+            <path class="mir" d="M406,212 L434,188"></path><path class="mir" d="M366,288 L394,312"></path>
+            <rect x="370" y="362" width="110" height="10" style="fill: var(--m-si)"></rect><text x="425" y="386" class="lbl-s" text-anchor="middle">웨이퍼</text>
+          </g>
+          <g id="bragg" class="t">
+            <g id="layers"></g>
+            <path d="M100,60 L180,150" class="ray"></path>
+            <g id="refl"></g>
+            <text x="100" y="52" class="lbl-s acc">EUV</text>
+            <text x="70" y="372" class="card-l">Mo와 Si를 수십 쌍 번갈아 → 계면마다 반사된 빛이 보강 간섭</text>
+            <g id="bars"></g>
+            <text x="300" y="80" class="lbl-s">남는 빛(계산 예시: 반사율 70%)</text>
+          </g>
+          <g id="ler" class="t">
+            <text x="70" y="80" class="card-l ink-b">같은 노광량, 다른 광자 수</text>
+            <g id="beads"></g>
+            <text x="70" y="200" class="lbl-s">구슬(KrF): 광자가 많음 → 선 가장자리 매끈</text>
+            <g id="balls"></g>
+            <text x="70" y="330" class="lbl-s bad-t">축구공(EUV): 광자가 적음 → 가장자리 울퉁불퉁(LER ↑)</text>
+          </g>
+          <text id="e1" x="560" y="80" class="head-t"></text>
+          <text id="e2" x="560" y="112" class="card-l"></text>
+          <text id="e3" x="560" y="136" class="card-l"></text>
+          <text id="e4" x="560" y="160" class="card-l"></text>
+          <text id="e5" x="560" y="184" class="card-l"></text>
+          <text id="e6" x="560" y="218" class="card-l acc"></text>
+          <text id="e7" x="560" y="242" class="card-m"></text>
+          <text id="e8" x="560" y="264" class="card-m"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 투영 렌즈는 실제로 마스크 무늬를 축소해 옮기지만 그림에서는 1:1로 그렸고, 회절 각도와 막 두께는 비율이 아닙니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>포토 순서는 <b>전처리(HMDS) → 코팅 → 소프트 베이크 → 정렬·노광 → PEB → 현상 → 하드 베이크 → 검사</b>이고, 단계마다 목적을 한 마디씩 붙입니다. 불량이면 PR을 벗기고 다시 할 수 있다(리워크)는 점이 포토의 특징입니다.</li>
+      <li>해상도를 높이는 방법: λ를 줄이고(KrF→ArF→EUV), NA를 키우고(이머전, High-NA), k₁을 줄입니다(OAI·OPC·PSM·멀티 패터닝). NA를 키우면 DOF가 제곱으로 줄어드는 트레이드오프까지 말합니다.</li>
+      <li>EUV와 DUV의 차이는 광원(주석 플라즈마), 광학계(반사형 거울), 마스크(반사형), PR(고감도·무기), 진공 환경 다섯 가지로 답합니다. PR 감도는 높을수록 생산성이 좋지만 광자 수가 줄어 선 거칠기가 나빠집니다(RLS 트레이드오프).</li>
+    </ul>
+    <p class="foot">원고 3-4를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-6 식각, 3-13 계측, 4-2 EUV·High-NA.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines, at } = StepPlayer.kit;
+  const XS = [[110, 40], [230, 40], [350, 40]];
+  XS.forEach(([x, w], i) => mk($("prxs"), "rect", { id: "px" + i, class: "prx t", x, y: 230, width: w, height: 44 }));
+  const pxs = (v) => all(["px0", "px1", "px2"], v);
+  // mask chrome: openings at the PR windows
+  [[60, 110], [150, 230], [270, 350], [390, 480]].forEach(([a, b]) => mk($("chromes"), "rect", { class: "chrome", x: a, y: 120, width: b - a, height: 14 }));
+  XS.forEach(([x, w]) => { mk($("light"), "path", { class: "ray", d: `M${x + w / 2},40 V112`, "marker-end": "url(#ar-a)" }); mk($("light"), "path", { class: "ray", d: `M${x + w / 2},140 V224`, "marker-end": "url(#ar-a)" }); });
+  XS.forEach(([x, w], i) => { const g = mk($("acids"), "g", { class: "acid acidmove t", id: "ac" + i }); for (let k = 0; k < 5; k++) mk(g, "circle", { cx: x + 6 + k * 7, cy: 240 + (k % 2) * 16, r: 2.5 }); });
+  const acs = (v) => all(["ac0", "ac1", "ac2"], v);
+  // track progress (8 chips)
+  ["전처리", "코팅", "소프트 베이크", "정렬·노광", "PEB", "현상", "하드 베이크", "검사"].forEach((n, i) => {
+    const x = 560 + (i % 4) * 76, y = 334 + Math.floor(i / 4) * 42;
+    mk($("track"), "rect", { id: "tr" + i, class: "t", x, y, width: 70, height: 34, rx: 6, style: "fill: var(--surface); stroke: var(--line-strong)" });
+    mk($("track"), "text", { x: x + 35, y: y + 21, class: "lbl-s", "text-anchor": "middle" }, n);
+  });
+  const at8 = (k) => { const o = {}; for (let i = 0; i < 8; i++) o["tr" + i] = { style: { fill: i === k ? "var(--accent-soft)" : "var(--surface)", stroke: i === k ? "var(--accent)" : "var(--line-strong)" } }; return o; };
+  const ff = (a) => lines("f", a, 7);
+  const FX = ["barc", "pr", "pr-t", "barc-t", "hotp", "vapor", "spinner", "spin-i", "mask", "light", "acids", "cd", "ovl", "prxs"];
+  const fx = (list) => Object.assign(all(FX, off), all(list, on));
+
+  const flow = {
+    id: "flow", label: "공정 순서",
+    base: () => Object.assign(only(["m-flow", "m-res", "m-euv"], ["m-flow"]), fx([]), pxs({ s: "on" }), acs(off), { mask: { s: "off", style: { transform: "translateX(0)" } } }),
+    steps: [
+      { short: "전처리(HMDS)", title: "① 전처리: PR이 잘 붙게 표면을 준비", cmd: "HMDS",
+        text: `세정 후 베이크로 표면 수분을 날리고 <b>HMDS</b>를 발라 PR이 잘 붙게 합니다. 필요하면 아래쪽 난반사를 막는 <b>BARC</b>(반사 방지막)를 먼저 코팅합니다.`,
+        set: Object.assign(fx(["barc", "barc-t"]), at8(0), ff(["전처리", "세정 → 베이크(수분 제거)", "HMDS: PR 접착력 ↑", "BARC: 아래 난반사 방지", "", "", ""])) },
+      { short: "PR 코팅", title: "② PR을 떨어뜨리고 빠르게 돌려 편다", cmd: "스핀 코팅",
+        text: `PR을 떨어뜨리고 빠르게 돌려 고르게 폅니다. 두께는 PR의 <b>점도, 회전 속도(RPM), 웨이퍼 크기</b>로 정해집니다. 가장자리에 PR이 두껍게 뭉치는 엣지 비드는 용매를 뿌리거나 가장자리만 노광해 없앱니다(EBR).`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "spinner", "spin-i", "prxs"]), at8(1), ff(["스핀 코팅", "두께 = 점도 · RPM · 웨이퍼 크기", "엣지 비드 → EBR로 제거", "", "접착이 나쁘면 리프팅 불량", "", ""])) },
+      { short: "소프트 베이크", title: "③ 소프트 베이크: 용매를 날려 굳힌다", cmd: "Soft bake",
+        text: `액체 상태로 바른 PR 속 <b>용매를 날려</b> PR을 굳히고 아래 막과의 접착을 높입니다. 생략하면 패턴이 들뜨는 리프팅이 생깁니다.`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "hotp", "vapor", "prxs"]), at8(2), ff(["소프트 베이크", "PR 속 용매 제거", "접착력 ↑", "생략하면 리프팅", "", "", ""])) },
+      { short: "정렬·노광", title: "④ 아래층에 맞춰 정렬하고 빛을 쬔다", cmd: "Expose",
+        text: `마스크를 아래층 패턴에 맞춰 <b>정렬(오버레이)</b>한 뒤 빛을 쬡니다. 렌즈로 축소해 옮기는 <b>투영식</b>이 표준이고, 그중 <b>스캐너</b>는 마스크와 웨이퍼를 서로 반대로 움직이며 슬릿으로 훑어 큰 칩도 찍을 수 있고 해상도가 좋습니다. 빛을 받은 양성 PR은 성질이 바뀝니다.`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "mask", "light", "prxs"]), pxs({ s: "exp" }), at8(3), ff(["정렬·노광", "오버레이: 아래층과 맞추기", "접촉식 → 근접식 → 투영식(표준)", "스테퍼: 영역씩 한 번에", "스캐너: 슬릿으로 훑음", "→ 큰 칩, 좋은 해상도", ""])) },
+      { short: "PEB", title: "⑤ PEB: 빛이 만든 산을 퍼뜨려 반응을 키운다", cmd: "PEB",
+        text: `화학증폭형 PR에서 빛으로 생긴 <b>산을 확산</b>시켜 반응을 증폭합니다(PAG가 만든 산이 연쇄 반응). PR 안에서 빛이 반사·간섭해 생긴 물결무늬(<b>정재파</b>)도 완화합니다.`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "hotp", "acids", "prxs"]), pxs({ s: "exp" }), acs(on), at8(4), ff(["노광 후 베이크(PEB)", "산 확산 → 화학 증폭", "정재파(물결무늬) 완화", "", "과노광하면 산이 더 퍼져", "양성 PR 라인 CD가 가늘어짐", ""])) },
+      { short: "현상", title: "⑥ 현상: 빛 받은 곳이 녹아 무늬가 드러난다", cmd: "Develop",
+        text: `약알칼리 현상액으로 녹을 부분을 녹입니다. <b>양성 PR</b>은 빛 받은 곳이 녹고, <b>음성 PR</b>은 빛 받은 곳이 굳어 남습니다. 음성 PR은 현상액을 머금고 부풀어(스웰링) 해상도가 낮아, 미세 공정은 대부분 양성 PR을 씁니다. 담그는 이머전, 뿌리는 스프레이, 고이게 하는 퍼들 방식이 있습니다.`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "prxs"]), pxs({ s: "gone" }), acs(off), at8(5), ff(["현상", "양성 PR: 빛 받은 곳이 녹음", "음성 PR: 빛 받은 곳이 남음", "음성은 스웰링 → 해상도 ↓", "이머전 · 스프레이 · 퍼들", "", ""])) },
+      { short: "하드 베이크", title: "⑦ 하드 베이크: 남은 PR을 단단하게", cmd: "Hard bake",
+        text: `약 <b>100 °C</b>에서 남은 용매를 날려 PR을 단단하게 하고 접착을 높여 다음 식각을 견디게 합니다. 과하면 식각 뒤 PR 제거가 어려워져 최적화가 필요합니다.`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "hotp", "prxs"]), pxs({ s: "gone" }), at8(6), { "hot-t": txt("약 100 °C") }, ff(["하드 베이크", "약 100 °C", "PR 경화, 식각 내성 ↑", "과하면 PR 제거가 어려움", "", "", ""])) },
+      { short: "검사(ADI)", title: "⑧ 검사: CD, 오버레이, 결함. 안 되면 다시", cmd: "ADI",
+        text: `패턴 크기(<b>CD</b>), 아래층과의 정렬(박스 인 박스 표식의 중심 어긋남을 X·Y로 재는 <b>오버레이</b>), 결함을 검사합니다. 불량이면 PR을 벗기고 다시 할 수 있다(<b>리워크</b>)는 점이 포토의 특징입니다. 게이트 CD의 산포는 곧 문턱전압 산포라, 초점과 노광량을 바꿔 찍은 FEM 웨이퍼로 최적점을 찾습니다.`,
+        set: Object.assign(fx(["barc", "pr", "pr-t", "cd", "ovl", "prxs"]), pxs({ s: "gone" }), at8(7), ff(["현상 후 검사(ADI)", "CD · 오버레이 · 결함", "불량 → PR 제거 후 리워크", "CD 산포 = Vth 산포", "FEM: 초점 × 노광량 매트릭스", "", ""])) },
+    ],
+  };
+
+  // resolution
+  const grating = (period) => { const o = {}; for (let i = 0; i < 20; i++) { const x = 80 + i * period; o["gr" + i] = x + period / 2 <= 480 ? { s: "on", attr: { x: String(x), width: String(period / 2) } } : off; } return o; };
+  for (let i = 0; i < 20; i++) mk($("grating"), "rect", { id: "gr" + i, class: "chrome t", x: 80, y: 70, width: 10, height: 12 });
+  for (let i = 0; i < 10; i++) mk($("img"), "rect", { class: "chrome", x: 92 + i * 40, y: 334, width: 18, height: 22, style: "fill: var(--accent); opacity: .7" });
+  const orders = (dx, rx) => ({ op1: { attr: { d: `M280,84 L${280 + dx},226` } }, om1: { attr: { d: `M280,84 L${280 - dx},226` } }, lens: { style: { transform: `scaleX(${(rx / 120).toFixed(3)})` } }, "op-t": { attr: { x: String(284 + dx / 2) } }, "om-t": { attr: { x: String(276 - dx / 2) } } });
+  // SADP
+  [["① 맨드릴(심) 패턴", 0], ["② 스페이서 증착·식각", 1], ["③ 맨드릴 제거", 2], ["④ 스페이서 무늬를 아래 막에 옮김 → 피치 절반", 3]].forEach(([n, k], j) => {
+    const y = 70 + j * 78, g = $("sadp");
+    mk(g, "text", { x: 80, y: y - 8, class: "lbl-s ink-b" }, n);
+    mk(g, "rect", { class: "film", x: 80, y: y + 34, width: 400, height: 12, style: k === 3 ? "opacity: .35" : "" });
+    for (let i = 0; i < 4; i++) {
+      if (k === 3) { const x = 110 + i * 96; mk(g, "rect", { x: x - 10, y: y + 34, width: 10, height: 12, style: "fill: var(--accent)" }); mk(g, "rect", { x: x + 36, y: y + 34, width: 10, height: 12, style: "fill: var(--accent)" }); continue; }
+      const x = 110 + i * 96;
+      if (k < 2 || k === 0) { if (k <= 1) mk(g, "rect", { class: "mand", x, y: y + 8, width: 36, height: 26 }); }
+      if (k >= 1) { mk(g, "rect", { class: "spc", x: x - 10, y: y + 8, width: 10, height: 26 }); mk(g, "rect", { class: "spc", x: x + 36, y: y + 8, width: 10, height: 26 }); }
+    }
+  });
+  const rr = (a) => lines("r", a, 7);
+
+  const res = {
+    id: "res", label: "해상도",
+    base: () => Object.assign(only(["m-flow", "m-res", "m-euv"], ["m-res"]), { optics: on, sadp: off, "ray-eq": on, img: on, miss: off, "img-t": txt("") }, grating(40), orders(60, 120)),
+    steps: [
+      { short: "회절과 간섭", title: "회절광이 렌즈에 들어와야 무늬가 맺힌다", cmd: "회절",
+        text: `빛은 좁은 틈을 지나면 퍼지고(<b>회절</b>), 퍼진 빛끼리 겹쳐 밝고 어두운 무늬를 만듭니다(<b>간섭</b>). 마스크를 지난 빛은 0차·±1차 회절광으로 나뉘는데, <b>두 개 이상의 회절광이 렌즈에 들어와 간섭해야</b> 웨이퍼에 무늬가 맺힙니다.`,
+        set: Object.assign({ "img-t": txt("±1차가 렌즈 안 → 무늬가 맺힘") }, rr(["회절과 간섭", "0차: 곧게 지남(정보 없음)", "±1차: 무늬 정보를 실음", "렌즈에 2개 이상 들어와야 상", "", "", ""])) },
+      { short: "패턴이 작아지면", title: "패턴이 작아지면 회절각이 커져 렌즈를 벗어난다", cmd: "한계",
+        text: `패턴 간격이 좁을수록 회절각이 커집니다. ±1차 회절광이 <b>렌즈 밖으로</b> 나가면 0차만 남아 웨이퍼에는 무늬 없이 고른 빛만 닿습니다. 그래서 더 작은 무늬를 그리려면 회절각을 줄이거나(짧은 파장), 렌즈를 키워야(높은 NA) 합니다.`,
+        set: Object.assign(grating(22), orders(170, 120), { img: off, miss: on, "img-t": txt("±1차가 렌즈 밖 → 무늬가 안 맺힘") }, rr(["작은 패턴", "간격 ↓ → 회절각 ↑", "±1차가 렌즈를 벗어남", "→ 0차만 남아 무늬 없음", "k₁ 물리 한계: 0.25", "", ""])) },
+      { short: "짧은 λ, 큰 NA", title: "레일리 식: 파장은 짧게, NA는 크게", cmd: "R = k₁λ/NA",
+        text: `해상도 <b>R = k₁λ/NA</b>는 파장 λ가 짧을수록, NA(렌즈가 모을 수 있는 최대 회절각, n·sinθ)가 클수록 작아집니다. ArF(193 nm) → EUV(13.5 nm)로 파장을 줄였고, 렌즈와 웨이퍼 사이를 물(굴절률 약 1.44)로 채운 <b>ArF 이머전</b>으로 NA를 1.35까지 높였습니다. 다만 <b>DOF = k₂λ/NA²</b>는 NA를 키우면 제곱으로 줄어 초점 여유가 좁아집니다.`,
+        set: Object.assign(grating(22), orders(110, 170), { img: on, miss: off, "img-t": txt("짧은 λ(각 ↓) + 큰 렌즈(NA ↑) → 다시 맺힘") }, rr(["해상도 높이기", "λ ↓: ArF 193 → EUV 13.5 nm", "NA ↑: 이머전(물) 1.35, High-NA 0.55", "k₁ ↓: OAI·OPC·PSM·멀티 패터닝", "대가: DOF ∝ 1/NA²", "이머전: 물방울 결함 → 소수성 PR·탑코팅", ""])) },
+      { short: "low-k₁·SADP", title: "한 번에 못 그리면 나눠 그린다: 멀티 패터닝", cmd: "SADP",
+        text: `<b>OAI</b>(빛을 비스듬히 넣어 회절광을 더 모음), <b>OPC</b>(빛 번짐으로 생길 왜곡을 마스크에서 미리 보정), <b>PSM</b>(이웃 빛의 위상을 반대로 해 경계를 또렷하게)이 k₁을 줄입니다. 그래도 안 되면 나눠 그립니다. <b>SADP</b>는 심(맨드릴) 양옆에 스페이서를 입히고 심을 없애 스페이서를 패턴으로 써 피치를 절반으로, SAQP는 한 번 더 해 4분의 1로 줄입니다. 대신 증착·식각·CMP 단계가 늘어 원가가 오릅니다.`,
+        set: Object.assign({ optics: off, sadp: on, "ray-eq": off }, rr(["k₁을 줄이는 기술", "OAI: 비스듬한 조명", "OPC: 마스크 모양 미리 보정", "PSM: 위상 반전으로 경계 선명", "멀티 패터닝: LELE·SADP·SAQP", "SADP → 피치 1/2, SAQP → 1/4", "공정 수·원가 ↑ → EUV 도입 이유"])) },
+    ],
+  };
+
+  // EUV
+  for (let i = 0; i < 5; i++) mk($("drops"), "circle", { cx: 170, cy: 230 + i * 18, r: 4, style: "fill: var(--muted)" });
+  for (let i = 0; i < 10; i++) mk($("layers"), "rect", { class: i % 2 ? "si2" : "mo", x: 70, y: 150 + i * 14, width: 200, height: 14 });
+  [0, 1, 2, 3].forEach((k) => mk($("refl"), "path", { d: `M${180 + k * 6},${150 + k * 28} L${250 + k * 6},${60 + k * 28}`, style: "stroke: var(--accent); stroke-width: 2; opacity: " + (1 - k * 0.2) }));
+  let rem = 100;
+  for (let i = 0; i <= 11; i++) {
+    const h = rem * 1.8, x = 300 + i * 18;
+    mk($("bars"), "rect", { class: "bar", x, y: 290 - h, width: 12, height: h });
+    if (i === 0 || i === 11) mk($("bars"), "text", { x: x + 6, y: 306, class: "lbl-s mono", "text-anchor": "middle" }, i === 0 ? "100" : rem.toFixed(0));
+    rem *= 0.7;
+  }
+  mk($("bars"), "text", { x: 300, y: 326, class: "lbl-s" }, "광원 → 거울 11장 지난 뒤(%)");
+  for (let i = 0; i < 60; i++) { mk($("beads"), "circle", { class: "bead", cx: 72 + i * 6, cy: 120 + ((i * 7) % 3), r: 3 }); mk($("beads"), "circle", { class: "bead", cx: 72 + i * 6, cy: 168 + ((i * 5) % 3), r: 3 }); }
+  for (let i = 0; i < 6; i++) { mk($("balls"), "circle", { class: "bead", cx: 92 + i * 60, cy: 250 + (i % 2) * 10, r: 20, style: "fill: var(--accent)" }); mk($("balls"), "circle", { class: "bead", cx: 92 + i * 60, cy: 300 - (i % 3) * 8, r: 20, style: "fill: var(--accent)" }); }
+  const ee = (a) => lines("e", a, 8);
+
+  const euv = {
+    id: "euv", label: "EUV",
+    base: () => Object.assign(only(["m-flow", "m-res", "m-euv"], ["m-euv"]), only(["euvpath", "bragg", "ler"], ["euvpath"]), { plasma: on }),
+    steps: [
+      { short: "광원·거울·진공", title: "EUV: 주석 플라즈마 빛을 거울로만 옮긴다", cmd: "13.5 nm",
+        text: `EUV(13.5 nm)는 주석(Sn) 방울에 CO₂ 레이저를 초당 약 5만 번 쏘아 만든 <b>플라즈마</b>에서 나옵니다. 거의 모든 물질이 EUV를 흡수하므로 렌즈 대신 <b>거울(반사형)</b>로만 빛을 옮기고, 마스크도 반사형이며, 전체를 <b>진공</b>에 둡니다.`,
+        set: ee(["DUV(ArF) vs EUV", "파장: 193 nm vs 13.5 nm", "광원: 엑시머 레이저 vs 주석 플라즈마", "광학: 렌즈(투과) vs 거울(반사)", "마스크: 투과형 vs 반사형", "환경: 대기압 vs 진공", "PR: CAR vs 고감도 CAR·무기 PR", ""]) },
+      { short: "브래그 거울·광효율", title: "거울 한 장 60~70%, 여러 장 지나면 조금만 남는다", cmd: "광효율",
+        text: `굴절률이 다른 Mo와 Si를 수십 쌍 쌓아 계면마다 반사된 빛이 <b>보강 간섭</b>하도록 맞춘 <b>브래그 거울</b>도 반사율이 약 60~70%입니다. 마스크를 포함해 10장이 넘는 거울을 지나면 빛의 아주 일부만 남아 <b>광원 출력과 광효율</b>이 생산성의 핵심입니다. 프리펄스로 주석 방울을 납작하게 펴 레이저 흡수를 높입니다.`,
+        set: Object.assign(only(["euvpath", "bragg", "ler"], ["bragg"]), ee(["브래그 거울", "Mo/Si 다층막, 보강 간섭", "한 장 반사율 약 60~70%", "10장 넘게 지나면 일부만", "→ 광원 출력·광효율이 핵심", "마스크 3D 효과: 약 6° 입사 → 그림자", "펠리클: 빛이 두 번 지나 손실 큼", ""])) },
+      { short: "광자 수·LER·High-NA", title: "광자가 적으면 선이 거칠어진다", cmd: "RLS",
+        text: `EUV 광자는 에너지가 커서 같은 노광량을 <b>적은 수의 광자</b>로 채웁니다. 구슬로 줄을 만들면 매끈하지만 축구공으로 만들면 울퉁불퉁한 것처럼 선 가장자리가 거칠어집니다(<b>LER</b> ↑). 해상도·선 거칠기·감도는 하나를 좋게 하면 다른 것이 나빠지는 <b>RLS 트레이드오프</b>입니다. 그래서 EUV를 잘 흡수하는 주석 기반 무기 PR, 기체로 증착하는 드라이 레지스트가 개발됐고, NA를 0.33 → 0.55로 키운 <b>High-NA</b>가 다음 단계입니다(4-2).`,
+        set: Object.assign(only(["euvpath", "bragg", "ler"], ["ler"]), ee(["광자 수와 선 거칠기", "광자 에너지 ↑ → 개수 ↓", "→ LER ↑", "RLS: 해상도·거칠기·감도", "", "무기 PR, 드라이 레지스트", "High-NA: NA 0.33 → 0.55", "아나모픽 광학(4-2)"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [flow, res, euv], dur: 6500 });
+})();
+</script>
+</body>
+</html>

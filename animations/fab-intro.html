@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>팹 입문: 8대 공정, FEOL·BEOL, 클린룸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .box[data-s="hi"] { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.2; }
+  .node { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+  .node.cl { fill: var(--low-soft); stroke: var(--low); }
+  .orbit { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 4 5; }
+  .runner { fill: var(--accent); }
+  .spin2[data-s="on"] { animation: sp-spin 6s linear infinite; transform-box: view-box; transform-origin: 230px 220px; }
+  .lay { stroke: var(--surface); stroke-width: 1; }
+  .feol { fill: var(--m-si); } .mol { fill: var(--m-w); } .beol { fill: var(--m-cu); } .ild { fill: var(--m-ox); }
+  .zone { font: 700 13px var(--font-mono); }
+  .air { stroke: var(--low); stroke-width: 2; fill: none; }
+  .airflow[data-s="on"] { animation: fall 1.4s linear infinite; }
+  @keyframes fall { from { transform: translateY(-16px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(26px); opacity: 0; } }
+  .ohtmove[data-s="on"] { animation: oht 5s ease-in-out infinite alternate; }
+  @keyframes oht { from { transform: translateX(0); } to { transform: translateX(300px); } }
+  .tool { fill: var(--m-si); stroke: var(--m-si-line); }
+  .foup { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-0</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>팹 입문: 8대 공정, FEOL·BEOL, 클린룸</h1>
+    <p class="lead">팹(Fab)은 먼지를 극도로 줄인 클린룸에서 웨이퍼 위에 세정·증착·포토·식각·이온주입·CMP를 수백 번 반복해 트랜지스터와 배선을 층층이 쌓는 공장입니다. 완성된 웨이퍼는 후공정에서 테스트와 패키징을 거쳐 칩이 됩니다. 아파트 공사처럼 기초를 다진 뒤 층마다 같은 작업을 되풀이합니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">팹 입문: 8대 공정, FEOL·BEOL, 클린룸</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== flow ===== -->
+        <g id="m-flow" class="t">
+          <!-- 8 steps row -->
+          <g id="eight" class="t"></g>
+          <!-- unit loop -->
+          <g id="loop" class="t">
+            <circle class="orbit" cx="230" cy="220" r="130"></circle>
+            <g id="nodes"></g>
+            <g id="runner" class="spin2 t"><circle class="runner" cx="230" cy="90" r="9"></circle></g>
+            <text x="230" y="214" class="head-t" text-anchor="middle">층 하나</text>
+            <text x="230" y="236" class="lbl-s" text-anchor="middle">를 만들 때마다 한 바퀴</text>
+          </g>
+          <!-- chip cross-section stack -->
+          <g id="stack" class="t" transform="translate(-70,0)">
+            <rect class="feol" x="520" y="330" width="320" height="50"></rect>
+            <g id="xtors"></g>
+            <rect id="ly-mol" class="ild t" x="520" y="290" width="320" height="40"></rect>
+            <g id="mol-c" class="t"></g>
+            <g id="beol"></g>
+            <text id="z-feol" x="512" y="362" class="zone t" text-anchor="end">FEOL</text>
+            <text id="z-mol" x="512" y="316" class="zone t" text-anchor="end">MOL</text>
+            <text id="z-beol" x="512" y="210" class="zone t" text-anchor="end">BEOL</text>
+            <text id="t-feol" x="848" y="362" class="lbl-s t">1,000 °C 안팎 가능</text>
+            <text id="t-beol" x="848" y="210" class="lbl-s acc t">약 400 °C 이하</text>
+          </g>
+          <!-- back end -->
+          <g id="backend" class="t"></g>
+          <text id="f1" x="40" y="396" class="card-l ink-b"></text>
+          <text id="f2" x="40" y="420" class="card-l"></text>
+        </g>
+
+        <!-- ===== clean room ===== -->
+        <g id="m-clean" class="t">
+          <g id="room" class="t">
+            <rect x="40" y="60" width="480" height="300" class="frame"></rect>
+            <g id="ffu"></g>
+            <text x="280" y="54" class="lbl" text-anchor="middle">천장 필터(FFU)</text>
+            <g id="airs" class="airflow t"></g>
+            <rect x="40" y="340" width="480" height="20" style="fill: var(--bg); stroke: var(--line-strong)"></rect>
+            <g id="grate"></g>
+            <text x="280" y="380" class="lbl" text-anchor="middle">구멍 뚫린 바닥으로 빠져나감 → 다시 위로 순환</text>
+            <rect class="tool" x="90" y="250" width="100" height="90" rx="4"></rect><text x="140" y="300" class="card-l" text-anchor="middle">장비</text>
+            <rect class="tool" x="370" y="250" width="100" height="90" rx="4"></rect><text x="420" y="300" class="card-l" text-anchor="middle">장비</text>
+            <g id="rail" class="t"><line x1="60" y1="110" x2="500" y2="110" style="stroke: var(--ink); stroke-width: 4"></line>
+              <g id="oht" class="ohtmove t"><rect x="104" y="114" width="72" height="26" rx="4" style="fill: var(--ink)"></rect><text x="140" y="132" class="lbl-s" text-anchor="middle" style="fill: var(--surface)">OHT</text>
+                <line x1="140" y1="140" x2="140" y2="160" style="stroke: var(--ink); stroke-width: 2"></line><rect class="foup" x="116" y="160" width="48" height="36" rx="5"></rect><text x="140" y="183" class="lbl-s" text-anchor="middle">FOUP</text></g></g>
+          </g>
+          <g id="sizes" class="t">
+            <text x="560" y="80" class="head-t">크기 감각</text>
+            <circle cx="640" cy="170" r="70" style="fill: none; stroke: var(--muted); stroke-width: 2"></circle>
+            <text x="640" y="174" class="card-l" text-anchor="middle">머리카락 굵기</text><text x="640" y="194" class="lbl-s mono" text-anchor="middle">약 70 μm</text>
+            <circle cx="760" cy="170" r="3" style="fill: var(--bad)"></circle><text x="770" y="174" class="card-l bad-t">그 1,000분의 1</text>
+            <text x="560" y="276" class="card-l">이 정도 먼지도 미세 패턴에서는</text>
+            <text x="560" y="300" class="card-l bad-t">단락·단선 → 곧바로 수율 손실</text>
+            <text x="560" y="336" class="card-m">온도·습도·진동·정전기까지 관리</text>
+          </g>
+          <g id="foupi" class="t">
+            <text x="560" y="80" class="head-t">가장 깨끗하게 지키는 곳</text>
+            <text x="560" y="112" class="card-l">웨이퍼는 밀폐 용기 FOUP에 담겨</text>
+            <text x="560" y="136" class="card-l">천장 레일 로봇(OHT)으로 이동</text>
+            <text x="560" y="172" class="card-l acc">웨이퍼가 공기에 닿는 곳 =</text>
+            <text x="560" y="196" class="card-l acc">FOUP 안 + 장비 내부(미니 인바이런먼트)</text>
+            <text x="560" y="240" class="card-m">25장 한 묶음(lot)으로 이동</text>
+            <text x="560" y="262" class="card-m">lot 통과 시간 = TAT, 작업 지시서 = 런시트</text>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 단면의 층 수와 장비 배치는 단순화했습니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>8대 공정을 순서대로 말한 뒤 <b>'실제로는 층마다 반복된다'</b>는 점과, 지원 직무의 공정이 앞뒤 공정과 어떤 영향을 주고받는지 덧붙이면 차별화됩니다. 공정 흐름도를 단계별로 그려 수직 단면을 이해하라는 조언이 많습니다.</li>
+      <li>BEOL을 낮은 온도로 유지하는 이유: 알루미늄(녹는점 약 660 °C)이 녹거나 변형되고, 구리가 확산되고, 저유전막이 손상되며, 이미 만든 트랜지스터의 도핑 분포가 흐트러지기 때문입니다.</li>
+      <li>공정 엔지니어는 단위 공정 레시피를, 양산기술은 라인 전체의 수율과 산포를, 설비는 장비를, 소자는 트랜지스터 특성을 맡습니다. 같은 공정도 직무마다 보는 지표가 다릅니다(6-1).</li>
+    </ul>
+    <p class="foot">원고 3-0을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 0-2 칩의 일생, 3-14 CMOS 전체 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  const EIGHT = [["웨이퍼 제조", "3-1"], ["산화", "3-3"], ["포토", "3-4"], ["식각", "3-5·3-6"], ["증착·이온주입", "3-7·3-8"], ["금속배선", "3-9·3-10"], ["EDS", "3-11"], ["패키징", "3-12"]];
+  EIGHT.forEach(([n, u], i) => {
+    const x = 40 + (i % 4) * 205, y = 80 + Math.floor(i / 4) * 120;
+    const g = mk($("eight"), "g", {});
+    mk(g, "rect", { id: "e8-" + i, class: "box t", x, y, width: 180, height: 70, rx: 8 });
+    mk(g, "text", { x: x + 14, y: y + 30, class: "card-l ink-b" }, (i + 1) + ". " + n);
+    mk(g, "text", { x: x + 14, y: y + 52, class: "lbl-s mono" }, u);
+    if (i % 4 !== 3) mk(g, "path", { d: `M${x + 182},${y + 35} H${x + 202}`, style: "stroke: var(--ink); stroke-width: 1.6", "marker-end": "url(#ar-k)" });
+  });
+  mk($("eight"), "path", { d: "M800,152 V176 H130 V196", style: "fill: none; stroke: var(--ink); stroke-width: 1.6", "marker-end": "url(#ar-k)" });
+  mk($("eight"), "text", { x: 40, y: 330, class: "card-m" }, "세정(3-2)은 모든 공정의 앞뒤에, 수율·계측(3-13)은 모든 공정의 결과에 붙음");
+  const LOOP = [["세정", true], ["증착", false], ["포토", false], ["식각", false], ["세정", true], ["계측", false]];
+  LOOP.forEach(([n, cl], i) => {
+    const a = -Math.PI / 2 + i * Math.PI / 3, x = 230 + 130 * Math.cos(a), y = 220 + 130 * Math.sin(a);
+    mk($("nodes"), "rect", { class: "node" + (cl ? " cl" : ""), x: x - 40, y: y - 18, width: 80, height: 36, rx: 18 });
+    mk($("nodes"), "text", { x, y: y + 5, class: "card-l", "text-anchor": "middle" }, n);
+  });
+  for (let i = 0; i < 4; i++) { mk($("xtors"), "rect", { x: 550 + i * 76, y: 318, width: 30, height: 12, style: "fill: var(--m-poly)" }); mk($("mol-c"), "rect", { x: 560 + i * 76, y: 290, width: 10, height: 40, style: "fill: var(--m-w)" }); }
+  for (let k = 0; k < 4; k++) {
+    const g = mk($("beol"), "g", { id: "bl" + k, class: "t" }), y = 250 - k * 40;
+    mk(g, "rect", { class: "ild", x: 520, y, width: 320, height: 40 });
+    for (let i = 0; i < 5; i++) mk(g, "rect", { class: "beol", x: 534 + i * 58 + (k % 2) * 18, y: y + 8, width: 34 + k * 4, height: 14 });
+  }
+  const BACK = [["완성 웨이퍼", ""], ["EDS 테스트", "3-11"], ["자르기", "3-12"], ["패키징", "3-12"], ["최종 테스트·출하", ""]];
+  BACK.forEach(([n, u], i) => {
+    const x = 40 + i * 166, g = $("backend");
+    mk(g, "rect", { class: "box", x, y: 120, width: 146, height: 64, rx: 8 });
+    mk(g, "text", { x: x + 73, y: 150, class: "card-l ink-b", "text-anchor": "middle" }, n);
+    if (u) mk(g, "text", { x: x + 73, y: 170, class: "lbl-s mono", "text-anchor": "middle" }, u);
+    if (i < 4) mk(g, "path", { d: `M${x + 148},152 H${x + 164}`, style: "stroke: var(--ink); stroke-width: 1.6", "marker-end": "url(#ar-k)" });
+  });
+  mk($("backend"), "rect", { x: 30, y: 96, width: 158, height: 104, rx: 10, style: "fill: none; stroke: var(--low); stroke-dasharray: 5 4; stroke-width: 1.6" });
+  mk($("backend"), "text", { x: 40, y: 88, class: "lbl-s low-t" }, "전공정(팹)");
+  mk($("backend"), "text", { x: 40, y: 222, class: "lbl-s low-t" }, "전공정: 웨이퍼 상태로 회로까지 만듦");
+  mk($("backend"), "rect", { x: 198, y: 96, width: 676, height: 104, rx: 10, style: "fill: none; stroke: var(--accent); stroke-dasharray: 5 4; stroke-width: 1.6" });
+  mk($("backend"), "text", { x: 208, y: 88, class: "lbl-s acc" }, "후공정: 테스트하고 잘라 패키지로");
+  mk($("backend"), "text", { x: 40, y: 250, class: "card-l" }, "HBM처럼 칩을 쌓고 잇는 첨단 패키징이 성능을 좌우하면서");
+  mk($("backend"), "text", { x: 40, y: 274, class: "card-l acc" }, "두 영역의 경계가 흐려지는 중(4-5, 4-6)");
+  for (let i = 0; i < 8; i++) mk($("ffu"), "rect", { x: 52 + i * 58, y: 64, width: 50, height: 14, rx: 2, style: "fill: var(--m-ox); stroke: var(--m-ox-line)" });
+  for (let i = 0; i < 9; i++) for (let j = 0; j < 3; j++) mk($("airs"), "path", { class: "air", d: `M${70 + i * 52},${150 + j * 60} v20`, "marker-end": "url(#ar-l)" });
+  for (let i = 0; i < 24; i++) mk($("grate"), "rect", { x: 48 + i * 20, y: 346, width: 10, height: 8, style: "fill: var(--line-strong)" });
+  const beol = (n) => { const o = {}; for (let k = 0; k < 4; k++) o["bl" + k] = k < n ? on : off; return o; };
+  const ff = (a, b) => lines("f", [a, b], 2);
+  const G = ["eight", "loop", "stack", "backend"];
+
+  const flow = {
+    id: "flow", label: "공정 흐름",
+    base: () => Object.assign(only(["m-flow", "m-clean"], ["m-flow"]), only(G, ["eight"]), { runner: off }, beol(0), all(["ly-mol", "mol-c", "z-feol", "z-mol", "z-beol", "t-feol", "t-beol"], off)),
+    steps: [
+      { short: "8대 공정", title: "교과서의 8대 공정", cmd: "8대 공정",
+        text: `웨이퍼 제조 → 산화 → 포토 → 식각 → 증착·이온주입 → 금속배선 → EDS → 패키징이 교과서식 분류입니다. 이 원고는 세정·플라즈마·이온주입·CMP를 따로 떼어 15개 단원으로 나눴습니다. 카드 아래 번호가 원고 단원입니다.`,
+        set: ff("8대 공정 = 큰 분류", "실제 라인에서는 이 순서를 한 번만 지나가지 않음") },
+      { short: "층마다 반복", title: "실제로는 층 하나마다 같은 고리를 돈다", cmd: "반복",
+        text: `층 하나를 만들 때마다 <b>세정 → 증착 → 포토 → 식각 → 세정 → 계측</b>을 되풀이합니다. 그래서 웨이퍼가 팹에 들어가서(fab-in) 나오기(fab-out)까지 <b>800단계 이상, 2~3개월</b>이 걸리고, 그중 세정이 <b>약 3분의 1</b>을 차지합니다. 아파트 공사에서 층마다 측량 → 거푸집 → 타설 → 다듬기를 반복하는 것과 같습니다.`,
+        set: Object.assign(only(G, ["loop", "stack"]), { runner: on }, beol(2), { "ly-mol": on, "mol-c": on }, ff("fab-in → fab-out: 800단계 이상, 2~3개월", "세정이 전체 단계의 약 1/3")) },
+      { short: "FEOL·MOL·BEOL", title: "FEOL·MOL·BEOL, 그리고 온도 제한", cmd: "써멀 버짓",
+        text: `<b>FEOL</b>은 실리콘에 트랜지스터를 만드는 단계(소자 분리, 웰, 게이트, 소스·드레인), <b>MOL</b>은 트랜지스터와 배선을 잇는 컨택, <b>BEOL</b>은 그 위에 금속 배선을 여러 층 쌓는 단계입니다. FEOL은 1,000 °C 안팎의 고온 공정이 가능하지만, BEOL은 금속과 저유전막이 상하지 않도록 대략 <b>400 °C 이하</b>로 합니다. 웨이퍼가 받은 열의 총합을 <b>써멀 버짓</b>이라 합니다.`,
+        set: Object.assign(only(G, ["loop", "stack"]), { runner: on }, beol(4), all(["ly-mol", "mol-c", "z-feol", "z-mol", "z-beol", "t-feol", "t-beol"], on), ff("써멀 버짓: 공정 중 받은 열의 총합", "미세화될수록 줄이는 방향으로 발전")) },
+      { short: "전공정·후공정", title: "전공정과 후공정", cmd: "후공정",
+        text: `웨이퍼 상태로 회로를 만드는 데까지가 <b>전공정</b>(팹), 웨이퍼를 테스트하고 잘라 패키지로 만드는 것이 <b>후공정</b>입니다. HBM처럼 칩을 쌓고 잇는 첨단 패키징이 성능을 좌우하면서 두 영역의 경계가 흐려지고 있습니다.`,
+        set: Object.assign(only(G, ["backend"]), { runner: off }, ff("산화와 증착: 둘 다 SiO₂를 만들 수 있음", "산화는 실리콘을 소모(800~1,200 °C), 증착은 위에 쌓음(약 400 °C 안팎)")) },
+    ],
+  };
+
+  const clean = {
+    id: "clean", label: "클린룸",
+    base: () => Object.assign(only(["m-flow", "m-clean"], ["m-clean"]), { room: on, airs: on, sizes: on, foupi: off, oht: off }),
+    steps: [
+      { short: "하향 기류", title: "먼지 한 톨이 칩 하나를 망친다", cmd: "클린룸",
+        text: `머리카락 굵기(약 70 μm)의 1,000분의 1 크기 먼지도 미세 패턴에서는 <b>단락·단선</b>을 일으킵니다. 그래서 천장 필터에서 바닥으로 공기를 <b>한 방향으로</b> 흘려 먼지를 아래로 쓸어 내고, 온도·습도·진동·정전기까지 관리합니다.`,
+        set: {} },
+      { short: "FOUP·OHT", title: "웨이퍼는 밀폐 용기에 담겨 천장으로 다닌다", cmd: "자동화",
+        text: `요즘은 웨이퍼를 <b>FOUP</b>라는 밀폐 용기에 담아 천장 레일 로봇(<b>OHT</b>)으로 옮깁니다. 공장 전체보다 웨이퍼가 공기에 노출되는 FOUP 안과 장비 내부(<b>미니 인바이런먼트</b>)를 가장 깨끗하게 유지하는 방식입니다. 웨이퍼는 보통 25장을 한 묶음(lot)으로 움직입니다.`,
+        set: { sizes: off, foupi: on, oht: on } },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [flow, clean], dur: 6500 });
+})();
+</script>
+</body>
+</html>

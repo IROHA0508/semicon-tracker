@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>식각: 습식·건식, RIE, 고종횡비</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .film { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .prm { fill: var(--m-pr); }
+  .cav { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+  .ionv { stroke: var(--accent); stroke-width: 2.4; }
+  .radd { fill: var(--low); }
+  .wob[data-s="on"] { animation: wob 2s ease-in-out infinite alternate; }
+  @keyframes wob { from { transform: translate(0, 0); } to { transform: translate(14px, 10px); } }
+  .poly { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+  .nit { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .spec { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+  .cold { fill: var(--low); opacity: .6; }
+  .atom { fill: var(--m-si); stroke: var(--m-si-line); }
+  .adsorb { fill: var(--accent); }
+  .pw { fill: var(--accent); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-6</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>식각: 습식·건식, RIE, 고종횡비</h1>
+    <p class="lead">식각은 포토로 그린 PR 무늬를 마스크 삼아 그 아래 막의 필요 없는 부분을 화학 용액(습식)이나 플라즈마(건식)로 깎아 내는 공정입니다. 판화처럼 밑그림 위를 조각칼로 파 내는데, 미세 공정에서는 곧게 파는 조각칼(이온)과 녹이는 약품(라디칼)을 함께 씁니다. 약품만 쓰면 밑그림 아래까지 파먹습니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">식각: 습식·건식, RIE, 고종횡비</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== profile ===== -->
+        <g id="m-prof" class="t">
+          <rect class="m-si" x="80" y="280" width="400" height="70"></rect>
+          <rect class="film" x="80" y="200" width="400" height="80"></rect>
+          <path id="cav" class="cav t" d="M240,200 V200 H320 V200 Z"></path>
+          <rect id="prl" class="prm t o-b" x="80" y="170" width="160" height="30"></rect>
+          <rect id="prr" class="prm t o-b" x="320" y="170" width="160" height="30"></rect>
+          <path id="poly" class="poly t" d="M244,206 V272 M316,206 V272"></path>
+          <text x="488" y="190" class="lbl-s">PR(마스크)</text><text x="488" y="244" class="lbl-s">깎을 막</text><text x="488" y="320" class="lbl-s">아래 막</text>
+          <g id="ions" class="t"></g>
+          <g id="rads" class="wob t"></g>
+          <text id="pf-t" x="280" y="380" class="card-l ink-b t" text-anchor="middle"></text>
+          <text id="pf-t2" x="280" y="404" class="lbl-s t" text-anchor="middle"></text>
+        </g>
+
+        <!-- ===== issues ===== -->
+        <g id="m-iss" class="t">
+          <g id="sel" class="t">
+            <rect class="m-si" x="80" y="290" width="400" height="60"></rect>
+            <rect class="film" x="80" y="200" width="400" height="90"></rect>
+            <path class="cav" d="M232,200 L236,290 Q280,298 324,290 L328,200 Z"></path>
+            <rect class="prm" x="80" y="182" width="152" height="18"></rect><rect class="prm" x="328" y="182" width="152" height="18"></rect>
+            <rect x="80" y="166" width="152" height="16" style="fill: none; stroke: var(--m-pr); stroke-dasharray: 4 3"></rect><rect x="328" y="166" width="152" height="16" style="fill: none; stroke: var(--m-pr); stroke-dasharray: 4 3"></rect>
+            <text x="156" y="160" class="lbl-s" text-anchor="middle">마스크도 조금 깎임</text>
+            <text x="280" y="310" class="lbl-s bad-t" text-anchor="middle">아래 막도 살짝 파임</text>
+            <path d="M240,140 H320" style="stroke: var(--low); stroke-width: 2" marker-start="url(#ar-l)" marker-end="url(#ar-l)"></path><text x="280" y="132" class="lbl-s low-t" text-anchor="middle">식각 전 PR 선폭</text>
+            <path d="M232,372 H328" style="stroke: var(--accent); stroke-width: 2" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path><text x="280" y="392" class="lbl-s acc" text-anchor="middle">식각 후 선폭 → 차이 = 식각 바이어스</text>
+          </g>
+          <g id="har" class="t">
+            <rect class="m-si" x="140" y="370" width="280" height="20"></rect>
+            <rect class="film" x="140" y="90" width="280" height="280"></rect>
+            <path class="cav" d="M262,90 C254,170 250,230 262,300 Q280,350 298,300 C310,230 306,170 298,90 Z"></path>
+            <rect class="nit" x="140" y="78" width="122" height="12"></rect><rect class="nit" x="298" y="78" width="122" height="12"></rect>
+            <text x="320" y="200" class="lbl-s bad-t">보잉(불룩)</text><text x="320" y="320" class="lbl-s bad-t">아래로 갈수록 좁아짐</text>
+            <path d="M200,140 Q240,220 264,250" style="fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 3" marker-end="url(#ar-a)"></path><text x="150" y="132" class="lbl-s acc">차징으로 휘는 이온</text>
+            <path d="M440,90 V370" style="stroke: var(--ink); stroke-width: 1.6" marker-start="url(#ar-k)" marker-end="url(#ar-k)"></path><text x="448" y="234" class="lbl-s">높이</text>
+            <path d="M262,410 H298" style="stroke: var(--ink); stroke-width: 1.6" marker-start="url(#ar-k)" marker-end="url(#ar-k)"></path><text x="306" y="414" class="lbl-s">폭 → 종횡비 = 높이 ÷ 폭</text>
+          </g>
+          <g id="load" class="t">
+            <rect class="m-si" x="60" y="300" width="440" height="50"></rect>
+            <rect class="film" x="60" y="150" width="440" height="150"></rect>
+            <path class="cav" d="M90,150 V290 H190 V150 Z"></path><text x="140" y="140" class="lbl-s" text-anchor="middle">넓은 패턴</text>
+            <path class="cav" d="M240,150 V240 H262 V150 Z M300,150 V236 H322 V150 Z"></path><text x="282" y="140" class="lbl-s" text-anchor="middle">좁은 패턴: 덜 깎임</text>
+            <text x="140" y="372" class="lbl-s">마이크로 로딩: 부산물이 잘 못 빠져나옴</text>
+            <rect x="360" y="160" width="130" height="80" class="frame"></rect><g id="dense"></g>
+            <text x="425" y="258" class="lbl-s" text-anchor="middle">매크로 로딩: 패턴 밀도</text>
+          </g>
+          <g id="epd" class="t">
+            <text x="80" y="90" class="lbl">플라즈마 빛의 세기(특정 파장)</text>
+            <line class="axis" x1="80" y1="320" x2="480" y2="320"></line><line class="axis" x1="80" y1="320" x2="80" y2="100"></line>
+            <text x="478" y="340" class="lbl-s" text-anchor="end">시간 →</text>
+            <path class="spec" d="M80,150 H300 C320,150 326,260 350,262 H470"></path>
+            <line x1="330" y1="110" x2="330" y2="320" style="stroke: var(--ink); stroke-dasharray: 4 3"></line><text x="334" y="122" class="lbl-s">종점</text>
+            <text x="100" y="140" class="lbl-s">깎을 막의 부산물 빛</text><text x="356" y="250" class="lbl-s">아래 막이 드러나 빛이 바뀜</text>
+          </g>
+          <text id="i1" x="560" y="80" class="head-t"></text>
+          <text id="i2" x="560" y="112" class="card-l"></text>
+          <text id="i3" x="560" y="136" class="card-l"></text>
+          <text id="i4" x="560" y="160" class="card-l"></text>
+          <text id="i5" x="560" y="194" class="card-l acc"></text>
+          <text id="i6" x="560" y="218" class="card-m"></text>
+          <text id="i7" x="560" y="240" class="card-m"></text>
+        </g>
+
+        <!-- ===== advanced ===== -->
+        <g id="m-adv" class="t">
+          <g id="pulse" class="t">
+            <text x="80" y="90" class="lbl">파워</text>
+            <path d="M80,200 H120 V120 H180 V200 H220 V120 H280 V200 H320 V120 H380 V200 H420 V120 H480" style="fill: none; stroke: var(--accent); stroke-width: 2.5"></path>
+            <text x="150" y="112" class="lbl-s acc" text-anchor="middle">켜짐: 식각</text><text x="200" y="222" class="lbl-s" text-anchor="middle">꺼짐</text>
+            <text x="80" y="270" class="card-l">꺼진 동안: 부산물이 빠져나감 → 마이크로 로딩 ↓</text>
+            <text x="80" y="296" class="card-l">절연막에 쌓인 양이온 전하가 빠짐 → 이온 경로 휨(트렌칭) ↓</text>
+          </g>
+          <g id="cryo" class="t">
+            <rect class="m-si" x="120" y="330" width="320" height="16"></rect><rect class="film" x="120" y="100" width="320" height="230"></rect>
+            <path class="cav" d="M266,100 V320 H294 V100 Z"></path>
+            <rect class="cold" x="100" y="348" width="360" height="24"></rect><text x="280" y="392" class="card-l low-t" text-anchor="middle">웨이퍼를 영하 100 °C 이하로</text>
+            <text x="300" y="220" class="lbl-s">옆으로 일어나는 화학 반응 억제</text><text x="300" y="236" class="lbl-s">→ 보호막 없이도 수직</text>
+          </g>
+          <g id="ale" class="t"></g>
+          <g id="bosch" class="t">
+            <rect class="m-si" x="120" y="90" width="320" height="300"></rect>
+            <path class="cav" d="M262,90 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 q-10,15 0,30 H298 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 q10,-15 0,-30 Z"></path>
+            <text x="310" y="170" class="lbl-s">측벽 물결무늬(스캘럽)</text>
+            <text x="80" y="420" class="card-l">등방성 식각 → 보호막 증착 → 바닥만 뚫기, 빠르게 반복</text>
+          </g>
+          <text id="a1" x="560" y="80" class="head-t"></text>
+          <text id="a2" x="560" y="112" class="card-l"></text>
+          <text id="a3" x="560" y="136" class="card-l"></text>
+          <text id="a4" x="560" y="160" class="card-l"></text>
+          <text id="a5" x="560" y="194" class="card-l acc"></text>
+          <text id="a6" x="560" y="218" class="card-m"></text>
+        </g>
+        <g id="pcard" class="t">
+          <text id="p1" x="560" y="80" class="head-t"></text>
+          <text id="p2" x="560" y="112" class="card-l"></text>
+          <text id="p3" x="560" y="136" class="card-l"></text>
+          <text id="p4" x="560" y="160" class="card-l"></text>
+          <text id="p5" x="560" y="184" class="card-l"></text>
+          <text id="p6" x="560" y="218" class="card-l acc"></text>
+          <text id="p7" x="560" y="242" class="card-m"></text>
+          <text id="p8" x="560" y="264" class="card-m"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 막 두께, 홀의 종횡비, 스펙트럼 모양은 비율이 아닙니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>습식은 빠르고 선택비가 좋지만 <b>등방성</b>이라 언더컷이 생기고, 건식은 이온의 방향성으로 <b>수직 프로파일</b>을 만듭니다. RIE는 이온 충돌(물리)과 라디칼 반응(화학)의 시너지이며 측벽 폴리머가 옆 식각을 막습니다.</li>
+      <li>CF 계열 가스에서 식각 속도는 <b>SiO₂ &gt; Si₃N₄ &gt; Si</b>입니다. SiO₂는 막 속 산소가 탄소를 CO·CO₂로 소모해 폴리머가 얇게 남고, Si는 폴리머가 쌓여 식각이 멈춥니다. H₂는 F를 줄여 수직 프로파일에, O₂는 F 비율을 늘려 식각 속도에 유리합니다.</li>
+      <li>고종횡비 식각이 어려운 이유: 반응종 공급과 부산물 배출이 어렵고, 마스크가 깎여 사라지며, 차징으로 이온 경로가 휘어 보잉이 생기거나 식각이 멈춥니다. 3D NAND는 수백 단을 한 번에 뚫어야 합니다(3-16, 4-4).</li>
+    </ul>
+    <p class="foot">원고 3-6을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-5 플라즈마, 3-7 증착, 3-16 3D 낸드 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  for (let i = 0; i < 5; i++) mk($("ions"), "path", { class: "ionv", d: `M${250 + i * 15},96 V150`, "marker-end": "url(#ar-a)" });
+  [[110, 110], [170, 130], [200, 100], [360, 120], [400, 104], [430, 140], [140, 150], [390, 150]].forEach(([x, y]) => mk($("rads"), "circle", { class: "radd", cx: x, cy: y, r: 6 }));
+  for (let i = 0; i < 6; i++) for (let j = 0; j < 4; j++) mk($("dense"), "rect", { class: "cav", x: 368 + i * 20, y: 168 + j * 18, width: 8, height: 12 });
+  // ALE cycle
+  const ALE = $("ale");
+  ["① 흡착: 표면 한 층만 반응(자기 제한)", "② 퍼지", "③ 이온 조사: 그 층만 떼어 냄", "④ 퍼지 → 한 사이클"].forEach((t, k) => {
+    const x = 80 + (k % 2) * 220, y = 80 + Math.floor(k / 2) * 160;
+    mk(ALE, "text", { x, y: y + 8, class: "lbl-s ink-b" }, t);
+    for (let i = 0; i < 8; i++) for (let j = 0; j < 2; j++) {
+      const removed = k === 3 && j === 0;
+      if (!removed) mk(ALE, "circle", { class: "atom", cx: x + 14 + i * 22, cy: y + 90 + j * 22, r: 9 });
+      if (k === 0 || k === 1 || k === 2) if (j === 0) mk(ALE, "circle", { class: "adsorb", cx: x + 14 + i * 22, cy: y + 72, r: 5 });
+    }
+    if (k === 2) for (let i = 0; i < 4; i++) mk(ALE, "path", { class: "ionv", d: `M${x + 30 + i * 44},${y + 24} V${y + 58}`, "marker-end": "url(#ar-a)" });
+    if (k === 1 || k === 3) mk(ALE, "path", { d: `M${x},${y + 40} H${x + 170}`, style: "stroke: var(--low); stroke-width: 2; stroke-dasharray: 5 4", "marker-end": "url(#ar-l)" });
+  });
+  const cav = (d) => ({ cav: { attr: { d } } });
+  const pr = (k) => ({ prl: { style: { transform: `scaleY(${k})` } }, prr: { style: { transform: `scaleY(${k})` } } });
+  const pc = (a) => lines("p", a, 8), ic = (a) => lines("i", a, 7), ac = (a) => lines("a", a, 6);
+  const G = ["m-prof", "m-iss", "m-adv", "pcard"];
+
+  const prof = {
+    id: "profile", label: "습식·건식·RIE",
+    base: () => Object.assign(only(G, ["m-prof", "pcard"]), cav("M240,200 V200 H320 V200 Z"), pr(1), { poly: off, ions: off, rads: off, "pf-t": txt(""), "pf-t2": txt("") }),
+    steps: [
+      { short: "습식: 언더컷", title: "습식 식각: 모든 방향으로 녹아 언더컷", cmd: "습식",
+        text: `습식 식각은 용액이 막에 닿아 반응하고 생성물이 떠나는 3단계입니다. 빠르고 <b>선택비가 높고</b> 처리량이 크지만 <b>모든 방향으로</b> 깎여(등방성) 마스크 아래까지 파먹는 <b>언더컷</b> 때문에 미세 패턴에는 한계가 있습니다. 대부분의 증착막은 비정질·다결정이라 등방성이고, 열산화막은 치밀해 CVD 산화막보다 느리게 깎입니다.`,
+        set: Object.assign(cav("M200,200 C200,244 228,280 262,280 H298 C332,280 360,244 360,200 Z"), { rads: on, "pf-t": txt("등방성 → 마스크 아래까지 파먹음(언더컷)"), "pf-t2": txt("단결정 Si는 결정면에 따라 속도가 다름((111)이 가장 느림)") }, pc(["습식 식각", "확산 → 표면 반응 → 확산", "농도·온도로 속도 조절", "장점: 빠름, 선택비 ↑, 처리량 ↑", "", "단점: 등방성 → 언더컷", "미세 패턴에 한계", ""])) },
+      { short: "이온 밀링·플라즈마", title: "물리만(이온 밀링), 화학만(플라즈마 식각)", cmd: "건식의 시작",
+        text: `<b>이온 밀링</b>은 Ar⁺를 가속해 물리적으로 때려 깎아 수직이지만, 마스크도 함께 깎여 <b>선택비</b>와 생산성이 낮습니다(그림). <b>플라즈마 식각</b>은 라디칼의 화학 반응이라 선택비는 좋지만 습식처럼 등방성입니다. 둘의 장점을 합친 것이 RIE입니다.`,
+        set: Object.assign(cav("M240,200 V280 H320 V200 Z"), pr(0.35), { rads: off, ions: on, "pf-t": txt("이온 밀링: 수직이지만 마스크도 많이 깎임"), "pf-t2": txt("플라즈마 식각: 선택비는 좋지만 등방성") }, pc(["건식의 발전", "이온 밀링: 물리(Ar⁺)", "→ 수직, 선택비·생산성 ↓", "플라즈마 식각: 화학(라디칼)", "→ 선택비 ↑, 등방성", "둘을 합친 RIE", "", ""])) },
+      { short: "RIE", title: "RIE: 이온이 맞은 바닥만 빠르게 반응한다", cmd: "RIE",
+        text: `<b>RIE</b>: ① 플라즈마 형성 → ② 반응종이 표면으로 확산 → ③ 흡착 → ④ 수직으로 날아온 <b>이온이 결합을 약하게 만든 곳</b>에서 흡착종이 반응해 휘발성 화합물 형성 → ⑤ 탈착 → ⑥ 배출. 이온이 맞은 바닥만 빠르게 반응하므로 라디칼이 등방성이어도 결과는 <b>수직 프로파일</b>이 됩니다. 이온 밀링보다 약 10배 빠르고 선택비도 좋습니다.`,
+        set: Object.assign(cav("M240,200 V280 H320 V200 Z"), pr(1), { ions: on, rads: on, "pf-t": txt("이온(방향) + 라디칼(반응) = 수직 프로파일"), "pf-t2": txt("") }, pc(["RIE 6단계", "① 플라즈마 형성", "② 반응종 확산 → ③ 흡착", "④ 이온 도움 반응(휘발성)", "⑤ 탈착 → ⑥ 배출", "물리 + 화학의 시너지", "이온 밀링보다 약 10배 빠름", ""])) },
+      { short: "측벽 보호막", title: "측벽 폴리머가 옆으로 깎이는 것을 막는다", cmd: "패시베이션",
+        text: `CFx 계열 가스는 폴리머를 만들어 표면에 쌓습니다. <b>바닥</b>의 폴리머는 이온이 때려 없애고, 이온이 덜 닿는 <b>측벽</b>의 폴리머는 남아 옆으로 깎이는 것을 막습니다. RF 파워가 약하면 폴리머가 쌓이기만 하고, 강하면 이온이 문턱 에너지를 넘어 식각이 일어납니다.`,
+        set: Object.assign(cav("M240,200 V280 H320 V200 Z"), pr(1), { ions: on, rads: on, poly: on, "pf-t": txt("측벽: 폴리머가 남아 보호 / 바닥: 이온이 제거"), "pf-t2": txt("") }, pc(["측벽 보호막", "CFx → 폴리머", "바닥: 이온이 제거", "측벽: 남아서 보호", "", "파워 약함 → 증착만", "파워 강함 → 식각", ""])) },
+    ],
+  };
+
+  const iss = {
+    id: "issues", label: "지표와 문제",
+    base: () => Object.assign(only(G, ["m-iss"]), only(["sel", "har", "load", "epd"], ["sel"])),
+    steps: [
+      { short: "선택비·바이어스", title: "선택비와 식각 바이어스", cmd: "선택비",
+        text: `<b>선택비</b>는 깎을 막 대 마스크·하부막의 식각률 비로, 높을수록 목표만 제거합니다. <b>식각 바이어스</b>는 식각 전 PR 선폭 − 식각 후 최종 선폭으로 패턴이 얼마나 줄거나 늘었는지를 봅니다. 식각률(Å/min)은 생산성, 웨이퍼 안·간 <b>균일도</b>는 수율과 직결됩니다. 선택비는 가스 조합, 하드마스크, 온도, 파워로 높입니다.`,
+        set: ic(["식각 지표", "식각률: Å/min(생산성)", "선택비: 목표 막 ÷ 마스크·하부막", "균일도: 9점 등으로 측정", "식각 바이어스: 전후 선폭 차", "오버·언더 에치: 종점·마진으로 관리", ""]) },
+      { short: "고종횡비", title: "고종횡비: 깊고 좁을수록 어려워진다", cmd: "HAR",
+        text: `<b>종횡비</b>(높이 ÷ 폭)가 커지면 반응종이 바닥까지 잘 가지 못하고 부산물도 빠져나오기 어렵습니다. 마스크가 깎여 사라지고, 절연막에 쌓인 전하(차징) 때문에 이온 경로가 휘어 측벽이 불룩해지거나(<b>보잉</b>) 아래로 갈수록 좁아지고 식각이 멈추기도 합니다. 3D NAND 채널홀은 수백 단을 한 번에 뚫어야 합니다.`,
+        set: Object.assign(only(["sel", "har", "load", "epd"], ["har"]), ic(["고종횡비 식각", "종횡비 = 높이 ÷ 폭", "반응종 공급·부산물 배출 ↓", "마스크 소모", "차징 → 이온 휨 → 보잉", "대책: 압력 ↓(MFP ↑), 펄스, 극저온", ""])) },
+      { short: "로딩 효과", title: "로딩: 좁은 곳, 빽빽한 곳은 덜 깎인다", cmd: "로딩",
+        text: `<b>마이크로 로딩</b>은 좁고 깊은 패턴이 넓은 패턴보다 덜 깎이는 현상입니다. 깊은 홈 속 부산물이 잘 빠져나오지 못하고 반응종도 덜 들어가기 때문으로, 압력을 낮춰 MFP를 늘리고 가스 유속을 높이거나 펄스 플라즈마를 씁니다. <b>매크로 로딩</b>은 식각 면적(패턴 밀도)에 따라 반응종 소모가 달라 불균일해지는 현상으로, 더미 패턴으로 밀도를 고르게 하고 반응종을 충분히 공급합니다.`,
+        set: Object.assign(only(["sel", "har", "load", "epd"], ["load"]), ic(["로딩 효과", "마이크로: 좁은 패턴이 덜 깎임", "→ 압력 ↓, 유속 ↑, 펄스", "매크로: 패턴 밀도에 따라 불균일", "→ 더미 패턴, 반응종 충분히", "", ""])) },
+      { short: "종점 검출(EPD)", title: "언제 멈출까: 빛이 바뀌는 순간", cmd: "OES",
+        text: `모든 원자는 고유한 파장의 빛을 냅니다. 막이 다 깎여 아래 막이 드러나면 플라즈마 속 부산물이 바뀌어 빛의 스펙트럼이 변하는데, 이를 감지하는 것이 <b>OES</b>(광방출 분광법)입니다. 반사된 레이저의 간섭 세기가 진동하다 멈추는 순간을 보는 레이저 간섭법도 씁니다. 평균으로 종점을 정해도 패턴 밀도·단차에 따라 오버·언더 에치가 생길 수 있어 선택비가 함께 중요합니다.`,
+        set: Object.assign(only(["sel", "har", "load", "epd"], ["epd"]), ic(["종점 검출(EPD)", "OES: 부산물 빛의 변화", "레이저 간섭법", "", "패턴 밀도·단차 → 오버·언더 에치", "그래서 선택비도 중요", ""])) },
+    ],
+  };
+
+  const adv = {
+    id: "advanced", label: "첨단 식각",
+    base: () => Object.assign(only(G, ["m-adv"]), only(["pulse", "cryo", "ale", "bosch"], ["pulse"])),
+    steps: [
+      { short: "펄스 플라즈마", title: "펄스 플라즈마: 켰다 껐다 하며 숨 고르기", cmd: "Pulse",
+        text: `소스·바이어스 파워를 켰다 껐다 합니다. 꺼진 동안 <b>부산물이 빠져나가</b> 마이크로 로딩이 줄고, 절연막에 쌓인 양이온 <b>전하가 빠져</b> 이온 경로가 휘어 생기는 불량 프로파일(트렌칭)이 줄어듭니다.`,
+        set: ac(["펄스 플라즈마", "꺼진 동안 부산물 배출", "쌓인 전하 해소", "→ 로딩·트렌칭 ↓", "", ""]) },
+      { short: "극저온 식각", title: "극저온 식각: 차갑게 해서 옆 반응을 막는다", cmd: "Cryo",
+        text: `웨이퍼를 <b>영하 100 °C 이하</b>로 낮춰 옆으로 일어나는 화학 반응을 억제합니다. 패시베이션 가스 없이도 이방성을 얻고, 보호막이 식각을 막는 문제와 이온 에너지를 올릴 때의 선택비 저하를 피합니다. 3D NAND 채널 홀 같은 초고종횡비 식각에서 주목받습니다(4-4).`,
+        set: Object.assign(only(["pulse", "cryo", "ale", "bosch"], ["cryo"]), ac(["극저온(크라이오) 식각", "영하 100 °C 이하", "옆 화학 반응 억제", "보호막 없이 수직", "3D NAND 채널홀", ""])) },
+      { short: "원자층 식각(ALE)", title: "ALE: 한 층씩 떼어 내기", cmd: "ALE",
+        text: `표면 한 층만 반응시키는 <b>자기 제한 흡착</b> → 퍼지 → 그 층만 떼어 낼 만큼의 에너지로 <b>이온 조사</b> → 퍼지를 반복합니다. 에너지가 작으면 덜 제거되고 크면 스퍼터링처럼 되므로 ALE 윈도우를 찾는 것이 핵심입니다. 원자층 단위 정밀도, 매끈한 표면, 패턴 면적과 무관한 균일한 깊이가 장점이지만 생산성이 낮습니다.`,
+        set: Object.assign(only(["pulse", "cryo", "ale", "bosch"], ["ale"]), ac(["원자층 식각(ALE)", "흡착 → 퍼지 → 이온 → 퍼지", "원자층 단위 정밀도", "패턴 면적과 무관한 깊이", "ALE 윈도우가 핵심", "단점: 생산성 → PE-ALE로 발전"])) },
+      { short: "보쉬 공정", title: "보쉬 공정: 깊은 수직 홀(TSV·MEMS)", cmd: "DRIE",
+        text: `<b>보쉬 공정</b>(DRIE)은 등방성 식각 → 측벽 보호막 증착 → 바닥만 이온으로 뚫기를 빠르게 반복해 깊은 수직 홀을 만듭니다. 측벽에 물결무늬(<b>스캘럽</b>)가 남으며 MEMS와 HBM의 TSV에 씁니다(4-5).`,
+        set: Object.assign(only(["pulse", "cryo", "ale", "bosch"], ["bosch"]), ac(["보쉬 공정(DRIE)", "식각 → 보호막 → 바닥 뚫기 반복", "깊은 수직 홀", "측벽 스캘럽", "쓰임: MEMS, TSV(4-5)", ""])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [prof, iss, adv], dur: 6500 });
+})();
+</script>
+</body>
+</html>

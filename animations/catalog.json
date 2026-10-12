@@ -399,6 +399,188 @@
       "summary": "펄스·검증 반복으로 분포를 좁히는 ISPP(셀 점 그래프), 셀프 부스팅 4단계, TLC 기준 전압으로 읽기, 교란·리텐션·P/E로 분포가 움직이고 읽기 재시도로 되찾는 과정."
     },
     {
+      "id": "fab-intro",
+      "unit": "3-0",
+      "title": "팹 입문: 8대 공정, FEOL·BEOL, 클린룸",
+      "file": "fab-intro.html",
+      "modes": [
+        {
+          "id": "flow",
+          "label": "공정 흐름",
+          "steps": 4
+        },
+        {
+          "id": "clean",
+          "label": "클린룸",
+          "steps": 2
+        }
+      ],
+      "summary": "교과서식 8대 공정과 실제로는 층마다 도는 세정→증착→포토→식각→세정→계측 고리, FEOL·MOL·BEOL과 온도 제한, 전공정·후공정, 클린룸의 하향 기류와 FOUP·OHT."
+    },
+    {
+      "id": "wafer-making",
+      "unit": "3-1",
+      "title": "웨이퍼 제조: 잉곳에서 웨이퍼까지",
+      "file": "wafer-making.html",
+      "modes": [
+        {
+          "id": "make",
+          "label": "만드는 순서",
+          "steps": 5
+        },
+        {
+          "id": "wafer",
+          "label": "웨이퍼 크기·구조",
+          "steps": 3
+        }
+      ],
+      "summary": "규석에서 11N 폴리실리콘으로 정제, CZ법 단결정 성장, 슬라이싱과 노치, 래핑·식각·연마, 폴리시드·에피·SOI 웨이퍼, 200 mm와 300 mm, 다이·스크라이브 라인·TEG, 에피 웨이퍼를 쓰는 이유."
+    },
+    {
+      "id": "cleaning",
+      "unit": "3-2",
+      "title": "세정: 오염원 5가지와 RCA 세정",
+      "file": "cleaning.html",
+      "modes": [
+        {
+          "id": "contam",
+          "label": "오염원 5가지",
+          "steps": 5
+        },
+        {
+          "id": "rca",
+          "label": "RCA 세정",
+          "steps": 4
+        },
+        {
+          "id": "dry",
+          "label": "건조",
+          "steps": 2
+        }
+      ],
+      "summary": "패턴 단면 위의 파티클·자연산화막·금속·유기물·러프니스와 각각의 문제·세정액, SPM·DHF·SC1·SC2를 차례로 쓰는 RCA 세정, 친수·소수성과 워터마크, 표면 장력에 쓰러지는 패턴과 초임계 건조."
+    },
+    {
+      "id": "oxidation",
+      "unit": "3-3",
+      "title": "산화: 건식·습식 산화와 게이트 절연막",
+      "file": "oxidation.html",
+      "modes": [
+        {
+          "id": "grow",
+          "label": "자라는 원리",
+          "steps": 4
+        },
+        {
+          "id": "use",
+          "label": "쓰임 4가지",
+          "steps": 4
+        },
+        {
+          "id": "measure",
+          "label": "평가 방법",
+          "steps": 3
+        }
+      ],
+      "summary": "원래 표면 위아래로 자라는 SiO₂(실리콘 쪽 약 44%), 산화제가 막을 뚫고 계면에서 반응하는 모습, 딜-그로브 선형·포물선 성장과 속도 요인, 산화막의 네 가지 쓰임(LOCOS→STI, 게이트 산화막), 두께·도핑·전기적 평가 방법."
+    },
+    {
+      "id": "photo",
+      "unit": "3-4",
+      "title": "포토: 노광 공정 순서와 해상도",
+      "file": "photo.html",
+      "modes": [
+        {
+          "id": "flow",
+          "label": "공정 순서",
+          "steps": 8
+        },
+        {
+          "id": "res",
+          "label": "해상도",
+          "steps": 4
+        },
+        {
+          "id": "euv",
+          "label": "EUV",
+          "steps": 3
+        }
+      ],
+      "summary": "전처리→코팅→소프트 베이크→정렬·노광→PEB→현상→하드 베이크→검사 8단계 단면, 회절광이 렌즈에 들어와야 무늬가 맺히는 원리와 레일리 식·DOF·low-k₁·SADP, EUV 광원·거울·광자 수와 선 거칠기."
+    },
+    {
+      "id": "plasma",
+      "unit": "3-5",
+      "title": "플라즈마 기초: 식각과 증착의 공통 기반",
+      "file": "plasma.html",
+      "modes": [
+        {
+          "id": "make",
+          "label": "플라즈마 만들기",
+          "steps": 4
+        },
+        {
+          "id": "sheath",
+          "label": "시스와 바이어스",
+          "steps": 5
+        }
+      ],
+      "summary": "전극 사이 플라즈마의 전자·이온·라디칼, 글로우 방전 연쇄, 전자 에너지에 따른 여기·해리·이온화, 파셴 곡선, 시스 전위와 이온의 수직 가속, DC와 RF·자기 바이어스, CCP와 ICP 비교."
+    },
+    {
+      "id": "etching",
+      "unit": "3-6",
+      "title": "식각: 습식·건식, RIE, 고종횡비",
+      "file": "etching.html",
+      "modes": [
+        {
+          "id": "profile",
+          "label": "습식·건식·RIE",
+          "steps": 4
+        },
+        {
+          "id": "issues",
+          "label": "지표와 문제",
+          "steps": 4
+        },
+        {
+          "id": "advanced",
+          "label": "첨단 식각",
+          "steps": 4
+        }
+      ],
+      "summary": "같은 마스크 아래 습식(언더컷)·이온 밀링·RIE 단면 비교와 측벽 폴리머, 선택비와 식각 바이어스, 고종횡비 홀의 테이퍼·보잉, 마이크로·매크로 로딩, OES 종점 검출, 펄스·극저온·ALE·보쉬 공정."
+    },
+    {
+      "id": "deposition",
+      "unit": "3-7",
+      "title": "증착: CVD·ALD·PVD와 에피택시",
+      "file": "deposition.html",
+      "modes": [
+        {
+          "id": "coverage",
+          "label": "단차 피복",
+          "steps": 3
+        },
+        {
+          "id": "cvd",
+          "label": "CVD",
+          "steps": 3
+        },
+        {
+          "id": "ald",
+          "label": "ALD",
+          "steps": 4
+        },
+        {
+          "id": "stress",
+          "label": "응력·에피",
+          "steps": 2
+        }
+      ],
+      "summary": "홈을 덮는 단차 피복과 보이드, CVD와 PVD의 덮임 차이, 부착 계수와 MFP, CVD 성장 6단계와 율속, AP→LP→PE→HDP→ALD 발전 순서, ALD 4단계 사이클과 윈도우, 막 응력과 웨이퍼 휨, SiGe 에피의 응력과 결함."
+    },
+    {
       "id": "dram-process",
       "unit": "3-15",
       "title": "D램 공정 흐름",
