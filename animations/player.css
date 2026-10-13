@@ -156,6 +156,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .step-title { margin: 0; font: 700 18px/1.35 var(--font-sans); text-wrap: balance; }
 .step-text { margin: 0; min-height: 7.5em; }
 .step-text b { color: var(--accent); font-weight: 600; }
+/* the step title and explanation rise in when the step changes (player.js adds .sp-in) */
+.step-title.sp-in { animation: sp-rise .45s cubic-bezier(.2, .7, .2, 1) both; }
+.step-text.sp-in { animation: sp-rise .5s cubic-bezier(.2, .7, .2, 1) .06s both; }
+@keyframes sp-rise { from { opacity: 0; transform: translateY(6px); } }
 
 .controls { display: flex; gap: 8px; flex-wrap: wrap; }
 .controls button {
@@ -187,6 +191,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   border-radius: 6px;
   padding: 6px 8px;
   cursor: pointer;
+  transition: background-color .25s ease, color .25s ease;
 }
 .steps button .n { font: 500 12px/1.6 var(--font-mono); }
 .steps button:hover { background: var(--bg); }
@@ -211,6 +216,8 @@ svg .t {
   transform-box: fill-box;
   transition: transform .8s cubic-bezier(.4, 0, .2, 1), opacity .6s ease, fill .6s ease, stroke .6s ease;
 }
+/* parts a page did not mark with .t still ease between steps (player.js adds .sp-tt) */
+svg .sp-tt { transition: opacity .5s ease, fill .5s ease, stroke .5s ease, transform .8s cubic-bezier(.4, 0, .2, 1); }
 svg [data-s="off"] { opacity: 0; }
 svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 2.5px; }
 svg g[data-hl="1"] > * { stroke: var(--accent); stroke-width: 2px; }
@@ -278,6 +285,6 @@ svg .f-muted { fill: var(--muted); }
 svg .f-line { fill: var(--line); }
 
 @media (prefers-reduced-motion: reduce) {
-  svg .t, .progress > span { transition-duration: 0s !important; }
-  svg * { animation: none !important; }
+  svg .t, svg .sp-tt, .progress > span, .steps button { transition-duration: 0s !important; }
+  svg *, .step-title, .step-text { animation: none !important; }
 }
