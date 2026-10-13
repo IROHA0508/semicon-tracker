@@ -47,8 +47,27 @@ class CardError(Exception):
     """Claude's card cannot be used as it is (the article is retried on the next run)."""
 
 
+# A field that came back as a list, or as a list written out as text ('["문장"]', '["문장"][0]').
+_LIST_TEXT = re.compile(r"^\s*(\[.*?\])\s*(?:\[\s*0\s*\])?\s*$", re.S)
+
+
+def _unwrap(value):
+    if isinstance(value, list):
+        return " ".join(str(v).strip() for v in value if str(v or "").strip())
+    if isinstance(value, str):
+        m = _LIST_TEXT.match(value)
+        if m:
+            try:
+                parsed = json.loads(m.group(1))
+            except ValueError:
+                return value
+            if isinstance(parsed, list) and all(isinstance(v, str) for v in parsed):
+                return " ".join(v.strip() for v in parsed if v.strip())
+    return value
+
+
 def _text(value) -> str:
-    return re.sub(r"\s+", " ", str(value or "")).strip()
+    return re.sub(r"\s+", " ", str(_unwrap(value) or "")).strip()
 
 
 def sentences(value) -> list[str]:

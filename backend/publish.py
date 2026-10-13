@@ -12,6 +12,9 @@ from datetime import date, datetime
 
 from . import collect, config, store, tags
 
+# a card text that is really a list written out as text, e.g. '["문장"][0]'
+LIST_TEXT = re.compile(r"^\s*\[\s*\".*\"\s*\]\s*(?:\[\s*\d+\s*\])?\s*$", re.S)
+
 CARD_FIELDS = ("id", "company", "source", "channel", "kind", "lang", "title", "originalTitle", "url",
                "published", "date", "summary", "interview", "tags", "companies", "author", "alsoIn")
 REQUIRED = ("id", "company", "source", "channel", "kind", "lang", "title", "url", "published", "date",
@@ -107,6 +110,11 @@ def check_article(a: dict, book: tags.TagBook, stem: str) -> list[str]:
         out.append("summary는 문장 1~2개의 배열이어야 함")
     if not isinstance(a["interview"], str):
         out.append("interview는 문자열이어야 함")
+    for field in ("title", "interview"):
+        if isinstance(a.get(field), str) and LIST_TEXT.match(a[field]):
+            out.append(f"{field}가 배열을 글자로 적은 모양: {a[field][:40]}")
+    if isinstance(s, list) and any(isinstance(x, str) and LIST_TEXT.match(x) for x in s):
+        out.append("summary 문장이 배열을 글자로 적은 모양")
     if not isinstance(a["tags"], list) or len(a["tags"]) > tags.MAX_TAGS:
         out.append("tags는 4개 이하의 배열이어야 함")
     else:

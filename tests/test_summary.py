@@ -369,6 +369,22 @@ def test_company_names_are_korean_and_deduplicated():
     assert c["companies"] == ["앤트로픽", "델 테크놀로지스", "TSMC"]
 
 
+@pytest.mark.parametrize("raw", [
+    '["면접에서 쓸 한 문장입니다."][0]', '["면접에서 쓸 한 문장입니다."]', ["면접에서 쓸 한 문장입니다."],
+    "면접에서 쓸 한 문장입니다.",
+])
+def test_interview_written_as_a_list_is_unwrapped(raw):
+    c, _ = digest.clean_card({"interview": raw, "summary": [raw]}, queued("a", "2026-10-09T10:00:00+09:00"),
+                             tags.tagbook())
+    assert c["interview"] == "면접에서 쓸 한 문장입니다."
+    assert c["summary"] == ["면접에서 쓸 한 문장입니다."]
+
+
+def test_text_that_only_looks_like_brackets_is_kept():
+    assert digest._text("[속보] HBM4 양산") == "[속보] HBM4 양산"
+    assert digest._text("[1] 첫째") == "[1] 첫째"
+
+
 def test_sentences_splits_one_element_holding_two():
     assert digest.sentences(["첫 문장입니다. 둘째 문장입니다.", "셋째입니다."]) == ["첫 문장입니다.", "둘째 문장입니다."]
 
@@ -414,9 +430,10 @@ def test_validate_reports_bad_article_files(data):
     publish.build(now=NOW)
     path = config.NEWS_DIR / "skhynix-a.json"
     a = json.loads(path.read_text(encoding="utf-8"))
-    a.update(tags=["가짜"], summary=[], originalTitle="")
+    a.update(tags=["가짜"], summary=[], originalTitle="", interview='["한 문장입니다."][0]')
     path.write_text(json.dumps(a, ensure_ascii=False), encoding="utf-8")
     problems = publish.validate()
     assert any("표준 태그가 아님: 가짜" in p for p in problems)
     assert any("summary" in p for p in problems)
     assert any("originalTitle" in p for p in problems)
+    assert any("interview가 배열을 글자로 적은 모양" in p for p in problems)

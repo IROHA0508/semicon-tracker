@@ -65,6 +65,8 @@ docs/DATA_SCHEMA.md      파일 형식 설명
 
 ## 배포
 
+**사이트: https://semicon-tracker.vercel.app/** (Vercel 프로젝트 `semicon-tracker`, Hobby 요금제, 2026-10-13 연결)
+
 릴리스 레이더와 같이 Vercel이 GitHub 저장소를 직접 가져가 배포합니다(빌드 없음, 저장소 루트의 `index.html`이 첫 화면).
 
 1. Vercel 대시보드 → **Add New → Project** → `IROHA0508/semicon-tracker` **Import**
