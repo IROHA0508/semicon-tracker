@@ -1,6 +1,6 @@
 # semicon-tracker (임시 이름)
 
-반도체 면접 준비용 개인 사이트입니다. 삼성전자와 SK하이닉스의 공식 뉴스룸 소식을 자동으로 모아 한국어로 요약하고, 기사마다 관련 이론 단원(0~6층, 59개 단원)을 이어 줍니다. 비공개 저장소이며 혼자 씁니다.
+반도체 면접 준비용 개인 사이트입니다. 삼성전자와 SK하이닉스의 공식 뉴스룸 소식을 자동으로 모아 한국어로 요약하고, 기사마다 관련 이론 단원(0~6층, 59개 단원)을 이어 줍니다. 저장소와 사이트는 공개이고(2026-10-13 결정), 검색 엔진 색인만 막아 둡니다.
 
 지금은 1차 작업 6단계 중 **5단계(화면)**까지 끝났습니다. 화면(`index.html`)은 시장 흐름, 이론 공부(층 지도·단원 페이지), 출처의 세 탭이고, 이론 원고 59단원(`theory/`)과 도식 80개, 단원별 영상 링크, 단계별 애니메이션 49개(`animations/`)를 단원 페이지에서 함께 봅니다.
 
@@ -11,7 +11,7 @@
 | 3 | 요약·번역·태그 분류, 관련 단원 연결 | 완료 |
 | 4 | 이론 원고 59단원 옮기기(도식·영상·애니메이션 연결 포함) | 완료(`theory/`, `data/theory.json`) |
 | 5 | 화면: 시장 흐름, 이론 공부, 출처 | 완료(`index.html`) |
-| 6 | 비공개 배포, 자동 실행 확인 | 다음 |
+| 6 | 배포(Vercel), 자동 실행 확인 | 진행 중 |
 
 ## 화면
 
@@ -31,7 +31,7 @@
 - **브라우저에 저장하는 값(기기마다 따로):** `st-read`(읽은 단원과 날짜), `st-co`·`st-kind`(시장 흐름 거르기), `st-tfilter`(층 지도 거르기).
 - **보는 법:** 저장소 폴더에서 `python -m http.server` 후 `http://localhost:8000`. 파일을 직접 열면(`file://`) 데이터를 읽지 못합니다.
 - **글꼴:** Pretendard(jsDelivr), 숫자는 IBM Plex Mono(Google Fonts). 색은 애니메이션(`animations/player.css`)과 같은 회색 바탕 + 구리색 하나이고, 기기의 밝은·어두운 설정을 따릅니다. 휴대폰(폭 760px 미만)에서는 탭이 아래로 내려갑니다.
-- **배포 설정:** `vercel.json`(주소 끝 `.html` 생략, `data/`는 캐시하지 않음, 검색 엔진 색인 막음), `.vercelignore`(backend·tests·tools·.github 제외). 비공개로 유지하는 방법은 6단계에서 정합니다.
+- **배포 설정:** `vercel.json`(주소 끝 `.html` 생략, `data/`는 캐시하지 않음, 검색 엔진 색인 막음), `.vercelignore`(backend·tests·tools·.github 제외). 색인을 열려면 `index.html`의 `meta name="robots"`와 `vercel.json`의 `X-Robots-Tag`를 지웁니다.
 
 ## 구조
 
@@ -62,6 +62,17 @@ tests/                   오프라인 테스트(실제 피드 구조를 본뜬 �
 docs/DATA_SCHEMA.md      파일 형식 설명
 .github/workflows/       하루 4번 수집·요약하는 GitHub Actions 워크플로
 ```
+
+## 배포
+
+릴리스 레이더와 같이 Vercel이 GitHub 저장소를 직접 가져가 배포합니다(빌드 없음, 저장소 루트의 `index.html`이 첫 화면).
+
+1. Vercel 대시보드 → **Add New → Project** → `IROHA0508/semicon-tracker` **Import**
+2. Framework Preset은 **Other**, Build Command·Output Directory는 비워 둠(루트 그대로) → **Deploy**
+3. 이후 main에 올라오는 커밋(코드 수정, 하루 4번 요약 봇의 데이터 커밋)마다 자동으로 다시 배포됩니다.
+
+- 저장소가 공개라서 Vercel 무료(Hobby) 요금제에서도 봇 커밋이 배포됩니다. 비공개 저장소였다면 무료 요금제는 계정 주인이 아닌 작성자(봇 등)의 커밋을 배포하지 않습니다.
+- GitHub Secret(`CLAUDE_CODE_OAUTH_TOKEN`)은 저장소를 공개해도 밖에 보이지 않습니다. 저장소 파일에는 토큰을 두지 않습니다.
 
 ## 수집 출처
 
