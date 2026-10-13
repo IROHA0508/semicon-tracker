@@ -172,11 +172,26 @@ button.tag { border: 0; cursor: pointer; }
 .result { font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; min-height: 30px; }
 .active-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-soft); color: var(--accent-ink); border-radius: 999px; padding: 5px 6px 5px 11px; font-weight: 600; font-size: 13px; text-decoration: none; }
 .active-tag span { font-size: 15px; line-height: 1; padding: 0 4px; }
-.months { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding: 2px 0 4px; }
-.months:empty { display: none; }
-.mchip { flex: none; display: inline-flex; gap: 5px; align-items: baseline; font: 500 13px/1 var(--font-sans); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; cursor: pointer; }
-.mchip:hover { border-color: var(--accent); }
-.mchip .n { font: 11.5px/1 var(--font-mono); color: var(--faint); }
+/* period: one row per year (newest first), months January → December */
+.period { display: grid; gap: 6px; }
+.yrow { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 8px; align-items: stretch; }
+.mgrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.ychip, .mchip {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  font: 600 13px/1.1 var(--font-sans); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 6px; padding: 7px 2px 6px; cursor: pointer; min-width: 0;
+}
+.ychip { font-size: 14px; }
+.ychip .n, .mchip .n { font: 400 11px/1 var(--font-mono); color: var(--faint); min-height: 11px; }
+.ychip:hover, .mchip:hover { border-color: var(--accent); }
+.ychip[aria-pressed="true"], .mchip[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.ychip[aria-pressed="true"] .n, .mchip[aria-pressed="true"] .n { color: inherit; opacity: .7; }
+.ychip:disabled, .mchip:disabled { cursor: default; color: var(--faint); background: transparent; border-style: dashed; border-color: var(--line); opacity: .7; }
+@media (max-width: 599px) {
+  .yrow { grid-template-columns: minmax(0, 1fr); }
+  .ychip { flex-direction: row; justify-content: flex-start; gap: 8px; padding: 8px 10px; }
+  .mgrid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
 .month { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 0; scroll-margin-top: 80px; }
 .month h2 { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
 .month span { font: 12px var(--font-mono); color: var(--faint); }
@@ -388,7 +403,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
   var S = {
     loaded: false, error: null, manifest: null, items: [], theory: null, tags: null,
     units: {}, order: [], newsByUnit: {}, md: {},
-    co: "all", kind: "all", q: "", tfilter: "all"
+    co: "all", kind: "all", q: "", tfilter: "all", period: "all"
   };
   function load(key, fallback) { try { var v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } }
   function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* private window */ } }
@@ -665,7 +680,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
 
     var listBox = h("div");
     var result = h("div", { class: "result", "aria-live": "polite" });
-    var monthRow = h("nav", { class: "months", "aria-label": "월별 바로가기" });
+    var periodBox = h("div", { class: "period", role: "group", "aria-label": "기간" });
     function seg(label, value, current, onPick, count) {
       return h("button", { type: "button", class: "chip", "aria-pressed": current === value ? "true" : "false", onclick: function () { onPick(value); } }, [label, count !== undefined ? h("span", { class: "n", text: String(count) }) : null]);
     }
@@ -691,36 +706,58 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
         var n = p[0] === "all" ? pool.length : pool.filter(function (i) { return i.kind === p[0]; }).length;
         kindRow.appendChild(seg(p[1], p[0], S.kind, function (v) { S.kind = v; save("st-kind", v); draw(); }, n));
       });
-      var items = pool.filter(function (i) {
+      var filtered = pool.filter(function (i) {
         return (S.co === "all" || i.company === S.co) && (S.kind === "all" || i.kind === S.kind) && matches(i, S.q);
       });
+      // period: "all", a year ("2026") or a month ("2026-03"); the counts follow the other filters
+      var items = filtered.filter(function (i) { return S.period === "all" || i.date.slice(0, S.period.length) === S.period; });
+      drawPeriod(filtered);
       result.textContent = "";
       if (tag) result.appendChild(h("a", { class: "active-tag", href: "#news", title: "태그 필터 지우기" }, ["태그 · " + tag, h("span", { "aria-hidden": "true", text: "×" })]));
-      result.appendChild(h("span", { text: S.items.length + "건 중 " + items.length + "건" + (S.items.length ? " · " + fmtDate(S.items[S.items.length - 1].date) + " ~ " + fmtDate(S.items[0].date) : "") }));
-      monthRow.textContent = "";
-      var months = [];
-      items.forEach(function (i) { var k = i.date.slice(0, 7); if (months.indexOf(k) < 0) months.push(k); });
-      if (months.length > 1) {
-        monthRow.appendChild(h("span", { class: "flabel", text: "월별" }));
-        months.forEach(function (k) {
-          var n = items.filter(function (i) { return i.date.slice(0, 7) === k; }).length;
-          monthRow.appendChild(h("button", { type: "button", class: "mchip", title: k.replace("-", "년 ") + "월로 이동", onclick: function () {
-            var el = listBox.querySelector('[data-month="' + k + '"]');
-            if (el) el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-          } }, [(+k.slice(5)) + "월", h("span", { class: "n", text: String(n) })]));
-        });
-      }
+      var range = S.period === "all"
+        ? (S.items.length ? "전체 기간 " + fmtDate(S.items[S.items.length - 1].date) + " ~ " + fmtDate(S.items[0].date) : "")
+        : periodName(S.period);
+      result.appendChild(h("span", { text: S.items.length + "건 중 " + items.length + "건" + (range ? " · " + range : "") }));
       listBox.textContent = "";
-      if (!items.length) listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "조건에 맞는 소식이 없습니다." }), h("span", { text: "회사·종류를 '전체'로 바꾸거나 검색어를 지워 보세요." })]));
+      if (!items.length) listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "조건에 맞는 소식이 없습니다." }), h("span", { text: "회사·종류·기간을 '전체'로 바꾸거나 검색어를 지워 보세요." })]));
       else listBox.appendChild(ledger(items));
+    }
+    function periodName(p) { return p.length === 4 ? p + "년 전체" : p.slice(0, 4) + "년 " + (+p.slice(5)) + "월"; }
+    function pickPeriod(v) { S.period = S.period === v ? "all" : v; draw(); }
+    function drawPeriod(filtered) {
+      periodBox.textContent = "";
+      periodBox.appendChild(h("div", { class: "frow" }, [
+        h("span", { class: "flabel", text: "기간" }),
+        seg("전체 기간", "all", S.period, function () { S.period = "all"; draw(); }, filtered.length)
+      ]));
+      // one row per year that has any article (newest year on top); a new year appears by itself
+      var years = [];
+      S.items.forEach(function (i) { var y = i.date.slice(0, 4); if (years.indexOf(y) < 0) years.push(y); });
+      years.sort().reverse().forEach(function (y) {
+        var ny = filtered.filter(function (i) { return i.date.slice(0, 4) === y; }).length;
+        var months = [];
+        for (var m = 1; m <= 12; m++) {
+          var key = y + "-" + (m < 10 ? "0" : "") + m;
+          var n = filtered.filter(function (i) { return i.date.slice(0, 7) === key; }).length;
+          months.push(h("button", {
+            type: "button", class: "mchip", "aria-pressed": S.period === key ? "true" : "false",
+            disabled: n || S.period === key ? null : true, title: y + "년 " + m + "월 기사만 보기",
+            onclick: (function (k) { return function () { pickPeriod(k); }; })(key)
+          }, [m + "월", h("span", { class: "n", text: n ? String(n) : "" })]));
+        }
+        periodBox.appendChild(h("div", { class: "yrow" }, [
+          h("button", { type: "button", class: "ychip", "aria-pressed": S.period === y ? "true" : "false", disabled: ny || S.period === y ? null : true,
+            title: y + "년 기사 전체 보기", onclick: function () { pickPeriod(y); } }, [y + "년", h("span", { class: "n", text: String(ny) })]),
+          h("div", { class: "mgrid" }, months)
+        ]));
+      });
     }
     var timer = null;
     input.addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(function () { S.q = input.value.trim(); draw(); }, 120); });
 
     main.appendChild(head);
-    main.appendChild(h("div", { class: "filters" }, [coRow, kindRow, searchRow]));
+    main.appendChild(h("div", { class: "filters" }, [coRow, kindRow, periodBox, searchRow]));
     main.appendChild(result);
-    main.appendChild(monthRow);
     main.appendChild(listBox);
 
     // sidebar
