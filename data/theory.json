@@ -3063,7 +3063,22 @@
      "note": "삼성전자 반도체 뉴스룸 · 2026년 3월. HBM4 성능·적층 로드맵"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/hbm-film.html",
+     "title": "HBM: TSV 적층과 본딩",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "구조",
+      "대역폭",
+      "TSV",
+      "본딩",
+      "수율",
+      "정리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/hbm-stack.html",
@@ -3800,6 +3815,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 1
+  "films": 2
  }
 }

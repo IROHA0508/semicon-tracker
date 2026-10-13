@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HBM 적층·TSV·본딩 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .tag { font: 600 18px var(--font-mono); fill: var(--muted); }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .low-t { fill: var(--low); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .logic { fill: var(--m-si-line); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .subst { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .sol { fill: var(--m-w); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tin { fill: var(--m-tin); }
+  .film .poly { fill: var(--m-poly); }
+  .film .ncf { fill: var(--m-pr); opacity: .9; }
+  .film .muf { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1.5; }
+  .film .ball { fill: var(--m-w); }
+  .film .ghost { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 7 5; }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .seed { fill: var(--surface); stroke: var(--m-cu); stroke-width: 2; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+  .film #g-bond[data-hot="1"] .sol { fill: var(--accent); }
+
+  /* flows and motion */
+  .film .lane { fill: none; stroke: var(--m-cu); stroke-width: 2; stroke-dasharray: 8 7; animation: fdash .8s linear infinite; }
+  .film .lane-fast { fill: none; stroke: var(--accent); stroke-width: 9; stroke-dasharray: 22 16; animation: fdash .42s linear infinite; }
+  .film .lane-slow { fill: none; stroke: var(--m-cu); stroke-width: 2.2; stroke-dasharray: 10 8; animation: fdash 1.3s linear infinite; }
+  .film .wave { fill: none; stroke: var(--bad); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 9 7; animation: fdash .7s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .lane, .film.paused .lane-fast, .film.paused .lane-slow, .film.paused .wave, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .road { fill: var(--bg); stroke: var(--line-strong); stroke-width: 3; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .pill { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .head rect { fill: var(--m-w); }
+  .film .arrk { fill: none; stroke: var(--bad); stroke-width: 3; }
+  .film .limit line { stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 8 6; }
+  .film .barl { fill: var(--low); }
+  .film .barh { fill: var(--accent); }
+  .film .ybar { fill: var(--accent); }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 7; stroke-linecap: round; }
+  .film .die-bad { fill: var(--bad); stroke: var(--bad); opacity: .85; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">4-5</span><span>HBM · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>HBM: 쌓고, 꿰고, 붙이는 법 (약 2분 영상)</h1>
+    <p class="lead">GPU 옆의 쌓은 D램 → 길을 넓히는 대역폭 → TSV 만들기 → 본딩 3가지 → 수율 순서로 자막과 함께 이어서 흐릅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="HBM 적층·TSV·본딩 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="GPU 옆에 붙은 HBM 패키지, 대역폭, TSV 만드는 순서, 본딩 세 가지 방식, 누적 수율이 시간에 따라 움직이는 영상">
+        <defs>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+
+        <!-- ===== Opening title ===== -->
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">4-5 · HBM</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">HBM은 D램을</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">왜 위로 쌓았을까?</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">쌓는 법 · 붙이는 법 · 길을 넓히는 법</text>
+        </g>
+
+        <!-- ===== Scene 1: 2.5D package (left) ===== -->
+        <g id="g-pkg">
+          <rect class="subst" x="50" y="500" width="600" height="26" rx="3"></rect>
+          <g id="pk-balls"></g>
+          <g id="pk-c4"></g>
+          <rect class="inter" x="70" y="458" width="560" height="30"></rect>
+          <g id="pk-lanes"></g>
+          <g id="pk-ub"></g>
+          <rect class="si" x="250" y="360" width="200" height="90" rx="3"></rect>
+          <text x="350" y="412" text-anchor="middle" style="font-weight:700;font-size:26px">GPU</text>
+          <g id="pk-hbm-l"></g>
+          <g id="pk-hbm-r"></g>
+          <text x="160" y="278" text-anchor="middle" class="lbl-b">HBM</text>
+          <text x="540" y="278" text-anchor="middle" class="lbl-b">HBM</text>
+          <text x="350" y="519" text-anchor="middle" class="lbl-s">패키지 기판</text>
+          <text x="350" y="479" text-anchor="middle" class="lbl-s halo">실리콘 인터포저</text>
+          <rect id="hl-gpu" class="hlr" x="244" y="354" width="212" height="102" rx="4"></rect>
+          <rect id="hl-sl" class="hlr" x="82" y="286" width="156" height="172" rx="4"></rect>
+          <rect id="hl-sr" class="hlr" x="462" y="286" width="156" height="172" rx="4"></rect>
+          <path id="pk-lead" class="lead-l" d="M238,300 L704,170"></path>
+        </g>
+        <g id="g-pkg-card">
+          <text x="700" y="210" class="mono acc-t" style="font-size:96px;font-weight:700">HBM</text>
+          <text x="700" y="258" class="lbl" style="font-size:26px">High Bandwidth Memory</text>
+          <text x="700" y="332" style="font-size:30px;font-weight:700">D램 칩을 위로 쌓은 메모리를</text>
+          <text x="700" y="378" style="font-size:30px;font-weight:700">GPU 바로 옆에 붙였습니다.</text>
+          <text x="700" y="440" class="lbl" style="font-size:26px">아주 넓은 통로로</text>
+          <text x="700" y="476" class="lbl" style="font-size:26px">데이터를 주고받습니다.</text>
+        </g>
+
+        <!-- ===== Scene 1: zoom on one stack (right) ===== -->
+        <g id="g-zoom">
+          <g id="z-stack"></g>
+          <g id="z-c1"><line class="lead-l" x1="936" y1="247" x2="958" y2="247"></line><text x="966" y="240" style="font-size:24px;font-weight:700">코어 D램 다이</text><text x="966" y="268" class="lbl-s">8·12·16장을 쌓는다</text></g>
+          <g id="z-c4"><line class="lead-l" x1="936" y1="528" x2="958" y2="528"></line><text x="966" y="522" style="font-size:24px;font-weight:700">베이스 다이</text><text x="966" y="550" class="lbl-s">입출력·테스트 회로(로직)</text></g>
+          <g id="z-c2"><line class="lead-l" x1="914" y1="340" x2="958" y2="340"></line><text x="966" y="334" style="font-size:24px;font-weight:700" class="acc-t">TSV</text><text x="966" y="362" class="lbl-s">층을 꿰는 구리 기둥</text></g>
+          <g id="z-c3"><line class="lead-l" x1="914" y1="408" x2="958" y2="408"></line><text x="966" y="402" style="font-size:24px;font-weight:700">마이크로 범프</text><text x="966" y="430" class="lbl-s">다이 사이 연결점</text></g>
+        </g>
+
+        <!-- ===== Scene 2: bandwidth ===== -->
+        <g id="g-bw">
+          <text x="60" y="128" class="lbl-b">GDDR: 길은 좁게, 속도는 빠르게</text>
+          <rect id="road-g" class="road" x="60" y="146" width="580" height="104" rx="10"></rect>
+          <g id="bw-g"></g>
+          <text x="60" y="280" class="lbl-s">입출력은 적게, 핀당 속도는 극한까지</text>
+          <text x="60" y="334" class="lbl-b">HBM: 길을 수천 개로 넓게</text>
+          <rect id="road-h" class="road" x="60" y="352" width="580" height="148" rx="10"></rect>
+          <g id="bw-h"></g>
+          <text x="60" y="530" class="lbl-s">입출력 2,048개(HBM4 기준)</text>
+          <text x="60" y="560" class="lbl-s">GPU 바로 옆이라 길이 짧아 비트당 전력도 낮다</text>
+        </g>
+        <g id="g-eqa">
+          <text x="700" y="150" class="lbl" style="font-size:26px">대역폭 = 한꺼번에 보낼 수 있는 양</text>
+          <text x="700" y="250" style="font-size:54px;font-weight:700">입출력 수</text>
+          <text x="700" y="330" style="font-size:54px;font-weight:700">× 핀당 속도</text>
+          <line class="grid-line" x1="700" y1="366" x2="1220" y2="366"></line>
+          <text x="700" y="426" class="acc-t" style="font-size:28px">도로 비유: 차로 수 × 차 한 대의 속도</text>
+        </g>
+        <g id="g-eqb">
+          <text x="700" y="150" class="lbl-b">HBM4 (JEDEC 표준)</text>
+          <text x="700" y="236" class="lbl" style="font-size:26px">입출력</text>
+          <text id="eq-io" x="850" y="240" class="mono acc-t" style="font-size:60px;font-weight:700">0</text>
+          <text x="1046" y="236" class="lbl" style="font-size:26px">개</text>
+          <text x="700" y="326" class="lbl" style="font-size:26px">× 핀당</text>
+          <text id="eq-sp" x="850" y="330" class="mono acc-t" style="font-size:60px;font-weight:700">0 Gb/s</text>
+          <line class="grid-line" x1="700" y1="360" x2="1220" y2="360"></line>
+          <text id="eq-res" x="700" y="420" class="mono" style="font-size:36px;font-weight:600">= 16,384 Gb/s</text>
+          <text id="eq-gb" x="700" y="474" class="mono" style="font-size:36px;font-weight:600">≈ 2,048 GB/s</text>
+          <text id="eq-fin" x="700" y="552" class="acc-t" style="font-size:64px;font-weight:700">약 2 TB/s</text>
+        </g>
+
+        <!-- ===== Scene 2: generations ===== -->
+        <g id="g-gen">
+          <text x="100" y="112" class="lbl-b">스택 하나의 대역폭</text>
+          <rect class="barl" x="640" y="96" width="20" height="20" rx="3"></rect>
+          <text x="668" y="113" class="lbl-s">입출력 1,024개</text>
+          <rect class="barh" x="880" y="96" width="20" height="20" rx="3"></rect>
+          <text x="908" y="113" class="lbl-s">입출력 2,048개</text>
+          <g id="gen-rows"></g>
+          <text x="100" y="568" class="lbl-s">HBM은 2013년 SK하이닉스가 처음 개발했습니다.</text>
+        </g>
+
+        <!-- ===== Scene 3: TSV process ===== -->
+        <g id="g-tsv">
+          <g transform="translate(0,120)">
+            <rect id="t-carrier" class="logic" x="60" y="22" width="600" height="30" rx="3"></rect>
+            <text id="t-carrier-t" class="lbl-s on-dark" x="360" y="43" text-anchor="middle">임시 캐리어 웨이퍼(앞면을 붙여 받침)</text>
+            <rect id="t-si" class="si" x="60" y="150" width="600" height="230"></rect>
+            <rect id="t-ground" class="ghost" x="60" y="322" width="600" height="58"></rect>
+            <text id="t-ground-t" class="lbl-s" x="72" y="372">갈아 낸 부분(웨이퍼 뒷면)</text>
+            <rect class="ox" x="60" y="128" width="600" height="22"></rect>
+            <g id="t-feol"></g>
+            <g id="t-holes"></g>
+            <rect id="t-over" class="cu" x="60" y="116" width="600" height="12"></rect>
+            <g id="t-beol">
+              <rect class="ox" x="60" y="84" width="600" height="32"></rect>
+              <rect class="cu" x="80" y="104" width="250" height="6"></rect><rect class="cu" x="380" y="104" width="260" height="6"></rect>
+              <rect class="cu" x="120" y="92" width="200" height="6"></rect><rect class="cu" x="420" y="92" width="200" height="6"></rect>
+            </g>
+            <g id="t-fbump"></g>
+            <g id="t-bback"></g>
+            <text id="t-l-si" class="lbl-s" x="72" y="346">실리콘(D램 다이)</text>
+            <text id="t-l-feol" class="lbl-s" x="226" y="172">트랜지스터·셀</text>
+            <text id="t-l-cu" class="lbl-s" x="226" y="270">TSV(구리 기둥)</text>
+            <text id="t-l-over" class="lbl-s halo" x="652" y="108" text-anchor="end">넘친 구리</text>
+            <text id="t-l-back" class="lbl-s" x="380" y="356">뒷면 범프</text>
+          </g>
+        </g>
+        <g id="g-tsvlist">
+          <text x="700" y="108" class="lbl-b">TSV 만드는 순서(비아 미들)</text>
+          <g id="tsv-rows"></g>
+        </g>
+
+        <!-- ===== Scene 4: bonding ===== -->
+        <g id="g-bond">
+          <g transform="translate(0,-56)">
+          <rect id="b-mold" class="muf" x="134" y="372" width="432" height="0" rx="4"></rect>
+          <rect class="logic" x="120" y="530" width="460" height="26" rx="3"></rect>
+          <text x="350" y="549" text-anchor="middle" class="lbl-s" style="fill: var(--ink); font-weight: 600">베이스 다이</text>
+          <g id="b-slots"></g>
+          <g id="b-dies"></g>
+          <g id="b-head" class="head">
+            <rect x="170" y="0" width="360" height="30" rx="4"></rect>
+            <text x="350" y="21" text-anchor="middle" class="lbl-s on-dark">본딩 헤드: 열 + 압력</text>
+            <path class="arrk" d="M220,-28 V-4" marker-end="url(#arr-r)"></path><path class="arrk" d="M350,-28 V-4" marker-end="url(#arr-r)"></path><path class="arrk" d="M480,-28 V-4" marker-end="url(#arr-r)"></path>
+          </g>
+          <g id="b-reflow">
+            <path class="wave" d="M118,530 q9,-10 0,-20 q-9,-10 0,-20 q9,-10 0,-20 q-9,-10 0,-20 q9,-10 0,-20 q-9,-10 0,-20"></path>
+            <path class="wave" d="M582,530 q9,-10 0,-20 q-9,-10 0,-20 q9,-10 0,-20 q-9,-10 0,-20 q9,-10 0,-20 q-9,-10 0,-20"></path>
+            <text x="350" y="352" text-anchor="middle" class="lbl bad-t">리플로: 스택 전체를 한꺼번에 가열</text>
+          </g>
+          <g id="b-limit" class="limit"><line x1="110" y1="370" x2="600" y2="370"></line><text x="606" y="376" class="lbl-s bad-t">높이 한도</text></g>
+          <rect id="b-ghost" class="ghost" x="150" y="378" width="400" height="138"></rect>
+          <text id="b-note" class="lbl-s halo" x="350" y="592" text-anchor="middle"></text>
+          </g>
+        </g>
+        <g id="g-bintro">
+          <text x="700" y="190" style="font-size:36px;font-weight:700">다이 사이를</text>
+          <text x="700" y="238" style="font-size:36px;font-weight:700" class="acc-t">어떻게 붙일까?</text>
+          <line class="grid-line" x1="700" y1="270" x2="1220" y2="270"></line>
+          <text x="700" y="330" class="lbl" style="font-size:26px">틈을 무엇으로 채우고</text>
+          <text x="700" y="372" class="lbl" style="font-size:26px">어떻게 열을 가하느냐에 따라</text>
+          <text x="700" y="430" style="font-size:28px;font-weight:600">TC-NCF</text>
+          <text x="700" y="474" style="font-size:28px;font-weight:600">MR-MUF</text>
+          <text x="700" y="518" style="font-size:28px;font-weight:600">하이브리드 본딩</text>
+          <text x="920" y="518" class="lbl-s">로 나뉩니다.</text>
+        </g>
+        <g id="g-bcard">
+          <rect class="card" x="700" y="108" width="520" height="482" rx="14"></rect>
+          <text id="bc-k" x="728" y="148" class="lbl-s"></text>
+          <text id="bc-t" x="728" y="196" class="acc-t" style="font-size:38px;font-weight:700"></text>
+          <line class="grid-line" x1="728" y1="214" x2="1192" y2="214"></line>
+          <text x="728" y="246" class="lbl-s">붙이는 법</text>
+          <text id="bc-1" x="728" y="276" style="font-size:24px;font-weight:600"></text><text id="bc-2" x="728" y="306" style="font-size:24px;font-weight:600"></text>
+          <text x="728" y="342" class="lbl-s">장점</text>
+          <text id="bc-3" x="728" y="372" style="font-size:24px;font-weight:600"></text><text id="bc-4" x="728" y="402" style="font-size:24px;font-weight:600"></text>
+          <text x="728" y="438" class="lbl-s">과제</text>
+          <text id="bc-5" x="728" y="468" style="font-size:24px;font-weight:600"></text><text id="bc-6" x="728" y="498" style="font-size:24px;font-weight:600"></text>
+          <text x="728" y="534" class="lbl-s">주로 쓰는 곳</text>
+          <text id="bc-7" x="728" y="564" class="acc-t" style="font-size:24px"></text>
+        </g>
+        <g id="g-blim">
+          <rect class="card" x="700" y="108" width="520" height="482" rx="14"></rect>
+          <text x="728" y="160" class="acc-t" style="font-size:34px;font-weight:700">같은 높이에 더 많이</text>
+          <line class="grid-line" x1="728" y1="184" x2="1192" y2="184"></line>
+          <text x="728" y="236" style="font-size:26px;font-weight:600">패키지 높이 한도(JEDEC)</text>
+          <text x="728" y="276" class="mono" style="font-size:28px;font-weight:600">HBM4: 775 μm(완화)</text>
+          <text x="728" y="344" style="font-size:26px;font-weight:600">단수가 늘면 다이를</text>
+          <text x="728" y="380" style="font-size:26px;font-weight:600">더 얇게 갈아야 한다</text>
+          <text x="728" y="444" class="lbl" style="font-size:24px">얇을수록 휘어짐·깨짐·열 문제가 커진다</text>
+          <text x="728" y="500" class="acc-t" style="font-size:26px">→ 범프 틈을 없애는</text>
+          <text x="728" y="536" class="acc-t" style="font-size:26px">하이브리드 본딩이 주목받는 이유</text>
+        </g>
+
+        <!-- ===== Scene 5: yield ===== -->
+        <g id="g-yield">
+          <g id="y-stack"></g>
+          <g id="y-x" class="xmark"><line x1="96" y1="180" x2="404" y2="560"></line><line x1="404" y1="180" x2="96" y2="560"></line></g>
+          <text id="y-xt1" x="430" y="340" style="font-size:26px" class="bad-t">한 장이 불량이면</text>
+          <text id="y-xt2" x="430" y="376" style="font-size:26px" class="bad-t">스택 전체가 불량</text>
+          <text id="y-kgd" x="430" y="340" style="font-size:26px" class="ok-t">KGD 테스트</text>
+          <text id="y-kgd2" x="430" y="376" style="font-size:24px" class="lbl">양품 다이만 쌓는다</text>
+          <text x="700" y="124" style="font-size:30px;font-weight:700">스택 수율 ≈ (다이 수율)<tspan baseline-shift="super" font-size="18">단수</tspan></text>
+          <text x="700" y="166" class="lbl">계산 예시: 다이 수율 99%</text>
+          <text x="700" y="258" style="font-size:26px;font-weight:600">8단</text><rect id="yb0" class="ybar" x="780" y="228" width="0" height="44" rx="4"></rect><text id="yv0" x="790" y="258" class="on-dark" style="font-size:26px">92%</text>
+          <text x="700" y="338" style="font-size:26px;font-weight:600">12단</text><rect id="yb1" class="ybar" x="780" y="308" width="0" height="44" rx="4"></rect><text id="yv1" x="790" y="338" class="on-dark" style="font-size:26px">89%</text>
+          <text x="700" y="418" style="font-size:26px;font-weight:600">16단</text><rect id="yb2" class="ybar" x="780" y="388" width="0" height="44" rx="4"></rect><text id="yv2" x="790" y="418" class="on-dark" style="font-size:26px">85%</text>
+          <text x="700" y="494" class="lbl">TSV·본딩 불량, 휘어짐, 열 관리도</text>
+          <text x="700" y="526" class="lbl">수율을 좌우합니다.</text>
+        </g>
+
+        <!-- ===== Closing cards ===== -->
+        <g id="g-sum"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 다이 수, 두께, 범프 크기는 이해를 돕도록 단순화했습니다. HBM4 수치는 JEDEC 표준 기준(입출력 2,048개 × 핀당 8 Gb/s)이고, 수율은 다이 수율 99%를 가정한 계산 예시입니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>HBM은 핀 속도 대신 <b>입출력 수</b>로 대역폭을 키웁니다. 대역폭 = 입출력 수 × 핀당 속도이고, HBM4는 2,048개 × 8 Gb/s로 스택당 약 2 TB/s입니다. GPU 바로 옆이라 길이 짧아 비트당 전력도 낮습니다.</li>
+      <li>TSV는 <b>식각(보쉬) → 절연막·배리어·씨드 → 구리 도금 → CMP → 배선 → 뒷면 연마·노출·범프</b> 순서입니다.</li>
+      <li>본딩: TC-NCF는 필름을 깔고 한 장씩 열압착(휘어짐 억제, 생산성·열은 불리), MR-MUF는 쌓은 뒤 한꺼번에 리플로하고 액상 보호재로 채움(열 방출·생산성, SK하이닉스), 하이브리드 본딩은 범프 없이 구리끼리 직접(최소 간격, 평탄도·청정도·비용이 과제)입니다.</li>
+      <li>다이 한 장만 불량이어도 스택 전체가 불량이라 수율은 단수만큼 곱해집니다. 그래서 쌓기 전 양품 다이를 고르는 KGD 테스트가 중요합니다.</li>
+    </ul>
+    <p class="foot">원고 4-5를 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="hbm-stack.html">단계별 애니메이션(hbm-stack)</a>을 보세요.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "구조"], [21, "대역폭"], [42, "TSV"], [68, "본딩"], [95, "수율"], [106, "정리"],
+  ];
+  const TITLES = [
+    [6, "구조: GPU 옆에 쌓은 D램"], [21, "대역폭: 길을 넓힌다"], [42, "TSV 만들기"],
+    [68, "붙이기: 본딩 3가지"], [95, "수율: 쌓을수록 곱해진다"], [106, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "HBM은 D램을 왜 <b>위로 쌓았을까요?</b>"],
+    [3, 6, "쌓는 법(TSV), 붙이는 법(본딩), 그리고 그 이유(대역폭)를 2분 안에 봅니다."],
+    [6, 11, "HBM은 GPU 바로 옆에 붙인 메모리입니다. 둘은 <b>실리콘 인터포저</b> 위에 나란히 놓입니다."],
+    [11, 15.5, "한 스택을 확대하면, <b>베이스 다이</b> 위에 D램 다이를 8·12·16장 쌓았습니다."],
+    [15.5, 21, "다이를 위아래로 꿰는 구리 기둥이 <b>TSV</b>, 다이 사이의 연결점이 마이크로 범프입니다."],
+    [21, 25.5, "도로로 비유하면 대역폭은 <b>차로 수 × 차 속도</b>입니다. (입출력 수 × 핀당 속도)"],
+    [25.5, 31, "GDDR은 차로를 적게 두고 속도를 극한까지 올립니다. HBM은 반대로 <b>차로를 수천 개</b>로 넓힙니다."],
+    [31, 36.5, "HBM4는 입출력 <b>2,048개</b> × 핀당 8 Gb/s로, 스택 하나가 약 <b>2 TB/s</b>입니다."],
+    [36.5, 42, "세대마다 대역폭이 커졌고, HBM4는 입출력을 <b>1,024개에서 2,048개로</b> 늘렸습니다."],
+    [42, 45.5, "쌓으려면 먼저 다이마다 <b>TSV</b>를 만들어야 합니다. 트랜지스터를 만든 웨이퍼에서 출발합니다."],
+    [45.5, 50, "<b>① 식각</b> 보쉬 공정으로 깊고 좁은 구멍을 곧게 팝니다."],
+    [50, 54, "<b>② 증착</b> 절연막, 배리어, 씨드를 차례로 입혀 구리와 실리콘을 떼어 놓습니다."],
+    [54, 58, "<b>③ 도금</b> 구리를 바닥부터 채웁니다. 가운데 빈틈(보이드)이 남으면 불량입니다."],
+    [58, 61, "<b>④ CMP</b> 넘친 구리를 갈아 평평하게 만듭니다."],
+    [61, 64, "<b>⑤ 배선</b> 배선층과, 다른 다이와 붙을 앞면 범프를 만듭니다."],
+    [64, 68, "<b>⑥ 박형화</b> 캐리어에 붙이고 뒷면을 갈아 TSV 끝을 드러낸 뒤 뒷면 범프를 만듭니다."],
+    [68, 72, "다이마다 TSV를 만들었으면, 위아래 다이를 <b>어떻게 붙이느냐</b>가 승부처입니다."],
+    [72, 79, "<b>TC-NCF</b> 필름을 깔고 <b>한 장씩</b> 열과 압력으로 눌러 붙입니다. 휘어짐을 잡기 좋지만 오래 걸립니다."],
+    [79, 83, "<b>MR-MUF</b> 필름 없이 쌓은 뒤 스택 전체를 <b>한꺼번에 가열</b>해 범프를 붙입니다."],
+    [83, 87, "이어서 틈을 <b>액상 보호재</b>로 한 번에 채웁니다. 열이 잘 빠지고 생산성이 높습니다."],
+    [87, 91, "<b>하이브리드 본딩</b> 범프 없이 구리와 절연막을 직접 붙여 다이 사이 틈이 사라집니다."],
+    [91, 95, "같은 높이 한도 안에 <b>더 많이</b> 쌓을 수 있지만, 평탄도·청정도·비용이 과제입니다."],
+    [95, 99.5, "다이 한 장만 불량이어도 스택 전체를 버려야 해서, 수율은 <b>단수만큼 곱해집니다</b>."],
+    [99.5, 103.5, "다이 수율이 99%여도 8단은 약 92%, 16단은 약 <b>85%</b>입니다. (계산 예시)"],
+    [103.5, 106, "그래서 쌓기 전에 양품 다이만 고르는 <b>KGD 테스트</b>가 핵심입니다."],
+    [106, 110, "HBM은 <b>길을 넓히고</b>, <b>TSV로 꿰고</b>, 다이를 <b>어떻게 붙이느냐</b>로 경쟁합니다."],
+    [110, 117, "면접에서는 <b>MR-MUF와 TC-NCF의 차이</b>, TSV 만드는 순서, 누적 수율을 설명할 수 있어야 합니다."],
+  ];
+
+  // ---------- tracks (all functions of the film time t, in seconds) ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gPkg = K([[5.6, 0], [6.6, 1], [20.6, 1], [21.4, 0]]);
+  const gPkgCard = K([[6.2, 0], [7, 1], [10.6, 1], [11.2, 0]]);
+  const gZoom = K([[11, 0], [12, 1], [20.6, 1], [21.4, 0]]);
+  const zC14 = K([[12.4, 0], [13.2, 1]]), zC23 = K([[15.6, 0], [16.4, 1]]);
+  const lanesV = K([[9, 0], [10, 1], [20.6, 1], [21.4, 0]]);
+  const leadV = K([[11.2, 0], [12, 1], [20.6, 1], [21.4, 0]]);
+
+  const gBw = K([[21, 0], [22, 1], [36, 1], [36.8, 0]]);
+  const gEqA = K([[21.4, 0], [22.2, 1], [30.4, 1], [31, 0]]);
+  const gEqB = K([[31, 0], [31.8, 1], [36, 1], [36.8, 0]]);
+  const gGen = K([[36.6, 0], [37.4, 1], [41.4, 1], [42.2, 0]]);
+  const eqIo = K([[31.6, 0], [33.2, 2048]]), eqSp = K([[33, 0], [34, 8]]);
+  const eqRes = K([[34, 0], [34.8, 1]]), eqGb = K([[34.6, 0], [35.4, 1]]), eqFin = K([[35.2, 0], [36, 1]]);
+  const GEN = [["HBM", 128, "128 GB/s", 0], ["HBM2", 256, "256 GB/s", 0], ["HBM2E", 460, "약 460 GB/s", 0], ["HBM3", 819, "약 819 GB/s", 0], ["HBM3E", 1200, "약 1.2 TB/s", 0], ["HBM4", 2048, "약 2 TB/s", 1]];
+  const GEN_SCALE = 0.332;
+  const genBar = (i) => K([[37.2 + i * 0.45, 0], [38.4 + i * 0.45, GEN[i][1] * GEN_SCALE]]);
+  const genLbl = (i) => K([[38.2 + i * 0.45, 0], [38.8 + i * 0.45, 1]]);
+
+  const gTsv = K([[42, 0], [42.8, 1], [67.6, 1], [68.4, 0]]);
+  const TSV_ROWS = [["① 식각", "깊고 좁은 구멍(보쉬 공정)"], ["② 증착", "절연막 → 배리어 → 씨드"], ["③ 도금", "구리로 구멍을 채움"], ["④ CMP", "넘친 구리를 갈아 평탄화"], ["⑤ 배선", "배선층 + 앞면 범프"], ["⑥ 박형화", "뒷면을 갈아 TSV 끝 노출 + 범프"]];
+  const TSV_T = [45.5, 50, 54, 58, 61, 64];
+  const tsvStep = (t) => { let k = -1; for (let i = 0; i < TSV_T.length; i++) if (t >= TSV_T[i]) k = i; return k; };
+  const holeD = K([[45.8, 0], [49.4, 200]]);
+  const holeOp = K([[45.6, 0], [46, 1]]);
+  const linerOp = K([[50.2, 0], [51.2, 1]]), barrierOp = K([[51.4, 0], [52.4, 1]]);
+  const cuFill = K([[54.2, 0], [57.4, 1]]);
+  const overOp = K([[56.8, 0], [57.6, 1]]), overCmp = K([[58.2, 0], [60.2, 1]]);
+  const beolOp = K([[61.2, 0], [62.2, 1]]), fbumpOp = K([[62.4, 0], [63.4, 1]]);
+  const carrierOp = K([[64.2, 0], [65.2, 1]]), grind = K([[65.4, 0], [67.2, 1]]);
+  const groundOp = K([[65.6, 0], [66.6, 1]]), bbackOp = K([[66.6, 0], [67.4, 1]]);
+  const lCu = K([[57.6, 0], [58.2, 1], [67.6, 1], [68.4, 0]]);
+  const lOver = K([[57.2, 0], [57.8, 1], [59.4, 1], [60.2, 0]]);
+  const lSi = K([[42.4, 0], [43, 1], [64.8, 1], [65.6, 0]]);
+  const lFeol = K([[42.4, 0], [43, 1], [67.6, 1], [68.4, 0]]);
+
+  // bonding stack (gap mode: die k top = 530 - 38k; hybrid mode: 530 - 25k, i.e. +13k)
+  const gBond = K([[68, 0], [68.8, 1], [94.6, 1], [95.4, 0]]);
+  const gBintro = K([[68.2, 0], [69, 1], [71.6, 1], [72.2, 0]]);
+  const gBcard = K([[72, 0], [72.8, 1], [90.6, 1], [91.2, 0]]);
+  const gBlim = K([[91.2, 0], [92, 1], [94.6, 1], [95.4, 0]]);
+  const PL = [72.4, 74.05, 75.7, 77.35];
+  const arr = (k) => K([[PL[k], 0], [PL[k] + 0.5, 1]]);
+  const dieOp = (k) => K([[PL[k], 0], [PL[k] + 0.25, 1]]);
+  const slotOp = (k) => (t) => K([[68.8, 0], [69.6, 1]])(t) * (1 - K([[PL[k], 0], [PL[k] + 0.3, 1]])(t));
+  const hyb = K([[87, 0], [89.5, 1]]);
+  const die56 = (k) => K([[89.6 + (k - 4) * 0.6, 0], [90.4 + (k - 4) * 0.6, 1]]);
+  const filmOut = K([[79, 0], [79.8, 1]]);
+  const bumpOut = K([[87.2, 0], [88.4, 1]]);
+  const padsIn = K([[88.4, 0], [89.4, 1]]);
+  const moldP = K([[83.2, 0], [86.4, 1]]), moldOut = K([[87, 0], [87.8, 1]]);
+  const reflowV = K([[79.4, 0], [80, 1], [82.8, 1], [83.4, 0]]);
+  const limitV = K([[91.4, 0], [92.2, 1]]);
+  const headOp = K([[71.8, 0], [72.4, 1], [78.2, 1], [78.9, 0]]);
+  function headY(t) {
+    let k = -1; for (let i = 0; i < PL.length; i++) if (t >= PL[i]) k = i;
+    if (k < 0) return (530 - 38) - 40 - 46;
+    const p = PL[k]; let off;
+    if (t < p + 0.5) off = -46 * (1 - smooth((t - p) / 0.5));
+    else if (t < p + 0.9) off = 3 * smooth((t - p - 0.5) / 0.4);
+    else if (t < p + 1.15) off = 3 * (1 - smooth((t - p - 0.9) / 0.25));
+    else off = -46 * smooth((t - p - 1.15) / 0.5);
+    return (530 - 38 * (k + 1)) + off - 40;
+  }
+  const METHODS = [
+    ["방식 1", "TC-NCF",
+      "필름 + 열·압력으로", "한 장씩 누른다", "휘어짐을 잡기 좋고", "오래 검증된 방식", "한 장씩이라 생산성이 낮고", "필름 때문에 열 방출이 불리", "삼성전자·마이크론이 주로 써 온 방식"],
+    ["방식 2", "MR-MUF",
+      "쌓아서 한꺼번에 리플로", "틈은 액상 보호재로 한 번에", "열 방출이 좋고", "생산성이 높다", "얇은 칩이 휘어지는 것을", "잡아야 한다", "SK하이닉스(어드밴스드 MR-MUF)"],
+    ["방식 3", "하이브리드 본딩",
+      "범프 없이 구리·절연막을", "직접 맞붙인다", "틈이 거의 없어 더 쌓고", "연결 밀도·열 특성이 좋다", "나노미터급 평탄도·청정도", "정렬 정확도와 비용", "16단 이상·차세대 HBM 후보"],
+  ];
+  const methodIdx = (t) => t < 79 ? 0 : t < 87 ? 1 : 2;
+  const bNote = (t) => t < 68.6 ? "" : t < 72 ? "점선: 다이를 쌓을 자리(틈과 범프가 생긴다)" : t < 79 ? "한 장 올릴 때마다 헤드로 누른다" : t < 83 ? "필름 없이 쌓은 뒤 한 번에 가열" : t < 87 ? "틈과 둘레를 보호재로 채움" : t < 91.4 ? "구리–구리, 절연막–절연막 직접 접합" : "점선: 범프로 4장 쌓은 높이 → 같은 높이에 6장";
+
+  const gYield = K([[95, 0], [95.8, 1], [105.6, 1], [106.4, 0]]);
+  const YB = [Math.pow(.99, 8), Math.pow(.99, 12), Math.pow(.99, 16)];
+  const ybar = (i) => K([[99.5 + i, 0], [100.6 + i, 420 * YB[i]]]);
+  const badDie = K([[96.2, 0], [96.7, 1]]);
+  const xV = K([[98, 0], [98.6, 1], [102.6, 1], [103.2, 0]]);
+  const kgdV = K([[103.6, 0], [104.2, 1]]);
+  const ckV = (k) => K([[103.8 + k * 0.1, 0], [104.2 + k * 0.1, 1]]);
+  const sumV = (i) => K([[106.4 + i * 0.9, 0], [107.2 + i * 0.9, 1]]);
+
+  const HL = [
+    [7, 9, "hl-gpu"], [9, 11, "hl-sl"], [9, 11, "hl-sr"], [11.2, 20.6, "hl-sl"], [16.2, 20.6, "z-tsv-hl"],
+    [26, 28.5, "road-g"], [28.5, 31, "road-h"],
+    [83.6, 86.8, "b-mold"],
+    [96.6, 99.5, "ydie5"],
+    [110, 112.5, "sum-tm-0"], [112.5, 114.5, "sum-tm-1"], [114.5, 116.8, "sum-tm-2"],
+  ];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  let s = "";
+  for (let x = 70; x <= 630; x += 28) s += `<circle class="ball" cx="${x}" cy="538" r="6"></circle>`;
+  $("pk-balls").innerHTML = s;
+  s = ""; for (let x = 90; x <= 610; x += 26) s += `<circle class="ball" cx="${x}" cy="492" r="4"></circle>`;
+  $("pk-c4").innerHTML = s;
+  s = ""; [[100, 230], [270, 430], [480, 610]].forEach(([a, b]) => { for (let x = a; x <= b; x += 10) s += `<rect class="cu" x="${x}" y="450" width="5" height="8"></rect>`; });
+  $("pk-ub").innerHTML = s;
+  s = ""; [[100, 250], [450, 600]].forEach(([a, b]) => { for (let i = 0; i < 4; i++) s += `<path class="lane" d="M${a},${465 + i * 6} H${b}"></path>`; });
+  $("pk-lanes").innerHTML = s;
+  const stack = (x0) => { let o = `<rect class="logic" x="${x0}" y="428" width="140" height="22" rx="2"></rect>`; for (let k = 1; k <= 8; k++) o += `<rect class="si" x="${x0}" y="${428 - 17 * k}" width="140" height="14" rx="1.5"></rect>`; return o; };
+  $("pk-hbm-l").innerHTML = stack(90); $("pk-hbm-r").innerHTML = stack(470);
+
+  // zoom on one stack: die k top = 506 - 46k
+  s = `<rect class="logic" x="720" y="506" width="212" height="44" rx="4"></rect>`;
+  for (let k = 1; k <= 8; k++) s += `<rect class="si" x="720" y="${506 - 46 * k}" width="212" height="34" rx="3"></rect>`;
+  const ZT = [748, 790, 862, 906];
+  ZT.forEach((x) => { s += `<rect class="cu" x="${x - 3}" y="134" width="6" height="372"></rect>`; });
+  for (let g = 0; g < 8; g++) { ZT.forEach((x) => { s += `<rect class="cu" x="${x - 8}" y="${(506 - 46 * (g + 1) + 34)}" width="16" height="12" rx="2"></rect>`; }); }
+  s += `<rect id="z-tsv-hl" class="hlr" x="898" y="130" width="16" height="380" rx="3"></rect>`;
+  $("z-stack").innerHTML = s;
+
+  // bandwidth roads
+  s = ""; for (let i = 0; i < 4; i++) s += `<path class="lane-fast" d="M78,${170 + i * 20} H622"></path>`;
+  $("bw-g").innerHTML = s;
+  s = ""; for (let i = 0; i < 32; i++) s += `<path class="lane-slow" d="M78,${360 + i * 4.3} H622"></path>`;
+  $("bw-h").innerHTML = s;
+
+  // generation chart
+  s = "";
+  GEN.forEach((g, i) => {
+    const y = 150 + i * 62;
+    s += `<text x="350" y="${y + 27}" text-anchor="end" class="mono" style="font-size:24px;font-weight:600">${g[0]}</text>`
+      + `<rect id="gb${i}" class="${g[3] ? "barh" : "barl"}" x="370" y="${y}" width="0" height="38" rx="4"></rect>`
+      + `<text id="gv${i}" x="${370 + g[1] * GEN_SCALE + 14}" y="${y + 28}" class="mono${g[3] ? " acc-t" : ""}" style="font-size:24px;font-weight:600">${g[2]}</text>`;
+  });
+  $("gen-rows").innerHTML = s;
+
+  // TSV drawing and list
+  s = ""; [90, 130, 250, 290, 410, 450, 570, 610].forEach((x) => { s += `<rect class="poly" x="${x}" y="141" width="18" height="9" rx="1"></rect>`; });
+  $("t-feol").innerHTML = s;
+  const TX = [200, 360, 520];
+  s = ""; TX.forEach((cx, i) => {
+    s += `<rect id="h${i}" class="voidr" x="${cx - 14}" y="128" width="28" height="0"></rect>`
+      + `<rect id="ln${i}" class="ox" x="${cx - 14}" y="128" width="28" height="200"></rect>`
+      + `<rect id="br${i}" class="tin" x="${cx - 11}" y="128" width="22" height="197"></rect>`
+      + `<rect id="in${i}" class="seed" x="${cx - 9}" y="128" width="18" height="195"></rect>`
+      + `<rect id="cf${i}" class="cu" x="${cx - 9}" y="323" width="18" height="0"></rect>`;
+  });
+  $("t-holes").innerHTML = s;
+  s = ""; TX.forEach((cx) => { s += `<rect class="cu" x="${cx - 10}" y="66" width="20" height="18"></rect><rect class="sol" x="${cx - 10}" y="58" width="20" height="8" rx="3"></rect><rect class="cu" x="${cx - 3}" y="84" width="6" height="44"></rect>`; });
+  $("t-fbump").innerHTML = s;
+  s = ""; TX.forEach((cx) => { s += `<rect class="cu" x="${cx - 10}" y="328" width="20" height="10" rx="2"></rect>`; });
+  $("t-bback").innerHTML = s;
+  s = ""; TSV_ROWS.forEach((r, i) => {
+    const y = 124 + i * 74;
+    s += `<g id="row${i}" class="row" data-s="idle"><rect x="700" y="${y}" width="520" height="62" rx="10"></rect>`
+      + `<text x="724" y="${y + 28}" style="font-size:24px;font-weight:700">${r[0]}</text>`
+      + `<text x="724" y="${y + 52}" class="lbl-s" style="font-size:19px">${r[1]}</text>`
+      + `<text id="rowck${i}" x="1190" y="${y + 40}" class="ok-t" style="font-size:28px">✓</text></g>`;
+  });
+  $("tsv-rows").innerHTML = s;
+
+  // bonding dies
+  const BX = [190, 270, 350, 430, 510];
+  s = ""; for (let k = 1; k <= 4; k++) s += `<rect id="slot${k}" class="ghost" x="150" y="${530 - 38 * k}" width="400" height="24"></rect>`;
+  $("b-slots").innerHTML = s;
+  s = "";
+  for (let k = 1; k <= 6; k++) {
+    const top = 530 - 38 * k;
+    s += `<g id="dg${k}">`;
+    if (k <= 4) s += `<rect id="film${k}" class="ncf" x="150" y="${top + 24}" width="400" height="14"></rect>`;
+    s += `<rect class="si" x="150" y="${top}" width="400" height="24" rx="2"></rect>`;
+    BX.forEach((x) => { s += `<rect class="cu" x="${x - 2}" y="${top}" width="4" height="24"></rect>`; });
+    s += `<g id="pads${k}">`; BX.forEach((x) => { s += `<rect class="cu" x="${x - 8}" y="${top + 20}" width="16" height="4"></rect>`; }); s += `</g>`;
+    if (k <= 4) { s += `<g id="bump${k}">`; BX.forEach((x) => { s += `<rect class="cu" x="${x - 5}" y="${top + 24}" width="10" height="7"></rect><rect class="sol" x="${x - 5}" y="${top + 31}" width="10" height="7" rx="3"></rect>`; }); s += `</g>`; }
+    s += `</g>`;
+  }
+  $("b-dies").innerHTML = s;
+
+  // yield stack (die k top = 516 - 44k)
+  s = `<rect class="logic" x="100" y="520" width="300" height="28" rx="3"></rect>`;
+  for (let k = 1; k <= 8; k++) s += `<rect id="ydie${k}" class="si" x="100" y="${516 - 44 * k}" width="300" height="32" rx="3"></rect><text id="yck${k}" x="372" y="${516 - 44 * k + 25}" class="ok-t" style="font-size:24px">✓</text>`;
+  $("y-stack").innerHTML = s;
+
+  // closing cards
+  (function () {
+    const cards = [
+      { h: "넓은 길", cmd: "2,048개 × 8 Gb/s", l: ["스택 하나가 약 2 TB/s", "→ GPU 바로 옆이라 전력도 낮다"], tm: "입출력 수 × 핀 속도" },
+      { h: "TSV로 꿰기", cmd: "식각→도금→CMP→박형화", l: ["다이를 관통하는 구리 기둥", "→ 뒷면을 갈아 끝을 드러낸다"], tm: "수십 μm로 얇게" },
+      { h: "붙이기", cmd: "TC-NCF·MR-MUF·하이브리드", l: ["열 방출·생산성·단수를 가른다", "→ 수율은 단수만큼 곱해진다"], tm: "SK하이닉스: MR-MUF" },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 400;
+      o += `<g id="sum-${i}"><rect class="card" x="${x}" y="120" width="360" height="400" rx="14"></rect>`
+        + `<text x="${x + 24}" y="192" style="font-size:44px;font-weight:700" class="acc-t">${c.h}</text>`
+        + `<text x="${x + 24}" y="240" class="mono" style="font-size:19px">${c.cmd}</text>`
+        + `<line x1="${x + 24}" y1="264" x2="${x + 336}" y2="264" class="grid-line"></line>`
+        + `<text x="${x + 24}" y="314" style="font-size:23px">${c.l[0]}</text>`
+        + `<text x="${x + 24}" y="350" style="font-size:23px;font-weight:600">${c.l[1]}</text>`
+        + `<rect id="sum-tm-${i}" class="pill" x="${x + 20}" y="424" width="320" height="52" rx="10"></rect>`
+        + `<text x="${x + 180}" y="458" text-anchor="middle" class="mono" style="font-size:22px;font-weight:600">${c.tm}</text></g>`;
+    });
+    $("g-sum").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const dy = (id, v) => setStyle(id, "transform", "translateY(" + v.toFixed(1) + "px)");
+
+  // ---------- render ----------
+  let hlOn = new Set();
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+
+    op("g-title", gTitle(t));
+
+    // scene 1: package and zoom
+    op("g-pkg", gPkg(t)); op("g-pkg-card", gPkgCard(t)); op("g-zoom", gZoom(t));
+    op("pk-lanes", lanesV(t)); op("pk-lead", leadV(t));
+    op("z-c1", zC14(t)); op("z-c4", zC14(t)); op("z-c2", zC23(t)); op("z-c3", zC23(t));
+
+    // scene 2: bandwidth
+    op("g-bw", gBw(t)); op("g-eqa", gEqA(t)); op("g-eqb", gEqB(t)); op("g-gen", gGen(t));
+    setText("eq-io", fmtInt(eqIo(t)));
+    setText("eq-sp", Math.round(eqSp(t)) + " Gb/s");
+    op("eq-res", eqRes(t)); op("eq-gb", eqGb(t)); op("eq-fin", eqFin(t));
+    for (let i = 0; i < GEN.length; i++) { setAttr("gb" + i, "width", genBar(i)(t).toFixed(1)); op("gv" + i, genLbl(i)(t)); }
+
+    // scene 3: TSV
+    op("g-tsv", gTsv(t)); op("g-tsvlist", gTsv(t));
+    const hd = holeD(t), ho = holeOp(t), cf = cuFill(t);
+    for (let i = 0; i < 3; i++) {
+      setAttr("h" + i, "height", hd.toFixed(1)); op("h" + i, ho);
+      op("ln" + i, linerOp(t)); op("br" + i, barrierOp(t)); op("in" + i, barrierOp(t));
+      const h = 195 * cf; setAttr("cf" + i, "y", (323 - h).toFixed(1)); setAttr("cf" + i, "height", h.toFixed(1));
+    }
+    const oh = 12 * (1 - overCmp(t));
+    setAttr("t-over", "y", (128 - oh).toFixed(1)); setAttr("t-over", "height", oh.toFixed(1)); op("t-over", overOp(t));
+    op("t-beol", beolOp(t)); op("t-fbump", fbumpOp(t));
+    op("t-carrier", carrierOp(t)); op("t-carrier-t", carrierOp(t));
+    setAttr("t-si", "height", (230 - 58 * grind(t)).toFixed(1));
+    op("t-ground", groundOp(t)); op("t-ground-t", groundOp(t)); op("t-bback", bbackOp(t)); op("t-l-back", bbackOp(t));
+    op("t-l-si", lSi(t)); op("t-l-cu", lCu(t)); op("t-l-over", lOver(t)); op("t-l-feol", lFeol(t));
+    const st = tsvStep(t);
+    for (let i = 0; i < TSV_ROWS.length; i++) {
+      const state = t < 42.4 || st < 0 ? "idle" : i < st ? "done" : i === st ? "on" : "idle";
+      setAttr("row" + i, "data-s", state); op("rowck" + i, state === "done" ? 1 : 0);
+    }
+
+    // scene 4: bonding
+    op("g-bond", gBond(t)); op("g-bintro", gBintro(t)); op("g-bcard", gBcard(t)); op("g-blim", gBlim(t));
+    const h4 = hyb(t);
+    for (let k = 1; k <= 6; k++) {
+      let off, o;
+      if (k <= 4) { off = -46 * (1 - arr(k - 1)(t)) + 13 * k * h4; o = dieOp(k - 1)(t); op("slot" + k, slotOp(k - 1)(t)); }
+      else { off = 13 * k * h4 - 16 * (1 - die56(k)(t)); o = die56(k)(t); }
+      dy("dg" + k, off); op("dg" + k, o);
+      op("pads" + k, padsIn(t));
+      if (k <= 4) { op("film" + k, 1 - filmOut(t)); op("bump" + k, 1 - bumpOut(t)); }
+    }
+    dy("b-head", headY(t)); op("b-head", headOp(t));
+    op("b-reflow", reflowV(t));
+    setAttr("g-bond", "data-hot", t >= 80 && t < 83.4 ? "1" : "0");
+    const mh = 158 * moldP(t); setAttr("b-mold", "y", (530 - mh).toFixed(1)); setAttr("b-mold", "height", mh.toFixed(1)); op("b-mold", 1 - moldOut(t));
+    op("b-limit", limitV(t)); op("b-ghost", limitV(t));
+    setText("b-note", bNote(t));
+    const mi = methodIdx(t), M = METHODS[mi];
+    ["bc-k", "bc-t", "bc-1", "bc-2", "bc-3", "bc-4", "bc-5", "bc-6", "bc-7"].forEach((id, j) => setText(id, M[j]));
+
+    // scene 5: yield
+    op("g-yield", gYield(t));
+    for (let i = 0; i < 3; i++) {
+      const w = ybar(i)(t); setAttr("yb" + i, "width", w.toFixed(1)); op("yv" + i, w / (420 * YB[i]));
+      setAttr("yv" + i, "x", (780 + Math.max(w, 60) - 14).toFixed(1)); setAttr("yv" + i, "text-anchor", "end");
+    }
+    const bad = badDie(t) > .5 && t < 103.5;
+    setAttr("ydie5", "class", bad ? "die-bad" : "si");
+    op("y-x", xV(t)); op("y-xt1", xV(t)); op("y-xt2", xV(t));
+    op("y-kgd", kgdV(t)); op("y-kgd2", kgdV(t));
+    for (let k = 1; k <= 8; k++) op("yck" + k, ckV(k)(t));
+
+    // closing cards
+    for (let i = 0; i < 3; i++) op("sum-" + i, sumV(i)(t));
+
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+</script>
+</body>
+</html>
