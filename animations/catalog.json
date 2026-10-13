@@ -581,6 +581,159 @@
       "summary": "홈을 덮는 단차 피복과 보이드, CVD와 PVD의 덮임 차이, 부착 계수와 MFP, CVD 성장 6단계와 율속, AP→LP→PE→HDP→ALD 발전 순서, ALD 4단계 사이클과 윈도우, 막 응력과 웨이퍼 휨, SiGe 에피의 응력과 결함."
     },
     {
+      "id": "ion-implant",
+      "unit": "3-8",
+      "title": "이온주입과 열처리",
+      "file": "ion-implant.html",
+      "modes": [
+        {
+          "id": "tool",
+          "label": "원리와 장비",
+          "steps": 3
+        },
+        {
+          "id": "channel",
+          "label": "손상·채널링",
+          "steps": 3
+        },
+        {
+          "id": "anneal",
+          "label": "열처리",
+          "steps": 3
+        }
+      ],
+      "summary": "열확산과 이온주입의 도핑 모양 비교, 이온 소스→질량 분석→가속→주사→엔드 스테이션, Rp·ΔRp 가우시안 분포, 격자 손상과 채널링(7° 틸트)·섀도잉·차징, 열처리의 활성화·TED·재분포, 퍼니스·RTA·레이저."
+    },
+    {
+      "id": "metallization",
+      "unit": "3-9",
+      "title": "금속배선: 다마신, 플러그, 살리사이드, HKMG",
+      "file": "metallization.html",
+      "modes": [
+        {
+          "id": "damascene",
+          "label": "구리 다마신",
+          "steps": 5
+        },
+        {
+          "id": "plug",
+          "label": "텅스텐 플러그",
+          "steps": 2
+        },
+        {
+          "id": "reliability",
+          "label": "RC 지연·EM",
+          "steps": 2
+        },
+        {
+          "id": "salicide",
+          "label": "살리사이드·HKMG",
+          "steps": 4
+        }
+      ],
+      "summary": "구리 듀얼 다마신 5단계(절연막→비아·트렌치→배리어·시드→도금→CMP·캡), 텅스텐 플러그와 Ti/TiN, RC 지연과 EM(보이드·힐록), 살리사이드 2단계 RTP와 브리징, High-k와 메탈 게이트."
+    },
+    {
+      "id": "cmp",
+      "unit": "3-10",
+      "title": "CMP: 화학적·기계적 연마",
+      "file": "cmp.html",
+      "modes": [
+        {
+          "id": "why",
+          "label": "필요성과 장비",
+          "steps": 3
+        },
+        {
+          "id": "kinds",
+          "label": "종류와 불량",
+          "steps": 3
+        }
+      ],
+      "summary": "단차가 포토 초점 여유(DOF)를 벗어나는 문제, 플래튼·패드·헤드·슬러리·컨디셔너로 된 장비와 프레스톤 식, 튀어나온 곳이 먼저 깎이는 평탄화, STI CMP의 정지층, Cu CMP의 디싱·이로전, 종점 검출과 세정 모듈."
+    },
+    {
+      "id": "eds-test",
+      "unit": "3-11",
+      "title": "EDS와 테스트: 웨이퍼 테스트, 리페어, 패키지 테스트",
+      "file": "eds-test.html",
+      "modes": [
+        {
+          "id": "eds",
+          "label": "EDS 6단계",
+          "steps": 6
+        },
+        {
+          "id": "package",
+          "label": "패키지 테스트·수율",
+          "steps": 3
+        }
+      ],
+      "summary": "EDS 6단계(ET·웨이퍼 번인·프리 레이저·레이저 리페어·백그라인딩·웨이퍼 맵)를 웨이퍼 그림으로, 리던던시와 퓨즈로 불량 행을 바꾸는 원리, 패키지 테스트 흐름, 욕조 곡선과 번인, 단계별 수율을 곱한 누적 수율."
+    },
+    {
+      "id": "packaging",
+      "unit": "3-12",
+      "title": "패키징 공정: 자르고, 붙이고, 연결하고, 감싸기",
+      "file": "packaging.html",
+      "modes": [
+        {
+          "id": "flow",
+          "label": "BGA 만들기",
+          "steps": 6
+        },
+        {
+          "id": "flip",
+          "label": "플립칩",
+          "steps": 2
+        },
+        {
+          "id": "types",
+          "label": "패키지 변천",
+          "steps": 1
+        }
+      ],
+      "summary": "다이싱 4방식, 다이 어태치, 와이어 본딩(볼·스티치), 트랜스퍼·컴프레션 몰딩, 마킹·솔더볼·리플로, 싱귤레이션·포장(MSL)으로 쌓아 가는 BGA 단면, 범프·UBM·언더필의 플립칩, DIP에서 WLP·TSV까지 패키지 변천."
+    },
+    {
+      "id": "yield",
+      "unit": "3-13",
+      "title": "수율·결함·계측·데이터: 공정 엔지니어가 일하는 방식",
+      "file": "yield.html",
+      "modes": [
+        {
+          "id": "spc",
+          "label": "관리도·공정능력",
+          "steps": 5
+        },
+        {
+          "id": "defect",
+          "label": "불량 세 종류",
+          "steps": 3
+        },
+        {
+          "id": "resp",
+          "label": "수율 대응",
+          "steps": 3
+        }
+      ],
+      "summary": "관리도(평균 ±3σ)와 스펙의 차이, Cp·Cpk·Ppk로 보는 공정능력, 시스템·랜덤·파라메트릭 불량의 웨이퍼 맵, 수율이 떨어졌을 때의 6단계 대응과 commonality 분석 사례(챔버 압력 24% → 보이드)."
+    },
+    {
+      "id": "cmos-flow",
+      "unit": "3-14",
+      "title": "CMOS 전체 공정 흐름: 10개 모듈로 칩 하나 완성하기",
+      "file": "cmos-flow.html",
+      "modes": [
+        {
+          "id": "main",
+          "label": "단계",
+          "steps": 11
+        }
+      ],
+      "summary": "소자 분리(STI) → 웰 → VT/PT → 게이트 → LDD·할로·스페이서 → 소스/드레인 → 살리사이드 → 콘택 → 금속 배선 → 보호막의 10개 모듈을 NMOS·PMOS 단면 하나에 쌓아 가고, FEOL·MOL·BEOL과 열 예산으로 마무리."
+    },
+    {
       "id": "dram-process",
       "unit": "3-15",
       "title": "D램 공정 흐름",
@@ -607,6 +760,25 @@
         }
       ],
       "summary": "주변 회로(PUC), 산화막·질화막 적층, 채널홀과 이음부, 계단, 슬릿, 워드라인 교체, 콘택, 웨이퍼 본딩까지의 단면."
+    },
+    {
+      "id": "memory-test",
+      "unit": "3-17",
+      "title": "메모리 테스트와 불량 분석: PE가 하는 일",
+      "file": "memory-test.html",
+      "modes": [
+        {
+          "id": "test",
+          "label": "테스트",
+          "steps": 6
+        },
+        {
+          "id": "fa",
+          "label": "불량 분석",
+          "steps": 4
+        }
+      ],
+      "summary": "테스트의 세 목적과 출하까지의 흐름, 테스트 항목과 리텐션 테스트, 체커보드·March 패턴, 쉬무 플롯, 불량 비트 지도(FBM) 모양으로 원인 짐작하기, 재현 조건 → 위치 찾기 → 디프로세싱·FIB → SEM·TEM·EDX로 이어지는 불량 분석, PE 직무의 네 가지 일."
     },
     {
       "id": "dram-evolution",

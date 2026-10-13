@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>이온주입과 열처리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .mask { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .dope { fill: var(--accent); opacity: .5; }
+  .ionar { stroke: var(--accent); stroke-width: 2.2; }
+  .beam { fill: none; stroke: var(--accent); stroke-width: 3; }
+  .beam2 { fill: none; stroke-width: 2; stroke-dasharray: 5 4; }
+  .box { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+  .mag { fill: none; stroke: var(--low); stroke-width: 18; opacity: .35; }
+  .gauss { stroke-width: 2.6; }
+  .gauss.b { fill: var(--low); fill-opacity: .25; stroke: var(--low); }
+  .gauss.a { fill: var(--accent); fill-opacity: .25; stroke: var(--accent); }
+  .at { fill: var(--m-si); stroke: var(--m-si-line); }
+  .dop { fill: var(--accent); }
+  .tp { fill: none; stroke-width: 3; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-8</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>이온주입과 열처리</h1>
+    <p class="lead">이온주입은 불순물 원자를 이온으로 만들어 전기장으로 가속해 웨이퍼에 박아 넣는 공정이고, 열처리(어닐링)는 그때 부서진 결정을 고치고 불순물을 실리콘 자리에 앉혀 일하게(활성화) 만드는 공정입니다. 과녁에 화살을 쏘듯 시위를 세게 당길수록(에너지) 깊이 박히고, 쏘는 개수(도즈)로 양을 정합니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">이온주입과 열처리</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== tool ===== -->
+        <g id="m-tool" class="t">
+          <g id="vs" class="t">
+            <text x="155" y="100" class="card-l ink-b" text-anchor="middle">열확산(예전)</text>
+            <rect class="m-si" x="60" y="160" width="190" height="170"></rect>
+            <path class="dope" d="M100,160 Q100,232 155,236 Q210,232 210,160 Z"></path>
+            <rect class="mask" x="60" y="148" width="62" height="12"></rect><rect class="mask" x="188" y="148" width="62" height="12"></rect>
+            <text x="155" y="262" class="lbl-s" text-anchor="middle">옆으로도 퍼짐(등방성)</text><text x="155" y="278" class="lbl-s" text-anchor="middle">표면 농도 높고 깊을수록 ↓</text>
+            <text x="385" y="100" class="card-l ink-b" text-anchor="middle">이온주입</text>
+            <rect class="m-si" x="290" y="160" width="190" height="170"></rect>
+            <rect class="dope" x="352" y="186" width="66" height="34" rx="8"></rect>
+            <rect class="mask" x="290" y="140" width="62" height="20"></rect><rect class="mask" x="418" y="140" width="62" height="20"></rect>
+            <g id="vs-ar"></g>
+            <text x="385" y="262" class="lbl-s" text-anchor="middle">원하는 깊이에 원하는 양</text><text x="385" y="278" class="lbl-s" text-anchor="middle">PR도 마스크로 가능(100 °C 이하)</text>
+          </g>
+          <g id="line" class="t">
+            <rect class="box" x="40" y="160" width="90" height="56" rx="8"></rect><text x="85" y="186" class="card-l" text-anchor="middle">이온 소스</text><text x="85" y="204" class="lbl-s" text-anchor="middle">생성·추출</text>
+            <path class="beam" d="M130,188 H180 Q250,188 260,120"></path>
+            <path class="mag" d="M180,188 Q250,188 260,120"></path><text x="210" y="226" class="card-l" text-anchor="middle">질량 분석 자석</text><text x="210" y="244" class="lbl-s" text-anchor="middle">선택</text>
+            <path class="beam2" d="M190,188 Q240,184 236,130" style="stroke: var(--low)"></path><path class="beam2" d="M190,188 Q262,194 282,140" style="stroke: var(--bad)"></path>
+            <rect x="242" y="108" width="10" height="14" style="fill: var(--ink)"></rect><rect x="268" y="108" width="10" height="14" style="fill: var(--ink)"></rect><text x="260" y="98" class="lbl-s" text-anchor="middle">슬릿</text>
+            <path class="beam" d="M260,108 V80 H330"></path>
+            <rect class="box" x="330" y="60" width="80" height="40" rx="8"></rect><text x="370" y="85" class="card-l" text-anchor="middle">가속</text>
+            <path class="beam" d="M410,80 H440 V180"></path>
+            <rect class="box" x="400" y="180" width="80" height="40" rx="8"></rect><text x="440" y="205" class="card-l" text-anchor="middle">주사·집속</text>
+            <path class="beam" d="M440,220 V280"></path>
+            <rect x="390" y="294" width="100" height="10" style="fill: var(--m-si)" transform="rotate(7 440 299)"></rect>
+            <text x="440" y="330" class="card-l" text-anchor="middle">엔드 스테이션</text><text x="440" y="348" class="lbl-s" text-anchor="middle">기울기·회전, 도즈 실시간 측정</text>
+            <text x="60" y="300" class="lbl-s">질량/전하 비에 따라 휘는 정도가 달라</text><text x="60" y="316" class="lbl-s">원하는 이온만 슬릿을 통과</text>
+          </g>
+          <g id="prof" class="t">
+            <text x="70" y="70" class="lbl">농도</text>
+            <line class="axis" x1="70" y1="330" x2="480" y2="330"></line><line class="axis" x1="70" y1="330" x2="70" y2="80"></line>
+            <text x="478" y="350" class="lbl-s" text-anchor="end">깊이 →</text>
+            <path id="g-as" class="gauss a t" d=""></path><path id="g-b" class="gauss b t" d=""></path>
+            <text x="150" y="104" class="lbl-s acc">As(무거움): 얕고 좁게</text><text x="300" y="170" class="lbl-s low-t">B(가벼움): 깊고 넓게</text>
+            <line x1="160" y1="330" x2="160" y2="120" style="stroke: var(--accent); stroke-dasharray: 4 3"></line><text x="160" y="348" class="lbl-s acc" text-anchor="middle">Rp</text>
+            <path d="M130,240 H190" style="stroke: var(--accent); stroke-width: 1.6" marker-start="url(#ar-a)" marker-end="url(#ar-a)"></path><text x="196" y="244" class="lbl-s acc">ΔRp</text>
+          </g>
+          <text id="t1" x="560" y="80" class="head-t"></text>
+          <text id="t2" x="560" y="112" class="card-l"></text>
+          <text id="t3" x="560" y="136" class="card-l"></text>
+          <text id="t4" x="560" y="160" class="card-l"></text>
+          <text id="t5" x="560" y="184" class="card-l"></text>
+          <text id="t6" x="560" y="218" class="card-l acc"></text>
+          <text id="t7" x="560" y="242" class="card-m"></text>
+        </g>
+
+        <!-- ===== channeling ===== -->
+        <g id="m-ch" class="t">
+          <g id="lat"></g>
+          <g id="dmg" class="t"></g>
+          <g id="chn" class="t">
+            <path d="M180,40 V384" style="stroke: var(--accent); stroke-width: 3" marker-end="url(#ar-a)"></path><text x="190" y="398" class="lbl-s acc">결정축과 나란히 → 통로로 깊이 미끄러짐</text>
+            <path d="M330,40 L352,180" style="stroke: var(--low); stroke-width: 3" marker-end="url(#ar-l)"></path><path d="M352,180 L330,214" style="stroke: var(--low); stroke-width: 2; stroke-dasharray: 3 3"></path><text x="362" y="120" class="lbl-s low-t halo">약 7° 기울이면</text><text x="362" y="136" class="lbl-s low-t halo">원자와 부딪혀 멈춤</text>
+          </g>
+          <g id="shad" class="t">
+            <rect class="m-si" x="80" y="200" width="400" height="160"></rect>
+            <rect class="mask" x="80" y="120" width="120" height="80"></rect><rect class="mask" x="360" y="120" width="120" height="80"></rect>
+            <g id="tilt-ar"></g>
+            <rect class="dope" x="230" y="210" width="130" height="30"></rect>
+            <rect x="200" y="210" width="30" height="30" style="fill: none; stroke: var(--bad); stroke-width: 2; stroke-dasharray: 4 3"></rect><text x="214" y="262" class="lbl-s bad-t" text-anchor="middle">그림자(섀도잉)</text>
+            <text x="280" y="300" class="card-l" text-anchor="middle">웨이퍼를 회전 / 열처리로 확산시켜 보완</text>
+            <g id="chg"><text x="110" y="112" class="lbl-s bad-t">+ + + 차징</text><path d="M40,60 L90,100" style="stroke: var(--low); stroke-width: 2" marker-end="url(#ar-l)"></path><text x="40" y="52" class="lbl-s low-t">전자 플러드 건으로 중화</text></g>
+          </g>
+          <text id="h1" x="560" y="80" class="head-t"></text>
+          <text id="h2" x="560" y="112" class="card-l"></text>
+          <text id="h3" x="560" y="136" class="card-l"></text>
+          <text id="h4" x="560" y="160" class="card-l"></text>
+          <text id="h5" x="560" y="194" class="card-l acc"></text>
+          <text id="h6" x="560" y="218" class="card-m"></text>
+        </g>
+
+        <!-- ===== anneal ===== -->
+        <g id="m-an" class="t">
+          <g id="act" class="t">
+            <text x="150" y="70" class="card-l ink-b" text-anchor="middle">주입 직후</text><text x="390" y="70" class="card-l ink-b" text-anchor="middle">열처리 후</text>
+            <g id="before"></g><g id="after"></g>
+            <path d="M250,200 H290" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></path>
+            <text x="150" y="330" class="lbl-s" text-anchor="middle">결정이 부서지고 불순물은 틈새에</text><text x="390" y="330" class="lbl-s" text-anchor="middle">결정 회복 + 실리콘 자리에 앉음(활성화)</text>
+          </g>
+          <g id="redis" class="t">
+            <text x="70" y="70" class="lbl">농도(산화하는 동안)</text>
+            <rect x="70" y="80" width="140" height="250" style="fill: var(--m-ox); opacity: .6"></rect><text x="140" y="350" class="lbl-s" text-anchor="middle">SiO₂</text><text x="340" y="350" class="lbl-s" text-anchor="middle">Si</text>
+            <line class="axis" x1="70" y1="330" x2="480" y2="330"></line>
+            <line x1="210" y1="80" x2="210" y2="330" style="stroke: var(--ink); stroke-width: 1.4"></line>
+            <path d="M70,260 H200 L210,262 C230,240 260,200 480,200" style="fill: none; stroke: var(--low); stroke-width: 3"></path>
+            <path d="M70,300 H200 L210,120 C230,170 260,200 480,205" style="fill: none; stroke: var(--accent); stroke-width: 3"></path>
+            <text x="240" y="276" class="lbl-s low-t">B: 산화막 쪽으로 빠짐 → 계면 농도 ↓</text>
+            <text x="220" y="112" class="lbl-s acc">P: 실리콘 쪽에 쌓임(pile-up)</text>
+          </g>
+          <g id="meth" class="t">
+            <text x="70" y="70" class="lbl">온도</text>
+            <line class="axis" x1="70" y1="330" x2="480" y2="330"></line><line class="axis" x1="70" y1="330" x2="70" y2="80"></line>
+            <text x="478" y="350" class="lbl-s" text-anchor="end">시간(대략, 로그 눈금) →</text>
+            <path class="tp" d="M80,320 C110,320 120,150 130,110 C134,104 138,320 150,320" style="stroke: var(--bad)"></path><text x="140" y="100" class="lbl-s bad-t" text-anchor="middle">레이저: 나노~마이크로초</text>
+            <path class="tp" d="M150,320 C190,320 200,140 220,140 H270 C285,140 290,320 320,320" style="stroke: var(--accent)"></path><text x="245" y="130" class="lbl-s acc" text-anchor="middle">RTA: 약 1,000 °C, 수 초~수십 초</text>
+            <path class="tp" d="M300,320 C330,320 340,170 360,170 H460 C468,170 472,320 480,320" style="stroke: var(--low)"></path><text x="410" y="160" class="lbl-s low-t" text-anchor="middle">퍼니스: 수십 분 이상</text>
+          </g>
+          <text id="n1" x="560" y="80" class="head-t"></text>
+          <text id="n2" x="560" y="112" class="card-l"></text>
+          <text id="n3" x="560" y="136" class="card-l"></text>
+          <text id="n4" x="560" y="160" class="card-l"></text>
+          <text id="n5" x="560" y="194" class="card-l acc"></text>
+          <text id="n6" x="560" y="218" class="card-m"></text>
+          <text id="n7" x="560" y="240" class="card-m"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 분포 곡선, 결정 격자, 온도-시간 곡선은 모양만 보여 줍니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>열확산 대비 이온주입의 장점: <b>양·깊이 독립 제어, 수직 프로파일, 질량 분석으로 순수, 저온이라 PR 마스크 가능</b>. 단점(격자 손상 → 열처리 필수, 고가 장비, 적은 처리량)까지 함께 말합니다.</li>
+      <li>공정 변수 5가지: 도펀트 종류(N형 P·As, P형 B), 도즈, 에너지, 빔 전류, 기울기·회전. 채널링 대책은 약 7° 틸트, 스크린 산화막, 사전 비정질화이고 틸트의 부작용인 섀도잉은 회전으로 보완합니다.</li>
+      <li>얕은 접합은 무거운 이온·저에너지·짧은 고온 열처리(퍼니스 → RTP → 레이저)로 만들지만 면저항이 커져 구동 전류가 줄어드는 트레이드오프가 있습니다. 평가는 4-포인트 프로브(면저항)와 SIMS(깊이별 농도)로 합니다.</li>
+    </ul>
+    <p class="foot">원고 3-8을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 1-5 도핑과 캐리어, 2-5 미세화(얕은 접합), 3-14 CMOS 전체 공정 흐름.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  for (let i = 0; i < 4; i++) mk($("vs-ar"), "path", { class: "ionar", d: `M${362 + i * 16},100 V176`, "marker-end": "url(#ar-a)" });
+  const gp = (rp, sd, h) => { let d = "M70,330"; for (let x = 70; x <= 480; x += 4) { const y = 330 - h * Math.exp(-Math.pow((x - rp) / sd, 2) / 2); d += ` L${x},${y.toFixed(1)}`; } return d + " L480,330 Z"; };
+  $("g-as").setAttribute("d", gp(160, 26, 220)); $("g-b").setAttribute("d", gp(300, 60, 130));
+  // lattice
+  const L = $("lat");
+  for (let i = 0; i < 10; i++) for (let j = 0; j < 8; j++) mk(L, "circle", { class: "at", cx: 80 + i * 40, cy: 80 + j * 40, r: 10 });
+  const D = $("dmg");
+  [[92, 84], [126, 96], [168, 82], [104, 124], [146, 118], [184, 132], [118, 156], [160, 162]].forEach(([x, y]) => mk(D, "circle", { cx: x, cy: y, r: 10, style: "fill: var(--bad); opacity: .35" }));
+  mk(D, "text", { x: 90, y: 200, class: "lbl-s bad-t halo" }, "무거운 이온(As): 표면 근처가 비정질까지");
+  mk(D, "path", { d: "M360,40 L380,250", style: "stroke: var(--low); stroke-width: 2.5", "marker-end": "url(#ar-l)" });
+  [[372, 262], [392, 276], [380, 296]].forEach(([x, y]) => mk(D, "circle", { cx: x, cy: y, r: 10, style: "fill: var(--bad); opacity: .3" }));
+  mk(D, "text", { x: 250, y: 340, class: "lbl-s low-t halo" }, "가벼운 이온(B): 깊은 곳에 손상");
+  for (let i = 0; i < 5; i++) mk($("tilt-ar"), "path", { class: "ionar", d: `M${200 + i * 36},40 L${232 + i * 36},200`, "marker-end": "url(#ar-a)" });
+  // anneal lattices
+  const latt = (g, cx, broken) => { for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) { const dx = broken ? ((i * 7 + j * 3) % 5 - 2) * 3 : 0, dy = broken ? ((i * 3 + j * 5) % 5 - 2) * 3 : 0; const sub = (i === 1 && j === 2) || (i === 3 && j === 1); mk(g, "circle", { class: (!broken && sub) ? "dop" : "at", cx: cx - 80 + i * 40 + dx, cy: 120 + j * 40 + dy, r: 10 }); } if (broken) { mk(g, "circle", { class: "dop", cx: cx - 60, cy: 160, r: 7 }); mk(g, "circle", { class: "dop", cx: cx + 40, cy: 220, r: 7 }); } };
+  latt($("before"), 150, true); latt($("after"), 390, false);
+  const tt = (a) => lines("t", a, 7), hh = (a) => lines("h", a, 6), nn = (a) => lines("n", a, 7);
+  const G = ["m-tool", "m-ch", "m-an"];
+
+  const tool = {
+    id: "tool", label: "원리와 장비",
+    base: () => Object.assign(only(G, ["m-tool"]), only(["vs", "line", "prof"], ["vs"])),
+    steps: [
+      { short: "왜 이온주입인가", title: "열확산 대신 이온주입을 쓰는 이유", cmd: "비교",
+        text: `과거의 <b>열확산</b>은 고온에서 불순물을 표면에 붙이고(프리디포) 열로 밀어 넣는(드라이브인) 방식이라, 표면 농도가 높고 깊어질수록 줄며 <b>옆으로도 퍼져</b> 미세화에 불리했습니다. <b>이온주입</b>은 ① 도즈(양)와 에너지(깊이)를 따로 조절하고 ② 방향성이 있어 수직 프로파일을 만들며 ③ 질량 분석으로 원하는 원소만 넣고 ④ 100 °C 이하 저온이라 PR을 마스크로 쓸 수 있습니다.`,
+        set: tt(["이온주입의 장점", "① 양·깊이 독립 제어", "② 수직 프로파일", "③ 질량 분석 → 순수", "④ 저온 → PR 마스크", "단점: 격자 손상 → 열처리 필수", "고진공·고전압·독성 가스, 비싸고 처리량 적음"]) },
+      { short: "장비 6단계", title: "생성 → 추출 → 선택 → 가속 → 주입 → 모니터링", cmd: "빔라인",
+        text: `<b>이온 소스</b>에서 필라멘트의 열전자가 도펀트 가스와 부딪혀 양이온을 만들고 끌어냅니다. <b>질량 분석 자석</b>에서 질량/전하 비에 따라 휘는 정도가 달라 원하는 이온만 슬릿을 통과합니다. <b>가속기</b> 전압이 에너지(깊이)를 정하고, 렌즈·편향 자석으로 웨이퍼 전면에 고르게 뿌린 뒤, <b>엔드 스테이션</b>에서 웨이퍼를 기울이고 돌리며 도즈를 실시간으로 재다 목표에 닿으면 멈춥니다.`,
+        set: Object.assign(only(["vs", "line", "prof"], ["line"]), tt(["장비 6단계", "① 생성 ② 추출", "③ 선택(질량 분석)", "④ 가속(에너지 = 깊이)", "⑤ 주입(주사·집속) ⑥ 모니터링", "질량/전하 비가 같은 다른 원소는", "못 걸러 오염 위험"])) },
+      { short: "분포 Rp·ΔRp", title: "이온은 평균 깊이 Rp 근처에 종 모양으로 쌓인다", cmd: "분포",
+        text: `이온은 원자핵과 부딪혀 멈추는 <b>핵 저지</b>(손상을 만듦)와 전자와의 상호작용으로 서서히 에너지를 잃는 <b>전자 저지</b>로 멈춥니다. 무거울수록, 에너지가 낮을수록 얕게 멈춥니다. 주입된 이온은 평균 깊이 <b>Rp</b>를 중심으로 가우시안 분포를 이루고 퍼짐은 <b>ΔRp</b>입니다. 가벼운 B는 깊이, 무거운 As는 얕게 멈춥니다. 에너지를 올리면 깊어지고 도즈를 늘리면 높아집니다.`,
+        set: Object.assign(only(["vs", "line", "prof"], ["prof"]), tt(["공정 변수 5가지", "도펀트: N형 P·As, P형 B", "도즈: 단위 면적당 양", "에너지: 깊이(Rp)", "빔 전류 · 기울기·회전", "도즈가 너무 많으면", "활성화 한계를 넘어 전도도 ↓"])) },
+    ],
+  };
+
+  const ch = {
+    id: "channel", label: "손상·채널링",
+    base: () => Object.assign(only(G, ["m-ch"]), { lat: on, dmg: off, chn: off, shad: off }),
+    steps: [
+      { short: "격자 손상", title: "박힌 이온이 결정을 부순다", cmd: "손상",
+        text: `무거운 이온은 표면 근처에서 핵 충돌이 지배적이라 손상이 심하고 <b>비정질</b>까지 되며, 가벼운 이온은 <b>깊은 곳</b>에 손상을 남깁니다. 손상은 전기적 특성을 크게 바꾸므로 반드시 열처리로 회복합니다.`,
+        set: Object.assign({ dmg: on }, hh(["격자 손상", "무거운 이온: 표면 근처, 비정질", "가벼운 이온: 깊은 곳", "→ 열처리로 반드시 회복", "", ""])) },
+      { short: "채널링", title: "결정 통로를 따라 너무 깊이 들어간다", cmd: "채널링",
+        text: `이온 방향이 결정축과 나란하면 원자 사이 '통로'로 깊이 미끄러져 분포에 긴 꼬리가 생깁니다(<b>채널링</b>). 과녁의 나뭇결과 나란히 쏜 화살과 같습니다. 대책은 ① 웨이퍼를 약 <b>7° 기울이기</b> ② 얇은 스크린 산화막으로 이온을 흩뜨리기(증착이 필요해 덜 선호) ③ 표면을 먼저 비정질로 만든 뒤 주입하기입니다.`,
+        set: Object.assign({ dmg: off, chn: on }, hh(["채널링 대책", "① 약 7° 틸트", "② 스크린 산화막", "③ 사전 비정질화", "", ""])) },
+      { short: "섀도잉·차징", title: "기울이면 그림자, 쌓이면 차징", cmd: "부작용",
+        text: `기울이면 마스크 그림자 때문에 주입되지 않는 곳이 생겨(<b>섀도잉</b>) 웨이퍼를 회전시키거나 열처리로 확산시켜 보완합니다. 마스크는 충분히 두껍고 치밀해야 하지만 너무 두꺼우면 그림자가 커집니다. 양이온이 쌓여 웨이퍼가 대전되면(<b>차징</b>) 분포가 불균일해지고 게이트 산화막이 파괴될 수 있어 전자를 뿌려 중화합니다(전자 플러드 건).`,
+        set: Object.assign({ lat: off, chn: off, shad: on }, hh(["주입의 부작용", "섀도잉 → 회전·확산으로 보완", "차징 → 전자 플러드 건", "파티클 → 빔 가림(LDD 접합 불량)", "같은 질량/전하 원소 → 오염", ""])) },
+    ],
+  };
+
+  const an = {
+    id: "anneal", label: "열처리",
+    base: () => Object.assign(only(G, ["m-an"]), only(["act", "redis", "meth"], ["act"])),
+    steps: [
+      { short: "회복과 활성화", title: "열처리: 결정을 고치고 불순물을 제자리에", cmd: "Anneal",
+        text: `열처리는 손상된 결정을 회복하고(비정질 → 단결정), 응력과 결함을 줄이고, 불순물을 실리콘 <b>치환 자리</b>로 옮겨 전기적으로 <b>활성화</b>하고, 캐리어 이동도를 되찾습니다.`,
+        set: nn(["열처리의 목적", "결정 회복(비정질 → 단결정)", "응력·결함 감소", "불순물 활성화(치환 자리)", "이동도 회복", "", ""]) },
+      { short: "TED·재분포", title: "열처리 중 불순물이 움직이는 함정들", cmd: "TED",
+        text: `<b>TED</b>(일시적 증속 확산): 주입으로 생긴 점결함 때문에 열처리 초기에 도펀트가 순간적으로 빠르게 퍼집니다. 낮은 온도에서 오래 하면 심해져, 높은 온도에서 짧게(RTP) 억제합니다. 산화 분위기에서는 B·P 확산이 빨라지고(OED) Sb는 느려집니다(ORD). 산화하는 동안 <b>B는 산화막 쪽으로 빠져</b> 계면 농도가 줄고, <b>P는 실리콘 쪽에 쌓여</b> 늘어나 문턱전압이 변합니다.`,
+        set: Object.assign(only(["act", "redis", "meth"], ["redis"]), nn(["열처리 중 확산", "TED: 점결함 → 초기 급속 확산", "→ 고온·단시간(RTP)", "OED: B·P 빨라짐 / ORD: Sb 느려짐", "산화 중 재분포", "B: 빠져나감, P: 쌓임", "→ NMOS·PMOS 문턱전압 변동"])) },
+      { short: "퍼니스·RTA·레이저", title: "더 높게, 더 짧게: 얕은 접합을 위한 열처리", cmd: "RTP",
+        text: `<b>퍼니스</b>는 수백~1,000 °C에서 수십 분 이상(배치, 최대 약 150장) 균일하지만 확산이 큽니다. <b>RTA(RTP)</b>는 램프로 약 1,000 °C까지 수 초~수십 초 올려 확산 억제와 활성화의 균형을 잡고, <b>레이저 어닐링</b>은 표면만 나노~마이크로초 데워 가장 얕은 접합을 만듭니다. 얕게 만들수록 면저항이 커져 짧은 시간에 활성화를 최대로 끌어올리는 것이 관건입니다.`,
+        set: Object.assign(only(["act", "redis", "meth"], ["meth"]), nn(["열처리 방식", "퍼니스: 산화, 긴 열처리", "RTA: S/D 활성화, 살리사이드", "레이저: 최첨단 얕은 접합", "얕은 접합 = 무거운 이온 + 저에너지", "+ 짧은 고온 열처리", "대가: 면저항 ↑ → 구동 전류 ↓"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [tool, ch, an], dur: 6500 });
+})();
+</script>
+</body>
+</html>

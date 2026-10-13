@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>패키징 공정: 자르고, 붙이고, 연결하고, 감싸기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .pcb { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .die { fill: var(--m-si); stroke: var(--m-si-line); }
+  .daf { fill: var(--low); opacity: .6; }
+  .wire { fill: none; stroke: var(--m-tin); stroke-width: 2.4; }
+  .emc { fill: var(--ink); opacity: .22; }
+  .ball { fill: var(--muted); stroke: var(--ink); stroke-width: 1; }
+  .bump { fill: var(--m-cu); }
+  .ubm { fill: var(--m-tin); }
+  .uf { fill: var(--low); opacity: .35; }
+  .cut { stroke: var(--bad); stroke-width: 2.4; }
+  .tape { fill: var(--low-soft); stroke: var(--low); }
+  .chip { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .chip[data-s="hi"] { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.2; }
+  .mark { font: 700 12px var(--font-mono); fill: var(--surface); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-12</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>패키징 공정: 자르고, 붙이고, 연결하고, 감싸기</h1>
+    <p class="lead">패키징은 웨이퍼에서 잘라 낸 칩을 기판에 붙이고 전기적으로 연결한 뒤 수지로 감싸, 외부와 신호·전원을 주고받고 열을 내보내며 충격·습기로부터 보호받는 완제품 부품으로 만드는 공정입니다. 예민한 엔진(칩)을 차체(메인보드)에 연결하는 배선·마운트·보닛을 한꺼번에 만드는 일과 같습니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">패키징 공정: 자르고, 붙이고, 연결하고, 감싸기</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== flow ===== -->
+        <g id="m-flow" class="t">
+          <g id="dice" class="t">
+            <rect class="tape" x="60" y="250" width="420" height="16"></rect>
+            <rect class="die" x="70" y="210" width="400" height="40"></rect>
+            <g id="cuts"></g>
+            <text x="270" y="296" class="lbl-s" text-anchor="middle">다이싱 테이프 위에서 칩 단위로 자름</text>
+          </g>
+          <g id="pkg" class="t">
+            <rect class="pcb" x="100" y="260" width="340" height="30"></rect>
+            <text x="448" y="280" class="lbl-s">기판(PCB)</text>
+            <g id="balls" class="t"></g>
+            <rect id="daf" class="daf t" x="180" y="254" width="180" height="6"></rect>
+            <rect id="die" class="die t" x="180" y="214" width="180" height="40"></rect>
+            <text id="die-t" x="270" y="240" class="card-l t" text-anchor="middle">칩</text>
+            <g id="wires" class="t"><path class="wire" d="M190,214 Q150,170 130,260"></path><path class="wire" d="M350,214 Q390,170 410,260"></path><circle cx="190" cy="214" r="4" style="fill: var(--m-tin)"></circle><circle cx="350" cy="214" r="4" style="fill: var(--m-tin)"></circle>
+              <text x="196" y="204" class="lbl-s">1차 볼 본딩(칩 패드)</text><text x="416" y="246" class="lbl-s">2차 스티치</text></g>
+            <path id="emc" class="emc t" d="M110,260 V160 Q110,150 120,150 H420 Q430,150 430,160 V260 Z"></path>
+            <text id="emc-t" x="270" y="140" class="lbl-s t" text-anchor="middle">EMC(에폭시 + 실리카 필러)</text>
+            <text id="mark" class="mark t" x="270" y="168" text-anchor="middle" style="fill: var(--ink)">SEMI-2026 · LOT 07</text>
+            <g id="reflow" class="t"><text x="300" y="40" class="lbl-s">리플로 온도 곡선</text><path d="M80,104 L130,76 H180 L210,44 L240,44 L280,104" style="fill: none; stroke: var(--bad); stroke-width: 2.4"></path><text x="84" y="122" class="lbl-s">예열</text><text x="146" y="68" class="lbl-s">유지</text><text x="208" y="36" class="lbl-s">리플로</text><text x="262" y="122" class="lbl-s">냉각</text></g>
+            <g id="sing" class="t"><path class="cut" d="M100,140 V320 M440,140 V320" style="stroke-dasharray: 6 4"></path><text x="270" y="356" class="lbl-s bad-t" text-anchor="middle">스트립을 낱개 패키지로(싱귤레이션)</text></g>
+          </g>
+          <text id="f1" x="560" y="80" class="head-t"></text>
+          <text id="f2" x="560" y="112" class="card-l"></text>
+          <text id="f3" x="560" y="136" class="card-l"></text>
+          <text id="f4" x="560" y="160" class="card-l"></text>
+          <text id="f5" x="560" y="184" class="card-l"></text>
+          <text id="f6" x="560" y="218" class="card-l acc"></text>
+          <text id="f7" x="560" y="242" class="card-m"></text>
+          <g id="track"></g>
+        </g>
+
+        <!-- ===== flip chip ===== -->
+        <g id="m-flip" class="t">
+          <rect class="pcb" x="100" y="270" width="340" height="30"></rect>
+          <g id="fballs"></g>
+          <rect id="uf" class="uf t" x="150" y="226" width="240" height="44"></rect>
+          <g id="bumps"></g>
+          <rect class="die" x="160" y="180" width="220" height="40"></rect><text x="270" y="206" class="card-l" text-anchor="middle">칩(뒤집어 붙임)</text>
+          <text x="400" y="246" class="lbl-s acc">범프(Cu 기둥 + 솔더)</text><text x="400" y="228" class="lbl-s">UBM</text>
+          <text id="uf-t" x="270" y="350" class="card-l low-t t" text-anchor="middle">언더필: 열팽창 차이로 범프에 몰리는 응력을 나눔</text>
+          <text x="270" y="378" class="lbl-s" text-anchor="middle">와이어: 가장자리를 선으로 / 플립칩: 면 전체를 범프로</text>
+          <text id="q1" x="560" y="80" class="head-t"></text>
+          <text id="q2" x="560" y="112" class="card-l"></text>
+          <text id="q3" x="560" y="136" class="card-l"></text>
+          <text id="q4" x="560" y="160" class="card-l"></text>
+          <text id="q5" x="560" y="194" class="card-l acc"></text>
+          <text id="q6" x="560" y="218" class="card-m"></text>
+        </g>
+
+        <!-- ===== types ===== -->
+        <g id="m-types" class="t">
+          <g id="eras"></g>
+          <path d="M60,380 H820" style="stroke: var(--accent); stroke-width: 2" marker-end="url(#ar-a)"></path>
+          <text x="440" y="408" class="card-l acc" text-anchor="middle">단자 수 ↑, 크기 ↓, 여러 칩을 하나로, 웨이퍼 상태로·수직으로(4-6)</text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 와이어 본딩 BGA를 예로 들었고, 크기와 두께는 비율이 아닙니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>패키징의 목적 네 가지: <b>전기적 연결, 신호·전원 전달, 열 방출, 보호</b>. 구성 요소는 칩, 기판 또는 리드프레임, 와이어 또는 범프, 솔더볼, EMC입니다.</li>
+      <li>와이어 본딩과 플립칩: 가장자리를 선으로 대 면 전체를 범프로. 플립칩은 경로가 짧고 단자가 많아 고속·고성능에 유리하지만 비용과 공정 난도가 높습니다. 언더필은 열팽창계수 차이로 생기는 응력을 분산해 범프 크랙을 막습니다.</li>
+      <li>휨(warpage)은 재료 간 열팽창 차이로 생기고 EMC 물성(필러 함량), 기판 설계, 공정 온도, 칩 두께·배치로 줄입니다. MSL은 흡습 후 리플로 때 팝콘 크랙을 막기 위한 보관·베이킹 기준입니다. HBM의 TSV·MR-MUF는 4-5에서 봅니다.</li>
+    </ul>
+    <p class="foot">원고 3-12를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-11 EDS, 4-5 HBM, 4-6 첨단 패키징.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  for (let x = 120; x < 470; x += 70) mk($("cuts"), "line", { class: "cut", x1: x, y1: 196, x2: x, y2: 256 });
+  for (let i = 0; i < 8; i++) mk($("balls"), "circle", { class: "ball", cx: 125 + i * 42, cy: 300, r: 10 });
+  for (let i = 0; i < 8; i++) mk($("fballs"), "circle", { class: "ball", cx: 125 + i * 42, cy: 310, r: 10 });
+  for (let i = 0; i < 9; i++) { const x = 170 + i * 25; mk($("bumps"), "rect", { class: "ubm", x: x - 1, y: 220, width: 14, height: 5 }); mk($("bumps"), "rect", { class: "bump", x, y: 225, width: 12, height: 32 }); mk($("bumps"), "ellipse", { cx: x + 6, cy: 262, rx: 8, ry: 6, style: "fill: var(--muted)" }); }
+  ["다이싱", "다이 어태치", "와이어 본딩", "몰딩", "마킹·솔더볼", "싱귤레이션·출하"].forEach((n, i) => { const x = 560 + (i % 3) * 100, y = 300 + Math.floor(i / 3) * 44; mk($("track"), "rect", { id: "tk" + i, class: "chip t", x, y, width: 94, height: 34, rx: 6 }); mk($("track"), "text", { x: x + 47, y: y + 22, class: "lbl-s", "text-anchor": "middle" }, n); });
+  const tk = (k) => { const o = {}; for (let i = 0; i < 6; i++) o["tk" + i] = { s: i === k ? "hi" : "on" }; return o; };
+  [["삽입형", "DIP, ZIP", "리드를 구멍에 꽂음"], ["표면 실장", "SOP, QFP, TSOP", "표면에 납땜, 얇고 작게"], ["볼 배열", "BGA·FBGA, CSP, BOC", "바닥 전체 솔더볼"], ["여러 칩 통합", "MCP, eMCP, eUFS, SiP, PoP", "한 패키지에 여러 칩"], ["웨이퍼 레벨·3D", "팬인·팬아웃 WLP, TSV", "웨이퍼 상태로, 수직으로"]].forEach(([a, b, c], i) => {
+    const x = 60 + i * 154, g = $("eras"), y = 120 + (i % 2) * 110;
+    mk(g, "rect", { class: "chip", x, y, width: 144, height: 92, rx: 8 });
+    mk(g, "text", { x: x + 72, y: y + 26, class: "card-l ink-b", "text-anchor": "middle" }, a);
+    mk(g, "text", { x: x + 72, y: y + 50, class: "lbl-s acc", "text-anchor": "middle" }, b);
+    mk(g, "text", { x: x + 72, y: y + 72, class: "lbl-s", "text-anchor": "middle" }, c);
+    mk(g, "line", { x1: x + 72, y1: y + 92, x2: x + 72, y2: 380, style: "stroke: var(--line-strong); stroke-dasharray: 3 3" });
+  });
+  const ff = (a) => lines("f", a, 7), qq = (a) => lines("q", a, 6);
+  const PK = ["daf", "die", "die-t", "wires", "emc", "emc-t", "mark", "balls", "reflow", "sing"];
+  const pk = (list) => Object.assign(all(PK, off), all(list, on));
+  const G = ["m-flow", "m-flip", "m-types"];
+
+  const flow = {
+    id: "flow", label: "BGA 만들기",
+    base: () => Object.assign(only(G, ["m-flow"]), { dice: on, pkg: off }, pk([]), tk(-1)),
+    steps: [
+      { short: "다이싱", title: "① 다이싱: 칩 단위로 자른다", cmd: "Dicing",
+        text: `백그라인딩한 웨이퍼를 테이프에 붙여 칩 단위로 자릅니다. <b>블레이드</b>(다이아몬드 날, 빠르고 싸지만 칩핑·날 두께만큼 손실), <b>레이저</b>(비접촉·좁은 절단 폭, 열 영향), <b>스텔스</b>(웨이퍼 내부에 균열층을 만든 뒤 테이프를 늘려 분리, 얇은 웨이퍼에 적합), <b>DBG</b>(앞면을 먼저 반쯤 자른 뒤 뒷면을 갈아 분리)가 있습니다.`,
+        set: Object.assign(tk(0), ff(["다이싱 4방식", "블레이드: 빠름·저렴 / 칩핑", "레이저: 좁은 폭 / 열 영향", "스텔스: 손상 거의 없음", "DBG: 얇은 칩 깨짐 감소", "얇을수록 스텔스·DBG", ""])) },
+      { short: "다이 어태치", title: "② 칩을 기판에 붙인다", cmd: "D/A",
+        text: `칩을 기판이나 리드프레임에 붙입니다. 에폭시·은(Ag) 페이스트를 바르거나, 웨이퍼 뒷면에 미리 붙인 접착 필름(<b>DAF</b>)을 쓰거나, 금-실리콘 공정 접합을 씁니다. 칩 깨짐, 긁힘, 기울어짐이 대표 불량입니다.`,
+        set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "die-t"]), tk(1), ff(["다이 어태치", "에폭시·Ag 페이스트", "DAF(접착 필름)", "금-실리콘 공정 접합", "불량: 깨짐·긁힘·기울어짐", "", ""])) },
+      { short: "와이어 본딩", title: "③ 가는 금속선으로 칩과 기판을 잇는다", cmd: "W/B",
+        text: `칩 패드와 기판을 가는 금속선으로 잇습니다. 금선은 끝을 녹여 만든 둥근 볼을 칩 패드에 붙이고(<b>1차 볼 본딩</b>) 기판 쪽에서 눌러 끊습니다(<b>2차 스티치 본딩</b>). 금(Au)은 전도성이 좋고 산화되지 않지만 비싸고, 구리(Cu)는 싸고 전도성이 좋지만 단단하고 산화되기 쉬우며, 알루미늄(Al)은 싸서 웨지 본딩에 씁니다.`,
+        set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "die-t", "wires"]), tk(2), ff(["와이어 본딩", "Au: 전도성·내산화, 비쌈", "Cu: 싸고 전도성 ↑, 단단·산화", "Al: 싸다, 웨지 본딩", "에너지: 열압착·초음파·열초음파", "", ""])) },
+      { short: "몰딩", title: "④ EMC로 감싼다", cmd: "Mold",
+        text: `에폭시 수지에 실리카 필러를 섞은 <b>EMC</b>로 칩을 감쌉니다. 녹인 EMC를 금형에 밀어 넣는 <b>트랜스퍼 몰딩</b>은 널리 쓰이지만 와이어가 휘거나 기공이 생길 수 있고, 가루·과립 EMC를 깔고 눌러 굳히는 <b>컴프레션 몰딩</b>은 얇고 균일해 HBM·고적층 메모리에 씁니다. 재료 간 열팽창 차이로 생기는 휨을 관리해야 합니다.`,
+        set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "wires", "emc", "emc-t"]), tk(3), ff(["몰딩", "트랜스퍼: 밀어 넣기", "→ 와이어 휨·기공 위험", "컴프레션: 눌러 굳히기", "→ 얇고 균일, HBM", "휨(warpage) 관리", ""])) },
+      { short: "마킹·솔더볼", title: "⑤ 마킹하고 솔더볼을 리플로로 붙인다", cmd: "S/B",
+        text: `레이저로 제품명과 로트 정보를 새깁니다. 기판 아래에 <b>솔더볼</b>을 올리고 <b>리플로</b>(예열 → 유지 → 리플로 → 냉각)로 녹여 붙입니다. 볼끼리 붙는 브리지, 볼 누락, 피치 이상, 볼이 패드에 덜 붙는 헤드 인 필로가 대표 불량입니다.`,
+        set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "wires", "emc", "mark", "balls", "reflow"]), tk(4), ff(["마킹 · 솔더볼", "레이저 마킹", "솔더볼 + 리플로", "불량: 브리지, 누락,", "헤드 인 필로", "", ""])) },
+      { short: "싱귤레이션·출하", title: "⑥ 낱개로 자르고 테스트해 포장한다", cmd: "출하",
+        text: `여러 개가 붙은 기판(스트립)을 낱개 패키지로 자르고(<b>싱귤레이션</b>), 최종 테스트(3-11)와 외관 검사를 거쳐 포장합니다. 습기를 머금으면 리플로 때 수증기가 팽창해 터질 수 있어(<b>팝콘</b> 현상) 습기 민감도 등급(<b>MSL</b>)에 따라 방습 포장하고, 정전기(ESD)도 막습니다.`,
+        set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "wires", "emc", "mark", "balls", "sing"]), tk(5), ff(["싱귤레이션 · 출하", "낱개 절단 → 최종 테스트", "→ 외관 검사 → 포장", "MSL: 방습 포장·HIC·베이킹", "ESD 모델: HBM·MM·CDM", "(여기 HBM은 사람 몸 모델)", ""])) },
+    ],
+  };
+
+  const flip = {
+    id: "flip", label: "플립칩",
+    base: () => Object.assign(only(G, ["m-flip"]), { uf: off, "uf-t": off }),
+    steps: [
+      { short: "범프·UBM", title: "칩을 뒤집어 범프로 바로 붙인다", cmd: "Flip chip",
+        text: `칩 패드 위에 <b>범프</b>(솔더, 금, 구리 기둥)를 만들고 칩을 뒤집어 기판에 바로 붙입니다. 범프 아래에는 접착·확산 방지·솔더가 잘 퍼지게 하는 젖음 역할의 <b>UBM</b> 층을 깝니다. 구리 기둥(Cu pillar) 범프는 간격을 좁힐 수 있어 미세 피치에 유리하고, HBM은 수십 μm 크기의 마이크로 범프를 씁니다.`,
+        set: qq(["플립칩", "면 전체를 범프로 연결", "경로 짧고 단자 많음", "→ 고속·고성능", "비용·공정 난도 ↑", "HBM: 마이크로 범프"]) },
+      { short: "언더필", title: "언더필로 범프의 응력을 나눈다", cmd: "Underfill",
+        text: `칩과 기판 사이 틈을 수지로 채워(<b>언더필</b>), 열팽창계수(CTE) 차이 때문에 범프에 몰리는 응력을 나눠 받게 합니다. 언더필이 없으면 온도가 오르내릴 때마다 범프에 크랙이 생기기 쉽습니다.`,
+        set: Object.assign({ uf: on, "uf-t": on }, qq(["언더필", "칩–기판 틈을 수지로", "CTE 차이 응력 분산", "→ 범프 크랙 방지", "", ""])) },
+    ],
+  };
+
+  const types = {
+    id: "types", label: "패키지 변천",
+    base: () => only(G, ["m-types"]),
+    steps: [
+      { short: "DIP → WLP·TSV", title: "꽂는 패키지에서 웨이퍼·수직 패키지까지", cmd: "변천",
+        text: `리드를 보드 구멍에 꽂던 <b>삽입형</b>(DIP) → 표면에 납땜하는 <b>표면 실장</b>(SOP·TSOP) → 바닥 전체를 솔더볼로 쓰는 <b>볼 배열</b>(BGA·CSP) → 여러 칩을 한 패키지에 넣는 <b>MCP·SiP·PoP</b> → 웨이퍼 상태로 패키징하거나 칩을 수직으로 쌓는 <b>WLP·TSV·2.5D·3D</b>로 발전했습니다. 단자 수는 늘고 크기는 줄어 왔습니다.`,
+        set: {} },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [flow, flip, types], dur: 6500 });
+})();
+</script>
+</body>
+</html>

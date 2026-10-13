@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CMP: 화학적·기계적 연마</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .film { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .metal { fill: var(--m-cu); }
+  .nit { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .dof { fill: var(--low); opacity: .15; }
+  .dofl { stroke: var(--low); stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .platen { fill: var(--m-si); stroke: var(--m-si-line); }
+  .pad { fill: var(--m-pr); }
+  .head { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+  .slur { fill: var(--low); }
+  .drip[data-s="on"] { animation: drip 1.1s linear infinite; }
+  @keyframes drip { from { transform: translateY(0); opacity: 1; } to { transform: translateY(40px); opacity: 0; } }
+  .press { stroke: var(--accent); stroke-width: 2.4; }
+  .surf { fill: none; stroke: var(--ink); stroke-width: 2.4; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-10</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
+    <h1>CMP: 화학적·기계적 연마</h1>
+    <p class="lead">CMP는 회전하는 패드 위에 슬러리를 뿌리고 웨이퍼를 눌러 돌리면서, 슬러리의 화학 반응으로 표면을 무르게 하고 연마 입자로 갈아 내 웨이퍼 전체를 평평하게 만드는 공정입니다. 울퉁불퉁한 나무판을 리무버로 무르게 한 뒤 사포로 갈면 튀어나온 곳부터 깎여 평평해지는 것과 같습니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">CMP: 화학적·기계적 연마</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== why / tool ===== -->
+        <g id="m-why" class="t">
+          <g id="topo" class="t">
+            <rect class="m-si" x="60" y="300" width="420" height="50"></rect>
+            <rect class="metal" x="100" y="270" width="70" height="30"></rect><rect class="metal" x="250" y="270" width="70" height="30"></rect><rect class="metal" x="380" y="270" width="60" height="30"></rect>
+            <path id="topf" class="film t" d="M60,300 V250 H90 Q100,220 110,220 H160 Q170,220 180,250 H240 Q250,220 260,220 H310 Q320,220 330,250 H370 Q380,220 390,220 H430 Q440,220 450,250 H480 V300 Z"></path>
+            <rect id="flatf" class="film t" x="60" y="236" width="420" height="64"></rect>
+            <rect class="dof" x="60" y="222" width="420" height="20"></rect><line class="dofl" x1="60" y1="222" x2="480" y2="222"></line><line class="dofl" x1="60" y1="242" x2="480" y2="242"></line>
+            <text x="476" y="214" class="lbl-s low-t" text-anchor="end">초점 여유(DOF)</text>
+            <text id="topo-t" x="270" y="390" class="card-l t" text-anchor="middle"></text>
+          </g>
+          <g id="tool" class="t">
+            <ellipse class="platen" cx="250" cy="300" rx="190" ry="34"></ellipse><rect class="platen" x="60" y="300" width="380" height="30" style="stroke: none"></rect><ellipse class="pad" cx="250" cy="292" rx="186" ry="30"></ellipse>
+            <path d="M190,348 A60,10 0 1,0 310,348" style="fill: none; stroke: var(--accent); stroke-width: 2" marker-end="url(#ar-a)"></path><text x="250" y="380" class="lbl-s acc" text-anchor="middle">플래튼 회전</text>
+            <rect class="head" x="120" y="220" width="110" height="50" rx="10"></rect><rect x="130" y="270" width="90" height="8" style="fill: var(--m-si)"></rect>
+            <path d="M175,170 V214" class="press" marker-end="url(#ar-a)"></path><text x="186" y="186" class="lbl-s acc">압력 P</text>
+            <text x="175" y="250" class="card-l" text-anchor="middle">헤드</text><text x="236" y="282" class="lbl-s halo">← 웨이퍼(아래 면)</text>
+            <path d="M300,140 V190" style="stroke: var(--ink); stroke-width: 3"></path><text x="300" y="132" class="lbl-s" text-anchor="middle">슬러리</text>
+            <g id="drops" class="drip t"><circle class="slur" cx="300" cy="200" r="5"></circle><circle class="slur" cx="300" cy="220" r="4"></circle></g>
+            <rect x="340" y="250" width="60" height="22" rx="8" style="fill: var(--m-w)"></rect><text x="370" y="240" class="lbl-s" text-anchor="middle">컨디셔너</text>
+            <text x="80" y="330" class="lbl-s" style="fill: var(--surface)">패드</text>
+          </g>
+          <g id="flat" class="t">
+            <path id="prof" class="surf t" d="M60,250 H110 Q120,200 130,200 H190 Q200,200 210,250 H270 Q280,200 290,200 H350 Q360,200 370,250 H480"></path>
+            <rect class="film" x="60" y="250" width="420" height="80" style="opacity: .5"></rect>
+            <g id="arrows"></g>
+            <text id="fl-t" x="270" y="380" class="card-l t" text-anchor="middle"></text>
+          </g>
+          <text id="w1" x="560" y="80" class="head-t"></text>
+          <text id="w2" x="560" y="112" class="card-l"></text>
+          <text id="w3" x="560" y="136" class="card-l"></text>
+          <text id="w4" x="560" y="160" class="card-l"></text>
+          <text id="w5" x="560" y="184" class="card-l"></text>
+          <text id="w6" x="560" y="218" class="card-l acc"></text>
+          <text id="w7" x="560" y="242" class="card-m"></text>
+          <g id="preston" class="t"><rect class="frame" x="560" y="290" width="290" height="70" rx="8"></rect><text x="705" y="333" text-anchor="middle" style="font: 700 18px var(--font-mono); fill: var(--accent)">제거 속도 = K × P × V</text></g>
+        </g>
+
+        <!-- ===== kinds ===== -->
+        <g id="m-kind" class="t">
+          <g id="sti" class="t">
+            <rect class="m-si" x="60" y="220" width="420" height="120"></rect>
+            <path class="cav" d="M150,220 V290 H210 V220 Z M320,220 V290 H380 V220 Z" style="fill: var(--surface)"></path>
+            <rect class="nit" x="60" y="208" width="90" height="12"></rect><rect class="nit" x="210" y="208" width="110" height="12"></rect><rect class="nit" x="380" y="208" width="100" height="12"></rect>
+            <path id="sti-ox" class="film t" d="M60,170 H480 V208 H380 V220 H380 V290 H320 V220 H320 V208 H210 V220 H210 V290 H150 V220 H150 V208 H60 Z"></path>
+            <path id="sti-done" class="film t" d="M150,208 H210 V290 H150 Z M320,208 H380 V290 H320 Z"></path>
+            <line class="dofl" x1="50" y1="208" x2="490" y2="208" style="stroke: var(--accent)"></line><text x="490" y="204" class="lbl-s acc" text-anchor="end">질화막에서 멈춤(정지층)</text>
+            <text id="sti-t" x="270" y="380" class="card-l t" text-anchor="middle"></text>
+          </g>
+          <g id="cu" class="t">
+            <rect class="film" x="60" y="200" width="420" height="120"></rect>
+            <path class="metal" d="M80,200 Q125,222 170,200 V260 H80 Z"></path><text x="125" y="290" class="lbl-s bad-t" text-anchor="middle">디싱: 넓은 선이 접시처럼 파임</text>
+            <path d="M270,214 H470" style="stroke: var(--bad); stroke-width: 2; stroke-dasharray: 4 3"></path>
+            <rect x="270" y="200" width="200" height="14" style="fill: var(--surface)"></rect>
+            <rect class="metal" x="276" y="214" width="16" height="46"></rect><rect class="metal" x="306" y="214" width="16" height="46"></rect><rect class="metal" x="336" y="214" width="16" height="46"></rect><rect class="metal" x="366" y="214" width="16" height="46"></rect><rect class="metal" x="396" y="214" width="16" height="46"></rect><rect class="metal" x="426" y="214" width="16" height="46"></rect>
+            <text x="370" y="290" class="lbl-s bad-t" text-anchor="middle">이로전: 촘촘한 곳이 통째로 얇아짐</text>
+            <line x1="60" y1="200" x2="480" y2="200" style="stroke: var(--ink); stroke-dasharray: 2 3"></line><text x="66" y="192" class="lbl-s">목표 높이</text>
+            <text x="270" y="350" class="card-l" text-anchor="middle">제거 속도가 다른 두 막이 함께 깎일 때 생김</text>
+            <text x="270" y="374" class="card-l acc" text-anchor="middle">대책: 레이아웃(선폭·밀도), 더미 패턴, 압력·회전·슬러리 최적화</text>
+          </g>
+          <g id="clean" class="t">
+            <rect x="80" y="160" width="160" height="10" style="fill: var(--m-si)"></rect>
+            <ellipse cx="160" cy="146" rx="70" ry="14" style="fill: var(--low-soft); stroke: var(--low)"></ellipse><ellipse cx="160" cy="184" rx="70" ry="14" style="fill: var(--low-soft); stroke: var(--low)"></ellipse>
+            <text x="160" y="226" class="card-l" text-anchor="middle">PVA 브러시로 양면 세척</text><text x="160" y="246" class="lbl-s" text-anchor="middle">약알칼리 약액 → 재흡착 방지</text>
+            <text x="300" y="120" class="card-l ink-b">종점 검출</text>
+            <text x="300" y="148" class="lbl-s">막이 바뀌면 마찰이 달라짐 → 모터 전류(토크)</text>
+            <text x="300" y="168" class="lbl-s">반사율이 달라짐 → 광학 센서</text>
+            <text x="80" y="300" class="card-l">CMP 이전의 평탄화: 열 리플로(BPSG를 흘림), 에치백</text>
+            <text x="80" y="326" class="card-l acc">CMP 장점: 웨이퍼 전체 평탄화, 식각이 어려운 Cu까지</text>
+            <text x="80" y="350" class="card-m">단점: 이론 모델 부족, 스크래치·잔여물, 많은 변수·비쌈</text>
+          </g>
+          <text id="k1" x="560" y="80" class="head-t"></text>
+          <text id="k2" x="560" y="112" class="card-l"></text>
+          <text id="k3" x="560" y="136" class="card-l"></text>
+          <text id="k4" x="560" y="160" class="card-l"></text>
+          <text id="k5" x="560" y="194" class="card-l acc"></text>
+          <text id="k6" x="560" y="218" class="card-m"></text>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 단차와 DOF, 장비 크기는 비율이 아닙니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>CMP가 중요한 이유를 <b>포토(DOF·PR 두께·난반사), 증착(단차 피복), 식각(금속 잔여물 단락·비아 미개통)</b> 관점으로 나눠 답합니다. 미세화로 DOF가 단차보다 작아져 웨이퍼 전체를 평평하게 하는 글로벌 평탄화가 필수가 되었습니다.</li>
+      <li>구성 요소: 패드(기계적 힘, 단단하면 다이 내 평탄도 ↑·스크래치 위험), 슬러리(연마 입자 + 화학액, 산화막은 실리카·세리아, 금속은 산화제 + 착화제), 컨디셔너(패드 회복), 세정 모듈. 입자 농도가 높으면 제거율과 함께 스크래치·디싱·이로전도 늘어납니다.</li>
+      <li>하이브리드 본딩(4-5)은 Cu 패드와 절연막을 나노미터 수준으로 평평하게 맞춰야 해 CMP가 핵심 공정이 됩니다.</li>
+    </ul>
+    <p class="foot">원고 3-10을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-4 포토(DOF), 3-9 금속배선(다마신), 4-5 HBM(하이브리드 본딩).</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  [[160, 160, 30], [320, 160, 30], [90, 210, 14], [240, 210, 14], [420, 210, 14]].forEach(([x, y, l]) => mk($("arrows"), "path", { class: "press", d: `M${x},${y - l} V${y}`, "marker-end": "url(#ar-a)", style: `stroke-width: ${l > 20 ? 3.4 : 1.6}` }));
+  const ww = (a) => lines("w", a, 7), kk = (a) => lines("k", a, 6);
+  const G = ["m-why", "m-kind"];
+
+  const why = {
+    id: "why", label: "필요성과 장비",
+    base: () => Object.assign(only(G, ["m-why"]), only(["topo", "tool", "flat"], ["topo"]), { topf: on, flatf: off, preston: off, drops: off, "topo-t": txt("") }),
+    steps: [
+      { short: "단차와 DOF", title: "층을 쌓을수록 생기는 단차가 초점을 벗어난다", cmd: "왜",
+        text: `층을 쌓을수록 아래 패턴 때문에 표면에 <b>단차</b>가 생깁니다. 단차가 포토의 초점 여유(<b>DOF</b>)를 벗어나면 패턴이 흐려지거나 사라지고(디포커스), PR 두께가 달라져 노광량이 맞지 않습니다. 증착에서는 단차 피복이 나빠지고, 식각에서는 금속 잔여물로 단락이나 비아 미개통이 생깁니다.`,
+        set: Object.assign({ "topo-t": txt("튀어나온 곳·파인 곳이 DOF 밖 → 디포커스") }, ww(["단차가 만드는 문제", "포토: 디포커스, PR 두께 차이", "증착: 단차 피복 ↓", "식각: 잔여물 단락, 미개통", "", "미세화 → DOF < 단차", "RC 줄이려 금속을 두껍게 → 단차 ↑"])) },
+      { short: "장비와 프레스톤 식", title: "플래튼·패드·헤드·슬러리·컨디셔너", cmd: "장비",
+        text: `회전하는 <b>플래튼</b> 위 폴리우레탄 <b>패드</b>에 <b>슬러리</b>를 뿌리고, <b>헤드</b>가 웨이퍼를 아래로 눌러 돌립니다. 다이아몬드가 박힌 <b>컨디셔너</b>는 찌꺼기가 끼어 매끈해진 패드를 원래 거칠기로 되돌립니다. 제거 속도는 <b>프레스톤 식</b>(K × 압력 × 상대 속도)을 따릅니다. 헤드 압력을 영역별로 나눠 가장자리 과연마를 조절합니다.`,
+        set: Object.assign(only(["topo", "tool", "flat"], ["tool"]), { preston: on, drops: on }, ww(["CMP 3요소 + 헤드", "패드: 기계적 힘", "슬러리: 연마 입자 + 화학액", "컨디셔너: 패드 회복", "헤드: 압력, 영역별 조절", "프레스톤: 속도 ∝ P × V", "플래튼 여러 개로 단계별 연마"])) },
+      { short: "평탄화 원리", title: "튀어나온 곳이 더 눌려 먼저 깎인다", cmd: "평탄화",
+        text: `패드가 웨이퍼를 누를 때 <b>튀어나온 곳은 압력을 더 받아</b> 빨리 깎이고, 파인 곳은 덜 깎입니다. 그래서 시간이 지나면 웨이퍼 전체가 평평해집니다. 슬러리의 화학 반응이 표면을 무르게 하고 입자가 갈아 냅니다.`,
+        set: Object.assign(only(["topo", "tool", "flat"], ["flat"]), { preston: on, "fl-t": txt("굵은 화살표 = 큰 압력 = 빠르게 깎임") }, ww(["평탄화 원리", "높은 곳: 압력 ↑ → 빨리 깎임", "낮은 곳: 덜 깎임", "→ 전체가 평평", "", "", ""])) },
+    ],
+  };
+
+  const kind = {
+    id: "kinds", label: "종류와 불량",
+    base: () => Object.assign(only(G, ["m-kind"]), only(["sti", "cu", "clean"], ["sti"]), { "sti-ox": on, "sti-done": off, "sti-t": txt("") }),
+    steps: [
+      { short: "STI CMP(정지층)", title: "분리형 CMP: 질화막에서 정확히 멈춘다", cmd: "STI",
+        text: `STI는 트렌치를 채우고 넘친 산화막을 깎아 <b>질화막을 정지층</b>으로 삼아 멈춥니다. 아래 막이 드러날 때까지 깎아 패턴을 나누는 <b>분리형</b> CMP(STI, 다마신)는 하부막에서 정확히 멈춰야 해 엄격한 선택비가 필요하고, 배선층 절연막(ILD·IMD)은 금속에 닿기 전에 멈추는 <b>글로벌 평탄화</b>입니다. 높은 평탄도·선택비가 필요한 산화막에는 세리아 슬러리를 씁니다.`,
+        set: Object.assign({ "sti-ox": off, "sti-done": on, "sti-t": txt("트렌치 속 산화막만 남음 → 소자 분리") }, kk(["산화막 CMP", "STI: 질화막 정지층", "ILD·IMD: 글로벌 평탄화", "분리형은 선택비가 핵심", "산화막 슬러리: 실리카·세리아", "폴리 CMP, 버핑 CMP도 있음"])) },
+      { short: "Cu CMP: 디싱·이로전", title: "금속 CMP: 디싱과 이로전", cmd: "Cu",
+        text: `제거 속도가 다른 두 막이 함께 깎일 때 생깁니다. <b>디싱</b>은 넓은 Cu 선이 산화막보다 더 깎여 접시처럼 파이는 현상, <b>이로전</b>은 Cu가 촘촘한 곳에서 산화막까지 통째로 얇아져 절연이 약해지는 현상입니다. Cu CMP는 웨이퍼 안 두께 불균일(WIWNU), 디싱, 이로전을 함께 관리합니다.`,
+        set: Object.assign(only(["sti", "cu", "clean"], ["cu"]), kk(["금속 CMP", "W 플러그, Cu 다마신", "금속:산화막 선택비로 멈춤", "디싱: 넓은 선 파임", "이로전: 밀집부 전체 감소", "관리: WIWNU·디싱·이로전"])) },
+      { short: "종점·세정", title: "언제 멈추고, 어떻게 씻나", cmd: "EPD·세정",
+        text: `막이 바뀌면 마찰이 달라지는 것을 <b>모터 전류(토크)</b>로, 반사율이 달라지는 것을 <b>광학 센서</b>로 감지해 멈춥니다. CMP는 스스로 슬러리 잔여물·파티클·스크래치를 많이 만드는 공정이라 장비 안에 <b>세정 모듈</b>을 두고, 스펀지(PVA) 브러시로 양면을 문지르고 약알칼리 약액으로 재흡착을 막습니다.`,
+        set: Object.assign(only(["sti", "cu", "clean"], ["clean"]), kk(["종점과 세정", "종점: 토크, 광학 반사", "세정: PVA 브러시 + 약알칼리", "패드: 하드 → 다이 내 평탄도", "소프트 → 굴곡 추종", "입자 많으면 제거율·결함 함께 ↑"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [why, kind], dur: 6500 });
+})();
+</script>
+</body>
+</html>
