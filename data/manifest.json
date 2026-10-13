@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-12T10:14:01+09:00",
+  "generatedAt": "2026-10-13T10:11:28+09:00",
   "count": 40,
   "tagsVersion": "2026-10-06",
-  "unitsVersion": "2026-10-06",
+  "unitsVersion": "2026-10-13",
   "kinds": {
     "press": "보도자료",
     "fact": "공식 해명",
@@ -120,8 +120,8 @@
       "author": "Onur Mutlu ETH Zurich Professor",
       "alsoIn": [],
       "relatedUnits": [
-        "0-4",
-        "4-7"
+        "4-7",
+        "0-4"
       ]
     },
     {
@@ -154,8 +154,8 @@
       ],
       "alsoIn": [],
       "relatedUnits": [
-        "3-13",
-        "0-4"
+        "4-7",
+        "3-13"
       ]
     },
     {
@@ -187,8 +187,8 @@
       ],
       "alsoIn": [],
       "relatedUnits": [
-        "0-4",
-        "4-7"
+        "4-7",
+        "0-4"
       ]
     },
     {
@@ -221,8 +221,8 @@
       ],
       "alsoIn": [],
       "relatedUnits": [
-        "0-4",
-        "4-7"
+        "4-7",
+        "0-4"
       ]
     },
     {
@@ -254,8 +254,8 @@
       ],
       "alsoIn": [],
       "relatedUnits": [
-        "4-9",
-        "5-7"
+        "4-7",
+        "4-9"
       ]
     },
     {
@@ -346,8 +346,8 @@
       ],
       "alsoIn": [],
       "relatedUnits": [
-        "5-1",
-        "0-4"
+        "4-7",
+        "5-1"
       ]
     },
     {
@@ -594,8 +594,8 @@
       "author": "Professor Hoi-Jun Yoo, KAIST",
       "alsoIn": [],
       "relatedUnits": [
-        "0-4",
-        "4-7"
+        "4-7",
+        "0-4"
       ]
     },
     {
@@ -933,7 +933,10 @@
         "삼성전자"
       ],
       "alsoIn": [],
-      "relatedUnits": []
+      "relatedUnits": [
+        "5-6",
+        "5-2"
+      ]
     },
     {
       "id": "samsung-529b00c622",
@@ -1020,7 +1023,10 @@
         "SK하이닉스"
       ],
       "alsoIn": [],
-      "relatedUnits": []
+      "relatedUnits": [
+        "5-6",
+        "5-2"
+      ]
     },
     {
       "id": "skhynix-ai-ecosystem-series-ep1",
@@ -1053,8 +1059,8 @@
       "author": "Professor Jinwoo Shin, KAIST",
       "alsoIn": [],
       "relatedUnits": [
-        "5-4",
-        "5-2"
+        "4-7",
+        "5-4"
       ]
     },
     {
@@ -1145,7 +1151,7 @@
       "alsoIn": [],
       "relatedUnits": [
         "5-3",
-        "0-2"
+        "4-7"
       ]
     },
     {

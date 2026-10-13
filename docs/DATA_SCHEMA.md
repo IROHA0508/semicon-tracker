@@ -72,7 +72,7 @@
 ## `data/tags.json`, `data/units.json`
 
 - `tags.json`: `groups[].tags[]`마다 `name`(표준 태그), `synonyms`(한국어 동의어), `keywords`(영문 키워드). 요약할 때 Claude에게 목록으로 주고, 받은 태그를 이 사전으로 표준 이름에 맞춥니다.
-- `units.json`: `units[]`마다 `code`(예: `4-5`), `floor`, `title`, `stars`(면접 빈도 별 1~3), `freq`, `tags`(표준 태그).
+- `units.json`: `units[]`마다 `code`(예: `4-5`), `floor`, `title`, `stars`(면접 빈도 별 0~3, 6층은 0), `freq`(면접 빈도 원문), `manuscriptTags`(원고의 '관련 뉴스 태그' 그대로), `tags`(표준 태그). `theory/units/*.md`에서 `tools/build_theory.py`가 만들고, 직접 고치지 않습니다. 단원 태그를 바꾸면 `version`을 그날 날짜로 바꿉니다.
 - `python -m backend validate`가 두 파일의 태그가 서로 맞는지 점검합니다.
 
 ## `backend/state/queue.json`: 요약 대기열
@@ -147,3 +147,36 @@
 `manifest`: 카드 수(`count`)와 이번에 manifest를 다시 썼는지(`changed`).
 
 `errors`가 비어 있지 않거나 `summary.authError`가 참이면 GitHub Actions 실행이 실패로 표시됩니다.
+
+## `data/theory.json`: 이론 원고 목록
+
+`theory/` 폴더의 원고(단원별 마크다운)에서 `tools/build_theory.py`가 만듭니다. 본문은 넣지 않고 파일 경로만 담습니다. 만든 시각을 넣지 않아서 원고가 그대로면 파일도 그대로입니다.
+
+```json
+{
+ "version": "2026-10-13",
+ "overview": {"file": "theory/overview.md", "figures": [{"file": "theory/figures/overview-1.svg", "caption": "전체 지도 · …"}]},
+ "sources": {"file": "theory/sources.md"},
+ "floors": [{"floor": 0, "title": "0층 · 입문", "name": "입문", "intro": "…", "file": "theory/floors/0.md", "units": ["0-1", "0-2", "0-3", "0-4"]}],
+ "units": [{
+   "code": "4-5", "floor": 4, "title": "HBM: TSV로 쌓은 D램과 …", "stars": 3, "freq": "★★★(SK하이닉스 면접 최빈출)",
+   "related": ["3-11", "3-12", "4-3", "4-6", "4-7"],
+   "tags": ["HBM", "HBM 적층(TSV·MR-MUF)", "하이브리드 본딩"], "manuscriptTags": ["HBM4", "HBM3E", "…"],
+   "file": "theory/units/4-5.md",
+   "figures": [{"file": "theory/figures/4-5-1.svg", "caption": "…"}],
+   "videos": [{"title": "…", "url": "https://www.youtube.com/watch?v=…", "note": "채널 · 수준. 메모"}],
+   "animations": [{"file": "animations/hbm-stack.html", "title": "HBM 적층과 본딩", "modes": [{"id": "package", "label": "패키지·대역폭", "steps": 4}, "…"], "steps": 17}]
+ }],
+ "counts": {"units": 59, "figures": 80, "videoLinks": 111, "videoUrls": 88, "unitsWithVideos": 48, "animations": 49}
+}
+```
+
+| 필드 | 뜻 |
+|---|---|
+| `stars`, `freq` | 단원 둘째 줄 '면접 빈도' 원문과 그 맨 앞 별 개수(괄호 안 직무별 별은 세지 않음) |
+| `related` | 둘째 줄 '이어지는 단원'에 나온 단원 코드(범위 `3-1~3-10`은 펼침, 자기 자신 제외) |
+| `tags` | 단원 파일 머리말의 표준 태그(기사 카드의 관련 단원 계산에 쓰는 값과 같음) |
+| `figures` | 본문의 도식 순서대로. SVG는 밝은·어두운 테마를 스스로 처리함(`theory/README.md`) |
+| `videos` | '영상으로 보기' 아래 링크 줄. 링크 없는 메모 줄은 넣지 않음 |
+| `animations` | `animations/catalog.json`에서 같은 단원 코드를 가진 애니메이션 |
+

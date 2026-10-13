@@ -2,15 +2,15 @@
 
 반도체 면접 준비용 개인 사이트입니다. 삼성전자와 SK하이닉스의 공식 뉴스룸 소식을 자동으로 모아 한국어로 요약하고, 기사마다 관련 이론 단원(0~6층, 59개 단원)을 이어 줍니다. 비공개 저장소이며 혼자 씁니다.
 
-지금은 1차 작업 6단계 중 **3단계(요약·번역·태그 분류)**까지와, 이론 단원용 **단계별 애니메이션 3개**(`animations/`)가 들어 있습니다.
+지금은 1차 작업 6단계 중 **4단계(이론 원고 옮기기)**까지 끝났습니다. 이론 원고 59단원(`theory/`)과 도식 80개, 단원별 영상 링크, 단계별 애니메이션 49개(`animations/`)가 들어 있습니다.
 
 | 단계 | 내용 | 상태 |
 |---|---|---|
 | 1 | 표준 태그 사전(55개, 9개 그룹) | 완료(`data/tags.json`) |
 | 2 | 저장소, 기사 수집기(RSS 4개, 2026년 1월부터) | 완료 |
 | 3 | 요약·번역·태그 분류, 관련 단원 연결 | 완료 |
-| 4 | 이론 원고 59단원 옮기기(영상·애니메이션 연결 포함) | 다음 |
-| 5 | 화면: 시장 흐름, 이론 공부, 출처 | |
+| 4 | 이론 원고 59단원 옮기기(도식·영상·애니메이션 연결 포함) | 완료(`theory/`, `data/theory.json`) |
+| 5 | 화면: 시장 흐름, 이론 공부, 출처 | 다음 |
 | 6 | 비공개 배포, 자동 실행 확인 | |
 
 ## 구조
@@ -28,11 +28,15 @@ backend/publish.py       data/manifest.json 만들기, 데이터 점검(validate
 backend/store.py         상태 파일 읽기·쓰기
 backend/state/           seen.json(이미 본 기사), queue.json(요약 대기열), last-run.json(실행 보고서)
 data/tags.json           표준 태그 55개(9개 그룹)와 동의어·영문 키워드
-data/units.json          이론 59단원과 단원별 표준 태그
+data/units.json          이론 59단원과 단원별 표준 태그(theory/에서 만듦, 직접 고치지 않음)
+data/theory.json         사이트가 읽는 단원 목록: 층, 별, 이어지는 단원, 태그, 도식, 영상, 애니메이션
 data/news/               요약 카드(기사 1건 = 파일 1개)
 data/manifest.json       사이트가 읽는 카드 목록(관련 단원 포함)
-animations/              단계별 애니메이션(D램 셀 동작, D램 공정, 3D 낸드 공정)과 공통 플레이어, catalog.json
-tests/                   오프라인 테스트(실제 피드 구조를 본뜬 예제, 가짜 Claude, 애니메이션 목록 점검)
+theory/                  이론 원고: 단원별 마크다운 59개, 층 소개, 개요, 출처, 도식 SVG 80개(theory/README.md)
+animations/              단계별 애니메이션 49개와 공통 플레이어, catalog.json, 목록 페이지
+tools/build_theory.py    theory/ → data/theory.json·data/units.json
+tools/build_animation_index.py  catalog.json → animations/index.html
+tests/                   오프라인 테스트(실제 피드 구조를 본뜬 예제, 가짜 Claude, 애니메이션 목록, 이론 원고 형식·링크·도식 점검)
 docs/DATA_SCHEMA.md      파일 형식 설명
 .github/workflows/       하루 4번 수집·요약하는 GitHub Actions 워크플로
 ```
@@ -107,6 +111,7 @@ python -m backend update           # 수집 + 요약 + manifest(워크플로가 
 python -m backend publish          # data/news로 manifest 다시 만들기
 python -m backend requeue --outdated    # 편집 원칙(RULES_VERSION)이 바뀐 뒤 옛 카드를 대기열로 되돌려 다시 요약
 python -m backend validate         # 데이터 점검
+python tools/build_theory.py       # 이론 원고를 고친 뒤 data/theory.json·units.json 다시 만들기
 ```
 
 설정은 환경 변수로 바꿀 수 있습니다.
