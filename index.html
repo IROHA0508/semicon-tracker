@@ -329,6 +329,8 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
 .anim-bar a { margin-left: auto; font-size: 13px; color: var(--muted); text-decoration: none; }
 .anim-bar a:hover { color: var(--ink); text-decoration: underline; }
 .anim-block iframe { display: block; width: 100%; border: 0; height: 760px; background: var(--bg); }
+.anim-block iframe.film-frame { height: 640px; }
+.film-block { margin-bottom: 18px; }
 .unit-news .entry { grid-template-columns: 64px minmax(0, 1fr); }
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 36px; }
 .pager a { display: grid; gap: 2px; text-decoration: none; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: var(--surface); min-width: 0; }
@@ -863,6 +865,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
             h("div", { class: "tile-top" }, [h("span", { class: "code", text: u.code }), starEl(u.stars, u.freq), isRead(u.code) ? h("span", { class: "done", title: "읽음", text: "✓" }) : null]),
             h("div", { class: "tile-title", text: u.title }),
             h("div", { class: "tile-meta" }, [
+              u.films.length ? h("span", null, ["▶ 영상"]) : null,
               u.animations.length ? h("span", null, ["▶ 애니메이션"]) : null,
               u.videos.length ? h("span", { text: "영상 " + u.videos.length }) : null,
               nNews ? h("span", { text: "소식 " + nNews }) : null
@@ -884,11 +887,25 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     if (!e.data || e.data.type !== "st-anim-height") return;
     frames.forEach(function (f) { if (f.contentWindow === e.source && e.data.h > 200) f.style.height = Math.min(e.data.h + 2, 2400) + "px"; });
   });
+  function filmBlock(u) {
+    var f = u.films[0];
+    var min = Math.floor(f.seconds / 60), sec = f.seconds % 60;
+    var frame = h("iframe", { src: f.file + "?embed", title: f.title + " 영상", loading: "lazy", class: "film-frame" });
+    frames.push(frame);
+    return h("section", { class: "anim-block film-block", id: "film" }, [
+      h("div", { class: "anim-bar" }, [
+        h("h2", null, [icon(I_PLAY, 18), "영상으로 보기"]),
+        h("span", { class: "sub", text: f.title + " · 약 " + min + "분" + (sec ? " " + sec + "초" : "") + " · 장면 " + f.chapters.length + "개 · 소리 없음, 자막" }),
+        h("a", { href: f.file, target: "_blank", rel: "noopener", text: "크게 보기 ↗" })
+      ]),
+      frame
+    ]);
+  }
   function animBlock(u) {
     var a = u.animations[0];
     var modes = a.modes.length > 1 ? "모드 " + a.modes.length + "개(" + a.modes.map(function (m) { return m.label; }).join(" · ") + ")" : "";
     var frame = h("iframe", { src: a.file + "?embed", title: a.title + " 애니메이션", loading: "lazy" });
-    frames = [frame];
+    frames.push(frame);
     return h("section", { class: "anim-block", id: "anim" }, [
       h("div", { class: "anim-bar" }, [
         h("h2", null, [icon(I_PLAY, 18), "애니메이션으로 보기"]),
@@ -919,6 +936,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       h("h1", { text: u.title }),
       h("div", { class: "unit-actions" }, [
         readBtn,
+        u.films.length ? h("a", { class: "btn", href: "#film", onclick: function (e) { e.preventDefault(); var t = document.getElementById("film"); if (t) t.scrollIntoView({ behavior: "smooth" }); } }, [icon(I_PLAY, 16), "영상 약 " + Math.round(u.films[0].seconds / 60) + "분"]) : null,
         u.animations.length ? h("a", { class: "btn", href: "#anim", onclick: function (e) { e.preventDefault(); var t = document.getElementById("anim"); if (t) t.scrollIntoView({ behavior: "smooth" }); } }, [icon(I_PLAY, 16), "애니메이션 " + u.animations[0].steps + "단계"]) : null,
         news.length ? h("a", { class: "btn", href: "#unit-news", onclick: function (e) { e.preventDefault(); var t = document.getElementById("unit-news"); if (t) t.scrollIntoView({ behavior: "smooth" }); } }, ["이어진 소식 " + news.length + "건"]) : null
       ]),
@@ -965,14 +983,18 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       article.innerHTML = renderMarkdown(body.join("\n"), "theory/units/");
       article.removeAttribute("aria-busy");
       polish(article);
-      if (u.animations.length) {
-        var block = animBlock(u);
+      frames = [];
+      var blocks = [];
+      if (u.films.length) blocks.push(filmBlock(u));
+      if (u.animations.length) blocks.push(animBlock(u));
+      if (blocks.length) {
         var before = Array.prototype.find.call(article.querySelectorAll("h3.sec"), function (x) { return /면접 단골 질문/.test(x.textContent); });
-        if (before) article.insertBefore(block, before); else article.appendChild(block);
+        blocks.forEach(function (block) { if (before) article.insertBefore(block, before); else article.appendChild(block); });
       }
       // table of contents: the frame parts of the unit (in page order) and the animation
       var items = [];
-      Array.prototype.forEach.call(article.querySelectorAll("[data-toc], #anim"), function (s, k) {
+      Array.prototype.forEach.call(article.querySelectorAll("[data-toc], #film, #anim"), function (s, k) {
+        if (s.id === "film") { items.push(h("li", null, [h("a", { class: "anim-jump", href: "#film", onclick: jump(s), text: "▶ 영상" })])); return; }
         if (s.id === "anim") { items.push(h("li", null, [h("a", { class: "anim-jump", href: "#anim", onclick: jump(s), text: "▶ 애니메이션" })])); return; }
         s.id = "sec-" + k;
         items.push(h("li", null, [h("a", { href: "#sec-" + k, onclick: jump(s), text: s.getAttribute("data-toc") })]));

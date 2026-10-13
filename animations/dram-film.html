@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D램 읽기·쓰기·리프레시 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .big { font-size: 28px; font-weight: 600; }
+  .film svg .tag { font: 600 18px var(--font-mono); fill: var(--muted); }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .sa-t { font-size: 22px; font-weight: 600; }
+  .film svg .eq-t { font: 600 16px var(--font-mono); }
+  .film svg .bit { font: 700 64px var(--font-mono); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .low-t { fill: var(--low); font-weight: 600; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+
+  .film .wire { fill: none; stroke: var(--line-strong); stroke-width: 3; }
+  .film #wl { stroke: var(--line-strong); stroke-width: 6; stroke-linecap: round; }
+  .film #wl[data-s="on"], .film #gate-link[data-s="on"] { stroke: var(--accent); }
+  .film #gate-link { stroke: var(--line-strong); stroke-width: 3; }
+  .film #gate { fill: var(--line-strong); }
+  .film #gate[data-s="on"] { fill: var(--accent); }
+  .film #ch { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film #ch[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2.5; }
+  .film #cap-fill, .film #bl-fill, .film #size-cup-fill, .film #size-tank-fill { fill: var(--accent); opacity: .88; }
+  .film #blb-fill { fill: var(--low); opacity: .85; }
+  .film #eq { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film #eq[data-s="on"] { fill: var(--low-soft); stroke: var(--low); }
+  .film #sa-box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2.5; }
+  .film #sa-box[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film #ch, .film #gate, .film #eq, .film #sa-box, .film #wl { transition: fill .25s, stroke .25s; }
+  .film .io { fill: none; stroke: var(--ink); stroke-width: 3.5; }
+  .film .flow { fill: none; stroke: var(--accent); stroke-width: 4.5; stroke-dasharray: 9 8; animation: fdash .7s linear infinite; }
+  .film .leak { fill: none; stroke: var(--bad); stroke-width: 3.5; stroke-dasharray: 7 7; animation: fdash 1.1s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film svg #wl[data-hl="1"] { stroke-width: 8px !important; }
+  .film.paused .flow, .film.paused .leak, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .axis { stroke: var(--line-strong); stroke-width: 2; }
+  .film .bl-line { fill: none; stroke: var(--accent); stroke-width: 4.5; stroke-linejoin: round; }
+  .film .blb-line { fill: none; stroke: var(--low); stroke-width: 4.5; stroke-dasharray: 10 7; stroke-linejoin: round; }
+  .film .dot.bl { fill: var(--accent); stroke: var(--surface); stroke-width: 3; }
+  .film .dot.blb { fill: var(--low); stroke: var(--surface); stroke-width: 3; }
+  .film .chip rect { fill: var(--ink); }
+  .film .chip text { fill: var(--surface); font: 600 18px var(--font-mono); }
+  .film .chip.dim rect { fill: var(--line-strong); }
+  .film .brk line { stroke: var(--muted); stroke-width: 2; }
+  .film .brk text { fill: var(--muted); font: 600 18px var(--font-mono); }
+  .film .dv line { stroke: var(--accent); stroke-width: 2.5; }
+  .film .dv text { fill: var(--accent); font: 700 22px var(--font-mono); }
+  .film .ret { fill: none; stroke: var(--accent); stroke-width: 4.5; stroke-linejoin: round; }
+  .film .ret-fail { fill: none; stroke: var(--bad); stroke-width: 3.5; stroke-dasharray: 9 7; }
+  .film .ret-hot { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 3 6; stroke-linecap: round; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 5; stroke-linecap: round; }
+  .film .refbar .track { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .refbar .cursor { fill: var(--accent); }
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .pill { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .sizebox { fill: var(--surface); stroke: var(--line-strong); stroke-width: 3; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-10</span><span>D램 동작 심화 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>D램 읽기·쓰기·리프레시 (약 2분 영상)</h1>
+    <p class="lead">셀 구조 → 읽기 → 쓰기 → 리프레시 순서로 자막과 함께 이어서 흐릅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="D램 읽기·쓰기·리프레시 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="D램 셀, 비트라인, 감지 증폭기와 전압 그래프가 시간에 따라 움직이는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <clipPath id="c-rc1"><rect id="rc1" x="700" y="130" width="0" height="330"></rect></clipPath>
+          <clipPath id="c-rcf"><rect id="rcf" x="873" y="130" width="0" height="330"></rect></clipPath>
+          <clipPath id="c-rc2"><rect id="rc2" x="873" y="130" width="0" height="330"></rect></clipPath>
+          <clipPath id="c-rc3"><rect id="rc3" x="1047" y="130" width="0" height="330"></rect></clipPath>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+
+        <!-- ===== Opening title ===== -->
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">2-10 · D램 동작 심화</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">D램 한 칸은</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">0과 1을 어떻게 기억할까?</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">읽기 · 쓰기 · 리프레시</text>
+        </g>
+
+        <!-- ===== Cell: word line, transistor, capacitor ===== -->
+        <g id="g-cell">
+          <text x="60" y="112" class="lbl">워드라인(WL)</text>
+          <text id="wl-tag" x="570" y="112" text-anchor="end" class="tag">꺼짐</text>
+          <line id="wl" x1="60" y1="130" x2="570" y2="130"></line>
+          <line id="gate-link" x1="220" y1="130" x2="220" y2="190"></line>
+          <rect id="gate" x="170" y="190" width="100" height="10" rx="3"></rect>
+          <rect id="ch" x="170" y="206" width="100" height="30" rx="4"></rect>
+          <text x="242" y="262" text-anchor="middle" class="lbl-s">셀 트랜지스터</text>
+          <text x="242" y="284" text-anchor="middle" class="lbl-s">(= 문, 스위치)</text>
+          <path class="wire" d="M170,221 H130 V270"></path>
+          <path class="wire" d="M270,221 H320"></path>
+
+          <rect id="cap-box" class="box" x="80" y="270" width="100" height="200" rx="10"></rect>
+          <rect id="cap-fill" x="86" y="464" width="88" height="0" rx="6"></rect>
+          <text id="cap-bit" x="130" y="392" text-anchor="middle" class="bit">0</text>
+          <text x="130" y="506" text-anchor="middle" class="lbl">셀 커패시터(Cs, 컵)</text>
+          <text id="cap-v" x="130" y="540" text-anchor="middle" class="mono big">0.00 V</text>
+
+          <path id="flow-out" class="flow" d="M122,264 V214 H316" marker-end="url(#arr-a)"></path>
+          <path id="flow-in" class="flow" d="M316,230 H138 V264" marker-end="url(#arr-a)"></path>
+          <g id="leak">
+            <path class="leak" d="M80,350 H42" marker-end="url(#arr-r)"></path>
+            <path class="leak" d="M80,420 H42" marker-end="url(#arr-r)"></path>
+            <text x="36" y="336" class="lbl-s bad-t">누설</text>
+          </g>
+        </g>
+
+        <!-- ===== Bit lines and equalizer ===== -->
+        <g id="g-bl">
+          <text x="345" y="164" text-anchor="middle" class="lbl">BL</text>
+          <rect id="bl-box" class="box" x="320" y="176" width="50" height="264" rx="8"></rect>
+          <rect id="bl-fill" x="326" y="434" width="38" height="0" rx="4"></rect>
+          <text id="bl-v" x="312" y="430" text-anchor="end" class="mono">0.55 V</text>
+          <text x="455" y="164" text-anchor="middle" class="lbl">/BL(기준)</text>
+          <rect id="blb-box" class="box" x="430" y="176" width="50" height="264" rx="8"></rect>
+          <rect id="blb-fill" x="436" y="434" width="38" height="0" rx="4"></rect>
+          <text id="blb-v" x="488" y="430" class="mono">0.55 V</text>
+          <rect id="eq" x="374" y="190" width="52" height="24" rx="4"></rect>
+          <text x="400" y="208" text-anchor="middle" class="eq-t">EQ</text>
+          <line class="wire" x1="345" y1="440" x2="345" y2="480"></line>
+          <line class="wire" x1="455" y1="440" x2="455" y2="480"></line>
+        </g>
+
+        <!-- ===== Sense amplifier and I/O ===== -->
+        <g id="g-sa">
+          <rect id="sa-box" x="300" y="480" width="200" height="72" rx="10"></rect>
+          <text x="400" y="510" text-anchor="middle" class="sa-t">감지 증폭기(SA)</text>
+          <text id="sa-tag" x="400" y="539" text-anchor="middle" class="tag">대기</text>
+          <path id="io-out" class="io" d="M504,516 H572" marker-end="url(#arr-k)"></path>
+          <path id="io-in" class="io" d="M574,516 H508" marker-end="url(#arr-k)"></path>
+          <text id="io-lbl" x="540" y="584" text-anchor="middle" class="lbl-s">입출력선</text>
+        </g>
+
+
+        <!-- ===== Right side, scenes 1-2: what the cell is made of ===== -->
+        <g id="g-info0">
+          <text x="700" y="300" class="mono acc-t" style="font-size:120px;font-weight:700">1T1C</text>
+          <text x="700" y="372" style="font-size:28px">T = 트랜지스터 1개 (문)</text>
+          <text x="700" y="416" style="font-size:28px">C = 커패시터 1개 (컵)</text>
+          <text x="700" y="476" class="lbl" style="font-size:26px">이 한 칸이 1비트를 저장합니다.</text>
+        </g>
+        <g id="g-info1">
+          <rect class="card" x="700" y="150" width="520" height="330" rx="14"></rect>
+          <text x="728" y="206" style="font-size:30px;font-weight:700" class="acc-t">커패시터 = 전하를 담는 컵</text>
+          <line x1="728" y1="232" x2="1192" y2="232" class="grid-line"></line>
+          <rect x="728" y="262" width="34" height="62" rx="4" style="fill: var(--accent); opacity: .88"></rect>
+          <text x="782" y="302" style="font-size:28px;font-weight:600">가득 참 → 1 (1.1 V)</text>
+          <rect x="728" y="362" width="34" height="62" rx="4" style="fill: var(--surface); stroke: var(--line-strong); stroke-width: 2.5"></rect>
+          <text x="782" y="402" style="font-size:28px;font-weight:600">비어 있음 → 0 (0 V)</text>
+        </g>
+        <g id="g-info2">
+          <rect class="card" x="700" y="150" width="520" height="330" rx="14"></rect>
+          <text x="728" y="206" style="font-size:30px;font-weight:700" class="acc-t">트랜지스터 = 컵의 문</text>
+          <line x1="728" y1="232" x2="1192" y2="232" class="grid-line"></line>
+          <text x="728" y="292" style="font-size:28px;font-weight:600">워드라인 켜짐 → 문 열림</text>
+          <text x="728" y="334" class="lbl" style="font-size:24px">컵과 바깥이 이어집니다.</text>
+          <text x="728" y="402" style="font-size:28px;font-weight:600">워드라인 꺼짐 → 문 닫힘</text>
+          <text x="728" y="444" class="lbl" style="font-size:24px">컵이 혼자 전하를 지킵니다.</text>
+        </g>
+
+        <!-- ===== Right side, scene 3: size of cell vs bit line ===== -->
+        <g id="g-size">
+          <text x="700" y="112" class="lbl-b">셀과 비트라인의 크기(개념도)</text>
+          <text x="700" y="152" class="lbl">물의 높이 = 전압</text>
+          <rect class="sizebox" x="700" y="190" width="80" height="220" rx="8"></rect>
+          <rect id="size-cup-fill" x="706" y="404" width="68" height="0" rx="4"></rect>
+          <rect class="sizebox" x="840" y="190" width="360" height="220" rx="8"></rect>
+          <rect id="size-tank-fill" x="846" y="404" width="348" height="0" rx="4"></rect>
+          <line x1="840" y1="300" x2="1200" y2="300" style="stroke: var(--ink); stroke-width: 2; stroke-dasharray: 6 6"></line>
+          <text x="1194" y="286" text-anchor="end" class="lbl-s mono">VDD/2 = 0.55 V</text>
+          <text x="740" y="448" text-anchor="middle" class="lbl">셀(Cs)</text>
+          <text x="1020" y="448" text-anchor="middle" class="lbl">비트라인(Cb)</text>
+          <text x="700" y="508" class="lbl">비트라인은 셀보다 용량이 훨씬 큽니다.</text>
+          <text x="700" y="540" class="lbl-s">(이 영상의 예시 값: 약 4.5배)</text>
+        </g>
+
+        <!-- ===== Right side, scenes 4-5: bit line voltage graph ===== -->
+        <g id="g-axes">
+          <text x="700" y="112" class="lbl-b">비트라인 전압</text>
+          <line x1="1000" y1="106" x2="1032" y2="106" style="stroke: var(--accent); stroke-width: 4.5"></line>
+          <text x="1042" y="113" class="lbl-s">BL</text>
+          <line x1="1092" y1="106" x2="1124" y2="106" style="stroke: var(--low); stroke-width: 4.5; stroke-dasharray: 10 7"></line>
+          <text x="1134" y="113" class="lbl-s">/BL</text>
+          <line class="grid-line" x1="700" y1="150" x2="1220" y2="150"></line>
+          <line class="grid-line" x1="700" y1="300" x2="1220" y2="300"></line>
+          <line class="axis" x1="700" y1="140" x2="700" y2="450"></line>
+          <line class="axis" x1="700" y1="450" x2="1220" y2="450"></line>
+          <text x="692" y="156" text-anchor="end" class="lbl-s mono">1.1 V</text>
+          <text x="692" y="292" text-anchor="end" class="lbl-s mono">0.55 V</text>
+          <text x="692" y="318" text-anchor="end" class="lbl-s">VDD/2</text>
+          <text x="692" y="456" text-anchor="end" class="lbl-s mono">0 V</text>
+        </g>
+        <g id="g-read"></g>
+        <g id="g-write"></g>
+
+        <!-- ===== Right side, scene 6: refresh ===== -->
+        <g id="g-raxes">
+          <text x="700" y="112" class="lbl-b">셀 전압(1을 저장, 개념도)</text>
+          <line class="grid-line" x1="700" y1="150" x2="1220" y2="150"></line>
+          <line class="axis" x1="700" y1="140" x2="700" y2="450"></line>
+          <line class="axis" x1="700" y1="450" x2="1220" y2="450"></line>
+          <line x1="700" y1="259" x2="1220" y2="259" style="stroke: var(--bad); stroke-width: 2; stroke-dasharray: 3 5"></line>
+          <text x="708" y="250" class="lbl-s bad-t">판별 한계</text>
+          <text x="692" y="156" text-anchor="end" class="lbl-s mono">1.1 V</text>
+          <text x="692" y="456" text-anchor="end" class="lbl-s mono">0 V</text>
+          <text x="700" y="480" text-anchor="middle" class="lbl-s mono">0</text>
+          <text x="873" y="480" text-anchor="middle" class="lbl-s mono">32 ms</text>
+          <text x="1047" y="480" text-anchor="middle" class="lbl-s mono">64 ms</text>
+          <text x="1220" y="480" text-anchor="end" class="lbl-s mono">96 ms</text>
+        </g>
+        <g id="g-ret">
+          <g clip-path="url(#c-rc1)"><path class="ret" d="M700,150 C757,184 815,207 873,218"></path></g>
+          <g id="g-fail">
+            <g clip-path="url(#c-rcf)"><path class="ret-fail" d="M873,218 C925,226 960,243 990,262 C1030,288 1075,330 1135,380"></path></g>
+            <g id="ret-x" class="xmark"><line x1="978" y1="250" x2="1000" y2="272"></line><line x1="1000" y1="250" x2="978" y2="272"></line></g>
+            <text id="ret-x-lbl" x="1022" y="244" class="lbl-s bad-t" style="font-size:20px">1을 0으로 잘못 읽음</text>
+          </g>
+          <path id="ret-j1" class="ret" d="M873,218 V150"></path>
+          <g clip-path="url(#c-rc2)"><path class="ret" d="M873,150 C930,184 988,207 1047,218"></path></g>
+          <path id="ret-j2" class="ret" d="M1047,218 V150"></path>
+          <g clip-path="url(#c-rc3)"><path class="ret" d="M1047,150 C1105,184 1162,207 1220,218"></path></g>
+          <path id="ret-hot" class="ret-hot" d=""></path>
+          <text id="ret-hot-lbl" x="700" y="426" class="lbl-s low-t" style="font-size:20px">점선: 고온이면 더 빨리 새서 주기를 절반으로</text>
+          <g id="refbar" class="refbar">
+            <rect id="refbar-track" class="track" x="700" y="500" width="520" height="22" rx="4"></rect>
+            <rect id="refcur" class="cursor" x="700" y="500" width="34" height="22" rx="4"></rect>
+            <text x="700" y="552" class="lbl-s">REF 명령 약 3.9 μs마다</text>
+            <text x="700" y="580" class="lbl-s">8,192번이면 모든 행 한 바퀴(32 ms)</text>
+          </g>
+        </g>
+
+        <!-- ===== Closing cards ===== -->
+        <g id="g-sum"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 전압은 DDR5(VDD 1.1 V) 기준이고, ΔV는 Cs : Cb = 1 : 4.5로 잡은 예시 값입니다. 실제 회로에는 전원·접지 트랜지스터와 비트라인 여러 개가 더 있습니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>읽기는 <b>프리차지 → ACT(전하 공유) → 감지 증폭 → 재기록 → RD → PRE</b> 순서입니다. 면접에서는 이 순서와 함께 각 사이의 시간 이름(tRCD, CL, tRAS, tRP)을 말할 수 있어야 합니다.</li>
+      <li>ΔV ≈ (V셀 − VDD/2) × Cs ÷ (Cs + Cb)입니다. Cs가 줄거나 Cb가 늘면 센싱 마진이 줄어, 커패시터를 높게 세우고(3-15) 비트라인 용량을 줄이는(에어갭 스페이서) 이유가 됩니다.</li>
+      <li>D램은 읽으면 셀 전하가 흩어지는 파괴적 읽기라 재기록이 필요하고, 가만히 둬도 전하가 새서 DDR5는 32 ms마다 모든 행을 리프레시합니다.</li>
+    </ul>
+    <p class="foot">원고 2-10의 ②~⑥을 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="dram-cell.html">단계별 애니메이션(dram-cell)</a>을 보세요.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- numbers ----------
+  const VDD = 1.1, HALF = 0.55, DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  /** Linear keyframes (for cursors that should move at a steady pace). */
+  const L = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * (t - a[0]) / (b[0] - a[0]); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  /** 1 inside any [a, b] window, with ramps of f seconds at both ends. */
+  const W = (wins, f) => (t) => { f = f || 0.3; let m = 0; for (const w of wins) { const v = clamp((t - w[0]) / f, 0, 1) * clamp((w[1] - t) / f, 0, 1); if (v > m) m = v; } return m; };
+  const Y = (v) => 450 - v * 300 / VDD;
+  const f2 = (v) => v.toFixed(2);
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [7, "셀 구조"], [19, "비트라인"], [30, "읽기"], [61, "쓰기"], [80, "리프레시"], [105, "정리"],
+  ];
+  const TITLES = [
+    [3.2, "D램 셀 = 트랜지스터 + 커패시터"], [7, "셀이 0과 1을 담는 법"], [19, "셀을 읽으려면: 비트라인"],
+    [30, "읽기 (READ)"], [61, "쓰기 (WRITE)"], [80, "리프레시 (REFRESH)"], [105, "정리"],
+  ];
+  const SUBS = [
+    [0, 3.2, "D램 한 칸은 <b>0과 1</b>을 어떻게 기억할까요?"],
+    [3.2, 7, "셀 하나는 <b>트랜지스터 1개</b>와 <b>커패시터 1개</b>뿐입니다."],
+    [7, 12.5, "커패시터는 전하를 담는 <b>작은 컵</b>입니다. 가득 차면 1, 비어 있으면 0입니다."],
+    [12.5, 19, "트랜지스터는 컵의 <b>문</b>입니다. 워드라인이 켜지면 문이 열립니다."],
+    [19, 24.5, "하지만 컵이 너무 작아 직접 잴 수 없어서, 셀을 긴 <b>비트라인</b>에 연결해 읽습니다."],
+    [24.5, 30, "읽기 전에는 두 비트라인을 전원 전압의 절반, <b>0.55 V</b>로 맞춰 둡니다."],
+    [30, 35, "<b>① ACT</b> 워드라인을 켜면 셀이 비트라인에 연결됩니다."],
+    [35, 42, "작은 컵의 물이 큰 수조로 퍼져 비트라인은 <b>0.1 V</b>만 오르고, 셀의 데이터는 흐트러집니다."],
+    [42, 48, "<b>② 감지 증폭</b> 작은 차이를 끝까지 벌려 BL은 1.1 V, /BL은 0 V가 됩니다."],
+    [48, 52.5, "<b>③ 재기록</b> 읽으면 전하가 흩어지므로 셀을 다시 채웁니다."],
+    [52.5, 56.5, "<b>④ RD</b> 고른 열의 값만 밖으로 나갑니다."],
+    [56.5, 61, "<b>⑤ PRE</b> 행을 닫고 비트라인을 다시 0.55 V로 되돌립니다."],
+    [61, 66, "쓰기도 행을 먼저 열고, 감지 증폭기가 원래 값 <b>1</b>을 잡습니다."],
+    [66, 72.5, "<b>WR</b> 쓰기 드라이버가 증폭기보다 세게 BL을 0 V로 끌어내려 값을 뒤집습니다."],
+    [72.5, 77, "셀이 새 값으로 다 바뀔 때까지 기다리는 시간이 <b>tWR</b>입니다."],
+    [77, 80, "행을 닫으면 셀이 새 값 <b>0</b>을 지킵니다."],
+    [80, 85, "셀에 1을 써 두고 문을 닫으면, 컵은 혼자 전하를 붙잡고 있어야 합니다."],
+    [85, 90, "하지만 전하는 조금씩 <b>새어 나가고</b>, 전압이 서서히 내려갑니다."],
+    [90, 94.5, "그대로 두면 판별 한계 아래로 떨어져 <b>1을 0으로 잘못</b> 읽습니다."],
+    [94.5, 99.5, "그 전에 행을 열고 증폭해 다시 쓰고 닫는 것이 <b>리프레시</b>입니다."],
+    [99.5, 105, "DDR5는 <b>32 ms</b> 안에 모든 행을 한 번씩 합니다. 뜨거우면 더 자주 합니다."],
+    [105, 110, "읽기는 재기록, 쓰기는 래치 뒤집기, 리프레시는 주기적 재기록입니다."],
+    [110, 117, "면접에서는 이 순서와 <b>tRCD·CL·tRAS·tRP</b> 같은 시간 이름을 말할 수 있어야 합니다."],
+  ];
+
+  // ---------- tracks (all functions of the film time t, in seconds) ----------
+  const X = { start: 700, act: 755, shared: 773, senseA: 883, senseB: 926, rd: 993, wrA: 981, wrB: 1018, pre: 1104, preB: 1137, next: 1189, end: 1220 };
+  const WAVE = {
+    read: {
+      bl: [[700, .55], [755, .55], [773, .65], [883, .65], [926, 1.1], [1104, 1.1], [1137, .55], [1220, .55]],
+      blb: [[700, .55], [883, .55], [926, 0], [1104, 0], [1137, .55], [1220, .55]],
+    },
+    write: {
+      bl: [[700, .55], [755, .55], [773, .65], [883, .65], [926, 1.1], [981, 1.1], [1018, 0], [1104, 0], [1137, .55], [1220, .55]],
+      blb: [[700, .55], [883, .55], [926, 0], [981, 0], [1018, 1.1], [1104, 1.1], [1137, .55], [1220, .55]],
+    },
+  };
+  const pathD = (a) => a.map((p, i) => (i ? "L" : "M") + p[0] + "," + Y(p[1]).toFixed(1)).join(" ");
+  const waveAt = (a, x) => {
+    if (x <= a[0][0]) return a[0][1];
+    for (let i = 1; i < a.length; i++) if (x <= a[i][0]) { const p = a[i - 1], q = a[i]; return p[0] === q[0] ? q[1] : p[1] + (q[1] - p[1]) * (x - p[0]) / (q[0] - p[0]); }
+    return a[a.length - 1][1];
+  };
+
+  const curR = L([[30, 700], [32.2, 755], [34.5, 773], [41.5, 883], [45, 926], [48, 945], [52.5, 993], [56.2, 1100], [56.8, 1104], [58.8, 1137], [61, 1220]]);
+  const curW = L([[61, 700], [62.2, 755], [63.6, 773], [64.4, 883], [65.8, 926], [66, 929], [68, 981], [70.2, 1018], [72.5, 1030], [77, 1100], [77.4, 1104], [78.8, 1137], [80, 1220]]);
+
+  const cellV = K([
+    [0, 0], [8, 0], [10.6, 1.1], [32.4, 1.1], [34.6, .65], [42, .65], [46, .9], [49, .95], [52.5, 1.1],
+    [62.4, 1.1], [63.8, .65], [64.6, .65], [66, .95], [68, .95], [70.8, .35], [76.5, 0],
+    [80.4, 0], [82.2, 1.1], [85, 1.1], [90, .85], [94, .6], [94.4, .6], [95.4, .85], [96.3, .85], [98, 1.1], [99.5, 1.1], [102, .92], [105, .92],
+  ]);
+  const blPre = K([[19, .2], [25, .2], [27.8, .55]]), blbPre = K([[19, .85], [25, .85], [27.8, .55]]);
+  const blRef = K([[80, .55], [95.4, .55], [96.2, .605], [96.5, .605], [97.5, 1.1], [98.6, 1.1], [99.4, .55]]);
+  const blbRef = K([[80, .55], [95.4, .55], [96.5, .55], [97.5, 0], [98.6, 0], [99.4, .55]]);
+  const blV = (t) => t < 30 ? blPre(t) : t < 61 ? waveAt(WAVE.read.bl, curR(t)) : t < 80 ? waveAt(WAVE.write.bl, curW(t)) : blRef(t);
+  const blbV = (t) => t < 30 ? blbPre(t) : t < 61 ? waveAt(WAVE.read.blb, curR(t)) : t < 80 ? waveAt(WAVE.write.blb, curW(t)) : blbRef(t);
+
+  const wlV = W([[13.4, 16.8], [31.7, 56.7], [61.7, 77.4], [95.2, 98.9]], .4);
+  const eqV = W([[24.8, 31.7], [56.7, 61.8], [77.4, 81], [98.9, 101]], .3);
+  const saV = W([[41.5, 56.7], [64.3, 77.4], [96.2, 98.9]], .4);
+  const saTag = (t) => (t >= 66.5 && t < 72.5) ? "쓰기" : saV(t) > .5 ? "증폭" : "대기";
+  const flowOutV = W([[32.2, 36], [68.2, 72.5], [95.6, 96.4]], .3);
+  const flowInV = W([[48, 52.5], [65, 66.6], [97, 98.6]], .3);
+  const leakV = W([[85, 94.4], [99.5, 105]], .4);
+  const ioOutV = W([[52.5, 57]], .3), ioInV = W([[66.5, 70.8]], .3);
+  const dvV = W([[34.8, 41.8]], .3);
+
+  const gTitle = K([[0, 1], [3, 1], [3.8, 0]]);
+  const gCell = K([[3.2, 0], [4.6, 1], [105, 1], [106, 0]]);
+  const gBL = K([[19, 0], [20.5, 1], [105, 1], [106, 0]]);
+  const gInfo0 = K([[3.4, 0], [4.2, 1], [6.6, 1], [7.2, 0]]);
+  const gInfo1 = K([[7.2, 0], [8, 1], [12, 1], [12.6, 0]]);
+  const gInfo2 = K([[12.8, 0], [13.6, 1], [18.4, 1], [19, 0]]);
+  const gSize = K([[19.4, 0], [20.4, 1], [29.4, 1], [30.4, 0]]);
+  const gAxes = K([[30, 0], [30.6, 1], [80, 1], [80.6, 0]]);
+  const gRead = K([[30, 0], [30.6, 1], [60.8, 1], [61.6, 0]]);
+  const gWrite = K([[61, 0], [61.6, 1], [79.6, 1], [80.4, 0]]);
+  const gRAxes = K([[80, 0], [81, 1], [105, 1], [106, 0]]);
+  const gRet = gRAxes;
+
+  const rc1 = L([[84.5, 0], [90, 173]]);
+  const rcf = L([[90, 0], [94, 262]]);
+  const rc2 = L([[97.4, 0], [98.8, 174]]);
+  const rc3 = L([[100, 0], [101.5, 173]]);
+  const failV = K([[90, 0], [90.2, 1], [94.4, 1], [95.2, 0]]);
+  const xV = K([[93.2, 0], [93.7, 1], [94.4, 1], [95.2, 0]]);
+  const j1V = K([[97.3, 0], [97.6, 1]]), j2V = K([[99.9, 0], [100.2, 1]]);
+  const hotV = K([[102.5, 0], [103.3, 1]]);
+  const refbarV = K([[100.5, 0], [101.3, 1]]);
+  const refcurX = (t) => { const ph = (((t - 100.5) / 3.2) % 1 + 1) % 1; return 700 + 486 * ph; };
+  const sumV = (i) => K([[105.4 + i * .9, 0], [106.2 + i * .9, 1]]);
+
+  // highlight cues: [from, to, element id]
+  const HL = [
+    [4.4, 5.6, "ch"], [4.4, 5.6, "gate"], [5.6, 7, "cap-box"], [7.3, 12.4, "cap-box"], [12.8, 17.5, "ch"], [12.8, 17.5, "gate"],
+    [19.6, 24.4, "bl-box"], [19.6, 24.4, "blb-box"], [25, 29.8, "eq"],
+    [31, 33, "wl"], [35, 40.5, "bl-box"], [41.8, 46, "sa-box"], [48.2, 52.2, "cap-box"], [52.7, 56.2, "io-out"], [57, 61, "eq"],
+    [62, 64, "wl"], [66.6, 70.6, "io-in"], [66.6, 70.6, "sa-box"], [72.6, 76.4, "cap-box"], [78, 80, "eq"],
+    [85.2, 89.8, "cap-box"], [96.4, 98.5, "sa-box"], [100.5, 104, "refbar-track"],
+    [110, 112.5, "sum-tm-0"], [112.5, 114.5, "sum-tm-1"], [114.5, 116.8, "sum-tm-2"],
+  ];
+
+  // ---------- build the generated parts of the drawing ----------
+  const NS = "http://www.w3.org/2000/svg";
+  const chip = (id, cx, label, dim) => `<g id="${id}" class="chip${dim ? " dim" : ""}"><rect x="${cx - 29}" y="474" width="58" height="30" rx="5"></rect><text x="${cx}" y="495" text-anchor="middle">${label}</text></g>`;
+  const brk = (id, x1, x2, y, label) => `<g id="${id}" class="brk"><line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"></line><line x1="${x1}" y1="${y - 7}" x2="${x1}" y2="${y + 7}"></line><line x1="${x2}" y1="${y - 7}" x2="${x2}" y2="${y + 7}"></line><text x="${(x1 + x2) / 2}" y="${y - 10}" text-anchor="middle">${label}</text></g>`;
+  function waveSVG(k, kind) {
+    const P = WAVE[kind];
+    let s = `<clipPath id="${k}-clip"><rect id="${k}-clip-r" x="700" y="130" width="0" height="330"></rect></clipPath>`;
+    s += `<g clip-path="url(#${k}-clip)"><path class="blb-line" d="${pathD(P.blb)}"></path><path class="bl-line" d="${pathD(P.bl)}"></path></g>`;
+    s += `<circle id="${k}-dotb" class="dot blb" r="8" cx="700" cy="300"></circle><circle id="${k}-dot" class="dot bl" r="8" cx="700" cy="300"></circle>`;
+    if (kind === "read") {
+      s += `<g id="r-dv" class="dv"><line x1="835" y1="${Y(.55)}" x2="835" y2="${Y(.65).toFixed(1)}"></line><line x1="828" y1="${Y(.55)}" x2="842" y2="${Y(.55)}"></line><line x1="828" y1="${Y(.65).toFixed(1)}" x2="842" y2="${Y(.65).toFixed(1)}"></line><text x="876" y="248" text-anchor="end">ΔV ≈ +0.1 V</text></g>`;
+      s += chip("r-act", X.act, "ACT") + chip("r-col", X.rd, "RD") + chip("r-pre", X.pre, "PRE") + chip("r-next", X.next, "ACT", true);
+      s += brk("r-trcd", X.act, X.rd, 548, "tRCD") + brk("r-tras", X.act, X.pre, 590, "tRAS(재기록이 끝날 때까지)") + brk("r-trp", X.pre, X.next, 548, "tRP");
+    } else {
+      s += chip("w-act", X.act, "ACT") + chip("w-col", X.wrA, "WR") + chip("w-pre", X.pre, "PRE") + chip("w-next", X.next, "ACT", true);
+      s += brk("w-trcd", X.act, X.wrA, 548, "tRCD") + brk("w-twr", X.wrB, X.pre, 590, "tWR") + brk("w-trp", X.pre, X.next, 548, "tRP");
+    }
+    return s;
+  }
+  document.getElementById("g-read").innerHTML = waveSVG("r", "read");
+  document.getElementById("g-write").innerHTML = waveSVG("w", "write");
+
+  // hot (shorter refresh period) saw-tooth
+  (function () {
+    const p = 520 / 6; let d = "M700,150";
+    for (let i = 0; i < 6; i++) { const x0 = 700 + i * p, x1 = x0 + p; d += ` C${(x0 + 15).toFixed(1)},190 ${(x0 + 45).toFixed(1)},222 ${x1.toFixed(1)},238 V150`; }
+    document.getElementById("ret-hot").setAttribute("d", d);
+  })();
+
+  // closing cards
+  (function () {
+    const cards = [
+      { h: "읽기", cmd: "ACT → RD → PRE", l: ["읽으면 전하가 흩어진다", "→ 재기록이 꼭 필요"], tm: "tRCD · CL · tRAS · tRP" },
+      { h: "쓰기", cmd: "ACT → WR → PRE", l: ["드라이버가 래치를 뒤집는다", "→ tWR 동안 셀에 쓴다"], tm: "tRCD · tWR · tRP" },
+      { h: "리프레시", cmd: "REF (열고·증폭·닫기)", l: ["새는 전하를 다시 채운다", "→ 32 ms마다 모든 행"], tm: "뜨거우면 더 자주" },
+    ];
+    let s = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 400;
+      s += `<g id="sum-${i}"><rect class="card" x="${x}" y="120" width="360" height="400" rx="14"></rect>`
+        + `<text x="${x + 24}" y="192" style="font-size:44px;font-weight:700" class="acc-t">${c.h}</text>`
+        + `<text x="${x + 24}" y="240" class="mono" style="font-size:22px">${c.cmd}</text>`
+        + `<line x1="${x + 24}" y1="264" x2="${x + 336}" y2="264" class="grid-line"></line>`
+        + `<text x="${x + 24}" y="314" style="font-size:24px">${c.l[0]}</text>`
+        + `<text x="${x + 24}" y="350" style="font-size:24px;font-weight:600">${c.l[1]}</text>`
+        + `<rect id="sum-tm-${i}" class="pill" x="${x + 20}" y="424" width="320" height="52" rx="10"></rect>`
+        + `<text x="${x + 180}" y="458" text-anchor="middle" class="mono" style="font-size:22px;font-weight:600">${c.tm}</text></g>`;
+    });
+    document.getElementById("g-sum").innerHTML = s;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const state = (id, on) => setAttr(id, "data-s", on ? "on" : "idle");
+
+  // ---------- render ----------
+  let hlOn = new Set();
+  function render(t) {
+    // scene title (fades in at each change)
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+
+    op("g-title", gTitle(t)); op("g-cell", gCell(t)); op("g-bl", gBL(t)); op("g-sa", gBL(t));
+    op("g-info0", gInfo0(t)); op("g-info1", gInfo1(t)); op("g-info2", gInfo2(t)); op("g-size", gSize(t)); op("g-axes", gAxes(t)); op("g-read", gRead(t)); op("g-write", gWrite(t));
+    op("g-raxes", gRAxes(t)); op("g-ret", gRet(t));
+
+    // cell
+    const cv = cellV(t), h = 188 * clamp(cv / VDD, 0, 1);
+    setAttr("cap-fill", "y", (464 - h).toFixed(1)); setAttr("cap-fill", "height", h.toFixed(1));
+    setText("cap-v", f2(cv) + " V");
+    setText("cap-bit", cv > 0.7 ? "1" : cv < 0.2 ? "0" : "?");
+    setStyle("cap-bit", "fill", cv > 0.55 ? "var(--surface)" : "var(--ink)");
+    const wl = wlV(t) > .5;
+    state("wl", wl); state("gate-link", wl); state("gate", wl); state("ch", wl);
+    setText("wl-tag", wl ? "켜짐" : "꺼짐");
+    op("flow-out", flowOutV(t)); op("flow-in", flowInV(t)); op("leak", leakV(t));
+
+    // bit lines
+    const bv = blV(t), bbv = blbV(t);
+    const bh = 252 * clamp(bv / VDD, 0, 1), bbh = 252 * clamp(bbv / VDD, 0, 1);
+    setAttr("bl-fill", "y", (434 - bh).toFixed(1)); setAttr("bl-fill", "height", bh.toFixed(1));
+    setAttr("blb-fill", "y", (434 - bbh).toFixed(1)); setAttr("blb-fill", "height", bbh.toFixed(1));
+    setText("bl-v", f2(bv) + " V"); setText("blb-v", f2(bbv) + " V");
+    state("eq", eqV(t) > .5);
+    state("sa-box", saV(t) > .5); setText("sa-tag", saTag(t));
+    op("io-out", ioOutV(t)); op("io-in", ioInV(t)); op("io-lbl", Math.max(ioOutV(t), ioInV(t)));
+
+    // size panel (cup = cell, tank = bit line)
+    const ch = 208 * clamp(cv / VDD, 0, 1), th = 208 * clamp(bv / VDD, 0, 1);
+    setAttr("size-cup-fill", "y", (404 - ch).toFixed(1)); setAttr("size-cup-fill", "height", ch.toFixed(1));
+    setAttr("size-tank-fill", "y", (404 - th).toFixed(1)); setAttr("size-tank-fill", "height", th.toFixed(1));
+
+    // read / write graphs
+    const xr = curR(t), xw = curW(t);
+    setAttr("r-clip-r", "width", (xr - 700).toFixed(1)); setAttr("w-clip-r", "width", (xw - 700).toFixed(1));
+    setAttr("r-dot", "cx", xr.toFixed(1)); setAttr("r-dot", "cy", Y(waveAt(WAVE.read.bl, xr)).toFixed(1));
+    setAttr("r-dotb", "cx", xr.toFixed(1)); setAttr("r-dotb", "cy", Y(waveAt(WAVE.read.blb, xr)).toFixed(1));
+    setAttr("w-dot", "cx", xw.toFixed(1)); setAttr("w-dot", "cy", Y(waveAt(WAVE.write.bl, xw)).toFixed(1));
+    setAttr("w-dotb", "cx", xw.toFixed(1)); setAttr("w-dotb", "cy", Y(waveAt(WAVE.write.blb, xw)).toFixed(1));
+    op("r-dv", dvV(t));
+    const appear = (id, t0) => op(id, clamp((t - t0) / 0.3, 0, 1));
+    appear("r-act", 32.2); appear("r-col", 52.5); appear("r-pre", 56.7); appear("r-next", 58.8);
+    appear("r-trcd", 52.6); appear("r-tras", 57); appear("r-trp", 58.9);
+    appear("w-act", 62.2); appear("w-col", 68); appear("w-pre", 77.4); appear("w-next", 78.8);
+    appear("w-trcd", 68.1); appear("w-twr", 72.6); appear("w-trp", 78.9);
+
+    // retention graph
+    setAttr("rc1", "width", rc1(t).toFixed(1)); setAttr("rcf", "width", rcf(t).toFixed(1));
+    setAttr("rc2", "width", rc2(t).toFixed(1)); setAttr("rc3", "width", rc3(t).toFixed(1));
+    op("g-fail", failV(t)); op("ret-x", xV(t)); op("ret-x-lbl", xV(t));
+    op("ret-j1", j1V(t)); op("ret-j2", j2V(t)); op("ret-hot", hotV(t)); op("ret-hot-lbl", hotV(t));
+    op("refbar", refbarV(t)); setAttr("refcur", "x", refcurX(t).toFixed(1));
+
+    // closing cards
+    for (let i = 0; i < 3; i++) op("sum-" + i, sumV(i)(t));
+
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (s) => { s = Math.floor(s); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc, i) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const dt = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + dt * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+</script>
+</body>
+</html>

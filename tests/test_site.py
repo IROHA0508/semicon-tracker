@@ -95,6 +95,8 @@ def test_units_point_to_files():
         for a in u["animations"]:
             # the unit page embeds the animation with ?embed; the player hides the page header then
             assert (ROOT / a["file"]).is_file(), a["file"]
+        for f in u["films"]:
+            assert (ROOT / f["file"]).is_file(), f["file"]
     assert (ROOT / THEORY["overview"]["file"]).is_file()
     assert (ROOT / THEORY["sources"]["file"]).is_file()
 

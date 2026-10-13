@@ -175,6 +175,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 도체·반도체·절연체를 밴드갭으로 가르는 대학 강의(1-3과 이어짐)"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/semiconductor-basics.html",
@@ -234,6 +235,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 교수 강의로 공정 순서를 정리"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/chip-life.html",
@@ -294,6 +296,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 시스템 반도체 예시: 전원 관리 칩"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/chip-types.html",
@@ -359,6 +362,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 저장장치 SSD와 낸드"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/chip-map.html",
@@ -417,6 +421,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 저항·커패시터·인덕터"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/electricity-basics.html",
@@ -468,6 +473,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 커패시터 부분"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/capacitor.html",
@@ -536,6 +542,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 2층 소자 해석에 계속 쓰는 그림 읽는 법"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/energy-band.html",
@@ -594,6 +601,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 밴드갭 크기에 따라 전도도가 달라지는 이유"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/why-silicon.html",
@@ -652,6 +660,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 기본. 전류가 흐르는 두 방식"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/doping.html",
@@ -706,6 +715,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 컴퓨터의 역사와 구조"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/logic-gates.html",
@@ -768,6 +778,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 기본. 정류 작용"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/pn-junction.html",
@@ -835,6 +846,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 반전층이 생기는 과정"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/mosfet.html",
@@ -893,6 +905,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 누설과 문턱전압 변화"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/mosfet-iv.html",
@@ -945,6 +958,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": [
     {
      "file": "animations/cmos-inverter.html",
@@ -1008,6 +1022,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 입문. 누설 문제와 구조 혁신"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/scaling.html",
@@ -1073,6 +1088,7 @@
      "note": "Applied Materials · 영어. 장비 회사의 GAA 설명 영상과 해설 글"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/transistor-evolution.html",
@@ -1138,6 +1154,7 @@
      "note": "Branch Education · 영어, 약 35분. 애니메이션. D램 셀과 배열은 12:09~17:41(2-10과 이어짐)"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/memory-hierarchy.html",
@@ -1208,6 +1225,7 @@
      "note": "SK하이닉스 · 입문. 낸드 쓰기·지우기에 쓰이는 터널링 효과"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/nand-flash.html",
@@ -1276,6 +1294,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 이미지센서 화소와 컬러 필터"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/other-devices.html",
@@ -1368,6 +1387,22 @@
      "note": "Onur Mutlu(TU Wien 2019) · 영어, 심화. 뱅크·로우 버퍼·타이밍"
     }
    ],
+   "films": [
+    {
+     "file": "animations/dram-film.html",
+     "title": "D램 읽기·쓰기·리프레시",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "셀 구조",
+      "비트라인",
+      "읽기",
+      "쓰기",
+      "리프레시",
+      "정리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/dram-cell.html",
@@ -1455,6 +1490,7 @@
      "note": "Onur Mutlu(ETH 취리히 SSD 강좌) · 영어, 심화. 낸드 읽기·쓰기 동작"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/nand-ispp.html",
@@ -1545,6 +1581,7 @@
      "note": "SK하이닉스 · 입문. 공정 전체를 과학 원리로"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/fab-intro.html",
@@ -1604,6 +1641,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 웨이퍼 제조 부분"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/wafer-making.html",
@@ -1670,6 +1708,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 세정 부분"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/cleaning.html",
@@ -1735,6 +1774,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 산화막 두께가 자라는 속도"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/oxidation.html",
@@ -1814,6 +1854,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 심화. 마스크 패턴을 미리 보정하는 OPC"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/photo.html",
@@ -1880,6 +1921,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 기본. 진공과 플라즈마"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/plasma.html",
@@ -1950,6 +1992,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/etching.html",
@@ -2028,6 +2071,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/deposition.html",
@@ -2105,6 +2149,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/ion-implant.html",
@@ -2176,6 +2221,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. HKMG"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/metallization.html",
@@ -2245,6 +2291,7 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/cmp.html",
@@ -2306,6 +2353,7 @@
      "note": "SK하이닉스 · 입문. 테스트 종류"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/eds-test.html",
@@ -2367,6 +2415,7 @@
      "note": "SK하이닉스 · 입문. 패키지 공정과 HBM"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/packaging.html",
@@ -2430,6 +2479,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 현장. 불량 원인 분석과 수율"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/yield.html",
@@ -2510,6 +2560,7 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 전체 흐름 복습"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/cmos-flow.html",
@@ -2558,6 +2609,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": [
     {
      "file": "animations/dram-process.html",
@@ -2618,6 +2670,7 @@
      "note": "SK하이닉스 · 짧은 영상. 321단 개발 이야기"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/nand-process.html",
@@ -2681,6 +2734,7 @@
      "note": "SK하이닉스 · 입문. 테스트 종류와 검사 항목"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/memory-test.html",
@@ -2745,6 +2799,7 @@
      "note": "Applied Materials · 영어. 장비 회사의 GAA 설명 영상과 해설 글"
     }
    ],
+   "films": [],
    "animations": []
   },
   {
@@ -2792,6 +2847,7 @@
      "note": "삼성전자 반도체 뉴스룸 · EUV 스캐너를 다루는 현장"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/euv-litho.html",
@@ -2856,6 +2912,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": [
     {
      "file": "animations/dram-evolution.html",
@@ -2926,6 +2983,7 @@
      "note": "SK하이닉스 · 짧은 영상"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/nand-deep.html",
@@ -3005,6 +3063,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 2026년 3월. HBM4 성능·적층 로드맵"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/hbm-stack.html",
@@ -3073,6 +3132,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 입문. 첨단 패키징(AVP)"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/adv-packaging.html",
@@ -3160,6 +3220,7 @@
      "note": "Onur Mutlu · 영어, 심화. 메모리 중심 컴퓨팅(PIM) 강연"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/ai-memory.html",
@@ -3208,6 +3269,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3244,6 +3306,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3277,6 +3340,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3314,6 +3378,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3354,6 +3419,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 메모리 수요와 투자를 전망하는 일"
     }
    ],
+   "films": [],
    "animations": []
   },
   {
@@ -3392,6 +3458,7 @@
      "note": "JTBC(K-MOOC) · 한국 반도체 산업의 성장사"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/company-map.html",
@@ -3456,6 +3523,7 @@
      "note": "SBS · 각국의 반도체 경쟁"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/geopolitics.html",
@@ -3508,6 +3576,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3549,6 +3618,7 @@
      "note": "삼성전자 반도체 뉴스룸 · 초순수를 만드는 과정(물 관리)"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/esg.html",
@@ -3627,6 +3697,7 @@
      "note": "삼성전자 반도체 뉴스룸"
     }
    ],
+   "films": [],
    "animations": [
     {
      "file": "animations/job-map.html",
@@ -3674,6 +3745,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3702,6 +3774,7 @@
     }
    ],
    "videos": [],
+   "films": [],
    "animations": []
   },
   {
@@ -3716,6 +3789,7 @@
    "file": "theory/units/6-4.md",
    "figures": [],
    "videos": [],
+   "films": [],
    "animations": []
   }
  ],
@@ -3725,6 +3799,7 @@
   "videoLinks": 111,
   "videoUrls": 88,
   "unitsWithVideos": 48,
-  "animations": 49
+  "animations": 49,
+  "films": 1
  }
 }
