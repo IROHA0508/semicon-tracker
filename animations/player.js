@@ -23,6 +23,29 @@
 (function () {
   "use strict";
 
+  // Opened inside the site's unit page (animations/x.html?embed): show only the drawing and the
+  // step panel, and tell the parent page how tall the content is so the frame fits it.
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => {
+      try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ }
+    };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement);
+    else window.addEventListener("resize", send);
+  } else {
+    // Opened on its own: the unit chip leads back to the unit page of the site.
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back";
+      a.href = "../index.html#unit/" + chip.textContent.trim();
+      a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip);
+      a.appendChild(chip);
+    }
+  }
+
   const reduceMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const MOTION = { stagger: 70, staggerMax: 560, tween: 700, draw: 900 };
   const easeInOut = (p) => (p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);

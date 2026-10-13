@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="삼성전자·SK하이닉스 공식 뉴스룸 소식을 한국어로 요약하고, 기사마다 반도체 이론 단원을 이어 주는 개인 면접 공부 사이트">
+<title>반도체 뉴스 트래커</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: market feed as a dated ledger with a study sidebar; theory as a building of 7 floors.
+   Colors and type follow animations/player.css: cool grey ground, one copper accent. */
+:root {
+  --bg: #f2f4f6;
+  --surface: #ffffff;
+  --ink: #1a1f26;
+  --muted: #5a6472;
+  --faint: #8a93a0;
+  --line: #d6dbe2;
+  --line-strong: #a9b2bd;
+  --tint: #e9edf1;
+  --accent: #b5541a;
+  --accent-ink: #9a4614;
+  --accent-soft: #f6e3d5;
+  --on-accent: #ffffff;
+  --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 10px;
+  --tabbar: 0px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121519; --surface: #1a1e24; --ink: #e5e8ec; --muted: #9ba5b2; --faint: #6f7987;
+    --line: #2d333b; --line-strong: #4a535e; --tint: #22272e;
+    --accent: #ef8a4c; --accent-ink: #f3a273; --accent-soft: #3a2619; --on-accent: #1a1e24;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121519; --surface: #1a1e24; --ink: #e5e8ec; --muted: #9ba5b2; --faint: #6f7987;
+  --line: #2d333b; --line-strong: #4a535e; --tint: #22272e;
+  --accent: #ef8a4c; --accent-ink: #f3a273; --accent-soft: #3a2619; --on-accent: #1a1e24;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.65 var(--font-sans);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(var(--tabbar) + env(safe-area-inset-bottom, 0px));
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+button { font: inherit; color: inherit; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--surface); padding: 8px 12px; z-index: 50; }
+.skip:focus { left: 8px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+@media (min-width: 700px) { .wrap { padding-inline: 24px; } }
+
+/* ---------- top bar ---------- */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.top-in { display: flex; align-items: center; gap: 20px; min-height: 58px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+.brand svg { flex: none; }
+.brand .name { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; white-space: nowrap; }
+.brand .tmp { font: 500 10.5px/1 var(--font-mono); color: var(--faint); border: 1px solid var(--line-strong); border-radius: 3px; padding: 3px 5px; white-space: nowrap; }
+.tabs { display: flex; gap: 2px; }
+.tabs a {
+  display: flex; align-items: center; gap: 7px;
+  text-decoration: none; font-weight: 600; font-size: 14.5px; color: var(--muted);
+  padding: 8px 14px; border-radius: 999px;
+}
+.tabs a svg { width: 18px; height: 18px; display: none; }
+.tabs a:hover { color: var(--ink); background: var(--surface); }
+.tabs a[aria-current="page"] { color: var(--surface); background: var(--ink); }
+.stamp { margin-left: auto; font: 12px/1.4 var(--font-mono); color: var(--muted); text-align: right; white-space: nowrap; }
+.stamp b { color: var(--ink); font-weight: 500; }
+@media (max-width: 759px) {
+  :root { --tabbar: 62px; }
+  /* a backdrop filter would make the header the containing block of the fixed tab bar */
+  .top { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); }
+  .top-in { min-height: 52px; }
+  .stamp { font-size: 11px; }
+  .tabs {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    justify-content: space-around; gap: 0;
+  }
+  .tabs a { flex: 1; flex-direction: column; gap: 2px; font-size: 11.5px; padding: 6px 4px; border-radius: 8px; justify-content: center; }
+  .tabs a svg { display: block; }
+  .tabs a[aria-current="page"] { background: transparent; color: var(--accent); }
+}
+@media (max-width: 420px) { .brand .tmp { display: none; } }
+
+/* ---------- shared bits ---------- */
+main { padding-block: 24px 64px; outline: none; }
+.page-head { display: grid; gap: 6px; margin-bottom: 18px; }
+.page-head h1 { margin: 0; font-size: clamp(24px, 3.4vw, 30px); line-height: 1.25; letter-spacing: -0.015em; text-wrap: balance; }
+.page-head .lead { margin: 0; color: var(--muted); max-width: 66ch; }
+.eyebrow { font: 500 12px/1.4 var(--font-mono); letter-spacing: .06em; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.eyebrow a { text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 13.5px/1 var(--font-sans); color: var(--ink);
+  padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: transparent; cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.chip .n { font: 500 11.5px/1 var(--font-mono); color: var(--faint); }
+.chip[aria-pressed="true"] .n { color: inherit; opacity: .7; }
+.tag {
+  display: inline-flex; align-items: center; font-size: 12.5px; line-height: 1; color: var(--muted);
+  background: var(--tint); border-radius: 4px; padding: 5px 7px; text-decoration: none; white-space: nowrap;
+}
+a.tag:hover, button.tag:hover { color: var(--ink); background: var(--line); }
+button.tag { border: 0; cursor: pointer; }
+.stars { color: var(--accent); letter-spacing: .05em; font-size: 12px; white-space: nowrap; }
+.stars .off { color: var(--line-strong); }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 12px; align-content: start; }
+.box h2 { margin: 0; font-size: 14px; letter-spacing: .01em; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.box h2 small { font: 400 12px var(--font-mono); color: var(--faint); }
+.note { font-size: 12.5px; color: var(--muted); margin: 0; }
+.bar { height: 6px; border-radius: 3px; background: var(--tint); overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.state { padding: 48px 0; color: var(--muted); }
+.state b { color: var(--ink); display: block; font-size: 17px; margin-bottom: 4px; }
+.skeleton { height: 120px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--line) 60%, transparent), transparent); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.section-title { display: flex; align-items: baseline; gap: 12px; margin: 34px 0 10px; }
+.section-title h2 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
+.section-title span { font: 12px var(--font-mono); color: var(--faint); }
+
+/* ---------- news ---------- */
+.news-grid { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.news-main { min-width: 0; }
+.news-side { display: grid; gap: 14px; min-width: 0; }
+@media (min-width: 960px) {
+  .news-grid { grid-template-columns: minmax(0, 1fr) 312px; gap: 36px; }
+  .news-side { position: sticky; top: 76px; max-height: calc(100vh - 92px); overflow-y: auto; padding-bottom: 8px; scrollbar-width: thin; }
+}
+.week-mobile { margin-bottom: 18px; }
+@media (min-width: 960px) { .week-mobile { display: none; } }
+@media (max-width: 959px) { .news-side { display: none; } }
+.filters { display: grid; gap: 10px; margin-bottom: 6px; }
+.frow { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.flabel { font: 600 12px/1 var(--font-sans); color: var(--faint); min-width: 2.6em; }
+.search { flex: 1 1 220px; min-width: 0; display: flex; align-items: center; gap: 8px; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0 12px; background: var(--surface); }
+.search:focus-within { border-color: var(--ink); }
+.search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 14px/1 var(--font-sans); color: var(--ink); padding: 9px 0; }
+.search svg { flex: none; color: var(--faint); }
+.result { font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; min-height: 30px; }
+.active-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-soft); color: var(--accent-ink); border-radius: 999px; padding: 5px 6px 5px 11px; font-weight: 600; font-size: 13px; text-decoration: none; }
+.active-tag span { font-size: 15px; line-height: 1; padding: 0 4px; }
+.month { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 0; }
+.month h2 { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
+.month span { font: 12px var(--font-mono); color: var(--faint); }
+.month::after { content: ""; flex: 1; border-top: 1px solid var(--line-strong); transform: translateY(-4px); }
+.entries { list-style: none; margin: 0; padding: 0; }
+.entry { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.when .d { display: block; font-size: 17px; font-weight: 500; line-height: 1.2; }
+.when .w { font-size: 12px; color: var(--faint); }
+.e-body { min-width: 0; display: grid; gap: 8px; }
+.e-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+.co { font-weight: 700; font-size: 12px; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 4px; padding: 2px 6px; line-height: 1.3; white-space: nowrap; }
+.channel { font: 500 12px var(--font-mono); letter-spacing: .02em; }
+.badge { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); white-space: nowrap; line-height: 1.5; }
+.badge.fact { border-color: var(--accent); color: var(--accent-ink); }
+.badge.guest { border-style: dashed; }
+.e-title { margin: 0; font-size: 18.5px; line-height: 1.4; letter-spacing: -0.01em; text-wrap: pretty; }
+.e-title a { text-decoration: none; }
+.e-title a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.orig { margin: -4px 0 0; font-size: 13px; color: var(--faint); }
+.e-sum { margin: 0; display: grid; gap: 4px; padding: 0; list-style: none; color: var(--ink); max-width: 72ch; }
+.say { margin: 2px 0 0; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent-soft) 55%, transparent); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 14.5px; max-width: 72ch; }
+.say b { display: block; font-size: 11.5px; color: var(--accent-ink); letter-spacing: .04em; margin-bottom: 1px; }
+.e-foot { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-top: 2px; }
+.e-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.units { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.units .lab { font-size: 12px; color: var(--faint); }
+.ulink { display: inline-flex; gap: 6px; align-items: center; text-decoration: none; font-size: 13px; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; background: var(--surface); }
+.ulink:hover { border-color: var(--accent); }
+.ulink .code { font: 600 12px var(--font-mono); color: var(--accent-ink); }
+.ulink.read::after { content: "✓"; color: var(--accent); font-size: 12px; }
+.out { margin-left: auto; font-size: 13px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.out:hover { color: var(--ink); text-decoration: underline; }
+@media (max-width: 599px) {
+  .entry { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 18px 0; }
+  .when { display: flex; gap: 6px; align-items: baseline; }
+  .when .d { display: inline; font-size: 13px; }
+  .e-title { font-size: 17px; }
+  .out { margin-left: 0; }
+}
+.side-week ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.side-week a { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; text-decoration: none; padding: 7px 8px; margin-inline: -8px; border-radius: 6px; }
+.side-week a:hover { background: var(--bg); }
+.side-week .code { font: 600 12.5px var(--font-mono); color: var(--accent-ink); }
+.side-week .t { font-size: 14px; line-height: 1.4; }
+.side-week .t small { display: block; font-size: 12px; color: var(--faint); }
+.side-week .c { font: 12px var(--font-mono); color: var(--muted); white-space: nowrap; }
+.side-week .read .t::after { content: " ✓"; color: var(--accent); }
+.cloud { display: flex; flex-wrap: wrap; gap: 5px; }
+details.alltags summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+details.alltags .grp { margin-top: 10px; }
+details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); margin-bottom: 4px; font-weight: 600; }
+.prog-line { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.prog-line b { color: var(--ink); font: 500 13px var(--font-mono); }
+
+/* ---------- theory map ---------- */
+.theory-tools { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.prog-sum { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+.prog-sum .k { display: grid; gap: 4px; min-width: 150px; }
+.prog-sum .k span { font-size: 12.5px; color: var(--muted); display: flex; justify-content: space-between; gap: 10px; }
+.prog-sum .k b { font: 500 12.5px var(--font-mono); color: var(--ink); }
+.guide-link { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; font-size: 14px; text-decoration: none; color: var(--accent-ink); }
+.guide-link:hover { text-decoration: underline; }
+.floor { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 22px 0; border-top: 1px solid var(--line-strong); }
+.floor:first-of-type { border-top: 0; }
+@media (min-width: 860px) { .floor { grid-template-columns: 220px minmax(0, 1fr); gap: 28px; } }
+.f-rail { display: grid; gap: 6px; align-content: start; }
+.f-num { display: flex; align-items: baseline; gap: 8px; }
+.f-num .big { font: 600 34px/1 var(--font-mono); letter-spacing: -0.03em; }
+.f-num .lv { font: 500 12px var(--font-mono); color: var(--faint); }
+.f-rail h2 { margin: 0; font-size: 17px; letter-spacing: -0.01em; }
+.f-rail p { margin: 0; font-size: 13px; color: var(--muted); }
+.f-rail .f-prog { display: grid; gap: 4px; max-width: 200px; }
+.f-rail .f-prog span { font: 12px var(--font-mono); color: var(--faint); }
+.tiles { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 232px), 1fr)); align-content: start; }
+.tile { display: grid; gap: 6px; align-content: start; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 11px 13px 12px; min-height: 104px; position: relative; }
+.tile:hover { border-color: var(--accent); }
+.tile-top { display: flex; align-items: center; gap: 8px; }
+.tile-top .code { font: 600 12.5px var(--font-mono); color: var(--accent-ink); }
+.tile-top .done { margin-left: auto; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 11px; display: grid; place-items: center; font-weight: 700; }
+.tile-title { font-size: 14.5px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.tile-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--faint); margin-top: auto; }
+.tile.is-read { background: color-mix(in srgb, var(--surface) 60%, var(--bg)); }
+.tile.is-read .tile-title { color: var(--muted); }
+.tile.dim { display: none; }
+.floor.empty { display: none; }
+
+/* ---------- unit page ---------- */
+.unit-head { display: grid; gap: 10px; margin-bottom: 8px; }
+.unit-head h1 { margin: 0; font-size: clamp(23px, 3.3vw, 31px); line-height: 1.3; letter-spacing: -0.015em; text-wrap: balance; max-width: 30ch; }
+.unit-code { font: 600 13px var(--font-mono); color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 999px; padding: 3px 9px; }
+.freq { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13.5px; color: var(--muted); }
+.unit-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 7px; font: 600 14px/1 var(--font-sans); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; text-decoration: none; }
+.btn:hover { border-color: var(--ink); }
+.btn.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.unit-meta { display: grid; gap: 8px; padding: 8px 0 4px; margin-top: 2px; }
+.unit-meta .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.unit-meta .row > b { font-size: 12px; color: var(--faint); font-weight: 600; min-width: 5.5em; }
+.unit-toc { display: flex; flex-wrap: wrap; gap: 4px 2px; align-items: center; margin: 4px 0 18px; padding: 10px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.unit-toc b { font-size: 12px; color: var(--faint); font-weight: 600; margin-right: 8px; }
+.unit-toc a { text-decoration: none; font-size: 13.5px; color: var(--muted); padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+.unit-toc a:hover { color: var(--ink); background: var(--surface); }
+.unit-toc a.anim-jump { color: var(--accent-ink); font-weight: 600; }
+
+/* rendered manuscript */
+.md { font-size: 16px; line-height: 1.75; }
+.md > * { margin: 0 0 14px; max-width: 74ch; }
+.md > .tbl, .md > .anim-block { max-width: 100%; }
+.md h1, .md h2 { font-size: 21px; line-height: 1.35; margin: 34px 0 12px; letter-spacing: -0.01em; }
+.md h3 { font-size: 17px; margin: 28px 0 10px; }
+.md h3.sec { font-size: 18px; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 30px; }
+.md h3.sub { font-size: 15.5px; margin: 24px 0 8px; }
+.md strong.lab { display: inline-block; font-size: 12px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); border-radius: 4px; padding: 1px 7px; margin-right: 6px; transform: translateY(-1px); letter-spacing: .02em; }
+.md ol, .md ul { padding-left: 1.4em; }
+.md li { margin: 6px 0; }
+.md li > ul, .md li > ol { margin-top: 4px; }
+.md code { font: 500 .86em var(--font-mono); background: var(--tint); border-radius: 4px; padding: 1px 5px; }
+.md a { color: var(--accent-ink); text-underline-offset: 2px; }
+.md figure { margin: 22px 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.md figure img { display: block; width: 100%; height: auto; }
+.md figure figcaption { font-size: 13px; color: var(--muted); padding-top: 10px; }
+.md .tbl { overflow-x: auto; margin: 18px 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); max-width: 100%; }
+.md table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.55; }
+.md th, .md td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.md th { font-size: 12.5px; color: var(--muted); background: var(--tint); font-weight: 600; white-space: nowrap; }
+.md tr:last-child td { border-bottom: 0; }
+.md hr { border: 0; border-top: 1px solid var(--line); }
+
+.anim-block { margin: 30px 0; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--bg); overflow: hidden; }
+.anim-bar { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.anim-bar h2 { margin: 0; font-size: 16px; display: flex; gap: 8px; align-items: center; }
+.anim-bar h2 svg { color: var(--accent); }
+.anim-bar .sub { font-size: 13px; color: var(--muted); }
+.anim-bar a { margin-left: auto; font-size: 13px; color: var(--muted); text-decoration: none; }
+.anim-bar a:hover { color: var(--ink); text-decoration: underline; }
+.anim-block iframe { display: block; width: 100%; border: 0; height: 760px; background: var(--bg); }
+.unit-news .entry { grid-template-columns: 64px minmax(0, 1fr); }
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 36px; }
+.pager a { display: grid; gap: 2px; text-decoration: none; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: var(--surface); min-width: 0; }
+.pager a:hover { border-color: var(--accent); }
+.pager a small { font-size: 12px; color: var(--faint); }
+.pager a span { font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pager .next { text-align: right; grid-column: 2; }
+
+/* ---------- sources ---------- */
+.src-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); }
+.src { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; }
+.src h3 { margin: 0; font-size: 16px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.src h3 span { font: 12px var(--font-mono); color: var(--faint); white-space: nowrap; }
+.src dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: 13.5px; }
+.src dt { color: var(--faint); }
+.src dd { margin: 0; }
+.src a { color: var(--accent-ink); }
+.badge-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; max-width: 760px; }
+.badge-list li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; align-items: baseline; font-size: 14.5px; }
+.rules { max-width: 74ch; padding-left: 1.2em; display: grid; gap: 6px; margin: 0; }
+.foot { border-top: 1px solid var(--line); padding-block: 18px 28px; font-size: 12.5px; color: var(--muted); display: grid; gap: 4px; }
+
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#view">본문으로 건너뛰기</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#news" aria-label="반도체 뉴스 트래커 처음으로">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="14" cy="14" r="12.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M11.5 26.4 L14 23.8 L16.5 26.4" fill="var(--bg)" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <g fill="currentColor"><rect x="7.5" y="7.5" width="5" height="5" rx=".6"/><rect x="15.5" y="7.5" width="5" height="5" rx=".6" fill="var(--accent)"/><rect x="7.5" y="15.5" width="5" height="5" rx=".6"/><rect x="15.5" y="15.5" width="5" height="5" rx=".6"/></g>
+      </svg>
+      <span class="name">반도체 뉴스 트래커</span><span class="tmp">임시 이름</span>
+    </a>
+    <nav class="tabs" aria-label="화면">
+      <a href="#news" data-tab="news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 5-7 4 4"/><path d="M3 21h18"/></svg>시장 흐름</a>
+      <a href="#theory" data-tab="theory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="15" width="16" height="5" rx="1"/><rect x="5.5" y="9.5" width="13" height="5" rx="1"/><rect x="7" y="4" width="10" height="5" rx="1"/></svg>이론 공부</a>
+      <a href="#sources" data-tab="sources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>출처</a>
+    </nav>
+    <div class="stamp" id="stamp" aria-live="polite"></div>
+  </div>
+</header>
+
+<main id="view" class="wrap" tabindex="-1">
+  <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+</main>
+
+<footer class="wrap foot">
+  <span>개인 공부용 비공식 요약입니다. 수치와 표현은 각 회사 뉴스룸 원문에서 확인하세요.</span>
+  <span>삼성전자 반도체 뉴스룸과 SK하이닉스 뉴스룸을 하루 4번(한국 시간 07·13·19·01시 무렵) 확인해 Claude가 한국어로 요약합니다. 기사 본문은 저장하지 않습니다.</span>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var CO = { samsung: "삼성전자", skhynix: "SK하이닉스" };
+  var CO_ORDER = ["samsung", "skhynix"];
+  var BADGE = { press: "공식 발표", fact: "공식 해명", tech: "기술 해설" };
+  var KIND_ORDER = ["press", "fact", "tech"];
+  var WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+  var COLLECT = {
+    "sk-fact": "전체(보도에 대한 회사 입장)",
+    "sk-tech": "전체(기술 해설, 외부 기고 포함)",
+    "sk-press": "전체(보도자료)",
+    "samsung-newsroom": "보도자료·기술(문화·ESG 제외)"
+  };
+
+  var S = {
+    loaded: false, error: null, manifest: null, items: [], theory: null, tags: null,
+    units: {}, order: [], newsByUnit: {}, md: {},
+    co: "all", kind: "all", q: "", tfilter: "all"
+  };
+  function load(key, fallback) { try { var v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } }
+  function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* private window */ } }
+  var read = load("st-read", {});
+  if (!read || typeof read !== "object") read = {};
+  S.co = load("st-co", "all"); if (S.co !== "all" && !CO[S.co]) S.co = "all";
+  S.kind = load("st-kind", "all"); if (S.kind !== "all" && !BADGE[S.kind]) S.kind = "all";
+  S.tfilter = load("st-tfilter", "all");
+
+  var view = document.getElementById("view");
+
+  /* ---------- small helpers ---------- */
+  function h(tag, attrs, kids) {
+    var el = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      var v = attrs[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === "text") el.textContent = v;
+      else if (k === "html") el.innerHTML = v;
+      else if (k.slice(0, 2) === "on") el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? "" : v);
+    });
+    (kids || []).forEach(function (c) {
+      if (c === null || c === undefined || c === false) return;
+      el.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+    });
+    return el;
+  }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function ymd(s) { var p = String(s).split("-"); return { y: +p[0], m: +p[1], d: +p[2] }; }
+  function fmtDate(s) { var p = String(s).split("-"); return p[0] + "." + p[1] + "." + p[2]; }
+  function weekday(s) { var t = ymd(s); return WEEK[new Date(t.y, t.m - 1, t.d).getDay()]; }
+  function unitKey(code) { var p = code.split("-"); return +p[0] * 100 + +p[1]; }
+  function shortTitle(t) { var s = t.split(":")[0].split(" — ")[0]; return s.length > 18 ? s.slice(0, 17) + "…" : s; }
+  function starEl(n, freq) {
+    if (!n) return h("span", { class: "stars", title: freq || "공부 전략·연습 단원(별표 없음)", text: "—" });
+    var full = "★★★".slice(0, n), off = "★★★".slice(0, 3 - n);
+    return h("span", { class: "stars", title: "면접 빈도 " + (freq || full), "aria-label": "면접 빈도 별 " + n + "개" }, [full, off ? h("span", { class: "off", text: off }) : null]);
+  }
+  function isRead(code) { return !!read[code]; }
+  function setRead(code, on) {
+    if (on) read[code] = new Date().toISOString().slice(0, 10); else delete read[code];
+    save("st-read", read);
+  }
+  function icon(path, size) {
+    var s = size || 16;
+    var el = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    el.setAttribute("width", s); el.setAttribute("height", s); el.setAttribute("viewBox", "0 0 24 24");
+    el.setAttribute("fill", "none"); el.setAttribute("stroke", "currentColor"); el.setAttribute("stroke-width", "2");
+    el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round"); el.setAttribute("aria-hidden", "true");
+    el.innerHTML = path;
+    return el;
+  }
+  var I_PLAY = '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5.5 3.5-5.5 3.5z" fill="currentColor"/>';
+  var I_SEARCH = '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>';
+
+  /* ---------- markdown (the manuscript uses a small, fixed subset) ---------- */
+  function resolve(src, base) {
+    if (/^(https?:)?\/\//.test(src) || src.charAt(0) === "#") return src;
+    var parts = (base + src).split("/"), out = [];
+    parts.forEach(function (p) { if (p === "..") out.pop(); else if (p !== "." && p !== "") out.push(p); });
+    return out.join("/");
+  }
+  function inline(src, base) {
+    var keep = [];
+    function hold(html) { keep.push(html); return "\u0000" + (keep.length - 1) + "\u0000"; }
+    var s = src.replace(/\\([\\`*_{}\[\]()#+\-.!~|>])/g, function (m, c) { return hold(esc(c)); });
+    s = s.replace(/`([^`]+)`/g, function (m, c) { return hold("<code>" + esc(c) + "</code>"); });
+    s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, function (m, alt, url) {
+      return hold('<img src="' + esc(resolve(url, base)) + '" alt="' + esc(alt.replace(/\u0000(\d+)\u0000/g, function (x, i) { return keep[+i]; })) + '" loading="lazy">');
+    });
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (m, text, url) {
+      var ext = /^https?:/.test(url);
+      return hold('<a href="' + esc(ext ? url : resolve(url, base)) + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + fmt(text) + "</a>");
+    });
+    s = fmt(s);
+    for (var guard = 0; guard < 4 && s.indexOf("\u0000") >= 0; guard++) s = s.replace(/\u0000(\d+)\u0000/g, function (m, i) { return keep[+i]; });
+    return s;
+    function fmt(t) {
+      return esc(t).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    }
+  }
+  function splitRow(line) {
+    var cells = line.trim().replace(/^\|/, "").replace(/\|$/, "").split(/(?<!\\)\|/);
+    return cells.map(function (c) { return c.trim(); });
+  }
+  function renderMarkdown(md, base) {
+    var lines = md.replace(/\r/g, "").split("\n"), out = [], para = [], i = 0;
+    function flush() {
+      if (!para.length) return;
+      var text = para.join(" ").trim(); para = [];
+      var only = text.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+      if (only) {
+        out.push('<figure><img src="' + esc(resolve(only[2], base)) + '" alt="' + esc(only[1].replace(/\\(.)/g, "$1")) + '" loading="lazy"><figcaption>' + inline(only[1], base) + "</figcaption></figure>");
+      } else out.push("<p>" + inline(text, base) + "</p>");
+    }
+    var LI = /^(\s*)([-*]|\d+\.)\s+(.*)$/;
+    function list(start, indent) {
+      var m0 = lines[start].match(LI), ordered = /\d/.test(m0[2]), items = [], j = start;
+      while (j < lines.length) {
+        var m = lines[j].match(LI);
+        if (!m) {
+          if (lines[j].trim() && lines[j].match(/^\s+/) && lines[j].match(/^\s+/)[0].length > indent && items.length) { items[items.length - 1].text += " " + lines[j].trim(); j++; continue; }
+          break;
+        }
+        var ind = m[1].length;
+        if (ind < indent) break;
+        if (ind > indent) { var sub = list(j, ind); if (items.length) items[items.length - 1].sub += sub.html; j = sub.next; continue; }
+        if (/\d/.test(m[2]) !== ordered) break;
+        items.push({ text: m[3], sub: "", n: parseInt(m[2], 10) });
+        j++;
+      }
+      var tag = ordered ? "ol" : "ul";
+      var startAttr = ordered && items.length && items[0].n > 1 ? ' start="' + items[0].n + '"' : "";
+      return { html: "<" + tag + startAttr + ">" + items.map(function (it) { return "<li>" + inline(it.text, base) + it.sub + "</li>"; }).join("") + "</" + tag + ">", next: j };
+    }
+    while (i < lines.length) {
+      var line = lines[i];
+      if (!line.trim()) { flush(); i++; continue; }
+      var hm = line.match(/^(#{1,6})\s+(.*)$/);
+      if (hm) { flush(); var lv = Math.min(hm[1].length + 1, 4); out.push("<h" + lv + ">" + inline(hm[2], base) + "</h" + lv + ">"); i++; continue; }
+      if (/^\s*\|/.test(line) && i + 1 < lines.length && /^\s*\|?\s*:?-{3,}/.test(lines[i + 1])) {
+        flush();
+        var head = splitRow(line), rows = [];
+        i += 2;
+        while (i < lines.length && /^\s*\|/.test(lines[i])) { rows.push(splitRow(lines[i])); i++; }
+        out.push('<div class="tbl"><table><thead><tr>' + head.map(function (c) { return "<th>" + inline(c, base) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+          rows.map(function (r) { return "<tr>" + head.map(function (x, k) { return "<td>" + inline(r[k] || "", base) + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div>");
+        continue;
+      }
+      if (LI.test(line)) { flush(); var l = list(i, line.match(LI)[1].length); out.push(l.html); i = l.next; continue; }
+      if (/^\s*(-{3,}|\*{3,})\s*$/.test(line)) { flush(); out.push("<hr>"); i++; continue; }
+      para.push(line.trim());
+      i++;
+    }
+    flush();
+    return out.join("\n");
+  }
+  function stripFront(md) { return md.replace(/^---\n[\s\S]*?\n---\n/, ""); }
+  /** The fixed unit frame: these bold labels open the parts of every unit and go into the table of contents. */
+  var FRAME = ["한 줄 정의", "비유", "원리", "면접 단골 질문", "관련 뉴스 태그", "더 깊이", "영상으로 보기", "반영 자료"];
+  function frameLabel(t) {
+    for (var k = 0; k < FRAME.length; k++) if (t === FRAME[k] || t.indexOf(FRAME[k] + ":") === 0) return FRAME[k];
+    return null;
+  }
+  /** A bold line on its own becomes a heading (a frame part, or a small heading for tables and sub-parts);
+      a bold label that starts a paragraph becomes a chip. */
+  function polish(root) {
+    Array.prototype.forEach.call(root.querySelectorAll("p > strong:first-child"), function (st) {
+      var p = st.parentNode;
+      if (p.firstChild !== st) return;
+      var label = st.textContent.trim(), part = frameLabel(label);
+      if (p.textContent.trim() === label) {
+        var h3 = document.createElement("h3");
+        h3.className = part ? "sec" : "sub";
+        h3.textContent = label;
+        if (part) h3.setAttribute("data-toc", part);
+        p.parentNode.replaceChild(h3, p);
+      } else {
+        st.className = "lab";
+        if (part) p.setAttribute("data-toc", part);
+      }
+    });
+  }
+  function getText(url) {
+    if (S.md[url]) return Promise.resolve(S.md[url]);
+    return fetch(url, { cache: "no-cache" }).then(function (r) {
+      if (!r.ok) throw new Error(url + " " + r.status);
+      return r.text();
+    }).then(function (t) { S.md[url] = t; return t; });
+  }
+
+  /* ---------- news ---------- */
+  function badges(item) {
+    var out = [h("span", { class: "badge " + item.kind, title: S.manifest.kinds[item.kind] || "", text: BADGE[item.kind] || item.kind })];
+    if (item.author) out.push(h("span", { class: "badge guest", title: "필자: " + item.author + " · 회사 공식 입장이 아닌 외부 기고", text: "외부 기고" }));
+    return out;
+  }
+  function unitLinks(codes) {
+    var list = (codes || []).filter(function (c) { return S.units[c]; });
+    if (!list.length) return null;
+    return h("div", { class: "units" }, [h("span", { class: "lab", text: "관련 단원" })].concat(list.map(function (c) {
+      var u = S.units[c];
+      return h("a", { class: "ulink" + (isRead(c) ? " read" : ""), href: "#unit/" + c, title: u.title }, [h("span", { class: "code", text: c }), shortTitle(u.title)]);
+    })));
+  }
+  function entry(item, opts) {
+    var o = opts || {};
+    var srcName = {};
+    S.manifest.sources.forEach(function (s) { srcName[s.key] = (s.channels || [s.name])[0]; });
+    var also = (item.alsoIn || []).map(function (k) { return srcName[k] || k; }).filter(Boolean);
+    return h("li", { class: "entry", id: "n-" + item.id }, [
+      h("div", { class: "when" }, [h("span", { class: "d", text: item.date.slice(5).replace("-", ".") }), h("span", { class: "w", text: weekday(item.date) })]),
+      h("article", { class: "e-body" }, [
+        h("div", { class: "e-meta" }, [
+          h("span", { class: "co", text: CO[item.company] || item.company }),
+          h("span", { class: "channel", text: item.channel + (also.length ? " · " + also.join("·") + "에도" : "") })
+        ].concat(badges(item))),
+        h("h3", { class: "e-title" }, [h("a", { href: item.url, target: "_blank", rel: "noopener", text: item.title })]),
+        item.originalTitle ? h("p", { class: "orig", text: "원제 " + item.originalTitle }) : null,
+        h("ul", { class: "e-sum" }, (item.summary || []).map(function (t) { return h("li", { text: t }); })),
+        item.interview ? h("p", { class: "say" }, [h("b", { text: "면접 한 줄" }), item.interview]) : null,
+        h("div", { class: "e-foot" }, [
+          (item.tags || []).length ? h("div", { class: "e-tags" }, item.tags.map(function (t) {
+            return h("a", { class: "tag", href: "#tag/" + encodeURIComponent(t), text: t, title: "'" + t + "' 태그 기사만 보기" });
+          })) : h("span", { class: "tag", text: "미분류" }),
+          o.noUnits ? null : unitLinks(item.relatedUnits),
+          h("a", { class: "out", href: item.url, target: "_blank", rel: "noopener", text: "원문 ↗" })
+        ])
+      ])
+    ]);
+  }
+  function ledger(items, opts) {
+    var frag = document.createDocumentFragment(), cur = null, list = null;
+    items.forEach(function (it) {
+      var key = it.date.slice(0, 7);
+      if (key !== cur) {
+        cur = key;
+        var n = items.filter(function (x) { return x.date.slice(0, 7) === key; }).length;
+        var t = ymd(it.date);
+        frag.appendChild(h("div", { class: "month" }, [h("h2", { text: t.y + "년 " + t.m + "월" }), h("span", { text: n + "건" })]));
+        list = h("ol", { class: "entries" });
+        frag.appendChild(list);
+      }
+      list.appendChild(entry(it, opts));
+    });
+    return frag;
+  }
+  function matches(item, q) {
+    if (!q) return true;
+    var hay = [item.title, item.originalTitle, (item.summary || []).join(" "), item.interview, (item.tags || []).join(" "), (item.companies || []).join(" "), item.channel, CO[item.company]].join(" ").toLowerCase();
+    return q.toLowerCase().split(/\s+/).filter(Boolean).every(function (w) { return hay.indexOf(w) >= 0; });
+  }
+  function weekUnits() {
+    var cutoff = Date.now() - 7 * 864e5;
+    var pool = S.items.filter(function (i) { return Date.parse(i.published) >= cutoff; });
+    var basis = "최근 7일 소식 " + pool.length + "건과 이어진 단원";
+    if (pool.length < 3) { pool = S.items.slice(0, 10); basis = "최근 소식 " + pool.length + "건과 이어진 단원"; }
+    var count = {};
+    pool.forEach(function (i) { (i.relatedUnits || []).forEach(function (c) { count[c] = (count[c] || 0) + 1; }); });
+    var codes = Object.keys(count).filter(function (c) { return S.units[c]; }).sort(function (a, b) {
+      return count[b] - count[a] || S.units[b].stars - S.units[a].stars || unitKey(a) - unitKey(b);
+    }).slice(0, 5);
+    return { basis: basis, list: codes.map(function (c) { return { code: c, n: count[c] }; }) };
+  }
+  function tagCounts(items) {
+    var c = {};
+    items.forEach(function (i) { (i.tags || []).forEach(function (t) { c[t] = (c[t] || 0) + 1; }); });
+    return c;
+  }
+  function progressBox() {
+    var total = S.order.length, done = S.order.filter(isRead).length;
+    var top = S.order.filter(function (c) { return S.units[c].stars === 3; });
+    var topDone = top.filter(isRead).length;
+    return h("section", { class: "box side-progress" }, [
+      h("h2", null, ["공부 진도", h("small", { text: "이 기기 기준" })]),
+      h("div", { class: "prog-line" }, ["읽은 단원", h("b", { text: done + " / " + total })]),
+      h("div", { class: "bar" }, [h("i", { style: "width:" + (total ? done / total * 100 : 0) + "%" })]),
+      h("div", { class: "prog-line" }, ["★★★ 단원", h("b", { text: topDone + " / " + top.length })]),
+      h("div", { class: "bar" }, [h("i", { style: "width:" + (top.length ? topDone / top.length * 100 : 0) + "%" })]),
+      h("a", { class: "guide-link", href: "#theory", text: "층 지도로 가기 →" })
+    ]);
+  }
+  function renderNews(tag) {
+    setTab("news");
+    var wrapper = h("div", { class: "news-grid" });
+    var main = h("div", { class: "news-main" });
+    var side = h("aside", { class: "news-side", "aria-label": "공부 연결" });
+
+    var head = h("div", { class: "page-head" }, [
+      h("h1", { text: "시장 흐름" }),
+      h("p", { class: "lead", text: "삼성전자·SK하이닉스 공식 뉴스룸 소식을 두 문장으로 줄이고, 면접에서 쓸 한 줄과 이어서 공부할 단원을 붙였습니다." })
+    ]);
+
+    var listBox = h("div");
+    var result = h("div", { class: "result", "aria-live": "polite" });
+    function seg(label, value, current, onPick, count) {
+      return h("button", { type: "button", class: "chip", "aria-pressed": current === value ? "true" : "false", onclick: function () { onPick(value); } }, [label, count !== undefined ? h("span", { class: "n", text: String(count) }) : null]);
+    }
+    var coRow = h("div", { class: "frow", role: "group", "aria-label": "회사" });
+    var kindRow = h("div", { class: "frow", role: "group", "aria-label": "글 종류" });
+    var input = h("input", { type: "search", placeholder: "제목·요약·태그·기업 검색", "aria-label": "기사 검색", value: S.q });
+    var searchRow = h("div", { class: "frow" }, [h("label", { class: "search" }, [icon(I_SEARCH, 16), input])]);
+
+    function base() {
+      return S.items.filter(function (i) { return !tag || (i.tags || []).indexOf(tag) >= 0; });
+    }
+    function draw() {
+      var pool = base();
+      coRow.textContent = "";
+      coRow.appendChild(h("span", { class: "flabel", text: "회사" }));
+      [["all", "전체"]].concat(CO_ORDER.map(function (c) { return [c, CO[c]]; })).forEach(function (p) {
+        var n = p[0] === "all" ? pool.length : pool.filter(function (i) { return i.company === p[0]; }).length;
+        coRow.appendChild(seg(p[1], p[0], S.co, function (v) { S.co = v; save("st-co", v); draw(); }, n));
+      });
+      kindRow.textContent = "";
+      kindRow.appendChild(h("span", { class: "flabel", text: "종류" }));
+      [["all", "전체"]].concat(KIND_ORDER.map(function (k) { return [k, BADGE[k]]; })).forEach(function (p) {
+        var n = p[0] === "all" ? pool.length : pool.filter(function (i) { return i.kind === p[0]; }).length;
+        kindRow.appendChild(seg(p[1], p[0], S.kind, function (v) { S.kind = v; save("st-kind", v); draw(); }, n));
+      });
+      var items = pool.filter(function (i) {
+        return (S.co === "all" || i.company === S.co) && (S.kind === "all" || i.kind === S.kind) && matches(i, S.q);
+      });
+      result.textContent = "";
+      if (tag) result.appendChild(h("a", { class: "active-tag", href: "#news", title: "태그 필터 지우기" }, ["태그 · " + tag, h("span", { "aria-hidden": "true", text: "×" })]));
+      result.appendChild(h("span", { text: S.items.length + "건 중 " + items.length + "건" + (S.items.length ? " · " + fmtDate(S.items[S.items.length - 1].date) + " ~ " + fmtDate(S.items[0].date) : "") }));
+      listBox.textContent = "";
+      if (!items.length) listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "조건에 맞는 소식이 없습니다." }), h("span", { text: "회사·종류를 '전체'로 바꾸거나 검색어를 지워 보세요." })]));
+      else listBox.appendChild(ledger(items));
+    }
+    var timer = null;
+    input.addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(function () { S.q = input.value.trim(); draw(); }, 120); });
+
+    main.appendChild(head);
+    main.appendChild(h("div", { class: "filters" }, [coRow, kindRow, searchRow]));
+    main.appendChild(result);
+    main.appendChild(listBox);
+
+    // sidebar
+    var wk = weekUnits();
+    var weekBox = h("section", { class: "box side-week" }, [
+      h("h2", null, ["이번 주 공부할 단원", h("small", { text: "소식 수" })]),
+      h("p", { class: "note", text: wk.basis + ". 기사 카드의 '관련 단원'을 많이 받은 순서입니다." }),
+      h("ol", null, wk.list.map(function (w) {
+        var u = S.units[w.code];
+        return h("li", null, [h("a", { href: "#unit/" + w.code, class: isRead(w.code) ? "read" : null }, [
+          h("span", { class: "code", text: w.code }),
+          h("span", { class: "t" }, [shortTitle(u.title), h("small", null, [starEl(u.stars, u.freq), " " + u.floorName])]),
+          h("span", { class: "c", text: w.n + "건" })
+        ])]);
+      }))
+    ]);
+    side.appendChild(weekBox);
+    var weekMobile = weekBox.cloneNode(true);
+    weekMobile.classList.add("week-mobile");
+    Array.prototype.slice.call(weekMobile.querySelectorAll("li"), 3).forEach(function (li) { li.remove(); });
+    main.insertBefore(weekMobile, main.children[1]);
+    var counts = tagCounts(S.items);
+    var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b, "ko"); }).slice(0, 14);
+    var groups = h("details", { class: "alltags" }, [h("summary", { text: "태그 사전 전체 보기(9개 그룹)" })].concat(S.tags.groups.map(function (g) {
+      return h("div", { class: "grp" }, [h("b", { text: g.name }), h("div", { class: "cloud" }, g.tags.map(function (t) {
+        var n = counts[t.name] || 0;
+        return h("a", { class: "tag", href: "#tag/" + encodeURIComponent(t.name), style: n ? null : "opacity:.55", text: t.name + (n ? " " + n : "") });
+      }))]);
+    })));
+    side.appendChild(h("section", { class: "box side-tags" }, [
+      h("h2", null, ["자주 나온 태그", h("small", { text: "전체 " + S.items.length + "건 기준" })]),
+      h("div", { class: "cloud" }, top.map(function (t) {
+        return h("a", { class: "chip", href: "#tag/" + encodeURIComponent(t), "aria-pressed": t === tag ? "true" : "false" }, [t, h("span", { class: "n", text: String(counts[t]) })]);
+      })),
+      groups
+    ]));
+    side.appendChild(progressBox());
+
+    wrapper.appendChild(main);
+    wrapper.appendChild(side);
+    view.textContent = "";
+    view.appendChild(wrapper);
+    draw();
+  }
+
+  /* ---------- theory map ---------- */
+  function renderTheory() {
+    setTab("theory");
+    var frag = document.createDocumentFragment();
+    var total = S.order.length, done = S.order.filter(isRead).length;
+    var top = S.order.filter(function (c) { return S.units[c].stars === 3; }), topDone = top.filter(isRead).length;
+    frag.appendChild(h("div", { class: "page-head" }, [
+      h("h1", { text: "이론 공부" }),
+      h("p", { class: "lead", text: "입문(0층)부터 면접 실전(6층)까지 7개 층, " + total + "개 단원입니다. 단원마다 한 줄 정의·비유·그림·원리·면접 질문이 같은 순서로 있고, " + S.theory.counts.animations + "개 단원은 단계별 애니메이션이 붙어 있습니다." })
+    ]));
+    var filterRow = h("div", { class: "frow", role: "group", "aria-label": "단원 거르기" });
+    var FILTERS = [["all", "전체"], ["star3", "★★★만"], ["anim", "애니메이션 있음"], ["unread", "안 읽은 단원"]];
+    var floorsBox = h("div");
+    function drawFilter() {
+      filterRow.textContent = "";
+      FILTERS.forEach(function (f) {
+        filterRow.appendChild(h("button", { type: "button", class: "chip", "aria-pressed": S.tfilter === f[0] ? "true" : "false", onclick: function () { S.tfilter = f[0]; save("st-tfilter", f[0]); drawFilter(); applyFilter(); } }, [f[1]]));
+      });
+    }
+    function keep(u) {
+      if (S.tfilter === "star3") return u.stars === 3;
+      if (S.tfilter === "anim") return u.animations.length > 0;
+      if (S.tfilter === "unread") return !isRead(u.code);
+      return true;
+    }
+    function applyFilter() {
+      Array.prototype.forEach.call(floorsBox.querySelectorAll(".floor"), function (sec) {
+        var any = false;
+        Array.prototype.forEach.call(sec.querySelectorAll(".tile"), function (t) {
+          var ok = keep(S.units[t.dataset.code]);
+          t.classList.toggle("dim", !ok);
+          any = any || ok;
+        });
+        sec.classList.toggle("empty", !any);
+      });
+    }
+    frag.appendChild(h("div", { class: "theory-tools" }, [
+      h("div", { class: "prog-sum" }, [
+        h("div", { class: "k" }, [h("span", null, ["읽은 단원", h("b", { text: done + " / " + total })]), h("div", { class: "bar" }, [h("i", { style: "width:" + (done / total * 100) + "%" })])]),
+        h("div", { class: "k" }, [h("span", null, ["★★★ 단원", h("b", { text: topDone + " / " + top.length })]), h("div", { class: "bar" }, [h("i", { style: "width:" + (topDone / top.length * 100) + "%" })])])
+      ]),
+      h("a", { class: "guide-link", href: "#guide", text: "공부 안내: 읽는 법·전체 지도·학습 경로 →" })
+    ]));
+    frag.appendChild(h("div", { class: "filters" }, [filterRow]));
+    S.theory.floors.forEach(function (f) {
+      var units = f.units.map(function (c) { return S.units[c]; });
+      var fd = units.filter(function (u) { return isRead(u.code); }).length;
+      floorsBox.appendChild(h("section", { class: "floor", id: "floor-" + f.floor, "aria-label": f.title }, [
+        h("div", { class: "f-rail" }, [
+          h("div", { class: "f-num" }, [h("span", { class: "big", text: f.floor + "층" }), h("span", { class: "lv", text: units.length + "단원" })]),
+          h("h2", { text: f.name }),
+          h("p", { text: f.intro }),
+          h("div", { class: "f-prog" }, [h("div", { class: "bar" }, [h("i", { style: "width:" + (fd / units.length * 100) + "%" })]), h("span", { text: "읽음 " + fd + "/" + units.length })])
+        ]),
+        h("div", { class: "tiles" }, units.map(function (u) {
+          var nNews = (S.newsByUnit[u.code] || []).length;
+          return h("a", { class: "tile" + (isRead(u.code) ? " is-read" : ""), href: "#unit/" + u.code, "data-code": u.code }, [
+            h("div", { class: "tile-top" }, [h("span", { class: "code", text: u.code }), starEl(u.stars, u.freq), isRead(u.code) ? h("span", { class: "done", title: "읽음", text: "✓" }) : null]),
+            h("div", { class: "tile-title", text: u.title }),
+            h("div", { class: "tile-meta" }, [
+              u.animations.length ? h("span", null, ["▶ 애니메이션"]) : null,
+              u.videos.length ? h("span", { text: "영상 " + u.videos.length }) : null,
+              nNews ? h("span", { text: "소식 " + nNews }) : null
+            ])
+          ]);
+        }))
+      ]));
+    });
+    frag.appendChild(floorsBox);
+    view.textContent = "";
+    view.appendChild(frag);
+    drawFilter();
+    applyFilter();
+  }
+
+  /* ---------- unit page ---------- */
+  var frames = [];
+  window.addEventListener("message", function (e) {
+    if (!e.data || e.data.type !== "st-anim-height") return;
+    frames.forEach(function (f) { if (f.contentWindow === e.source && e.data.h > 200) f.style.height = Math.min(e.data.h + 2, 2400) + "px"; });
+  });
+  function animBlock(u) {
+    var a = u.animations[0];
+    var modes = a.modes.length > 1 ? "모드 " + a.modes.length + "개(" + a.modes.map(function (m) { return m.label; }).join(" · ") + ")" : "";
+    var frame = h("iframe", { src: a.file + "?embed", title: a.title + " 애니메이션", loading: "lazy" });
+    frames = [frame];
+    return h("section", { class: "anim-block", id: "anim" }, [
+      h("div", { class: "anim-bar" }, [
+        h("h2", null, [icon(I_PLAY, 18), "애니메이션으로 보기"]),
+        h("span", { class: "sub", text: a.title + " · " + a.steps + "단계" + (modes ? " · " + modes : "") }),
+        h("a", { href: a.file, target: "_blank", rel: "noopener", text: "크게 보기 ↗" })
+      ]),
+      frame
+    ]);
+  }
+  function renderUnit(code) {
+    setTab("theory");
+    var u = S.units[code];
+    if (!u) { renderState("단원을 찾지 못했습니다.", code + "라는 단원이 없습니다. 층 지도에서 골라 주세요."); return; }
+    var idx = S.order.indexOf(code), prev = S.units[S.order[idx - 1]], next = S.units[S.order[idx + 1]];
+    var readBtn = h("button", { type: "button", class: "btn" });
+    function drawRead() {
+      var on = isRead(code);
+      readBtn.className = "btn" + (on ? " on" : "");
+      readBtn.setAttribute("aria-pressed", on ? "true" : "false");
+      readBtn.textContent = on ? "✓ 읽음 (" + read[code] + ")" : "읽음으로 표시";
+    }
+    readBtn.addEventListener("click", function () { setRead(code, !isRead(code)); drawRead(); });
+    drawRead();
+    var news = S.newsByUnit[code] || [];
+    var head = h("header", { class: "unit-head" }, [
+      h("div", { class: "eyebrow" }, [h("a", { href: "#theory", text: "이론 공부" }), h("span", { text: "/" }), h("a", { href: "#theory", onclick: function () { pendingFloor = u.floor; }, text: u.floorTitle })]),
+      h("div", { class: "freq" }, [h("span", { class: "unit-code", text: u.code }), starEl(u.stars, u.freq), h("span", { text: u.freq ? "면접 빈도 " + u.freq : "" })]),
+      h("h1", { text: u.title }),
+      h("div", { class: "unit-actions" }, [
+        readBtn,
+        u.animations.length ? h("a", { class: "btn", href: "#anim", onclick: function (e) { e.preventDefault(); var t = document.getElementById("anim"); if (t) t.scrollIntoView({ behavior: "smooth" }); } }, [icon(I_PLAY, 16), "애니메이션 " + u.animations[0].steps + "단계"]) : null,
+        news.length ? h("a", { class: "btn", href: "#unit-news", onclick: function (e) { e.preventDefault(); var t = document.getElementById("unit-news"); if (t) t.scrollIntoView({ behavior: "smooth" }); } }, ["이어진 소식 " + news.length + "건"]) : null
+      ]),
+      h("div", { class: "unit-meta" }, [
+        u.tags.length ? h("div", { class: "row" }, [h("b", { text: "뉴스 태그" })].concat(u.tags.map(function (t) {
+          return h("a", { class: "tag", href: "#tag/" + encodeURIComponent(t), title: "'" + t + "' 태그 기사 보기", text: t });
+        }))) : null,
+        u.related.length ? h("div", { class: "row" }, [h("b", { text: "이어지는 단원" })].concat(u.related.map(function (c) {
+          var r = S.units[c];
+          return h("a", { class: "ulink" + (isRead(c) ? " read" : ""), href: "#unit/" + c, title: r.title }, [h("span", { class: "code", text: c }), shortTitle(r.title)]);
+        }))) : null
+      ])
+    ]);
+    var article = h("article", { class: "md", "aria-busy": "true" }, [h("div", { class: "skeleton" })]);
+    var toc = h("nav", { class: "unit-toc", "aria-label": "단원 차례" });
+    var frag = document.createDocumentFragment();
+    frag.appendChild(head);
+    frag.appendChild(toc);
+    frag.appendChild(article);
+    var newsSec = null;
+    if (news.length) {
+      newsSec = h("section", { class: "unit-news", id: "unit-news" }, [
+        h("div", { class: "section-title" }, [h("h2", { text: "이 단원과 이어진 소식" }), h("span", { text: news.length + "건 · 기사 카드의 관련 단원 기준" })])
+      ]);
+      newsSec.appendChild(ledger(news, { noUnits: false }));
+      frag.appendChild(newsSec);
+    } else if (u.tags.length) {
+      frag.appendChild(h("p", { class: "note", style: "margin-top:28px" }, ["아직 이 단원을 관련 단원으로 받은 소식이 없습니다. 태그로 찾아보기: "].concat(u.tags.map(function (t, k) {
+        return h("a", { href: "#tag/" + encodeURIComponent(t), text: (k ? ", " : "") + t });
+      }))));
+    }
+    frag.appendChild(h("nav", { class: "pager", "aria-label": "앞뒤 단원" }, [
+      prev ? h("a", { href: "#unit/" + prev.code }, [h("small", { text: "← 이전 단원 " + prev.code }), h("span", { text: prev.title })]) : null,
+      next ? h("a", { class: "next", href: "#unit/" + next.code }, [h("small", { text: next.code + " 다음 단원 →" }), h("span", { text: next.title })]) : null
+    ]));
+    view.textContent = "";
+    view.appendChild(frag);
+
+    getText(u.file).then(function (md) {
+      if (location.hash !== "#unit/" + code) return;
+      var body = stripFront(md).split("\n");
+      // the header already shows the title line and the 면접 빈도 line
+      body = body.filter(function (l, k) { return !(k < 4 && (/^# /.test(l) || /^면접 빈도 /.test(l))); });
+      article.innerHTML = renderMarkdown(body.join("\n"), "theory/units/");
+      article.removeAttribute("aria-busy");
+      polish(article);
+      if (u.animations.length) {
+        var block = animBlock(u);
+        var before = Array.prototype.find.call(article.querySelectorAll("h3.sec"), function (x) { return /면접 단골 질문/.test(x.textContent); });
+        if (before) article.insertBefore(block, before); else article.appendChild(block);
+      }
+      // table of contents: the frame parts of the unit (in page order) and the animation
+      var items = [];
+      Array.prototype.forEach.call(article.querySelectorAll("[data-toc], #anim"), function (s, k) {
+        if (s.id === "anim") { items.push(h("li", null, [h("a", { class: "anim-jump", href: "#anim", onclick: jump(s), text: "▶ 애니메이션" })])); return; }
+        s.id = "sec-" + k;
+        items.push(h("li", null, [h("a", { href: "#sec-" + k, onclick: jump(s), text: s.getAttribute("data-toc") })]));
+      });
+      if (newsSec) items.push(h("li", null, [h("a", { href: "#unit-news", onclick: jump(newsSec), text: "이어진 소식 " + news.length + "건" })]));
+      toc.textContent = "";
+      if (items.length > 1) { toc.appendChild(h("b", { text: "이 단원" })); items.forEach(function (li) { toc.appendChild(li.firstChild); }); }
+      else toc.remove();
+    }).catch(function (err) {
+      article.innerHTML = "";
+      article.appendChild(h("div", { class: "state" }, [h("b", { text: "원고를 불러오지 못했습니다." }), h("span", { text: String(err && err.message || err) })]));
+    });
+  }
+  function jump(target) {
+    return function (e) { e.preventDefault(); target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); };
+  }
+  var pendingFloor = null;
+
+  /* ---------- guide (overview.md) ---------- */
+  function renderDoc(file, base, tab, crumbs) {
+    setTab(tab);
+    var article = h("article", { class: "md", "aria-busy": "true" }, [h("div", { class: "skeleton" })]);
+    view.textContent = "";
+    if (crumbs) view.appendChild(h("div", { class: "eyebrow", style: "margin-bottom:10px" }, crumbs));
+    view.appendChild(article);
+    return getText(file).then(function (md) {
+      article.innerHTML = renderMarkdown(stripFront(md), base);
+      article.removeAttribute("aria-busy");
+      polish(article);
+      var first = article.firstElementChild;
+      if (first && /^H/.test(first.tagName)) {
+        var title = h("h1", { text: first.textContent });
+        article.replaceChild(title, first);
+        title.style.cssText = "font-size:clamp(24px,3.4vw,30px);margin:0 0 12px;letter-spacing:-0.015em";
+      }
+      return article;
+    }).catch(function (err) {
+      article.innerHTML = "";
+      article.appendChild(h("div", { class: "state" }, [h("b", { text: "문서를 불러오지 못했습니다." }), h("span", { text: String(err && err.message || err) })]));
+    });
+  }
+  function renderGuide() {
+    renderDoc(S.theory.overview.file, "theory/", "theory", [h("a", { href: "#theory", text: "이론 공부" }), h("span", { text: "/ 공부 안내" })]);
+  }
+
+  /* ---------- sources ---------- */
+  function renderSources() {
+    setTab("sources");
+    var frag = document.createDocumentFragment();
+    frag.appendChild(h("div", { class: "page-head" }, [
+      h("h1", { text: "출처" }),
+      h("p", { class: "lead", text: "시장 흐름은 두 회사의 공식 뉴스룸만 모읍니다. 이론 원고에 반영한 자료와 영상 출처는 아래쪽에 있습니다." })
+    ]));
+    var count = {};
+    S.items.forEach(function (i) { count[i.source] = (count[i.source] || 0) + 1; });
+    frag.appendChild(h("div", { class: "section-title" }, [h("h2", { text: "기사 출처" }), h("span", { text: "RSS 4개 · 2026년 1월부터" })]));
+    frag.appendChild(h("div", { class: "src-grid" }, S.manifest.sources.map(function (s) {
+      return h("section", { class: "src" }, [
+        h("h3", null, [s.name, h("span", { text: (count[s.key] || 0) + "건" })]),
+        h("dl", null, [
+          h("dt", { text: "회사" }), h("dd", { text: CO[s.company] || s.company }),
+          h("dt", { text: "언어" }), h("dd", { text: s.lang === "en" ? "영어(제목·요약을 한국어로 번역, 원제 함께 표시)" : "한국어" }),
+          h("dt", { text: "수집" }), h("dd", { text: COLLECT[s.key] || "전체" }),
+          h("dt", { text: "채널" }), h("dd", { text: (s.channels || []).join(", ") }),
+          h("dt", { text: "원문" }), h("dd", null, [h("a", { href: s.page, target: "_blank", rel: "noopener", text: s.page.replace(/^https:\/\//, "") })])
+        ])
+      ]);
+    }).concat([h("section", { class: "src" }, [
+      h("h3", null, ["링크로만 두는 곳", h("span", { text: "수집 안 함" })]),
+      h("p", { class: "note", text: "목록을 자바스크립트로 그려서 자동 수집이 어렵습니다. 원문에서 직접 확인하세요." }),
+      h("ul", { class: "rules", style: "font-size:14px" }, S.manifest.linkOnly.map(function (l) { return h("li", null, [h("a", { href: l.url, target: "_blank", rel: "noopener", text: l.name + " ↗" })]); }))
+    ])])));
+
+    frag.appendChild(h("div", { class: "section-title" }, [h("h2", { text: "배지 읽는 법" })]));
+    frag.appendChild(h("ul", { class: "badge-list" }, [
+      [h("span", { class: "badge press", text: "공식 발표" }), "회사 보도자료(SK하이닉스 PRESS, 삼성전자 뉴스룸 보도자료). 실적·투자·제품 발표처럼 회사가 공식으로 밝힌 내용입니다."],
+      [h("span", { class: "badge fact", text: "공식 해명" }), "SK하이닉스 FACT. 언론 보도에 대해 회사가 사실관계를 밝힌 글입니다. 같은 주제의 보도와 함께 읽으면 좋습니다."],
+      [h("span", { class: "badge tech", text: "기술 해설" }), "SK하이닉스 TECH&AI, 삼성전자 뉴스룸 기술. 기술을 풀어 쓴 글로, 회사 발표보다 설명에 가깝습니다."],
+      [h("span", { class: "badge guest", text: "외부 기고" }), "기술 해설 중 교수·연구자 등 외부 필자가 쓴 글. SK하이닉스는 '회사 공식 입장이 아님'을 밝힙니다. 배지에 마우스를 올리면 필자가 보입니다."]
+    ].map(function (r) { return h("li", null, [h("span", null, [r[0]]), h("span", { text: r[1] })]); })));
+    frag.appendChild(h("p", { class: "note", style: "margin-top:10px", text: "공식 통계·언론 보도 배지는 2차(숫자로 보는 시장)·3차(국내 전문 매체)에서 출처가 늘면 씁니다." }));
+
+    frag.appendChild(h("div", { class: "section-title" }, [h("h2", { text: "저장과 요약 원칙" })]));
+    frag.appendChild(h("ul", { class: "rules" }, [
+      "기사마다 제목, 링크, 발행 날짜와 직접 쓴 한국어 요약만 저장합니다. 기사 본문은 요약하는 동안만 읽고 저장하지 않습니다.",
+      "영문 기사는 제목과 요약만 한국어로 옮기고 원제를 함께 보여 줍니다. 본문 전체 번역은 하지 않습니다.",
+      "요약은 Claude가 씁니다. 요약 2문장, 면접 한 줄, 표준 태그(55개 사전) 1~4개, 언급 기업을 받습니다.",
+      "카드의 단위 붙은 수치(억·조·%·단 등)는 원문과 대조합니다. 맞지 않으면 한 번 다시 쓰게 하고, 그래도 안 맞으면 그 문장을 지웁니다.",
+      "관련 단원은 기사 태그와 단원 태그가 많이 겹치는 순서 → 면접 빈도 별이 많은 순서로 최대 2개를 고릅니다."
+    ].map(function (t) { return h("li", { text: t }); })));
+
+    var docBox = h("div", { style: "margin-top:40px;padding-top:6px;border-top:1px solid var(--line-strong)" });
+    frag.appendChild(docBox);
+    view.textContent = "";
+    view.appendChild(frag);
+    getText(S.theory.sources.file).then(function (md) {
+      var art = h("article", { class: "md" });
+      var text = stripFront(md).replace(/^# .*\n/, "## 이론 원고 출처\n");
+      art.innerHTML = renderMarkdown(text, "theory/");
+      polish(art);
+      docBox.appendChild(art);
+    }).catch(function () { docBox.appendChild(h("p", { class: "note", text: "이론 원고 출처(theory/sources.md)를 불러오지 못했습니다." })); });
+  }
+
+  /* ---------- shell ---------- */
+  function setTab(which) {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-tab]"), function (a) {
+      if (a.getAttribute("data-tab") === which) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+  }
+  function renderState(title, body) {
+    view.textContent = "";
+    view.appendChild(h("div", { class: "state" }, [h("b", { text: title }), h("span", { text: body })]));
+  }
+  var lastRoute = null;
+  function route() {
+    if (!S.loaded) return;
+    if (S.error) { renderState("데이터를 불러오지 못했습니다.", "잠시 뒤 새로고침해 주세요. 내 컴퓨터에서 열 때는 파일을 직접 열지 말고 저장소 폴더에서 python -m http.server 후 http://localhost:8000 으로 여세요. (" + S.error + ")"); return; }
+    var hash = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+    if (/^(sec-\d+|anim|unit-news|n-.+)$/.test(hash)) return; // in-page anchors
+    var title = "반도체 뉴스 트래커";
+    if (hash.indexOf("unit/") === 0) { var c = hash.slice(5); renderUnit(c); if (S.units[c]) title = c + " " + shortTitle(S.units[c].title) + " · " + title; }
+    else if (hash.indexOf("tag/") === 0) { renderNews(hash.slice(4)); title = "#" + hash.slice(4) + " · " + title; }
+    else if (hash === "theory") { renderTheory(); title = "이론 공부 · " + title; }
+    else if (hash === "guide") { renderGuide(); title = "공부 안내 · " + title; }
+    else if (hash === "sources") { renderSources(); title = "출처 · " + title; }
+    else { renderNews(null); }
+    document.title = title;
+    if (hash === "theory" && pendingFloor !== null) {
+      var f = document.getElementById("floor-" + pendingFloor); pendingFloor = null;
+      if (f) { f.scrollIntoView(); return; }
+    }
+    if (lastRoute !== hash) window.scrollTo(0, 0);
+    lastRoute = hash;
+  }
+
+  function getJSON(url) {
+    return fetch(url, { cache: "no-cache" }).then(function (r) {
+      if (!r.ok) throw new Error(url + " " + r.status);
+      return r.json();
+    });
+  }
+  Promise.all([getJSON("data/manifest.json"), getJSON("data/theory.json"), getJSON("data/tags.json")]).then(function (res) {
+    S.manifest = res[0]; S.theory = res[1]; S.tags = res[2];
+    S.items = (S.manifest.items || []).slice().sort(function (a, b) { return a.published < b.published ? 1 : a.published > b.published ? -1 : 0; });
+    var floorTitle = {}, floorName = {};
+    S.theory.floors.forEach(function (f) { floorTitle[f.floor] = f.title; floorName[f.floor] = f.name; });
+    S.theory.units.forEach(function (u) {
+      u.floorTitle = floorTitle[u.floor]; u.floorName = floorName[u.floor];
+      S.units[u.code] = u; S.order.push(u.code);
+    });
+    S.items.forEach(function (i) { (i.relatedUnits || []).forEach(function (c) { (S.newsByUnit[c] = S.newsByUnit[c] || []).push(i); }); });
+    var g = S.manifest.generatedAt || "";
+    var stamp = document.getElementById("stamp");
+    stamp.textContent = "";
+    stamp.appendChild(h("span", { title: "기사 목록을 마지막으로 만든 시각(한국 시간)" }, ["갱신 ", h("b", { text: g ? g.slice(5, 10).replace("-", ".") + " " + g.slice(11, 16) : "—" })]));
+    stamp.appendChild(document.createElement("br"));
+    stamp.appendChild(h("span", { text: "기사 " + S.items.length + " · 단원 " + S.order.length }));
+    S.loaded = true;
+    route();
+  }).catch(function (err) {
+    S.loaded = true;
+    S.error = err && err.message ? err.message : "알 수 없는 오류";
+    route();
+  });
+  window.addEventListener("hashchange", route);
+})();
+</script>
+</body>
+</html>

@@ -24,6 +24,10 @@ on:
       - "data/tags.json"
       - "data/units.json"
       - "tests/**"
+      - "index.html"
+      - "theory/**"
+      - "animations/**"
+      - "vercel.json"
       - ".github/workflows/collect.yml"
 
 permissions:
