@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-sk-hynix-to-establish-ai-solutions-arm-in-us",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 미국에 AI 솔루션 전문 법인 설립 추진",
+  "originalTitle": "SK hynix to Establish U.S. Arm Specialized in AI Solutions",
+  "url": "https://news.skhynix.com/en/sk-hynix-to-establish-ai-solutions-arm-in-us/",
+  "published": "2026-01-28T17:00:00+09:00",
+  "date": "2026-01-28",
+  "summary": [
+    "SK하이닉스는 AI 성장 동력을 찾기 위해 미국에 가칭 AI Company(AI Co.)라는 AI 솔루션 법인을 설립한다고 밝혔습니다.",
+    "캘리포니아에 있는 기업용 SSD 자회사 솔리다임을 재편해 AI Co.로 두고, 사업은 새 자회사 Solidigm Inc.로 넘기며, 100억 달러를 자본 요청 방식으로 투입합니다."
+  ],
+  "interview": "메모리 기업이 HBM 기술력을 바탕으로 AI 데이터센터 솔루션 사업까지 넓히려 한다는 점에서, 엔지니어에게 시스템 관점의 이해가 필요함을 보여 줍니다.",
+  "tags": [
+    "AI 서버·데이터센터",
+    "eSSD·SSD",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "솔리다임"
+  ],
+  "categories": [
+    "PRESS",
+    "AI Company",
+    "AI Industry",
+    "AI Memory",
+    "Solidigm"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

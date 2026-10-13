@@ -1,0 +1,36 @@
+{
+  "id": "skhynix-2026-ieee-awards-recipient",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, HBM 기반 AI 컴퓨팅 확대 공로로 2026 IEEE 기업혁신상 수상",
+  "originalTitle": "SK hynix received 2026 IEEE Corporate Innovation Award for Driving AI Computing Expansion with HBM",
+  "url": "https://news.skhynix.com/en/2026-ieee-awards-recipient/",
+  "published": "2026-04-26T08:27:09+09:00",
+  "date": "2026-04-26",
+  "summary": [
+    "SK하이닉스가 현지 시간 24일 뉴욕에서 열린 '2026 IEEE 시상식'에서 기업혁신상(Corporate Innovation Award)을 받았다고 밝혔습니다.",
+    "회사는 모든 HBM 세대의 안정적인 양산으로 글로벌 AI 컴퓨팅 생태계에 기여한 점을 수상 이유로 꼽았으며, 이 상은 1986년부터 수여됐고 회사로서는 처음 받는 것입니다."
+  ],
+  "interview": "모든 HBM 세대를 안정적으로 양산한 점이 평가받았다는 것은 AI 메모리에서 기술 선도만큼 양산 안정성이 경쟁력임을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "PRESS",
+    "AI",
+    "HBM",
+    "IEEE"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

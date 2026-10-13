@@ -1,0 +1,38 @@
+{
+  "id": "skhynix-fact-06",
+  "company": "skhynix",
+  "source": "sk-fact",
+  "channel": "FACT",
+  "kind": "fact",
+  "lang": "en",
+  "title": "SK하이닉스, 약 400조 원 규모 서남권 반도체 클러스터 투자 계획 발표",
+  "originalTitle": "SK hynix Announces Investment Plan for Southwestern Region",
+  "url": "https://news.skhynix.com/en/fact-06/",
+  "published": "2026-06-30T11:20:21+09:00",
+  "date": "2026-06-30",
+  "summary": [
+    "SK하이닉스 곽노정 사장은 광주에서 열린 서남권 첨단산업 발전 비전 국민 브리핑에서 서남권 반도체·AI 투자 비전을 발표했습니다.",
+    "회사는 약 400조 원을 투자해 서남권에 반도체 클러스터를 세우겠다고 밝혔고, SK그룹은 전국에 15GW 규모 AI 데이터센터를 단계적으로 구축하며 서남권에 1GW를 설립할 계획입니다."
+  ],
+  "interview": "메모리를 AI 성능을 좌우하는 핵심 인프라로 본다는 점에서, 안정적인 전력·용수가 팹 입지의 핵심 조건임을 보여 줍니다.",
+  "tags": [
+    "팹 투자",
+    "AI 서버·데이터센터",
+    "전력·용수 인프라"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "FACT",
+    "AI Infrastructure",
+    "AI Memory",
+    "semiconductor industry",
+    "Southwestern Cluster"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

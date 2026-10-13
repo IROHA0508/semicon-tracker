@@ -1,0 +1,36 @@
+{
+  "id": "samsung-94ab7e1144",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 2025년 4분기 잠정실적 발표",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2025%eb%85%84-4%eb%b6%84%ea%b8%b0-%ec%9e%a0%ec%a0%95%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+  "published": "2026-01-08T17:22:08+09:00",
+  "date": "2026-01-08",
+  "summary": [
+    "삼성전자가 연결기준으로 매출 93조 원, 영업이익 20조 원의 2025년 4분기 잠정실적을 발표했습니다.",
+    "전기 대비 매출은 8.06%, 영업이익은 64.34% 증가했고, 전년 동기 대비 매출은 22.71%, 영업이익은 208.17% 증가했습니다."
+  ],
+  "interview": "분기 실적을 사전에 공개해 온 삼성전자의 관행은 투자자와의 소통을 중시하는 경영 방식을 보여 줍니다.",
+  "tags": [
+    "실적"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2025년 4분기 잠정실적",
+    "삼성 잠정실적",
+    "잠정실적",
+    "잠정실적 발표"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

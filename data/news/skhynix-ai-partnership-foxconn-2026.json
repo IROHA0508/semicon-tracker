@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-ai-partnership-foxconn-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "최태원 SK그룹 회장, 대만서 폭스콘 회장 만나 AI 인프라 협력 강화",
+  "originalTitle": "‘From Chips to AI Systems’… Chairman Chey Strengthens Partnership with Foxconn",
+  "url": "https://news.skhynix.com/en/ai-partnership-foxconn-2026/",
+  "published": "2026-06-04T10:25:50+09:00",
+  "date": "2026-06-04",
+  "summary": [
+    "최태원 SK그룹 회장은 6월 3일(현지시간) 대만 타이베이에서 영 리우 폭스콘 회장 및 경영진과 만나 차세대 AI 인프라 경쟁력 강화 방안을 논의했습니다.",
+    "두 회사는 로보틱스, 에너지 관리, 배터리 분야의 협력 가능성도 논의했으며, SK는 차세대 AI 메모리 기술 혁신을 이어 갈 계획이라고 밝혔습니다."
+  ],
+  "interview": "AI 경쟁의 무게중심이 칩에서 서버와 시스템으로 넓어지고 있어, 메모리 엔지니어도 시스템 단위의 협력을 이해해야 한다는 점을 보여 줍니다.",
+  "tags": [
+    "AI 서버·데이터센터",
+    "밸류체인"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "폭스콘"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Memory",
+    "Foxconn",
+    "HBM",
+    "semiconductor industry"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

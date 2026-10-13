@@ -1,0 +1,43 @@
+{
+  "id": "samsung-1398a16b89",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자·AMD, 차세대 AI 메모리 솔루션 협력 확대",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90%c2%b7amd-%ec%b0%a8%ec%84%b8%eb%8c%80-ai-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ec%86%94%eb%a3%a8%ec%85%98-%ed%98%91%eb%a0%a5-%ed%99%95%eb%8c%80/",
+  "published": "2026-03-19T02:00:02+09:00",
+  "date": "2026-03-19",
+  "summary": [
+    "삼성전자는 18일 평택사업장에서 AMD와 차세대 AI 메모리와 컴퓨팅 기술 분야 협력을 확대하는 업무협약(MOU)을 체결했습니다.",
+    "삼성전자는 AMD AI 가속기에 탑재되는 HBM4 우선 공급업체로 지정됐고, Instinct MI455X GPU에 HBM4를 탑재할 계획이며 DDR5 협력과 파운드리 협력 논의도 하기로 했습니다."
+  ],
+  "interview": "AI 가속기 고객의 HBM4 우선 공급업체 지정은 메모리 경쟁력이 DDR5와 파운드리 협력까지 이어지는 계기가 된다는 점에서 의미가 있습니다.",
+  "tags": [
+    "HBM",
+    "AI 가속기",
+    "공급 계약"
+  ],
+  "companies": [
+    "삼성전자",
+    "AMD"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "AI 메모리",
+    "AMD",
+    "EPYC CPU",
+    "HBM4",
+    "Helios",
+    "Instinct MI455X",
+    "MOU",
+    "차세대 메모리"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

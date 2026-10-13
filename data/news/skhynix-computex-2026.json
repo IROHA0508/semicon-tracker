@@ -1,0 +1,44 @@
+{
+  "id": "skhynix-computex-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, COMPUTEX 2026에서 엔비디아 협업 AI 메모리 제품군 전시",
+  "originalTitle": "Memory Solutions Grab the AI Wave — SK hynix Makes Its Mark at COMPUTEX 2026",
+  "url": "https://news.skhynix.com/en/computex-2026/",
+  "published": "2026-06-02T16:28:42+09:00",
+  "date": "2026-06-02",
+  "summary": [
+    "SK하이닉스는 6월 2일부터 5일까지 대만 타이베이에서 열린 COMPUTEX 2026에 'At the core of the AI wave – Memory!'를 주제로 부스를 꾸렸습니다.",
+    "부스에는 엔비디아 제품에 들어간 LPDDR5X, HBM3E, SOCAMM2, HBM4와 함께 HBM4E, 서버 D램, eSSD, HBF, LPCAMM2, CMM-DDR5 등 AI 메모리 제품군이 전시됐습니다."
+  ],
+  "interview": "메모리가 GPU 같은 AI 시스템의 성능을 좌우하는 핵심 부품으로 함께 전시된다는 점에서, 고객사와의 협업 설계 역량이 중요함을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "SOCAMM",
+    "서버 D램(DDR5)",
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Memory",
+    "COMPUTEX",
+    "CXL",
+    "HBM",
+    "LPCAMM2",
+    "LPDDR",
+    "SOCAMM2"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

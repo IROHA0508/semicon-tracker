@@ -1,0 +1,41 @@
+{
+  "id": "skhynix-5-things-about-skhynix",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스가 말하는 AI 메모리의 미래, 알아야 할 다섯 가지",
+  "originalTitle": "Five things you need to know about SK hynix and the future of AI memory",
+  "url": "https://news.skhynix.com/en/5-things-about-skhynix/",
+  "published": "2026-06-23T18:00:23+09:00",
+  "date": "2026-06-23",
+  "summary": [
+    "SK하이닉스가 뉴스룸 기술 해설에서 AI 메모리 변화와 자사 전략을 다섯 가지 핵심 포인트로 정리했습니다.",
+    "AI 시장이 학습에서 추론으로 확대되면서 HBM4, AI-DRAM, AI-NAND를 아우르는 풀스택 AI 메모리 전략이 필요하다고 설명했습니다."
+  ],
+  "interview": "메모리 벽이 AI 성능의 병목이 된다는 설명은 메모리가 보조 부품이 아니라 AI 인프라의 핵심 요소라는 점을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "CXL·PIM",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Infrastructure",
+    "AI Memory",
+    "Datacenter",
+    "DRAM",
+    "HBM",
+    "NAND"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "samsung-3424cfa316",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[영상] 인포그래픽으로 보는 HBM4",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%98%81%ec%83%81-%ec%9d%b8%ed%8f%ac%ea%b7%b8%eb%9e%98%ed%94%bd%ec%9c%bc%eb%a1%9c-%eb%b3%b4%eb%8a%94-hbm4/",
+  "published": "2026-03-13T20:28:54+09:00",
+  "date": "2026-03-13",
+  "summary": [
+    "삼성전자는 업계 최초로 HBM4를 양산 출하했다고 밝히며, HBM4의 성능과 아키텍처를 인포그래픽 영상으로 소개했습니다.",
+    "HBM4는 2,048개 I/O 핀과 11.7 Gbps 동작 속도로 단일 스택당 최대 3.3 TB/s 대역폭을 구현했고, 1c D램과 4나노 로직 베이스 다이를 적용했으며 전력 소모는 이전 세대 대비 약 40% 줄었다고 합니다."
+  ],
+  "interview": "HBM4가 메모리 코어 다이와 로직 베이스 다이를 결합한 구조라는 점은 메모리와 파운드리 역량을 함께 갖춘 IDM의 강점을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "D램 미세화",
+    "전력·냉각"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "1c D램",
+    "D1c",
+    "HBM4"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

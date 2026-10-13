@@ -1,0 +1,38 @@
+{
+  "id": "skhynix-4f58978fe1",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, SEMICON Korea 2026서 AI 기반 R&D 혁신 비전 발표",
+  "originalTitle": "SK hynix Presents AI-Driven R&D Innovation Vision at SEMICON Korea 2026, Reaffirming Role as Global Technology Leader",
+  "url": "https://news.skhynix.com/en/sk-hynix-presents-ai-driven-rd-innovation-vision-at-semicon-korea-2026/",
+  "published": "2026-02-12T11:10:00+09:00",
+  "date": "2026-02-12",
+  "summary": [
+    "SK하이닉스가 2월 11~13일 열린 SEMICON Korea 2026에서 기조연설 1건, STS 6개 주제 발표, 튜토리얼 3개 주제 세션을 진행했습니다.",
+    "이성훈 R&D공정 담당 senior vice president는 2027년 이후 새로운 기술 변곡점이 예상된다며, 엔비디아와 협력한 공정 시뮬레이션 최적화 사례를 들어 AI 기반 R&D의 필요성을 강조했습니다."
+  ],
+  "interview": "AI로 소재 평가와 공정 조건 탐색을 줄이는 접근은 미세화 한계 속에서 엔지니어의 R&D 방식이 바뀌고 있음을 보여 줍니다.",
+  "tags": [
+    "제조 AI",
+    "D램 미세화",
+    "EUV·노광"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI Memory",
+    "SEMICON",
+    "SEMICON Korea 2026"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "skhynix-74668435d9",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스·샌디스크, 차세대 메모리 HBF 글로벌 표준화 착수",
+  "originalTitle": "SK hynix and Sandisk Begin Global Standardization of Next-Generation Memory ‘HBF’",
+  "url": "https://news.skhynix.com/en/sk-hynix-and-sandisk-begin-global-standardization-ofnext-generation-memory-hbf/",
+  "published": "2026-02-26T08:30:00+09:00",
+  "date": "2026-02-26",
+  "summary": [
+    "SK하이닉스와 샌디스크는 현지시간 25일 미국 캘리포니아 밀피타스의 샌디스크 본사에서 HBF(High Bandwidth Flash) 표준화 컨소시엄 킥오프 행사를 열고 OCP 산하 전담 워크스트림을 출범시켜 표준화 작업을 시작한다고 밝혔습니다.",
+    "HBF는 HBM과 SSD 사이의 새로운 메모리 계층으로, AI 추론에 필요한 용량 확장과 전력 효율을 함께 확보하도록 설계됐으며 업계는 HBF를 포함한 복합 메모리 솔루션 수요가 2030년 무렵 늘 것으로 전망한다고 합니다."
+  ],
+  "interview": "HBM과 SSD 사이를 메우는 HBF 표준화 추진은 AI 추론 시대에 메모리 경쟁력이 단일 칩 성능에서 시스템 수준 최적화로 옮겨 가고 있음을 보여 줍니다.",
+  "tags": [
+    "HBF",
+    "AI 서버·데이터센터",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "샌디스크"
+  ],
+  "categories": [
+    "PRESS",
+    "AI",
+    "HBF",
+    "Sandisk"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

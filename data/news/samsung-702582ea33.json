@@ -1,0 +1,37 @@
+{
+  "id": "samsung-702582ea33",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, AI 인프라에 최적화된 기업용 SSD PM1763 양산",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-ai-%ec%9d%b8%ed%94%84%eb%9d%bc%ec%97%90-%ec%b5%9c%ec%a0%81%ed%99%94%eb%90%9c-%ea%b8%b0%ec%97%85%ec%9a%a9-ssd-pm1763-%ec%96%91%ec%82%b0/",
+  "published": "2026-07-08T17:00:13+09:00",
+  "date": "2026-07-08",
+  "summary": [
+    "삼성전자가 AI 인프라에 최적화된 PCIe 6.0 기반 기업용 SSD(eSSD) 'PM1763' 양산을 시작했습니다.",
+    "9세대 V낸드와 4나노 기반 신규 컨트롤러를 탑재했으며, 16TB 제품의 연속 읽기·쓰기 속도는 최대 초당 28,400MB, 21,900MB로 전작 'PM1753' 대비 약 2배 향상됐고 전력 효율은 1.8배 이상 높아졌다고 밝혔습니다."
+  ],
+  "interview": "PM1763은 SSD가 저장장치를 넘어 액체 냉각과 보안까지 고려해야 하는 AI 서버의 핵심 부품이 됐음을 보여 줍니다.",
+  "tags": [
+    "eSSD·SSD",
+    "3D 낸드",
+    "전력·냉각"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "9세대 v낸드 SSD",
+    "PM1763",
+    "SSD"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

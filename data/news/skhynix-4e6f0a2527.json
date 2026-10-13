@@ -1,0 +1,43 @@
+{
+  "id": "skhynix-4e6f0a2527",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스 곽노정 CEO, CES 2026 현장에서 AI 메모리 협력 방안 모색",
+  "originalTitle": "SK hynix CEO Kwak Noh-Jung Finds Way Forward for AI Memory on the Ground at CES 2026",
+  "url": "https://news.skhynix.com/en/sk-hynix-ceo-kwak-noh-jung-finds-way-forward-for-ai-memory-on-the-ground-at-ces-2026/",
+  "published": "2026-01-08T14:41:32+09:00",
+  "date": "2026-01-08",
+  "summary": [
+    "SK하이닉스 곽노정 사장(CEO)은 1월 5~8일(현지 시간) 미국 라스베이거스 CES 2026을 찾아 AI 트렌드를 살피고 주요 고객과 AI 메모리 협력을 논의했습니다.",
+    "곽 사장은 엔비디아와 AMD 기조연설에 참석하고 약 25곳의 고객·파트너와 HBM 등을 논의했으며, 전시관에서는 16단 48GB HBM4와 SOCAMM2, LPDDR6 등이 소개됐습니다."
+  ],
+  "interview": "고객 플랫폼 설계 단계부터 협력을 논의하는 모습은 AI 메모리가 성능과 전력 효율을 좌우하는 핵심 부품이 됐음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 서버·데이터센터",
+    "공급 계약"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "AMD",
+    "머크",
+    "골드만삭스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI Memory",
+    "CES 2026",
+    "HBM",
+    "HBM4",
+    "Partnerships"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

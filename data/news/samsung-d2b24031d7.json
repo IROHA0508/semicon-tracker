@@ -1,0 +1,37 @@
+{
+  "id": "samsung-d2b24031d7",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자 2026년 신년사",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-%ec%8b%a0%eb%85%84%ec%82%ac/",
+  "published": "2026-01-02T20:31:28+09:00",
+  "date": "2026-01-02",
+  "summary": [
+    "삼성전자는 전영현 대표이사 부회장(DS부문장)과 노태문 대표이사 사장(DX부문장)이 2일 부문별로 2026년 신년사를 발표했다고 밝혔습니다.",
+    "DS부문은 HBM4가 고객에게 '삼성이 돌아왔다'는 평가를 받았다고 짚고 반도체 특화 AI 솔루션의 설계·R&D·제조·품질 적용을 주문했으며, DX부문은 AX 혁신을 강조했습니다."
+  ],
+  "interview": "삼성이 반도체 설계부터 제조·품질까지 특화 AI를 적용하겠다고 밝힌 만큼, 엔지니어에게 AI 활용 역량이 중요해졌음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "제조 AI",
+    "파운드리"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2026년",
+    "2026년 신년사",
+    "신년사"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

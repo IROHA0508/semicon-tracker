@@ -1,0 +1,36 @@
+{
+  "id": "skhynix-ceo-2026-new-year-message",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스 곽노정 CEO, 2026년 신년사 발표",
+  "originalTitle": "CEO’s 2026 New Year Message",
+  "url": "https://news.skhynix.com/en/ceo-2026-new-year-message/",
+  "published": "2026-01-02T17:18:59+09:00",
+  "date": "2026-01-02",
+  "summary": [
+    "SK하이닉스 곽노정 CEO가 2026년 신년사에서 2025년을 기록적인 성과와 질적·양적 성장의 해로 평가하고 구성원과 주주, 이해관계자에게 감사를 전했습니다.",
+    "곽 CEO는 AI 수요가 이제 당연한 것이 되었고 경쟁이 심화되고 있다며, 기술 리더십 유지와 과감한 투자, 도전자의 마인드, 속도를 강조하고 풀스택 AI 메모리 크리에이터로 진화하겠다고 밝혔습니다."
+  ],
+  "interview": "AI 수요가 당연해진 환경에서 속도와 기술 리더십을 강조한 점은 메모리 엔지니어에게 더 빠른 차세대 제품 개발이 요구됨을 보여 줍니다.",
+  "tags": [
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "PRESS",
+    "AI Memory",
+    "Full-Stack AI Memory Creator",
+    "One team spirit",
+    "Vision"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

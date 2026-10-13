@@ -1,0 +1,40 @@
+{
+  "id": "skhynix-global-big-tech-ai-partnership-broadcom",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "“AI 칩의 미래를 함께 설계”… 최태원 회장·혹 탄 CEO, ‘원팀’ 선언",
+  "originalTitle": "“Designing the Future of AI Chips — Together”… Chairman Chey Tae-won and CEO Hock Tan Declare ‘One Team’",
+  "url": "https://news.skhynix.com/en/global-big-tech-ai-partnership-broadcom/",
+  "published": "2026-02-13T17:02:00+09:00",
+  "date": "2026-02-13",
+  "summary": [
+    "SK그룹 최태원 회장은 2월 6일(현지 시간) 미국 캘리포니아주 새너제이의 브로드컴 본사에서 혹 탄 CEO와 만나 메모리 시장 전망과 공급 전략 등을 논의했습니다.",
+    "SK하이닉스는 차세대 HBM 로드맵과 기술 개발 방향을 공유했고, 브로드컴 AI 칩의 초기 설계 단계부터 메모리 기술을 접목하도록 협력 범위를 넓히기로 했다고 밝혔습니다."
+  ],
+  "interview": "AI 가속기 설계 초기부터 HBM을 함께 최적화하는 흐름은 메모리 엔지니어에게 시스템 관점의 설계 이해가 필요함을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 가속기",
+    "공급 계약"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "브로드컴"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI Memory",
+    "Broadcom",
+    "HBM",
+    "One Team",
+    "Partnership"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "samsung-6d235e9363",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 2025년 4분기 실적 발표",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2025%eb%85%84-4%eb%b6%84%ea%b8%b0-%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+  "published": "2026-01-29T17:21:04+09:00",
+  "date": "2026-01-29",
+  "summary": [
+    "삼성전자가 2025년 4분기 연결 기준 매출 93.8조원, 영업이익 20.1조원을 기록했다고 발표했습니다.",
+    "DS부문은 HBM 고부가 제품 판매 확대와 메모리 가격 상승으로 역대 최대 분기 매출과 영업이익을 냈고, 매출은 44조원, 영업이익은 16.4조원이었습니다."
+  ],
+  "interview": "메모리 가격 상승과 HBM, 서버용 DDR5, 기업용 SSD 같은 고부가 제품 비중 확대가 수익성을 좌우한다는 점을 보여 줍니다.",
+  "tags": [
+    "실적",
+    "HBM",
+    "메모리 가격"
+  ],
+  "companies": [
+    "삼성전자",
+    "하만"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2025년 4분기 실적발표",
+    "삼성실적발표",
+    "삼성전자 실적발표",
+    "실적발표"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "skhynix-new-facility-investment-for-yongin-semiconductor-cluster",
+  "company": "skhynix",
+  "source": "sk-fact",
+  "channel": "FACT",
+  "kind": "fact",
+  "lang": "en",
+  "title": "용인 반도체 클러스터 첫 번째 팹 신규 시설에 21조 6천억 원 투자",
+  "originalTitle": "New Facility Investment for Yongin Semiconductor Cluster",
+  "url": "https://news.skhynix.com/en/new-facility-investment-for-yongin-semiconductor-cluster/",
+  "published": "2026-02-25T18:14:39+09:00",
+  "date": "2026-02-25",
+  "summary": [
+    "SK하이닉스는 2월 25일 용인 반도체 클러스터 첫 번째 팹의 신규 시설에 2030년 12월 말까지 약 21조 6천억 원(150억 달러)을 투자하기로 했다고 밝혔습니다.",
+    "이번 투자는 2024년 7월 발표한 약 9조 4천억 원을 포함해 첫 번째 팹 총투자가 약 31조 원이 되며, 첫 클린룸 오픈 시기는 5월에서 2027년 2월로 앞당겨질 예정이라고 설명했습니다."
+  ],
+  "interview": "클린룸 오픈을 앞당기고 투자 판단을 고객의 중장기 수요에 맞추는 모습은 메모리 사업에서 생산능력 선확보가 공급 대응력의 핵심임을 보여 줍니다.",
+  "tags": [
+    "팹 투자",
+    "AI 서버·데이터센터",
+    "밸류체인"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "FACT",
+    "AI Infrastructure",
+    "semiconductor industry",
+    "Yongin Semiconductor Cluster"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "skhynix-hbm-to-essd",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "HBM부터 eSSD까지, SK하이닉스가 그리는 풀스택 AI 메모리 전략",
+  "originalTitle": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory",
+  "url": "https://news.skhynix.com/en/hbm-to-essd/",
+  "published": "2026-07-08T12:12:03+09:00",
+  "date": "2026-07-08",
+  "summary": [
+    "SK하이닉스는 HBM에서의 리더십을 AI-DRAM과 AI-NAND로 넓혀 풀스택 AI 메모리 크리에이터로 나아가는 전략을 설명했습니다.",
+    "HBM4부터 베이스 다이에 TSMC의 첨단 로직 공정을 적용하고, 192GB SOCAMM2와 321단 QLC 낸드 양산, 엔비디아와의 다년간 기술 협력으로 고객 공동 설계를 강화한다고 밝혔습니다."
+  ],
+  "interview": "메모리 기업의 경쟁력이 제품 공급을 넘어 고객 AI 칩·패키징·전력·발열 설계를 함께 이해하는 공동 설계 역량으로 옮겨 가고 있음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 서버·데이터센터",
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "TSMC"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Infrastructure",
+    "AI Memory",
+    "cHBM",
+    "DRAM",
+    "eSSD",
+    "HBM",
+    "NAND"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

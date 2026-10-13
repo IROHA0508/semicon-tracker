@@ -1,0 +1,36 @@
+{
+  "id": "samsung-4a595dac76",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 2026년 1분기 실적 발표",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-1%eb%b6%84%ea%b8%b0-%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+  "published": "2026-04-30T18:09:06+09:00",
+  "date": "2026-04-30",
+  "summary": [
+    "삼성전자는 2026년 1분기 연결 기준 매출 133.9조원, 영업이익 57.2조원으로 역대 최대 분기 실적을 달성했다고 발표했습니다.",
+    "DS부문은 매출 81.7조원, 영업이익 53.7조원을 기록했고, 메모리는 시장 가격 상승과 AI용 고부가가치 제품 수요 대응으로 최대 실적을 냈으며 2분기에 HBM4E 첫 샘플을 공급할 예정입니다."
+  ],
+  "interview": "HBM4와 SOCAMM2를 업계 최초로 동시 양산했다는 점은 AI 메모리 제품 포트폴리오 확장이 메모리 사업 실적을 좌우함을 보여 줍니다.",
+  "tags": [
+    "실적",
+    "메모리 가격",
+    "HBM"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2026 1분기 실적",
+    "삼성전자 실적"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-ai-partnership-tsmc-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "최태원 SK그룹 회장, 대만서 TSMC 웨이 회장 만나 AI 칩 협력 강화",
+  "originalTitle": "SK Group Chairman Chey Tae-won Meets TSMC Chairman and CEO C.C. Wei in Taiwan to Solidify Global AI Chip Partnership",
+  "url": "https://news.skhynix.com/en/ai-partnership-tsmc-2026/",
+  "published": "2026-06-03T10:22:31+09:00",
+  "date": "2026-06-03",
+  "summary": [
+    "최태원 SK그룹 회장이 6월 3일(현지 시간) 대만에서 C.C. 웨이 TSMC 회장 겸 CEO와 만나 차세대 AI 기술 동향과 AI 생태계 협력 방안을 논의했습니다.",
+    "두 회장의 대면 만남은 2024년 6월 이후 처음이며, 양측은 차세대 HBM 개발과 첨단 패키징 분야 협력을 넓히고 커스텀 AI 메모리 시장에서 입지를 강화하기로 했습니다."
+  ],
+  "interview": "HBM 개발에 파운드리·패키징 협력이 함께 이뤄진다는 점은 메모리 엔지니어에게 로직 및 패키징 공정에 대한 이해가 필요함을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "패키징",
+    "AI 가속기"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "TSMC"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Memory",
+    "HBM",
+    "TSMC"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

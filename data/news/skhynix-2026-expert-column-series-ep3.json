@@ -1,0 +1,46 @@
+{
+  "id": "skhynix-2026-expert-column-series-ep3",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "AI 반도체 경쟁의 승부처는 자본과 에너지 인프라",
+  "originalTitle": "[Expert POV] The real battleground in the AI semiconductor race: Capital and energy infrastructure",
+  "url": "https://news.skhynix.com/en/2026-expert-column-series-ep3/",
+  "published": "2026-06-24T13:59:22+09:00",
+  "date": "2026-06-24",
+  "summary": [
+    "성균관대학교 권석준 교수는 SK하이닉스 뉴스룸 기고에서 AI 반도체 경쟁의 중심이 연산 능력에서 산업 인프라로 옮겨 가고 있다고 설명합니다.",
+    "메가팹 건설은 2~3년이 걸리지만 송전망과 발전 시설은 5년에서 10년 넘게 걸릴 수 있어, 전력과 용수 확보를 생산시설 완공 전에 시작해야 한다고 강조합니다."
+  ],
+  "interview": "메가팹보다 전력망 구축이 훨씬 오래 걸린다는 점은, 메모리 공급 능력이 공정 기술뿐 아니라 인프라 확보에도 좌우됨을 보여 줍니다.",
+  "tags": [
+    "전력·용수 인프라",
+    "팹 투자",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "TSMC",
+    "마이크론",
+    "마이크로소프트",
+    "구글"
+  ],
+  "author": "Professor Seok-jun Kwon Sungkyunkwan University",
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Infrastructure",
+    "AI Memory",
+    "AI Semiconductor",
+    "Semiconductor infra",
+    "Yongin Semiconductor Cluster"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

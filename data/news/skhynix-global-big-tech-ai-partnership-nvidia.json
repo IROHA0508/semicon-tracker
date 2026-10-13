@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-global-big-tech-ai-partnership-nvidia",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK 최태원 회장, 엔비디아 젠슨 황 CEO와 만나 AI 협력 논의",
+  "originalTitle": "SK Group Chairman Chey Tae-won and NVIDIA CEO Jensen Huang Meet To Discuss ‘AI One-Team Meeting’",
+  "url": "https://news.skhynix.com/en/global-big-tech-ai-partnership-nvidia/",
+  "published": "2026-02-13T17:00:00+09:00",
+  "date": "2026-02-13",
+  "summary": [
+    "SK그룹 최태원 회장이 2월 5일(현지 시간) 미국 캘리포니아 산타클라라의 한 식당에서 엔비디아 젠슨 황 CEO를 만났습니다.",
+    "두 회사의 협력은 HBM 개발 초기에 시작돼 제품 기획 단계부터 협력을 우선하는 전략적 파트너십으로 발전했으며, SK하이닉스는 이를 AI 인프라 전반으로 넓힐 계획이라고 밝혔습니다."
+  ],
+  "interview": "HBM 시장이 불확실하던 초기부터 쌓은 협력이 제품 기획 단계의 공동 작업으로 이어졌다는 점은 메모리 엔지니어에게 고객과의 긴밀한 협업 역량이 중요함을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 가속기",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI Memory",
+    "HBM",
+    "NVIDIA",
+    "Partnership"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

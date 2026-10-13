@@ -1,0 +1,37 @@
+{
+  "id": "samsung-4a202a7566",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[인포그래픽] 차세대 AI 플랫폼의 핵심 솔루션, 삼성전자 SSD PM1763",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b8%ed%8f%ac%ea%b7%b8%eb%9e%98%ed%94%bd-%ec%b0%a8%ec%84%b8%eb%8c%80-ai-%ed%94%8c%eb%9e%ab%ed%8f%bc%ec%9d%98-%ed%95%b5%ec%8b%ac-%ec%86%94%eb%a3%a8%ec%85%98-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90/",
+  "published": "2026-07-08T17:01:37+09:00",
+  "date": "2026-07-08",
+  "summary": [
+    "삼성전자가 AI 시스템에서 SSD가 맡는 역할을 설명하며, 차세대 AI 플랫폼용 SSD PM1763을 소개했습니다.",
+    "16TB 모델(E1.S 기준)은 연속 읽기 최대 초당 28,400MB, 연속 쓰기 최대 초당 21,900MB로 전작 대비 2배 이상 향상됐고, 전력 효율은 1.8배 이상 높아졌다고 밝혔습니다."
+  ],
+  "interview": "PM1763의 D2C 액체 냉각 최적화와 전력 효율 개선은 AI 서버에서 스토리지도 데이터 병목과 발열을 함께 풀어야 하는 부품임을 보여 줍니다.",
+  "tags": [
+    "eSSD·SSD",
+    "AI 서버·데이터센터",
+    "전력·냉각"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "9세대 v낸드 SSD",
+    "PCle 6.0",
+    "PM1763"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

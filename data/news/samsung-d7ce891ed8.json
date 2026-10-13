@@ -1,0 +1,41 @@
+{
+  "id": "samsung-d7ce891ed8",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "GTC 2026에서 만난 삼성전자 AI 반도체의 미래",
+  "url": "https://news.samsungsemiconductor.com/kr/gtc-2026%ec%97%90%ec%84%9c-%eb%a7%8c%eb%82%9c-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-ai-%eb%b0%98%eb%8f%84%ec%b2%b4%ec%9d%98-%eb%af%b8%eb%9e%98/",
+  "published": "2026-03-18T02:51:27+09:00",
+  "date": "2026-03-18",
+  "summary": [
+    "삼성전자 반도체는 3월 16일(현지 기준) 미국 새너제이에서 열린 엔비디아의 GTC 2026에 참가해 HBM4와 HBM4E 실물 칩 등을 선보였습니다.",
+    "엔비디아 Vera Rubin 플랫폼용 HBM4, SOCAMM2, PM1763 등을 전시했고, 젠슨 황 CEO는 삼성전자 파운드리에서 Groq 3 LPU 칩을 생산할 계획을 기조연설에서 밝혔습니다."
+  ],
+  "interview": "메모리, 스토리지, 파운드리가 모두 엔비디아 플랫폼과 맞물린다는 점에서 AI 반도체 경쟁이 제품 단위를 넘어 협력 구조로 확장됨을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 가속기",
+    "SOCAMM"
+  ],
+  "companies": [
+    "삼성전자",
+    "엔비디아"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "AI 반도체",
+    "GTC",
+    "GTC 2026",
+    "HBM4",
+    "HBM4E",
+    "엔비디아"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

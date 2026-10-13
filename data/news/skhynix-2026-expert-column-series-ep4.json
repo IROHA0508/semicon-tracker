@@ -1,0 +1,43 @@
+{
+  "id": "skhynix-2026-expert-column-series-ep4",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "AI 반도체에서 AI 서비스로, 생태계가 바뀌고 있다",
+  "originalTitle": "[Expert POV] From AI semiconductors to AI services: How the ecosystem is evolving",
+  "url": "https://news.skhynix.com/en/2026-expert-column-series-ep4/",
+  "published": "2026-07-06T11:59:51+09:00",
+  "date": "2026-07-06",
+  "summary": [
+    "한국반도체산업협회(KSIA)의 안기현 상무는 기고에서 AI 시대에 반도체 생태계가 개별 칩 중심에서 플랫폼 중심으로 확장되고 있다고 설명합니다.",
+    "필자는 AI 가속기와 메모리를 설계 초기부터 함께 설계하는 공동 설계(co-design)가 중요해졌고, SK하이닉스 같은 메모리 기업이 공급사에서 기술 파트너로 역할을 넓히고 있다고 봅니다."
+  ],
+  "interview": "메모리 경쟁이 속도·용량 중심에서 워크로드별 최적화와 공동 설계로 옮겨 가고 있어, 시스템 전체를 이해하는 엔지니어가 필요함을 보여 줍니다.",
+  "tags": [
+    "밸류체인",
+    "HBM",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "GMI Cloud"
+  ],
+  "author": "Executive Director Ki-hyun Ahn, KSIA",
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Infrastructure",
+    "artificial intelligence",
+    "HBM",
+    "Semiconductor Ecosystem",
+    "semiconductor industry"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

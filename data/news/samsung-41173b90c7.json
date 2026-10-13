@@ -1,0 +1,41 @@
+{
+  "id": "samsung-41173b90c7",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, ‘세이프 포럼 2026’ 한국 개최…AI 반도체 생태계 지속 확대",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%84%b8%ec%9d%b4%ed%94%84-%ed%8f%ac%eb%9f%bc-2026-%ed%95%9c%ea%b5%ad-%ea%b0%9c%ec%b5%9cai-%eb%b0%98%eb%8f%84%ec%b2%b4-%ec%83%9d%ed%83%9c%ea%b3%84/",
+  "published": "2026-07-01T18:30:02+09:00",
+  "date": "2026-07-01",
+  "summary": [
+    "삼성전자가 1일 서초사옥에서 ‘세이프(SAFE) 포럼 2026’을 열고 국내 AI 반도체 생태계 협력 확대 방안과 차세대 파운드리 기술 전략을 공개했습니다.",
+    "행사에는 고객·파트너사 관계자 400여 명이 참석했고 21개 파트너사가 부스를 마련했으며, 삼성전자는 DTCO, SRAM, 2나노 기술 로드맵과 MPW 프로그램 등을 통한 국내 팹리스 지원 계획을 소개했습니다."
+  ],
+  "interview": "설계와 공정을 함께 최적화하는 DTCO와 SRAM 경쟁력, 파트너 생태계가 파운드리의 핵심 경쟁력으로 부상하고 있음을 보여 줍니다.",
+  "tags": [
+    "파운드리",
+    "밸류체인",
+    "로직 미세화"
+  ],
+  "companies": [
+    "삼성전자",
+    "리벨리온",
+    "Siemens EDA"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "DTCO",
+    "SAFE",
+    "SAFE Forum 2026",
+    "SRAM",
+    "세이프 포럼 2026"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

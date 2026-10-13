@@ -1,0 +1,37 @@
+{
+  "id": "skhynix-mass-production-socamm2-192gb",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 192GB SOCAMM2 양산 시작",
+  "originalTitle": "SK hynix Begins Mass Production of 192GB SOCAMM2 ‘Setting a New Standard for AI Server Memory Performance’",
+  "url": "https://news.skhynix.com/en/mass-production-socamm2-192gb/",
+  "published": "2026-04-20T08:25:43+09:00",
+  "date": "2026-04-20",
+  "summary": [
+    "SK하이닉스는 1cnm(10나노급 6세대) LPDDR5X 기반의 192GB SOCAMM2 양산을 시작했다고 20일 밝혔습니다.",
+    "회사는 이 제품이 기존 RDIMM 대비 대역폭이 2배 이상, 전력 효율이 75% 넘게 개선됐으며 엔비디아 Vera Rubin 플랫폼용으로 설계됐다고 밝혔습니다."
+  ],
+  "interview": "모바일용 저전력 D램을 서버 모듈로 확장한 SOCAMM2는 AI 서버에서 전력 효율이 메모리 경쟁력의 핵심 기준이 되고 있음을 보여 줍니다.",
+  "tags": [
+    "SOCAMM",
+    "LPDDR",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아"
+  ],
+  "categories": [
+    "PRESS",
+    "LPDDR5X",
+    "SOCAMM2"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

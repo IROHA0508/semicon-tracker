@@ -1,0 +1,40 @@
+{
+  "id": "skhynix-q1-2026-business-results",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 1분기 영업이익 37조 6103억 원…분기 최대 실적 달성",
+  "originalTitle": "SK hynix Announces 1Q26 Financial Results",
+  "url": "https://news.skhynix.com/en/q1-2026-business-results/",
+  "published": "2026-04-23T07:35:35+09:00",
+  "date": "2026-04-23",
+  "summary": [
+    "SK하이닉스는 2026년 1분기 매출 52조 5763억 원, 영업이익 37조 6103억 원(영업이익률 72%), 순이익 40조 3459억 원을 기록했다고 발표했습니다.",
+    "분기 매출이 처음으로 50조 원을 넘었고, 회사는 HBM, 고용량 서버 D램 모듈, eSSD 등 고부가가치 제품 판매 증가가 실적을 이끌었다고 밝혔습니다."
+  ],
+  "interview": "고객 수요가 공급 능력을 웃도는 환경에서는 안정적인 공급 능력 확보가 핵심 경쟁력이라는 회사의 진단은, 메모리 엔지니어에게 수율과 양산 안정성이 중요한 이유를 보여 줍니다.",
+  "tags": [
+    "실적",
+    "HBM",
+    "메모리 가격",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "솔리다임"
+  ],
+  "categories": [
+    "IR",
+    "PRESS",
+    "Earnings",
+    "First Quarter 2026",
+    "Quarterly Earnings"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

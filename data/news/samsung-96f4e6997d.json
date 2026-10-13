@@ -1,0 +1,43 @@
+{
+  "id": "samsung-96f4e6997d",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[인포그래픽] 첨단 반도체 생산을 위한 팀플레이, 삼성 파운드리가 구축한 시스템반도체 생태계 ‘SAFE™’",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%b2%a8%eb%8b%a8-%eb%b0%98%eb%8f%84%ec%b2%b4-%ec%83%9d%ec%82%b0%ec%9d%84-%ec%9c%84%ed%95%9c-%ed%8c%80%ed%94%8c%eb%a0%88%ec%9d%b4-%ec%82%bc%ec%84%b1-%ed%8c%8c%ec%9a%b4%eb%93%9c%eb%a6%ac%ea%b0%80/",
+  "published": "2026-07-01T18:30:20+09:00",
+  "date": "2026-07-01",
+  "summary": [
+    "삼성전자 파운드리사업부가 설계부터 출하까지 고객과 파트너를 하나로 연결하는 생태계 프로그램 SAFE(Samsung Advanced Foundry Ecosystem)를 인포그래픽으로 소개했습니다.",
+    "SAFE는 IP, EDA, 클라우드, 디자인 서비스, MDI, OSAT의 여섯 얼라이언스로 구성되며, MPW 셔틀과 DSP 협력, M.AX 얼라이언스, 정부 과제 연계 같은 지원 프로그램이 함께 운영됩니다."
+  ],
+  "interview": "설계, 패키징, 테스트까지 파트너를 묶는 SAFE는 파운드리 경쟁력이 공정 기술뿐 아니라 생태계 운영에도 달려 있음을 보여 줍니다.",
+  "tags": [
+    "파운드리",
+    "밸류체인",
+    "패키징"
+  ],
+  "companies": [
+    "삼성전자",
+    "가온칩스",
+    "에이디테크놀로지",
+    "코아시아"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "SAFE",
+    "Samsung Advanced Foundry Ecosystem",
+    "삼성 파운드리",
+    "세이프",
+    "에코시스템",
+    "인포그래픽"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

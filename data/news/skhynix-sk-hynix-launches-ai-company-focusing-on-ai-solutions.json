@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-sk-hynix-launches-ai-company-focusing-on-ai-solutions",
+  "company": "skhynix",
+  "source": "sk-fact",
+  "channel": "FACT",
+  "kind": "fact",
+  "lang": "en",
+  "title": "SK하이닉스, AI 솔루션 중심 'AI Company' 출범 발표",
+  "originalTitle": "Introducing Launch of ‘AI Company’ Focusing on AI Solutions",
+  "url": "https://news.skhynix.com/en/sk-hynix-launches-ai-company-focusing-on-ai-solutions/",
+  "published": "2026-01-28T17:00:00+09:00",
+  "date": "2026-01-28",
+  "summary": [
+    "SK하이닉스는 AI 산업 변화에 선제적으로 대응하기 위해 2월 출범하는 AI 전문 투자 회사 'AI Company'를 설립한다고 설명했습니다.",
+    "초기 자금으로 100억 달러 투자를 결정했으며, 미국 캘리포니아의 기업용 SSD 자회사 솔리다임을 재편해 설립하고 AI 시스템 최적화 SW 투자에 먼저 집중할 계획입니다."
+  ],
+  "interview": "메모리 기업이 부품 공급자에서 AI 데이터센터 생태계의 파트너로 역할을 넓히려 한다는 점에서, 메모리 병목이 AI 경쟁의 핵심임을 보여 줍니다.",
+  "tags": [
+    "AI 서버·데이터센터",
+    "eSSD·SSD",
+    "주주환원·자본"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "솔리다임"
+  ],
+  "categories": [
+    "FACT",
+    "AI Company",
+    "AI Infrastructure",
+    "AI Memory",
+    "Solidigm"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "samsung-eeec4c9ea7",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "전원을 꺼도 데이터를 기억하는 메모리! 과학 유튜버 발명킹밥테일이 실험으로 재현한 낸드플래시의 원리",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%a0%84%ec%9b%90%ec%9d%84-%ea%ba%bc%eb%8f%84-%eb%8d%b0%ec%9d%b4%ed%84%b0%eb%a5%bc-%ea%b8%b0%ec%96%b5%ed%95%98%eb%8a%94-%eb%a9%94%eb%aa%a8%eb%a6%ac-%ea%b3%bc%ed%95%99-%ec%9c%a0%ed%8a%9c%eb%b2%84/",
+  "published": "2026-06-10T18:00:03+09:00",
+  "date": "2026-06-10",
+  "summary": [
+    "삼성전자 반도체 뉴스룸이 과학 유튜버 발명킹밥테일과 함께 쇠구슬과 석판으로 낸드플래시의 데이터 저장 원리를 재현한 실험 영상을 소개했습니다.",
+    "전자는 쇠구슬로, 셀은 모듈로 대체해 전하 트랩 기술과 셀을 아파트처럼 수직으로 쌓는 V 낸드 적층 구조를 실험으로 살펴봤습니다."
+  ],
+  "interview": "전하 트랩과 수직 적층으로 비휘발성과 집적도를 함께 확보한다는 점은 낸드 엔지니어가 셀 구조를 이해해야 하는 이유를 보여 줍니다.",
+  "tags": [
+    "3D 낸드"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "V 낸드 적층 구조",
+    "낸드플래시",
+    "낸드플래시 원리",
+    "발명킹밥테일",
+    "전하 트랩"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

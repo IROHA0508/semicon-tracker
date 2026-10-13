@@ -1,0 +1,35 @@
+{
+  "id": "skhynix-q4-2025-earnings-conference-call-invitation",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 2025년 4분기 실적 컨퍼런스콜 초청 안내",
+  "originalTitle": "Q4 2025 Earnings Conference Call Invitation",
+  "url": "https://news.skhynix.com/en/q4-2025-earnings-conference-call-invitation/",
+  "published": "2026-01-22T09:33:29+09:00",
+  "date": "2026-01-22",
+  "summary": [
+    "SK하이닉스가 2026년 1월 29일(목) 2025년 4분기 실적을 발표한다고 안내했습니다.",
+    "실적 보도자료는 같은 날 오전 9시 이전에 공개되며, 컨퍼런스콜은 한국어로 생중계되고 영어 동시통역이 제공됩니다."
+  ],
+  "interview": "",
+  "tags": [
+    "실적"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "IR",
+    "PRESS",
+    "Invitation Letter",
+    "Quartely Earnings"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

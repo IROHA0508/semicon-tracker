@@ -1,0 +1,41 @@
+{
+  "id": "skhynix-d5f0dc6ce1",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, CES 2026에서 16단 48GB HBM4 첫 공개",
+  "originalTitle": "SK hynix Showcases Next-Generation AI Memory Innovations at CES 2026",
+  "url": "https://news.skhynix.com/en/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
+  "published": "2026-01-06T07:45:00+09:00",
+  "date": "2026-01-06",
+  "summary": [
+    "SK하이닉스는 1월 6일부터 9일까지(현지 시간) 미국 라스베이거스 CES 2026의 베네시안 엑스포에 고객 전시 부스를 열고 차세대 AI 메모리 솔루션을 선보인다고 밝혔습니다.",
+    "48GB 16단 HBM4를 처음 공개하고, SOCAMM2, LPDDR6, 321단 2Tb QLC 제품과 cHBM 모형을 포함한 'AI System Demo Zone'도 운영합니다."
+  ],
+  "interview": "고객 요구에 맞춰 GPU·ASIC 기능 일부를 HBM 베이스 다이에 넣는 cHBM은 메모리 경쟁이 성능에서 추론 효율로 옮겨 가고 있음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "SOCAMM",
+    "LPDDR",
+    "3D 낸드"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "PRESS",
+    "AI Memory",
+    "CES 2026",
+    "HBM4",
+    "LPDDR6",
+    "NAND Flash",
+    "SOCAMM2"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

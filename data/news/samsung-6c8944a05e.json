@@ -1,0 +1,39 @@
+{
+  "id": "samsung-6c8944a05e",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, 2026년 상반기 공채 실시",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-2026%eb%85%84-%ec%83%81%eb%b0%98%ea%b8%b0-%ea%b3%b5%ec%b1%84-%ec%8b%a4%ec%8b%9c/",
+  "published": "2026-03-10T00:00:00+09:00",
+  "date": "2026-03-10",
+  "summary": [
+    "삼성은 삼성전자를 포함한 18개 관계사가 10일부터 올해 상반기 공채 절차를 진행한다고 밝혔습니다.",
+    "지원서는 10일부터 17일까지 삼성커리어스에서 접수하며, 채용은 3월 직무적합성 평가, 4월 GSAT, 5월 면접, 건강검진 순으로 진행됩니다."
+  ],
+  "interview": "삼성이 1957년 도입한 공채를 70년째 유지한다는 점은 직무적합성 평가와 GSAT 등 채용 절차를 미리 준비해야 함을 보여 줍니다.",
+  "tags": [
+    "채용"
+  ],
+  "companies": [
+    "삼성전자",
+    "삼성물산",
+    "삼성바이오로직스",
+    "삼성디스플레이",
+    "삼성SDI",
+    "삼성전기"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2026년 상반기 공채",
+    "공채"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

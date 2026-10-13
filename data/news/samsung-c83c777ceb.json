@@ -1,0 +1,40 @@
+{
+  "id": "samsung-c83c777ceb",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "삼성전자 4나노 파운드리 공정: 안정성 위에 확장성을 더한 최적의 공정 솔루션",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-4%eb%82%98%eb%85%b8-%ed%8c%8c%ec%9a%b4%eb%93%9c%eb%a6%ac-%ea%b3%b5%ec%a0%95-%ec%95%88%ec%a0%95%ec%84%b1-%ec%9c%84%ec%97%90-%ed%99%95%ec%9e%a5%ec%84%b1%ec%9d%84/",
+  "published": "2026-04-28T20:32:59+09:00",
+  "date": "2026-04-28",
+  "summary": [
+    "삼성전자는 4나노 FinFET 파운드리 공정이 선단 공정과 성숙 공정의 장점을 고루 갖춘 솔루션이라고 설명했습니다.",
+    "6년차에 접어든 이 공정은 안정적인 수율을 바탕으로 HBM4 베이스 다이, AI/HPC용 LPU, Automotive, RF 등으로 응용처를 넓히고 있습니다."
+  ],
+  "interview": "4나노 공정이 HBM4 베이스 다이에 쓰인 점은 파운드리 공정이 메모리 성능과 발열 특성까지 좌우하는 시대임을 보여 줍니다.",
+  "tags": [
+    "파운드리",
+    "로직 미세화",
+    "HBM"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "4나노 파운드리 공정",
+    "FinFET",
+    "Foundry",
+    "HBM4",
+    "베이스다이",
+    "파운드리"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

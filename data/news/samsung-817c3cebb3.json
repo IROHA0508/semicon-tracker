@@ -1,0 +1,40 @@
+{
+  "id": "samsung-817c3cebb3",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "수평의 한계를 수직으로 돌파하다! 2026 VLSI Symposium 최고 논문상 수상자 인터뷰",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%88%98%ed%8f%89%ec%9d%98-%ed%95%9c%ea%b3%84%eb%a5%bc-%ec%88%98%ec%a7%81%ec%9c%bc%eb%a1%9c-%eb%8f%8c%ed%8c%8c%ed%95%98%eb%8b%a4/",
+  "published": "2026-06-17T17:00:02+09:00",
+  "date": "2026-06-17",
+  "summary": [
+    "삼성전자 반도체연구소 Logic TD팀이 2026 VLSI Symposium에서 게이트 피치 42nm 수준의 3D Stacked FET를 세계 최초로 구현했다고 발표했고, 이 논문은 Best Paper로 선정됐습니다.",
+    "연구팀은 기존 업계 최소 기록이 48nm였다고 밝혔으며, 수직 적층으로 같은 수평 면적에 이론상 2배의 소자를 구현할 수 있고 다음 과제는 Ring Oscillator와 SRAM 개발이라고 설명했습니다."
+  ],
+  "interview": "메모리에서 검증된 수직 적층 발상이 로직으로 확장된다는 점과, 깊고 좁은 구조의 식각·갭필이 핵심 난제라는 점은 공정 엔지니어의 역할을 보여 줍니다.",
+  "tags": [
+    "GAA",
+    "로직 미세화",
+    "식각"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "2026 VLSI Symposium Best Paper",
+    "3D Stacked FET",
+    "3차원 트랜지스터",
+    "42nm 3D 적층 트랜지스터",
+    "로직 반도체",
+    "삼성전자 반도체연구소 Logic TD팀"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

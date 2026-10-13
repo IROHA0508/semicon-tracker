@@ -1,0 +1,41 @@
+{
+  "id": "skhynix-skhynix-chungju-pt7",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, 청주 P&T7 착공… AI 메모리 후공정 생산 거점 조성",
+  "originalTitle": "What Does P&T7 Mean for Cheongju? A New AI Memory Production Hub and Catalyst for the Local Economy",
+  "url": "https://news.skhynix.com/en/skhynix-chungju-pt7/",
+  "published": "2026-04-22T13:42:46+09:00",
+  "date": "2026-04-22",
+  "summary": [
+    "SK하이닉스가 4월 22일 청주 테크노폴리스 산업단지에서 HBM 등 AI 메모리 제조에 필요한 첨단 패키징 공장 P&T7의 착공식을 열었습니다.",
+    "P&T7은 약 23만㎡ 부지에 WLP 3개 층과 WT 7개 층을 갖추며, WT 라인은 2027년 10월, WLP 라인은 2028년 2월 완공을 목표로 합니다."
+  ],
+  "interview": "후공정이 AI 반도체 성능을 좌우하는 변수로 커졌다는 점에서, 패키징·테스트 공정 엔지니어의 역할이 중요해졌음을 보여 줍니다.",
+  "tags": [
+    "패키징",
+    "팹 투자",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "SK에코플랜트"
+  ],
+  "categories": [
+    "TECH&AI",
+    "Advanced Packaging",
+    "AI Infrastructure",
+    "AI Memory",
+    "Balanced Regional Development",
+    "P&T7",
+    "Regional Revitalization"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "samsung-6d7836eeeb",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, 협력회사와 상생 생태계 조성을 위한 협약 체결",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%ed%98%91%eb%a0%a5%ed%9a%8c%ec%82%ac%ec%99%80-%ec%83%81%ec%83%9d-%ec%83%9d%ed%83%9c%ea%b3%84-%ec%a1%b0%ec%84%b1%ec%9d%84-%ec%9c%84%ed%95%9c-%ed%98%91%ec%95%bd-%ec%b2%b4%ea%b2%b0/",
+  "published": "2026-06-29T18:00:03+09:00",
+  "date": "2026-06-29",
+  "summary": [
+    "삼성은 29일 삼성전자 수원사업장에서 삼성전자 등 11개 계열사와 1~3차 협력회사가 참여한 상생 생태계 조성 협약을 체결했습니다.",
+    "이번 협약으로 공급망의 약 6,700개 협력회사가 혜택을 볼 것으로 예상되며, 삼성은 자금·기술·인력 3개 분야 맞춤형 지원을 이어 가기로 했습니다."
+  ],
+  "interview": "",
+  "tags": [
+    "밸류체인"
+  ],
+  "companies": [
+    "삼성전자",
+    "삼성디스플레이",
+    "삼성전기",
+    "삼성SDI",
+    "삼성SDS",
+    "삼성물산"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "ESG펀드",
+    "상생생태계조성",
+    "상생펀드",
+    "함께가요 미래로 Enabling People"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 12단 차세대 HBM4E 샘플 주요 고객에 출하",
+  "originalTitle": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’",
+  "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2/",
+  "published": "2026-06-18T14:55:25+09:00",
+  "date": "2026-06-18",
+  "summary": [
+    "SK하이닉스는 AI용 차세대 D램인 12단 HBM4E 샘플을 주요 고객에게 출하했다고 18일 밝혔습니다.",
+    "핀당 최대 16Gbps의 처리 속도와 이전 제품 대비 20% 이상 높아진 전력 효율을 갖췄고, Advanced MR-MUF를 적용해 48GB 용량을 구현했으며 열 저항은 HBM4 대비 17% 개선했다고 설명했습니다."
+  ],
+  "interview": "12단 적층에서 48GB 용량과 구조 안정성, 방열 개선을 함께 확보했다는 점은 HBM 경쟁력이 적층 공정 기술에 달려 있음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "HBM 적층(TSV·MR-MUF)",
+    "전력·냉각"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "PRESS",
+    "AI",
+    "AI Memory",
+    "HBM",
+    "HBM4E",
+    "MR-MUF"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

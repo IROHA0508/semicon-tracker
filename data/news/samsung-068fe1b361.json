@@ -1,0 +1,36 @@
+{
+  "id": "samsung-068fe1b361",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, 미취업 청년 1,000명 직무교육 지원… ‘청년희망배움터’ 교육생 모집",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%eb%af%b8%ec%b7%a8%ec%97%85-%ec%b2%ad%eb%85%84-%eb%8c%80%ec%83%81-1000%eb%aa%85-%ec%a7%81%eb%ac%b4%ea%b5%90%ec%9c%a1-%ec%a7%80%ec%9b%90-%ec%b2%ad%eb%85%84%ed%9d%ac/",
+  "published": "2026-06-18T16:59:05+09:00",
+  "date": "2026-06-18",
+  "summary": [
+    "삼성이 청년 직무교육 프로그램 ‘청년희망배움터’를 신설하고 7월 19일까지 교육생을 모집한다고 밝혔습니다.",
+    "올해 비수도권 청년 1,000명을 선발해 4개 권역에서 6개 직무 분야 교육을 제공하며, 8월부터 본격적으로 교육에 들어가고 최대 700시간 과정이 운영됩니다."
+  ],
+  "interview": "",
+  "tags": [],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "CSR",
+    "미취업 청년",
+    "삼성 직무교육 프로그램",
+    "삼성 희망디딤돌",
+    "청년희망배움터",
+    "함께가요 미래로 Enabling People"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

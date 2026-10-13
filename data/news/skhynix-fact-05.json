@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-fact-05",
+  "company": "skhynix",
+  "source": "sk-fact",
+  "channel": "FACT",
+  "kind": "fact",
+  "lang": "en",
+  "title": "SK하이닉스 해명: 용인·청주·서남권에 1,100조 원 중장기 투자",
+  "originalTitle": "Explainer: SK hynix’s Mid-to-Long-Term Investment Strategy",
+  "url": "https://news.skhynix.com/en/fact-05/",
+  "published": "2026-06-29T15:11:20+09:00",
+  "date": "2026-06-29",
+  "summary": [
+    "SK하이닉스는 AI 메모리 수요 증가에 대응해 용인, 청주, 서남권을 아우르는 1,100조 원 규모의 중장기 투자 전략을 설명했습니다.",
+    "용인에 600조 원, 청주에 100조 원, 서남권에 400조 원을 단계적으로 투자하며, 용인 4번째 팹 완공 목표를 원래 2045년에서 2033년으로 앞당겼다고 밝혔습니다."
+  ],
+  "interview": "HBM이 같은 용량의 일반 D램보다 웨이퍼를 더 많이 쓴다는 설명은, 생산능력 선확보가 AI 메모리 경쟁력의 핵심임을 보여 줍니다.",
+  "tags": [
+    "팹 투자",
+    "전력·용수 인프라",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "FACT",
+    "AI",
+    "AI Infrastructure",
+    "AI Memory",
+    "semiconductor industry",
+    "The Southwestern Cluster"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

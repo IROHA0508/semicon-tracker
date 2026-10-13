@@ -1,0 +1,37 @@
+{
+  "id": "samsung-36184c3b19",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 세계 최초 HBM4E 12단 샘플 출하",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%84%b8%ea%b3%84-%ec%b5%9c%ec%b4%88-hbm4e-12%eb%8b%a8-%ec%83%98%ed%94%8c-%ec%b6%9c%ed%95%98/",
+  "published": "2026-05-29T17:01:14+09:00",
+  "date": "2026-05-29",
+  "summary": [
+    "삼성전자는 세계 최초라고 밝히며 HBM4E 12단 샘플을 글로벌 고객사에 공급했습니다.",
+    "핀당 동작 속도는 14Gbps에서 최대 16Gbps이고, 12단 제품은 48GB 용량에 1c D램과 자체 Foundry 4나노 로직 다이를 적용했다고 밝혔습니다."
+  ],
+  "interview": "HBM4E에 1c D램과 4나노 로직 다이를 함께 적용한 점은 HBM 경쟁력이 메모리 공정과 파운드리 역량의 결합에 달렸음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "D램 미세화",
+    "파운드리"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "HBM",
+    "HBM4E",
+    "HBM4E 12단 샘플"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

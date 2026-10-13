@@ -1,0 +1,43 @@
+{
+  "id": "skhynix-opinion-local-economy-pt7",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "기업 주도 지역 활성화의 경제학: SK하이닉스 청주 P&T7 사례",
+  "originalTitle": "The Economics of Reviving Struggling Regions Through Corporate-Led Initiatives",
+  "url": "https://news.skhynix.com/en/opinion-local-economy-pt7/",
+  "published": "2026-04-27T09:03:47+09:00",
+  "date": "2026-04-27",
+  "summary": [
+    "SK하이닉스 뉴스룸 기고는 도요타 시, 아마존 HQ2, 독일 실리콘 작센 사례를 들어 기업 주도 지역 활성화를 설명하고, SK하이닉스의 청주 투자를 한국형 모델로 소개합니다.",
+    "4월 22일 청주 테크노폴리스 산업단지에서 P&T7 착공식이 열렸으며, 2027년 말까지 건설 인력 하루 최대 9,000명, 운영 인력 약 3,000명 규모의 일자리 효과가 예상된다고 밝혔습니다."
+  ],
+  "interview": "P&T7 투자는 HBM 수요에 대응하는 후공정 생산능력 확충이 지역 일자리와 세수까지 이어지는 산업적 파급력을 가진다는 점을 보여 줍니다.",
+  "tags": [
+    "팹 투자",
+    "패키징",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "도요타",
+    "아마존"
+  ],
+  "categories": [
+    "TECH&AI",
+    "Advanced Packaging",
+    "AI Infrastructure",
+    "Balanced Regional Development",
+    "P&T7",
+    "Package",
+    "Regional Revitalization",
+    "semiconductor industry"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

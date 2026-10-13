@@ -1,0 +1,38 @@
+{
+  "id": "skhynix-mwc-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, MWC 2026에서 AI 메모리 솔루션 공개",
+  "originalTitle": "SK hynix Unveils Latest AI Memory Solutions at MWC 2026, Showcasing Its Technological Capabilities as a Full Stack AI Memory Creator",
+  "url": "https://news.skhynix.com/en/mwc-2026/",
+  "published": "2026-03-05T09:00:00+09:00",
+  "date": "2026-03-05",
+  "summary": [
+    "SK하이닉스는 3월 2일부터 5일까지 스페인 바르셀로나에서 열린 MWC 2026에서 AI 및 자동차용 핵심 메모리 솔루션을 선보였습니다.",
+    "HBM, AI 데이터센터 메모리, 온디바이스 AI 메모리, 자동차의 네 개 구역으로 전시했고, HBM4는 대역폭이 이전 세대의 2.54배이며 전력 효율이 40% 넘게 개선됐다고 소개했습니다."
+  ],
+  "interview": "HBM부터 서버 모듈, eSSD, 모바일·차량용 메모리까지 한 자리에 선보인 전시는 AI 시대 메모리 수요가 데이터센터 밖으로 넓어지고 있음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "서버 D램(DDR5)",
+    "온디바이스 AI",
+    "LPDDR"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Memory",
+    "MWC2026"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

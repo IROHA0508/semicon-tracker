@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-multi-year-tech-partnership-with-nvidia",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스·엔비디아, AI 팩토리용 차세대 메모리 다년 기술 협력 발표",
+  "originalTitle": "SK hynix and NVIDIA Announce Multi-year Technology Partnership to Advance Memory for AI Factories",
+  "url": "https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia/",
+  "published": "2026-06-07T11:20:30+09:00",
+  "date": "2026-06-07",
+  "summary": [
+    "SK하이닉스와 엔비디아는 AI 팩토리 구축을 위한 차세대 메모리 개발과 반도체 설계·제조 가속을 목표로 다년 기술 파트너십을 발표했습니다.",
+    "SK하이닉스는 엔비디아 Vera Rubin AI 슈퍼컴퓨터, Vera CPU, RTX Spark 기반 PC, Jetson Thor 로봇 플랫폼용 메모리를 개발하고, CUDA-X와 Omniverse로 시뮬레이션과 팹 디지털 트윈을 고도화합니다."
+  ],
+  "interview": "메모리 업체가 제품 공급을 넘어 AI 기반 설계·팹 자동화까지 고객사와 함께 추진한다는 점에서 엔지니어 역할의 확장을 보여 줍니다.",
+  "tags": [
+    "공급 계약",
+    "제조 AI",
+    "AI 가속기"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아"
+  ],
+  "categories": [
+    "PRESS",
+    "AI",
+    "AI Memory",
+    "NVIDIA",
+    "semiconductor industy"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

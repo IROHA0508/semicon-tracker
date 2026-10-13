@@ -1,0 +1,44 @@
+{
+  "id": "skhynix-hpe-discover-2026",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, HPED 2026에서 '풀스택 AI 메모리 크리에이터' 기술력 선보여",
+  "originalTitle": "SK hynix Showcases Tech Leadership as ‘Full Stack AI Memory Creator’ at HPED 2026, Reaffirming Strong Partnership with HPE",
+  "url": "https://news.skhynix.com/en/hpe-discover-2026/",
+  "published": "2026-06-19T14:04:42+09:00",
+  "date": "2026-06-19",
+  "summary": [
+    "SK하이닉스는 6월 15일부터 18일까지(현지 시간) 미국 라스베이거스에서 열린 HPE Discover 2026에 참가해 HBM, 서버 D램, eSSD, CMM-DDR5 제품군을 전시했습니다.",
+    "HPE 서버에 이미 공급 중인 인증 제품으로 PS1010 E3.S와 64GB DDR5 RDIMM을 내세웠고, 기술 세션에서는 CXL 풀드 메모리와 PNM 기반 아키텍처를 제안했습니다."
+  ],
+  "interview": "HPE 서버에 인증 제품을 공급하는 사례는 메모리가 HBM을 넘어 eSSD, 서버 D램, CXL까지 고객 시스템 단위로 검증받아야 한다는 점을 보여 줍니다.",
+  "tags": [
+    "CXL·PIM",
+    "HBM",
+    "AI 서버·데이터센터"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "HPE",
+    "엔비디아",
+    "리퀴드"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Memory",
+    "CXL",
+    "eSSD",
+    "HBM",
+    "HEP Discover",
+    "HPE"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

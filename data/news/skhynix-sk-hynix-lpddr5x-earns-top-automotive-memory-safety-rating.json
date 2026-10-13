@@ -1,0 +1,40 @@
+{
+  "id": "skhynix-sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스 LPDDR5X, 차량용 메모리 최고 안전 등급 ASIL-D 인증 획득",
+  "originalTitle": "SK hynix LPDDR5X Achieves ASIL-D, the Highest Automotive Memory Functional Safety Rating",
+  "url": "https://news.skhynix.com/en/sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating/",
+  "published": "2026-01-19T09:00:00+09:00",
+  "date": "2026-01-19",
+  "summary": [
+    "SK하이닉스는 차량용 D램 LPDDR5X가 기능안전 국제 표준 ISO 26262의 최고 등급인 ASIL-D 인증을 받았다고 밝혔습니다.",
+    "인증은 TÜV SÜD가 개발 프로세스, 제품 설계, 검증, 품질 경영 체계를 종합 평가해 부여했으며, ASIL-D 기준은 SPFM 99% 이상, LFM 90% 이상, PMHF 10 FIT 이하입니다."
+  ],
+  "interview": "차량용 메모리는 성능이나 불량률을 넘어 설계 단계부터 고장을 예측하고 제어하는 기능안전이 경쟁력이 된다는 점에서 의미가 있습니다.",
+  "tags": [
+    "LPDDR",
+    "신뢰성",
+    "수율·품질"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "ASIL-D",
+    "Automotive Memory",
+    "DRAM",
+    "ISO",
+    "ISO26262",
+    "LPDDR5X"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

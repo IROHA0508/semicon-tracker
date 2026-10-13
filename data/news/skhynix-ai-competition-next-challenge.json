@@ -1,0 +1,42 @@
+{
+  "id": "skhynix-ai-competition-next-challenge",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "AI 인프라 시대, 컴퓨팅에서 데이터 흐름 중심의 메모리 경쟁으로",
+  "originalTitle": "Why advanced memory matters in the AI infrastructure era",
+  "url": "https://news.skhynix.com/en/ai-competition-next-challenge/",
+  "published": "2026-07-03T11:31:40+09:00",
+  "date": "2026-07-03",
+  "summary": [
+    "SK하이닉스는 HBM4, HBM4E, SOCAMM2, LPDDR, eSSD를 하나로 연결된 AI 메모리 포트폴리오로 제시하며, AI 인프라 경쟁이 개별 제품 성능에서 메모리 계층 전체 설계로 옮겨 가고 있다고 설명했습니다.",
+    "Gartner는 2026년 HBM 매출이 92%, 서버 D램 매출이 60% 늘 것으로 보고, Omdia는 eSSD 매출이 130% 증가할 것으로 전망했습니다."
+  ],
+  "interview": "AI가 학습에서 추론으로 확산되면서 HBM뿐 아니라 D램과 eSSD까지 계층별로 최적화하는 역량이 메모리 엔지니어에게 중요해졌음을 보여 줍니다.",
+  "tags": [
+    "AI 서버·데이터센터",
+    "HBM",
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "Gartner",
+    "Omdia"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "AI Infrastructure",
+    "AI Memory",
+    "DRAM",
+    "eSSD",
+    "HBM"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

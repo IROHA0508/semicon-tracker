@@ -1,0 +1,42 @@
+{
+  "id": "samsung-618f6e3081",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "[2026 삼성 명장 인터뷰] 정확한 계측으로 HBM 불량률 제로에 도전하는 김주우 명장",
+  "url": "https://news.samsungsemiconductor.com/kr/2026-%ec%82%bc%ec%84%b1-%eb%aa%85%ec%9e%a5-%ec%9d%b8%ed%84%b0%eb%b7%b0-%ec%a0%95%ed%99%95%ed%95%9c-%ea%b3%84%ec%b8%a1%ec%9c%bc%eb%a1%9c-hbm-%eb%b6%88%eb%9f%89%eb%a5%a0-%ec%a0%9c%eb%a1%9c%ec%97%90/",
+  "published": "2026-04-14T20:31:36+09:00",
+  "date": "2026-04-14",
+  "summary": [
+    "삼성전자 글로벌 제조&인프라총괄 김주우 명장은 26년간 반도체의 미세 불량을 찾아온 비파괴 검사 전문가로, 계측을 통해 HBM 경쟁력에 기여했다고 소개됐습니다.",
+    "그는 백색 광을 분리한 Red 광원으로 새로운 모니터링 솔루션을 개발해 기존에 보이지 않던 작은 흠집까지 검출하며 생산 수율과 품질 향상에 기여하고 있습니다."
+  ],
+  "interview": "HBM처럼 칩을 층층이 쌓는 제품에서는 보이지 않는 손상을 계측으로 미리 잡는 일이 수율과 품질을 좌우한다는 점에서 의미가 있습니다.",
+  "tags": [
+    "수율·품질",
+    "HBM"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "2026 삼성 명장",
+    "HBM",
+    "계측",
+    "공정",
+    "김주우 명장",
+    "명장",
+    "명장 인터뷰",
+    "삼성 명장",
+    "엔지니어"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

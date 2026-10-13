@@ -1,0 +1,44 @@
+{
+  "id": "samsung-ad1c8984e8",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, GTC서 HBM4E 최초 공개…‘토털 솔루션’으로 엔비디아와 AI 동맹 고도화",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-gtc%ec%84%9c-hbm4e-%ec%b5%9c%ec%b4%88-%ea%b3%b5%ea%b0%9c%ed%86%a0%ed%84%b8-%ec%86%94%eb%a3%a8%ec%85%98%ec%9c%bc%eb%a1%9c-%ec%97%94/",
+  "published": "2026-03-17T14:30:03+09:00",
+  "date": "2026-03-17",
+  "summary": [
+    "삼성전자가 미국 새너제이에서 열린 엔비디아 GTC에 참가해 HBM4E 실물 칩과 코어 다이 웨이퍼를 최초로 공개했다고 밝혔습니다.",
+    "HBM4E는 핀당 16Gbps 속도와 4.0TB/s 대역폭을 지원할 예정이며, Vera Rubin 플랫폼용 HBM4, SOCAMM2, PM1763도 함께 전시했습니다."
+  ],
+  "interview": "메모리, 파운드리, 로직 설계, 패키징을 함께 갖춘 IDM 구조가 HBM4E 같은 차세대 제품 개발에서 협업 효율의 강점이 된다는 점을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "하이브리드 본딩",
+    "SOCAMM",
+    "eSSD·SSD"
+  ],
+  "companies": [
+    "삼성전자",
+    "엔비디아",
+    "그록"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "1c D램",
+    "CMX",
+    "GTC",
+    "HBM4E",
+    "SOCAMM2",
+    "Vera Rubin 플랫폼",
+    "엔비디아"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

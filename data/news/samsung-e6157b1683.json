@@ -1,0 +1,34 @@
+{
+  "id": "samsung-e6157b1683",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, 2026년 상반기 삼성직무적성검사(GSAT)실시",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-2026%eb%85%84-%ec%83%81%eb%b0%98%ea%b8%b0-%ec%82%bc%ec%84%b1%ec%a7%81%eb%ac%b4%ec%a0%81%ec%84%b1%ea%b2%80%ec%82%acgsat%ec%8b%a4%ec%8b%9c/",
+  "published": "2026-04-27T18:05:42+09:00",
+  "date": "2026-04-27",
+  "summary": [
+    "삼성은 25~26일 이틀간 입사 지원자를 대상으로 삼성직무적성검사(GSAT)를 삼성전자 등 18개 관계사에서 실시했습니다.",
+    "삼성은 3월 지원서 접수를 시작으로 상반기 공채를 진행 중이며, GSAT와 5월 면접, 건강검진을 거쳐 신입사원을 최종 선발할 예정입니다."
+  ],
+  "interview": "삼성이 AI 분야 인재 발굴을 계속 확대하겠다고 밝힌 만큼, 지원자는 AI 시대에 맞는 문제 해결 역량을 준비해야 함을 보여 줍니다.",
+  "tags": [
+    "채용"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "GSAT",
+    "삼성직무적성검사"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

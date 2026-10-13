@@ -1,0 +1,37 @@
+{
+  "id": "samsung-4770a91895",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "이론으로만 알고 있던 D램의 ‘휘발성’, 유튜버 발명킹밥테일과 함께 실험으로 알아보기",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b4%eb%a1%a0%ec%9c%bc%eb%a1%9c%eb%a7%8c-%ec%95%8c%ea%b3%a0-%ec%9e%88%eb%8d%98-d%eb%9e%a8%ec%9d%98-%ed%9c%98%eb%b0%9c%ec%84%b1-%ec%9c%a0%ed%8a%9c%eb%b2%84-%eb%b0%9c%eb%aa%85/",
+  "published": "2026-02-06T19:00:02+09:00",
+  "date": "2026-02-06",
+  "summary": [
+    "삼성전자 반도체 뉴스룸이 유튜버 발명킹밥테일과 함께 물의 흐름을 활용한 ‘D램 책상’ 만들기 실험을 진행했습니다.",
+    "D램은 전원이 차단되면 데이터가 사라지는 휘발성 메모리여서 주기적으로 셀에 전하를 다시 채우는 리프레시를 반복하며, 실험에서는 구멍 뚫린 비커에서 물이 새는 모습으로 전하가 빠져나가는 특성을 구현했습니다."
+  ],
+  "interview": "D램이 리프레시로 전하 누설을 계속 보충해야 데이터를 유지한다는 점은 D램 설계와 신뢰성 확보의 출발점이라는 점에서 의미가 있습니다.",
+  "tags": [
+    "신뢰성"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "DRAM",
+    "D램",
+    "D램 원리",
+    "리프레시",
+    "발명킹밥테일"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

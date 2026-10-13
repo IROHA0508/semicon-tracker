@@ -1,0 +1,39 @@
+{
+  "id": "skhynix-global-big-tech-ai-partnership-meta",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "최태원 회장, 저커버그와 회동... AI 칩부터 AI 글래스까지 메모리로 협력 확대",
+  "originalTitle": "Chairman Chey Tae-won Joins Hands with Zuckerberg — From AI Chips to AI Glasses, Connected by Memory",
+  "url": "https://news.skhynix.com/en/global-big-tech-ai-partnership-meta/",
+  "published": "2026-02-13T17:10:00+09:00",
+  "date": "2026-02-13",
+  "summary": [
+    "SK그룹 최태원 회장은 2월 10일 미국 캘리포니아 새너제이에서 메타의 마크 저커버그 CEO와 만나 AI 칩과 HBM의 장기 공급 협력을 논의했습니다.",
+    "양측은 SK하이닉스 HBM 로드맵과 메타의 MTIA 프로젝트의 정렬, HBM4·HBM4E 이후 제품의 조기 조율, 메타 AI 글래스용 저전력 D램·낸드 플래시 활용, 한국 내 메타 AI 데이터센터 구축 협력을 논의했습니다."
+  ],
+  "interview": "SK하이닉스가 기업용 SSD와 서버 D램 공급을 넘어 고객사 AI 가속기 로드맵에 맞춰 HBM을 함께 최적화하는 단계로 가고 있음을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "AI 가속기",
+    "공급 계약"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "메타"
+  ],
+  "categories": [
+    "TECH&AI",
+    "AI Memory",
+    "HBM",
+    "Meta",
+    "Partnership"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:52:12+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}
