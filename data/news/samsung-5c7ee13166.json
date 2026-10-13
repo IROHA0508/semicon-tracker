@@ -1,0 +1,40 @@
+{
+  "id": "samsung-5c7ee13166",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자·브로드컴, 2,000억 달러 규모 ‘전략적 협력’",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90%c2%b7%eb%b8%8c%eb%a1%9c%eb%93%9c%ec%bb%b4-2000%ec%96%b5-%eb%8b%ac%eb%9f%ac-%ea%b7%9c%eb%aa%a8-%ec%a0%84%eb%9e%b5%ec%a0%81-%ed%98%91%eb%a0%a5/",
+  "published": "2026-07-25T23:14:11+09:00",
+  "date": "2026-07-25",
+  "summary": [
+    "삼성전자가 24일(현지시간) 미국 샌프란시스코에서 열린 ‘AI 서밋’ 행사에서 브로드컴과 차세대 AI 핵심 인프라 구축을 위한 전략적 업무협약(MOU)을 체결했습니다.",
+    "양사는 2030년까지 향후 5년간 메모리·파운드리 분야에서 2,000억 달러 이상 규모의 전략적 협력을 추진하며, 삼성전자는 HBM 공급과 2nm 이하 파운드리 공정, 첨단 패키징을 제공할 계획입니다."
+  ],
+  "interview": "빅테크의 자체 AI 가속기(ASIC) 도입이 늘면서 메모리·파운드리·패키징을 함께 제공하는 통합 역량이 고객 확보의 핵심이 되고 있음을 보여 줍니다.",
+  "tags": [
+    "공급 계약",
+    "HBM",
+    "AI 가속기",
+    "파운드리"
+  ],
+  "companies": [
+    "삼성전자",
+    "브로드컴"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "AI 반도체",
+    "HBM",
+    "브로드컴",
+    "원스톱 턴키 솔루션"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

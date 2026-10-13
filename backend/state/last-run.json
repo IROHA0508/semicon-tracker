@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-13T07:53:41+09:00",
+  "startedAt": "2026-10-13T14:46:00+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -34,7 +34,7 @@
       "pages": 1,
       "items": 20,
       "new": 0,
-      "skippedByCategory": 0,
+      "skippedByCategory": 2,
       "older": 0,
       "stoppedBy": "reached known articles",
       "error": null
@@ -49,24 +49,64 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-13T07:53:44+09:00",
+  "finishedAt": "2026-10-13T14:46:04+09:00",
   "summary": {
-    "startedAt": "2026-10-13T07:53:44+09:00",
+    "startedAt": "2026-10-13T14:46:04+09:00",
     "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-795c75a829",
+        "title": "삼성, ‘청년희망배움터’ 개강식 개최"
+      },
+      {
+        "id": "samsung-47d70bc35a",
+        "title": "삼성전자, 2026년 2분기 실적 발표"
+      },
+      {
+        "id": "skhynix-q2-2026-business-results",
+        "title": "SK하이닉스, 2분기 매출 79조 3187억 원·영업이익 60조 5426억 원 기록"
+      },
+      {
+        "id": "skhynix-q2-2026-earnings-conference-call-invitation",
+        "title": "SK하이닉스, 2026년 2분기 실적 컨퍼런스콜 초청 안내"
+      },
+      {
+        "id": "samsung-1d5ab7e684",
+        "title": "HBM 성공의 또 다른 주역, 삼성 파운드리가 열어갈 AI 혁신"
+      },
+      {
+        "id": "samsung-5c7ee13166",
+        "title": "삼성전자·브로드컴, 2,000억 달러 규모 ‘전략적 협력’"
+      },
+      {
+        "id": "skhynix-skhynix-nvidia-partnership-2026",
+        "title": "SK그룹·엔비디아, 5,000억 달러 이상 AI 팩토리·차세대 메모리 협력 확대"
+      },
+      {
+        "id": "samsung-d8e72fb6d4",
+        "title": "HBM4 베이스 다이 경쟁력을 높인 4나노 초저전력 공정, 대한민국 엔지니어상 수상자 인터뷰"
+      },
+      {
+        "id": "skhynix-research-inside-ep1",
+        "title": "[연구 속으로] SK하이닉스 CTI, 176단 3D 낸드 양산 가능성 높여"
+      },
+      {
+        "id": "skhynix-fact-09",
+        "title": "SK하이닉스 곽노정 CEO, 미국 나스닥 개장 벨 행사에서 기념사 발표"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
-    "limitHit": true,
-    "stoppedBy": "usage limit",
-    "queueLeft": 106,
-    "message": "claude CLI 실패(1): \"\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{},\"permission_denials\":[],\"terminal_reason\":\"api_error\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"un",
-    "finishedAt": "2026-10-13T07:53:48+09:00"
+    "limitHit": false,
+    "stoppedBy": "limit",
+    "queueLeft": 96,
+    "finishedAt": "2026-10-13T14:47:02+09:00"
   },
   "manifest": {
-    "count": 40,
-    "changed": false
+    "count": 50,
+    "changed": true
   }
 }

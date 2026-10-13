@@ -1,0 +1,35 @@
+{
+  "id": "skhynix-q2-2026-earnings-conference-call-invitation",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 2026년 2분기 실적 컨퍼런스콜 초청 안내",
+  "originalTitle": "Q2 2026 Earnings Conference Call Invitation",
+  "url": "https://news.skhynix.com/en/q2-2026-earnings-conference-call-invitation/",
+  "published": "2026-07-28T13:13:00+09:00",
+  "date": "2026-07-28",
+  "summary": [
+    "SK하이닉스는 2026년 7월 29일(수) 2026년 2분기 실적을 발표한다고 안내했습니다.",
+    "실적 보도자료는 당일 오전 9시 이전에 공개되며, 컨퍼런스콜은 같은 날 오전 9시에 한국어-영어 순차통역으로 생중계됩니다."
+  ],
+  "interview": "분기 실적 발표와 컨퍼런스콜이 투자자와 소통하는 정례 절차라는 점에서, 메모리 사업 성과가 공개 지표로 점검된다는 사실을 보여 줍니다.",
+  "tags": [
+    "실적"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "IR",
+    "PRESS",
+    "Invitation Letter",
+    "Quartely Earnings"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

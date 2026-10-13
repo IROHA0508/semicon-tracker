@@ -1,0 +1,40 @@
+{
+  "id": "samsung-d8e72fb6d4",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "HBM4 베이스 다이 경쟁력을 높인 4나노 초저전력 공정, 대한민국 엔지니어상 수상자 인터뷰",
+  "url": "https://news.samsungsemiconductor.com/kr/ai%ec%8b%9c%eb%8c%80-%ec%b4%88%ec%a0%80%ec%a0%84%eb%a0%a5-%ea%b8%b0%ec%88%a0%eb%a1%9c-4%eb%82%98%eb%85%b8-%ed%8c%8c%ec%9a%b4%eb%93%9c%eb%a6%ac-%ea%b3%b5%ec%a0%95-%ec%99%84%ec%84%b1%eb%8f%84%eb%a5%bc/",
+  "published": "2026-07-23T17:00:07+09:00",
+  "date": "2026-07-23",
+  "summary": [
+    "삼성전자 파운드리사업부 기술개발실 최정민 PL이 FinFET 기반 4나노 초저전력 공정 개발 성과로 대한민국 엔지니어상을 받았고, 뉴스룸이 그를 인터뷰했습니다.",
+    "최 PL은 FinFET의 높이를 낮추고 컨택 폭을 줄여 정전용량을 낮췄으며, 이 기술이 HBM4 베이스 다이 개발과 양산에 기여했다고 설명했습니다."
+  ],
+  "interview": "전력 소모가 정전용량에 비례한다는 원리를 컨택 구조 최적화로 풀어낸 사례로, 공정 엔지니어가 HBM4 베이스 다이 성능에 직접 기여함을 보여 줍니다.",
+  "tags": [
+    "파운드리",
+    "HBM",
+    "전력·냉각"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "4나노 초저전력 공정 기술",
+    "4나노 파운드리 공정",
+    "HBM4",
+    "HBM4 베이스 다이",
+    "대한민국 엔지니어상",
+    "파운드리"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

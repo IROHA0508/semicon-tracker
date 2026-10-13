@@ -65,7 +65,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "HBM4 베이스 다이 경쟁력을 높인 4나노 초저전력 공정, 대한민국 엔지니어상 수상자 인터뷰"
     },
     "https://news.samsungsemiconductor.com/kr/ces-2026-혁신상-수상작-detachable-autossd-업계-최초의-탈부착-가능한-최": {
@@ -165,7 +165,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "HBM 성공의 또 다른 주역, 삼성 파운드리가 열어갈 AI 혁신"
     },
     "https://news.samsungsemiconductor.com/kr/거인의-도구들-반도체-라인을-누비는-설비-엔지니어": {
@@ -365,7 +365,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성, ‘청년희망배움터’ 개강식 개최"
     },
     "https://news.samsungsemiconductor.com/kr/삼성-추석-맞아-내수경기-활성화에-앞장": {
@@ -435,7 +435,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자, 2026년 2분기 실적 발표"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-2분기-잠정실적-발표": {
@@ -578,6 +578,16 @@
       "status": "skipped",
       "title": "삼성전자 반도체, 제3회 ‘Samsung Supplier Sustainability Summit’ 개최: 글로벌 공급망 지속가능성 강화를 위한 협력 방안 모색"
     },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-반도체-협력사-임직원-5만-8천명에-오늘도": {
+      "checkedAt": "2026-10-13",
+      "date": "2026-10-13",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "삼성전자, 반도체 협력사 임직원 5만 8천명에 “오늘도 고맙습니다”"
+    },
     "https://news.samsungsemiconductor.com/kr/삼성전자-반도체의-탄소중립을-향한-한-걸음": {
       "checkedAt": "2026-10-07",
       "date": "2026-04-24",
@@ -695,7 +705,7 @@
       "sources": [
         "samsung-newsroom"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "삼성전자·브로드컴, 2,000억 달러 규모 ‘전략적 협력’"
     },
     "https://news.samsungsemiconductor.com/kr/새로운-ai-인프라-사이클을-여는-메모리-혁신-1편-더-가": {
@@ -867,6 +877,16 @@
       ],
       "status": "skipped",
       "title": "[칩스케치] 상생의 힘으로 키운 반도체 생태계, 삼성전자 ‘대한민국 동반성장 대상’ 수상"
+    },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-최신-글로벌-esg-정책과-대응-방향을-살피다": {
+      "checkedAt": "2026-10-13",
+      "date": "2026-10-13",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[칩스케치] 최신 글로벌 ESG 정책과 대응 방향을 살피다! ‘2026 지속가능경영 세미나’"
     },
     "https://news.samsungsemiconductor.com/kr/칩스케치-현장의-목소리가-모여-완성하는-안전문화-20": {
       "checkedAt": "2026-10-07",
@@ -1185,7 +1205,7 @@
       "sources": [
         "sk-fact"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix CEO Kwak Noh-Jung’s Commemorative Remarks at the Nasdaq Opening Bell Ceremony in the U.S."
     },
     "https://news.skhynix.com/en/fact-10": {
@@ -1435,7 +1455,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK hynix Announces 2Q26 Financial Results"
     },
     "https://news.skhynix.com/en/q2-2026-earnings-conference-call-invitation": {
@@ -1445,7 +1465,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "Q2 2026 Earnings Conference Call Invitation"
     },
     "https://news.skhynix.com/en/q4-2025-earnings-conference-call-invitation": {
@@ -1465,7 +1485,7 @@
       "sources": [
         "sk-tech"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "[Inside the Research] SK hynix’s CTI innovation advances 176-layer 3D NAND toward mass production"
     },
     "https://news.skhynix.com/en/share-buyback-and-retirement": {
@@ -1625,7 +1645,7 @@
       "sources": [
         "sk-press"
       ],
-      "status": "queued",
+      "status": "summarized",
       "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory"
     },
     "https://news.skhynix.com/en/tech-note-series-ep1": {

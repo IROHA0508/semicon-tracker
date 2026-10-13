@@ -1,0 +1,41 @@
+{
+  "id": "skhynix-research-inside-ep1",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "[연구 속으로] SK하이닉스 CTI, 176단 3D 낸드 양산 가능성 높여",
+  "originalTitle": "[Inside the Research] SK hynix’s CTI innovation advances 176-layer 3D NAND toward mass production",
+  "url": "https://news.skhynix.com/en/research-inside-ep1/",
+  "published": "2026-07-22T14:00:49+09:00",
+  "date": "2026-07-22",
+  "summary": [
+    "SK하이닉스 뉴스룸은 연재 [Inside the Research]의 첫 번째 글로, 176단 이상 초고단 3D 낸드의 미세화 한계를 넘기 위한 전하 트랩 질화막 분리(CTI) 기술을 소개했습니다.",
+    "새 CTI는 식각 대신 산화막 장벽을 증착한 뒤 CTN 물질로 채우는 방식으로, 기존 구조 대비 셀 간 간섭을 30% 넘게 줄이고 전하 보존력을 45% 넘게 높였으며 셀 크기를 10% 넘게 줄였다고 밝혔습니다."
+  ],
+  "interview": "기존 CTI의 채널홀 확대 문제를 식각 대신 증착으로 푼 사례는 낸드 미세화에서 공정 선택이 집적도를 좌우함을 보여 줍니다.",
+  "tags": [
+    "3D 낸드",
+    "증착",
+    "신뢰성"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "176 layer NAND",
+    "CTI",
+    "IEDM",
+    "IEEE",
+    "NAND",
+    "Research Inside",
+    "Scaling"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

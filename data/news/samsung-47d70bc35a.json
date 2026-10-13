@@ -1,0 +1,36 @@
+{
+  "id": "samsung-47d70bc35a",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자, 2026년 2분기 실적 발표",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-2%eb%b6%84%ea%b8%b0-%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+  "published": "2026-07-30T17:55:42+09:00",
+  "date": "2026-07-30",
+  "summary": [
+    "삼성전자는 2026년 2분기 연결 기준 매출 171.5조원, 영업이익 89.5조원으로 역대 최대 분기 매출과 영업이익을 달성했다고 발표했습니다.",
+    "DS부문은 매출 127.5조원, 영업이익 89.2조원을 기록했으며, DRAM과 NAND가 최대 판매를 보였고 업계 최초로 HBM4E 샘플을 출하했다고 밝혔습니다."
+  ],
+  "interview": "에이전틱 AI 확산에 따른 서버향 수요가 DS부문 실적을 끌어올렸다는 점에서, 메모리 사업에서 HBM4·DDR5 같은 고부가 제품 경쟁력이 핵심임을 보여 줍니다.",
+  "tags": [
+    "실적",
+    "HBM",
+    "메모리 사이클"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "2026 2분기 실적",
+    "삼성전자 실적"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

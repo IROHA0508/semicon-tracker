@@ -1,0 +1,41 @@
+{
+  "id": "samsung-1d5ab7e684",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "HBM 성공의 또 다른 주역, 삼성 파운드리가 열어갈 AI 혁신",
+  "url": "https://news.samsungsemiconductor.com/kr/hbm-%ec%84%b1%ea%b3%b5%ec%9d%98-%eb%98%90-%eb%8b%a4%eb%a5%b8-%ec%a3%bc%ec%97%ad-%ec%82%bc%ec%84%b1-%ed%8c%8c%ec%9a%b4%eb%93%9c%eb%a6%ac%ea%b0%80-%ec%97%b4%ec%96%b4%ea%b0%88-ai-%ed%98%81%ec%8b%a0/",
+  "published": "2026-07-27T16:59:58+09:00",
+  "date": "2026-07-27",
+  "summary": [
+    "삼성전자 반도체 뉴스룸이 파운드리사업부 기술개발실장 구자흠 부사장을 만나 HBM4·HBM4E 베이스 다이 기술과 삼성 파운드리의 선단 공정 전망을 들었습니다.",
+    "구 부사장은 HBM4와 HBM4E 베이스 다이에 삼성 파운드리 4나노 4세대 공정을 적용했고, HBM5 베이스 다이에는 GAA 구조의 2나노 공정을 적용할 예정이라고 설명했습니다."
+  ],
+  "interview": "HBM4부터 베이스 다이에 파운드리 공정이 쓰이면서, 메모리 설계자도 로직 공정과 패키징까지 함께 이해해야 한다는 점을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "파운드리",
+    "로직 미세화"
+  ],
+  "companies": [
+    "삼성전자",
+    "테슬라"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "4나노 파운드리 공정",
+    "HBM",
+    "HBM4",
+    "HBM4 베이스 다이",
+    "HBM4E",
+    "파운드리"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "samsung-795c75a829",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성, ‘청년희망배움터’ 개강식 개최",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%ec%b2%ad%eb%85%84%ed%9d%ac%eb%a7%9d%eb%b0%b0%ec%9b%80%ed%84%b0-%ea%b0%9c%ea%b0%95%ec%8b%9d-%ea%b0%9c%ec%b5%9c/",
+  "published": "2026-07-30T23:00:05+09:00",
+  "date": "2026-07-30",
+  "summary": [
+    "삼성은 7월 30일 삼성화재 대전 유성연수원에서 비수도권 미취업 청년을 위한 ‘청년희망배움터’ 개강식을 열었습니다.",
+    "교육은 8월 3일부터 전국 4개 권역에서 6개 직무 분야로 시작되며, 올해 총 1,000명을 전반기와 후반기에 나눠 선발합니다."
+  ],
+  "interview": "",
+  "tags": [],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "CSR",
+    "K-뉴딜 아카데미",
+    "사회공헌활동",
+    "상생협력",
+    "청년 취업 지원",
+    "청년희망배움터"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-13T14:46:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}
