@@ -781,6 +781,35 @@
       "summary": "테스트의 세 목적과 출하까지의 흐름, 테스트 항목과 리텐션 테스트, 체커보드·March 패턴, 쉬무 플롯, 불량 비트 지도(FBM) 모양으로 원인 짐작하기, 재현 조건 → 위치 찾기 → 디프로세싱·FIB → SEM·TEM·EDX로 이어지는 불량 분석, PE 직무의 네 가지 일."
     },
     {
+      "id": "euv-litho",
+      "unit": "4-2",
+      "title": "노광 심화: EUV, 멀티 패터닝, High-NA",
+      "file": "euv-litho.html",
+      "modes": [
+        {
+          "id": "path",
+          "label": "빛의 길",
+          "steps": 4
+        },
+        {
+          "id": "multi",
+          "label": "멀티 패터닝",
+          "steps": 7
+        },
+        {
+          "id": "stoch",
+          "label": "확률적 결함",
+          "steps": 2
+        },
+        {
+          "id": "hna",
+          "label": "High-NA",
+          "steps": 3
+        }
+      ],
+      "summary": "EUV 장비 속 빛의 길(주석 플라즈마 → 다층 거울 → 반사형 마스크 → 웨이퍼), LELE·SADP·SAQP로 선을 2배·4배 늘리는 멀티 패터닝, 광자 수가 적어 생기는 확률적 결함, NA 0.55 High-NA의 해상도·절반 필드·얕은 초점 심도."
+    },
+    {
       "id": "dram-evolution",
       "unit": "4-3",
       "title": "D램 셀 구조 진화",
@@ -805,6 +834,30 @@
       "summary": "6F²에서 4F²로 줄이는 셀 면적, 매몰 채널(BCAT) → 세로 채널(VG·VCT) → 3D D램 단면 비교, 1x~1c 세대 이름과 EUV·HBM의 1b."
     },
     {
+      "id": "nand-deep",
+      "unit": "4-4",
+      "title": "낸드 심화: 300단 이상 적층과 채널홀 식각",
+      "file": "nand-deep.html",
+      "modes": [
+        {
+          "id": "cell",
+          "label": "셀 구조",
+          "steps": 2
+        },
+        {
+          "id": "hole",
+          "label": "채널홀 식각",
+          "steps": 4
+        },
+        {
+          "id": "race",
+          "label": "경쟁 포인트",
+          "steps": 3
+        }
+      ],
+      "summary": "채널홀과 워드라인 한 층이 만나는 셀, 채널홀 단면의 다섯 겹(블로킹·전하 저장·터널·폴리 채널·코어), CTF와 플로팅 게이트, 층이 늘수록 어려워지는 채널홀 식각(휘어짐·지름 차이·바닥 미개통)과 덱 분할·극저온 식각, PUC(4D 낸드)·웨이퍼 본딩, SLC~QLC, 321단에서 375단과 몰리브덴까지."
+    },
+    {
       "id": "hbm-stack",
       "unit": "4-5",
       "title": "HBM 적층과 본딩",
@@ -827,6 +880,54 @@
         }
       ],
       "summary": "GPU 옆 2.5D 패키지와 대역폭(2,048 × 8 Gb/s), 스택 수율, TSV 6단계, TC-NCF·MR-MUF·하이브리드 본딩 비교와 높이 한도."
+    },
+    {
+      "id": "adv-packaging",
+      "unit": "4-6",
+      "title": "첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛",
+      "file": "adv-packaging.html",
+      "modes": [
+        {
+          "id": "why",
+          "label": "왜 필요한가",
+          "steps": 2
+        },
+        {
+          "id": "types",
+          "label": "네 가지 방식",
+          "steps": 4
+        },
+        {
+          "id": "hb",
+          "label": "하이브리드 본딩",
+          "steps": 4
+        },
+        {
+          "id": "chip",
+          "label": "칩렛",
+          "steps": 2
+        }
+      ],
+      "summary": "큰 칩일수록 결함 하나에 통째로 버려지는 수율과 레티클 한계, 팬인·팬아웃 WLP, 실리콘 인터포저(CoWoS)·브리지(EMIB·CoWoS-L)·3D 적층 단면, 하이브리드 본딩의 피치와 세 단계(CMP 리세스 → 상온 절연막 접합 → 열처리 구리 접합), 칩렛과 UCIe."
+    },
+    {
+      "id": "ai-memory",
+      "unit": "4-7",
+      "title": "AI 반도체와 메모리: 메모리 벽, CXL, PIM, HBF",
+      "file": "ai-memory.html",
+      "modes": [
+        {
+          "id": "wall",
+          "label": "메모리 벽",
+          "steps": 3
+        },
+        {
+          "id": "fix",
+          "label": "해법",
+          "steps": 5
+        }
+      ],
+      "summary": "연산 성능(2년에 약 3배)과 D램 대역폭(약 1.6배)·칩 간 연결(약 1.4배)의 성장 격차인 메모리 벽, 단어를 하나씩 생성하는 추론과 데이터 이동 에너지, 그리고 가까이 붙이는 HBM·넓히는 CXL·안에서 계산하는 PIM·새 계층 HBF와 메모리 종류별 대역폭 비교."
     }
   ],
   "planned": []

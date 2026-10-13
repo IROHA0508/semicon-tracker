@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>낸드 심화: 300단 이상 적층과 채널홀 식각</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .wl { fill: var(--m-w); }
+  .ox { fill: var(--m-ox); }
+  .r-blk { fill: var(--m-ox-line); }
+  .r-ctn { fill: var(--m-nit); }
+  .r-tun { fill: var(--m-ox); }
+  .r-poly { fill: var(--m-poly); }
+  .r-core { fill: var(--surface); stroke: var(--m-ox-line); }
+  .ring-n { font-size: 10px; font-weight: 700; fill: var(--ink); }
+  .cellbox { fill: none; stroke: var(--accent); stroke-width: 3; }
+  .chg { fill: var(--accent); }
+  .trap { stroke: var(--ink); stroke-width: 1.4; }
+  .lay { stroke: var(--m-w); stroke-width: 3; }
+  .hole { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+  .bad-o { fill: none; stroke: var(--bad); stroke-width: 2; stroke-dasharray: 4 3; }
+  .plug { stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 4; }
+  .blk { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .blk.cell { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .blk.peri { fill: var(--m-si-n); stroke: var(--m-si-line); }
+  .win { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.2; }
+  .lvl { stroke: var(--accent); stroke-width: 2; }
+  .tl { stroke: var(--ink); stroke-width: 2; }
+  .dot { fill: var(--accent); }
+  [data-s="dim"] { opacity: .3; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">4-4</span><span>첨단 기술</span><a href="./">애니메이션 목록</a></div>
+    <h1>낸드 심화: 300단 이상 적층과 채널홀 식각</h1>
+    <p class="lead">3D 낸드는 워드라인 층을 수백 층 쌓은 뒤, 그 더미를 위부터 아래까지 관통하는 구멍(채널홀)을 뚫고 구멍 벽에 전하를 가두는 막을 입혀, 구멍 하나에 셀 수백 개가 줄줄이 달린 세로 줄(스트링)을 만드는 구조입니다. 수백 층짜리 아파트에 엘리베이터 통로를 뚫는 것처럼, 층이 높아질수록 통로를 곧게 뚫기 어렵고 층마다 전기를 대는 배선은 얇아져 저항이 커집니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">낸드 심화: 300단 이상 적층과 채널홀 식각</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== cell ===== -->
+        <g id="m-cell" class="t">
+          <g id="side"></g>
+          <rect id="cellbox" class="cellbox t" x="134" y="196" width="92" height="28"></rect>
+          <text id="cell-t" x="232" y="215" class="lbl-s acc halo t">← 셀 하나</text>
+          <text x="180" y="392" class="lbl-s" text-anchor="middle">옆에서 본 모습(층 수는 크게 줄임)</text>
+          <g id="top" class="t">
+            <rect class="wl" x="320" y="105" width="220" height="220"></rect>
+            <circle class="r-blk" cx="430" cy="215" r="104"></circle><circle class="r-ctn" cx="430" cy="215" r="90"></circle><circle class="r-tun" cx="430" cy="215" r="72"></circle><circle class="r-poly" cx="430" cy="215" r="58"></circle><circle class="r-core" cx="430" cy="215" r="40"></circle>
+            <text class="ring-n" x="527" y="219" text-anchor="middle">1</text><text class="ring-n" x="511" y="219" text-anchor="middle">2</text><text class="ring-n" x="495" y="219" text-anchor="middle">3</text><text class="ring-n" x="479" y="219" text-anchor="middle">4</text><text class="ring-n" x="430" y="219" text-anchor="middle">5</text>
+            <text x="430" y="348" class="lbl-s" text-anchor="middle">위에서 본 채널홀 하나(바깥 = 워드라인)</text>
+          </g>
+          <g id="cmp" class="t">
+            <rect x="330" y="90" width="200" height="60" rx="6" class="m-poly"></rect><g id="fgq"></g>
+            <text x="430" y="76" class="card-l ink-b" text-anchor="middle">플로팅 게이트(2D 시절)</text><text x="430" y="172" class="lbl-s" text-anchor="middle">도체에 저장: 전하가 도체 안에 퍼진다</text>
+            <rect x="330" y="240" width="200" height="60" rx="6" class="m-nit"></rect><g id="ctq"></g>
+            <text x="430" y="226" class="card-l ink-b" text-anchor="middle">CTF(대부분의 3D 낸드)</text><text x="430" y="322" class="lbl-s" text-anchor="middle">절연막(질화막) 결함에 하나씩 가둔다</text>
+            <text x="430" y="356" class="card-l acc" text-anchor="middle">이웃 셀 간섭↓, 얇게 → 적층에 유리</text>
+          </g>
+        </g>
+
+        <!-- ===== hole ===== -->
+        <g id="m-hole" class="t">
+          <g id="ar" class="t"></g>
+          <g id="prob" class="t"></g>
+          <g id="deck" class="t"></g>
+          <g id="warp" class="t">
+            <path d="M60,330 Q280,250 500,330" style="fill: none; stroke: var(--m-si-line); stroke-width: 14; stroke-linecap: round"></path>
+            <text x="280" y="236" class="card-l bad-t" text-anchor="middle">수백 층의 막 응력 → 웨이퍼가 휜다</text>
+            <text x="280" y="120" class="card-l low-t" text-anchor="middle">❄ 극저온 식각: 식각 속도·수직성↑ (3-6)</text>
+            <text x="280" y="150" class="lbl-s" text-anchor="middle">깊이 대 지름이 큰 구멍을 바닥까지 곧고 고르게</text>
+          </g>
+        </g>
+
+        <!-- ===== race ===== -->
+        <g id="m-race" class="t">
+          <g id="peri" class="t">
+            <rect class="blk cell" x="40" y="160" width="100" height="90"></rect><rect class="blk peri" x="140" y="200" width="50" height="50"></rect>
+            <text x="115" y="150" class="lbl-s ink-b" text-anchor="middle">회로를 옆에</text><text x="90" y="210" class="lbl-s" text-anchor="middle">셀</text><text x="165" y="230" class="lbl-s" text-anchor="middle">회로</text>
+            <path d="M40,270 H190" class="brk" style="stroke: var(--ink); fill: none"></path><text x="115" y="290" class="lbl-s" text-anchor="middle">칩 폭</text>
+            <rect class="blk cell" x="230" y="160" width="100" height="70"></rect><rect class="blk peri" x="230" y="230" width="100" height="20"></rect>
+            <text x="280" y="150" class="lbl-s ink-b" text-anchor="middle">PUC: 셀 아래에</text><text x="280" y="200" class="lbl-s" text-anchor="middle">셀</text><text x="280" y="245" class="lbl-s" text-anchor="middle">회로</text>
+            <path d="M230,270 H330" class="brk" style="stroke: var(--ink); fill: none"></path><text x="280" y="290" class="lbl-s acc" text-anchor="middle">칩 면적↓</text>
+            <rect class="blk cell" x="380" y="120" width="120" height="60"></rect><rect class="blk peri" x="380" y="230" width="120" height="30"></rect>
+            <line x1="440" y1="184" x2="440" y2="224" style="stroke: var(--ink); stroke-width: 1.6" marker-end="url(#ar-k)"></line>
+            <text x="440" y="110" class="lbl-s ink-b" text-anchor="middle">따로 만들어 붙이기</text><text x="440" y="155" class="lbl-s" text-anchor="middle">셀 웨이퍼</text><text x="440" y="250" class="lbl-s" text-anchor="middle">회로 웨이퍼</text>
+            <text x="440" y="290" class="lbl-s" text-anchor="middle">YMTC Xtacking, 키옥시아 CBA</text>
+            <text x="280" y="350" class="card-l ink-b" text-anchor="middle">4D 낸드 = CTF + PUC(Peri Under Cell)</text>
+          </g>
+          <g id="bits" class="t"></g>
+          <g id="race" class="t">
+            <line class="tl" x1="50" y1="140" x2="500" y2="140" marker-end="url(#ar-k)"></line>
+            <circle class="dot" cx="90" cy="140" r="7"></circle><text x="90" y="118" class="card-l ink-b" text-anchor="middle">2024.11</text><text x="90" y="166" class="lbl-s" text-anchor="middle">321단 양산</text>
+            <circle class="dot" cx="260" cy="140" r="7"></circle><text x="260" y="118" class="card-l ink-b" text-anchor="middle">2026</text><text x="260" y="166" class="lbl-s" text-anchor="middle">321단 QLC PC용 SSD 공급</text>
+            <circle class="dot" cx="430" cy="140" r="7" style="fill: var(--low)"></circle><text x="430" y="118" class="card-l low-t" text-anchor="middle">2027 초(계획)</text><text x="430" y="166" class="lbl-s" text-anchor="middle">375단 V10 양산</text>
+            <text x="280" y="196" class="lbl-s" text-anchor="middle">SK하이닉스 기준. 375단 계획은 2026년 8월 FMS 발표</text>
+            <rect class="wl" x="70" y="250" width="160" height="26"></rect><rect class="wl" x="300" y="256" width="160" height="12"></rect>
+            <text x="150" y="300" class="lbl-s" text-anchor="middle">두꺼운 워드라인</text><text x="380" y="300" class="lbl-s" text-anchor="middle">층이 늘면 얇아져 저항↑</text>
+            <text x="280" y="340" class="card-l acc" text-anchor="middle">텅스텐(W) → 몰리브덴(Mo) 전환 흐름</text>
+          </g>
+        </g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>개념도입니다. 층 수, 막 두께, 구멍 크기는 실제 비율이 아니며, 실제 제품은 층이 수백 개입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>만드는 순서(3-16): 산화막·질화막 몰드 적층 → 채널홀 식각 → 구멍 벽에 블로킹 산화막·전하 저장 질화막·터널 산화막·폴리실리콘 채널·코어 산화막 → 슬릿을 파 질화막만 녹이고 금속(텅스텐, 차세대는 몰리브덴)으로 바꿔 워드라인 → 계단식 콘택.</li>
+      <li>셀당 비트 수: SLC(1비트, 2단계)는 빠르고 수명이 길지만 비싸고, MLC(2, 4단계)는 절충, TLC(3, 8단계)가 현재 주력, QLC(4, 16단계)는 대용량·저가지만 속도·수명은 불리합니다. AI 데이터센터용 대용량 SSD 수요로 QLC가 주목받고 있습니다.</li>
+      <li>낸드를 HBM처럼 쌓아 AI 가속기 옆에 붙이는 HBF는 4-7에서 다룹니다.</li>
+    </ul>
+    <p class="foot">원고 4-4를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-8 낸드, 3-16 3D 낸드 공정 흐름, 3-6 식각, 4-7 AI 메모리.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // 옆모습: 워드라인 8층 + 채널홀
+  for (let i = 0; i < 8; i++) { const y = 80 + i * 36; mk($("side"), "rect", { class: "ox", x: 40, y, width: 260, height: 14 }); mk($("side"), "rect", { class: "wl", x: 40, y: y + 14, width: 260, height: 22 }); }
+  mk($("side"), "rect", { class: "ox", x: 40, y: 368, width: 260, height: 8 });
+  [[140, 6, "r-blk"], [146, 8, "r-ctn"], [154, 4, "r-tun"], [158, 10, "r-poly"], [168, 24, "r-core"], [192, 10, "r-poly"], [202, 4, "r-tun"], [206, 8, "r-ctn"], [214, 6, "r-blk"]].forEach(([x, w, c]) => mk($("side"), "rect", { class: c + " t", x, y: 64, width: w, height: 312 }));
+  mk($("side"), "text", { x: 180, y: 56, class: "lbl-s", "text-anchor": "middle" }, "채널홀");
+  mk($("side"), "text", { x: 40, y: 72, class: "lbl-s" }, "워드라인(진회색)과 산화막이 번갈아");
+  // 전하 그림
+  [[350, 110], [380, 132], [410, 112], [440, 130], [470, 110], [500, 128]].forEach(([x, y]) => mk($("fgq"), "circle", { class: "chg", cx: x, cy: y, r: 5 }));
+  [[352, 262], [388, 280], [420, 258], [452, 284], [486, 262], [508, 280]].forEach(([x, y]) => { mk($("ctq"), "line", { class: "trap", x1: x - 6, y1: y - 6, x2: x + 6, y2: y + 6 }); mk($("ctq"), "line", { class: "trap", x1: x - 6, y1: y + 6, x2: x + 6, y2: y - 6 }); });
+  [[352, 262], [420, 258], [486, 262]].forEach(([x, y]) => mk($("ctq"), "circle", { class: "chg", cx: x, cy: y, r: 5 }));
+  // 종횡비
+  const stack = (g, x, y0, n, h) => { for (let i = 0; i < n; i++) mk(g, "line", { class: "lay", x1: x, y1: y0 + i * h, x2: x + 140, y2: y0 + i * h }); };
+  stack($("ar"), 60, 250, 9, 12); mk($("ar"), "rect", { class: "hole", x: 118, y: 244, width: 24, height: 106 });
+  stack($("ar"), 260, 70, 24, 12); mk($("ar"), "rect", { class: "hole", x: 318, y: 64, width: 24, height: 286 });
+  mk($("ar"), "text", { x: 130, y: 380, class: "lbl-s", "text-anchor": "middle" }, "층이 적을 때");
+  mk($("ar"), "text", { x: 330, y: 380, class: "lbl-s", "text-anchor": "middle" }, "층이 많을 때");
+  mk($("ar"), "text", { x: 420, y: 210, class: "card-l acc" }, "깊이 ÷ 지름 = 종횡비");
+  // 세 가지 문제
+  stack($("prob"), 40, 70, 24, 12); stack($("prob"), 180, 70, 24, 12); stack($("prob"), 320, 70, 24, 12);
+  mk($("prob"), "path", { class: "hole", d: "M98,64 Q92,200 114,346 L138,346 Q116,200 122,64 Z" });
+  mk($("prob"), "path", { class: "hole", d: "M234,64 L266,64 L256,346 L244,346 Z" });
+  mk($("prob"), "rect", { class: "hole", x: 378, y: 64, width: 24, height: 236 }); mk($("prob"), "rect", { class: "bad-o", x: 378, y: 300, width: 24, height: 46 });
+  mk($("prob"), "text", { x: 110, y: 376, class: "lbl-s bad-t", "text-anchor": "middle" }, "휘어짐");
+  mk($("prob"), "text", { x: 250, y: 376, class: "lbl-s bad-t", "text-anchor": "middle" }, "위아래 지름 차이");
+  mk($("prob"), "text", { x: 390, y: 376, class: "lbl-s bad-t", "text-anchor": "middle" }, "바닥 미개통");
+  // 덱 분할
+  stack($("deck"), 160, 70, 24, 12);
+  [[64, 164, 0], [166, 262, 3], [264, 346, -3]].forEach(([a, b, d]) => mk($("deck"), "path", { class: "hole", d: `M${218 + d},${a} L${242 + d},${a} L${238 + d},${b} L${222 + d},${b} Z` }));
+  mk($("deck"), "line", { class: "plug", x1: 150, y1: 165, x2: 310, y2: 165 }); mk($("deck"), "line", { class: "plug", x1: 150, y1: 263, x2: 310, y2: 263 });
+  mk($("deck"), "text", { x: 320, y: 120, class: "lbl-s" }, "덱 1"); mk($("deck"), "text", { x: 320, y: 218, class: "lbl-s" }, "덱 2"); mk($("deck"), "text", { x: 320, y: 310, class: "lbl-s" }, "덱 3");
+  mk($("deck"), "text", { x: 320, y: 168, class: "lbl-s acc" }, "← 이음부(플러그)"); mk($("deck"), "text", { x: 320, y: 266, class: "lbl-s acc" }, "← 이음부(플러그)");
+  mk($("deck"), "text", { x: 230, y: 380, class: "lbl-s", "text-anchor": "middle" }, "덱마다 따로 뚫고 이어 붙인다: 위아래 정렬이 관건");
+  // 셀당 비트
+  [["SLC", 2, "1비트"], ["MLC", 4, "2비트"], ["TLC", 8, "3비트"], ["QLC", 16, "4비트"]].forEach(([n, k, b], i) => {
+    const x = 50 + i * 120; mk($("bits"), "rect", { class: "win", x, y: 80, width: 90, height: 220, rx: 6 });
+    for (let j = 0; j < k; j++) { const y = 80 + (j + 0.5) * 220 / k; mk($("bits"), "line", { class: "lvl", x1: x + 14, y1: y, x2: x + 76, y2: y }); }
+    mk($("bits"), "text", { x: x + 45, y: 70, class: "card-l ink-b", "text-anchor": "middle" }, n);
+    mk($("bits"), "text", { x: x + 45, y: 322, class: "lbl-s", "text-anchor": "middle" }, `${b} · ${k}단계`);
+  });
+  mk($("bits"), "text", { x: 280, y: 360, class: "card-l acc", "text-anchor": "middle" }, "용량↑ 가격↓ ↔ 속도·수명·데이터 보존 불리");
+  mk($("bits"), "text", { x: 280, y: 390, class: "lbl-s", "text-anchor": "middle" }, "같은 전압 창 안에 구분할 단계가 늘어 간격이 좁아진다");
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-cell", "m-hole", "m-race"], HG = ["ar", "prob", "deck", "warp"], RG = ["peri", "bits", "race"];
+
+  const cell = {
+    id: "cell", label: "셀 구조",
+    base: () => Object.assign(only(G, ["m-cell"]), { top: on, cmp: off, cellbox: on, "cell-t": on }),
+    steps: [
+      { short: "셀과 채널홀", title: "채널홀과 워드라인 한 층이 만나는 곳이 셀", cmd: "Cell",
+        text: `채널홀과 <b>워드라인 한 층</b>이 만나는 자리가 셀 하나입니다. 구멍 벽에는 바깥부터 <b>블로킹 산화막 → 전하 저장 질화막 → 터널 산화막 → 폴리실리콘 채널 → 코어 산화막</b>을 차례로 입힙니다. 구멍 하나에 셀 수백 개가 줄줄이 달린 세로 줄이 스트링입니다.`,
+        set: Object.assign({ top: on, cmp: off, cellbox: on, "cell-t": on }, vv(["채널홀 단면(바깥 → 안)", "1 블로킹 산화막", "2 전하 저장 질화막", "3 터널 산화막", "4 폴리실리콘 채널", "5 코어 산화막", "셀 = 채널홀 × 워드라인 한 층"])) },
+      { short: "CTF 대 플로팅 게이트", title: "CTF: 도체 대신 절연막 결함에 전하를 가둔다", cmd: "CTF",
+        text: `2D 시절의 <b>플로팅 게이트</b>(도체에 전하 저장) 대신, 3D 낸드는 대부분 질화막의 결함에 전하를 가두는 <b>CTF(Charge Trap Flash)</b>를 씁니다. 이웃 셀 간섭이 적고 얇게 만들 수 있어 적층에 유리합니다(2-8).`,
+        set: Object.assign({ top: off, cmp: on, cellbox: off, "cell-t": off }, vv(["CTF 대 플로팅 게이트", "FG: 도체에 저장", "CTF: 질화막 결함에 가둠", "이웃 셀 간섭이 적음", "얇게 만들 수 있음", "→ 적층에 유리", ""])) },
+    ],
+  };
+
+  const hole = {
+    id: "hole", label: "채널홀 식각",
+    base: () => Object.assign(only(G, ["m-hole"]), only(HG, [])),
+    steps: [
+      { short: "종횡비", title: "층이 많아지면 구멍이 깊고 좁아진다", cmd: "Aspect ratio",
+        text: `층이 많아지면 구멍의 깊이 대 지름 비(<b>종횡비</b>)가 매우 커져, 바닥까지 곧고 고르게 뚫기 어렵습니다. 채널홀 식각이 3D 낸드의 핵심 난제인 이유입니다.`,
+        set: Object.assign(only(HG, ["ar"]), vv(["채널홀 식각", "층↑ → 깊이↑, 지름은 그대로", "→ 종횡비가 매우 커짐", "핵심 난제", "", "", ""])) },
+      { short: "세 가지 불량", title: "휘어짐, 위아래 지름 차이, 바닥 미개통", cmd: "Defects",
+        text: `깊은 구멍은 중간에서 <b>휘어지거나</b>, 아래로 갈수록 좁아져 <b>위아래 지름이 달라지거나</b>, 바닥까지 다 뚫리지 않는 <b>미개통</b>이 생깁니다. 3-16의 표에서도 채널홀 단계의 어려운 점으로 위아래 지름 차이(테이퍼·보잉)와 덱 사이 정렬을 꼽았습니다.`,
+        set: Object.assign(only(HG, ["prob"]), vv(["깊은 구멍의 불량", "휘어짐", "위아래 지름 차이", "바닥 미개통", "", "", ""])) },
+      { short: "덱 분할", title: "한 번에 못 뚫으면 나눠 뚫고 이어 붙인다", cmd: "Deck",
+        text: `쌓은 더미를 몇 덩어리(<b>덱</b>)로 나눠 뚫고 이어 붙입니다. SK하이닉스 321단은 <b>3개의 플러그</b>로 이었습니다. 덱 사이 구멍의 위아래 정렬이 새 과제가 됩니다.`,
+        set: Object.assign(only(HG, ["deck"]), vv(["덱 분할", "더미를 덩어리로 나눠 뚫기", "이음부로 이어 붙이기", "SK하이닉스 321단: 플러그 3개", "덱 사이 정렬이 관건", "", ""])) },
+      { short: "극저온 식각·휨", title: "극저온 식각과 웨이퍼 휨 관리", cmd: "Cryo / Warpage",
+        text: `식각 속도와 수직성을 높이는 <b>극저온 식각</b> 같은 기술이 도입되고 있습니다(3-6). 수백 층을 쌓으면 <b>막 응력으로 웨이퍼가 휘는</b> 문제도 함께 관리해야 합니다.`,
+        set: Object.assign(only(HG, ["warp"]), vv(["극저온 식각 · 웨이퍼 휨", "극저온 식각: 속도·수직성↑", "수백 층 막 응력 → 휨", "→ 증착 조건·응력 관리", "", "", ""])) },
+    ],
+  };
+
+  const race = {
+    id: "race", label: "경쟁 포인트",
+    base: () => Object.assign(only(G, ["m-race"]), only(RG, [])),
+    steps: [
+      { short: "주변 회로 배치", title: "주변 회로를 셀 아래로, 또는 따로 만들어 붙이기", cmd: "PUC",
+        text: `셀을 구동하는 주변 회로를 셀 아래에 두면(<b>PUC</b>, Peri Under Cell) 칩 면적이 줄어듭니다. SK하이닉스는 CTF에 PUC를 결합한 구조를 <b>'4D 낸드'</b>라고 부릅니다. 셀과 주변 회로를 다른 웨이퍼에서 따로 만든 뒤 붙이는 방식(YMTC Xtacking, 키옥시아 CBA 등)도 확산되고 있습니다.`,
+        set: Object.assign(only(RG, ["peri"]), vv(["주변 회로 배치", "옆에 두면 칩이 넓어짐", "PUC: 셀 아래 → 면적↓", "4D 낸드 = CTF + PUC", "따로 만들어 붙이기:", "Xtacking, CBA", ""])) },
+      { short: "셀당 비트", title: "SLC에서 QLC까지: 구분할 단계가 2·4·8·16", cmd: "Bits/cell",
+        text: `SLC(1비트)·MLC(2)·TLC(3)·QLC(4)로 갈수록 한 셀에서 구분해야 하는 전압 단계가 <b>2·4·8·16개</b>로 늘어, 용량은 커지지만 속도·수명(쓰기·지우기 횟수)·데이터 보존에는 불리합니다. AI 데이터센터용 대용량 SSD 수요로 QLC가 주목받고 있습니다.`,
+        set: Object.assign(only(RG, ["bits"]), vv(["셀당 비트 수", "SLC: 빠르고 수명 길지만 비쌈", "MLC: 절충", "TLC: 현재 주력", "QLC: 대용량·저가", "AI 데이터센터용 SSD로", "QLC 주목"])) },
+      { short: "층수·소재", title: "321단에서 375단으로, 텅스텐에서 몰리브덴으로", cmd: "Roadmap",
+        text: `SK하이닉스는 2024년 11월 <b>321단</b> 낸드 양산을 시작했고, 2026년 321단 QLC 기반 PC용 SSD 공급을 시작했으며, 2026년 8월 FMS에서 <b>375단</b> 10세대(V10) 4D 낸드를 2027년 초 양산할 계획이라고 밝혔습니다. 층이 늘면 워드라인이 얇아져 저항이 커지므로 텅스텐을 <b>몰리브덴</b>으로 바꾸는 흐름이 보도되고 있습니다.`,
+        set: Object.assign(only(RG, ["race"]), vv(["층수 경쟁과 소재", "2024.11 321단 양산", "2026 321단 QLC PC용 SSD", "2027 초 375단 V10(계획)", "층↑ → 워드라인 얇아짐", "→ 저항↑", "W → Mo"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [cell, hole, race], dur: 6500 });
+})();
+</script>
+</body>
+</html>

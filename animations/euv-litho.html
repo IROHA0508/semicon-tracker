@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>노광 심화: EUV, 멀티 패터닝, High-NA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .cham { fill: none; stroke: var(--line-strong); stroke-width: 1.4; stroke-dasharray: 7 5; }
+  .mir { stroke: var(--m-w); stroke-width: 6; stroke-linecap: round; }
+  .ray { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linejoin: round; }
+  .laser { stroke: var(--bad); stroke-width: 4; }
+  .drop { fill: var(--m-w); }
+  .plasma { fill: var(--accent); }
+  .ml-mo { fill: var(--m-w); }
+  .ml-si { fill: var(--m-si); }
+  .absb { fill: var(--ink); }
+  .shadow { fill: var(--bad); opacity: .3; }
+  .pel { stroke: var(--low); stroke-width: 2; stroke-dasharray: 5 3; }
+  .bar { fill: var(--accent); }
+  .tgt { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .lineA { fill: var(--accent); }
+  .lineB { fill: var(--low); }
+  .core { fill: var(--m-poly); stroke: var(--m-poly-line); }
+  .film { fill: var(--m-ox); stroke: var(--m-ox-line); fill-opacity: .75; }
+  .spcr { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1.2; }
+  .pho { fill: var(--accent); }
+  .hole { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+  .hole[data-s="bad"] { fill: var(--bad); fill-opacity: .25; stroke: var(--bad); stroke-dasharray: 3 2; }
+  .panel { fill: var(--m-pr); fill-opacity: .35; stroke: var(--line-strong); }
+  .cone1 { fill: var(--accent); opacity: .18; stroke: var(--accent); stroke-width: 1.4; }
+  .cone2 { fill: var(--low); opacity: .18; stroke: var(--low); stroke-width: 1.4; }
+  .dof1 { fill: var(--accent); opacity: .22; }
+  .dof2 { fill: var(--low); opacity: .35; }
+  .fld { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+  .fld2 { fill: var(--low-soft); stroke: var(--low); stroke-width: 2; }
+  [data-s="dim"] { opacity: .35; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">4-2</span><span>첨단 기술</span><a href="./">애니메이션 목록</a></div>
+    <h1>노광 심화: EUV, 멀티 패터닝, High-NA</h1>
+    <p class="lead">EUV는 파장 13.5 nm의 극자외선으로 회로를 찍는 노광 기술로, ArF 이머전(193 nm)으로는 여러 번 나눠 찍어야 했던 미세 패턴을 한 번에 찍게 해 줍니다. High-NA EUV는 빛을 더 넓은 각도로 모으는 광학계(NA 0.33 → 0.55)로 해상도를 한 단계 더 높인 장비입니다. 붓을 확 가늘게 바꾼 것이 EUV, 같은 붓으로 손놀림 폭을 넓힌 것이 High-NA, 굵은 붓으로 두세 번 겹쳐 그리는 요령이 멀티 패터닝입니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">노광 심화: EUV, 멀티 패터닝, High-NA</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== 빛의 길 ===== -->
+        <g id="m-path" class="t">
+          <rect class="cham" x="20" y="26" width="510" height="390" rx="10"></rect><text x="32" y="46" class="lbl-s">진공 챔버</text>
+          <g id="src" class="t">
+            <rect x="90" y="56" width="22" height="22" rx="3" style="fill: var(--m-w)"></rect>
+            <g class="dots"><circle class="drop" cx="101" cy="98" r="3"></circle><circle class="drop" cx="101" cy="122" r="3"></circle><circle class="drop" cx="101" cy="146" r="3"></circle><circle class="drop" cx="101" cy="170" r="3"></circle></g>
+            <text x="118" y="70" class="lbl-s">주석(Sn) 방울</text>
+            <rect x="28" y="248" width="56" height="22" rx="3" style="fill: var(--bad)"></rect><text x="56" y="286" class="lbl-s bad-t" text-anchor="middle">CO₂ 레이저</text>
+            <line class="laser" x1="70" y1="248" x2="96" y2="214"></line>
+            <polygon class="plasma blink" points="101,196 106,206 117,208 108,215 111,226 101,220 91,226 94,215 85,208 96,206"></polygon>
+            <path d="M140,140 Q50,210 140,280" style="fill: none; stroke: var(--m-w); stroke-width: 5"></path>
+            <text x="70" y="330" class="lbl-s">집광 거울</text>
+          </g>
+          <polyline id="ray1" class="ray t" points="112,210 190,210"></polyline>
+          <polyline id="ray2" class="ray t" points="190,210 250,330 300,140 380,54"></polyline>
+          <polyline id="ray3" class="ray t" points="380,54 470,150 360,240 470,320 390,386"></polyline>
+          <g id="mirs" class="t">
+            <line class="mir" x1="230" y1="334" x2="270" y2="327"></line><line class="mir" x1="290" y1="157" x2="310" y2="123"></line>
+            <text x="250" y="356" class="lbl-s" text-anchor="middle">조명 거울</text>
+          </g>
+          <g id="mask" class="t"><rect x="330" y="40" width="120" height="10" style="fill: var(--m-w)"></rect><text x="460" y="48" class="lbl-s">마스크(반사형)</text></g>
+          <g id="proj" class="t">
+            <line class="mir" x1="470" y1="130" x2="470" y2="170"></line><line class="mir" x1="360" y1="220" x2="360" y2="260"></line><line class="mir" x1="470" y1="300" x2="470" y2="340"></line>
+            <text x="478" y="236" class="lbl-s">투영 거울</text>
+            <rect x="330" y="386" width="120" height="10" class="m-si"></rect><text x="390" y="410" class="lbl-s" text-anchor="middle">웨이퍼</text>
+          </g>
+          <text id="src-t" x="122" y="236" class="lbl-s acc halo t">플라즈마 → 13.5 nm 빛</text>
+          <!-- 오른쪽 아래 확대 그림 -->
+          <g id="ins-ml" class="t">
+            <g id="mlst"></g>
+            <line x1="620" y1="270" x2="680" y2="330" style="stroke: var(--accent); stroke-width: 2.4" marker-end="url(#ar-a)"></line>
+            <line x1="690" y1="330" x2="750" y2="270" style="stroke: var(--accent); stroke-width: 2.4" marker-end="url(#ar-a)"></line>
+            <line x1="700" y1="342" x2="760" y2="282" style="stroke: var(--accent); stroke-width: 1.6; opacity: .7"></line>
+            <line x1="710" y1="354" x2="770" y2="294" style="stroke: var(--accent); stroke-width: 1.2; opacity: .5"></line>
+            <text x="710" y="414" class="lbl-s" text-anchor="middle">Mo/Si 수십 층: 경계마다 조금씩 반사가 겹친다</text>
+          </g>
+          <g id="ins-mask" class="t">
+            <rect x="600" y="340" width="240" height="40" class="ml-si"></rect>
+            <g><rect class="absb" x="630" y="320" width="30" height="20"></rect><rect class="absb" x="700" y="320" width="30" height="20"></rect><rect class="absb" x="770" y="320" width="30" height="20"></rect></g>
+            <polygon class="shadow" points="660,340 666,340 660,320"></polygon><polygon class="shadow" points="730,340 736,340 730,320"></polygon><polygon class="shadow" points="800,340 806,340 800,320"></polygon>
+            <line x1="676" y1="250" x2="682" y2="316" style="stroke: var(--accent); stroke-width: 2.2" marker-end="url(#ar-a)"></line><text x="690" y="262" class="lbl-s acc">약 6° 기울어 입사</text>
+            <line class="pel" x1="596" y1="282" x2="844" y2="282"></line><text x="844" y="276" class="lbl-s low-t" text-anchor="end">펠리클</text>
+            <text x="720" y="400" class="lbl-s" text-anchor="middle">흡수체 패턴 높이 → 그림자 효과</text>
+          </g>
+          <g id="ins-bar" class="t"><g id="bars"></g><text x="710" y="414" class="lbl-s" text-anchor="middle">계산 예시: 거울 한 장 70%, 열 장이면 0.7¹⁰ ≈ 2.8%</text></g>
+        </g>
+
+        <!-- ===== 멀티 패터닝 ===== -->
+        <g id="m-multi" class="t">
+          <rect class="m-si" x="40" y="330" width="480" height="40"></rect>
+          <rect class="tgt" x="40" y="300" width="480" height="30"></rect><text x="530" y="320" class="lbl-s">하드마스크층</text>
+          <g id="leA" class="t"></g>
+          <g id="leB" class="t"></g>
+          <g id="cores" class="t"></g>
+          <path id="film" class="film t" d="M40,300 V286 H53 V226 H147 V286 H213 V226 H307 V286 H373 V226 H467 V286 H520 V300 Z"></path>
+          <g id="spcs" class="t"></g>
+          <g id="saqp" class="t"></g>
+          <text id="mp-t" x="280" y="200" class="card-l ink-b t" text-anchor="middle"></text>
+          <text id="ov-t" x="280" y="400" class="lbl-s bad-t t" text-anchor="middle">두 번째 노광이 조금만 어긋나도 간격이 흔들린다(오버레이)</text>
+        </g>
+
+        <!-- ===== 확률적 결함 ===== -->
+        <g id="m-stoch" class="t">
+          <rect class="panel" x="50" y="80" width="200" height="200"></rect><rect class="panel" x="300" y="80" width="200" height="200"></rect>
+          <text x="150" y="66" class="card-l ink-b" text-anchor="middle">ArF(193 nm)</text><text x="400" y="66" class="card-l ink-b" text-anchor="middle">EUV(13.5 nm)</text>
+          <g id="phA" class="t"></g><g id="phE" class="t"></g>
+          <g id="holes" class="t"></g>
+          <text x="150" y="304" class="lbl-s" text-anchor="middle">광자가 많아 고르게</text>
+          <text x="400" y="304" class="lbl-s" text-anchor="middle">같은 노광량, 광자 수 약 1/14</text>
+          <g id="ler" class="t"><path d="M60,340 H240" style="stroke: var(--ink); stroke-width: 10"></path><path id="lerp" d="" style="fill: none; stroke: var(--ink); stroke-width: 10"></path>
+            <text x="150" y="372" class="lbl-s" text-anchor="middle">곧은 선 가장자리</text><text x="400" y="372" class="lbl-s bad-t" text-anchor="middle">선 가장자리 거칠기(LER)</text></g>
+        </g>
+
+        <!-- ===== High-NA ===== -->
+        <g id="m-hna" class="t">
+          <g id="cones" class="t">
+            <polygon class="cone2" points="250,360 105,140 395,140"></polygon>
+            <polygon class="cone1" points="250,360 173,140 327,140"></polygon>
+            <rect x="80" y="120" width="340" height="18" rx="4" style="fill: var(--m-w)"></rect><text x="250" y="110" class="lbl-s" text-anchor="middle">마지막 거울</text>
+            <rect x="130" y="360" width="240" height="12" class="m-si"></rect><text x="250" y="392" class="lbl-s" text-anchor="middle">웨이퍼</text>
+            <text x="250" y="200" class="card-l acc" text-anchor="middle">NA 0.33</text><text x="395" y="200" class="card-l low-t">NA 0.55</text>
+            <text x="250" y="420" class="lbl-s" text-anchor="middle">계산 예시: 모으는 반각 = asin(NA) → 약 19° 대 약 33°</text>
+          </g>
+          <g id="hp" class="t"><g id="hpb"></g><text x="560" y="300" class="lbl-s">한 번 노광의 하프피치(대략)</text></g>
+          <g id="field" class="t">
+            <rect class="fld" x="80" y="90" width="260" height="300"></rect><text x="210" y="80" class="lbl-s" text-anchor="middle">기존 EUV 한 번에 찍는 면적(필드)</text>
+            <rect class="fld2" x="80" y="240" width="260" height="150"></rect><text x="210" y="320" class="card-l low-t" text-anchor="middle">High-NA: 절반</text>
+            <text x="210" y="170" class="lbl-s" text-anchor="middle">큰 칩은 두 번 이어 찍는다</text>
+            <line x1="80" y1="240" x2="340" y2="240" style="stroke: var(--bad); stroke-width: 2; stroke-dasharray: 6 4"></line><text x="350" y="244" class="lbl-s bad-t">이음선</text>
+          </g>
+          <g id="dof" class="t">
+            <rect class="dof1" x="90" y="150" width="140" height="120"></rect><rect class="dof2" x="290" y="180" width="140" height="60"></rect>
+            <text x="160" y="140" class="card-l acc" text-anchor="middle">NA 0.33</text><text x="360" y="170" class="card-l low-t" text-anchor="middle">NA 0.55</text>
+            <path d="M90,280 Q125,262 160,280 T230,280" style="fill: none; stroke: var(--ink); stroke-width: 2"></path><path d="M290,280 Q325,262 360,280 T430,280" style="fill: none; stroke: var(--ink); stroke-width: 2"></path>
+            <text x="260" y="310" class="lbl-s" text-anchor="middle">색 띠 = 초점이 맞는 깊이(DOF), 검은 선 = 웨이퍼 표면의 높낮이</text>
+            <text x="260" y="340" class="card-l bad-t" text-anchor="middle">DOF가 얕아져 얇은 감광막과 평탄화(CMP)가 더 중요</text>
+          </g>
+        </g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>개념도입니다. 장비 속 거울 수와 위치, 광자 점의 개수, 선폭은 실제 비율이 아닌 설명용 예시입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>레일리 식(3-4): 해상도 R = k₁ × λ ÷ NA. 파장 λ를 줄이거나(EUV), NA를 키우거나(High-NA), 공정 상수 k₁을 낮추면(멀티 패터닝 등) 더 작은 패턴을 찍습니다.</li>
+      <li>노광 방식 비교: ArF 이머전은 렌즈+물, 성숙·저렴하지만 멀티 패터닝 비용과 오버레이가 과제. EUV(NA 0.33)는 반사 거울·진공, 광원 출력·확률적 결함·펠리클이 과제. High-NA(NA 0.55)는 아나모픽 광학으로 더 미세한 단일 노광이 되지만 절반 필드, 얕은 DOF, 매우 비싼 장비가 과제입니다.</li>
+      <li>업계 동향: EUV 장비는 ASML이 사실상 홀로 공급합니다. SK하이닉스는 2025년 9월 메모리 업계 처음으로 양산용 High-NA EUV(ASML EXE:5200B)를 이천 M16에 들였고, Intel은 14A에 High-NA를 쓰겠다고 밝혔으며, TSMC는 2026년 4월 2029년까지 High-NA 없이 미세화하겠다고 했습니다.</li>
+    </ul>
+    <p class="foot">원고 4-2를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-4 포토, 4-3 D램 심화, 3-10 CMP.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // 다층 거울
+  for (let i = 0; i < 9; i++) { mk($("mlst"), "rect", { class: i % 2 ? "ml-si" : "ml-mo", x: 600, y: 330 + i * 7, width: 240, height: 7 }); }
+  // 0.7^n 막대
+  for (let n = 0; n <= 10; n++) { const v = Math.pow(0.7, n), h = v * 110; mk($("bars"), "rect", { class: "bar", x: 590 + n * 24, y: 390 - h, width: 18, height: h }); mk($("bars"), "text", { x: 599 + n * 24, y: 402, class: "lbl-s", "text-anchor": "middle" }, String(n)); }
+  // LELE
+  [67, 227, 387].forEach((x) => mk($("leA"), "rect", { class: "lineA", x, y: 270, width: 30, height: 30 }));
+  [155, 315, 475].forEach((x) => mk($("leB"), "rect", { class: "lineB", x, y: 270, width: 30, height: 30 }));
+  // SADP
+  [67, 227, 387].forEach((x) => mk($("cores"), "rect", { class: "core", x, y: 240, width: 66, height: 60 }));
+  [53, 133, 213, 293, 373, 453].forEach((x) => mk($("spcs"), "rect", { class: "spcr", x, y: 240, width: 14, height: 60, rx: 3 }));
+  for (let i = 0; i < 12; i++) mk($("saqp"), "rect", { class: "spcr", x: 56 + i * 40, y: 250, width: 10, height: 50, rx: 2 });
+  // 광자 점(고정된 의사 난수)
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 280; i++) mk($("phA"), "circle", { class: "pho", cx: 54 + rnd() * 192, cy: 84 + rnd() * 192, r: 1.6 });
+  for (let i = 0; i < 20; i++) mk($("phE"), "circle", { class: "pho", cx: 304 + rnd() * 192, cy: 84 + rnd() * 192, r: 3.2 });
+  const HE = [1, 1.25, 0.7, 1.1, 0, 0.85, 1.3, 0.9, 1];
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) { mk($("holes"), "circle", { class: "hole", cx: 90 + c * 60, cy: 120 + r * 60, r: 14 }); const k = r * 3 + c, s = HE[k]; mk($("holes"), "circle", { id: "he" + k, class: "hole t", cx: 340 + c * 60, cy: 120 + r * 60, r: s ? 14 * s : 14 }); }
+  { let d = "M310,340"; for (let x = 318; x <= 490; x += 8) d += ` L${x},${340 + (rnd() - 0.5) * 9}`; $("lerp").setAttribute("d", d); }
+  // 하프피치 막대
+  [["ArF 이머전", 39, "약 38~40 nm"], ["EUV(NA 0.33)", 13, "약 13 nm"], ["High-NA(NA 0.55)", 8, "약 8 nm"]].forEach(([n, v, l], i) => { const y = 316 + i * 34; mk($("hpb"), "text", { x: 560, y: y + 16, class: "lbl-s" }, n); mk($("hpb"), "rect", { class: "bar", x: 680, y: y + 4, width: v * 2.6, height: 16 }); mk($("hpb"), "text", { x: 686 + v * 2.6, y: y + 16, class: "lbl-s" }, l); });
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-path", "m-multi", "m-stoch", "m-hna"];
+  const PG = ["src", "ray1", "ray2", "ray3", "mirs", "mask", "proj", "src-t", "ins-ml", "ins-mask", "ins-bar"];
+  const MG = ["leA", "leB", "cores", "film", "spcs", "saqp", "ov-t"];
+  const HG = ["cones", "hp", "field", "dof"];
+  const holes = (bad) => { const o = {}; HE.forEach((s, k) => { o["he" + k] = { s: bad && (s === 0 || s < 0.75) ? "bad" : bad ? "on" : "off" }; }); return o; };
+
+  const path = {
+    id: "path", label: "빛의 길",
+    base: () => Object.assign(only(G, ["m-path"]), only(PG, [])),
+    steps: [
+      { short: "주석 플라즈마", title: "① 주석 방울에 레이저를 쏘아 13.5 nm 빛을 만든다", cmd: "Source",
+        text: `초당 약 5만 개씩 떨어지는 <b>주석(Sn) 방울</b>에 고출력 <b>CO₂ 레이저</b>를 쏘아 수십만 °C의 플라즈마를 만들면 13.5 nm 빛이 나옵니다. 이 빛을 집광 거울이 모아 장비 안으로 보냅니다.`,
+        set: Object.assign(only(PG, ["src", "src-t", "ray1"]), vv(["EUV 광원", "주석 방울: 초당 약 5만 개", "CO₂ 레이저로 가열", "수십만 °C 플라즈마", "→ 13.5 nm 극자외선", "", ""])) },
+      { short: "진공·다층 거울", title: "② 렌즈 대신 거울, 공기 대신 진공", cmd: "Optics",
+        text: `EUV는 공기를 포함한 거의 모든 물질에 흡수되므로 장비 내부를 <b>진공</b>으로 만들고, 렌즈 대신 몰리브덴과 실리콘을 수십 층 번갈아 쌓은 <b>반사 거울</b>을 씁니다. 층 경계마다 조금씩 반사된 빛이 겹쳐 세지는 원리입니다.`,
+        set: Object.assign(only(PG, ["src", "ray1", "ray2", "mirs", "mask", "ins-ml"]), vv(["진공 + 반사 거울", "EUV는 거의 모든 물질에 흡수", "→ 렌즈(유리) 대신 거울", "→ 장비 내부는 진공", "거울: Mo/Si 수십 층", "", ""])) },
+      { short: "반사형 마스크", title: "③ 마스크도 거울: 6° 기울어 들어오는 빛", cmd: "Mask",
+        text: `마스크도 다층 거울 위에 흡수체 패턴을 올린 <b>반사형</b>이라 빛이 약 6° 기울어 들어오고, 패턴 높이 때문에 <b>그림자 효과</b>가 생깁니다. 마스크의 먼지를 막는 얇은 덮개(<b>펠리클</b>)는 EUV를 잘 통과시키면서 높은 열을 견뎌야 해 개발이 어려웠습니다.`,
+        set: Object.assign(only(PG, ["src", "ray1", "ray2", "mirs", "mask", "ins-mask"]), vv(["반사형 마스크", "다층 거울 + 흡수체 패턴", "빛이 약 6° 기울어 입사", "→ 패턴 높이로 그림자 효과", "펠리클: 투과 + 내열 둘 다 필요", "", ""])) },
+      { short: "웨이퍼·광원 출력", title: "④ 거울을 여러 장 지나 웨이퍼에 닿는다", cmd: "Throughput",
+        text: `투영 거울을 거쳐 웨이퍼에 패턴이 맺힙니다. 거울 한 장의 반사율이 <b>약 70%</b>라 여러 장을 거치면 빛이 크게 줄어들고, 그래서 <b>광원 출력이 곧 생산성</b>입니다. 오른쪽 막대는 거울을 한 장씩 지날 때 남는 빛의 비율을 계산해 본 예시입니다.`,
+        set: Object.assign(only(PG, ["src", "ray1", "ray2", "ray3", "mirs", "mask", "proj", "ins-bar"]), vv(["광원 출력 = 생산성", "거울 한 장 반사율 약 70%", "여러 장 지나면 크게 줄어듦", "", "", "", ""])) },
+    ],
+  };
+
+  const multi = {
+    id: "multi", label: "멀티 패터닝",
+    base: () => Object.assign(only(G, ["m-multi"]), only(MG, []), { "mp-t": off }),
+    steps: [
+      { short: "LE ①", title: "LELE ①: 먼저 한 번 찍고 깎는다", cmd: "LELE",
+        text: `EUV 이전에는 ArF 이머전으로 나눠 찍었습니다. <b>LELE</b>(Litho-Etch-Litho-Etch)는 노광과 식각을 두 번 합니다. 먼저 넓은 간격으로 선을 찍어 깎습니다.`,
+        set: Object.assign(only(MG, ["leA"]), { "mp-t": Object.assign({ s: "on" }, txt("1차 노광·식각")) }, vv(["LELE", "노광 + 식각을 두 번", "1차: 넓은 간격으로 찍기", "", "", "", ""])) },
+      { short: "LE ②·오버레이", title: "LELE ②: 사이에 한 번 더, 정렬이 관건", cmd: "Overlay",
+        text: `두 번째 마스크로 사이사이에 선을 하나씩 더 찍어 깎으면 선 간격이 절반이 됩니다. 마스크와 공정 단계가 늘어 비용이 커지고, 두 노광 사이의 정렬(<b>오버레이</b>) 오차가 그대로 간격 오차가 됩니다.`,
+        set: Object.assign(only(MG, ["leA", "leB", "ov-t"]), { "mp-t": txt("2차 노광·식각 → 간격 절반") }, vv(["LELE ②", "사이에 한 번 더 찍기", "→ 간격 절반", "마스크 2장, 단계 2배", "오버레이 오차 = 간격 오차", "", ""])) },
+      { short: "SADP ① 코어", title: "SADP ①: 넓은 간격의 코어를 만든다", cmd: "SADP",
+        text: `<b>SADP</b>(Self-Aligned Double Patterning)는 한 번만 찍습니다. 먼저 넓은 간격의 코어(맨드릴) 패턴을 만듭니다.`,
+        set: Object.assign(only(MG, ["cores"]), { "mp-t": txt("코어 3개") }, vv(["SADP", "한 번 노광으로 코어 패턴", "", "", "", "", ""])) },
+      { short: "② 스페이서 증착", title: "SADP ②: 코어 위에 막을 고르게 덮는다", cmd: "Deposition",
+        text: `코어 위에 막을 고르게(콘포멀하게) 덮습니다. 막 두께가 나중의 선폭이 됩니다(3-7 ALD).`,
+        set: Object.assign(only(MG, ["cores", "film"]), { "mp-t": txt("막을 고르게 덮기") }, vv(["스페이서 막 증착", "코어 옆벽까지 고르게", "막 두께 = 나중 선폭", "", "", "", ""])) },
+      { short: "③ 전면 식각", title: "SADP ③: 전면 식각하면 옆벽에만 남는다", cmd: "Etch-back",
+        text: `마스크 없이 위에서 곧게 깎는 전면 식각(etch-back)을 하면 평평한 곳의 막은 사라지고 코어 <b>옆벽에만 스페이서</b>가 남습니다(3-14의 게이트 스페이서와 같은 원리).`,
+        set: Object.assign(only(MG, ["cores", "spcs"]), { "mp-t": txt("옆벽에만 스페이서") }, vv(["전면 식각(etch-back)", "평평한 곳의 막은 사라짐", "옆벽에만 스페이서", "자기 정렬: 추가 노광 없음", "", "", ""])) },
+      { short: "④ 코어 제거: 2배", title: "SADP ④: 코어를 없애면 선이 두 배", cmd: "×2",
+        text: `코어를 녹여 없애면 스페이서만 남아, 코어 3개가 선 6줄이 됩니다. <b>선 수 2배, 피치 절반</b>을 한 번의 노광으로 얻습니다. 이 스페이서를 마스크로 아래 하드마스크층을 깎습니다.`,
+        set: Object.assign(only(MG, ["spcs"]), { "mp-t": txt("코어 3개 → 선 6줄") }, vv(["코어 제거", "스페이서만 남음", "→ 선 수 2배, 피치 절반", "노광은 한 번", "", "", ""])) },
+      { short: "SAQP: 4배", title: "SAQP: 한 번 더 하면 네 배", cmd: "×4",
+        text: `<b>SAQP</b>는 스페이서를 새 코어로 삼아 같은 과정을 한 번 더 해 선을 네 배로 만듭니다(D램 활성영역 등, 3-15). 마스크와 공정 단계가 늘어 비용이 커지고 오버레이 오차가 쌓입니다. EUV는 이런 단계를 한 번으로 줄여 주지만, 가장 미세한 층은 EUV로도 이중 패터닝을 씁니다.`,
+        set: Object.assign(only(MG, ["saqp"]), { "mp-t": txt("한 번 더 → 선 12줄(4배)") }, vv(["SAQP", "스페이서를 새 코어로 반복", "→ 선 4배", "단계·비용↑, 오버레이 누적", "EUV: 여러 단계를 한 번으로", "가장 미세한 층은", "EUV도 이중 패터닝"])) },
+    ],
+  };
+
+  const stoch = {
+    id: "stoch", label: "확률적 결함",
+    base: () => Object.assign(only(G, ["m-stoch"]), { phA: on, phE: on, holes: off, ler: off }, holes(false)),
+    steps: [
+      { short: "광자 수", title: "같은 노광량이면 EUV는 광자 수가 적다", cmd: "Photons",
+        text: `EUV 광자 하나의 에너지는 ArF의 <b>약 14배</b>라, 같은 노광량이면 광자 수가 그만큼 적습니다. 점 하나를 광자 하나로 그리면, 같은 넓이에 떨어지는 점의 수가 크게 다릅니다.`,
+        set: Object.assign({ phA: on, phE: on, holes: off, ler: off }, holes(false), vv(["광자 수", "EUV 광자 에너지 ≈ ArF의 14배", "같은 노광량이면", "광자 수 약 1/14", "", "", ""])) },
+      { short: "결함·LER", title: "광자가 적으면 무작위로 덜 뚫리고 거칠어진다", cmd: "Stochastics",
+        text: `패턴이 작을수록 광자와 감광 분자의 무작위 분포 때문에 구멍이 덜 뚫리거나 선이 끊기는 결함, <b>선 가장자리 거칠기(LER)</b>가 생깁니다. 노광량을 올리면 생산성이 떨어지므로 <b>금속 산화물 감광제(MOR)</b>나 건식 감광막 같은 새 소재가 개발되고 있습니다.`,
+        set: Object.assign({ phA: { s: "dim" }, phE: { s: "dim" }, holes: on, ler: on }, holes(true), vv(["확률적 결함(stochastics)", "구멍 덜 뚫림·선 끊김", "선 가장자리 거칠기(LER)", "노광량↑ → 생산성↓", "대응: MOR, 건식 감광막", "", ""])) },
+    ],
+  };
+
+  const hna = {
+    id: "hna", label: "High-NA",
+    base: () => Object.assign(only(G, ["m-hna"]), only(HG, [])),
+    steps: [
+      { short: "NA 0.33 → 0.55", title: "더 넓은 각도의 빛을 모은다", cmd: "NA",
+        text: `레일리 식 R = k₁ × λ ÷ NA에서 파장은 그대로 두고 <b>NA</b>를 0.33에서 0.55로 키운 것이 High-NA EUV입니다. 한 번 노광의 하프피치는 대략 ArF 이머전(193 nm, NA 1.35) 38~40 nm, EUV(NA 0.33) 13 nm, High-NA(NA 0.55) 8 nm 수준입니다.`,
+        set: Object.assign(only(HG, ["cones", "hp"]), vv(["High-NA EUV", "R = k₁ × λ ÷ NA", "λ는 13.5 nm 그대로", "NA 0.33 → 0.55", "", "", ""])) },
+      { short: "절반 필드", title: "아나모픽 광학: 한 번에 찍는 면적이 절반", cmd: "Anamorphic",
+        text: `NA 0.55로 해상도는 약 1.7배, 집적도는 약 2.9배 높아집니다(SK하이닉스 발표 기준). 큰 각도의 빛을 담으려 가로·세로 배율이 다른 <b>아나모픽</b> 광학계를 써서, 한 번에 찍는 면적(필드)이 기존의 <b>절반</b>이 되고 큰 칩은 두 번 이어 찍어야 합니다. 이를 줄이려 더 큰 마스크 규격도 논의되고 있습니다.`,
+        set: Object.assign(only(HG, ["field"]), vv(["아나모픽 광학", "해상도 약 1.7배", "집적도 약 2.9배", "(SK하이닉스 발표 기준)", "필드가 절반", "→ 큰 칩은 두 번 이어 찍기", ""])) },
+      { short: "얕은 DOF", title: "초점 심도가 얕아진다", cmd: "DOF",
+        text: `NA가 커지면 <b>초점 심도(DOF)</b>도 얕아져 얇은 감광막과 평탄화(3-10)가 더 중요해집니다. 장비가 매우 비싸 도입 판단이 회사마다 다릅니다. SK하이닉스는 2025년 9월 메모리 업계 처음으로 양산용 High-NA(ASML EXE:5200B)를 들였고, TSMC는 2026년 4월 2029년까지 High-NA 없이 미세화하겠다고 했습니다.`,
+        set: Object.assign(only(HG, ["dof"]), vv(["얕은 DOF", "얇은 감광막, 평탄화(CMP)", "장비 가격이 매우 비쌈", "SK하이닉스: 2025.9 도입", "Intel: 14A에 사용 계획", "TSMC: 2029년까지", "High-NA 없이"])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [path, multi, stoch, hna], dur: 6500 });
+})();
+</script>
+</body>
+</html>

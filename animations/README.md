@@ -42,8 +42,12 @@
 | `dram-process.html` | 3-15 | D램 공정 흐름 (15단계) |
 | `nand-process.html` | 3-16 | 3D 낸드 공정 흐름 (15단계) |
 | `memory-test.html` | 3-17 | 메모리 테스트와 불량 분석: PE가 하는 일 (모드 2개: 테스트, 불량 분석) |
+| `euv-litho.html` | 4-2 | 노광 심화: EUV, 멀티 패터닝, High-NA (모드 4개: 빛의 길, 멀티 패터닝, 확률적 결함, High-NA) |
 | `dram-evolution.html` | 4-3 | D램 셀 구조 진화 (모드 3개: 셀 면적, 셀 구조, 세대 이름) |
+| `nand-deep.html` | 4-4 | 낸드 심화: 300단 이상 적층과 채널홀 식각 (모드 3개: 셀 구조, 채널홀 식각, 경쟁 포인트) |
 | `hbm-stack.html` | 4-5 | HBM 적층과 본딩 (모드 3개: 패키지·대역폭, TSV 만들기, 본딩 3가지) |
+| `adv-packaging.html` | 4-6 | 첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛 (모드 4개: 왜 필요한가, 네 가지 방식, 하이브리드 본딩, 칩렛) |
+| `ai-memory.html` | 4-7 | AI 반도체와 메모리: 메모리 벽, CXL, PIM, HBF (모드 2개: 메모리 벽, 해법) |
 | `player.js`, `player.css` | | 공통 플레이어와 스타일 |
 | `catalog.json` | | 사이트가 단원 코드로 애니메이션을 찾는 목록 |
 

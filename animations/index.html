@@ -41,7 +41,7 @@
   <header class="anim-head">
     <div class="eyebrow"><span>반도체 뉴스 트래커 · 이론</span></div>
     <h1>반도체 동작·공정 애니메이션</h1>
-    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 39개입니다.</p>
+    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 43개입니다.</p>
   </header>
 
   <nav class="toc" aria-label="층 바로가기">
@@ -49,7 +49,7 @@
     <a href="#floor-1">1층 · 기초 전기와 물리<span>6</span></a>
     <a href="#floor-2">2층 · 소자<span>11</span></a>
     <a href="#floor-3">3층 · 제조 공정<span>18</span></a>
-    <a href="#floor-4">4층 · 첨단 기술<span>2</span></a>
+    <a href="#floor-4">4층 · 첨단 기술<span>6</span></a>
   </nav>
 
   <section class="floor" id="floor-0">
@@ -299,19 +299,43 @@
   </section>
 
   <section class="floor" id="floor-4">
-    <h2>4층 · 첨단 기술 <span>2개</span></h2>
+    <h2>4층 · 첨단 기술 <span>6개</span></h2>
     <div class="cards">
+      <a class="card" href="euv-litho.html">
+        <div class="top"><span class="unit">4-2</span><span class="meta">16단계</span></div>
+        <h3>노광 심화: EUV, 멀티 패터닝, High-NA</h3>
+        <p>EUV 장비 속 빛의 길(주석 플라즈마 → 다층 거울 → 반사형 마스크 → 웨이퍼), LELE·SADP·SAQP로 선을 2배·4배 늘리는 멀티 패터닝, 광자 수가 적어 생기는 확률적 결함, NA 0.55 High-NA의 해상도·절반 필드·얕은 초점 심도.</p>
+        <div class="modes"><span>빛의 길</span><span>멀티 패터닝</span><span>확률적 결함</span><span>High-NA</span></div>
+      </a>
       <a class="card" href="dram-evolution.html">
         <div class="top"><span class="unit">4-3</span><span class="meta">10단계</span></div>
         <h3>D램 셀 구조 진화</h3>
         <p>6F²에서 4F²로 줄이는 셀 면적, 매몰 채널(BCAT) → 세로 채널(VG·VCT) → 3D D램 단면 비교, 1x~1c 세대 이름과 EUV·HBM의 1b.</p>
         <div class="modes"><span>셀 면적</span><span>셀 구조</span><span>세대 이름</span></div>
       </a>
+      <a class="card" href="nand-deep.html">
+        <div class="top"><span class="unit">4-4</span><span class="meta">9단계</span></div>
+        <h3>낸드 심화: 300단 이상 적층과 채널홀 식각</h3>
+        <p>채널홀과 워드라인 한 층이 만나는 셀, 채널홀 단면의 다섯 겹(블로킹·전하 저장·터널·폴리 채널·코어), CTF와 플로팅 게이트, 층이 늘수록 어려워지는 채널홀 식각(휘어짐·지름 차이·바닥 미개통)과 덱 분할·극저온 식각, PUC(4D 낸드)·웨이퍼 본딩, SLC~QLC, 321단에서 375단과 몰리브덴까지.</p>
+        <div class="modes"><span>셀 구조</span><span>채널홀 식각</span><span>경쟁 포인트</span></div>
+      </a>
       <a class="card" href="hbm-stack.html">
         <div class="top"><span class="unit">4-5</span><span class="meta">17단계</span></div>
         <h3>HBM 적층과 본딩</h3>
         <p>GPU 옆 2.5D 패키지와 대역폭(2,048 × 8 Gb/s), 스택 수율, TSV 6단계, TC-NCF·MR-MUF·하이브리드 본딩 비교와 높이 한도.</p>
         <div class="modes"><span>패키지·대역폭</span><span>TSV 만들기</span><span>본딩 3가지</span></div>
+      </a>
+      <a class="card" href="adv-packaging.html">
+        <div class="top"><span class="unit">4-6</span><span class="meta">12단계</span></div>
+        <h3>첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛</h3>
+        <p>큰 칩일수록 결함 하나에 통째로 버려지는 수율과 레티클 한계, 팬인·팬아웃 WLP, 실리콘 인터포저(CoWoS)·브리지(EMIB·CoWoS-L)·3D 적층 단면, 하이브리드 본딩의 피치와 세 단계(CMP 리세스 → 상온 절연막 접합 → 열처리 구리 접합), 칩렛과 UCIe.</p>
+        <div class="modes"><span>왜 필요한가</span><span>네 가지 방식</span><span>하이브리드 본딩</span><span>칩렛</span></div>
+      </a>
+      <a class="card" href="ai-memory.html">
+        <div class="top"><span class="unit">4-7</span><span class="meta">8단계</span></div>
+        <h3>AI 반도체와 메모리: 메모리 벽, CXL, PIM, HBF</h3>
+        <p>연산 성능(2년에 약 3배)과 D램 대역폭(약 1.6배)·칩 간 연결(약 1.4배)의 성장 격차인 메모리 벽, 단어를 하나씩 생성하는 추론과 데이터 이동 에너지, 그리고 가까이 붙이는 HBM·넓히는 CXL·안에서 계산하는 PIM·새 계층 HBF와 메모리 종류별 대역폭 비교.</p>
+        <div class="modes"><span>메모리 벽</span><span>해법</span></div>
       </a>
     </div>
   </section>

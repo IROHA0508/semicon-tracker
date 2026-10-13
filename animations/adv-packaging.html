@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .disc { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.5; }
+  .die { fill: var(--m-si-n); stroke: var(--surface); stroke-width: 1; }
+  .die[data-s="bad"] { fill: var(--bad); }
+  .defect { fill: var(--ink); }
+  .sub { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .ball { fill: var(--muted); stroke: var(--ink); stroke-width: .8; }
+  .ub { fill: var(--m-tin); }
+  .chip { fill: var(--m-si-n); stroke: var(--m-si-line); }
+  .chip.hbm { fill: var(--m-si); }
+  .ipo { fill: var(--m-si); stroke: var(--m-si-line); }
+  .rdl { fill: var(--m-cu); }
+  .mold { fill: var(--ink); opacity: .2; }
+  .tsv { stroke: var(--m-cu); stroke-width: 3; }
+  .link { stroke: var(--accent); stroke-width: 2.4; }
+  .ret { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .big { fill: none; stroke: var(--bad); stroke-width: 2; stroke-dasharray: 7 4; }
+  .diel { fill: var(--m-ox); stroke: var(--m-ox-line); }
+  .cu { fill: var(--m-cu); }
+  .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .box.hi { fill: var(--accent-soft); stroke: var(--accent); }
+  .box.lo { fill: var(--low-soft); stroke: var(--low); }
+  .zoom { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 4 3; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">4-6</span><span>첨단 기술</span><a href="./">애니메이션 목록</a></div>
+    <h1>첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛</h1>
+    <p class="lead">첨단 패키징은 여러 칩(로직, 메모리, 입출력)을 한 패키지 안에서 아주 가깝고 촘촘하게 연결해, 큰 칩 한 장을 만드는 것 이상의 성능과 원가 경쟁력을 내는 기술입니다. 큰 건물 하나를 통째로 짓는 대신 기능별로 지은 건물들을 연결 통로(인터포저·브리지)로 잇거나 층으로 쌓아(3D) 하나의 단지처럼 쓰는 것과 같습니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <!-- ===== why ===== -->
+        <g id="m-why" class="t">
+          <g id="yield" class="t">
+            <circle class="disc" cx="150" cy="210" r="112"></circle><g id="dA"></g>
+            <circle class="disc" cx="400" cy="210" r="112"></circle><g id="dB"></g>
+            <g id="dfx"></g>
+            <text x="150" y="80" class="card-l ink-b" text-anchor="middle">큰 칩</text><text x="400" y="80" class="card-l ink-b" text-anchor="middle">작은 칩</text>
+            <text x="275" y="350" class="lbl-s" text-anchor="middle">검은 점 = 같은 위치의 결함, 빨간 칩 = 버려지는 칩</text>
+            <text id="yA" x="150" y="380" class="card-l bad-t" text-anchor="middle"></text><text id="yB" x="400" y="380" class="card-l low-t" text-anchor="middle"></text>
+            <text x="275" y="410" class="lbl-s" text-anchor="middle">계산 예시: 그림 속 칩 수로 센 양품 비율</text>
+          </g>
+          <g id="reticle" class="t">
+            <rect class="big" x="40" y="70" width="300" height="290"></rect><text x="190" y="62" class="lbl-s bad-t" text-anchor="middle">원하는 AI 칩 크기</text>
+            <rect class="ret" x="60" y="100" width="156" height="198"></rect><text x="138" y="196" class="card-l acc" text-anchor="middle">레티클 한계</text><text x="138" y="220" class="lbl-s" text-anchor="middle">약 26 × 33 mm</text>
+            <text x="190" y="390" class="lbl-s" text-anchor="middle">노광 장비가 한 번에 찍을 수 있는 최대 크기</text>
+            <rect class="chip" x="380" y="120" width="70" height="80"></rect><rect class="chip" x="460" y="120" width="70" height="80"></rect><rect class="chip hbm" x="380" y="210" width="70" height="50"></rect><rect class="chip hbm" x="460" y="210" width="70" height="50"></rect>
+            <rect class="ipo" x="370" y="270" width="170" height="14"></rect>
+            <text x="455" y="104" class="lbl-s acc" text-anchor="middle">작은 칩 여러 개를 고밀도로 잇기</text>
+          </g>
+        </g>
+
+        <!-- ===== types ===== -->
+        <g id="m-types" class="t">
+          <g id="wlp" class="t">
+            <rect class="chip" x="90" y="200" width="110" height="50"></rect><rect class="rdl" x="90" y="250" width="110" height="7"></rect>
+            <circle class="ball" cx="110" cy="268" r="9"></circle><circle class="ball" cx="145" cy="268" r="9"></circle><circle class="ball" cx="180" cy="268" r="9"></circle>
+            <text x="145" y="180" class="card-l ink-b" text-anchor="middle">팬인</text><text x="145" y="300" class="lbl-s" text-anchor="middle">칩 면적 안에서만 RDL·볼</text>
+            <rect class="mold" x="300" y="200" width="210" height="50"></rect><rect class="chip" x="350" y="200" width="110" height="50"></rect><rect class="rdl" x="300" y="250" width="210" height="7"></rect>
+            <g id="foB"></g>
+            <text x="405" y="180" class="card-l ink-b" text-anchor="middle">팬아웃</text><text x="405" y="300" class="lbl-s" text-anchor="middle">몰딩으로 넓혀 그 위까지 RDL → 단자↑</text>
+            <text x="275" y="350" class="card-l acc" text-anchor="middle">기판 없이 얇게 → 모바일 AP (TSMC InFO)</text>
+            <text x="275" y="378" class="lbl-s" text-anchor="middle">원형 웨이퍼 대신 네모난 패널에서 만들어 원가↓: FOPLP</text>
+          </g>
+          <g id="xs" class="t">
+            <rect class="sub" x="50" y="320" width="440" height="30"></rect><g id="xballs"></g>
+            <g id="ipoG" class="t"><rect class="ipo" x="70" y="290" width="400" height="24"></rect><g id="tsvs"></g><text x="478" y="306" class="lbl-s">실리콘 인터포저</text></g>
+            <g id="brG" class="t"><rect class="ipo" x="130" y="322" width="100" height="14"></rect><rect class="ipo" x="310" y="322" width="100" height="14"></rect><text x="270" y="390" class="lbl-s acc" text-anchor="middle">↑ 칩 경계 아래에만 실리콘 브리지</text></g>
+            <g id="sideChips" class="t">
+              <g id="hbmL"></g><g id="hbmR"></g>
+              <rect class="chip" x="190" y="232" width="160" height="52"></rect><text x="270" y="263" class="card-l ink-b" text-anchor="middle">GPU</text>
+              <g id="ubs"></g>
+            </g>
+            <g id="stack3d" class="t">
+              <rect class="chip" x="140" y="262" width="260" height="50"></rect><text x="270" y="292" class="card-l ink-b" text-anchor="middle">로직</text>
+              <rect class="chip hbm" x="190" y="214" width="160" height="44"></rect><text x="270" y="241" class="card-l" text-anchor="middle">캐시·로직 칩</text>
+              <line x1="190" y1="260" x2="350" y2="260" style="stroke: var(--m-cu); stroke-width: 3; stroke-dasharray: 2 2"></line>
+              <text x="360" y="256" class="lbl-s acc">하이브리드 본딩(범프 없음)</text>
+            </g>
+            <text x="490" y="340" class="lbl-s">기판</text>
+          </g>
+        </g>
+
+        <!-- ===== hybrid bonding ===== -->
+        <g id="m-hb" class="t">
+          <g id="pitch" class="t">
+            <rect class="box" x="60" y="110" width="150" height="150"></rect><g id="pbump"></g>
+            <rect class="box" x="300" y="110" width="150" height="150"></rect><g id="phb"></g>
+            <text x="135" y="96" class="card-l ink-b" text-anchor="middle">마이크로 범프</text><text x="375" y="96" class="card-l ink-b" text-anchor="middle">하이브리드 본딩</text>
+            <text x="135" y="284" class="lbl-s" text-anchor="middle">피치 수십 μm</text><text x="375" y="284" class="lbl-s" text-anchor="middle">피치 10 μm 이하</text>
+            <text x="255" y="330" class="card-l acc" text-anchor="middle">같은 면적에 수십 배 많은 연결</text>
+            <text x="255" y="358" class="lbl-s" text-anchor="middle">계산 예시: 피치 50 μm 대 10 μm면 (50 ÷ 10)² = 25배</text>
+          </g>
+          <g id="bond" class="t">
+            <rect class="m-si" x="80" y="290" width="400" height="40"></rect>
+            <rect class="diel" x="80" y="230" width="400" height="60"></rect>
+            <g id="cuB"></g>
+            <g id="topW" class="t">
+              <rect class="m-si" x="80" y="110" width="400" height="40"></rect>
+              <rect class="diel" x="80" y="150" width="400" height="60"></rect>
+              <g id="cuT"></g>
+            </g>
+            <g id="gapfill" class="t"></g>
+            <text x="490" y="134" class="lbl-s">위 칩(뒤집음)</text><text x="490" y="314" class="lbl-s">아래 칩</text>
+            <text id="b-note" x="280" y="380" class="card-l acc t" text-anchor="middle"></text>
+            <text id="plasma-t" x="488" y="234" class="lbl-s low-t t">← 플라즈마로 활성화한 면</text>
+          </g>
+        </g>
+
+        <!-- ===== chiplet ===== -->
+        <g id="m-chip" class="t">
+          <g id="split" class="t">
+            <rect class="box" x="40" y="110" width="190" height="190"></rect>
+            <rect class="box hi" x="52" y="122" width="80" height="80"></rect><rect class="box hi" x="138" y="122" width="80" height="80"></rect><rect class="box lo" x="52" y="208" width="166" height="80"></rect>
+            <text x="92" y="166" class="lbl-s" text-anchor="middle">연산</text><text x="178" y="166" class="lbl-s" text-anchor="middle">연산</text><text x="135" y="252" class="lbl-s" text-anchor="middle">입출력</text>
+            <text x="135" y="96" class="card-l ink-b" text-anchor="middle">큰 칩 한 장</text>
+            <line x1="246" y1="205" x2="290" y2="205" style="stroke: var(--ink); stroke-width: 2" marker-end="url(#ar-k)"></line>
+            <rect class="box hi" x="310" y="110" width="90" height="90"></rect><rect class="box hi" x="420" y="110" width="90" height="90"></rect><rect class="box lo" x="330" y="240" width="160" height="60"></rect>
+            <text x="355" y="160" class="lbl-s" text-anchor="middle">연산</text><text x="465" y="160" class="lbl-s" text-anchor="middle">연산</text><text x="410" y="276" class="lbl-s" text-anchor="middle">입출력</text>
+            <line class="link" x1="400" y1="155" x2="420" y2="155"></line><line class="link" x1="355" y1="200" x2="380" y2="240"></line><line class="link" x1="465" y1="200" x2="440" y2="240"></line>
+            <text x="410" y="96" class="card-l ink-b" text-anchor="middle">칩렛</text>
+            <text x="410" y="222" class="lbl-s acc" text-anchor="middle">최선단 공정</text><text x="410" y="322" class="lbl-s low-t" text-anchor="middle">성숙 공정</text>
+            <text x="410" y="352" class="lbl-s acc" text-anchor="middle">주황 선: 다이 간 연결 표준 UCIe</text>
+          </g>
+          <g id="next" class="t"><g id="cards"></g></g>
+        </g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>개념도입니다. 칩 크기, 결함 위치, 범프 수와 층 두께는 실제 비율이 아닌 설명용 예시입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>방식 비교: 팬아웃 WLP(몰딩 위 재배선층, TSMC InFO·FOPLP, 모바일 AP), 2.5D 인터포저(실리콘 인터포저 위에 나란히, TSMC CoWoS-S, GPU + HBM), 브리지(필요한 곳에만 작은 실리콘 브리지, Intel EMIB·TSMC CoWoS-L, 대형 AI 칩), 3D 적층(TSV·하이브리드 본딩, HBM·SoIC·Foveros·3D V-Cache).</li>
+      <li>CoWoS가 AI 반도체 공급의 병목이 되는 이유: GPU와 HBM을 묶는 필수 공정인데 생산 능력 확대에 시간이 걸리기 때문입니다. 2026년 9월 보도 기준 리드타임이 52~78주였습니다.</li>
+      <li>메모리 회사가 패키징 역량을 키우는 이유: HBM 경쟁력이 적층·본딩·열 관리에서 갈리기 때문입니다. SK하이닉스는 미국 인디애나에 HBM용 첨단 패키징 거점을 짓고 있습니다. 삼성전자의 I-Cube·X-Cube, 패널 레벨 패키징, CPO를 비교하면 회사별 전략 차이가 보입니다.</li>
+    </ul>
+    <p class="foot">원고 4-6을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-12 패키징 공정, 4-5 HBM, 4-7 AI 메모리.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // 수율: 같은 결함, 큰 칩 대 작은 칩
+  const DEF = [[-60, -40], [30, -70], [55, 20], [-20, 45], [-75, 35], [10, -5], [70, -45]];
+  const dies = (g, cx, cy, s) => { let n = 0, bad = 0; for (let x = cx - 112; x < cx + 112; x += s) for (let y = cy - 112; y < cy + 112; y += s) { const ok = [[x, y], [x + s, y], [x, y + s], [x + s, y + s]].every(([a, b]) => Math.hypot(a - cx, b - cy) <= 110); if (!ok) continue; n++; const hit = DEF.some(([dx, dy]) => cx + dx > x && cx + dx < x + s && cy + dy > y && cy + dy < y + s); if (hit) bad++; mk(g, "rect", { class: "die", "data-s": hit ? "bad" : "on", x: x + 1, y: y + 1, width: s - 2, height: s - 2 }); } return [n, bad]; };
+  const [nA, bA] = dies($("dA"), 150, 210, 50), [nB, bB] = dies($("dB"), 400, 210, 25);
+  DEF.forEach(([dx, dy]) => { mk($("dfx"), "circle", { class: "defect", cx: 150 + dx, cy: 210 + dy, r: 3.5 }); mk($("dfx"), "circle", { class: "defect", cx: 400 + dx, cy: 210 + dy, r: 3.5 }); });
+  $("yA").textContent = `양품 ${nA - bA}/${nA} ≈ ${Math.round((nA - bA) / nA * 100)}%`;
+  $("yB").textContent = `양품 ${nB - bB}/${nB} ≈ ${Math.round((nB - bB) / nB * 100)}%`;
+  // 팬아웃 볼
+  for (let i = 0; i < 6; i++) mk($("foB"), "circle", { class: "ball", cx: 318 + i * 35, cy: 268, r: 9 });
+  // 단면 공통
+  for (let i = 0; i < 10; i++) mk($("xballs"), "circle", { class: "ball", cx: 72 + i * 44, cy: 360, r: 9 });
+  for (let i = 0; i < 9; i++) mk($("tsvs"), "line", { class: "tsv", x1: 100 + i * 42, y1: 292, x2: 100 + i * 42, y2: 312 });
+  const hbm = (g, x) => { for (let i = 0; i < 4; i++) mk(g, "rect", { class: "chip hbm", x, y: 212 + i * 18, width: 80, height: 16 }); mk(g, "text", { x: x + 40, y: 204, class: "lbl-s ink-b", "text-anchor": "middle" }, "HBM"); };
+  hbm($("hbmL"), 92); hbm($("hbmR"), 368);
+  [[92, 80], [190, 160], [368, 80]].forEach(([x0, w]) => { for (let x = x0 + 8; x <= x0 + w - 8; x += 12) mk($("ubs"), "circle", { class: "ub", cx: x, cy: 287, r: 3 }); });
+  // 피치 비교
+  for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) mk($("pbump"), "circle", { class: "ub", cx: 75 + c * 30, cy: 125 + r * 30, r: 8 });
+  for (let r = 0; r < 25; r++) for (let c = 0; c < 25; c++) mk($("phb"), "rect", { class: "cu", x: 301.2 + c * 6, y: 111.2 + r * 6, width: 3.6, height: 3.6 });
+  // 본딩 단면
+  [120, 220, 320, 420].forEach((x) => { mk($("cuB"), "rect", { class: "cu", x, y: 234, width: 40, height: 56 }); mk($("cuT"), "rect", { class: "cu", x, y: 150, width: 40, height: 56 }); mk($("gapfill"), "rect", { class: "cu", x, y: 226, width: 40, height: 8 }); });
+  // 과제 카드
+  [["칩 간 통신 지연·전력", 70, 110], ["패키징 비용·복잡도", 210, 110], ["칩마다 양품 보증(KGD)", 350, 110], ["유리 기판", 70, 260], ["CPO(광 연결)", 210, 260], ["패키지 방열(4-9)", 350, 260]].forEach(([n, x, y], i) => { mk($("cards"), "rect", { class: i < 3 ? "box" : "box lo", x, y, width: 130, height: 70, rx: 8 }); mk($("cards"), "text", { x: x + 65, y: y + 40, class: "lbl-s ink-b", "text-anchor": "middle" }, n); });
+  mk($("cards"), "text", { x: 275, y: 96, class: "card-l bad-t", "text-anchor": "middle" }, "칩렛의 과제");
+  mk($("cards"), "text", { x: 275, y: 246, class: "card-l low-t", "text-anchor": "middle" }, "다음 과제");
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-why", "m-types", "m-hb", "m-chip"];
+  const XS = ["wlp", "xs", "ipoG", "brG", "sideChips", "stack3d"];
+
+  const why = {
+    id: "why", label: "왜 필요한가",
+    base: () => Object.assign(only(G, ["m-why"]), { yield: off, reticle: off }),
+    steps: [
+      { short: "큰 칩의 수율", title: "큰 칩은 결함 하나에 통째로 버려진다", cmd: "Yield",
+        text: `미세화만으로 성능과 비용을 맞추기 어려워졌고(4-1), 큰 칩은 결함 하나에 통째로 버려져 수율이 크게 떨어집니다(3-13). 같은 자리에 결함이 있어도 칩이 작으면 버려지는 면적이 작습니다.`,
+        set: Object.assign({ yield: on, reticle: off }, vv(["왜 첨단 패키징인가 ①", "큰 칩: 결함 하나 = 칩 하나 버림", "작은 칩: 버리는 면적이 작음", "→ 작은 칩 여러 개를 잇자", "", "", ""])) },
+      { short: "레티클 한계", title: "한 번에 찍을 수 있는 크기에도 한계가 있다", cmd: "Reticle",
+        text: `노광 장비가 한 번에 찍을 수 있는 최대 크기(<b>레티클 한계</b>, 약 26 × 33 mm)도 있습니다. 그래서 작은 칩 여러 개를 고밀도로 잇는 쪽으로 무게가 옮겨 갔습니다.`,
+        set: Object.assign({ yield: off, reticle: on }, vv(["왜 첨단 패키징인가 ②", "레티클 한계 약 26 × 33 mm", "AI 칩은 이보다 크고 싶다", "→ 작은 칩 여러 개를", "고밀도로 잇기", "", ""])) },
+    ],
+  };
+
+  const types = {
+    id: "types", label: "네 가지 방식",
+    base: () => Object.assign(only(G, ["m-types"]), only(XS, [])),
+    steps: [
+      { short: "팬인·팬아웃", title: "팬인과 팬아웃 WLP", cmd: "WLP",
+        text: `<b>팬인</b>은 칩 면적 안에서만 재배선층(RDL)과 볼을 배치하고, <b>팬아웃</b>은 칩 둘레를 몰딩으로 넓혀 그 위까지 재배선층을 펼쳐 더 많은 단자를 확보합니다. 기판 없이 얇게 만들 수 있어 모바일 AP에 많이 쓰이고(TSMC InFO가 대표), 원형 웨이퍼 대신 네모난 패널에서 만들어 원가를 낮추려는 것이 FOPLP입니다.`,
+        set: Object.assign(only(XS, ["wlp"]), vv(["팬인 · 팬아웃 WLP", "팬인: 칩 면적 안에서만", "팬아웃: 몰딩으로 넓혀 단자↑", "얇다 → 모바일 AP", "TSMC InFO, FOPLP(패널)", "", ""])) },
+      { short: "2.5D 인터포저", title: "2.5D: 실리콘 인터포저 위에 나란히", cmd: "CoWoS-S",
+        text: `칩들을 <b>실리콘 인터포저</b>(미세 배선이 있는 얇은 실리콘 판) 위에 나란히 올려 연결합니다. TSMC <b>CoWoS</b>가 대표로, GPU와 HBM을 묶는 데 쓰입니다. CoWoS 생산 능력은 AI 칩 공급의 병목으로 자주 거론되며, 2026년 9월 보도 기준 리드타임이 52~78주였습니다.`,
+        set: Object.assign(only(XS, ["xs", "ipoG", "sideChips"]), { sideChips: { s: "on", style: { transform: "translateY(0px)" } } }, vv(["2.5D 인터포저", "실리콘 인터포저 위에 나란히", "TSMC CoWoS-S", "GPU + HBM", "AI 칩 공급의 병목", "리드타임 52~78주", "(2026년 9월 보도)"])) },
+      { short: "브리지", title: "필요한 곳에만 작은 실리콘 브리지", cmd: "EMIB / CoWoS-L",
+        text: `인터포저가 커질수록 비싸므로 필요한 곳에만 작은 <b>실리콘 브리지</b>를 묻는 방식(TSMC CoWoS-L, Intel EMIB)과 유기물 재배선층으로 대신하는 방식(CoWoS-R)이 함께 쓰입니다.`,
+        set: Object.assign(only(XS, ["xs", "brG", "sideChips"]), { sideChips: { s: "on", style: { transform: "translateY(30px)" } } }, vv(["브리지", "큰 인터포저는 비쌈", "→ 칩 사이 경계에만 브리지", "Intel EMIB, TSMC CoWoS-L", "유기물 RDL: CoWoS-R", "", ""])) },
+      { short: "3D 적층", title: "3D: 위로 쌓아 TSV나 하이브리드 본딩으로", cmd: "3D",
+        text: `칩을 위로 쌓아 TSV나 <b>하이브리드 본딩</b>으로 잇습니다. HBM(메모리 위 메모리), TSMC SoIC·Intel Foveros(로직 위 로직·캐시), AMD 3D V-Cache(캐시를 CPU 위에 하이브리드 본딩)가 예입니다.`,
+        set: Object.assign(only(XS, ["xs", "stack3d"]), vv(["3D 적층", "위로 쌓기: TSV, 하이브리드 본딩", "HBM: 메모리 위 메모리", "SoIC·Foveros: 로직 위 로직", "3D V-Cache: CPU 위 캐시", "", ""])) },
+    ],
+  };
+
+  const hb = {
+    id: "hb", label: "하이브리드 본딩",
+    base: () => Object.assign(only(G, ["m-hb"]), { pitch: off, bond: off, topW: { s: "on", style: { transform: "translateY(-30px)" } }, gapfill: off, "plasma-t": off, "b-note": off }),
+    steps: [
+      { short: "피치", title: "범프 없이 붙이면 연결이 훨씬 촘촘해진다", cmd: "Pitch",
+        text: `연결 간격(피치)이 <b>마이크로 범프는 수십 μm</b>, <b>하이브리드 본딩은 10 μm 이하</b>라 같은 면적에 수십 배 많은 연결을 만들 수 있습니다.`,
+        set: Object.assign({ pitch: on, bond: off }, vv(["연결 간격(피치)", "마이크로 범프: 수십 μm", "하이브리드 본딩: 10 μm 이하", "→ 같은 면적에", "수십 배 많은 연결", "", ""])) },
+      { short: "① CMP 리세스", title: "① 구리 패드를 절연막보다 살짝 들어가게 다듬는다", cmd: "CMP",
+        text: `구리 패드를 절연막보다 <b>아주 살짝 들어가게</b> CMP로 다듬습니다. 나노미터 단위 높이 차이도 불량이 되므로 CMP가 핵심입니다.`,
+        set: Object.assign({ pitch: off, bond: on, topW: { s: "on", style: { transform: "translateY(-30px)" } }, gapfill: off, "plasma-t": off, "b-note": Object.assign({ s: "on" }, txt("구리는 절연막보다 아주 살짝 낮게")) }, vv(["하이브리드 본딩 ①", "CMP로 구리를 살짝 들어가게", "나노미터 높이 차이도 불량", "", "", "", ""])) },
+      { short: "② 상온 접합", title: "② 플라즈마로 활성화해 절연막끼리 먼저 붙인다", cmd: "Bond",
+        text: `표면을 <b>플라즈마로 활성화</b>해 상온에서 <b>절연막끼리 먼저</b> 붙입니다. 구리 패드 사이에는 아직 아주 작은 틈이 남아 있습니다. 파티클 하나만 끼어도 불량이 되므로 세정과 정렬이 핵심입니다.`,
+        set: Object.assign({ topW: { s: "on", style: { transform: "translateY(20px)" } }, gapfill: off, "plasma-t": on, "b-note": txt("절연막끼리 상온 접합, 구리 사이엔 작은 틈") }, vv(["하이브리드 본딩 ②", "플라즈마로 표면 활성화", "상온에서 절연막끼리 접합", "파티클 하나도 불량", "→ 세정·정렬이 핵심", "", ""])) },
+      { short: "③ 열처리", title: "③ 열처리하면 구리가 팽창해 맞붙는다", cmd: "Anneal",
+        text: `열처리하면 <b>구리가 팽창</b>해 패드끼리 맞붙어 금속 결합됩니다. 웨이퍼끼리(W2W), 칩을 웨이퍼에(D2W), 칩끼리(D2D) 붙이는 방식이 있습니다.`,
+        set: Object.assign({ topW: { s: "on", style: { transform: "translateY(20px)" } }, gapfill: on, "plasma-t": off, "b-note": txt("열처리 → 구리 팽창 → 금속 결합") }, vv(["하이브리드 본딩 ③", "열처리 → 구리 팽창", "→ 패드끼리 금속 결합", "W2W · D2W · D2D", "", "", ""])) },
+    ],
+  };
+
+  const chip = {
+    id: "chip", label: "칩렛",
+    base: () => Object.assign(only(G, ["m-chip"]), { split: off, next: off }),
+    steps: [
+      { short: "칩렛·UCIe", title: "큰 칩을 기능별 작은 칩으로 나눠 다시 잇는다", cmd: "Chiplet",
+        text: `큰 칩을 기능별 작은 칩(<b>칩렛</b>)으로 나누면 수율이 오르고, 기능마다 알맞은 공정을 고를 수 있으며(연산은 최선단, 입출력은 성숙 공정), 재사용도 쉽습니다. 칩렛끼리 말이 통하게 하는 다이 간 연결 표준이 <b>UCIe</b>이고, SK하이닉스·샌디스크의 HBF 표준도 UCIe를 채택했습니다(4-7).`,
+        set: Object.assign({ split: on, next: off }, vv(["칩렛의 장점", "수율↑", "기능마다 알맞은 공정", "(연산 최선단, 입출력 성숙)", "재사용이 쉬움", "연결 표준: UCIe", ""])) },
+      { short: "과제·다음", title: "칩렛의 과제와 다음 과제", cmd: "Next",
+        text: `칩렛은 칩 간 통신 지연·전력, 패키징 비용·복잡도, 칩마다 양품을 보증하는 테스트(KGD)가 과제입니다. 다음 과제로는 평탄하고 미세 배선에 유리한 <b>유리 기판</b>, 광 연결을 패키지 안으로 들인 <b>CPO</b>(Co-Packaged Optics), 패키지 단위 방열(4-9)이 꼽힙니다.`,
+        set: Object.assign({ split: off, next: on }, vv(["과제와 다음", "지연·전력, 비용, KGD", "유리 기판: 평탄·미세 배선", "CPO: 광 연결을 패키지 안으로", "패키지 단위 방열", "", ""])) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [why, types, hb, chip], dur: 6500 });
+})();
+</script>
+</body>
+</html>
