@@ -68,6 +68,9 @@ def test_unit_links_resolve(code):
         assert v["url"].startswith("https://") and v["title"], v
     for a in u["animations"]:
         assert (ROOT / a["file"]).is_file(), a
+    for f in u["films"]:
+        assert (ROOT / f["file"]).is_file(), f
+        assert 0 < f["seconds"] <= 120 and f["chapters"], f
 
 
 def test_video_lists_fully_parsed():

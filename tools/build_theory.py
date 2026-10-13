@@ -12,6 +12,7 @@ theory/units/<code>.md is the source for every unit. The only hand-kept data is 
     **관련 뉴스 태그** `a` `b` — ...                     → manuscriptTags
     **영상으로 보기** followed by "- [title](url) — note" → videos
     animations/catalog.json entries with the same unit  → animations
+    animations/catalog.json "films" with the same unit   → films (time-based film pages)
 
 data/units.json keeps its schema (the backend reads it to pick each news card's related units) and
 its `version`/`note` fields; change `version` by hand when unit tags change.
@@ -142,8 +143,12 @@ def build() -> tuple[dict, dict]:
     paths = sorted(UNITS_DIR.glob("*.md"), key=lambda p: unit_key(p.stem))
     known = {p.stem for p in paths}
     units = [parse_unit(p, known) for p in paths]
-    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))["animations"]
+    cat = json.loads(CATALOG.read_text(encoding="utf-8"))
+    catalog = cat["animations"]
     for u in units:
+        u["films"] = [
+            {"file": f"animations/{f['file']}", "title": f["title"], "seconds": f["seconds"], "chapters": f["chapters"]}
+            for f in cat.get("films", []) if f["unit"] == u["code"]]
         u["animations"] = [
             {"file": f"animations/{a['file']}", "title": a["title"],
              "modes": [{"id": m["id"], "label": m["label"], "steps": m["steps"]} for m in a["modes"]],
@@ -175,6 +180,7 @@ def build() -> tuple[dict, dict]:
             "videoUrls": len(set(urls)),
             "unitsWithVideos": sum(1 for u in units if u["videos"]),
             "animations": sum(len(u["animations"]) for u in units),
+            "films": sum(len(u["films"]) for u in units),
         },
     }
     return theory, units_json

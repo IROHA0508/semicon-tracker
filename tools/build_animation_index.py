@@ -88,9 +88,26 @@ def build() -> str:
         floors.setdefault(a["unit"].split("-")[0], []).append(a)
     out = [HEAD.replace("{count}", str(len(items)))]
     out.append('  <nav class="toc" aria-label="층 바로가기">')
+    if catalog.get("films"):
+        out.append(f'    <a href="#films">영상<span>{len(catalog["films"])}</span></a>')
     for f, rows in floors.items():
         out.append(f'    <a href="#floor-{f}">{html.escape(FLOORS.get(f, f + "층"))}<span>{len(rows)}</span></a>')
     out.append("  </nav>")
+    films = sorted(catalog.get("films", []), key=lambda a: unit_key(a["unit"]))
+    if films:
+        out.append(f'\n  <section class="floor" id="films">')
+        out.append(f'    <h2>영상 <span>{len(films)}개</span></h2>')
+        out.append('    <div class="cards">')
+        for a in films:
+            m, s = divmod(a["seconds"], 60)
+            out.append(f'      <a class="card" href="{a["file"]}">')
+            out.append(f'        <div class="top"><span class="unit">{a["unit"]}</span><span class="meta">약 {m}분{f" {s}초" if s else ""}</span></div>')
+            out.append(f'        <h3>{html.escape(a["title"])}</h3>')
+            out.append(f'        <p>{html.escape(a["summary"])}</p>')
+            out.append(f'        <div class="modes">{"".join(f"<span>{html.escape(c)}</span>" for c in a["chapters"])}</div>')
+            out.append("      </a>")
+        out.append("    </div>")
+        out.append("  </section>")
     for f, rows in floors.items():
         out.append(f'\n  <section class="floor" id="floor-{f}">')
         out.append(f'    <h2>{html.escape(FLOORS.get(f, f + "층"))} <span>{len(rows)}개</span></h2>')

@@ -15,6 +15,7 @@ ANIM = ROOT / "animations"
 CATALOG = json.loads((ANIM / "catalog.json").read_text(encoding="utf-8"))
 UNITS = {u["code"] for u in json.loads((ROOT / "data" / "units.json").read_text(encoding="utf-8"))["units"]}
 PAGES = CATALOG["animations"]
+FILMS = CATALOG.get("films", [])
 
 
 def test_catalog_units_exist():
@@ -53,10 +54,38 @@ def test_no_outside_resources(name):
         assert url.startswith(("https://fonts.googleapis.com", "https://fonts.gstatic.com")), url
 
 
+def test_film_units_exist_and_ids_unique():
+    ids = [a["id"] for a in PAGES + FILMS]
+    assert len(ids) == len(set(ids))
+    for f in FILMS:
+        assert f["unit"] in UNITS, f
+        assert (ANIM / f["file"]).is_file(), f
+
+
+@pytest.mark.parametrize("film", FILMS, ids=[f["id"] for f in FILMS])
+def test_film_page_shape(film):
+    """Film pages are time-driven (no StepPlayer): 16:9 stage, 120 s at most, chapters match the catalog."""
+    html = (ANIM / film["file"]).read_text(encoding="utf-8")
+    assert html.lower().startswith("<!doctype html>")
+    assert '<html lang="ko">' in html
+    assert 'name="viewport"' in html
+    assert '<link rel="stylesheet" href="player.css">' in html
+    assert 'href="./"' in html
+    assert f'<span class="unit-chip">{film["unit"]}</span>' in html
+    assert 0 < film["seconds"] <= 120
+    assert f"DUR = {film['seconds']}" in html
+    assert "aspect-ratio: 16 / 9" in html or "aspect-ratio:16/9" in html
+    scenes = re.search(r"const SCENES = \[(.*?)\];", html, flags=re.S).group(1)
+    assert re.findall(r'"([^"]+)"\]', scenes) == film["chapters"]
+    assert "st-anim-height" in html and "embed" in html
+
+
 def test_index_links_every_page():
     html = (ANIM / "index.html").read_text(encoding="utf-8")
     for entry in PAGES:
         assert f'href="{entry["file"]}"' in html
+    for film in FILMS:
+        assert f'href="{film["file"]}"' in html
     for planned in CATALOG["planned"]:
         assert f"<b>{planned['unit']}</b>" in html
 
