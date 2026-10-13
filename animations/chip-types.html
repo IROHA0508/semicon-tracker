@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>반도체의 종류: 메모리와 시스템 반도체</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .nd { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .nd[data-s="hi"], .ng[data-s="hi"] > .nd { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.2; }
+  .nd[data-s="lo"], .ng[data-s="lo"] > .nd { fill: var(--low-soft); stroke: var(--low); stroke-width: 2.2; }
+  .edge { stroke: var(--line-strong); stroke-width: 1.4; fill: none; }
+  .cell { fill: var(--surface); stroke: var(--line); }
+  .cell.hd { fill: var(--accent-soft); }
+  .cell.hd2 { fill: var(--low-soft); }
+  [data-s="dim"] { opacity: .35; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">0-3</span><span>입문</span><a href="./">애니메이션 목록</a></div>
+    <h1>반도체의 종류: 메모리와 시스템 반도체</h1>
+    <p class="lead">반도체 칩은 정보를 저장하는 메모리 반도체와, 연산·제어·변환을 맡는 시스템 반도체(비메모리)로 크게 나뉩니다. 컴퓨터를 사무실로 보면, 메모리는 서류를 올려두는 책상(D램)과 보관 창고(낸드)이고, 시스템 반도체는 일을 처리하는 직원(CPU·GPU), 눈과 귀(센서), 전기 배분기(전력 칩)입니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">반도체의 종류: 메모리와 시스템 반도체</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <g id="m-tree" class="t">
+          <g id="edges"></g>
+          <g id="nodes"></g>
+          <text id="b1" x="440" y="372" class="card-l ink-b" text-anchor="middle"></text>
+          <text id="b2" x="440" y="398" class="card-m" text-anchor="middle"></text>
+          <text id="b3" x="440" y="422" class="lbl-s" text-anchor="middle"></text>
+        </g>
+        <g id="m-cmp" class="t">
+          <g id="tbl" class="t"></g>
+          <g id="blur" class="t">
+            <rect class="nd" x="60" y="80" width="300" height="120" rx="10" data-s="hi"></rect>
+            <text x="210" y="116" class="card-l ink-b" text-anchor="middle">메모리 쪽</text>
+            <text x="210" y="146" class="lbl-s" text-anchor="middle">HBM4부터 베이스 다이를 로직 공정으로</text>
+            <text x="210" y="170" class="lbl-s" text-anchor="middle">고객 요구에 맞춘 HBM(4-5)</text>
+            <rect class="nd" x="520" y="80" width="300" height="120" rx="10" data-s="lo"></rect>
+            <text x="670" y="116" class="card-l ink-b" text-anchor="middle">시스템 쪽</text>
+            <text x="670" y="146" class="lbl-s" text-anchor="middle">맞춤 설계가 원래의 경쟁력</text>
+            <text x="670" y="170" class="lbl-s" text-anchor="middle">설계(팹리스)와 생산(파운드리) 분업</text>
+            <line x1="370" y1="140" x2="510" y2="140" style="stroke: var(--accent); stroke-width: 2.4" marker-end="url(#ar-a)"></line>
+            <text x="440" y="128" class="lbl-s acc" text-anchor="middle">메모리도 맞춤 생산 성격</text>
+            <g id="sip"></g>
+          </g>
+        </g>
+      </svg>
+      <figcaption>개념도입니다. 분류는 원고의 큰 갈래만 따랐고, 실제 제품군은 훨씬 다양합니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>D램과 낸드의 차이: 휘발성 대 비휘발성, 커패시터에 담은 전하 대 게이트 아래에 가둔 전하, 속도 대 용량. 구조는 2-7과 2-8에서 그림으로 설명합니다.</li>
+      <li>2026년은 메모리 비중이 이례적으로 큽니다. WSTS는 올해 세계 시장 1.51조 달러 중 메모리가 8천억 달러를 넘을 것으로 봤습니다.</li>
+      <li>면접 답의 뼈대: 역할(저장 대 연산) → 생산 방식(대량 표준 대 맞춤) → 산업 구조(종합반도체 대 팹리스·파운드리 분업) → HBM으로 경계가 흐려지는 추세.</li>
+    </ul>
+    <p class="foot">원고 0-3을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-7 메모리 계층·D램, 2-8 낸드, 5-2 비즈니스 모델.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // 노드: id, x, y, w, 제목, 부제
+  const N = [
+    ["root", 380, 20, 120, "반도체 칩", ""],
+    ["mem", 150, 100, 150, "메모리 반도체", "저장"],
+    ["sys", 560, 100, 170, "시스템 반도체", "연산·제어·변환"],
+    ["vol", 40, 190, 150, "휘발성", "끄면 사라짐"],
+    ["nv", 230, 190, 150, "비휘발성", "꺼도 남음"],
+    ["calc", 410, 190, 108, "연산", "CPU·GPU·NPU"],
+    ["sen", 524, 190, 108, "센서", "이미지센서"],
+    ["pwr", 638, 190, 108, "아날로그·전력", "PMIC, SiC·GaN"],
+    ["com", 752, 190, 108, "통신·구동·제어", "모뎀·RF·DDI·MCU"],
+    ["dram", 40, 280, 72, "D램", "주기억"], ["sram", 118, 280, 72, "S램", "캐시"],
+    ["nand", 230, 280, 72, "낸드", "SSD·폰"], ["nor", 308, 280, 72, "노어", "코드"],
+    ["ap", 410, 280, 108, "AP(SoC)", "여러 기능 한 칩"],
+  ];
+  const P = {}; N.forEach(([id, x, y, w]) => { P[id] = [x + w / 2, y, y + 56]; });
+  [["root", "mem"], ["root", "sys"], ["mem", "vol"], ["mem", "nv"], ["sys", "calc"], ["sys", "sen"], ["sys", "pwr"], ["sys", "com"], ["vol", "dram"], ["vol", "sram"], ["nv", "nand"], ["nv", "nor"], ["calc", "ap"]].forEach(([a, b]) => {
+    const [ax, , ay] = P[a], [bx, by] = P[b], my = (ay + by) / 2;
+    mk($("edges"), "path", { id: "e-" + b, class: "edge t", d: `M${ax},${ay} V${my} H${bx} V${by}` });
+  });
+  N.forEach(([id, x, y, w, t, s]) => {
+    const g = mk($("nodes"), "g", { id: "n-" + id, class: "ng t" });
+    mk(g, "rect", { class: "nd", x, y, width: w, height: 56, rx: 8 });
+    mk(g, "text", { x: x + w / 2, y: y + (s ? 24 : 34), class: "lbl-s ink-b", "text-anchor": "middle", style: "font-size: 12px" }, t);
+    if (s) mk(g, "text", { x: x + w / 2, y: y + 43, class: "lbl-s", "text-anchor": "middle" }, s);
+  });
+  const IDS = N.map((n) => n[0]);
+  const st = (hi, lo, dim) => { const o = {}; IDS.forEach((id) => { const s = hi.includes(id) ? "hi" : lo.includes(id) ? "lo" : dim.includes(id) || dim === "*" ? "dim" : "on"; o["n-" + id] = { s }; if (id !== "root") o["e-" + id] = { s: s === "dim" ? "dim" : "on" }; }); return o; };
+  const MEM = ["mem", "vol", "nv", "dram", "sram", "nand", "nor"], SYS = ["sys", "calc", "sen", "pwr", "com", "ap"];
+  const bb = (a) => lines("b", a, 3);
+  // 비교표
+  const R = [["항목", "메모리", "시스템 반도체"], ["하는 일", "저장", "연산·제어·변환"], ["생산 방식", "소품종 대량 생산", "다품종 맞춤 생산"], ["경쟁력", "미세 공정, 원가, 수율", "설계, 소프트웨어 생태계"], ["가격", "시황에 따라 크게 변동", "상대적으로 안정"], ["대표 기업", "삼성전자, SK하이닉스, 마이크론", "엔비디아·퀄컴·애플(설계), TSMC(생산)"]];
+  R.forEach((r, i) => { const y = 50 + i * 52; [[60, 140], [200, 300], [500, 320]].forEach(([x, w], j) => { mk($("tbl"), "rect", { class: "cell" + (i === 0 ? (j === 1 ? " hd" : j === 2 ? " hd2" : "") : ""), x, y, width: w, height: 48 }); mk($("tbl"), "text", { x: x + w / 2, y: y + 29, class: i === 0 || j === 0 ? "lbl-s ink-b" : "lbl-s", "text-anchor": "middle", style: "font-size: 12px" }, r[j]); }); });
+  // SoC · SiP · 칩렛
+  [["SoC", "여러 기능을 한 칩에"], ["SiP", "여러 칩을 한 패키지에"], ["칩렛", "칩을 쪼개 다시 잇기(4-6)"]].forEach(([a, b], i) => { const x = 120 + i * 220; mk($("sip"), "rect", { class: "nd", x, y: 250, width: 200, height: 80, rx: 8 }); mk($("sip"), "text", { x: x + 100, y: 284, class: "card-l ink-b", "text-anchor": "middle" }, a); mk($("sip"), "text", { x: x + 100, y: 308, class: "lbl-s", "text-anchor": "middle" }, b); });
+  mk($("sip"), "text", { x: 440, y: 236, class: "lbl-s", "text-anchor": "middle" }, "더 깊이: 기능을 모으는 세 가지 방법");
+
+  const tree = {
+    id: "tree", label: "분류 트리",
+    base: () => Object.assign(only(["m-tree", "m-cmp"], ["m-tree"]), st([], [], [])),
+    steps: [
+      { short: "두 갈래", title: "저장하는 칩과 일하는 칩", cmd: "Memory / System",
+        text: `반도체 칩은 정보를 <b>저장</b>하는 메모리 반도체와, <b>연산·제어·변환</b>을 맡는 시스템 반도체(비메모리)로 크게 나뉩니다. 메모리는 몇 가지 표준 제품을 대량으로, 시스템 반도체는 수많은 종류를 용도별로 만듭니다.`,
+        set: Object.assign(st(["mem"], ["sys"], ["vol", "nv", "calc", "sen", "pwr", "com", "dram", "sram", "nand", "nor", "ap"]), bb(["메모리 = 책상(D램)과 창고(낸드)", "시스템 반도체 = 직원(CPU·GPU), 눈과 귀(센서), 전기 배분기(전력 칩)", ""])) },
+      { short: "휘발성", title: "휘발성 메모리: 끄면 사라진다", cmd: "Volatile",
+        text: `<b>휘발성</b> 메모리는 전원을 끄면 내용이 사라집니다. <b>D램</b>은 빠른 주기억장치, <b>S램</b>은 가장 빠르지만 비싸서 CPU 안의 캐시로 씁니다.`,
+        set: Object.assign(st(["vol", "dram", "sram"], [], ["sys", "calc", "sen", "pwr", "com", "ap", "nv", "nand", "nor"]), bb(["D램: 빠른 주기억장치(1T1C)", "S램: 가장 빠르지만 비싸서 캐시로(6T)", ""])) },
+      { short: "비휘발성", title: "비휘발성 메모리: 꺼도 남는다", cmd: "Non-volatile",
+        text: `<b>비휘발성</b> 메모리는 전원을 꺼도 남습니다. <b>낸드 플래시</b>는 SSD와 스마트폰의 대용량 저장장치, <b>노어 플래시</b>는 작은 프로그램 코드 저장에 씁니다. 메모리는 표준 규격(JEDEC) 제품을 대량 생산하고, 수요와 공급에 따라 가격이 크게 오르내립니다(5-3).`,
+        set: Object.assign(st(["nv", "nand", "nor"], [], ["sys", "calc", "sen", "pwr", "com", "ap", "vol", "dram", "sram"]), bb(["낸드: SSD·스마트폰 저장장치 / 노어: 작은 코드 저장", "메모리 특징: JEDEC 표준 제품을 대량 생산, 가격 변동이 큼", ""])) },
+      { short: "시스템 4갈래", title: "시스템 반도체: 연산, 센서, 전력, 통신·제어", cmd: "System",
+        text: `<b>연산</b>은 CPU, GPU, NPU, 스마트폰 AP(여러 기능을 한 칩에 담은 SoC), <b>센서</b>는 CMOS 이미지센서(빛을 전기 신호로), <b>아날로그·전력</b>은 전원 관리 칩(PMIC)과 SiC·GaN 전력반도체(2-9), <b>통신·구동·제어</b>는 모뎀, RF, 디스플레이 구동칩(DDI), 마이크로컨트롤러(MCU)입니다.`,
+        set: Object.assign(st([], SYS, MEM), bb(["연산 · 센서 · 아날로그·전력 · 통신·구동·제어", "", ""])) },
+      { short: "분업 구조", title: "시스템 반도체는 설계가 경쟁력", cmd: "Fabless / Foundry",
+        text: `시스템 반도체는 고객마다 요구가 달라 <b>설계</b>가 경쟁력입니다. 그래서 설계(<b>팹리스</b>)와 생산(<b>파운드리</b>)이 나뉘는 경우가 많습니다(5-1). 메모리는 표준 제품을 대량으로 만드는 대신 미세 공정·원가·수율로 경쟁합니다.`,
+        set: Object.assign(st(["mem"], ["sys"], []), bb(["메모리: 표준 제품 대량 생산 → 미세 공정·원가·수율", "시스템: 고객마다 다른 요구 → 설계가 경쟁력, 팹리스·파운드리 분업", ""])) },
+    ],
+  };
+
+  const cmp = {
+    id: "cmp", label: "비교·경계",
+    base: () => Object.assign(only(["m-tree", "m-cmp"], ["m-cmp"]), { tbl: off, blur: off }),
+    steps: [
+      { short: "한눈에 비교", title: "메모리 대 시스템 반도체", cmd: "Compare",
+        text: `하는 일(저장 대 연산·제어·변환), 생산 방식(소품종 대량 대 다품종 맞춤), 경쟁력(미세 공정·원가·수율 대 설계·소프트웨어 생태계), 가격(시황에 따라 크게 변동 대 상대적으로 안정), 대표 기업(삼성전자·SK하이닉스·마이크론 대 엔비디아·퀄컴·애플(설계)과 TSMC(생산))으로 비교합니다.`,
+        set: { tbl: on, blur: off } },
+      { short: "흐려지는 경계", title: "경계가 흐려지는 중: HBM", cmd: "Custom HBM",
+        text: `HBM4부터는 맨 아래 베이스 다이를 로직 공정으로 만들고, 고객사 요구에 맞춘 HBM도 나오고 있습니다. 메모리도 <b>맞춤 생산</b> 성격을 띠기 시작한 것입니다(4-5). 여러 기능을 한 칩에 담으면 SoC, 여러 칩을 한 패키지에 담으면 SiP이고, 칩을 작게 쪼개 다시 잇는 칩렛도 같은 흐름입니다(4-6).`,
+        set: { tbl: off, blur: on } },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [tree, cmp], dur: 6000 });
+})();
+</script>
+</body>
+</html>

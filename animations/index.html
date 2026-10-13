@@ -41,19 +41,21 @@
   <header class="anim-head">
     <div class="eyebrow"><span>반도체 뉴스 트래커 · 이론</span></div>
     <h1>반도체 동작·공정 애니메이션</h1>
-    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 43개입니다.</p>
+    <p class="lead">이론 원고의 단원을 단계별로 움직이는 그림으로 만들었습니다. 각 단계는 원고 문장과 맞춰 두었고, <kbd>←</kbd> <kbd>→</kbd> 키로 단계를 넘기고 <kbd>Space</kbd>로 자동 재생합니다. 지금 49개입니다.</p>
   </header>
 
   <nav class="toc" aria-label="층 바로가기">
-    <a href="#floor-0">0층 · 입문<span>2</span></a>
+    <a href="#floor-0">0층 · 입문<span>4</span></a>
     <a href="#floor-1">1층 · 기초 전기와 물리<span>6</span></a>
     <a href="#floor-2">2층 · 소자<span>11</span></a>
     <a href="#floor-3">3층 · 제조 공정<span>18</span></a>
     <a href="#floor-4">4층 · 첨단 기술<span>6</span></a>
+    <a href="#floor-5">5층 · 산업과 시장<span>3</span></a>
+    <a href="#floor-6">6층<span>1</span></a>
   </nav>
 
   <section class="floor" id="floor-0">
-    <h2>0층 · 입문 <span>2개</span></h2>
+    <h2>0층 · 입문 <span>4개</span></h2>
     <div class="cards">
       <a class="card" href="semiconductor-basics.html">
         <div class="top"><span class="unit">0-1</span><span class="meta">6단계</span></div>
@@ -66,6 +68,18 @@
         <h3>칩의 일생</h3>
         <p>설계에서 출하까지 8단계를 두 줄 흐름도로 따라가며, 단계마다 레이아웃·마스크·잉곳·층 쌓기·웨이퍼 맵·패키지·테스트를 그림으로 보여 주고 8대 공정 두 가지 분류로 마무리.</p>
         <div class="modes"></div>
+      </a>
+      <a class="card" href="chip-types.html">
+        <div class="top"><span class="unit">0-3</span><span class="meta">7단계</span></div>
+        <h3>반도체의 종류: 메모리와 시스템 반도체</h3>
+        <p>정보를 저장하는 메모리(휘발성 D램·S램, 비휘발성 낸드·노어)와 연산·제어·변환을 맡는 시스템 반도체(연산, 센서, 아날로그·전력, 통신·구동·제어)를 분류 트리로 나누고, 생산 방식·경쟁력·가격·대표 기업을 비교한 뒤 HBM으로 흐려지는 경계까지.</p>
+        <div class="modes"><span>분류 트리</span><span>비교·경계</span></div>
+      </a>
+      <a class="card" href="chip-map.html">
+        <div class="top"><span class="unit">0-4</span><span class="meta">6단계</span></div>
+        <h3>반도체는 어디에 쓰이나: 스마트폰과 AI 서버</h3>
+        <p>모든 전자기기가 가진 공통 구조(계산하는 칩 + D램 + 낸드 + 전원·통신 칩)를 스마트폰과 AI 서버의 칩 지도로 비교하고, 저전력이 최우선인 스마트폰, GPU만큼 HBM이 중심인 AI 서버, 온디바이스 AI, 데이터 이동의 에너지, 용도별 메모리 이름(HBM·DDR5·LPDDR·GDDR·eSSD·UFS)까지.</p>
+        <div class="modes"><span>칩 지도</span><span>데이터 이동</span><span>메모리 이름</span></div>
       </a>
     </div>
   </section>
@@ -336,6 +350,42 @@
         <h3>AI 반도체와 메모리: 메모리 벽, CXL, PIM, HBF</h3>
         <p>연산 성능(2년에 약 3배)과 D램 대역폭(약 1.6배)·칩 간 연결(약 1.4배)의 성장 격차인 메모리 벽, 단어를 하나씩 생성하는 추론과 데이터 이동 에너지, 그리고 가까이 붙이는 HBM·넓히는 CXL·안에서 계산하는 PIM·새 계층 HBF와 메모리 종류별 대역폭 비교.</p>
         <div class="modes"><span>메모리 벽</span><span>해법</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="floor" id="floor-5">
+    <h2>5층 · 산업과 시장 <span>3개</span></h2>
+    <div class="cards">
+      <a class="card" href="company-map.html">
+        <div class="top"><span class="unit">5-4</span><span class="meta">7단계</span></div>
+        <h3>기업 지형도: 분야별 주요 기업과 한국 기업의 위치</h3>
+        <p>D램·낸드·파운드리·팹리스·장비·OSAT 여섯 분야의 해외·한국 주요 기업과 관전 포인트, 2026년 2분기 HBM 점유율(SK하이닉스 50%, 삼성전자 33%), 한국 기업의 위치, 기업을 분석하는 여섯 단계 순서.</p>
+        <div class="modes"><span>분야별</span><span>한국·분석법</span></div>
+      </a>
+      <a class="card" href="geopolitics.html">
+        <div class="top"><span class="unit">5-5</span><span class="meta">7단계</span></div>
+        <h3>지정학과 정책: 보조금, 수출 통제, 관세</h3>
+        <p>미국(칩스법 보조금, 대중 수출 통제, 232조 관세)·중국(빅펀드, 메모리 자급)·대만(TSMC 집중)·한국(반도체특별법, 용인 클러스터)·일본·유럽의 정책을 지역 지도와 화살표로 정리하고, 기업에 주는 의미와 2019~2026년 연표까지.</p>
+        <div class="modes"><span>지역별</span><span>연표</span></div>
+      </a>
+      <a class="card" href="esg.html">
+        <div class="top"><span class="unit">5-7</span><span class="meta">7단계</span></div>
+        <h3>ESG와 안전: 전력·물·온실가스·화학물질</h3>
+        <p>팹에 들어가는 자원(전력, 초순수, 가스·화학물질)과 나가는 배출(불소계 온실가스, 폐수), Scope 1·2·3, 불산·실레인·독성 가스를 다루는 안전 장치(가스 캐비닛, 이중 배관, 누출 감지, 자동 차단, LOTO)와 관련 법, 사람·공급망(S)과 지배구조(G), 그리고 수율이 ESG와 이어지는 이유.</p>
+        <div class="modes"><span>자원과 배출</span><span>안전</span><span>S와 G</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="floor" id="floor-6">
+    <h2>6층 <span>1개</span></h2>
+    <div class="cards">
+      <a class="card" href="job-map.html">
+        <div class="top"><span class="unit">6-1</span><span class="meta">6단계</span></div>
+        <h3>직무별 지식 지도: 내 직무에는 어떤 단원이 중요한가</h3>
+        <p>SK하이닉스 2026 하반기 JD의 이공계 메모리 직무 9개를 0~6층과 겹친 지도, 기준 직무 PE의 JD 업무 네 가지(Test Engineering·제품 검증·Test Solution 개발·불량 분석)와 깊게 볼 단원, PE 공부 우선순위, 모든 직무 공통의 추천 공부 순서.</p>
+        <div class="modes"><span>직무 지도</span><span>PE 경로</span><span>공부 순서</span></div>
       </a>
     </div>
   </section>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>직무별 지식 지도: 내 직무에는 어떤 단원이 중요한가</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .hm { stroke: var(--surface); stroke-width: 2; }
+  .hm.d { fill: var(--accent); }
+  .hm.b { fill: var(--accent-soft); }
+  .hm.n { fill: var(--line); opacity: .45; }
+  .rowg[data-s="dim"] { opacity: .25; }
+  .rowg[data-s="hi"] text { font-weight: 700; fill: var(--ink); }
+  .hl { fill: none; stroke: var(--ink); stroke-width: 2.4; }
+  .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .box.hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.2; }
+  .chip { fill: var(--low-soft); stroke: var(--low); stroke-width: 1.2; }
+  .flowar { stroke: var(--ink); stroke-width: 1.6; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">6-1</span><span>면접 실전</span><a href="./">애니메이션 목록</a></div>
+    <h1>직무별 지식 지도: 내 직무에는 어떤 단원이 중요한가</h1>
+    <p class="lead">같은 반도체 회사라도 직무마다 깊게 묻는 영역이 다릅니다. 지원 직무가 실제로 하는 일을 이해하고 그 일에 필요한 단원부터 깊게 공부하면, 짧은 시간에 면접 경쟁력을 크게 높일 수 있습니다. 같은 병원이라도 외과·내과·영상의학과가 깊게 공부하는 분야가 다르듯, 공통 기초는 함께 익히고 전공은 깊게 파는 것입니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">직무별 지식 지도: 내 직무에는 어떤 단원이 중요한가</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <g id="m-map" class="t">
+          <g id="heat"></g>
+          <rect id="pe-hl" class="hl t" x="64" y="157" width="452" height="30" rx="4"></rect>
+          <g><rect class="hm d" x="170" y="392" width="16" height="14"></rect><text x="192" y="404" class="lbl-s">깊게</text><rect class="hm b" x="240" y="392" width="16" height="14"></rect><text x="262" y="404" class="lbl-s">공통으로 보기</text><rect class="hm n" x="350" y="392" width="16" height="14"></rect><text x="372" y="404" class="lbl-s">필요할 때</text></g>
+        </g>
+        <g id="m-pe" class="t">
+          <g id="jd"></g>
+          <g id="units" class="t"></g>
+          <g id="prio" class="t"></g>
+        </g>
+        <g id="m-order" class="t"><g id="ord"></g></g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>지도 칸의 진하기는 원고 표의 '꼭 깊게 볼 단원'(진한 칸)과 모든 직무에 권하는 추천 공부 순서(연한 칸: 0층, 3-14~3-16, 5층, 6층)를 옮긴 것입니다. 직무 이름과 범위는 회사·연도마다 다릅니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>직무별 '꼭 깊게 볼 단원': 설계(1층, 2-2~2-4, 2-7·2-10, 4-5·4-7), 소자(1층, 2층 전체, 3-15·3-16, 4-1·4-3·4-4·4-9), R&D 공정(3층의 해당 공정, 3-14~3-16, 4-2·4-4·4-6), PE(2-7·2-8·2-10·2-11, 3-11·3-13·3-15~3-17, 4-3~4-5·4-9), PKG개발(3-12, 4-5·4-6·4-7·4-9), 양산기술(3층 전체, 3-13, 3-15·3-16, 6-3), 양산기술(P&T)(3-11·3-12·3-13·3-17, 4-5·4-6), 품질보증(2-7·2-8, 3-11·3-13·3-17, 4-9), 기반기술(3-0·3-2·3-4·3-13·3-17, 4-2·4-8).</li>
+      <li>이 밖의 직무: 장비 일을 하고 싶다면 R&D 공정의 'R&D 장비기술'과 양산기술의 '장비 Set-up' 항목을 보세요. Utility기술·SHE는 1-1 전기, 3-2 세정, 5-7 ESG를, 양산관리는 3-13 수율과 5층 시장을 먼저 보면 됩니다.</li>
+      <li>인적성(합격자 필기): 자료해석은 분수를 퍼센트로 바로 바꾸는 연습이 시간을 줄여 줍니다(1/6 ≈ 16.7%, 1/7 ≈ 14.3%, 1/8 = 12.5%, 1/9 ≈ 11.1%). 시험 구성은 해마다 바뀔 수 있으니 회사 공지를 확인하세요.</li>
+    </ul>
+    <p class="foot">원고 6-1을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 2-10 D램 동작 심화, 3-17 메모리 테스트와 불량 분석, 6-2 질문 은행, 6-3 답변 프레임.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // 직무 × 층 지도
+  const J = [["설계", [1, 2, 4]], ["소자", [1, 2, 3, 4]], ["R&D 공정", [3, 4]], ["PE", [2, 3, 4]], ["PKG개발", [3, 4]], ["양산기술", [3, 6]], ["양산기술(P&T)", [3, 4]], ["품질보증", [2, 3, 4]], ["기반기술", [3, 4]]];
+  const BASE = [0, 3, 5, 6];
+  for (let f = 0; f <= 6; f++) mk($("heat"), "text", { x: 190 + f * 46, y: 58, class: "lbl-s ink-b", "text-anchor": "middle" }, f + "층");
+  J.forEach(([n, deep], r) => {
+    const y = 70 + r * 29, g = mk($("heat"), "g", { id: "j" + r, class: "rowg t" });
+    mk(g, "text", { x: 160, y: y + 18, class: "lbl-s", "text-anchor": "end", style: "font-size: 12px" }, n);
+    for (let f = 0; f <= 6; f++) mk(g, "rect", { class: "hm " + (deep.includes(f) ? "d" : BASE.includes(f) ? "b" : "n"), x: 168 + f * 46, y, width: 44, height: 27, rx: 3 });
+  });
+  $("pe-hl").setAttribute("y", 70 + 3 * 29 - 2); $("pe-hl").setAttribute("x", 66); $("pe-hl").setAttribute("width", 426); $("pe-hl").setAttribute("height", 31);
+  const rows = (hi) => { const o = {}; J.forEach((_, r) => { o["j" + r] = { s: hi < 0 ? "on" : r === hi ? "hi" : "dim" }; }); return o; };
+  // PE JD 네 업무
+  const JD = [["Test Engineering", "테스트 조건·합격 기준 정하기", "짧게, 그러나 놓치지 않게", "3-11·3-17·2-10·2-11·4-9"], ["제품 검증", "의도대로 동작하나 측정·피드백", "읽기·쓰기·리프레시 타이밍 해석", "2-7·2-8·2-10·2-11·3-15·3-16·4-3~4-5"], ["Test Solution 개발", "테스트 프로그램 개선", "테스트 빅데이터 분석", "3-13 · 3-17 · 6-3"], ["불량 분석", "전기적·물리적 분석으로 원인", "고객 시스템 불량(Application)도", "3-17·3-13·4-9·3-15·3-16·2-3"]];
+  JD.forEach(([t, a, b, u], i) => {
+    const x = 40 + (i % 2) * 250, y = 50 + Math.floor(i / 2) * 170;
+    mk($("jd"), "rect", { class: "box", x, y, width: 235, height: 112, rx: 10 });
+    mk($("jd"), "text", { x: x + 14, y: y + 28, class: "card-l ink-b" }, t);
+    mk($("jd"), "text", { x: x + 14, y: y + 56, class: "lbl-s", style: "font-size: 12px" }, a);
+    mk($("jd"), "text", { x: x + 14, y: y + 78, class: "lbl-s" }, b);
+    mk($("units"), "rect", { class: "chip", x, y: y + 118, width: 235, height: 30, rx: 15 });
+    mk($("units"), "text", { x: x + 117, y: y + 138, class: "lbl-s low-t", "text-anchor": "middle" }, u);
+  });
+  // 우선순위
+  [["①", "2-10 D램 동작 심화 + 3-17 테스트·불량 분석", "가장 먼저, 가장 깊게"], ["②", "2-11 낸드 동작 심화 + 3-15·3-16 공정 흐름", "'이 불량은 어느 공정에서 왔을까'"], ["③", "3-13 수율 + 6-3 불량 PT 사례", "데이터를 근거로 원인을 좁히는 말하기"], ["④", "데이터 분석·코딩 경험", "Test Solution 개발과 연결해 말하기"]].forEach(([k, a, b], i) => {
+    const y = 40 + i * 92; mk($("prio"), "rect", { class: "box" + (i === 0 ? " hi" : ""), x: 40, y, width: 480, height: 70, rx: 10 });
+    mk($("prio"), "text", { x: 66, y: y + 44, class: "head-t", "text-anchor": "middle" }, k);
+    mk($("prio"), "text", { x: 96, y: y + 30, class: "card-l ink-b" }, a); mk($("prio"), "text", { x: 96, y: y + 52, class: "lbl-s" }, b);
+    if (i < 3) mk($("prio"), "line", { class: "flowar", x1: 280, y1: y + 72, x2: 280, y2: y + 90, "marker-end": "url(#ar-k)" });
+  });
+  // 추천 공부 순서
+  [[["0층"], ["큰 그림으로", "전체 지도"]], [["내 직무", "'깊게' 단원"], ["단골 질문을", "소리 내어 답하기"]], [["3-14 · 3-15", "· 3-16"], ["공정 흐름을", "손으로 그리기"]], [["5층"], ["회사 사업 구조·", "실적·핵심 제품"]], [["6-2 · 6-3"], ["1분 답변", "연습"]]].forEach(([a, b], i) => {
+    const x = 40 + i * 100, y = 140 + (i % 2) * 90, top = i % 2 === 0;
+    mk($("ord"), "rect", { class: "box" + (i === 1 ? " hi" : ""), x, y, width: 92, height: 80, rx: 10 });
+    mk($("ord"), "text", { x: x + 46, y: y + 22, class: "lbl-s", "text-anchor": "middle" }, String(i + 1));
+    a.forEach((l, k) => mk($("ord"), "text", { x: x + 46, y: y + 44 + k * 16, class: "lbl-s ink-b", "text-anchor": "middle", style: "font-size: 12px" }, l));
+    b.forEach((l, k) => mk($("ord"), "text", { x: x + 46, y: top ? y - 28 + k * 16 : y + 100 + k * 16, class: "lbl-s", "text-anchor": "middle" }, l));
+    if (i < 4) mk($("ord"), "line", { class: "flowar", x1: x + 92, y1: y + (top ? 60 : 20), x2: x + 100, y2: y + (top ? 90 : -10), "marker-end": "url(#ar-k)" });
+  });
+  mk($("ord"), "text", { x: 280, y: 60, class: "card-l ink-b", "text-anchor": "middle" }, "어느 직무든 추천하는 공부 순서");
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-map", "m-pe", "m-order"];
+
+  const map = {
+    id: "map", label: "직무 지도",
+    base: () => Object.assign(only(G, ["m-map"]), rows(-1), { "pe-hl": off }),
+    steps: [
+      { short: "9개 직무", title: "직무마다 깊게 볼 층이 다르다", cmd: "Job map",
+        text: `가로는 이 원고의 0~6층, 세로는 SK하이닉스 2026 하반기 직무 기술서(JD)에 나오는 이공계 메모리 직무 9개입니다. <b>진한 칸</b>이 그 직무에서 꼭 깊게 볼 층이고, 연한 칸은 어느 직무든 함께 보는 공통 순서(0층 큰 그림, 3-14~3-16 공정 흐름, 5층 회사 정리, 6층 답변 연습)입니다.`,
+        set: Object.assign(rows(-1), { "pe-hl": off }, vv(["직무별 지식 지도", "설계: 1·2·4층", "소자: 1~4층", "공정·양산: 3층 중심", "PE·품질: 2·3·4층", "공통 기초는 함께,", "전공은 깊게"])) },
+      { short: "기준 직무 PE", title: "기준 직무: Product Engineering(PE)", cmd: "PE",
+        text: `PE는 JD 첫 줄의 표현대로 '설계·소자·공정 전반의 지식을 바탕으로' 완제품을 개발하고, 평가와 분석으로 수율과 경쟁력을 높이는 직무입니다. 설계팀의 회로, 소자팀의 셀, 공정팀의 웨이퍼가 하나의 칩으로 모였을 때 '정말 규격대로 동작하는가'를 확인하고, 아니라면 왜 아닌지 찾아 해당 부서에 돌려주는 자리입니다.`,
+        set: Object.assign(rows(3), { "pe-hl": on }, vv(["Product Engineering", "설계·소자·공정이 모인 칩이", "규격대로 동작하나 확인", "아니면 원인을 찾아 피드백", "축: 메모리 동작(2-10·2-11)", "+ 테스트·불량 분석(3-17)", "→ 공정(3-15·3-16)까지"])) },
+    ],
+  };
+
+  const pe = {
+    id: "pe", label: "PE 경로",
+    base: () => Object.assign(only(G, ["m-pe"]), { jd: on, units: off, prio: off }),
+    steps: [
+      { short: "JD 네 업무", title: "PE의 JD 업무 네 가지", cmd: "JD",
+        text: `<b>Test Engineering</b>은 칩이 규격·품질·양산성을 모두 만족하는지 가려낼 테스트 조건(전압·온도·타이밍·데이터 패턴)과 합격 기준을 정하고 계속 고칩니다. 기준이 너무 빡빡하면 멀쩡한 칩까지 버려 수율이 떨어지고, 너무 느슨하면 불량이 고객에게 갑니다. <b>제품 검증</b>은 칩이 의도대로 동작하는지 측정해 피드백하고, <b>Test Solution 개발</b>은 테스트 프로그램 개선과 테스트 빅데이터 분석(프로그래밍 역량 우대), <b>불량 분석</b>은 전기적·물리적 분석으로 소자·공정 원인을 밝힙니다.`,
+        set: Object.assign({ jd: on, units: off, prio: off }, vv(["JD 업무 네 가지", "Test Engineering", "제품 검증", "Test Solution 개발", "불량 분석", "테스트 시간 = 원가", "'짧게, 그러나 놓치지 않게'"])) },
+      { short: "깊게 볼 단원", title: "업무마다 깊게 볼 단원", cmd: "Units",
+        text: `업무를 단원으로 바꾸면 Test Engineering은 3-11·3-17·2-10·2-11·4-9, 제품 검증은 2-7·2-8·2-10·2-11·3-15·3-16·4-3·4-4·4-5, Test Solution 개발은 3-13·3-17·6-3, 불량 분석은 3-17·3-13·4-9·3-15·3-16·2-3입니다. 면접에서는 '번인은 왜 하나요?', 'tRCD·tRP는 무엇인가요?', '수율 데이터를 어떻게 분석하겠나요?', '비트라인 한 줄 전체가 불량이면 무엇을 의심하나요?' 같은 질문이 나올 만합니다.`,
+        set: Object.assign({ jd: on, units: on, prio: off }, vv(["나올 만한 질문", "번인은 왜 하나요?", "tRCD·tRP는 무엇인가요?", "수율 데이터 분석 방법은?", "비트라인 한 줄 불량이면?", "FBM은 어떻게 읽나요?", ""])) },
+      { short: "공부 우선순위", title: "PE 지원자의 공부 우선순위", cmd: "Priority",
+        text: `① 2-10 D램 동작 심화와 3-17 메모리 테스트·불량 분석을 가장 먼저, 가장 깊게 봅니다. ② 2-11 낸드 동작 심화와 3-15·3-16 메모리 공정 흐름으로 '이 불량은 어느 공정에서 왔을까'를 말할 수 있게 합니다. ③ 3-13 수율과 6-3 불량 PT 사례로 데이터를 근거로 원인을 좁혀 가는 말하기를 연습합니다. ④ 데이터 분석이나 코딩 경험이 있다면 Test Solution 개발과 연결해 말합니다.`,
+        set: Object.assign({ jd: off, units: off, prio: on }, vv(["PE 공부 우선순위", "① 2-10 + 3-17", "② 2-11 + 3-15·3-16", "③ 3-13 + 6-3", "④ 데이터·코딩 경험 연결", "", ""])) },
+    ],
+  };
+
+  const order = {
+    id: "order", label: "공부 순서",
+    base: () => only(G, ["m-order"]),
+    steps: [
+      { short: "다섯 단계", title: "어느 직무든 추천하는 공부 순서", cmd: "Order",
+        text: `0층 큰 그림으로 전체 지도를 머리에 넣고 → 표에서 내 직무의 '깊게' 단원을 먼저 공부하며 단골 질문을 소리 내어 답해 보고 → 3-14 CMOS·3-15 D램·3-16 3D 낸드 공정 흐름을 손으로 그릴 수 있게 만들고(메모리 회사는 어느 직무든 공정 흐름 질문이 나옵니다) → 5층에서 지원 회사의 사업 구조와 최근 실적, 핵심 제품을 정리하고 → 6-2 질문 은행과 6-3 답변 프레임으로 1분 답변을 연습합니다.`,
+        set: vv(["추천 공부 순서", "1 0층 큰 그림", "2 내 직무 '깊게' 단원", "3 공정 흐름 손으로 그리기", "4 5층 회사 정리", "5 1분 답변 연습", ""]) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [map, pe, order], dur: 6500 });
+})();
+</script>
+</body>
+</html>

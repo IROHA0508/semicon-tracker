@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ESG와 안전: 전력·물·온실가스·화학물질</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .fab { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 2; }
+  .io { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .iog[data-s="hi"] > .io { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.4; }
+  .iog[data-s="dim"] { opacity: .3; }
+  .pipe { stroke: var(--low); stroke-width: 3; fill: none; }
+  .pipe.out { stroke: var(--bad); }
+  .ring1 { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .ring2 { fill: var(--low-soft); stroke: var(--low); stroke-width: 2; }
+  .ring3 { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 6 4; }
+  .cab { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+  .dbl { stroke: var(--ink); stroke-width: 7; fill: none; }
+  .dbl-in { stroke: var(--surface); stroke-width: 3; fill: none; }
+  .sens { fill: var(--accent); }
+  .valve { fill: var(--bad); }
+  .lock { fill: var(--bad); }
+  .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .box.s { fill: var(--accent-soft); stroke: var(--accent); }
+  .box.g { fill: var(--low-soft); stroke: var(--low); }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">5-7</span><span>산업과 시장</span><a href="./">애니메이션 목록</a></div>
+    <h1>ESG와 안전: 전력·물·온실가스·화학물질</h1>
+    <p class="lead">반도체 공장은 전력과 초순수를 대량으로 쓰고, 온난화 효과가 큰 불소계 가스와 위험한 화학물질을 다루기 때문에 환경(E)·사회(S)·지배구조(G) 관리와 작업장 안전이 생산만큼 중요한 경쟁력이 되었습니다. 큰 병원의 수술실처럼 깨끗한 환경을 지키려고 공기·물·전기를 쉬지 않고 쓰고, 위험한 약품과 가스를 다루기 때문에 안전 절차가 곧 생명입니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">ESG와 안전: 전력·물·온실가스·화학물질</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <g id="m-flow" class="t">
+          <g id="fio" class="t">
+            <rect class="fab" x="200" y="140" width="150" height="140" rx="10"></rect><text x="275" y="205" class="card-l ink-b" text-anchor="middle">팹</text><text x="275" y="228" class="lbl-s" text-anchor="middle">24시간 가동</text>
+            <path class="pipe" d="M150,110 Q180,110 200,160" marker-end="url(#ar-l)"></path><path class="pipe" d="M150,210 H198" marker-end="url(#ar-l)"></path><path class="pipe" d="M150,310 Q180,310 200,262" marker-end="url(#ar-l)"></path>
+            <path class="pipe out" d="M352,165 Q380,110 404,110" marker-end="url(#ar-b)"></path><path class="pipe out" d="M352,255 Q380,310 404,310" marker-end="url(#ar-b)"></path>
+            <g id="io"></g>
+            <text x="90" y="62" class="lbl-s ink-b" text-anchor="middle">들어가는 자원</text><text x="460" y="62" class="lbl-s ink-b" text-anchor="middle">나가는 배출</text>
+          </g>
+          <g id="scope" class="t">
+            <circle class="ring3" cx="270" cy="220" r="170"></circle><circle class="ring2" cx="270" cy="230" r="115"></circle><circle class="ring1" cx="270" cy="250" r="60"></circle>
+            <text x="270" y="246" class="card-l ink-b" text-anchor="middle">Scope 1</text><text x="270" y="266" class="lbl-s" text-anchor="middle">직접 배출</text>
+            <text x="270" y="152" class="card-l ink-b" text-anchor="middle">Scope 2</text><text x="270" y="172" class="lbl-s" text-anchor="middle">전력 사용 간접 배출</text>
+            <text x="270" y="82" class="card-l ink-b" text-anchor="middle">Scope 3</text><text x="270" y="102" class="lbl-s" text-anchor="middle">공급망 배출</text>
+          </g>
+        </g>
+        <g id="m-safe" class="t">
+          <g id="gas" class="t">
+            <rect class="cab" x="50" y="100" width="110" height="180" rx="6"></rect><text x="105" y="90" class="lbl-s ink-b" text-anchor="middle">가스 캐비닛</text>
+            <rect x="75" y="130" width="24" height="120" rx="10" style="fill: var(--m-w)"></rect><rect x="111" y="130" width="24" height="120" rx="10" style="fill: var(--m-w)"></rect>
+            <path class="dbl" d="M160,190 H330 V140 H440"></path><path class="dbl-in" d="M160,190 H330 V140 H440"></path><text x="250" y="178" class="lbl-s" text-anchor="middle">이중 배관</text>
+            <rect class="valve" x="200" y="181" width="16" height="18" rx="2"></rect><text x="208" y="222" class="lbl-s bad-t" text-anchor="middle">자동 차단 밸브</text>
+            <circle class="sens blink" cx="300" cy="230" r="9"></circle><text x="300" y="256" class="lbl-s acc" text-anchor="middle">누출 감지기</text>
+            <rect class="io" x="440" y="110" width="80" height="60" rx="6"></rect><text x="480" y="146" class="lbl-s ink-b" text-anchor="middle">공정 장비</text>
+            <text x="280" y="320" class="card-l ink-b" text-anchor="middle">불산(HF) · 실레인(SiH₄) · 독성 가스(Cl₂, NH₃ 등)</text>
+            <text x="280" y="346" class="lbl-s" text-anchor="middle">+ 비상 대응 훈련</text>
+          </g>
+          <g id="loto" class="t">
+            <rect class="io" x="80" y="110" width="200" height="150" rx="8"></rect><text x="180" y="190" class="card-l ink-b" text-anchor="middle">장비 정비(PM)</text>
+            <rect class="lock" x="300" y="150" width="40" height="34" rx="4"></rect><path d="M308,150 V136 Q320,120 332,136 V150" style="fill: none; stroke: var(--bad); stroke-width: 4"></path>
+            <rect x="352" y="146" width="90" height="44" rx="4" style="fill: var(--surface); stroke: var(--bad); stroke-width: 2"></rect><text x="397" y="166" class="lbl-s bad-t" text-anchor="middle">정비 중</text><text x="397" y="182" class="lbl-s bad-t" text-anchor="middle">조작 금지</text>
+            <text x="300" y="296" class="card-l bad-t" text-anchor="middle">LOTO: 에너지원을 잠그고(Lock) 표시(Tag)</text>
+            <g id="laws"></g>
+          </g>
+        </g>
+        <g id="m-sg" class="t"><g id="sgb"></g></g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>개념도입니다. 크기와 배치는 실제 설비가 아닌 역할을 보이기 위한 그림입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>면접 답의 뼈대: 환경 문제는 전력·물·온실가스 세 축으로 나누고 각각의 대책을 한 줄씩 말합니다. 공정 엔지니어의 기여는 레시피 최적화로 가스·약액 사용량 절감, 장비 대기 전력 절감, 수율 향상, 대체 가스 평가입니다.</li>
+      <li>안전 사고를 막기 위해: 표준 작업 절차 준수, 위험 요소 즉시 보고, 정비 시 LOTO, 아차 사고 공유와 개선 제안.</li>
+      <li>지원 회사의 최신 지속가능경영보고서에서 온실가스 배출량, 용수 재이용률, 재생에너지 비율 목표를 한 줄씩 찾아 두면 인성 면접에서 구체적으로 말할 수 있습니다.</li>
+    </ul>
+    <p class="foot">원고 5-7을 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 3-2 세정, 3-5 플라즈마, 4-9 열·전력·신뢰성, 5-5 지정학과 정책.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  const IO = [["pw", 30, 80, "전력", "공조 · 장비 · EUV"], ["wt", 30, 180, "초순수(UPW)", "세정"], ["ch", 30, 280, "가스·화학물질", "식각 · 세정"], ["gh", 404, 80, "불소계 가스", "→ 스크러버 분해"], ["ww", 404, 280, "폐수", "→ 처리 · 재이용"]];
+  IO.forEach(([id, x, y, t, s]) => { const g = mk($("io"), "g", { id: "io-" + id, class: "iog t" }); mk(g, "rect", { class: "io", x, y, width: 120, height: 60, rx: 8 }); mk(g, "text", { x: x + 60, y: y + 26, class: "lbl-s ink-b", "text-anchor": "middle", style: "font-size: 12px" }, t); mk(g, "text", { x: x + 60, y: y + 45, class: "lbl-s", "text-anchor": "middle" }, s); });
+  const ios = (hi) => { const o = {}; IO.forEach(([id]) => { o["io-" + id] = { s: hi.includes(id) ? "hi" : hi.length ? "dim" : "on" }; }); return o; };
+  [["화학물질관리법", 60], ["산업안전보건법", 220], ["중대재해처벌법(2022년 시행)", 380]].forEach(([n, x]) => { mk($("laws"), "rect", { class: "box", x, y: 320, width: x === 380 ? 170 : 140, height: 50, rx: 8 }); mk($("laws"), "text", { x: x + (x === 380 ? 85 : 70), y: 350, class: "lbl-s ink-b", "text-anchor": "middle" }, n); });
+  [["S: 사람과 공급망", ["작업자 건강 관리·정보 공개", "협력사 안전", "분쟁 광물(주석·탄탈럼·텅스텐·금)"], 40, "s"], ["G: 지배구조와 공시", ["이사회 감독, 윤리 경영", "지속가능경영보고서", "빅테크 고객의 탄소 감축 요구"], 290, "g"]].forEach(([t, ls, x, c]) => { mk($("sgb"), "rect", { class: "box " + c, x, y: 60, width: 230, height: 170, rx: 10 }); mk($("sgb"), "text", { x: x + 16, y: 92, class: "card-l ink-b" }, t); ls.forEach((l, i) => mk($("sgb"), "text", { x: x + 16, y: 126 + i * 30, class: "lbl-s" }, "· " + l)); });
+  mk($("sgb"), "rect", { class: "box", x: 40, y: 270, width: 480, height: 110, rx: 10 });
+  mk($("sgb"), "text", { x: 280, y: 304, class: "card-l acc", "text-anchor": "middle" }, "수율이 ESG와 이어지는 이유");
+  mk($("sgb"), "text", { x: 280, y: 336, class: "lbl-s", "text-anchor": "middle", style: "font-size: 12px" }, "불량이 줄면 같은 양의 양품을 만드는 데 드는");
+  mk($("sgb"), "text", { x: 280, y: 356, class: "lbl-s", "text-anchor": "middle", style: "font-size: 12px" }, "전력·물·가스·화학물질이 줄어든다");
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-flow", "m-safe", "m-sg"];
+
+  const flow = {
+    id: "flow", label: "자원과 배출",
+    base: () => Object.assign(only(G, ["m-flow"]), { fio: on, scope: off }, ios([])),
+    steps: [
+      { short: "전력", title: "전력: 작은 도시 수준을 24시간", cmd: "Power",
+        text: `클린룸 공조와 장비가 24시간 돌아가 대형 팹은 작은 도시 수준의 <b>전력</b>을 씁니다. EUV 장비 한 대의 소비 전력도 매우 큽니다. 재생에너지 조달(<b>RE100</b>: SK하이닉스 2020년, 삼성전자 2022년 가입)과 고효율 설비가 과제이고, 반도체 클러스터의 전력망 확보는 정책 이슈이기도 합니다(5-5).`,
+        set: Object.assign({ fio: on, scope: off }, ios(["pw"]), vv(["전력", "공조·장비 24시간, EUV", "대형 팹 = 작은 도시 수준", "RE100: SK하이닉스 2020,", "삼성전자 2022 가입", "고효율 설비, 전력망 확보", ""])) },
+      { short: "물", title: "물: 초순수를 대량으로", cmd: "Water",
+        text: `웨이퍼 세정에 불순물을 극도로 없앤 <b>초순수(UPW)</b>를 대량으로 씁니다(대형 팹 기준 하루 수만 톤 규모). 폐수를 처리해 다시 쓰는 <b>재이용률</b>과 가뭄 대비가 관리 지표입니다(3-2).`,
+        set: Object.assign({ fio: on, scope: off }, ios(["wt", "ww"]), vv(["물", "세정에 초순수(UPW)", "대형 팹 하루 수만 톤 규모", "관리 지표: 재이용률,", "가뭄 대비", "", ""])) },
+      { short: "온실가스", title: "불소계 가스: 온난화 효과가 수천~수만 배", cmd: "GHG",
+        text: `식각과 챔버 세정에 쓰는 CF₄, C₂F₆, NF₃, SF₆ 같은 <b>불소계 가스</b>는 같은 양의 이산화탄소보다 온난화 효과가 <b>수천~수만 배</b> 큽니다. 장비 뒤의 처리 장치(<b>스크러버</b>)로 분해하고, 효과가 작은 <b>대체 가스</b>로 바꾸는 노력이 이어지고 있습니다(3-5, 3-6).`,
+        set: Object.assign({ fio: on, scope: off }, ios(["ch", "gh"]), vv(["온실가스", "CF₄, C₂F₆, NF₃, SF₆", "CO₂보다 수천~수만 배", "→ 스크러버로 분해", "→ 대체 가스로 전환", "", ""])) },
+      { short: "Scope 1·2·3", title: "배출을 세 범위로 나눠 관리한다", cmd: "Scope",
+        text: `배출은 직접 배출(<b>Scope 1</b>, 공정 가스 등), 전력 사용에 따른 간접 배출(<b>Scope 2</b>), 공급망 배출(<b>Scope 3</b>)로 나눠 관리합니다.`,
+        set: Object.assign({ fio: off, scope: on }, vv(["배출 범위", "Scope 1: 직접 배출", "Scope 2: 전력 사용 간접", "Scope 3: 공급망", "", "", ""])) },
+    ],
+  };
+
+  const safe = {
+    id: "safe", label: "안전",
+    base: () => Object.assign(only(G, ["m-safe"]), { gas: off, loto: off }),
+    steps: [
+      { short: "가스·화학물질", title: "위험한 가스와 약품을 다루는 장치들", cmd: "Gas safety",
+        text: `피부를 통과해 뼈까지 손상시키는 <b>불산(HF)</b>, 공기에 닿으면 저절로 불붙는 <b>실레인(SiH₄)</b>, 독성 가스(Cl₂, NH₃ 등)를 다룹니다. <b>가스 캐비닛</b>과 <b>이중 배관</b>, <b>누출 감지기</b>와 <b>자동 차단 밸브</b>, 비상 대응 훈련이 기본입니다.`,
+        set: Object.assign({ gas: on, loto: off }, vv(["가스·화학물질 안전", "HF: 피부 통과, 뼈 손상", "SiH₄: 공기에 닿으면 발화", "독성 가스: Cl₂, NH₃ 등", "가스 캐비닛, 이중 배관", "누출 감지 + 자동 차단", "비상 대응 훈련"])) },
+      { short: "LOTO·법", title: "정비 때는 잠그고 표시한다", cmd: "LOTO",
+        text: `장비 정비(PM) 때는 에너지원을 잠그고 표시하는 <b>LOTO</b>(Lock-Out Tag-Out) 절차를 지킵니다. 화학물질관리법, 산업안전보건법, 중대재해처벌법(2022년 시행)이 적용됩니다.`,
+        set: Object.assign({ gas: off, loto: on }, vv(["LOTO와 법", "Lock-Out Tag-Out", "정비 중 에너지원 차단·표시", "화관법, 산안법,", "중대재해처벌법(2022)", "", ""])) },
+    ],
+  };
+
+  const sg = {
+    id: "sg", label: "S와 G",
+    base: () => only(G, ["m-sg"]),
+    steps: [
+      { short: "사람·공급망·지배구조", title: "S와 G: 사람, 공급망, 투명성", cmd: "S / G",
+        text: `작업자 건강 관리와 정보 공개, 협력사 안전, 분쟁 광물(주석·탄탈럼·텅스텐·금) 관리처럼 공급망 전체의 책임이 요구됩니다. 과거 반도체 사업장의 직업병 논란은 화학물질 관리와 보상 체계를 강화하는 계기가 되었습니다. 이사회 감독, 윤리 경영, 지속가능경영보고서 공시가 평가 기준이 되고, 글로벌 빅테크 고객이 공급사에 탄소 감축과 재생에너지 사용을 요구하는 흐름이 강해지고 있습니다.`,
+        set: vv(["S · G", "사람: 건강 관리, 정보 공개", "공급망: 협력사 안전, 분쟁 광물", "G: 이사회 감독, 윤리, 공시", "고객이 탄소 감축을 요구", "수율↑ = 자원↓", ""]) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [flow, safe, sg], dur: 6000 });
+})();
+</script>
+</body>
+</html>

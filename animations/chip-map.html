@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>반도체는 어디에 쓰이나: 스마트폰과 AI 서버</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .dev { fill: none; stroke: var(--ink); stroke-width: 2; }
+  .ch { stroke-width: 1.4; }
+  .ch.calc { fill: var(--accent-soft); stroke: var(--accent); }
+  .ch.dram { fill: var(--m-si-n); stroke: var(--m-si-line); }
+  .ch.nand { fill: var(--m-nit); stroke: var(--m-nit-line); }
+  .ch.etc { fill: var(--surface); stroke: var(--line-strong); }
+  .cg[data-s="dim"] { opacity: .25; }
+  .cg[data-s="hi"] > .ch { stroke-width: 3; }
+  .cell { fill: var(--surface); stroke: var(--line); }
+  .tag-d { fill: var(--m-si-n); }
+  .tag-n { fill: var(--m-nit); }
+  .bar { fill: var(--accent); }
+  .bar.rng { fill: var(--bad); }
+  .grid { stroke: var(--line); stroke-dasharray: 3 4; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">0-4</span><span>입문</span><a href="./">애니메이션 목록</a></div>
+    <h1>반도체는 어디에 쓰이나: 스마트폰과 AI 서버</h1>
+    <p class="lead">모든 전자기기는 '계산하는 칩 + 가까이 두는 메모리(D램) + 오래 저장하는 메모리(낸드) + 전원·통신 칩'으로 이뤄져 있고, 기기마다 규모와 성능만 다릅니다. 스마트폰은 혼자 일하는 1인 사무실, AI 서버는 수천 명이 일하는 공장입니다. 둘 다 직원(연산), 책상(D램), 창고(낸드), 전기와 전화(전원·통신)가 필요합니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">반도체는 어디에 쓰이나: 스마트폰과 AI 서버</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <g id="m-map" class="t">
+          <rect class="dev" x="50" y="40" width="200" height="340" rx="28"></rect><text x="150" y="30" class="card-l ink-b" text-anchor="middle">스마트폰</text>
+          <rect class="dev" x="290" y="40" width="240" height="340" rx="8"></rect><text x="410" y="30" class="card-l ink-b" text-anchor="middle">AI 서버</text>
+          <g id="chips"></g>
+          <g id="legend"><rect class="ch calc" x="50" y="396" width="14" height="14"></rect><text x="70" y="408" class="lbl-s">계산</text><rect class="ch dram" x="114" y="396" width="14" height="14"></rect><text x="134" y="408" class="lbl-s">D램</text><rect class="ch nand" x="178" y="396" width="14" height="14"></rect><text x="198" y="408" class="lbl-s">낸드</text><rect class="ch etc" x="242" y="396" width="14" height="14"></rect><text x="262" y="408" class="lbl-s">전원·통신·기타</text></g>
+        </g>
+        <g id="m-why" class="t">
+          <g id="eaxis"></g>
+          <text x="60" y="110" class="card-l ink-b">단순 연산 한 번</text><rect class="bar" x="200" y="96" width="6" height="22"></rect><text x="214" y="112" class="lbl-s">1(기준)</text>
+          <text x="60" y="170" class="card-l ink-b">D램에서 한 번 가져오기</text><rect id="erng" class="bar rng" x="200" y="156" width="10" height="22"></rect><text id="erng-t" x="200" y="200" class="lbl-s bad-t"></text>
+          <text x="60" y="290" class="card-l ink-b">대형 모델 시스템 에너지</text>
+          <rect x="60" y="304" width="460" height="30" style="fill: var(--line)"></rect><rect x="60" y="304" width="414" height="30" class="bar rng"></rect>
+          <text x="267" y="324" class="lbl-s" style="fill: var(--surface); font-weight: 700" text-anchor="middle">메모리 접근·데이터 이동: 90% 이상일 수 있음</text>
+          <text x="290" y="370" class="lbl-s" text-anchor="middle">SK하이닉스 뉴스룸 기고 기준(로그 눈금, 막대 위 숫자는 배수)</text>
+        </g>
+        <g id="m-names" class="t"><g id="tbl"></g></g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>개념도입니다. 칩의 크기와 배치는 실제 보드 배치가 아닌 역할별 정리입니다.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>AI 시대에 메모리가 중요해진 이유(답의 뼈대): ① AI 계산은 같은 데이터를 반복해서 읽음 ② 계산 속도보다 메모리에서 데이터를 가져오는 속도·에너지가 병목(메모리 벽) ③ 그래서 가까이, 넓게 연결하는 HBM이 핵심 부품이 됨.</li>
+      <li>SK하이닉스는 2026년 2분기 실적에서 AI 서버용 고성능 제품(HBM, 서버 D램, eSSD)이 가격 상승을 이끌었다고 밝혔습니다.</li>
+      <li>AI 데이터센터는 GPU 수천 개를 네트워크로 묶기 때문에 칩 사이 연결(NVLink, CXL)과 전력·냉각이 새 병목이 되고 있습니다(4-7, 4-9).</li>
+    </ul>
+    <p class="foot">원고 0-4를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 0-3 반도체의 종류, 4-5 HBM, 4-7 AI 반도체와 메모리.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  // id, 기기, 역할, x, y, w, h, 이름, 부제
+  const C = [
+    ["ap", "p", "calc", 70, 70, 160, 80, "AP(SoC)", "CPU·GPU·NPU·모뎀"],
+    ["lp", "p", "dram", 70, 160, 160, 44, "LPDDR5X·6", "저전력 D램"],
+    ["ufs", "p", "nand", 70, 212, 160, 44, "UFS", "낸드 저장장치"],
+    ["pmic", "p", "etc", 70, 264, 76, 44, "PMIC", "전원"],
+    ["rf", "p", "etc", 154, 264, 76, 44, "RF", "통신"],
+    ["cis", "p", "etc", 70, 316, 76, 44, "이미지센서", "카메라"],
+    ["ddi", "p", "etc", 154, 316, 76, 44, "DDI", "화면 구동"],
+    ["gpu", "s", "calc", 350, 70, 120, 80, "GPU", "가속기"],
+    ["hbm1", "s", "dram", 302, 70, 42, 80, "HBM", ""],
+    ["hbm2", "s", "dram", 476, 70, 42, 80, "HBM", ""],
+    ["cpu", "s", "calc", 302, 162, 100, 44, "CPU", ""],
+    ["ddr", "s", "dram", 410, 162, 108, 44, "DDR5", "CPU용 D램"],
+    ["essd", "s", "nand", 302, 214, 216, 44, "eSSD", "데이터센터 저장"],
+    ["net", "s", "etc", 302, 266, 216, 44, "칩 사이 연결", "NVLink · CXL"],
+    ["pwr", "s", "etc", 302, 318, 216, 44, "전원 · 냉각", "새 병목"],
+  ];
+  C.forEach(([id, d, r, x, y, w, h, t, s]) => { const g = mk($("chips"), "g", { id: "c-" + id, class: "cg t" }); mk(g, "rect", { class: "ch " + r, x, y, width: w, height: h, rx: 5 }); mk(g, "text", { x: x + w / 2, y: y + h / 2 + (s ? -2 : 4), class: "lbl-s ink-b", "text-anchor": "middle", style: "font-size: 12px" }, t); if (s) mk(g, "text", { x: x + w / 2, y: y + h / 2 + 14, class: "lbl-s", "text-anchor": "middle" }, s); });
+  const cs = (f) => { const o = {}; C.forEach((c) => { o["c-" + c[0]] = { s: f(c) }; }); return o; };
+  // 에너지(로그): x 200 = 1배, 90px = 10배
+  const EX = (v) => 200 + 90 * Math.log10(v);
+  for (let d = 0; d <= 3; d++) { const x = EX(Math.pow(10, d)); mk($("eaxis"), "line", { class: "grid", x1: x, y1: 84, x2: x, y2: 236 }); mk($("eaxis"), "text", { x, y: 252, class: "lbl-s", "text-anchor": "middle" }, ["1", "10", "100", "1,000"][d] + "배"); }
+  $("erng").setAttribute("x", EX(150)); $("erng").setAttribute("width", EX(2000) - EX(150)); $("erng-t").setAttribute("x", EX(150)); $("erng-t").textContent = "150~2,000배";
+  // 이름표
+  [["이름", "종류", "어디에", ""], ["HBM", "D램을 수직으로 쌓은 고대역폭 메모리", "AI 가속기(GPU·ASIC)", "d"], ["DDR5", "표준 D램", "서버·PC의 CPU", "d"], ["LPDDR5X·6", "저전력 D램", "스마트폰, 온디바이스 AI, 일부 AI 서버", "d"], ["GDDR7", "그래픽용 D램", "그래픽카드", "d"], ["eSSD", "낸드 기반 기업용 SSD", "데이터센터 저장", "n"], ["UFS", "낸드 기반 모바일 저장장치", "스마트폰", "n"]].forEach((r, i) => {
+    const y = 40 + i * 50; [[40, 120], [160, 270], [430, 260]].forEach(([x, w], j) => { mk($("tbl"), "rect", { class: "cell", x, y, width: w, height: 46 }); mk($("tbl"), "text", { x: x + w / 2, y: y + 28, class: i === 0 || j === 0 ? "lbl-s ink-b" : "lbl-s", "text-anchor": "middle", style: "font-size: 12px" }, r[j]); });
+    if (r[3]) mk($("tbl"), "rect", { class: r[3] === "d" ? "tag-d" : "tag-n", x: 40, y, width: 6, height: 46 });
+  });
+  mk($("tbl"), "text", { x: 40, y: 414, class: "lbl-s" }, "왼쪽 색 띠: 파랑 = D램 계열, 노랑 = 낸드 계열");
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-map", "m-why", "m-names"];
+
+  const map = {
+    id: "map", label: "칩 지도",
+    base: () => Object.assign(only(G, ["m-map"]), cs(() => "on")),
+    steps: [
+      { short: "공통 구조", title: "어느 기기든 네 가지 역할로 이뤄진다", cmd: "Common",
+        text: `모든 전자기기는 <b>계산하는 칩</b> + 가까이 두는 메모리(<b>D램</b>) + 오래 저장하는 메모리(<b>낸드</b>) + <b>전원·통신 칩</b>으로 이뤄져 있고, 기기마다 규모와 성능만 다릅니다. 색이 같은 칸끼리 같은 역할입니다.`,
+        set: Object.assign(cs(() => "on"), vv(["공통 구조", "계산하는 칩(직원)", "D램(책상)", "낸드(창고)", "전원·통신(전기와 전화)", "기기마다 규모와 성능만 다름", ""])) },
+      { short: "스마트폰", title: "스마트폰: AP 하나에 모으고, 모두 저전력", cmd: "Mobile",
+        text: `<b>AP</b> 하나에 CPU·GPU·NPU·모뎀을 모았습니다. 배터리로 돌아가니 모든 칩이 '<b>저전력</b>'이 최우선입니다(LPDDR의 LP = Low Power). 저장은 낸드 기반 모바일 저장장치인 UFS가 맡습니다.`,
+        set: Object.assign(cs((c) => (c[1] === "p" ? (c[0] === "ap" ? "hi" : "on") : "dim")), vv(["스마트폰 = 1인 사무실", "AP(SoC): CPU·GPU·NPU·모뎀", "LPDDR: LP = Low Power", "UFS: 낸드 저장장치", "배터리 → 저전력이 최우선", "", ""])) },
+      { short: "AI 서버", title: "AI 서버: GPU만큼 HBM이 중심", cmd: "AI server",
+        text: `<b>GPU</b>는 수천 개의 단순 계산기를 동시에 돌립니다. 계산기가 놀지 않게 데이터를 쏟아주려고 <b>HBM</b>을 GPU 바로 옆에 붙입니다. CPU 옆에는 표준 D램(DDR5), 저장은 기업용 SSD(eSSD)가 맡고, GPU 수천 개를 묶는 칩 사이 연결과 전력·냉각이 새 병목입니다.`,
+        set: Object.assign(cs((c) => (c[1] === "s" ? (["gpu", "hbm1", "hbm2"].includes(c[0]) ? "hi" : "on") : "dim")), vv(["AI 서버 = 수천 명의 공장", "GPU: 수천 개 계산기를 동시에", "HBM: GPU 바로 옆에서", "데이터를 쏟아 준다", "DDR5(CPU), eSSD(저장)", "새 병목: 칩 사이 연결,", "전력·냉각"])) },
+      { short: "온디바이스 AI", title: "기기 안에서 AI를 돌리면 D램이 더 필요하다", cmd: "On-device",
+        text: `스마트폰·PC 안에서 AI를 돌리려면 <b>NPU</b>와 더 큰 <b>LPDDR</b> 용량이 필요합니다. 기기당 D램 탑재량이 늘어납니다.`,
+        set: Object.assign(cs((c) => (["ap", "lp"].includes(c[0]) ? "hi" : c[1] === "p" ? "on" : "dim")), vv(["온디바이스 AI", "NPU(AP 안)", "+ 더 큰 LPDDR 용량", "→ 기기당 D램 탑재량↑", "", "", ""])) },
+    ],
+  };
+
+  const why = {
+    id: "why", label: "데이터 이동",
+    base: () => only(G, ["m-why"]),
+    steps: [
+      { short: "가져오는 비용", title: "계산보다 데이터를 옮기는 일이 더 비싸다", cmd: "Data movement",
+        text: `AI 모델이 커질수록 계산보다 '데이터를 옮기는 일'이 더 비싸집니다. SK하이닉스 뉴스룸 기고는 D램에서 데이터를 한 번 가져오는 에너지가 단순 연산의 <b>150~2,000배</b>이고, 대형 모델에서는 시스템 에너지의 <b>90% 이상</b>이 메모리 접근과 데이터 이동에 쓰일 수 있다고 설명합니다.`,
+        set: vv(["데이터 이동의 에너지", "D램 한 번 가져오기", "= 단순 연산의 150~2,000배", "대형 모델: 시스템 에너지의", "90% 이상이 메모리 접근·이동", "→ 가까이, 넓게 잇는 HBM", ""]) },
+    ],
+  };
+
+  const names = {
+    id: "names", label: "메모리 이름",
+    base: () => only(G, ["m-names"]),
+    steps: [
+      { short: "용도별 이름", title: "뉴스에 나오는 메모리 이름 정리", cmd: "Names",
+        text: `HBM은 D램을 수직으로 쌓은 고대역폭 메모리(AI 가속기), DDR5는 표준 D램(서버·PC의 CPU), LPDDR5X·6은 저전력 D램(스마트폰, 온디바이스 AI, 일부 AI 서버), GDDR7은 그래픽용 D램(그래픽카드), eSSD는 낸드 기반 기업용 SSD(데이터센터 저장), UFS는 낸드 기반 모바일 저장장치(스마트폰)입니다.`,
+        set: vv([]) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [map, why, names], dur: 6000 });
+})();
+</script>
+</body>
+</html>

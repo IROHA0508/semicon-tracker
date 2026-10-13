@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>지정학과 정책: 보조금, 수출 통제, 관세</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  .rg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+  .rgg[data-s="hi"] > .rg { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.4; }
+  .rgg[data-s="dim"] { opacity: .35; }
+  .inv { stroke: var(--low); stroke-width: 2.4; fill: none; }
+  .ctl { stroke: var(--bad); stroke-width: 2.4; fill: none; stroke-dasharray: 7 4; }
+  .inv-t { fill: var(--low); font-size: 11px; font-weight: 700; }
+  .ctl-t { fill: var(--bad); font-size: 11px; font-weight: 700; }
+  .tl { stroke: var(--ink); stroke-width: 2; }
+  .dot { fill: var(--accent); }
+  .q { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.4; }
+</style>
+</head>
+<body>
+<main class="anim" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">5-5</span><span>산업과 시장</span><a href="./">애니메이션 목록</a></div>
+    <h1>지정학과 정책: 보조금, 수출 통제, 관세</h1>
+    <p class="lead">반도체는 경제 안보 자산이 되어, 각국이 보조금으로 공장을 끌어오고 수출 통제·관세로 기술과 시장을 지키는 정책 경쟁을 벌이고 있습니다. 이것이 기업의 투자 위치, 고객, 공급망을 바꿉니다. 체스판 위의 핵심 말처럼 모두가 자기 편에 두려 하고, 상대가 갖지 못하게 막으려 합니다.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="tablist" aria-label="내용 고르기" data-p="modes"></div>
+    <div data-p="toggles"></div>
+  </div>
+
+  <div class="layout">
+    <figure class="stage">
+      <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
+        <title id="svg-title">지정학과 정책: 보조금, 수출 통제, 관세</title>
+        <defs>
+          <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+          <marker id="ar-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"></path></marker>
+        </defs>
+        <g id="m-region" class="t">
+          <g id="regions"></g>
+          <g id="ar-us" class="t">
+            <path class="inv" d="M390,150 Q300,120 172,190" marker-end="url(#ar-l)"></path><text x="320" y="96" class="inv-t">투자(삼성 텍사스, SK 인디애나)</text>
+            <path class="inv" d="M300,340 Q180,330 120,262" marker-end="url(#ar-l)"></path><text x="150" y="350" class="inv-t">투자(TSMC 애리조나)</text>
+            <path class="ctl" d="M172,215 H226" marker-end="url(#ar-b)"></path><text x="200" y="238" class="ctl-t" text-anchor="middle">수출 통제</text>
+          </g>
+          <g id="ar-cn" class="t">
+            <path class="ctl" d="M390,150 Q350,155 340,180" marker-end="url(#ar-b)"></path><text x="440" y="100" class="ctl-t" text-anchor="middle">중국 내 한국 공장: 미국 장비 반입 허가 문제</text>
+          </g>
+          <g id="ar-tw" class="t">
+            <path class="inv" d="M360,310 Q330,250 172,240" marker-end="url(#ar-l)"></path><path class="inv" d="M420,330 Q470,325 470,312" marker-end="url(#ar-l)"></path><path class="inv" d="M300,345 Q200,300 210,142" marker-end="url(#ar-l)"></path>
+            <text x="300" y="404" class="inv-t" text-anchor="middle">해외 공장으로 분산: 미국 · 일본 · 독일</text>
+          </g>
+          <g id="ar-jp" class="t">
+            <path class="ctl" d="M500,240 Q512,210 492,182" marker-end="url(#ar-b)"></path><text x="484" y="208" class="ctl-t" text-anchor="end">2019 소재 3종 규제</text><text x="484" y="224" class="ctl-t" text-anchor="end">(이후 해제)</text>
+            <path class="ctl" d="M250,130 Q290,160 290,180" marker-end="url(#ar-b)"></path><text x="200" y="164" class="ctl-t" text-anchor="end">ASML 수출: 통제 대상</text>
+          </g>
+          <g id="mean" class="t"></g>
+        </g>
+        <g id="m-time" class="t">
+          <line class="tl" x1="50" y1="200" x2="830" y2="200" marker-end="url(#ar-k)"></line>
+          <g id="tline"></g>
+        </g>
+        <text id="v1" x="560" y="70" class="head-t"></text>
+        <text id="v2" x="560" y="104" class="card-l"></text>
+        <text id="v3" x="560" y="128" class="card-l"></text>
+        <text id="v4" x="560" y="152" class="card-l"></text>
+        <text id="v5" x="560" y="176" class="card-l"></text>
+        <text id="v6" x="560" y="210" class="card-l acc"></text>
+        <text id="v7" x="560" y="234" class="card-l acc"></text>
+      </svg>
+      <figcaption>개념도입니다. 상자의 위치는 지리 정보가 아닌 관계를 보이기 위한 배치이며, 2026년 10월 기준 원고 내용을 요약했습니다. 정책은 자주 바뀌므로 면접 전에 뉴스 트래커로 다시 확인하세요.</figcaption>
+    </figure>
+
+    <section class="panel">
+      <div aria-live="polite">
+        <div class="count" data-p="count">1 / 1 <span class="cmd" data-p="cmd"></span></div>
+        <h2 class="step-title" data-p="title"></h2>
+        <p class="step-text" data-p="text"></p>
+      </div>
+      <div class="progress"><span data-p="progress"></span></div>
+      <div class="controls">
+        <button type="button" data-p="first" aria-label="처음 단계">처음</button>
+        <button type="button" data-p="prev" aria-label="이전 단계">이전</button>
+        <button type="button" class="primary" data-p="play">재생</button>
+        <button type="button" data-p="next" aria-label="다음 단계">다음</button>
+      </div>
+      <ol class="steps" data-p="list"></ol>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>정책 뉴스는 '언제 발표, 언제 시행, 누구에게 어떤 예외'를 구분해 읽어야 합니다. 발표와 실제 적용 사이에 내용이 바뀌는 경우가 많습니다.</li>
+      <li>미중 갈등 속 한국 반도체의 전략을 물으면 기술 초격차(대체 불가능성), 공급망 다변화, 국내 생태계 강화를 말하고, 정책 평가는 한쪽으로 단정하지 않습니다. 반도체특별법은 재정·행정 지원 근거라는 핵심과, 주 52시간 예외가 찬반 논란 끝에 빠졌다는 사실·양쪽 논거를 함께 말합니다.</li>
+      <li>대만 집중이 리스크인 이유: 최선단 생산이 한 지역에 몰려 있어 재난·긴장 시 대체가 어렵습니다.</li>
+    </ul>
+    <p class="foot">원고 5-5를 움직이는 그림으로 옮겼습니다. 이어서 볼 단원: 5-1 밸류체인, 5-4 기업 지형도, 4-8 소재·부품·장비.</p>
+  </section>
+</main>
+
+<script src="player.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { $, mk, all, txt, on, off, only, lines } = StepPlayer.kit;
+  const R = [["eu", "유럽", 190, 70], ["us", "미국", 50, 180], ["cn", "중국", 230, 180], ["kr", "한국", 390, 110], ["jp", "일본", 420, 240], ["tw", "대만", 300, 310]];
+  R.forEach(([id, n, x, y]) => { const g = mk($("regions"), "g", { id: "r-" + id, class: "rgg t" }); mk(g, "rect", { class: "rg", x, y, width: 120, height: 70, rx: 10 }); mk(g, "text", { x: x + 60, y: y + 42, class: "card-l ink-b", "text-anchor": "middle" }, n); });
+  const rs = (hi) => { const o = {}; R.forEach(([id]) => { o["r-" + id] = { s: hi.includes(id) ? "hi" : hi.length ? "dim" : "on" }; }); return o; };
+  // 기업 입장의 네 질문
+  ["어디에 공장을 짓나", "중국 매출·공장 운영", "관세를 누가 부담하나", "공급망 이중화"].forEach((n, i) => { const x = 40 + (i % 2) * 250, y = 110 + Math.floor(i / 2) * 120; mk($("mean"), "rect", { class: "q", x, y, width: 230, height: 90, rx: 10 }); mk($("mean"), "text", { x: x + 115, y: y + 52, class: "card-l ink-b", "text-anchor": "middle" }, n); });
+  mk($("mean"), "text", { x: 280, y: 84, class: "card-l acc", "text-anchor": "middle" }, "기업 입장에서의 경영 과제");
+  mk($("mean"), "text", { x: 280, y: 370, class: "lbl-s", "text-anchor": "middle" }, "보조금 대 비용·인력, 기회와 위험을 함께 본다");
+  // 연표
+  [["2019.7", "일본, 한국에 소재 3종", "수출 규제", 0], ["2022.8", "미국 칩스법", "제정", 1], ["2022.10~", "미국 대중 첨단 반도체·장비", "수출 통제(HBM 포함 확대)", 0], ["2023", "EU 칩스법", "발효", 1], ["2026.1.15", "미국 232조 반도체 포고령", "시행(25%, 넓은 예외)", 0], ["2026.1.29", "한국 반도체특별법", "국회 통과", 1]].forEach(([d, a, b, up], i) => {
+    const x = 80 + i * 140; mk($("tline"), "circle", { class: "dot", cx: x, cy: 200, r: 7 });
+    const y = up ? 120 : 250; mk($("tline"), "line", { x1: x, y1: up ? 150 : 207, x2: x, y2: up ? 193 : 240, style: "stroke: var(--line-strong)" });
+    mk($("tline"), "text", { x, y: up ? y - 6 : y + 8, class: "card-l ink-b", "text-anchor": "middle" }, d);
+    mk($("tline"), "text", { x, y: up ? y + 14 : y + 28, class: "lbl-s", "text-anchor": "middle" }, a);
+    mk($("tline"), "text", { x, y: up ? y + 30 : y + 44, class: "lbl-s", "text-anchor": "middle" }, b);
+  });
+  mk($("tline"), "text", { x: 440, y: 380, class: "lbl-s", "text-anchor": "middle" }, "공개 보도 기준");
+  const vv = (a) => lines("v", a, 7);
+  const G = ["m-region", "m-time"], AR = ["ar-us", "ar-cn", "ar-tw", "ar-jp", "mean", "regions"];
+
+  const region = {
+    id: "region", label: "지역별",
+    base: () => Object.assign(only(G, ["m-region"]), only(AR, ["regions"]), rs([])),
+    steps: [
+      { short: "미국", title: "미국: 보조금으로 끌어오고, 통제로 막는다", cmd: "US",
+        text: `2022년 <b>칩스법</b>으로 제조 보조금과 투자 세액공제를 도입해 삼성전자(텍사스 테일러)·TSMC(애리조나)·SK하이닉스(인디애나 첨단 패키징 공장) 등의 투자를 끌어냈습니다. 2022년부터 여러 차례 중국에 대한 첨단 반도체·장비 <b>수출을 통제</b>했고 HBM도 통제 대상에 포함되었습니다. 2026년 1월에는 무역확장법 <b>232조</b>에 따라 고급 컴퓨팅 반도체에 25% 관세를 부과하되 넓은 예외를 두는 포고령을 내렸고(1월 15일 시행), 수입을 막기보다 미국 내 투자를 유도하는 성격이라는 해석이 많습니다.`,
+        set: Object.assign(only(AR, ["regions", "ar-us"]), rs(["us"]), vv(["미국", "칩스법(2022): 보조금·세액공제", "대중 수출 통제(HBM 포함)", "232조: 고급 컴퓨팅 반도체 25%", "(2026.1.15 시행, 넓은 예외)", "미국 내 투자 유도 성격이라는", "해석이 많음"])) },
+      { short: "중국", title: "중국: 자급을 향한 대규모 투자", cmd: "China",
+        text: `반도체 자급을 목표로 대규모 정책 펀드(<b>빅펀드</b>)를 운용하며, CXMT(D램)·YMTC(낸드) 같은 메모리 기업과 성숙 공정 파운드리를 키우고 있습니다. 한국 기업에게는 큰 시장이자 경쟁자이며, 중국 내 공장(삼성전자 시안, SK하이닉스 우시·다롄)은 미국 장비 반입 허가 문제로 불확실성이 있습니다.`,
+        set: Object.assign(only(AR, ["regions", "ar-cn"]), rs(["cn", "kr"]), vv(["중국", "빅펀드로 자급 추진", "CXMT(D램), YMTC(낸드)", "성숙 공정 파운드리", "한국에는 큰 시장이자 경쟁자", "중국 내 한국 공장:", "장비 반입 허가 불확실성"])) },
+      { short: "대만", title: "대만: 최선단 생산이 한곳에", cmd: "Taiwan",
+        text: `TSMC에 최선단 생산이 집중돼 있어 양안 긴장이 세계 공급망의 가장 큰 지정학 리스크로 꼽힙니다. TSMC는 <b>미국·일본·독일</b>에 해외 공장을 두며 분산하고 있습니다.`,
+        set: Object.assign(only(AR, ["regions", "ar-tw"]), rs(["tw"]), vv(["대만", "TSMC에 최선단 생산 집중", "양안 긴장 = 공급망 최대 리스크", "해외 공장으로 분산:", "미국 · 일본 · 독일", "", ""])) },
+      { short: "한국", title: "한국: 반도체특별법과 클러스터", cmd: "Korea",
+        text: `2026년 1월 <b>반도체특별법</b>이 국회를 통과해 재정·행정 지원의 근거가 생겼습니다. 논란이 됐던 연구개발 직군 주 52시간 예외는 빠졌습니다. 국가전략기술 시설 투자 세액공제(이른바 K-칩스법), <b>용인 반도체 클러스터</b> 조성과 전력·용수 인프라 확보가 핵심 과제입니다.`,
+        set: Object.assign(only(AR, ["regions"]), rs(["kr"]), vv(["한국", "반도체특별법(2026.1 국회 통과)", "→ 재정·행정 지원 근거", "주 52시간 예외는 빠짐", "K-칩스법: 시설 투자 세액공제", "용인 클러스터:", "전력·용수 인프라가 과제"])) },
+      { short: "일본·유럽", title: "일본·유럽: 소재·장비 강점과 역내 생산", cmd: "Japan / EU",
+        text: `일본은 라피더스(2nm 목표)와 TSMC 구마모토 공장을 지원하며 소재·장비 강점을 지키고, 2019년에는 한국에 핵심 소재 3종 수출 규제를 한 적이 있습니다(이후 해제). 유럽은 2023년 EU 칩스법으로 역내 생산을 키우려 하고, 네덜란드 ASML의 수출은 미국·네덜란드의 통제를 받습니다.`,
+        set: Object.assign(only(AR, ["regions", "ar-jp"]), rs(["jp", "eu"]), vv(["일본 · 유럽", "일본: 라피더스(2nm), TSMC 구마모토", "2019 대한국 소재 3종 규제(해제)", "유럽: EU 칩스법(2023)", "ASML 수출: 미국·네덜란드 통제", "", ""])) },
+      { short: "기업의 의미", title: "기업 입장에서 무엇이 달라지나", cmd: "Impact",
+        text: `어디에 공장을 짓나(보조금 대 비용·인력), 중국 매출·공장을 어떻게 운영하나, 관세를 누가 부담하나, 공급망을 어떻게 이중화하나가 경영 과제가 됩니다. 면접에서 미국 정책의 영향을 물으면 기회(보조금, 미국 고객과의 협력)와 위험(중국 사업, 관세, 비용)을 함께 말합니다.`,
+        set: Object.assign(only(AR, ["mean"]), vv(["기업의 경영 과제", "공장 위치: 보조금 대 비용·인력", "중국 매출·공장 운영", "관세 부담", "공급망 이중화", "기회와 위험을 함께", ""])) },
+    ],
+  };
+
+  const time = {
+    id: "time", label: "연표",
+    base: () => only(G, ["m-time"]),
+    steps: [
+      { short: "2019~2026", title: "주요 정책 연표", cmd: "Timeline",
+        text: `2019년 7월 일본의 대한국 소재 3종(불화수소·감광액·플루오린 폴리이미드) 수출 규제, 2022년 8월 미국 칩스법 제정, 2022년 10월부터 미국의 대중 첨단 반도체·장비 수출 통제(이후 여러 차례 확대, HBM 포함), 2023년 EU 칩스법 발효, 2026년 1월 15일 미국 232조 반도체 포고령 시행, 2026년 1월 29일 한국 반도체특별법 국회 통과.`,
+        set: vv([]) },
+    ],
+  };
+  StepPlayer.create({ root: $("app"), modes: [region, time], dur: 6500 });
+})();
+</script>
+</body>
+</html>

@@ -7,6 +7,8 @@
 | `index.html` | | 목록(`tools/build_animation_index.py`가 catalog.json으로 만듦) |
 | `semiconductor-basics.html` | 0-1 | 반도체란 무엇인가 (6단계) |
 | `chip-life.html` | 0-2 | 칩의 일생 (8단계) |
+| `chip-types.html` | 0-3 | 반도체의 종류: 메모리와 시스템 반도체 (모드 2개: 분류 트리, 비교·경계) |
+| `chip-map.html` | 0-4 | 반도체는 어디에 쓰이나: 스마트폰과 AI 서버 (모드 3개: 칩 지도, 데이터 이동, 메모리 이름) |
 | `electricity-basics.html` | 1-1 | 전기 기초: 전압·전류·저항 (6단계) |
 | `capacitor.html` | 1-2 | 커패시터와 전하 (모드 3개: 충전과 저장, 용량 키우기, RC 지연·기생) |
 | `energy-band.html` | 1-3 | 에너지 밴드 (모드 2개: 밴드가 생기는 과정, 도체·반도체·절연체) |
@@ -48,6 +50,10 @@
 | `hbm-stack.html` | 4-5 | HBM 적층과 본딩 (모드 3개: 패키지·대역폭, TSV 만들기, 본딩 3가지) |
 | `adv-packaging.html` | 4-6 | 첨단 패키징: 2.5D, 3D, 하이브리드 본딩, 칩렛 (모드 4개: 왜 필요한가, 네 가지 방식, 하이브리드 본딩, 칩렛) |
 | `ai-memory.html` | 4-7 | AI 반도체와 메모리: 메모리 벽, CXL, PIM, HBF (모드 2개: 메모리 벽, 해법) |
+| `company-map.html` | 5-4 | 기업 지형도: 분야별 주요 기업과 한국 기업의 위치 (모드 2개: 분야별, 한국·분석법) |
+| `geopolitics.html` | 5-5 | 지정학과 정책: 보조금, 수출 통제, 관세 (모드 2개: 지역별, 연표) |
+| `esg.html` | 5-7 | ESG와 안전: 전력·물·온실가스·화학물질 (모드 3개: 자원과 배출, 안전, S와 G) |
+| `job-map.html` | 6-1 | 직무별 지식 지도: 내 직무에는 어떤 단원이 중요한가 (모드 3개: 직무 지도, PE 경로, 공부 순서) |
 | `player.js`, `player.css` | | 공통 플레이어와 스타일 |
 | `catalog.json` | | 사이트가 단원 코드로 애니메이션을 찾는 목록 |
 
