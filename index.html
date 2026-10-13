@@ -172,7 +172,12 @@ button.tag { border: 0; cursor: pointer; }
 .result { font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; min-height: 30px; }
 .active-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-soft); color: var(--accent-ink); border-radius: 999px; padding: 5px 6px 5px 11px; font-weight: 600; font-size: 13px; text-decoration: none; }
 .active-tag span { font-size: 15px; line-height: 1; padding: 0 4px; }
-.month { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 0; }
+.months { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding: 2px 0 4px; }
+.months:empty { display: none; }
+.mchip { flex: none; display: inline-flex; gap: 5px; align-items: baseline; font: 500 13px/1 var(--font-sans); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; cursor: pointer; }
+.mchip:hover { border-color: var(--accent); }
+.mchip .n { font: 11.5px/1 var(--font-mono); color: var(--faint); }
+.month { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 0; scroll-margin-top: 80px; }
 .month h2 { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
 .month span { font: 12px var(--font-mono); color: var(--faint); }
 .month::after { content: ""; flex: 1; border-top: 1px solid var(--line-strong); transform: translateY(-4px); }
@@ -604,7 +609,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
         cur = key;
         var n = items.filter(function (x) { return x.date.slice(0, 7) === key; }).length;
         var t = ymd(it.date);
-        frag.appendChild(h("div", { class: "month" }, [h("h2", { text: t.y + "년 " + t.m + "월" }), h("span", { text: n + "건" })]));
+        frag.appendChild(h("div", { class: "month", "data-month": key }, [h("h2", { text: t.y + "년 " + t.m + "월" }), h("span", { text: n + "건" })]));
         list = h("ol", { class: "entries" });
         frag.appendChild(list);
       }
@@ -660,6 +665,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
 
     var listBox = h("div");
     var result = h("div", { class: "result", "aria-live": "polite" });
+    var monthRow = h("nav", { class: "months", "aria-label": "월별 바로가기" });
     function seg(label, value, current, onPick, count) {
       return h("button", { type: "button", class: "chip", "aria-pressed": current === value ? "true" : "false", onclick: function () { onPick(value); } }, [label, count !== undefined ? h("span", { class: "n", text: String(count) }) : null]);
     }
@@ -691,6 +697,19 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       result.textContent = "";
       if (tag) result.appendChild(h("a", { class: "active-tag", href: "#news", title: "태그 필터 지우기" }, ["태그 · " + tag, h("span", { "aria-hidden": "true", text: "×" })]));
       result.appendChild(h("span", { text: S.items.length + "건 중 " + items.length + "건" + (S.items.length ? " · " + fmtDate(S.items[S.items.length - 1].date) + " ~ " + fmtDate(S.items[0].date) : "") }));
+      monthRow.textContent = "";
+      var months = [];
+      items.forEach(function (i) { var k = i.date.slice(0, 7); if (months.indexOf(k) < 0) months.push(k); });
+      if (months.length > 1) {
+        monthRow.appendChild(h("span", { class: "flabel", text: "월별" }));
+        months.forEach(function (k) {
+          var n = items.filter(function (i) { return i.date.slice(0, 7) === k; }).length;
+          monthRow.appendChild(h("button", { type: "button", class: "mchip", title: k.replace("-", "년 ") + "월로 이동", onclick: function () {
+            var el = listBox.querySelector('[data-month="' + k + '"]');
+            if (el) el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+          } }, [(+k.slice(5)) + "월", h("span", { class: "n", text: String(n) })]));
+        });
+      }
       listBox.textContent = "";
       if (!items.length) listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "조건에 맞는 소식이 없습니다." }), h("span", { text: "회사·종류를 '전체'로 바꾸거나 검색어를 지워 보세요." })]));
       else listBox.appendChild(ledger(items));
@@ -701,6 +720,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     main.appendChild(head);
     main.appendChild(h("div", { class: "filters" }, [coRow, kindRow, searchRow]));
     main.appendChild(result);
+    main.appendChild(monthRow);
     main.appendChild(listBox);
 
     // sidebar
