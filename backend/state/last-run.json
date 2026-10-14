@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-14T10:08:34+09:00",
+  "startedAt": "2026-10-14T18:27:17+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,43 +41,30 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "skhynix-research-inside-ep2",
-      "date": "2026-10-14",
-      "source": "sk-tech",
-      "title": "[Inside the Research] In the AI era, NAND moves beyond storage to computing… 3D FeNAND co-optimization at IEEE"
-    }
-  ],
-  "queueSize": 1,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-14T10:08:37+09:00",
+  "finishedAt": "2026-10-14T18:27:20+09:00",
   "summary": {
-    "startedAt": "2026-10-14T10:08:37+09:00",
-    "backend": "cli",
+    "startedAt": "2026-10-14T18:27:20+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "skhynix-research-inside-ep2",
-        "title": "[Inside the Research] AI 시대 낸드, 저장 넘어 연산으로… IEEE에서 3D FeNAND 공동 최적화 발표"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-10-14T10:08:44+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "manifest": {
     "count": 147,
-    "changed": true
+    "changed": false
   }
 }
