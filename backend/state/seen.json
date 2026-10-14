@@ -1488,6 +1488,16 @@
       "status": "summarized",
       "title": "[Inside the Research] SK hynix’s CTI innovation advances 176-layer 3D NAND toward mass production"
     },
+    "https://news.skhynix.com/en/research-inside-ep2": {
+      "checkedAt": "2026-10-14",
+      "date": "2026-10-14",
+      "id": "skhynix-research-inside-ep2",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "summarized",
+      "title": "[Inside the Research] In the AI era, NAND moves beyond storage to computing… 3D FeNAND co-optimization at IEEE"
+    },
     "https://news.skhynix.com/en/share-buyback-and-retirement": {
       "checkedAt": "2026-10-07",
       "date": "2026-08-19",

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-13T15:00:15+09:00",
-  "count": 146,
+  "generatedAt": "2026-10-14T10:08:44+09:00",
+  "count": 147,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -62,6 +62,37 @@
     }
   ],
   "items": [
+    {
+      "id": "skhynix-research-inside-ep2",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "[Inside the Research] AI 시대 낸드, 저장 넘어 연산으로… IEEE에서 3D FeNAND 공동 최적화 발표",
+      "originalTitle": "[Inside the Research] In the AI era, NAND moves beyond storage to computing… 3D FeNAND co-optimization at IEEE",
+      "url": "https://news.skhynix.com/en/research-inside-ep2/",
+      "published": "2026-10-14T09:00:04+09:00",
+      "date": "2026-10-14",
+      "summary": [
+        "SK하이닉스 뉴스룸이 연재 [Inside the Research]의 두 번째 글에서, 2025 IEEE IEDM에 발표된 3D FeNAND 기반 아날로그 컴퓨트 인 메모리(A-CiM) 효율 향상 연구를 소개했습니다.",
+        "연구팀은 셀, 논셀, 페이지 방식을 함께 최적화해 같은 칩 면적 조건에서 기존 3D 어레이보다 처리량 약 10~20배, 에너지 효율 약 4,000~5,000배를 얻었다고 설명했습니다."
+      ],
+      "interview": "낸드가 저장장치를 넘어 연산 매체로 쓰일 가능성을 보여 주며, 셀·주변 회로·데이터 배치를 함께 설계하는 시스템 관점이 엔지니어에게 필요하다는 점에서 의미가 있습니다.",
+      "tags": [
+        "차세대 메모리",
+        "3D 낸드",
+        "CXL·PIM"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "3-16"
+      ]
+    },
     {
       "id": "samsung-2d58577d38",
       "company": "samsung",
