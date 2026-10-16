@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-16T04:50:29+09:00",
+  "startedAt": "2026-10-16T09:17:59+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,30 +41,53 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-017e6bd8f4",
+      "date": "2026-10-16",
+      "source": "samsung-newsroom",
+      "title": "[칩스케치] AI 시대의 중심에 선 반도체! 삼성전자가 ‘SEDEX 2026’ 현장에서 제시한 미래는"
+    },
+    {
+      "id": "skhynix-ocp-global-summit-2026",
+      "date": "2026-10-16",
+      "source": "sk-tech",
+      "title": "“Memory-Centric Server Systems Are the Future”: SK hynix Presents Its Next-Generation AI Infrastructure Vision at OCP Global Summit 2026"
+    }
+  ],
+  "queueSize": 2,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-16T04:50:32+09:00",
+  "finishedAt": "2026-10-16T09:18:02+09:00",
   "summary": {
-    "startedAt": "2026-10-16T04:50:32+09:00",
-    "backend": null,
+    "startedAt": "2026-10-16T09:18:02+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-017e6bd8f4",
+        "title": "[칩스케치] AI 시대의 중심에 선 반도체! 삼성전자가 ‘SEDEX 2026’ 현장에서 제시한 미래는"
+      },
+      {
+        "id": "skhynix-ocp-global-summit-2026",
+        "title": "“메모리 중심 서버 시스템이 미래”: SK하이닉스, OCP 글로벌 서밋 2026에서 AI 인프라 비전 제시"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-10-16T09:18:21+09:00"
   },
   "manifest": {
-    "count": 147,
-    "changed": false
+    "count": 149,
+    "changed": true
   }
 }

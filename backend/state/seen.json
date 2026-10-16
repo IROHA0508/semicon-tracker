@@ -848,6 +848,16 @@
       "status": "skipped",
       "title": "첨단 반도체의 오늘을 만들고 미래를 준비하는 혁신의 중심지, 삼성전자 화성·기흥캠퍼스"
     },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-ai-시대의-중심에-선-반도체-삼성전자가-sedex-20": {
+      "checkedAt": "2026-10-16",
+      "date": "2026-10-16",
+      "id": "samsung-017e6bd8f4",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "summarized",
+      "title": "[칩스케치] AI 시대의 중심에 선 반도체! 삼성전자가 ‘SEDEX 2026’ 현장에서 제시한 미래는"
+    },
     "https://news.samsungsemiconductor.com/kr/칩스케치-다가올-에이전틱-ai-시대-변화와-그-영향은": {
       "checkedAt": "2026-10-07",
       "date": "2026-10-01",
@@ -1417,6 +1427,16 @@
       ],
       "status": "summarized",
       "title": "New Facility Investment for Yongin Semiconductor Cluster"
+    },
+    "https://news.skhynix.com/en/ocp-global-summit-2026": {
+      "checkedAt": "2026-10-16",
+      "date": "2026-10-16",
+      "id": "skhynix-ocp-global-summit-2026",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "summarized",
+      "title": "“Memory-Centric Server Systems Are the Future”: SK hynix Presents Its Next-Generation AI Infrastructure Vision at OCP Global Summit 2026"
     },
     "https://news.skhynix.com/en/opinion-local-economy-pt7": {
       "checkedAt": "2026-10-07",

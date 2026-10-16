@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-14T10:08:44+09:00",
-  "count": 147,
+  "generatedAt": "2026-10-16T09:18:21+09:00",
+  "count": 149,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -62,6 +62,72 @@
     }
   ],
   "items": [
+    {
+      "id": "samsung-017e6bd8f4",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "[칩스케치] AI 시대의 중심에 선 반도체! 삼성전자가 ‘SEDEX 2026’ 현장에서 제시한 미래는",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%b9%a9%ec%8a%a4%ec%bc%80%ec%b9%98-ai-%ec%8b%9c%eb%8c%80%ec%9d%98-%ec%a4%91%ec%8b%ac%ec%97%90-%ec%84%a0-%eb%b0%98%eb%8f%84%ec%b2%b4-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90%ea%b0%80-sedex-20/",
+      "published": "2026-10-16T17:00:02+09:00",
+      "date": "2026-10-16",
+      "summary": [
+        "삼성전자는 10월 14일부터 16일까지 코엑스에서 열린 ‘제28회 반도체대전(SEDEX 2026)’에 ‘Architecting AI Systems’를 주제로 약 109평 규모의 부스를 마련했습니다.",
+        "부스는 차세대 기술, 클라우드 AI, 엣지 AI, 피지컬 AI, 반도체 클러스터, 상생협력의 6개 분야로 나뉘었고 zHBM, HBM4E, SOCAMM2 등을 선보였습니다."
+      ],
+      "interview": "AI 시스템의 병목을 메모리 적층, 패키징, 광 인터커넥트로 풀려는 시도가 메모리 엔지니어의 역할 확장을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "AI 서버·데이터센터",
+        "패키징"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "0-4"
+      ]
+    },
+    {
+      "id": "skhynix-ocp-global-summit-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "“메모리 중심 서버 시스템이 미래”: SK하이닉스, OCP 글로벌 서밋 2026에서 AI 인프라 비전 제시",
+      "originalTitle": "“Memory-Centric Server Systems Are the Future”: SK hynix Presents Its Next-Generation AI Infrastructure Vision at OCP Global Summit 2026",
+      "url": "https://news.skhynix.com/en/ocp-global-summit-2026/",
+      "published": "2026-10-16T09:00:16+09:00",
+      "date": "2026-10-16",
+      "summary": [
+        "SK하이닉스는 12일부터 15일까지 미국 캘리포니아주 새너제이에서 열린 OCP Global Summit 2026에 참가해 차세대 메모리 솔루션과 AI 시대 메모리 기술의 방향을 제시했습니다.",
+        "CXL 풀드 메모리 기반 CMM-DDR5, MARS, CMM-Ax를 시스템 데모로 선보였고, HBM4, SOCAMM2, HBF, eSSD, 서버 D램 등 제품군도 전시했습니다."
+      ],
+      "interview": "CXL 풀드 메모리로 KV 캐시 병목을 푸는 시연은 AI 시대 메모리가 단일 칩을 넘어 시스템 수준 설계로 확장된다는 점을 보여 줍니다.",
+      "tags": [
+        "CXL·PIM",
+        "AI 서버·데이터센터",
+        "HBF"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "엔비디아",
+        "네이버클라우드",
+        "AMD",
+        "마벨",
+        "리퀴드"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-4"
+      ]
+    },
     {
       "id": "skhynix-research-inside-ep2",
       "company": "skhynix",
