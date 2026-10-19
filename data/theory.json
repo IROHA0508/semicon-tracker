@@ -1490,7 +1490,22 @@
      "note": "Onur Mutlu(ETH 취리히 SSD 강좌) · 영어, 심화. 낸드 읽기·쓰기 동작"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/nand-ispp-film.html",
+     "title": "낸드 셀 쓰기·지우기와 ISPP: 조금씩 올리고 확인하기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "셀",
+      "쓰기",
+      "쓰기 금지",
+      "읽기",
+      "신뢰성",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/nand-ispp.html",
@@ -3845,6 +3860,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 4
+  "films": 5
  }
 }

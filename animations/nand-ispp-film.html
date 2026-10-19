@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>낸드 셀 쓰기·지우기와 ISPP 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-11</span><span>낸드 동작 · 영상 (2-8 낸드 기초 포함)</span><a href="./">애니메이션 목록</a></div>
+    <h1>낸드 셀 쓰기·지우기와 ISPP: 조금씩 올리고 확인하기 (약 2분 영상)</h1>
+    <p class="lead">셀에 전자를 가두는 쓰기·지우기·읽기, 펄스와 검증을 되풀이하는 ISPP, 쓰지 않을 셀을 지키는 셀프 부스팅, 그리고 시간이 지나며 분포가 무너지는 이유와 컨트롤러의 대응을 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="낸드 셀 쓰기·지우기와 ISPP 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="낸드 셀에 전자를 가두고 빼는 모습, ISPP 펄스와 검증, 셀프 부스팅, 읽기 기준 전압, 분포가 무너지는 과정을 보여 주는 영상">
+        <defs>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">2-8 · 2-11 · 낸드 동작</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">낸드 셀에는 어떻게</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">쓰고, 지우고, 읽을까?</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">눈금 컵에 조금 붓고 · 눈금을 확인하고 · 다시 조금 붓기</text>
+        </g>
+
+        <!-- ===== Scene A: one cell, write / erase / read ===== -->
+        <g id="g-a">
+          <rect class="si" x="60" y="295" width="580" height="125"></rect>
+          <rect class="inter" x="60" y="295" width="140" height="30"></rect>
+          <rect class="inter" x="500" y="295" width="140" height="30"></rect>
+          <rect class="ox" x="200" y="275" width="300" height="20"></rect>
+          <rect class="nit" x="200" y="235" width="300" height="40"></rect>
+          <rect class="ox" x="200" y="215" width="300" height="20"></rect>
+          <rect class="w" x="200" y="150" width="300" height="65"></rect>
+          <g id="a-traps"></g>
+          <g id="a-elec" class="elec"></g>
+          <path id="a-cur" class="chan" d="M100,310 H600"></path>
+          <g id="g-gauge">
+            <rect class="card" x="700" y="110" width="520" height="400" rx="12"></rect>
+            <text x="722" y="148" style="font-size:26px;font-weight:700">문턱전압(Vth)으로 0과 1을 가른다</text>
+            <line class="axis" x1="740" y1="330" x2="1190" y2="330"></line>
+            <text x="1190" y="362" text-anchor="end" class="lbl-s">문턱전압 →</text>
+            <line class="refl" x1="940" y1="196" x2="940" y2="336"></line>
+            <text x="940" y="186" text-anchor="middle" class="acc-t" style="font-size:22px">기준 전압(Vref)</text>
+            <g id="vth-m"><line class="refnow" x1="0" y1="226" x2="0" y2="330"></line><circle cx="0" cy="214" r="12" style="fill: var(--low)"></circle></g>
+            <text x="840" y="404" text-anchor="middle" style="font-size:22px;font-weight:700">켜짐 → 1</text>
+            <text x="840" y="432" text-anchor="middle" class="lbl-s">지운 상태 (Vth 낮음)</text>
+            <text x="1060" y="404" text-anchor="middle" style="font-size:22px;font-weight:700">꺼짐 → 0</text>
+            <text x="1060" y="432" text-anchor="middle" class="lbl-s">쓴 상태 (Vth 높음)</text>
+            <text id="vth-note" x="960" y="486" text-anchor="middle" class="lbl" style="font-size:21px"></text>
+          </g>
+        </g>
+
+        <!-- ===== Scene B: ISPP pulses and the Vth distribution ===== -->
+        <g id="g-b">
+          <rect class="card" x="40" y="100" width="620" height="494" rx="12"></rect>
+          <rect class="card" x="680" y="100" width="560" height="494" rx="12"></rect>
+          <text x="60" y="134" style="font-size:22px;font-weight:700">쓰기 펄스(워드라인 전압)</text>
+          <line class="axis" x1="70" y1="520" x2="640" y2="520"></line>
+          <text x="640" y="548" text-anchor="end" class="lbl-s">시간 →</text>
+          <g id="b-pulses"></g>
+          <rect id="pl-one" class="obar" x="270" y="520" width="110" height="0"></rect>
+          <text id="pl-one-t" x="325" y="248" text-anchor="middle" class="bad-t" style="font-size:22px">17.5 V를 한 번에</text>
+          <text id="pl-d" x="360" y="176" text-anchor="middle" class="acc-t" style="font-size:22px">펄스마다 +0.5 V (ΔVpgm)</text>
+          <text x="700" y="134" style="font-size:22px;font-weight:700">문턱전압 분포 (점 하나 = 셀 하나)</text>
+          <line class="axis" x1="700" y1="530" x2="1220" y2="530"></line>
+          <text x="1220" y="556" text-anchor="end" class="lbl-s">문턱전압 →</text>
+          <text x="700" y="556" class="lbl-s">지운 상태(E)</text>
+          <line class="refl" x1="1040" y1="168" x2="1040" y2="530"></line>
+          <text x="1040" y="158" text-anchor="middle" class="acc-t" style="font-size:20px">목표(검증 전압)</text>
+          <g id="b-dots"></g>
+          <g id="b-wid">
+            <path class="dim" d="M1040,538 v8 H1080 v-8"></path>
+            <text x="1060" y="570" text-anchor="middle" class="acc-t" style="font-size:20px">폭 ≈ ΔVpgm</text>
+          </g>
+          <g id="b-wid2">
+            <path class="dim" style="stroke: var(--bad)" d="M960,538 v8 H1120 v-8"></path>
+            <text x="1040" y="570" text-anchor="middle" class="bad-t" style="font-size:20px">한 번에 크게: 폭 약 2 V</text>
+          </g>
+        </g>
+
+        <!-- ===== Scene C: self boosting ===== -->
+        <g id="g-c">
+          <text x="190" y="112" text-anchor="middle" style="font-size:22px;font-weight:700">쓸 스트링 A</text>
+          <text x="470" y="112" text-anchor="middle" style="font-size:22px;font-weight:700">막을 스트링 B</text>
+          <text id="c-bla" x="190" y="136" text-anchor="middle" class="mono acc-t" style="font-size:20px">BL 0 V</text>
+          <text id="c-blb" x="470" y="136" text-anchor="middle" class="mono acc-t" style="font-size:20px">BL VDD</text>
+          <line class="wlline" x1="190" y1="144" x2="190" y2="188"></line><line class="wlline" x1="470" y1="144" x2="470" y2="188"></line>
+          <rect id="ch-a" class="chrect" x="182" y="190" width="16" height="330" style="opacity:.12"></rect>
+          <rect id="ch-b" class="chrect" x="462" y="190" width="16" height="330" style="opacity:.12"></rect>
+          <line id="wl0" class="wlline" x1="100" y1="265" x2="560" y2="265"></line>
+          <line id="wl1" class="wlsel" x1="100" y1="325" x2="560" y2="325"></line>
+          <line id="wl2" class="wlline" x1="100" y1="385" x2="560" y2="385"></line>
+          <line id="wl3" class="wlline" x1="100" y1="445" x2="560" y2="445"></line>
+          <rect id="ssl-a" class="cellbox" data-s="on" x="150" y="188" width="80" height="34" rx="4"></rect><text x="190" y="211" text-anchor="middle" class="lbl-s">SSL</text>
+          <rect id="ca0" class="cellbox" data-s="idle" x="150" y="248" width="80" height="34" rx="4"></rect>
+          <rect id="ca1" class="cellbox" data-s="idle" x="150" y="308" width="80" height="34" rx="4"></rect>
+          <rect id="ca2" class="cellbox" data-s="idle" x="150" y="368" width="80" height="34" rx="4"></rect>
+          <rect id="ca3" class="cellbox" data-s="idle" x="150" y="428" width="80" height="34" rx="4"></rect>
+          <rect id="gsl-a" class="cellbox" data-s="on" x="150" y="488" width="80" height="34" rx="4"></rect><text x="190" y="511" text-anchor="middle" class="lbl-s">GSL</text>
+          <line class="wlline" x1="190" y1="522" x2="190" y2="548"></line>
+          <rect id="ssl-b" class="cellbox" data-s="on" x="430" y="188" width="80" height="34" rx="4"></rect><text x="470" y="211" text-anchor="middle" class="lbl-s">SSL</text>
+          <rect id="cb0" class="cellbox" data-s="idle" x="430" y="248" width="80" height="34" rx="4"></rect>
+          <rect id="cb1" class="cellbox" data-s="idle" x="430" y="308" width="80" height="34" rx="4"></rect>
+          <rect id="cb2" class="cellbox" data-s="idle" x="430" y="368" width="80" height="34" rx="4"></rect>
+          <rect id="cb3" class="cellbox" data-s="idle" x="430" y="428" width="80" height="34" rx="4"></rect>
+          <rect id="gsl-b" class="cellbox" data-s="on" x="430" y="488" width="80" height="34" rx="4"></rect><text x="470" y="511" text-anchor="middle" class="lbl-s">GSL</text>
+          <line class="wlline" x1="470" y1="522" x2="470" y2="548"></line>
+          <text id="wlt0" x="92" y="271" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <text id="wlt1" x="92" y="331" text-anchor="end" class="mono acc-t" style="font-size:20px"></text>
+          <text id="wlt2" x="92" y="391" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <text id="wlt3" x="92" y="451" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <text x="330" y="574" text-anchor="middle" class="lbl-s">공통 소스 라인 (0 V)</text>
+          <text id="c-pa" x="190" y="481" text-anchor="middle" class="lbl-c" style="font-size:18px">채널 0 V</text>
+          <text id="c-pb" x="470" y="481" text-anchor="middle" class="lbl-c acc-t" style="font-size:18px">채널 ≈ 8 V</text>
+          <text id="c-fl" x="470" y="244" text-anchor="middle" class="lbl-c acc-t" style="font-size:18px">떠 있음</text>
+          <g id="c-e" class="elec"><circle cx="168" cy="325" r="5"></circle><circle cx="190" cy="334" r="5"></circle><circle cx="212" cy="325" r="5"></circle></g>
+          <g id="g-c-rows"></g>
+          <g id="g-c-bars">
+            <rect class="card" x="700" y="110" width="520" height="480" rx="12"></rect>
+            <text x="722" y="148" style="font-size:24px;font-weight:700">터널 산화막에 걸리는 전압(대략)</text>
+            <line class="axis" x1="740" y1="520" x2="1190" y2="520"></line>
+            <rect id="bar-a" class="pbar" x="820" y="520" width="90" height="0"></rect>
+            <rect id="bar-b" class="barb" x="1020" y="520" width="90" height="0"></rect>
+            <text id="bva" x="865" y="180" text-anchor="middle" class="acc-t" style="font-size:30px">20 V</text>
+            <text id="bvb" x="1065" y="316" text-anchor="middle" style="font-size:30px;font-weight:700">12 V</text>
+            <text x="865" y="548" text-anchor="middle" style="font-size:21px;font-weight:700">쓸 셀 A</text>
+            <text x="1065" y="548" text-anchor="middle" style="font-size:21px;font-weight:700">막을 셀 B</text>
+            <text x="865" y="574" text-anchor="middle" class="lbl-s">전자가 들어감</text>
+            <text x="1065" y="574" text-anchor="middle" class="lbl-s">거의 안 들어감</text>
+          </g>
+        </g>
+
+
+        <!-- ===== Scene D: read ===== -->
+        <g id="g-d">
+          <circle class="card" cx="250" cy="148" r="24"></circle><text x="250" y="154" text-anchor="middle" class="lbl-s">감지</text>
+          <text id="d-cur-t" x="290" y="156" class="acc-t" style="font-size:21px"></text>
+          <line class="wlline" x1="250" y1="172" x2="250" y2="188"></line>
+          <rect id="ch-d" class="chrect" x="242" y="190" width="16" height="330" style="opacity:.12"></rect>
+          <line id="dwl0" class="wlline" x1="150" y1="262" x2="350" y2="262"></line>
+          <line id="dwl1" class="wlline" x1="150" y1="318" x2="350" y2="318"></line>
+          <line id="dwl2" class="wlsel" x1="150" y1="374" x2="350" y2="374"></line>
+          <line id="dwl3" class="wlline" x1="150" y1="430" x2="350" y2="430"></line>
+          <line id="dwl4" class="wlline" x1="150" y1="486" x2="350" y2="486"></line>
+          <rect class="cellbox" data-s="on" x="210" y="189" width="80" height="34" rx="4"></rect><text x="250" y="212" text-anchor="middle" class="lbl-s">SSL</text>
+          <rect id="dc0" class="cellbox" data-s="on" x="210" y="245" width="80" height="34" rx="4"></rect>
+          <text id="dwt0" x="140" y="268" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <rect id="dc1" class="cellbox" data-s="on" x="210" y="301" width="80" height="34" rx="4"></rect>
+          <text id="dwt1" x="140" y="324" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <rect id="dc2" class="cellbox" data-s="on" x="210" y="357" width="80" height="34" rx="4"></rect>
+          <text id="dwt2" x="140" y="380" text-anchor="end" class="mono acc-t" style="font-size:20px"></text>
+          <rect id="dc3" class="cellbox" data-s="on" x="210" y="413" width="80" height="34" rx="4"></rect>
+          <text id="dwt3" x="140" y="436" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <rect id="dc4" class="cellbox" data-s="on" x="210" y="469" width="80" height="34" rx="4"></rect>
+          <text id="dwt4" x="140" y="492" text-anchor="end" class="mono " style="font-size:20px"></text>
+          <rect class="cellbox" data-s="on" x="210" y="525" width="80" height="34" rx="4"></rect><text x="250" y="548" text-anchor="middle" class="lbl-s">GSL</text>
+          <line class="wlline" x1="250" y1="559" x2="250" y2="575"></line>
+          <text x="250" y="596" text-anchor="middle" class="lbl-s">소스 라인 (0 V)</text>
+          <path id="d-cur" class="chan" d="M250,172 V559"></path>
+          <text x="372" y="380" class="lbl-s">← 읽을 셀</text>
+          <text x="372" y="262" class="lbl-s">나머지 셀은 모두 켠다</text>
+          <rect class="card" x="680" y="100" width="560" height="480" rx="12"></rect>
+          <text id="d-title" x="700" y="134" style="font-size:22px;font-weight:700">문턱전압 분포 (TLC: 상태 8개)</text>
+          <line class="axis" x1="700" y1="420" x2="1220" y2="420"></line>
+          <g id="d-tlc"></g><g id="d-qlc"></g><g id="d-refs"></g>
+          <line id="d-now" class="refnow" x1="0" y1="196" x2="0" y2="420"></line>
+          <text id="d-now-t" x="0" y="184" text-anchor="middle" class="acc-t" style="font-size:22px"></text>
+          <g id="d-me"><path d="M0,0 l-9,-14 h18 z" transform="translate(1004,298)" style="fill: var(--low)"></path><text x="1004" y="266" text-anchor="middle" style="font-size:20px;font-weight:700">이 셀</text></g>
+          <text id="d-res1" x="700" y="520" style="font-size:22px;font-weight:700"></text>
+          <text id="d-res2" x="700" y="552" class="lbl" style="font-size:20px"></text>
+          <text id="d-q" x="960" y="520" text-anchor="middle" style="font-size:22px;font-weight:700"></text>
+        </g>
+
+        <!-- ===== Scene E: distribution drifts ===== -->
+        <g id="g-e">
+          <rect class="card" x="40" y="100" width="1200" height="380" rx="12"></rect>
+          <text x="60" y="134" style="font-size:22px;font-weight:700">문턱전압 분포 (TLC, 개념도)</text>
+          <line class="axis" x1="70" y1="420" x2="1210" y2="420"></line>
+          <g id="e-humps"></g><g id="e-refs"></g><g id="e-ov"></g><g id="e-names"></g>
+          <g id="e-cards">
+            <g id="e-c0"><rect class="card" x="40" y="496" width="380" height="96" rx="12"></rect><text x="60" y="530" class="acc-t" style="font-size:24px">① ECC (LDPC)</text><text x="60" y="562" style="font-size:20px;font-weight:700">틀린 비트를 계산으로 고친다</text></g>
+            <g id="e-c1"><rect class="card" x="450" y="496" width="380" height="96" rx="12"></rect><text x="470" y="530" class="acc-t" style="font-size:24px">② 읽기 재시도</text><text x="470" y="562" style="font-size:20px;font-weight:700">기준 전압을 옮겨 다시 읽는다</text></g>
+            <g id="e-c2"><rect class="card" x="860" y="496" width="380" height="96" rx="12"></rect><text x="880" y="530" class="acc-t" style="font-size:24px">③ 소프트 디코딩·상위 복구</text><text x="880" y="562" style="font-size:20px;font-weight:700">그래도 안 되면 정보를 더해 살린다</text></g>
+          </g>
+        </g>
+
+        <!-- ===== Scene F: closing ===== -->
+        <g id="g-f"></g>
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 전압과 시간, 분포의 폭은 이해를 돕기 위해 단순화한 대략값이고, 제품과 세대마다 다릅니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>쓰기는 <b>펄스 → 검증 → 계단(ΔVpgm)만큼 올려 다시</b>를 반복하고, 목표에 닿은 셀은 쓰기 금지로 막습니다. 계단이 작을수록 분포는 좁지만 느립니다. TLC·QLC가 SLC보다 느린 주된 이유입니다.</li>
+      <li>쓰지 않을 셀은 채널을 띄워 워드라인과 함께 전압이 오르게 하는 <b>셀프 부스팅</b>으로 지킵니다. 터널 산화막에 걸리는 전압이 쓸 셀은 약 20 V, 막을 셀은 약 12 V입니다.</li>
+      <li>읽기는 나머지 셀을 모두 켜고(Vpass) 선택 셀에만 기준 전압을 겁니다. 분포는 교란, 리텐션, 내구성(P/E) 때문에 움직이고 넓어지며, 컨트롤러가 ECC, 읽기 재시도, FTL로 보완합니다.</li>
+    </ul>
+    <p class="foot">원고 2-11(2-8 기초 포함)을 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="nand-flash.html">낸드 셀(nand-flash)</a>, <a href="nand-ispp.html">ISPP(nand-ispp)</a>, <a href="nand-deep.html">분포·신뢰성(nand-deep)</a> 애니메이션을 보세요.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "셀"], [24, "쓰기"], [54, "쓰기 금지"], [76, "읽기"], [94, "신뢰성"], [110, "마무리"],
+  ];
+  const TITLES = [
+    [6, "셀 하나: 전자를 가두는 저장고"], [24, "쓰기: 조금씩 올리고 확인하기(ISPP)"], [54, "쓰지 않을 셀 지키기: 셀프 부스팅"],
+    [76, "읽기: 한 셀만 묻기"], [94, "시간이 지나면 분포가 무너진다"], [105.6, "컨트롤러가 오류를 다루는 순서"], [110, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "낸드 셀에는 어떻게 쓰고, 지우고, 읽을까요? <b>눈금 컵에 물을 붓는 일</b>과 닮았습니다."],
+    [3, 6, "조금 붓고, 확인하고, 다시 붓는 방법과 시간이 지나면 값이 틀어지는 이유까지 봅니다."],
+    [6, 11, "<b>셀 구조</b> 게이트 아래에 전자를 가두는 <b>전하 트랩층</b>이 하나 더 있습니다."],
+    [11, 15.2, "<b>쓰기</b> 약 20 V를 걸면 전자가 얇은 산화막을 뚫고(F-N 터널링) 트랩에 갇힙니다."],
+    [15.2, 16.8, "전원을 꺼도 전자는 그대로입니다. 그래서 <b>비휘발성</b>입니다."],
+    [16.8, 20.6, "<b>지우기</b> 반대로 기판 쪽에 고전압을 걸어 전자를 빼냅니다. 블록 단위로 한꺼번에 합니다."],
+    [20.6, 22.6, "<b>읽기</b> 기준 전압에서 셀이 켜지면 문턱전압이 낮은 것, 곧 지운 상태(1)입니다."],
+    [22.6, 24, "전자가 갇혀 있으면 켜지지 않아 문턱전압이 <b>높고</b>, 쓴 상태(0)입니다."],
+    [24, 26.4, "그런데 한 번에 크게 쓰면 셀마다 반응이 달라 분포가 퍼집니다. 그래서 <b>ISPP</b>를 씁니다."],
+    [26.4, 30.6, "<b>ISPP</b> 낮은 펄스를 주고, 검증 읽기로 목표에 닿았는지 확인합니다."],
+    [30.6, 34.8, "닿은 셀은 <b>쓰기 금지</b>. 못 닿은 셀만 펄스를 <b>ΔVpgm(0.5 V)</b> 올려 다시 줍니다."],
+    [34.8, 39, "되풀이할수록 느린 셀도 차례로 목표를 넘고, 넘은 셀은 그 자리에 멈춥니다."],
+    [39, 44.4, "마지막 셀까지 통과하면 끝. 분포 폭은 대략 한 번에 오르는 양, <b>계단 크기</b>입니다."],
+    [44.4, 49, "처음부터 17.5 V를 한 번에 주면, 셀마다 반응이 달라 분포가 약 2 V로 퍼집니다."],
+    [49, 54, "계단을 절반으로 줄이면 폭도 절반이지만 펄스가 두 배라 느립니다. <b>TLC·QLC가 SLC보다 느린</b> 이유입니다."],
+    [54, 57, "<b>쓰기 금지</b> 같은 워드라인에는 쓸 셀과 막을 셀이 함께 매달려, 같은 전압이 걸립니다."],
+    [57, 60.6, "<b>1. 비트라인</b> 쓸 스트링은 0 V, 막을 스트링은 VDD로 맞춥니다."],
+    [60.6, 64, "<b>2. 채널 띄우기</b> 막을 스트링은 선택 트랜지스터가 저절로 꺼져 채널이 떠 있게 됩니다."],
+    [64, 70, "<b>3. 부스팅</b> 선택 워드라인 약 20 V, 나머지 약 10 V. 떠 있는 채널은 약 8 V까지 끌려 올라갑니다."],
+    [70, 76, "<b>4. 결과</b> 쓸 셀은 전압 차 약 20 V로 전자가 들어가고, 막을 셀은 약 12 V라 거의 들어가지 않습니다."],
+    [76, 78.6, "<b>읽기</b> 스트링은 셀이 직렬이라, 하나라도 꺼져 있으면 전류가 끊깁니다."],
+    [78.6, 83.4, "그래서 나머지 셀은 모두 켜 두고(<b>Vpass</b>), 선택 셀에만 기준 전압 R1, R2, R3…을 차례로 겁니다."],
+    [83.4, 87, "R4까지는 전류가 없다가 <b>R5에서 처음 켜집니다</b>. 이 셀의 상태는 R4와 R5 사이입니다."],
+    [87, 91, "TLC는 상태 8개, 기준 전압 7개로 셀이 어느 구간에 있는지 가립니다."],
+    [91, 94, "QLC는 상태 16개, 기준 전압 15개. 간격이 절반이라 같은 이동에도 오류가 더 납니다."],
+    [94, 96, "쓰고 읽다 보면 분포가 조금씩 움직이고 넓어집니다. 기준 전압을 넘으면 틀린 값으로 읽힙니다."],
+    [96, 99.2, "<b>교란</b> 쓰기·읽기 스트레스로 이웃 셀에 전자가 조금씩 들어가, 지운 상태(E)가 오른쪽으로 번집니다."],
+    [99.2, 102.6, "<b>리텐션</b> 시간이 지나고 뜨거울수록 갇힌 전자가 빠져나가, 써진 상태가 왼쪽으로 내려오고 퍼집니다."],
+    [102.6, 105.6, "<b>내구성</b> 쓰고 지울 때마다 터널 산화막이 상해 분포 전체가 넓어집니다. P/E 횟수가 곧 수명입니다."],
+    [105.6, 107, "컨트롤러의 대응 <b>① ECC</b>로 틀린 비트를 먼저 고칩니다."],
+    [107, 108.6, "<b>② 읽기 재시도</b> 안 되면 기준 전압을 옮겨 다시 읽습니다."],
+    [108.6, 110, "<b>③ 소프트 디코딩</b>과 상위 복구까지 써서 살려 냅니다."],
+    [110, 112, "정리하면 세 가지입니다. <b>ISPP</b> 조금씩 올리고 확인해 분포를 좁힙니다."],
+    [112, 113.6, "<b>셀프 부스팅</b> 채널을 띄워 쓰지 않을 셀을 지킵니다."],
+    [113.6, 115, "<b>분포 관리</b> 교란·리텐션·내구성은 ECC, 재시도, FTL로 보완합니다."],
+    [115, 117, "면접에서는 <b>계단 크기와 속도의 맞바꿈</b>까지 덧붙이세요."],
+  ];
+
+  // ---------- tracks (all functions of the film time t, in seconds) ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gA = K([[5.8, 0], [6.6, 1], [23.4, 1], [24.2, 0]]);
+  const gB = K([[24, 0], [24.8, 1], [53.4, 1], [54.2, 0]]);
+  const gC = K([[53.8, 0], [54.6, 1], [75.4, 1], [76.2, 0]]);
+  const gD = K([[75.8, 0], [76.6, 1], [93.4, 1], [94.2, 0]]);
+  const gE = K([[93.8, 0], [94.6, 1], [109.6, 1], [110.2, 0]]);
+
+  // A: one cell
+  const gauge = K([[8.6, 0], [9.4, 1]]);
+  const eTrack = K([[11.6, 0], [14.4, 1], [17.2, 1], [19.8, 0], [22.2, 0], [22.9, 1]]);
+  const curA = K([[20.9, 0], [21.4, 1], [22.3, 1], [22.7, 0]]);
+  const VNOTE = [[9.6, 11.4, "Vth: 이 셀을 켜는 데 필요한 게이트 전압"], [11.8, 15.6, "전자가 갇히면 → Vth가 올라간다"], [17.2, 20.6, "전자가 빠지면 → Vth가 내려간다"], [21, 22.5, "Vth < Vref → 전류가 흐른다 → 1"], [23, 24, "Vth > Vref → 전류 없음 → 0"]];
+
+  // B: ISPP
+  const PS = (k) => 26.5 + 4.2 * k;               // pulse k (0..3) start
+  const pBar = (k) => K([[PS(k), 0], [PS(k) + 0.8, 1]]);
+  const dMove = (k) => K([[PS(k) + 0.6, 0], [PS(k) + 1.4, 1]]);
+  const vBar = (k) => K([[PS(k) + 1.8, 0], [PS(k) + 2.3, 1]]);
+  const bIn = K([[24.4, 0], [25.4, 1]]);
+  const pulsesV = K([[44.2, 1], [44.8, 0]]);
+  const oneBar = K([[44.9, 0], [45.8, 1]]);
+  const oneMix = K([[44.6, 0], [46.4, 1]]);
+  const wid1 = K([[40.8, 0], [41.6, 1], [44.2, 1], [44.8, 0]]);
+  const wid2 = K([[46.6, 0], [47.4, 1]]);
+  const dN = 24;
+
+  // C: self boosting
+  const cRows = K([[54.8, 0], [55.4, 1], [69.4, 1], [70, 0]]);
+  const cBars = K([[70.2, 0], [70.9, 1]]);
+  const CROWS = [["1. 비트라인 설정", "A는 0 V, B는 VDD"], ["2. 채널 띄우기", "B의 선택 트랜지스터가 꺼짐"], ["3. 워드라인 올리기", "채널도 함께 약 8 V(부스팅)"]];
+  const CROW_T = [57, 60.6, 64];
+  const blV = K([[57, 0], [57.8, 1]]), floatV = K([[61.4, 0], [62, 1]]);
+  const wlV = K([[64.2, 0], [64.9, 1]]), boost = K([[65, 0], [68.5, 1]]), chPotV = K([[66.4, 0], [67.2, 1]]);
+  const elecC = K([[71.5, 0], [72.5, 1]]);
+  const barA = K([[70.4, 0], [72, 1]]), barB = K([[70.6, 0], [72.2, 1]]), barTxt = K([[72, 0], [72.8, 1]]);
+
+  // D: read
+  const R_X = (j) => 707 + 66 * j;                // reference j = 1..7 sits between state j-1 and j
+  const nowX = K([[78.4, R_X(1)], [78.8, R_X(1)], [79.9, R_X(1)], [80.3, R_X(2)], [81.5, R_X(2)], [81.9, R_X(3)], [83.1, R_X(3)], [83.5, R_X(4)], [84.7, R_X(4)], [85.1, R_X(5)]]);
+  const nowV = K([[78.4, 0], [78.8, 1], [90.2, 1], [90.8, 0]]);
+  const curD = K([[85.2, 0], [85.8, 1]]);
+  const resV = K([[86, 0], [86.7, 1], [90.2, 1], [90.8, 0]]);
+  const tlcV = K([[90.6, 1], [91.4, 0]]), qlcV = K([[90.8, 0], [91.8, 1]]), qTxt = K([[92, 0], [92.8, 1]]);
+
+  // E: distributions drift
+  const dist = K([[95.8, 0], [98.6, 1]]), ret = K([[99.2, 0], [102, 1]]), wear = K([[102.6, 0], [105.2, 1]]), retry = K([[107, 0], [108.6, 1]]);
+  const eCard = (i) => K([[105.6 + 1.5 * i, 0], [106.3 + 1.5 * i, 1]]);
+
+  // F: closing cards
+  const FT = [110.4, 112, 113.6];
+  const fV = (i) => K([[FT[i], 0], [FT[i] + 0.8, 1]]);
+  const fF = K([[115, 0], [115.8, 1]]);
+
+  // callouts: [from, to, x, y (screen), anchor, text, class]
+  const LABELS = [
+    [6.8, 23.4, 512, 190, "start", "게이트(워드라인)", "lbl"],
+    [7.4, 23.4, 512, 230, "start", "차단 산화막", "lbl"],
+    [8, 23.4, 512, 262, "start", "전하 트랩(질화막)", "lbl acc-t"],
+    [8.6, 23.4, 512, 289, "start", "터널 산화막", "lbl"],
+    [9.2, 23.4, 350, 376, "middle", "채널(실리콘)", "lbl"],
+    [9.2, 23.4, 130, 317, "middle", "소스", "lbl-s"],
+    [9.2, 23.4, 570, 317, "middle", "드레인", "lbl-s"],
+    [11.2, 15.2, 350, 138, "middle", "게이트 +20 V", "lbl-b acc-t"],
+    [15.2, 16.9, 350, 138, "middle", "게이트 0 V · 전자는 그대로", "lbl-b"],
+    [12.2, 15.2, 350, 492, "middle", "F-N 터널링: 전자가 산화막을 뚫는다", "lbl-c"],
+    [17, 20.4, 350, 492, "middle", "기판 +20 V → 전자가 빠져나간다", "lbl-b acc-t"],
+    [20.8, 24, 350, 138, "middle", "게이트에 기준 전압(Vref)", "lbl-b acc-t"],
+    [55.4, 76, 570, 330, "start", "← 선택 WL", "lbl-c acc-t"],
+    [64.4, 76, 570, 270, "start", "← 나머지 WL", "lbl-c"],
+    [94.6, 95.8, 640, 190, "middle", "갓 쓴 분포: 상태마다 깔끔히 떨어져 있다", "lbl-b"],
+    [96, 99.2, 640, 190, "middle", "④ 교란: 지운 상태(E)가 오른쪽으로 번진다", "lbl-b acc-t"],
+    [99.2, 102.6, 640, 190, "middle", "⑥ 리텐션: 써진 상태가 왼쪽으로 내려오고 퍼진다", "lbl-b acc-t"],
+    [102.6, 105.8, 640, 190, "middle", "⑦ 내구성(P/E): 분포 전체가 넓어진다", "lbl-b acc-t"],
+    [106, 109.6, 640, 190, "middle", "빨간 곳: 기준 전압을 넘어 틀리게 읽히는 셀", "lbl-b bad-t"],
+  ];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  const NS = "http://www.w3.org/2000/svg";
+  const mkn = (parent, tag, attrs) => { const n = document.createElementNS(NS, tag); Object.keys(attrs).forEach((k) => n.setAttribute(k, attrs[k])); $(parent).appendChild(n); return n; };
+  const frac = (x) => x - Math.floor(x);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+
+  // A: trap sites and electrons
+  for (let i = 0; i < 7; i++) {
+    mkn("a-traps", "circle", { cx: 230 + 40 * i, cy: 255, r: 7, class: "trapc" });
+    mkn("a-elec", "circle", { id: "e" + i, cx: 230 + 40 * i, cy: 310, r: 7 });
+  }
+
+  // B: pulses (staircase) and verify bars
+  const PV = ["16 V", "16.5 V", "17 V", "17.5 V"], PH = (k) => 190 + 22 * k;
+  for (let k = 0; k < 4; k++) {
+    const x = 90 + 138 * k;
+    mkn("b-pulses", "rect", { id: "pl" + k, class: "pbar", x: x, y: 520, width: 64, height: 0 });
+    mkn("b-pulses", "text", { id: "pv" + k, x: x + 32, y: 520 - PH(k) - 10, "text-anchor": "middle", class: "lbl-s" }).textContent = PV[k];
+    mkn("b-pulses", "rect", { id: "vf" + k, class: "vbar", x: x + 76, y: 460, width: 34, height: 60 });
+  }
+  mkn("b-pulses", "text", { id: "vl0", x: 90 + 76 + 17, y: 448, "text-anchor": "middle", class: "lbl-s ok-t" }).textContent = "검증";
+
+  // B: 24 cells. Erased start, first-pulse position, final ISPP position, one-shot position
+  const BX0 = [], BX1 = [], BXO = [], BPK = [], BXF = [];
+  for (let i = 0; i < dN; i++) {
+    const x0 = 730 + 60 * frac(i * 0.618034), x1 = 920 + 160 * frac(i * 0.754877 + 0.13), xo = 960 + 160 * frac(i * 0.5698 + 0.31);
+    const pk = x1 >= 1040 ? 1 : 1 + Math.ceil((1040 - x1) / 40);
+    BX0.push(x0); BX1.push(x1); BXO.push(xo); BPK.push(pk); BXF.push(x1 + 40 * (pk - 1));
+    mkn("b-dots", "circle", { id: "d" + i, cx: x0, cy: 178 + 14 * i, r: 6, style: "fill: var(--accent)" });
+  }
+
+  // C: step list
+  s = ""; CROWS.forEach((r, i) => {
+    const y = 120 + i * 84;
+    s += `<g id="crow${i}" class="row" data-s="idle"><rect x="700" y="${y}" width="520" height="70" rx="10"></rect>`
+      + `<text x="722" y="${y + 30}" style="font-size:22px;font-weight:700">${r[0]}</text>`
+      + `<text x="722" y="${y + 56}" class="lbl" style="font-size:20px">${r[1]}</text>`
+      + `<text id="crowck${i}" x="1184" y="${y + 42}" class="ok-t" style="font-size:26px">✓</text></g>`;
+  });
+  $("g-c-rows").innerHTML = s;
+  ["0", "1", "2", "3"].forEach((i) => { /* word-line labels are filled by render() */ });
+
+  // distribution curves
+  const hump = (cx, sig, amp, base) => {
+    let d = `M${(cx - 3.4 * sig).toFixed(1)},${base}`;
+    for (let k = -17; k <= 17; k++) { const x = cx + k * sig * 0.2; d += ` L${x.toFixed(1)},${(base - amp * Math.exp(-0.5 * Math.pow((x - cx) / sig, 2))).toFixed(1)}`; }
+    return d + ` L${(cx + 3.4 * sig).toFixed(1)},${base} Z`;
+  };
+  const NAMES = ["E", "P1", "P2", "P3", "P4", "P5", "P6", "P7"];
+  for (let i = 0; i < 8; i++) {
+    const cx = 740 + 66 * i;
+    mkn("d-tlc", "path", { class: i === 0 ? "hump e" : "hump", d: hump(cx, 10, 110, 420) });
+    mkn("d-tlc", "text", { x: cx, y: 446, "text-anchor": "middle", class: "lbl-s" }).textContent = NAMES[i];
+    if (i > 0) {
+      mkn("d-tlc", "line", { class: "refl", x1: R_X(i), y1: 214, x2: R_X(i), y2: 420 });
+      mkn("d-tlc", "text", { x: R_X(i), y: 208, "text-anchor": "middle", class: "lbl-s" }).textContent = "R" + i;
+    }
+  }
+  for (let i = 0; i < 16; i++) {
+    const cx = 735 + 31 * i;
+    mkn("d-qlc", "path", { class: i === 0 ? "hump e" : "hump", d: hump(cx, 5, 110, 420) });
+    if (i > 0) mkn("d-qlc", "line", { class: "refl", x1: cx - 15.5, y1: 214, x2: cx - 15.5, y2: 420 });
+  }
+  mkn("d-qlc", "text", { x: 735, y: 446, "text-anchor": "middle", class: "lbl-s" }).textContent = "E";
+  mkn("d-qlc", "text", { x: 1200, y: 446, "text-anchor": "middle", class: "lbl-s" }).textContent = "P15";
+
+  // E: eight states, seven read references, and the error bands
+  const EC = (i) => 150 + 140 * i, ER = (j) => 80 + 140 * j;
+  for (let i = 0; i < 8; i++) {
+    mkn("e-humps", "path", { id: "eh" + i, class: i === 0 ? "hump e" : "hump", d: "" });
+    mkn("e-names", "text", { x: EC(i), y: 448, "text-anchor": "middle", class: "lbl-s", id: "en" + i }).textContent = NAMES[i];
+  }
+  for (let j = 1; j < 8; j++) {
+    mkn("e-refs", "line", { id: "er" + j, class: "refl", x1: ER(j), y1: 210, x2: ER(j), y2: 420 });
+    mkn("e-ov", "rect", { id: "eo" + j, class: "ovl", x: ER(j) - 14, y: 420, width: 28, height: 0, style: "opacity:.55" });
+  }
+
+  // F: closing cards
+  (function () {
+    const cards = [
+      { h: "ISPP", l: ["펄스 → 검증 → 다시", "닿은 셀은 쓰기 금지", "폭 ≈ 계단 크기", "작을수록 좁고 느림"] },
+      { h: "셀프 부스팅", l: ["채널을 띄워서", "쓰지 않을 셀을 지킨다", "산화막 전압 20 V → 12 V", "막을 셀은 거의 안 써짐"] },
+      { h: "분포 관리", l: ["교란·리텐션·내구성", "→ 분포가 움직이고 넓어짐", "ECC → 재시도 → 소프트", "QLC는 간격이 좁아 더 어려움"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="f-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>`
+        + `<g class="mk"><circle cx="${x + 44}" cy="188" r="24"></circle><text x="${x + 44}" y="197" text-anchor="middle" style="font-size:26px">${i + 1}</text></g>`
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:21px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="f-f" x="640" y="500" text-anchor="middle" class="mono acc-t" style="font-size:26px">상태 수 = 2^비트 수 (TLC 8 · QLC 16)</text>`;
+    $("g-f").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  const HL = [];
+  const PBAR = [0, 1, 2, 3].map(pBar), DMV = [0, 1, 2, 3].map(dMove), VBAR = [0, 1, 2, 3].map(vBar), FV = [0, 1, 2].map(fV), EC_ = [0, 1, 2].map(eCard);
+  let hlOn = new Set();
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-a", gA(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t));
+
+    // A: one cell
+    op("g-gauge", gauge(t));
+    const e = eTrack(t);
+    for (let i = 0; i < 7; i++) setAttr("e" + i, "cy", (310 - 55 * clamp(e * 1.6 - i * 0.1, 0, 1)).toFixed(1));
+    setAttr("vth-m", "transform", `translate(${(800 + 280 * e).toFixed(1)},0)`);
+    op("a-cur", curA(t));
+    { let ni = -1; for (let i = 0; i < VNOTE.length; i++) if (t >= VNOTE[i][0] && t < VNOTE[i][1]) { ni = i; break; }
+      if (ni >= 0) { setText("vth-note", VNOTE[ni][2]); op("vth-note", win(t, VNOTE[ni][0], VNOTE[ni][1])); } else op("vth-note", 0); }
+
+    // B: pulses and cells
+    for (let k = 0; k < 4; k++) {
+      const p = PBAR[k](t), h = PH(k) * p;
+      setAttr("pl" + k, "y", (520 - h).toFixed(1)); setAttr("pl" + k, "height", h.toFixed(1));
+      op("pv" + k, p); op("vf" + k, VBAR[k](t));
+    }
+    op("vl0", VBAR[0](t)); op("b-pulses", pulsesV(t));
+    { const h = PH(3) * oneBar(t); setAttr("pl-one", "y", (520 - h).toFixed(1)); setAttr("pl-one", "height", h.toFixed(1)); op("pl-one-t", oneBar(t)); }
+    op("pl-d", Math.min(PBAR[1](t), pulsesV(t)));
+    const mix = oneMix(t), m = DMV.map((f) => f(t));
+    for (let i = 0; i < dN; i++) {
+      let x = BX0[i] + (BX1[i] - BX0[i]) * m[0];
+      for (let k = 2; k <= 4; k++) if (BPK[i] >= k) x += 40 * m[k - 1];
+      x += (BXO[i] - x) * mix;
+      setAttr("d" + i, "cx", x.toFixed(1));
+      const frozen = t >= PS(BPK[i] - 1) + 2.3;
+      setStyle("d" + i, "fill", mix > 0.5 ? "var(--bad)" : frozen ? "var(--ok)" : "var(--accent)");
+    }
+    op("b-wid", wid1(t)); op("b-wid2", wid2(t));
+
+    // C: self boosting
+    op("g-c-rows", cRows(t)); op("g-c-bars", cBars(t));
+    let rk = -1; for (let i = 0; i < CROW_T.length; i++) if (t >= CROW_T[i]) rk = i;
+    for (let i = 0; i < CROWS.length; i++) {
+      const st = rk < 0 ? "idle" : i < rk ? "done" : i === rk ? "on" : "idle";
+      setAttr("crow" + i, "data-s", st); op("crowck" + i, st === "done" ? 1 : 0);
+    }
+    op("c-bla", blV(t)); op("c-blb", blV(t));
+    setAttr("ssl-b", "data-s", t >= 61 ? "blocked" : "on");
+    setAttr("ca1", "data-s", t >= 64 ? "on" : "idle"); setAttr("cb1", "data-s", t >= 70 ? "blocked" : "idle");
+    for (let i = 0; i < 4; i++) { setText("wlt" + i, i === 1 ? "20 V" : "10 V"); op("wlt" + i, wlV(t)); }
+    setStyle("ch-b", "opacity", (0.12 + 0.5 * boost(t)).toFixed(2));
+    op("c-pa", chPotV(t)); op("c-pb", chPotV(t)); op("c-fl", floatV(t)); op("c-e", elecC(t));
+    { const ha = 320 * barA(t), hb = 192 * barB(t);
+      setAttr("bar-a", "y", (520 - ha).toFixed(1)); setAttr("bar-a", "height", ha.toFixed(1));
+      setAttr("bar-b", "y", (520 - hb).toFixed(1)); setAttr("bar-b", "height", hb.toFixed(1));
+      setAttr("bva", "y", (520 - ha - 14).toFixed(1)); setAttr("bvb", "y", (520 - hb - 14).toFixed(1));
+      op("bva", barTxt(t)); op("bvb", barTxt(t)); }
+
+    // D: read
+    const nx = nowX(t), ridx = t < 80.1 ? 1 : t < 81.7 ? 2 : t < 83.3 ? 3 : t < 84.9 ? 4 : 5;
+    setAttr("d-now", "x1", nx.toFixed(1)); setAttr("d-now", "x2", nx.toFixed(1)); op("d-now", nowV(t));
+    setAttr("d-now-t", "x", nx.toFixed(1)); setText("d-now-t", "R" + ridx); op("d-now-t", nowV(t));
+    setAttr("dc2", "data-s", t < 78.8 ? "idle" : t < 85.2 ? "blocked" : "on");
+    op("d-cur", curD(t));
+    setText("d-cur-t", t < 78.8 ? "" : t < 85.2 ? "전류 없음" : "전류 있음");
+    for (let i = 0; i < 5; i++) { setText("dwt" + i, i === 2 ? (t < 78.8 ? "Vref" : "R" + ridx) : "Vpass"); op("dwt" + i, clamp((t - 76.8) / 0.8, 0, 1)); }
+    setText("d-res1", "R5에서 처음 켜진다"); setText("d-res2", "→ 이 셀의 상태는 R4와 R5 사이, 곧 P4"); op("d-res1", resV(t)); op("d-res2", resV(t));
+    op("d-tlc", tlcV(t)); op("d-me", tlcV(t)); op("d-qlc", qlcV(t));
+    setText("d-title", t < 91 ? "문턱전압 분포 (TLC: 상태 8개)" : "문턱전압 분포 (QLC: 상태 16개)");
+    setText("d-q", "기준 전압 15개 · 간격은 절반"); op("d-q", qTxt(t));
+
+    // E: distributions drift
+    const d = dist(t), r = ret(t), w = wear(t), rt = retry(t);
+    const cx = [], sg = [];
+    for (let i = 0; i < 8; i++) {
+      let c = EC(i), sgm = 22;
+      if (i === 0) { c += 52 * d; sgm *= 1 + 0.9 * d; } else if (i === 1) { c += 18 * d; sgm *= 1 + 0.2 * d; }
+      if (i >= 1) { c -= (10 + 6 * i) * r; sgm *= 1 + 0.5 * r; }
+      sgm *= 1 + 0.55 * w;
+      cx.push(c); sg.push(sgm);
+      setAttr("eh" + i, "d", hump(c, sgm, 170 * 22 / sgm, 420));
+    }
+    for (let j = 1; j < 8; j++) {
+      const ov = clamp(((cx[j - 1] + 1.9 * sg[j - 1]) - (cx[j] - 1.9 * sg[j])) / 60, 0, 1) * (1 - 0.75 * rt);
+      const rx = ER(j) + (j === 1 ? 20 : -22) * rt;
+      setAttr("er" + j, "x1", rx.toFixed(1)); setAttr("er" + j, "x2", rx.toFixed(1));
+      setAttr("eo" + j, "x", (rx - 14).toFixed(1));
+      setAttr("eo" + j, "y", (420 - 150 * ov).toFixed(1)); setAttr("eo" + j, "height", (150 * ov).toFixed(1));
+    }
+    for (let i = 0; i < 3; i++) op("e-c" + i, EC_[i](t));
+
+    // F: closing
+    for (let i = 0; i < 3; i++) op("f-" + i, FV[i](t));
+    op("f-f", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+</script>
+</body>
+</html>
