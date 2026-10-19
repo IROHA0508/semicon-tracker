@@ -1,8 +1,12 @@
-"""Build data/manifest.json (everything the site needs in one file) and check the data files.
+"""Build data/manifest.json and data/feed/<year>.json, and check the data files.
 
-data/news/<id>.json is the source of truth for each card. The manifest copies the fields the site
-shows and adds each card's related theory units, worked out from the tags at build time so that a
-change in data/units.json reaches every card without summarizing again.
+data/news/<id>.json is the source of truth for each card. The site reads
+  - data/manifest.json: sources, labels and a small index of every card (id, date, company, kind,
+    tags, related units) for filters, counts and unit pages, plus the list of year files;
+  - data/feed/<year>.json: the full cards of one year, loaded only when the reader gets to them,
+    so the first visit stays light however many years pile up.
+Related theory units are worked out from the tags at build time so that a change in
+data/units.json reaches every card without summarizing again.
 """
 from __future__ import annotations
 
@@ -17,6 +21,8 @@ LIST_TEXT = re.compile(r"^\s*\[\s*\".*\"\s*\]\s*(?:\[\s*\d+\s*\])?\s*$", re.S)
 
 CARD_FIELDS = ("id", "company", "source", "channel", "kind", "lang", "title", "originalTitle", "url",
                "published", "date", "summary", "interview", "tags", "companies", "author", "alsoIn")
+# what the manifest index keeps of each card (enough to filter, count and link without the text)
+INDEX_FIELDS = ("id", "date", "published", "company", "source", "kind", "tags", "relatedUnits")
 REQUIRED = ("id", "company", "source", "channel", "kind", "lang", "title", "url", "published", "date",
             "summary", "interview", "tags", "companies")
 
@@ -34,14 +40,25 @@ def _version(path) -> str:
         return ""
 
 
-def manifest_data(articles: list[dict]) -> dict:
+def feed_dir():
+    return config.MANIFEST.parent / "feed"
+
+
+def manifest_data(articles: list[dict]) -> tuple[dict, dict[str, dict]]:
+    """(manifest, {year: year file}) for the given cards, newest first."""
     unit_index = tags.units()
     items = []
     for a in sorted(articles, key=lambda a: (a["published"], a["id"]), reverse=True):
         card = {k: a[k] for k in CARD_FIELDS if k in a}
         card["relatedUnits"] = tags.related_units(a.get("tags", []), unit_index)
         items.append(card)
-    return {
+    years: dict[str, dict] = {}
+    for card in items:
+        y = card["date"][:4]
+        years.setdefault(y, {"year": y, "count": 0, "items": []})
+        years[y]["items"].append(card)
+        years[y]["count"] += 1
+    manifest = {
         "count": len(items),
         "tagsVersion": _version(config.TAGS_FILE),
         "unitsVersion": _version(config.UNITS_FILE),
@@ -50,22 +67,42 @@ def manifest_data(articles: list[dict]) -> dict:
                      "channels": [s.channel] if s.channel else sorted({c[1] for c in s.categories})}
                     for s in config.SOURCES],
         "linkOnly": [{"name": name, "url": url} for name, url in config.LINK_ONLY],
-        "items": items,
+        "years": [{"year": y, "file": f"feed/{y}.json", "count": years[y]["count"]} for y in sorted(years, reverse=True)],
+        "index": [{k: c[k] for k in INDEX_FIELDS if k in c} for c in items],
     }
+    return manifest, years
+
+
+def _same(path, data: dict) -> bool:
+    if not path.exists():
+        return False
+    old = json.loads(path.read_text(encoding="utf-8"))
+    old.pop("generatedAt", None)
+    return old == data
 
 
 def build(now: datetime | None = None) -> dict:
-    """Rewrite the manifest when its content changed. Returns {"count", "changed"}."""
-    data = manifest_data(load_articles())
-    old = None
-    if config.MANIFEST.exists():
-        old = json.loads(config.MANIFEST.read_text(encoding="utf-8"))
-        old.pop("generatedAt", None)
-    changed = old != data
+    """Rewrite the manifest and the year files whose content changed (and drop year files that no
+    longer have cards). Returns {"count", "changed"}."""
+    manifest, years = manifest_data(load_articles())
+    changed = False
+    out = feed_dir()
+    for y, data in years.items():
+        path = out / f"{y}.json"
+        if not _same(path, data):
+            store._write(path, data)
+            changed = True
+    if out.exists():
+        for path in out.glob("*.json"):
+            if path.stem not in years:
+                path.unlink()
+                changed = True
+    if not _same(config.MANIFEST, manifest):
+        changed = True
     if changed:
         stamp = (now or collect.now_kst()).isoformat(timespec="seconds")
-        store._write(config.MANIFEST, {"generatedAt": stamp, **data})
-    return {"count": data["count"], "changed": changed}
+        store._write(config.MANIFEST, {"generatedAt": stamp, **manifest})
+    return {"count": manifest["count"], "changed": changed}
 
 
 def _is_iso_datetime(value: str) -> bool:
@@ -161,12 +198,24 @@ def validate() -> list[str]:
 
     if config.MANIFEST.exists():
         m = json.loads(config.MANIFEST.read_text(encoding="utf-8"))
-        if {i["id"] for i in m.get("items", [])} != ids:
+        if {i["id"] for i in m.get("index", [])} != ids:
             problems.append("manifest.json이 data/news와 다름(python -m backend publish로 다시 만들기)")
-        for i in m.get("items", []):
+        for i in m.get("index", []):
             wrong = [c for c in i.get("relatedUnits", []) if c not in codes]
             if wrong:
                 problems.append(f"manifest.json {i['id']}: 없는 단원 {', '.join(wrong)}")
+        in_years = set()
+        for y in m.get("years", []):
+            path = config.MANIFEST.parent / y["file"]
+            if not path.exists():
+                problems.append(f"{y['file']} 없음(python -m backend publish로 다시 만들기)")
+                continue
+            year_items = json.loads(path.read_text(encoding="utf-8")).get("items", [])
+            if len(year_items) != y["count"] or any(not c["date"].startswith(y["year"]) for c in year_items):
+                problems.append(f"{y['file']}: 건수나 연도가 manifest와 다름")
+            in_years |= {c["id"] for c in year_items}
+        if in_years != ids:
+            problems.append("data/feed의 연도 파일이 data/news와 다름(python -m backend publish로 다시 만들기)")
     elif ids:
         problems.append("manifest.json 없음")
     return problems

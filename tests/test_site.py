@@ -81,12 +81,12 @@ def test_script_parses():
 
 
 def test_cards_link_to_units():
-    for item in MANIFEST["items"]:
+    for item in MANIFEST["index"]:
         assert item["kind"] in ("press", "fact", "tech"), item["id"]
         assert item["company"] in ("samsung", "skhynix"), item["id"]
         for code in item.get("relatedUnits", []):
             assert code in UNITS, (item["id"], code)
-    assert {s["key"] for s in MANIFEST["sources"]} >= {i["source"] for i in MANIFEST["items"]}
+    assert {s["key"] for s in MANIFEST["sources"]} >= {i["source"] for i in MANIFEST["index"]}
 
 
 def test_units_point_to_files():

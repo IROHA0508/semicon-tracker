@@ -414,13 +414,32 @@ def test_manifest_lists_cards_with_related_units_and_skips_unchanged_rewrites(da
     first = publish.build(now=NOW)
     assert first == {"count": 2, "changed": True}
     m = json.loads(config.MANIFEST.read_text(encoding="utf-8"))
-    assert [i["id"] for i in m["items"]] == ["skhynix-a", "skhynix-b"]
-    assert m["items"][0]["relatedUnits"] == tags.related_units(["HBM", "HBM 적층(TSV·MR-MUF)"])
-    assert len(m["items"][0]["relatedUnits"]) == 2
-    assert "checks" not in m["items"][0] and "model" not in m["items"][0]
+    assert [i["id"] for i in m["index"]] == ["skhynix-a", "skhynix-b"]
+    assert m["index"][0]["relatedUnits"] == tags.related_units(["HBM", "HBM 적층(TSV·MR-MUF)"])
+    assert len(m["index"][0]["relatedUnits"]) == 2
+    assert "summary" not in m["index"][0] and "items" not in m
+    assert m["years"] == [{"year": "2026", "file": "feed/2026.json", "count": 2}]
+    year = json.loads((config.MANIFEST.parent / "feed" / "2026.json").read_text(encoding="utf-8"))
+    assert [i["id"] for i in year["items"]] == ["skhynix-a", "skhynix-b"]
+    assert year["items"][0]["summary"] and year["items"][0]["relatedUnits"] == m["index"][0]["relatedUnits"]
+    assert "checks" not in year["items"][0] and "model" not in year["items"][0]
     assert {s["key"] for s in m["sources"]} == set(config.SOURCE_BY_KEY)
     assert len(m["linkOnly"]) == 2
     assert publish.build(now=NOW) == {"count": 2, "changed": False}
+    assert publish.validate() == []
+
+
+def test_cards_of_each_year_go_to_their_own_file(data):
+    setup_queue(queued("a", "2027-01-03T10:00:00+09:00"), queued("b", "2026-12-30T10:00:00+09:00"))
+    run(FakeLLM(card(), card()))
+    publish.build(now=NOW)
+    m = json.loads(config.MANIFEST.read_text(encoding="utf-8"))
+    assert [(y["year"], y["count"]) for y in m["years"]] == [("2027", 1), ("2026", 1)]
+    feed = config.MANIFEST.parent / "feed"
+    assert sorted(p.name for p in feed.glob("*.json")) == ["2026.json", "2027.json"]
+    (config.NEWS_DIR / "skhynix-a.json").unlink()
+    assert publish.build(now=NOW)["changed"] is True
+    assert sorted(p.name for p in feed.glob("*.json")) == ["2026.json"]
     assert publish.validate() == []
 
 

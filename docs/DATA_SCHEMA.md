@@ -49,25 +49,36 @@
 | `bodyVia` | 본문을 읽은 곳: `feed`(RSS 본문) 또는 `page`(기사 페이지) |
 | `checks` | 점검 기록(있을 때만). `retriedFor`: 다시 쓰게 한 수치, `removed`: 수치가 원문과 안 맞아 지운 문장, `unknownTags`: 표준 태그가 아니라 버린 태그 |
 
-## `data/manifest.json`: 사이트가 읽는 목록
+## `data/manifest.json`과 `data/feed/<연도>.json`: 사이트가 읽는 목록
 
-요약 카드 전체를 발행 시각이 최근인 순서로 담고, 카드마다 `relatedUnits`(관련 이론 단원 코드 최대 2개)를 붙입니다. 관련 단원은 만들 때마다 `data/units.json`으로 다시 계산합니다(태그가 많이 겹치는 단원 → 면접 빈도 별이 많은 단원 → 번호가 큰 단원).
+기사가 쌓여도 첫 화면이 가볍도록 두 가지로 나눕니다(2026-10-19).
+
+- `data/manifest.json`: 출처·배지 이름 등 공통 정보, 연도 파일 목록(`years`), 그리고 **모든 카드의 짧은 색인**(`index`: `id`, `date`, `published`, `company`, `source`, `kind`, `tags`, `relatedUnits`). 사이트는 처음에 이 파일만 읽고 거르기·건수·태그 순위·단원 페이지의 '이어진 소식' 목록을 만듭니다.
+- `data/feed/<연도>.json`: 그해 카드 전체(요약·면접 한 줄 포함), 발행 시각이 최근인 순서. 사이트는 화면에 그해 카드가 처음 필요할 때 이 파일을 읽습니다(검색할 때는 모든 연도를 읽음).
+
+카드마다 붙는 `relatedUnits`(관련 이론 단원 코드 최대 2개)는 만들 때마다 `data/units.json`으로 다시 계산합니다(태그가 많이 겹치는 단원 → 면접 빈도 별이 많은 단원 → 번호가 큰 단원).
 
 ```json
 {
-  "generatedAt": "2026-10-12T07:16:40+09:00",
-  "count": 10,
+  "generatedAt": "2026-10-19T09:48:00+09:00",
+  "count": 150,
   "tagsVersion": "2026-10-06",
-  "unitsVersion": "2026-10-06",
+  "unitsVersion": "2026-10-13",
   "kinds": {"press": "보도자료", "fact": "공식 해명", "tech": "기술 해설"},
   "sources": [{"key": "sk-fact", "name": "SK하이닉스 뉴스룸 FACT", "company": "skhynix", "lang": "en",
                "page": "https://news.skhynix.co.kr/category/fact/", "channels": ["FACT"]}],
   "linkOnly": [{"name": "삼성반도체 뉴스", "url": "https://semiconductor.samsung.com/kr/news-events/news/"}],
-  "items": [{"id": "...", "title": "...", "summary": ["..."], "tags": ["..."], "relatedUnits": ["4-5", "2-10"]}]
+  "years": [{"year": "2026", "file": "feed/2026.json", "count": 150}],
+  "index": [{"id": "...", "date": "2026-10-08", "published": "...", "company": "samsung", "source": "samsung-newsroom",
+             "kind": "press", "tags": ["실적"], "relatedUnits": ["5-6", "5-2"]}]
 }
 ```
 
-카드 필드 중 `checks`, `model`, `rules`, `summarizedAt`, `bodyVia`, `categories`는 manifest에 넣지 않습니다. 내용이 바뀌지 않으면 파일을 다시 쓰지 않습니다(`generatedAt`만 바뀌는 커밋을 막기 위해).
+```json
+{"year": "2026", "count": 150, "items": [{"id": "...", "title": "...", "summary": ["..."], "interview": "...", "relatedUnits": ["4-5", "2-10"]}]}
+```
+
+연도 파일의 카드 필드는 요약 카드와 같고, `checks`, `model`, `rules`, `summarizedAt`, `bodyVia`, `categories`는 넣지 않습니다. 내용이 바뀐 파일만 다시 쓰고(`generatedAt`만 바뀌는 커밋을 막기 위해), 카드가 없어진 연도 파일은 지웁니다. `python -m backend validate`가 색인·연도 파일·`data/news`가 서로 맞는지 점검합니다.
 
 ## `data/tags.json`, `data/units.json`
 

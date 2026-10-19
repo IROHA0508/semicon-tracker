@@ -193,6 +193,9 @@ button.tag { border: 0; cursor: pointer; }
   .mgrid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 .month { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 0; scroll-margin-top: 80px; }
+.more { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 22px 0 8px; font-size: 13px; color: var(--muted); min-height: 72px; }
+.more:empty { display: none; }
+.more-count { font: 12px var(--font-mono); color: var(--faint); }
 .month h2 { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
 .month span { font: 12px var(--font-mono); color: var(--faint); }
 .month::after { content: ""; flex: 1; border-top: 1px solid var(--line-strong); transform: translateY(-4px); }
@@ -405,6 +408,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
   var S = {
     loaded: false, error: null, manifest: null, items: [], theory: null, tags: null,
     units: {}, order: [], newsByUnit: {}, md: {},
+    full: {}, yearLoads: {}, yearDone: {},   // full cards by id, and the year files (data/feed/<year>.json) loaded so far
     co: "all", kind: "all", q: "", tfilter: "all", period: "all"
   };
   function load(key, fallback) { try { var v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } }
@@ -618,24 +622,92 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       ])
     ]);
   }
-  function ledger(items, opts) {
-    var frag = document.createDocumentFragment(), cur = null, list = null;
-    items.forEach(function (it) {
-      var key = it.date.slice(0, 7);
-      if (key !== cur) {
-        cur = key;
-        var n = items.filter(function (x) { return x.date.slice(0, 7) === key; }).length;
-        var t = ymd(it.date);
-        frag.appendChild(h("div", { class: "month", "data-month": key }, [h("h2", { text: t.y + "년 " + t.m + "월" }), h("span", { text: n + "건" })]));
-        list = h("ol", { class: "entries" });
-        frag.appendChild(list);
+  /* ---------- cards: the manifest has a small index of every card; the full cards come in one file
+     per year (data/feed/<year>.json), loaded the first time a card of that year is shown ---------- */
+  function loadYear(y) {
+    if (S.yearLoads[y]) return S.yearLoads[y];
+    var info = (S.manifest.years || []).filter(function (x) { return x.year === y; })[0];
+    if (!info) return Promise.resolve();
+    S.yearLoads[y] = getJSON("data/" + info.file).then(function (d) {
+      (d.items || []).forEach(function (c) { S.full[c.id] = c; });
+      S.yearDone[y] = true;
+    }).catch(function (err) { delete S.yearLoads[y]; throw err; });
+    return S.yearLoads[y];
+  }
+  function allLoaded() { return (S.manifest.years || []).every(function (x) { return S.yearDone[x.year]; }); }
+  function loadAllYears() { return Promise.all((S.manifest.years || []).map(function (x) { return loadYear(x.year); })); }
+  /** Full cards for index entries, loading the year files they live in. */
+  function cards(list) {
+    var years = [];
+    list.forEach(function (i) { var y = i.date.slice(0, 4); if (years.indexOf(y) < 0) years.push(y); });
+    return Promise.all(years.map(loadYear)).then(function () { return list.map(function (i) { return S.full[i.id]; }).filter(Boolean); });
+  }
+
+  /** A dated list that shows PAGE cards at a time and adds the next PAGE when the reader scrolls
+      near its end (or presses "더 보기"). Month headings count the whole list, not only what is shown. */
+  var PAGE = 10;
+  var pagerObserver = null;
+  function pagedLedger(box, items, opts) {
+    var token = {};
+    box.__pager = token;
+    box.textContent = "";
+    var perMonth = {};
+    items.forEach(function (i) { var k = i.date.slice(0, 7); perMonth[k] = (perMonth[k] || 0) + 1; });
+    var shown = 0, busy = false, cur = null, list = null;
+    var body = h("div");
+    var foot = h("div", { class: "more" });
+    box.appendChild(body);
+    box.appendChild(foot);
+    function drawFoot(error) {
+      foot.textContent = "";
+      if (error) {
+        foot.appendChild(h("span", { text: "기사를 불러오지 못했습니다. " }));
+        foot.appendChild(h("button", { type: "button", class: "btn", onclick: more, text: "다시 시도" }));
+        return;
       }
-      list.appendChild(entry(it, opts));
-    });
-    return frag;
+      var left = items.length - shown;
+      foot.appendChild(h("span", { class: "more-count", text: shown + " / " + items.length + "건" }));
+      if (busy) foot.appendChild(h("span", { class: "more-busy", text: "불러오는 중…" }));
+      else if (left > 0) foot.appendChild(h("button", { type: "button", class: "btn", onclick: more, text: "더 보기 (" + Math.min(PAGE, left) + "건)" }));
+      else if (items.length > PAGE) foot.appendChild(h("span", { class: "more-end", text: "마지막 기사입니다" }));
+    }
+    function more() {
+      if (busy || box.__pager !== token || shown >= items.length) return;
+      busy = true; drawFoot();
+      var slice = items.slice(shown, shown + PAGE);
+      cards(slice).then(function (full) {
+        if (box.__pager !== token) return;
+        full.forEach(function (it) {
+          var key = it.date.slice(0, 7);
+          if (key !== cur) {
+            cur = key;
+            var t = ymd(it.date);
+            body.appendChild(h("div", { class: "month", "data-month": key }, [h("h2", { text: t.y + "년 " + t.m + "월" }), h("span", { text: perMonth[key] + "건" })]));
+            list = h("ol", { class: "entries" });
+            body.appendChild(list);
+          }
+          list.appendChild(entry(it, opts));
+        });
+        shown += slice.length;
+        busy = false;
+        drawFoot();
+        // still near the end (a short page, a tall screen): keep filling
+        if (shown < items.length && near()) more();
+      }).catch(function () { busy = false; if (box.__pager === token) drawFoot(true); });
+    }
+    function near() { var r = foot.getBoundingClientRect(); return r.top < window.innerHeight + 600; }
+    if ("IntersectionObserver" in window) {
+      if (!pagerObserver) pagerObserver = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting && e.target.__more) e.target.__more(); });
+      }, { rootMargin: "0px 0px 600px 0px" });
+      foot.__more = more;
+      pagerObserver.observe(foot);
+    }
+    more();
   }
   function matches(item, q) {
     if (!q) return true;
+    item = S.full[item.id] || item;
     var hay = [item.title, item.originalTitle, (item.summary || []).join(" "), item.interview, (item.tags || []).join(" "), (item.companies || []).join(" "), item.channel, CO[item.company]].join(" ").toLowerCase();
     return q.toLowerCase().split(/\s+/).filter(Boolean).every(function (w) { return hay.indexOf(w) >= 0; });
   }
@@ -708,6 +780,14 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
         var n = p[0] === "all" ? pool.length : pool.filter(function (i) { return i.kind === p[0]; }).length;
         kindRow.appendChild(seg(p[1], p[0], S.kind, function (v) { S.kind = v; save("st-kind", v); draw(); }, n));
       });
+      if (S.q && !allLoaded()) {
+        listBox.__pager = null; listBox.textContent = "";
+        listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "검색하려고 기사 전체를 불러오는 중입니다…" })]));
+        var q = S.q;
+        loadAllYears().then(function () { if (S.q === q && document.body.contains(listBox)) draw(); })
+          .catch(function () { listBox.textContent = ""; listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "기사를 불러오지 못했습니다." }), h("span", { text: "잠시 뒤 다시 검색해 주세요." })])); });
+        return;
+      }
       var filtered = pool.filter(function (i) {
         return (S.co === "all" || i.company === S.co) && (S.kind === "all" || i.kind === S.kind) && matches(i, S.q);
       });
@@ -720,9 +800,8 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
         ? (S.items.length ? "전체 기간 " + fmtDate(S.items[S.items.length - 1].date) + " ~ " + fmtDate(S.items[0].date) : "")
         : periodName(S.period);
       result.appendChild(h("span", { text: S.items.length + "건 중 " + items.length + "건" + (range ? " · " + range : "") }));
-      listBox.textContent = "";
-      if (!items.length) listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "조건에 맞는 소식이 없습니다." }), h("span", { text: "회사·종류·기간을 '전체'로 바꾸거나 검색어를 지워 보세요." })]));
-      else listBox.appendChild(ledger(items));
+      if (!items.length) { listBox.__pager = null; listBox.textContent = ""; listBox.appendChild(h("div", { class: "state" }, [h("b", { text: "조건에 맞는 소식이 없습니다." }), h("span", { text: "회사·종류·기간을 '전체'로 바꾸거나 검색어를 지워 보세요." })])); }
+      else pagedLedger(listBox, items);
     }
     function periodName(p) { return p.length === 4 ? p + "년 전체" : p.slice(0, 4) + "년 " + (+p.slice(5)) + "월"; }
     function pickPeriod(v) { S.period = S.period === v ? "all" : v; draw(); }
@@ -956,12 +1035,13 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     frag.appendChild(head);
     frag.appendChild(toc);
     frag.appendChild(article);
-    var newsSec = null;
+    var newsSec = null, newsBox = null;
     if (news.length) {
       newsSec = h("section", { class: "unit-news", id: "unit-news" }, [
         h("div", { class: "section-title" }, [h("h2", { text: "이 단원과 이어진 소식" }), h("span", { text: news.length + "건 · 기사 카드의 관련 단원 기준" })])
       ]);
-      newsSec.appendChild(ledger(news, { noUnits: false }));
+      newsBox = h("div");
+      newsSec.appendChild(newsBox);
       frag.appendChild(newsSec);
     } else if (u.tags.length) {
       frag.appendChild(h("p", { class: "note", style: "margin-top:28px" }, ["아직 이 단원을 관련 단원으로 받은 소식이 없습니다. 태그로 찾아보기: "].concat(u.tags.map(function (t, k) {
@@ -974,6 +1054,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     ]));
     view.textContent = "";
     view.appendChild(frag);
+    if (newsBox) pagedLedger(newsBox, news, { noUnits: false });
 
     getText(u.file).then(function (md) {
       if (location.hash !== "#unit/" + code) return;
@@ -1139,7 +1220,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
   }
   Promise.all([getJSON("data/manifest.json"), getJSON("data/theory.json"), getJSON("data/tags.json")]).then(function (res) {
     S.manifest = res[0]; S.theory = res[1]; S.tags = res[2];
-    S.items = (S.manifest.items || []).slice().sort(function (a, b) { return a.published < b.published ? 1 : a.published > b.published ? -1 : 0; });
+    S.items = (S.manifest.index || []).slice().sort(function (a, b) { return a.published < b.published ? 1 : a.published > b.published ? -1 : 0; });
     var floorTitle = {}, floorName = {};
     S.theory.floors.forEach(function (f) { floorTitle[f.floor] = f.title; floorName[f.floor] = f.name; });
     S.theory.units.forEach(function (u) {
