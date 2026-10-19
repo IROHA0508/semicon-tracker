@@ -40,6 +40,8 @@
 | `transistor-structure-film.html` | 2-6 | 영상: 1면→3면→4면 게이트 구조, FinFET 핀 높이와 양자화, GAA 나노시트, SiGe 선택적 식각, CFET, 구조 비교표, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `deposition-film.html` | 3-7 | 영상: 단차 피복과 보이드, CVD 여섯 단계, APCVD→ALD 발전 순서, ALD 사이클과 윈도우, 증착 방식 비교표, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `etching-film.html` | 3-6 | 영상: 습식·건식 프로파일, RIE 6단계와 측벽 폴리머, 막질별 선택비, 로딩 효과와 고종횡비 문제, 펄스·극저온·ALE·보쉬, 약 2분 (장면 7개, 자막, 소리 없음) |
+| `metal-interconnect-film.html` | 3-9 | 영상: 컨택·금속선·비아 구조와 RC 지연, 구리 다마신 4단계와 듀얼 다마신, W 플러그와 배리어, EM·살리사이드(두 번 RTP), HKMG, 약 2분 (장면 7개, 자막, 소리 없음) |
+| `cmos-process-film.html` | 3-14 | 영상: 10개 모듈이 NMOS·PMOS 단면에 차례로 쌓이는 CMOS 공정 흐름, 자기 정렬(스페이서·살리사이드), FEOL·MOL·BEOL과 열 이력, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `nand-ispp.html` | 2-11 | 낸드 ISPP와 문턱전압 분포 (모드 4개: 쓰기(ISPP), 쓰기 금지, 읽기, 분포가 무너질 때) |
 | `fab-intro.html` | 3-0 | 팹 입문: 8대 공정, FEOL·BEOL, 클린룸 (모드 2개: 공정 흐름, 클린룸) |
 | `wafer-making.html` | 3-1 | 웨이퍼 제조: 잉곳에서 웨이퍼까지 (모드 2개: 만드는 순서, 웨이퍼 크기·구조) |
