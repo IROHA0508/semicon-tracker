@@ -2356,7 +2356,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. HKMG"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/metal-interconnect-film.html",
+     "title": "금속배선·다마신: 홈을 먼저 파고 구리를 채우는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "구조·소재",
+      "다마신",
+      "플러그·배리어",
+      "EM·살리사이드",
+      "HKMG",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/metallization.html",
@@ -4010,6 +4025,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 15
+  "films": 16
  }
 }
