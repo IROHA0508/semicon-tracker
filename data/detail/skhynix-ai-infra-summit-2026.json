@@ -1,0 +1,194 @@
+{
+  "id": "skhynix-ai-infra-summit-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 미국 캘리포니아 산타클라라에서 9월 15~17일(현지 시간) 열린 'AI Infra Summit 2026'에 참가해 'New Spectrum'이라는 슬로건으로 차세대 AI 메모리 포트폴리오를 선보였습니다. 올해 행사에는 약 6,000명이 참석해 전년의 두 배였고, SK하이닉스도 부스 규모를 지난해의 두 배로 키웠습니다. HBF, PIM, SALT-KV 세 가지 솔루션을 전시했고, 임의철 부사장(Solution AT 담당)이 세션 발표로 기술 비전을 공유했습니다. 전시 참가 현장을 전하는 기술 해설 기사입니다.",
+  "keyPoints": [
+    "SK하이닉스는 AI Infra Summit 2026에서 'New Spectrum' 슬로건 아래 HBF, PIM, SALT-KV를 전시했고, 이 가운데 HBF 세션이 가장 큰 관심을 받았다고 밝혔습니다.",
+    "AI가 학습에서 추론 중심으로 바뀌면서 HBM과 SSD 사이에 새로운 메모리 계층이 필요해졌고, HBF는 HBM처럼 TSV를 적용해 대용량과 고대역폭을 함께 내는 차세대 낸드 솔루션입니다.",
+    "임의철 부사장은 GPU-HBM 구조만으로는 다양해진 AI 워크로드를 감당하기 어려워, 하드웨어와 소프트웨어를 아우르는 PIM·HBF·SALT-KV를 준비 중이라고 발표했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "AI Infra Summit 2026 개요"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17114735/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_01_photo_2026.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI Infra Summit 2026은 9월 15~17일(현지 시간) 3일간 미국 캘리포니아 산타클라라에서 열렸습니다. 데이터 및 모델(Data & Models), 컴퓨트(Compute), 데이터 이동(Data Movement), AI 데이터센터(AI Data Center), 피지컬 AI(Physical AI)의 다섯 분야에서 최신 기술 동향과 미래 방향을 논의하는 자리였습니다."
+    },
+    {
+      "t": "p",
+      "text": "서버와 데이터센터 같은 인프라 분야의 기술 혁신이 이어지지 않으면 AI의 빠른 성장을 지속하기 어렵다는 점이 반영돼, 올해 참석자는 약 6,000명으로 전년의 두 배였습니다. SK하이닉스도 부스 규모를 지난해의 두 배로 늘리고 폭넓은 차세대 메모리 포트폴리오를 선보여 AI 인프라 분야의 기술 경쟁력을 재확인했다고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "'New Spectrum' 부스 구성"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17114800/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_02_photo_2026.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스는 'New Spectrum'을 슬로건으로 차세대 AI 메모리 솔루션과 브랜드 존재감을 알리는 데 초점을 맞췄습니다. 안쪽에는 기술 비전을 그래픽으로 보여 주었고, 왼쪽에는 PIM과 SALT-KV 등을 소개하는 전용 공간을, 정면에는 HBF 구조 모형을 두어 입장하면 모든 세션을 한눈에 볼 수 있게 했습니다."
+    },
+    {
+      "t": "h",
+      "text": "HBF: 추론 시대의 새 메모리 계층"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17114823/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_03_photo_2026.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "HBF 세션은 소개 영상과 구조 모형으로 구성됐습니다. AI의 중심이 학습에서 추론으로 옮겨 가면서, 높은 대역폭의 HBM과 대용량 저장이 가능한 SSD 사이에 새로운 메모리 계층이 필요해지고 있습니다. HBF(High Bandwidth Flash)는 HBM처럼 TSV 기술을 적용한 차세대 낸드 솔루션으로, 기존 스토리지의 대용량과 높은 대역폭을 동시에 제공합니다. 에이전틱 AI의 추론 중심 시대를 여는 핵심 AI 메모리 기술로 주목받고 있다고 합니다."
+    },
+    {
+      "t": "p",
+      "text": "이번 전시에서 가장 큰 관심을 받은 세션이 HBF였습니다. 많은 관람객이 소개 영상을 끝까지 시청했고, 제품 모형 앞에서 구조를 꼼꼼히 살펴보는 데 상당한 시간을 보냈습니다."
+    },
+    {
+      "t": "h",
+      "text": "PIM: 데이터 이동을 줄이는 메모리"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17114914/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_04_photo_2026.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17114911/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_05_photo_2026.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "PIM 세션에서는 AiM 칩, AiMX(AiM based Accelerator) 카드, AiMX 카드를 탑재한 서버를 나란히 전시했고, 향상된 LLM 서비스를 직접 체험하는 데모도 마련했습니다. PIM(Processing-In-Memory)은 메모리 안에 연산 기능을 넣어 프로세서와 메모리 간 데이터 이동을 줄이는 기술입니다. 데이터 전송 병목인 메모리 월(Memory Wall)을 완화하고 연산 성능과 전력 효율을 함께 높이는 차세대 솔루션으로 평가됩니다."
+    },
+    {
+      "t": "p",
+      "text": "관람객들은 PIM이 AI 서비스 효율을 얼마나 높일 수 있는지에 관심을 보였고, AiMX 카드 탑재 서버를 보며 다가오는 AI 기술의 다음 단계에 대한 기대를 감추지 못했다고 합니다."
+    },
+    {
+      "t": "h",
+      "text": "SALT-KV: KV 캐시를 알맞은 계층에 배치"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17115028/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_06_photo_2026.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17115030/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_07_photo_2026.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17115033/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_08_photo_2026.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SALT-KV 세션에서는 SK하이닉스 eSSD를 탑재한 서버를 전시하고, 옆 모니터로 SALT-KV가 어떻게 동작하는지, 실제 AI 시스템에서 데이터 저장 위치가 어떻게 바뀌는지를 실제 데이터로 보여 주었습니다."
+    },
+    {
+      "t": "p",
+      "text": "SALT-KV(Semantic-Aware Lifecycle Tiering for KV Cache)는 LLM의 KV 캐시를 맥락 단위로 나누고 재사용 가치와 저장 비용을 종합 평가합니다. 이를 바탕으로 HBM, DRAM, SSD 중 가장 적합한 계층에 데이터를 배치해 한정된 메모리 자원의 활용 효율을 높입니다. 또 SALT-KV가 적용된 LLM 모델로 게임을 만들고 실행하는 데모를 운영해, 행사 내내 직접 체험하려는 관람객이 이어졌습니다."
+    },
+    {
+      "t": "h",
+      "text": "세션 발표: 임의철 부사장의 비전"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17115119/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_09_photo_2026.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "행사 둘째 날 데이터 이동(Data Movement) 트랙에서 임의철 부사장(Solution AT 담당)이 'Beyond One-Size-Fits-All: PIM, HBF and More for the New Spectrum of AI Serving'을 주제로 발표하며 진행 중인 차세대 기술의 연구개발 성과를 공유했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "워크로드 변화: 초저지연이 필요한 에이전트 서비스부터 비용 효율이 중요한 롱컨텍스트 서비스까지 AI 워크로드가 다양해져, 기존 GPU-HBM 구조만으로는 새 요구를 충족하기 어렵다고 했습니다.",
+        "대응: 하드웨어와 소프트웨어를 아우르는 PIM, HBF, SALT-KV를 준비하고 있다고 밝혔습니다.",
+        "HBF와 PIM: HBF는 높은 대역폭과 대용량을 결합해 롱컨텍스트 워크로드 효율을 높이고, PIM은 프리미엄 서비스의 빠른 디코딩 워크로드에서 성능과 효율을 높이는 우수한 대안이라고 강조했습니다.",
+        "SALT-KV: KV 캐시의 특성과 재사용성을 고려해 처리 효율을 높이며, AI 시스템 진화를 이끌 잠재력이 충분하다고 말했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/17115133/SK-hynix-Presents-%E2%80%98New-Spectrum-for-AI-Infrastructure-at-%E2%80%98AI-Infra-Summit-2026_10_photo_2026.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 이번 참가로 PIM, HBF, SALT-KV 등 차세대 AI 메모리 솔루션을 소개하고 AI 인프라 혁신을 이끌겠다는 비전을 공유했으며, 앞으로도 기술 경쟁력을 강화하겠다고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "여러 D램 칩을 수직으로 연결해 용량을 늘리고 데이터 처리 속도를 크게 높인 고부가·고성능 제품."
+    ],
+    [
+      "TSV",
+      "실리콘 기판을 수직으로 관통하는 전극으로 칩을 수직 연결하는 기술."
+    ],
+    [
+      "HBF",
+      "High Bandwidth Flash. HBM처럼 TSV를 적용해 대용량과 고대역폭을 함께 제공하는 차세대 낸드 솔루션."
+    ],
+    [
+      "PIM",
+      "Processing-In-Memory. 메모리 안에 연산 기능을 넣어 프로세서와 메모리 간 데이터 이동을 줄이는 기술."
+    ],
+    [
+      "AiM",
+      "Accelerator-in-Memory. 프로세서의 연산 기능을 메모리에 내장한 차세대 솔루션."
+    ],
+    [
+      "KV 캐시",
+      "LLM 기반 AI 에이전트가 텍스트를 생성할 때 이전 계산 결과를 저장해 두는 임시 메모리."
+    ],
+    [
+      "SALT-KV",
+      "KV 캐시를 맥락 단위로 나눠 재사용 가치와 저장 비용을 평가하고 HBM·DRAM·SSD 중 알맞은 계층에 배치하는 솔루션."
+    ],
+    [
+      "메모리 월",
+      "프로세서와 메모리 사이 데이터 전송이 성능을 제한하는 병목."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "2-7",
+    "4-6"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

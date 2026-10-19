@@ -1,0 +1,322 @@
+{
+  "id": "samsung-017e6bd8f4",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자가 10월 14일부터 16일까지 사흘간 코엑스에서 열린 '제28회 반도체대전(SEDEX 2026)'에 참여한 현장 소개 글입니다. 올해 SEDEX는 300개 기업, 888개 부스로 역대 최대 규모였고, 삼성전자는 'Architecting AI Systems'를 주제로 약 109평 부스를 꾸렸습니다. zHBM, zNAND-O, HBM4E, CPO 광 인터커넥트 등 AI 시스템의 데이터 흐름을 최적화하는 제품과 기술을 6개 존으로 나눠 선보였습니다. 삼성전자 반도체 뉴스룸의 '칩스케치' 현장 취재 기사입니다.",
+  "keyPoints": [
+    "삼성전자는 SEDEX 2026에서 'Architecting AI Systems'를 주제로 차세대 기술·클라우드 AI·엣지 AI·피지컬 AI·반도체 클러스터·상생협력의 6개 존을 운영했습니다.",
+    "차세대 기술 존에서는 프로세서 위에 메모리를 직접 쌓는 zHBM, V낸드를 수직으로 쌓는 zNAND-O, 전기 신호를 광신호로 바꾸는 CPO 광 인터커넥트를 목업 등으로 공개했습니다.",
+    "클라우드·피지컬·엣지 AI 존에서는 HBM4E, 차량용 메모리·이미지센서, GDDR7·LPDDR5X-PIM·Exynos 2600 등 AI 환경별 제품군을 전시했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/02/칩스케치-로고_1안_v2-1.png",
+      "caption": "원문 그림 1",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/39a32ea8a353368efc3670cbffdbc1d7/DSC_0008.jpg",
+      "caption": "원문 그림 2",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "SEDEX 2026 개요와 삼성전자 부스"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/8044be49ca2cae921b0dfa75323c433f/DSC_0028.jpg",
+      "caption": "원문 그림 3",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI 기술이 고도화되면서 반도체 업계에 대한 글로벌 시장의 관심도 높아지고 있습니다. 삼성전자는 10월 14일부터 16일까지 국내 최대 규모 반도체 전시회인 제28회 반도체대전(SEDEX 2026)에 참여했습니다. 올해 행사는 역대 최대 규모로 코엑스에서 열렸고, 300개 기업이 참여해 888개 부스가 마련됐습니다."
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 'Architecting AI Systems(AI 시스템 설계)'를 주제로 약 109평 규모의 부스를 꾸렸습니다. 다양한 AI 응용 분야에서 데이터 흐름을 최적화하는 토탈 솔루션 경쟁력을 보여 주고, AI 시스템 전반에서 반도체가 하는 핵심 역할을 조명했습니다."
+    },
+    {
+      "t": "h",
+      "text": "6개 분야로 나눈 전시 구성"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/89f8c959b76656f2d789a79d82f8318f/DSC_0098.jpg",
+      "caption": "원문 그림 4",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/21d9086e66f7cb21a26550def8b75edf/DSC_0261.jpg",
+      "caption": "원문 그림 5",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스는 총 6개 분야로 구분됐습니다. AI 시스템의 병목 현상을 해결하는 '차세대 기술' 존, 주요 AI 응용분야 중심의 '클라우드 AI'·'엣지 AI'·'피지컬 AI' 존이 있었습니다. 여기에 국내외 주요 반도체 생산 거점을 보여 주는 '반도체 클러스터' 존과 지속가능한 생태계 구축 노력을 소개하는 '상생협력' 존이 더해졌습니다."
+    },
+    {
+      "t": "h",
+      "text": "차세대 기술 존: zHBM, zNAND-O, CPO"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/DSC_0456.jpg",
+      "caption": "차세대 기술 존을 둘러보는 학생들",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/9013b6e77b5a9b3c10e13e6a76c9d48a/DSC_0415.jpg",
+      "caption": "원문 그림 7",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/949d3b9ef297f05a95004cf62682311d/DSC_0395.jpg",
+      "caption": "원문 그림 8",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스 중앙의 이 존에서는 AI 시대의 폭발적인 메모리 수요에 대응할 차세대 반도체 제품과 패키징 기술을 소개했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "zHBM: 기존처럼 AI 가속기 옆에 메모리를 두지 않고 프로세서 위에 직접 적층해 데이터 이동 거리를 최소화한 차세대 3D 메모리 기술입니다. 메모리 대역폭과 전력 효율을 높여 대규모 AI 모델의 학습·추론 성능을 향상시킬 것으로 기대된다고 합니다. 목업으로 전시됐습니다.",
+        "zNAND-O: 여러 개의 V낸드 칩을 수직으로 쌓는 3D 패키징 기술을 적용한 솔루션입니다. 높은 저장 밀도와 빠른 데이터 처리 속도로 온디바이스 AI 환경에서 고성능과 저전력을 구현하도록 설계됐습니다.",
+        "CPO(Co-Packaged Optics) 광 인터커넥트: 전기 신호를 광신호로 변환해 데이터를 전송하는 기술입니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "클라우드 AI 존: HBM4E와 AI Data Journey"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/c1d8ad90cbac4965de0ffd834313f12f/DSC_0258.jpg",
+      "caption": "원문 그림 9",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/2e2a18fcf201033a89cefe255da0be30/DSC_0468.jpg",
+      "caption": "원문 그림 10",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "맞은편 클라우드 AI 존에서는 AI 시스템에 쓰이는 삼성전자 반도체 제품과 그 역할을 소개했습니다. 가장 눈길을 끈 것은 HBM4의 기본 구조를 바탕으로 동작 속도, 대역폭, 전력 효율을 높인 7세대 고대역폭 메모리 HBM4E였습니다. 베이스 다이/코어 다이 웨이퍼와 칩, 적층 구조를 보여 주는 실물 모형이 전시됐고, 현미경으로 직접 관찰하는 체험 공간도 있었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/8a6508902c99aca0ffeeabd984a24e79/DSC_0427.jpg",
+      "caption": "원문 그림 11",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/342530a783b7c5e974ba0453a0c8600a/DSC_0070.jpg",
+      "caption": "원문 그림 12",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "'AI Data Journey' 전시는 AI 시스템이 사용자 질문에 답하기까지의 과정과 데이터 이동 경로를 보여 줍니다. 영상이 상영될 때 스크린 하단의 AI 시스템 내부 모형에서 데이터의 움직임이 빛으로 표현돼 관람객이 직관적으로 이해하도록 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/9ba656b956b03ebcb280cceac9ca4d2f/DSC_0073.jpg",
+      "caption": "원문 그림 13",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/b7f62977e193800958c54c49ee38edb6/DSC_0175-1.jpg",
+      "caption": "원문 그림 14",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "서버용 메모리 모듈: 고성능 DDR5 RDIMM, 고대역폭·저전력 특성의 LPDDR5X SOCAMM2",
+        "SSD: 빠른 데이터 처리에 특화된 기업용 PM1763, 대규모 저장용 초고용량 BM1773",
+        "DDR5 모듈 토탈 솔루션: PMIC(Power Management Integrated Chip), TS(Temperature Sensor), SPD(Serial Presence Detector), RCD(Registering Clock Driver)로 구성",
+        "패키징: 임베디드 실리콘 브리지 기반으로 고성능 칩렛 통합을 지원하는 2.3D Cube-E, 하이브리드 구리 본딩(HCB)으로 수직 집적도를 높인 3D Cube-H"
+      ]
+    },
+    {
+      "t": "h",
+      "text": "피지컬 AI 존: 모빌리티와 로보틱스"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/42e549f38b089050432afc240616d1d4/DSC_0417-1.jpg",
+      "caption": "원문 그림 15",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/158193a71f5f451c7e4784a50309f4ca/DSC_0379.jpg",
+      "caption": "원문 그림 16",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/ac9d477df40fc00aae6ff6bf37222032/DSC_0371-1.jpg",
+      "caption": "원문 그림 17",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "주변 환경을 스스로 인식해 구동하는 미래 모빌리티·로보틱스를 뒷받침하는 반도체를 소개했습니다. 차량용 메모리 Automotive LPDDR5X, AM9C1, Automotive UFS 4.1과 차량용 이미지 센서 ISOCELL Auto 1H1SC가 전시됐습니다. 차량용 파운드리 솔루션 'Certified Automotive Solutions' 모형과 2나노 공정 기술을 소개하는 'Process Technology(2nm Wafer)'도 함께 선보였습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/DSC_0351-1.jpg",
+      "caption": "원문 그림 18",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "인터랙티브 터치스크린의 투명 디스플레이에서 메모리, SystemLSI, Foundry 등 카테고리를 고르면 뒤쪽 3D 차량 모형에서 해당 반도체가 쓰인 곳이 점등돼 차량용 반도체를 직관적으로 이해할 수 있었습니다."
+    },
+    {
+      "t": "h",
+      "text": "엣지 AI 존: 모바일·워크스테이션용 솔루션"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/3194a5d36e482e8ecaf0b2c1148de379/DSC_0292.jpg",
+      "caption": "원문 그림 19",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/afa6d0bbeb527fe5bba0572bc4da29ff/DSC_0305.jpg",
+      "caption": "원문 그림 20",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/567554734f1c6c2536668ceafaecd9de/DSC_0282.jpg",
+      "caption": "원문 그림 21",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "모바일과 워크스테이션 환경에서 효율적인 AI를 구현하는 저전력·고성능 반도체와 혁신적인 폼팩터의 제품을 전시했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "메모리·스토리지: 초고속 고용량 메모리 GDDR7, AI에 최적화된 초소형 스토리지 PM9E1, 차세대 저전력 메모리 LPDDR5X-PIM(Processing-in-Memory), 차세대 저전력 D램 LPDDR6, 모바일 스토리지 UFS 5.0",
+        "시스템 반도체: 업계 최초로 딥픽스(DeepPix) 기술을 적용해 초고해상도를 구현했다고 밝힌 ISOCELL HPC, 업계 최초로 하드웨어 기반 PQC를 구현해 보안성을 인정받았다고 밝힌 S3SSE2A, 모바일 프로세서 Exynos 2600"
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/DSC_0298.jpg",
+      "caption": "원문 그림 22",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "엣지 AI 연산에서 각 제품의 역할을 보여 주는 콘셉트 월도 있었습니다. 입력부터 처리, 저장, 보안에 이르는 데이터 흐름을 조명과 제품 영상으로 시각화했습니다."
+    },
+    {
+      "t": "h",
+      "text": "반도체 클러스터와 상생협력"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/DSC_0384-1.jpg",
+      "caption": "원문 그림 23",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "반도체 클러스터 존에서는 국내외 반도체 R&D 및 생산 거점을 소개하고, 용인 반도체 국가산업단지 조성계획과 미래 투자 비전을 제시했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/DSC_0470.jpg",
+      "caption": "원문 그림 24",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "상생협력 존에서는 동반성장대상과 감사패 등 수상 내역을 전시하고, 자금·기술 지원과 컨설팅 등 협력사 경쟁력 강화 프로그램을 소개했습니다. OX 퀴즈 체험 공간도 마련됐습니다. 삼성전자는 협력사의 온실가스 관리 역량 강화를 위해 온실가스 관리 교육, 1:1 현장 컨설팅, ESG 펀드 등을 운영하고 있으며, 행사장에서 '반도체 산업 탄소중립 상생 포럼'을 열어 탄소 감축 사례와 경험을 공유하고 협력 방안을 논의했습니다."
+    },
+    {
+      "t": "h",
+      "text": "관람객 반응: 전공 학생들의 관심"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/DSC_0112.jpg",
+      "caption": "서울대학교 자율로봇지능연구실 박사 연구원 백한비 님, 박병규 님",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "현장은 업계 관계자뿐 아니라 반도체 전공 학생 등 다양한 관람객으로 붐볐습니다. 서울대학교 자율로봇지능연구실 박사 과정의 백한비, 박병규 님이 소감을 전했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "백한비 님: 연구실에서 센서는 많이 쓰지만 반도체 칩 실물은 대부분 처음 봤으며, RGB 카메라용 초소형 이미지센서 칩이 이미지 정보를 처리하는 과정이 인상 깊었다고 밝혔습니다.",
+        "박병규 님: 전기 신호를 빛으로 변환해 데이터를 빠르게 전달하는 차세대 기술인 차세대 기술 존의 CPO 기반 광 인터커넥트가 가장 흥미로웠다고 밝혔습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 앞으로도 산업과 기술을 잇는 기회를 마련해 미래 반도체 산업의 혁신을 이어갈 계획이라고 밝혔습니다. 제품 중심 전시를 넘어 스토리텔링으로 반도체 기술에 대한 이해를 높이려 했다는 점도 요약으로 강조됐습니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM(고대역폭 메모리)",
+      "D램을 여러 층 쌓아 대역폭을 크게 높인 메모리로, AI 가속기와 함께 쓰입니다."
+    ],
+    [
+      "베이스 다이/코어 다이",
+      "HBM 적층 구조에서 하단의 기반 칩(베이스)과 그 위에 쌓이는 메모리 칩(코어)을 말합니다."
+    ],
+    [
+      "CPO(Co-Packaged Optics)",
+      "전기 신호를 광신호로 변환해 데이터를 전송하는 광 인터커넥트 기술입니다."
+    ],
+    [
+      "PIM(Processing-in-Memory)",
+      "메모리 안에서 연산을 처리하도록 한 구조입니다."
+    ],
+    [
+      "칩렛",
+      "기능별로 나눈 작은 칩을 하나의 패키지에 통합하는 방식입니다."
+    ],
+    [
+      "온디바이스 AI",
+      "클라우드가 아니라 기기 자체에서 AI를 실행하는 방식입니다."
+    ],
+    [
+      "하이브리드 구리 본딩(HCB)",
+      "구리 접합으로 칩을 수직으로 연결해 집적도를 높이는 기술입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-6",
+    "4-7",
+    "0-4"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

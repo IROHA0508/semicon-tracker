@@ -1,0 +1,241 @@
+{
+  "id": "skhynix-dtf-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 8월 25일 서울 코엑스에서 열린 델 테크놀로지스 포럼 2026(DTF)에 참가해 PC부터 데이터센터까지 메모리 계층 전반을 아우르는 AI 메모리 제품군을 선보였습니다. SK하이닉스는 2023년부터 서울 포럼에 계속 참여해 왔고, 올해는 처음으로 서울 DTF에서 기조연설을 맡았습니다. 부스에는 HBM4 웨이퍼, SOCAMM2, QLC 기반 eSSD 등이 전시됐고, 델 R770 서버에 탑재되는 인증 제품도 함께 소개됐습니다. 행사 참관기 형식의 뉴스룸 기술 해설 글입니다.",
+  "keyPoints": [
+    "SK하이닉스는 DTF 2026에서 PC부터 데이터센터까지 메모리 계층 전체를 아우르는 AI 메모리 포트폴리오를 전시했습니다.",
+    "서울 DTF에서 처음으로 기조연설을 진행했으며, 주영표 부사장이 '메모리가 AI 시대를 완성한다'는 메시지를 전했습니다.",
+    "델 R770 서버에 탑재되는 인증 제품(6400MT/s DDR5 RDIMM, PS1010 E3.S)을 전시해 델과의 협력을 보여 주었습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185613/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_01.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "델과의 협력 확대와 DTF 2026"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 전략 파트너인 델 테크놀로지스(델)와 협력을 넓혀 왔습니다. 5월 미국 라스베이거스에서 열린 델 테크놀로지스 월드 2026에 이어, 8월 25일 서울 코엑스에서 열린 델 테크놀로지스 포럼 2026(DTF)에 참가했습니다. 두 회사는 이 자리에서 신뢰를 재확인하고 차세대 AI 메모리 솔루션을 선보였습니다."
+    },
+    {
+      "t": "p",
+      "text": "델은 주요 지역 비즈니스 파트너와의 협력을 강화하려고 세계 주요 도시에서 포럼을 엽니다. SK하이닉스는 델의 핵심 파트너로서 2023년부터 서울 포럼에 계속 참여했습니다. 올해는 빠르게 커지는 AI 인프라 시장을 겨냥해 메모리 계층 전체를 아우르는 제품 포트폴리오를 내놓았다고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "PC에서 데이터센터까지, AI 메모리 포트폴리오"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185615/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_02_1.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185617/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_02_2.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 '풀스택 AI 메모리 크리에이터'라는 정체성을 시각적으로 표현하는 데 공을 들였습니다. 입구의 미디어 사이니지는 AI를 일상으로 가져오는 데 AI 메모리가 하는 핵심 역할을 미디어 아트로 보여 주었습니다. 뒷벽에는 AI 메모리 솔루션으로 효율적이고 신뢰할 수 있는 AI 인프라를 만들겠다는 비전을 담은 그래픽을 걸었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185636/%E3%85%8DSK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_03.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "올해 DTF를 위해 특별히 준비한 '서버 랙' 전시 공간이 큰 관심을 끌었습니다. AI 서버 랙 모양 구조물 전면의 터치스크린을 누르면 제품 정보가 나타나, 실제 서버 시스템 안에서 SK하이닉스 제품의 역할과 중요성을 직관적으로 이해할 수 있게 했습니다."
+    },
+    {
+      "t": "h",
+      "text": "Scalable Data Server 전시 제품"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185619/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_04.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Scalable Data Server에는 다음 제품이 소개됐습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "eSSD: 직접 액체 냉각(DLC)을 지원하는 PEB210 E1.S, NVMe E3.S 폼팩터로 고용량·저전력을 구현한 PS1110 E3.S, SK하이닉스 최초의 QLC 기반 eSSD인 PS1101 E3.S",
+        "서버 D램: 업계 최대 용량의 256GB 3DS RDIMM, 높은 대역폭으로 고성능 컴퓨팅 환경에 최적화된 128GB MRDIMM, 세계 최초의 10나노급 6세대(1c) 공정으로 만든 빠르고 전력 효율이 높은 64GB RDIMM",
+        "2세대 CMM(CXL Memory Module)-DDR5"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "원문 설명에 따르면 CMM-DDR5는 기존 DDR5 모듈보다 시스템 용량을 50% 늘리고 대역폭을 30% 높이며, 초당 36GB의 데이터 처리 능력을 냅니다. MRDIMM은 모듈의 기본 동작 단위인 두 랭크를 동시에 동작시켜 속도를 크게 높인 제품입니다."
+    },
+    {
+      "t": "h",
+      "text": "Hyper-Speed AI Server 전시 제품"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185621/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_05.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Hyper-Speed AI Server에는 HBM3E, HBM4, HBM4E로 이어지는 HBM 라인업과 192GB SOCAMM2가 소개됐습니다. SOCAMM2는 새로운 폼팩터로 전력과 공간 효율을 높인 제품이며, AI 서버에 맞춰 저전력 D램 기반으로 만든 메모리 모듈 폼팩터입니다. SK하이닉스는 1cnm LPDDR5X 기반 192GB SOCAMM2의 양산을 발표한 바 있습니다."
+    },
+    {
+      "t": "h",
+      "text": "Product & System 전시 공간"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185623/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_06.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185625/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_06_2.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "미디어 사이니지 위의 'Product & System' 공간은 HBM, AI DRAM, AI NAND, AI Reality의 네 구역으로 꾸며졌습니다. 맨 왼쪽 HBM 구역에는 실제 HBM4 웨이퍼와 HBM4, HBM4E 제품이 전시됐습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "AI DRAM: AI 서버와 PC 환경에 맞는 SOCAMM2, 3DS RDIMM, RDIMM, CSODIMM, LPCAMM2, LPDDR5X, GDDR7",
+        "AI NAND: 최초의 QLC eSSD(PS1101)와 최초의 QLC cSSD(PQC21)를 앞세워 PS1101 E3.S, PEB210 E1.S, PEB210 M.2, PCB01, PVF01, PQF02A/PQF02, PQC21 등 eSSD·cSSD 전시"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "CSODIMM은 기존 SODIMM보다 얇고 작은 차세대 모듈로, AI PC와 고성능 노트북에서 고용량을 구현하도록 설계됐습니다. LPCAMM2는 LPDDR5X 기반으로 DDR5 SODIMM 두 개의 성능을 내면서 공간 절약과 저전력을 제공하는 모듈입니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185628/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_07_1.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185630/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_07_2.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "가장 오른쪽 'AI Reality' 구역에는 델의 R770 서버 시스템 옆에 여기에 설치되는 SK하이닉스 인증 제품인 6400MT/s DDR5 RDIMM과 PS1010 E3.S가 놓였습니다. 방문객은 SK하이닉스 제품이 실제 델 서버에 어떻게 통합되는지 직접 볼 수 있었습니다."
+    },
+    {
+      "t": "h",
+      "text": "기조연설: 메모리가 AI 시대를 완성한다"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185631/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_08.jpg",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "서울 DTF에서 SK하이닉스가 기조연설을 한 것은 이번이 처음입니다. System Architecture 담당 주영표 부사장은 '보이지 않는 엔진: AI 시대를 완성하는 기술'이라는 주제로 차세대 메모리 솔루션이 AI 시대를 완성하는 방법을 설명했습니다."
+    },
+    {
+      "t": "p",
+      "text": "주 부사장은 \"메모리 기술은 겉으로 보이지 않지만 스토리지부터 시스템까지 모든 영역에서 AI 성능을 좌우하는 AI 시대의 핵심 동력\"이라며, \"AI가 잠재력을 온전히 발휘하도록 기술 혁신을 꾸준히 이어가겠다\"고 강조했습니다."
+    },
+    {
+      "t": "h",
+      "text": "브레이크아웃 세션과 향후 계획"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25231729/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_09_2_2.png",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/25185633/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4-%E2%80%98DTF-2026%EC%84%9C-AI-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%97%90-%EC%B5%9C%EC%A0%81%ED%99%94%EB%90%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%86%94%EB%A3%A8%EC%85%98-%EC%B4%9D%EB%A7%9D%EB%9D%BC_%EA%B8%B0%ED%83%80_%EC%9D%B4%EB%AF%B8%EC%A7%80_TECHAI_2026_09_1.jpg",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "브레이크아웃 세션에서는 NAND Product Planning의 양철훈 테크니컬 리더와 강현수 테크니컬 리더가 'AI 시대를 위한 eSSD·cSSD 솔루션과 델과의 협력 포트폴리오'를 발표했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "양철훈: AI 데이터센터에서 쓰이는 메모리 솔루션의 효율을 높이기 위한 eSSD 분야의 기술 혁신을 소개했습니다.",
+        "강현수: 온디바이스 AI 환경에서 차세대 cSSD가 충족해야 할 기술 요구사항과 이를 이루기 위한 노력을 공유했습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 \"이번 DTF 참여로 핵심 파트너인 델과 협력을 더 강화하고 풀스택 AI 메모리 크리에이터로서의 기술력을 널리 알렸다\"며, AI 시대를 이끄는 글로벌 빅테크와 전략적 파트너십을 다양하게 넓히고 AI 메모리 시장에서 확보한 선도적 위치를 강화하겠다고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "여러 D램 칩을 수직으로 연결해 용량을 늘리고 데이터 처리 속도를 크게 높인 고부가·고성능 제품입니다."
+    ],
+    [
+      "SOCAMM2",
+      "저전력 D램 기반으로 AI 서버에 맞춰 만든 메모리 모듈 폼팩터입니다."
+    ],
+    [
+      "QLC",
+      "셀 하나에 4비트를 저장하는 낸드 플래시 방식으로, 같은 면적에 더 많은 데이터를 담을 수 있습니다."
+    ],
+    [
+      "NVMe",
+      "PCIe 인터페이스 기반의 비휘발성 메모리 통신 규약으로, SATA보다 초고속·대용량 처리에 최적화되어 있습니다."
+    ],
+    [
+      "3DS",
+      "TSV로 D램 칩 두 개 이상을 수직으로 연결한 고성능 메모리입니다."
+    ],
+    [
+      "MRDIMM",
+      "모듈의 기본 동작 단위인 두 랭크를 동시에 동작시켜 속도를 크게 높인 서버용 모듈입니다."
+    ],
+    [
+      "CXL",
+      "시스템 안에서 메모리, 프로세서 등을 효율적으로 연결해 대역폭과 용량의 한계를 넓히는 인터페이스 기술입니다."
+    ],
+    [
+      "LPDDR",
+      "저전력 특성을 가진 최신 모바일 D램 제품군입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "2-7",
+    "2-8"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

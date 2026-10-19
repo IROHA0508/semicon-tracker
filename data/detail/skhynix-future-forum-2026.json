@@ -1,0 +1,334 @@
+{
+  "id": "skhynix-future-forum-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 9월 8일 이천캠퍼스 SUPEX 센터에서 '2026 SK hynix Future Forum'을 열었습니다. 주제는 'AI 시대의 골든 타임: AI 메모리 솔루션 크리에이터가 세상을 바꾸는 순간'이며, AI 전환(AX) 흐름과 메모리가 나아갈 방향을 다뤘다고 밝혔습니다. 기조 발표 3개와 패널 토론으로 구성됐고, 국내외 업계 인사와 대학 교수, 회사 임원이 참여했습니다. 사내 인사이트를 높이기 위한 행사를 소개하는 뉴스룸 행사 스케치 글입니다.",
+  "keyPoints": [
+    "포럼은 AI 협업으로 달라지는 일하는 방식, 'Beyond Commodity' 메모리 솔루션, 3D 기술을 통한 메모리 경계 확장의 세 축으로 진행됐습니다.",
+    "SK하이닉스는 3D 적층 D램, HBM, HBF 등을 워크로드별로 조합하고 파트너와 시스템 수준 공동 설계를 하는 'Full-Stack AI Memory' 전략을 제시했습니다.",
+    "회사는 포럼에서 얻은 인사이트를 학습 콘텐츠로 만들어 사내에 공유하고 각 조직의 업무에 연결할 계획입니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "포럼 개요와 곽노정 CEO 환영사"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202753/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_01_photo_2026.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Future Forum은 AI 시대에 SK하이닉스가 가야 할 길을 정하고 구성원의 인사이트를 높이기 위한 행사입니다. 2024년에는 AI 기술의 선제적 탐색, 2025년에는 AI 밸류체인 전반의 혁신 전망을 다뤘습니다. 올해는 일하는 방식과 환경이 바뀌고 사업과 기술의 경계가 허물어지는 AI 시대를 넓게 보며, '우리가 무엇을 해야 하는가'와 '메모리가 나아갈 방향'을 짚는 데 집중했습니다."
+    },
+    {
+      "t": "p",
+      "text": "행사는 기조 발표 3개와 패널 토론으로 이뤄졌습니다. 김경훈 디자인연구 담당 부사장, 김형수 DRAM설계 담당 부사장, 손호영 Advanced Package 개발 담당 부사장, 임의철 Solution AT 담당 부사장, 주재욱 스마트제조기술/AX Advance 담당 부사장 등 임원이 참여했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202755/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_02_photo_2026.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202757/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_03_photo_2026.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "곽노정 CEO는 '밖에서 안으로' 시각을 바꿔, 오랫동안 당연하게 여긴 것을 고객과 파트너의 눈으로 다시 보고 AI 생태계 변화 속에서 보지 못했던 가능성을 찾자고 강조했습니다. 과거 메모리 시장이 누가 더 빨리 달리느냐의 '곧은 길'이었다면 지금은 순간순간 바뀌는 '굽은 길'을 달리는 것과 같다고 비유했습니다. 내부 역량뿐 아니라 외부 변화의 속도와 방향을 읽고 유연해지는 속도가 중요하다고 했습니다."
+    },
+    {
+      "t": "h",
+      "text": "기조 발표 1: AI 협업이 바꾸는 일하는 방식"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202759/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_04_photo_2026.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202802/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_05_photo_2026.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202805/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_07_photo_2026.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202803/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_06_photo_2026.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202809/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_09_photo_2026.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202806/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_08_photo_2026.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "주제는 '인간-AI 협업: 우리의 일은 어떻게 바뀔까'였습니다. 앤트로픽의 타리크 시히파르 제품 총괄은 'Claude'의 실제 사용 데이터를 바탕으로, 경험 많은 전문가일수록 무엇을 맡기고 결과를 어떻게 판단할지 알기에 더 나은 성과를 낸다고 설명했습니다. 반도체 산업도 회로 시뮬레이션, 전력 측정, 시스템 최적화 등에 AI를 적용하는 'Software Factory'를 만들 수 있으며, AI가 스스로 결과를 검증하는 체계가 중요하다고 했습니다. AI 에이전트가 로봇 같은 하드웨어와 연결되면 제조 현장으로 활용 범위가 넓어지고, AI는 반복적이고 검증 가능한 일을, 사람은 새 아이디어와 의사결정 같은 고부가 역할을 맡게 될 것이라고 내다봤습니다."
+    },
+    {
+      "t": "p",
+      "text": "송길영 작가는 AI 도입의 핵심 변화로 '조직과 시스템의 재설계'를 꼽았습니다. 개인이 도구로 쓰는 단계를 넘어 조직이 사람과 AI의 역할을 다시 정의해야 하는 단계에 들어섰고, 시스템은 그대로 둔 채 사람만 빠르게 하는 데는 한계가 있으므로 개인이 자신의 전문성과 역량을 정의할 수 있어야 한다고 강조했습니다."
+    },
+    {
+      "t": "p",
+      "text": "주재욱 부사장은 AI를 '협업 파트너이자 팀의 또 다른 구성원'으로 정의하고, 사람이 판단에 집중하는 업무 환경을 제시했습니다. 생산 현장에서는 표준 작업 절차(SOP)를 기반으로 사람과 AI의 협업 방식을 재설계하고, 공정·설비 데이터의 의미와 관계를 정의해 AI가 활용할 기반을 만들고 있다고 했습니다. 라인 이상이 생기면 AI가 데이터를 분석해 원인과 대응책을 제안하고 사람은 최종 판단과 결정에 집중하는 모델로 바뀔 것으로 예상했습니다. 또 GaiA Platform으로 팹 내 생산 운영을 준비하고, 안전 감독 로봇과 고소 작업용 VLM 드론 등 AI를 전방위로 활용할 계획이라고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "기조 발표 2: 'Beyond Commodity' 메모리 솔루션"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202810/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_10_photo_2026.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202812/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_11_photo_2026.jpg",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202814/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_12_photo_2026.jpg",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202815/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_13_photo_2026.jpg",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202817/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_14_photo_2026.jpg",
+      "caption": "원문 그림 14",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202819/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_15_photo_2026.jpg",
+      "caption": "원문 그림 15",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/07181436/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_01-info_2026.jpg",
+      "caption": "원문 그림 16",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "서울대 윤성로 교수: AI 워크로드가 반응형 AI에서 에이전틱 AI로 진화하며 메모리 역할도 바뀌고 있습니다. AI가 작업을 이어가려 기억·관리해야 하는 상태 정보(AI State)가 늘고 수명과 접근 특성도 다양해져 범용 메모리 하나로는 대응하기 어렵습니다. 워크로드 특성에 맞는 메모리 계층 설계가 미래 AI 시스템의 핵심 경쟁력이 될 것이라고 전망했습니다.",
+        "하이퍼엑셀 김주영 대표: 멀티 에이전트 운영과 장시간 작업이 늘면서 메모리 용량과 대역폭 등에 새 병목이 생기고 있습니다. HBM, DRAM, CXL, SSD, 새로운 메모리 계층을 워크로드에 맞게 배치하고 다양한 가속기와 시스템 수준에서 함께 최적화해 AI 인프라의 성능과 총소유비용(TCO)을 개선해야 한다고 강조했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/07181452/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_02-info_2026.jpg",
+      "caption": "원문 그림 17",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "임의철 부사장은 'Full-Stack AI Memory' 전략을 소개했습니다. 3D 적층 D램, HBM, HBF 등 다양한 메모리를 워크로드 특성에 맞게 조합하고, AI 서비스·소프트웨어·가속기 분야의 생태계 파트너와 '시스템 수준 공동 설계'로 최적 솔루션을 만든다는 것입니다. 이를 통해 메모리 소자 공급자를 넘어 AI 시스템을 이해하고 파트너와 함께 설계하는 Full-Stack AI 메모리 크리에이터로 진화하겠다고 했습니다."
+    },
+    {
+      "t": "h",
+      "text": "기조 발표 3: 3D 기술로 넓히는 메모리 경계"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202820/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_16_photo_2026.jpg",
+      "caption": "원문 그림 18",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202821/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_17_photo_2026.jpg",
+      "caption": "원문 그림 19",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202824/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_18_photo_2026.jpg",
+      "caption": "원문 그림 20",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202826/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_19_photo_2026.jpg",
+      "caption": "원문 그림 21",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/07182256/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_03-info_2026_R2.jpg",
+      "caption": "원문 그림 22",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "고려대 신창환 교수와 김경훈·손호영 부사장이 3D 메모리를 AI 시대에 준비할 '미래 메모리 기술'로 짚었습니다. 신 교수는 3D를 단순히 칩을 수직으로 쌓는 기술이 아니라 '메모리와 연산 칩의 구분을 없애는 기술'이라고 설명했습니다. 소자 미세화가 한계에 이르렀고 시스템과 메모리 간 데이터 전송 시간과 전력 소모가 늘고 있어 3D 전환은 불가피하다고 주장했습니다. 소재·소자·패키징·아키텍처 네 영역을 AI로 연결하는 3D 통합 설계 프레임워크도 제안했습니다."
+    },
+    {
+      "t": "p",
+      "text": "김경훈·손호영 부사장은 3D 기술을 소자 집적(Device Integration)과 이종 집적(Heterogeneous Integration)으로 나누고, 주요 방향으로 데이터 버스 폭 극대화, 초단거리 전송, D램 주변 회로(Peri.)의 로직 파운드리화를 제시했습니다. 구현에는 설계와 방열 문제뿐 아니라 미세 연결, 본딩, 공정 통합 같은 패키징 과제를 풀어야 한다고 했습니다. 전공정(Fab)과 후공정(패키징), 나아가 파운드리와 메모리 IDM 사이의 기술적·사업적 경계가 가까워지면서 영역 간 공동 최적화와 새 협력 체계가 중요해질 것으로 내다봤습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "김경훈 부사장: 3D 적층 D램을 제품화하려면 설계 최적화뿐 아니라 방열, 공정 복잡도 등 과거와 다른 기술 과제를 풀어야 한다고 말했습니다.",
+        "손호영 부사장: 3D 기술이 팹과 패키징의 기술적 경계까지 바꾸고 있어, 첨단 패키징 혁신과 함께 기존 경계를 넘는 영역 간 공동 최적화와 협력 체계가 중요하다고 말했습니다."
+      ]
+    },
+    {
+      "t": "table",
+      "head": [
+        "구분",
+        "뜻"
+      ],
+      "rows": [
+        [
+          "소자 집적",
+          "소자 자체를 수직으로 쌓는 것"
+        ],
+        [
+          "이종 집적",
+          "따로 만든 서로 다른 칩을 나중에 붙이는 것"
+        ]
+      ]
+    },
+    {
+      "t": "h",
+      "text": "패널 토론: 밖에서 본 메모리"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202827/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_20_photo_2026.jpg",
+      "caption": "원문 그림 23",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202829/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_21_photo_2026.jpg",
+      "caption": "원문 그림 24",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202832/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_22_photo_2026.jpg",
+      "caption": "원문 그림 25",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202835/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_23_photo_2026.jpg",
+      "caption": "원문 그림 26",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "'Memory Outside-In: 새로운 시각, 새로운 기회' 토론은 생태계 시각에서 SK하이닉스의 현재와 나아갈 방향을 보는 자리였습니다. TSMC의 에이프릴 리 AI & HPC 사업개발 디렉터, 하이퍼엑셀 김주영 대표, 스퀴즈비츠 김형준 대표, 리벨리온 박성현 대표, 블루닷AI 강정수 리서치센터장이 참여했습니다. 사회를 맡은 김형수 부사장은 오늘의 메모리 호황이 과거와 어떻게 다른지 짚은 뒤, 다음 시장을 여는 메모리의 조건과 Full-Stack AI 메모리 크리에이터로 도약하기 위해 회사에 더 필요한 것을 물었습니다."
+    },
+    {
+      "t": "h",
+      "text": "행사 운영과 폐회"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202841/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_26_photo_2026.jpg",
+      "caption": "원문 그림 27",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "이번 포럼은 준비 전 과정에 AI를 녹였고, 한국어와 영어로 진행됐으며 SK하이닉스 글로벌 인턴이 진행을 맡았습니다. 현장에서는 안건별 AI 소개 영상을 상영하고, AI 통역·자막 프로그램으로 해외 연사와 실시간 소통했으며, 휴머노이드 로봇이 보조 진행자로 안내를 도왔습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202836/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_24_photo_2026.jpg",
+      "caption": "원문 그림 28",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/09/08202838/SK-hynix-Charts-Its-Business-and-Technology-Direction-at-the-2026-Future-Forum-Now-Is-the-Golden-Time-to-Leap-Forward_25_photo_2026.jpg",
+      "caption": "원문 그림 29",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "김형수 SKHU 사장은 폐회사에서 오늘의 인사이트가 일하는 방식과 사고의 틀을 바꾸는 계기가 되는 것이 포럼의 의미라고 했습니다. HBM에서 경험했듯 반도체 기술의 경계를 넓히고 새 메모리 솔루션을 만드는 힘은 구성원의 호기심과 창의성에 있다고 덧붙였습니다. 회사는 포럼의 인사이트를 구성원 학습 콘텐츠로 재가공해 사내에 공유하고 각 조직의 업무와 연결해 실행으로 이어갈 계획입니다."
+    }
+  ],
+  "terms": [
+    [
+      "AX(AI Transformation)",
+      "AI를 통해 업무와 사업 방식을 전환하는 것."
+    ],
+    [
+      "SOP",
+      "업무를 일관되고 효율적으로 수행하기 위해 정한 표준 작업 절차."
+    ],
+    [
+      "VLM(Vision-Language Model)",
+      "이미지·영상 정보를 텍스트와 함께 이해하고 분석하는 AI 모델."
+    ],
+    [
+      "에이전틱 AI",
+      "스스로 목표를 세우고 계획을 짜 사람의 개입 없이 작업을 수행하는 AI 시스템."
+    ],
+    [
+      "AI State",
+      "대화 맥락, 작업 진행 상황, 중간 결과처럼 AI가 작업을 이어가려 기억·관리해야 하는 상태 정보."
+    ],
+    [
+      "TCO(총소유비용)",
+      "도입 비용뿐 아니라 전력, 운영, 유지보수 등 사용 기간 전체에 드는 비용을 포함한 개념."
+    ],
+    [
+      "소자 집적",
+      "소자 자체를 수직으로 쌓는 방식."
+    ],
+    [
+      "이종 집적",
+      "따로 제조한 서로 다른 칩을 나중에 붙이는 방식."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-6",
+    "4-7",
+    "4-3"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

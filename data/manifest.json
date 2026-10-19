@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T10:30:18+09:00",
+  "generatedAt": "2026-10-19T10:43:44+09:00",
   "count": 150,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
@@ -82,7 +82,8 @@
       "relatedUnits": [
         "4-7",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-017e6bd8f4",
@@ -99,7 +100,8 @@
       "relatedUnits": [
         "0-2",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ocp-global-summit-2026",
@@ -150,7 +152,8 @@
       "relatedUnits": [
         "5-6",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ai-ecosystem-series-ep3",
@@ -167,7 +170,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-eee2299079",
@@ -183,7 +187,8 @@
       "relatedUnits": [
         "4-7",
         "3-13"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-fact-11",
@@ -200,7 +205,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-0e72b2980e",
@@ -217,7 +223,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ai-infrastructure-insight-ep3",
@@ -234,7 +241,8 @@
       "relatedUnits": [
         "4-7",
         "4-9"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-tsmc-oip-conference-2026",
@@ -251,7 +259,8 @@
       "relatedUnits": [
         "0-2",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-fd2e3034c8",
@@ -266,7 +275,8 @@
       "relatedUnits": [
         "4-7",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-sk-hynix-ventures",
@@ -282,7 +292,8 @@
       "relatedUnits": [
         "4-7",
         "5-1"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ai-infra-summit-2026",
@@ -299,7 +310,8 @@
       "relatedUnits": [
         "4-7",
         "4-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-fact-10",
@@ -315,7 +327,8 @@
       "relatedUnits": [
         "0-2",
         "5-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-1950d27fec",
@@ -325,7 +338,8 @@
       "source": "samsung-newsroom",
       "kind": "press",
       "tags": [],
-      "relatedUnits": []
+      "relatedUnits": [],
+      "detail": true
     },
     {
       "id": "samsung-af2499b4f8",
@@ -342,7 +356,8 @@
       "relatedUnits": [
         "3-13",
         "2-6"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-future-forum-2026",
@@ -359,7 +374,8 @@
       "relatedUnits": [
         "4-7",
         "4-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-33fa93440f",
@@ -375,7 +391,8 @@
       "relatedUnits": [
         "3-15",
         "4-3"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-91de5dcb74",
@@ -389,7 +406,8 @@
       ],
       "relatedUnits": [
         "6-1"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ai-ecosystem-series-ep2",
@@ -406,7 +424,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-e69a3e8270",
@@ -423,7 +442,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-41d8ce6f78",
@@ -458,7 +478,8 @@
       "relatedUnits": [
         "3-16",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ai-infrastructure-insight-ep2",
@@ -475,7 +496,8 @@
       "relatedUnits": [
         "4-7",
         "5-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-81cea496ae",
@@ -492,7 +514,8 @@
       "relatedUnits": [
         "3-9",
         "0-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-groundbreaking-ceremony-in-indiana",
@@ -510,7 +533,8 @@
       "relatedUnits": [
         "0-2",
         "5-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-8212f74e59",
@@ -525,7 +549,8 @@
       "relatedUnits": [
         "4-7",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-a9b8614f55",
@@ -540,7 +565,8 @@
       "relatedUnits": [
         "4-7",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-dtf-2026",
@@ -558,7 +584,8 @@
       "relatedUnits": [
         "4-7",
         "2-10"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-tech-note-series-ep2",
@@ -575,7 +602,8 @@
       "relatedUnits": [
         "4-5",
         "0-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-84eddd0ae9",
@@ -590,7 +618,8 @@
       "relatedUnits": [
         "5-6",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-529b00c622",
@@ -607,7 +636,8 @@
       "relatedUnits": [
         "2-10",
         "2-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-cpo-in-nature-electronics",

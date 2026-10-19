@@ -1,0 +1,248 @@
+{
+  "id": "samsung-eee2299079",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자가 9월 30일 서초사옥 다목적홀에서 '삼성 AI 포럼 2026'을 열었습니다. 2017년 시작해 올해 10회째이며, 학계·업계 전문가와 임직원 약 400명이 참석하고 온라인으로도 생중계됐습니다. 주제는 'The Agentic Shift: From Intelligence to Impact'로, 오전에는 AI 에이전트의 진화를 다룬 키노트가, 오후에는 DX·DS부문별 적용 사례 발표가 이어졌습니다. 행사 현장을 소개하는 칩스케치 기사입니다.",
+  "keyPoints": [
+    "삼성 AI 포럼 2026은 10회째 행사로, 약 400명이 참석했고 주제는 에이전틱 AI였습니다.",
+    "오전 키노트에서는 OpenAI, AWS, 워싱턴대, 삼성리서치 연사가 AI 에이전트의 진화와 안전한 운영 방향을 다뤘습니다.",
+    "오후 DS부문 세션에서는 Dell, Anthropic, 삼성전자 AX/PI센터가 AI 네이티브와 R&D·개발·제조의 자동화·지능화 사례를 공유했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/02/칩스케치-로고_1안_v2-1.png",
+      "caption": "원문 그림 1",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "10주년 맞은 삼성 AI 포럼 2026"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 9월 30일 서초사옥 다목적홀에서 '삼성 AI 포럼 2026'을 개최했습니다. 2017년 첫 시작 이래 올해 10회째이며, 글로벌 학계와 업계 전문가가 모여 AI 분야의 최신 기술과 연구 성과를 공유하고 미래 발전 방향을 논의하는 기술 교류의 장입니다. 학계·업계 전문가와 삼성전자 임직원 등 약 400명이 참석했고 온라인 생중계도 진행됐습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/71950056263132fa256ecf26a94599bc/1-2.jpg",
+      "caption": "원문 그림 2",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/8d78f13864c8d75baa4bb0425ed386a5/2-2.jpg",
+      "caption": "원문 그림 3",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/2d2ea7d1342874c25a39dca2605d70bb/3-2.jpg",
+      "caption": "원문 그림 4",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "올해 주제는 'The Agentic Shift: From Intelligence to Impact'입니다. 글로벌 AI 전문가 강연으로 기술 흐름과 방향을 살펴보고, 삼성전자 각 부문의 최신 AI 연구 성과와 혁신 사례도 공유했습니다."
+    },
+    {
+      "t": "h",
+      "text": "글로벌 AI 리더들과 본 AI의 현재와 미래"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/09/sdfsdfsd.png",
+      "caption": "삼성전자 전영현 대표이사 부회장",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "환영사에서 삼성전자 전영현 대표이사 부회장은 \"에이전틱 AI는 단순한 기술 혁신을 넘어 일하는 방식과 조직 문화의 근본적인 변화를 가져올 것\"이라며, 글로벌 AI 리더들과 방향을 모색하고 실질적인 AI 기술 혁신을 추진하겠다고 밝혔습니다. 이어진 키노트에서는 AI 에이전트의 진화와 확장 가능성, 산업·비즈니스 적용을 통한 가치 창출 방향이 제시됐습니다."
+    },
+    {
+      "t": "h",
+      "text": "OpenAI: 생성형 AI에서 에이전트로"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/1c088bb1ec1384cbb3c10f79ad606b41/5-2.jpg",
+      "caption": "원문 그림 6",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/d5b538e92d9bce1cba979b2bc8176e25/6-2.jpg",
+      "caption": "원문 그림 7",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/10f85c62e4a7cf665f466aa45d4e0aa8/7-1.jpg",
+      "caption": "원문 그림 8",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "OpenAI의 Hardware 담당 리처드 호(Richard Ho) VP는 생성형 AI를 넘어 에이전트 모델로 진화하는 AI와 업무 방식의 혁신을 다뤘습니다. 생성형 AI가 정보 탐색과 개별 작업 방식을 바꿨다면, AI 에이전트는 직접 도구를 사용하고 작업 맥락을 유지하며 결과를 평가하는 등 사람과 협력해 전체 워크플로우를 수행하는 주체로 발전하고 있다고 짚었습니다."
+    },
+    {
+      "t": "p",
+      "text": "ChatGPT와 코덱스(Codex) 등 최신 모델이 R&D, 엔지니어링, 제조, 지식 노동에 가져올 변화와 함께, 최근 공개된 '할라피뇨(Jalapeño)' 프로젝트를 포함한 맞춤형 반도체 개발 경험도 공유했습니다. 아키텍처 구상, 설계·검증, 소프트웨어, 물리적 구현까지 전 과정에서 AI로 피드백 단계를 압축한 사례를 소개하고, 고도화된 자동화 환경에서도 인간의 판단과 책임을 유지하는 방향을 제시했습니다."
+    },
+    {
+      "t": "h",
+      "text": "AWS: 운영 모델 전환과 데이터 접근 통제"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/6793a2842ec746a52a2ee4c1275e95ef/8-1.jpg",
+      "caption": "원문 그림 9",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/985da773af44dc0bfe33027a81e359dd/9.jpg",
+      "caption": "원문 그림 10",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/eb9e8069d7dd4a1fe66b06aee7bd09af/10.jpg",
+      "caption": "원문 그림 11",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AWS 아시아태평양·일본(APJ) AI 기술 리더 데이비드 그린(David Green)은 리테일, 디바이스, AWS 비즈니스를 통해 25년 이상 머신러닝을 서비스에 적용해 온 아마존의 경험을 공유했습니다. 글로벌 기업의 공통적인 AI 도입 패턴과, 제품 기획·엔지니어링·반도체 설계·운영·물류·고객 지원 전반의 적용 사례를 살펴봤습니다."
+    },
+    {
+      "t": "p",
+      "text": "AI 에이전트가 여러 조직으로 확장되는 만큼 기술 변화를 넘어 운영 모델 자체의 전환이 필요하다고 짚었습니다. 대규모 데이터를 다루는 환경에서는 개별 에이전트의 판단에 의존하지 않고 시스템 차원에서 데이터 접근 권한을 관리·통제하는 방식을 설명했습니다."
+    },
+    {
+      "t": "h",
+      "text": "피지컬 AI와 자기진화 에이전트, 패널토의"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/f459b320b5974e4c9d7ca5f84ffc8c8d/11-1.jpg",
+      "caption": "원문 그림 12",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/5582d6070833c041dec31864fd9420e3/12.jpg",
+      "caption": "원문 그림 13",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/ed21053df883f43509efedc0ce4b4039/13.jpg",
+      "caption": "원문 그림 14",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "워싱턴대학교 란자이 크리슈나(Ranjay Krishna) 교수: 물리 세계에 기반한 AI 에이전트와 향후 발전 방향을 설명했습니다.",
+        "삼성리서치(MIT 교수 겸임) 김윤형 상무: 지속 학습으로 스스로 진화하는 'Self-Evolving Expert Agent'를 소개했습니다.",
+        "패널토의: 두 전문가가 에이전틱 AI와 피지컬 AI의 융합, 미래 전망, 실제 제품 적용 방향을 논의했습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "오후 세션: 산업 현장에 들어온 AI"
+    },
+    {
+      "t": "p",
+      "text": "오후 세션은 DX부문과 DS부문이 각각 별도 프로그램을 준비해 구체적인 AI 혁신 사례를 다뤘습니다. DS부문은 반도체 산업에 직접 적용되는 AI를 중심으로 업무 생산성 향상과 새 가치 창출 사례를 공유했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/07425bccc9eee4ecddf98b279b49d666/14-1.jpg",
+      "caption": "원문 그림 15",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/23136af54bd1f3a4f6de5b75f38ca470/15.jpg",
+      "caption": "원문 그림 16",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Dell Technologies APJ 최고데이터책임자(CDO) 아자즈 문시프(Ajaz Munsiff)는 '외부 AX를 통한 Business Value 창출 사례'라는 제목으로 AI 네이티브 기업을 구현하기 위한 Dell의 전략과 실행 방안을 소개했습니다. AI 네이티브는 AI를 기존 시스템에 단순히 추가하는 수준을 넘어 업무 방식, 기업 운영, 제품·서비스를 AI 중심으로 설계하고 혁신하는 개념입니다."
+    },
+    {
+      "t": "p",
+      "text": "Anthropic의 최상근 Tech Lead는 엔지니어링·R&D 환경에서 AI 에이전트를 안전하게 쓰기 위한 시스템 설계 인사이트를 공유했습니다. 에이전트가 코드 작성·테스트, 복잡한 실험까지 전체 과정을 자동화해 큰 생산성 향상이 예상되지만, 사람이 모든 실행 단계를 확인하고 승인하는 것은 더 이상 불가능하다고 지적했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "에이전트가 기업 고유 데이터와 생산 인프라에 직접 접근하므로 시스템 자체에 강력한 통제 장치를 내재화해야 합니다.",
+        "에이전트 실행 환경을 격리하고 외부 콘텐츠를 사전에 검사하며, 위험성이 높은 작업은 실행 전 시스템 차원에서 확인하는 등 여러 방어망이 겹쳐 작동하게 합니다.",
+        "이렇게 하면 관리자가 모든 작업을 승인하지 않고도 전체를 감독할 수 있고, 여러 에이전트가 동시에 병렬로 작업하는 환경이 가능하다고 제시했습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "삼성전자 DS부문: 자동화와 지능화"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/a3cb32c5855b75f62e12abeb47587a66/16-1.jpg",
+      "caption": "원문 그림 17",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/88880109f1c03b34600a861b1de62cb1/17.jpg",
+      "caption": "삼성전자 DS부문 AX/PI센터 한재준 마스터",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자 DS부문 AX/PI센터 한재준 마스터는 AI 네이티브 목표를 위해 R&D·개발·제조 세 영역에서 추진 중인 자동화와 지능화의 개념과 발전 방향을 공유했습니다. 자동화는 반복적이고 정형화된 업무를 AI에 위임하는 것이고, 지능화는 AI가 추론·판단·의사결정에 깊이 관여해 인간의 인지 능력을 확장하는 것입니다. 두 축이 맞물려 발전하며 일하는 방식을 바꾸고, 업무 방식 자체를 재설계하는 AI 네이티브로 나아가겠다고 밝혔습니다."
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 앞으로도 삼성 AI 포럼을 통해 글로벌 전문가들과 최신 기술과 혁신 사례를 공유하며 AI 기반 반도체 산업의 발전 방향을 모색해 나갈 예정이라고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "에이전틱 AI",
+      "도구를 쓰고 맥락을 유지하며 결과를 평가하며 전체 워크플로우를 수행하는 AI 에이전트 중심의 AI입니다."
+    ],
+    [
+      "AI 에이전트",
+      "사람의 작업을 보조하는 데 그치지 않고 스스로 도구를 사용해 작업을 수행하는 AI입니다."
+    ],
+    [
+      "피지컬 AI",
+      "물리 세계에 기반해 동작하는 AI입니다."
+    ],
+    [
+      "AI 네이티브",
+      "AI를 기존 시스템에 단순 추가하는 수준을 넘어 업무 방식, 운영, 제품·서비스를 AI 중심으로 설계하고 혁신하는 개념입니다."
+    ],
+    [
+      "AX",
+      "AI를 통한 업무·사업 방식의 전환을 가리키는 말입니다."
+    ],
+    [
+      "자동화와 지능화",
+      "자동화는 반복적·정형 업무를 AI에 위임하는 것, 지능화는 AI가 추론·판단·의사결정에 관여해 인간 인지 능력을 확장하는 것입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-7",
+    "0-4",
+    "6-3"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

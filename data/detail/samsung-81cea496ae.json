@@ -1,0 +1,329 @@
+{
+  "id": "samsung-81cea496ae",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자가 8월 19일 경기도 용인 The UniverSE에서 산학협력 통합교류회 ‘SPARK 2026’을 열었습니다. 국내 11개 대학과 미국 스탠퍼드 대학 교수진 등 총 1,177명이 참석해 연구 성과를 공유했고, 포스터 세션에는 6개 분야 358개 과제가 전시됐습니다. 올해 처음 신설된 테크 세션에서는 7개 세션이 동시에 열렸고, 우수 논문·특허 시상도 있었습니다. 삼성전자 반도체 뉴스룸의 '칩스케치' 행사 스케치 글입니다.",
+  "keyPoints": [
+    "SPARK 2026에는 국내 11개 대학과 스탠퍼드대 교수진 등 총 1,177명이 모여 연구 성과를 공유했습니다.",
+    "포스터 세션에는 6개 분야 358개 과제가 전시됐고, 신설된 테크 세션은 7개 세션으로 약 90분간 동시에 진행됐습니다.",
+    "시상식에서는 총 43명이 수상했고, 최우수상 수상자인 POSTECH 연구원은 155단 낸드 웨이퍼로 결정화 공정을 실증했다고 소개했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/02/칩스케치-로고_1안_v2-1.png",
+      "caption": "원문 그림 1",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "행사 개요: 대학의 경계를 넘어 모이다"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 지난 8월 19일 국내 대학과 산학협력의 폭을 넓히고 미래 반도체 연구 방향을 함께 모색하기 위해 산학협력 통합교류회 ‘SPARK 2026’을 개최했습니다. SPARK는 Samsung Partnership with Academia’s Research & Knowledge의 약자로, DS와 대학 간 파트너십을 바탕으로 반도체 연구와 지식 분야에서 혁신의 스파크를 일으킨다는 뜻이라고 밝혔습니다."
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 2016년부터 대학의 연구 역량을 반도체 생태계 성장의 중요한 토대로 보고 산학협력을 이어왔습니다. 대학별로 운영하던 교류회를 2025년부터 통합 운영하고 있으며, 올해는 협력 중인 국내 11개 대학과 미국 스탠퍼드 대학 교수진 등 총 1,177명이 참석했습니다."
+    },
+    {
+      "t": "p",
+      "text": "행사는 경기도 용인 삼성전자 The UniverSE에서 열렸습니다. 오전에는 포스터 세션, 오후에는 테크 세션과 우수 논문 시상 등 본 행사가 이어졌습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/24e2e66e031a56fbe9df1e32b651a35e/1000x666.jpg",
+      "caption": "원문 그림 2",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/cea0cae3ff0394588af4e748ce380eb4/HAHN1555.jpg",
+      "caption": "원문 그림 3",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/3d28385e9db5736341c5027c758a05ef/HAHN1845.jpg",
+      "caption": "원문 그림 4",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/5cc26cd2f7e99bba879189620644a664/33.jpg",
+      "caption": "원문 그림 5",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "포스터 세션: 연구 성과를 한자리에서"
+    },
+    {
+      "t": "p",
+      "text": "AI, 설계, 공정·소자, 소프트웨어, 인프라·환경, 계측·분석 등 6개 분야 전략산학 358개 과제의 포스터가 행사장 전 층에 전시됐습니다. 참가자들은 연구 성과와 반도체 기술 동향을 자유롭게 논의했습니다."
+    },
+    {
+      "t": "p",
+      "text": "각 층 강의실을 오가며 관심 분야와 연구 아이디어를 두고 심층 논의를 했고, 교수진·연구원·임직원이 관점과 인사이트를 나누며 협력 가능성을 모색했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/0f868de9802ff151b54fdae2ada20efd/11-1.jpg",
+      "caption": "원문 그림 6",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/2ddfa99e3a7cb3b1ac67bef0d1c69539/55.jpg",
+      "caption": "원문 그림 7",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/33f16e97811762a5302aadb6f0d0e3d2/22.jpg",
+      "caption": "원문 그림 8",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/e49b1fff3a8179a25553f8e6ff3d1bac/44.jpg",
+      "caption": "원문 그림 9",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/ccaf2acf31c1a2bc47d1188e77de8c5e/HAHN2027.jpg",
+      "caption": "원문 그림 10",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/cbe68da5d06e168b1a5c418cb3259697/HAHN1976.jpg",
+      "caption": "원문 그림 11",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/5615bcdd70cc4b9d9c08923ced406fbb/HAHN1989.jpg",
+      "caption": "원문 그림 12",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/371a2a2b1365e8198a874cec49fae84a/12.jpg",
+      "caption": "원문 그림 13",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "테크 세션: 설계·공정소자 분야"
+    },
+    {
+      "t": "p",
+      "text": "올해 신설된 테크 세션은 반도체 전반을 아우르는 7개 세션으로 구성돼 약 90분간 각 강연장에서 동시에 진행됐습니다. 전문가 강연, 패널토의, 릴레이 강연 등 다양한 방식으로 미래 기술의 방향을 공유했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/381dd50c51cbf0b1748006158d57d9d9/HAHN2198.jpg",
+      "caption": "원문 그림 14",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/394d7f0d87b1e178880ab47181288eb8/HAHN2339.jpg",
+      "caption": "원문 그림 15",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/165fa13f0d2b1f88e6b082cb76ebc4ed/HAHN2809.jpg",
+      "caption": "원문 그림 16",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "설계 세션의 주제는 ‘Chips for AI & AI for Chips: What’s Next?’였습니다. 미세화의 한계, AI 시대의 칩 성능과 설계 자동화, 전력과 열 문제를 폭넓게 논의했습니다. 미래의 스마트폰이 오늘날 AI 서버에 버금가는 컴퓨팅 성능을 갖추기 위해 넘어야 할 기술적 한계와, 스케일링 한계 속에서 성능과 전력 효율을 함께 개선할 방향이 주요 화두였습니다."
+    },
+    {
+      "t": "p",
+      "text": "스탠퍼드대 토머스 리 교수(무선통신 회로설계 분야 석학)는 트랜지스터당 성능과 전력 개선이 정체된 반면 컴퓨팅의 에너지 소비는 빠르게 늘고 있다고 지적했습니다. 그는 여러 오실레이터를 연결해 기존 컴퓨팅보다 적은 에너지로 문제를 해결하는 ‘결합 오실레이터 네트워크’ 연구를 진행 중이라고 소개했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/f9b09d5a189a53571e52d545d3ce43f5/HAHN2793.jpg",
+      "caption": "원문 그림 17",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/e251a4079cfb3c2b33442e9edef91938/HAHN2760.jpg",
+      "caption": "원문 그림 18",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/1d886e2b40a1975a0ef0aea63198ff07/HAHN2893.jpg",
+      "caption": "원문 그림 19",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/9266a76a535dc1499ea4cf79490a40b8/HAHN2900.jpg",
+      "caption": "원문 그림 20",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "공정소자 1 세션: 이종 집적화 시대의 시스템 레벨 스케일링을 위한 미래 집적 기술을 주제로 BSPDN의 발전 전망과 도전 과제를 논의했습니다.",
+        "공정소자 2 세션: CPO 기술의 필요성과 실리콘 포토닉스 기반 PIC, 마이크로 LED, 이종 집적 기술 등 구현 방식을 살펴봤습니다. 이어 첨단 패키징, EIC 설계, Inverse Design 등 최신 기술과 CPO 발전의 핵심 이슈를 조망했습니다.",
+        "강연 후에는 자유로운 질의응답과 패널토의가 이어졌습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "테크 세션: AI 분야"
+    },
+    {
+      "t": "p",
+      "text": "AI 세션에는 많은 참가자가 몰렸고, 생성형 AI부터 AI 에이전트, 월드 모델까지 차세대 AI 기술의 발전 방향과 활용 가능성을 다뤘습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/AI강연.jpg",
+      "caption": "(좌) 강연을 진행 중인 KAIST 오태현 교수, (우) 강연을 진행 중인 POSTECH 조민수 교수",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "서강대 강석주 교수: 대규모 생성형 AI의 발전 흐름과 영상·언어·멀티모달 기반 모델의 핵심 기술을 살피고, 기존 딥러닝 기술을 결합한 제조 AI의 활용 가능성을 제시했습니다.",
+        "KAIST 오태현 교수: AI 에이전트가 콘텐츠와 디지털 시스템의 새로운 수요자로 등장하는 변화에 주목하며, 기존 데이터·시스템·업무 환경을 AI와 호환되는 형태로 전환해야 한다고 짚었습니다.",
+        "POSTECH 조민수 교수: 월드 모델의 다양한 접근법을 살피고, 현실과 상호작용하는 에이전틱 AI로 발전하기 위한 연구 방향을 제시했습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "통합교류회: 개회사와 소감"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/e0cd52625978ee745ad3a39a52411afd/22-1.jpg",
+      "caption": "원문 그림 22",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/166c04c8e7934d1bc4c472087d7f1a39/23.jpg",
+      "caption": "원문 그림 23",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "테크 세션 후 본 행사가 시작됐습니다. 협력대학 교수진을 대표한 KAIST 김정호 교수는 “30여 년간 이어진 서로의 노력과 교류를 통해 지금에 이른 것 같다”며 SPARK가 세계적인 기술 교류의 장으로 발전하길 기대한다고 말했습니다."
+    },
+    {
+      "t": "p",
+      "text": "삼성전자 반도체연구소 이종명 부사장은 메모리, 로직, 첨단 패키지 등 다양한 기술 역량을 소개하며 “AI 시대에 등장한 복잡한 기술 과제를 풀기 위해서는 산학협력이 필수적”이라고 밝혔습니다. 또 산업계는 시장과 고객이 요구하는 문제를 정확히 정의하고, 학계는 이를 해결할 아이디어와 원천기술을 제공해 주길 기대한다고 했습니다."
+    },
+    {
+      "t": "h",
+      "text": "시상식과 최우수상 연구 소개"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/032badde49bc70fb4cd939c69f4317f2/HAHN3163.jpg",
+      "caption": "원문 그림 24",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/354be31f8158e7ecbc862ae151b4fdf9/장려상.jpg",
+      "caption": "원문 그림 25",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/aa84b5fa18e9bb3bbcb9f6af47cb37c6/HAHN3146-2.jpg",
+      "caption": "원문 그림 26",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/db88d4b1dfaa04dda5ba6e7379a5bbeb/HAHN3179.jpg",
+      "caption": "원문 그림 27",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/slider/cache/99e7a5883eafb2850af06e4690b593d6/특허상.jpg",
+      "caption": "원문 그림 28",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "우수 논문 및 특허 시상식에서는 장려상 9명, 우수상 12명, 최우수상 9명, 우수 특허상 13명 등 총 43명이 수상했습니다. 이후 최우수상 수상자들이 연구 과정과 주요 성과를 소개했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/우수상-발표.jpg",
+      "caption": "(좌) POSTECH 권오혁 연구원, (우) 서강대 문승훈 연구원",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "POSTECH 황현상 교수 연구실의 권오혁 연구원은 3D 낸드의 좁고 긴 채널에서 니켈이 잔존하고 MILC 결정들이 서로 충돌하는 문제를 해결하기 위해 결정의 성장 방향을 제어하는 공정을 제안했습니다. 삼성전자가 제공한 155단 낸드 웨이퍼로 실제 구조에서도 균일한 결정화가 가능한지 확인했다고 합니다. 그는 학교는 아이디어의 가능성을 넓히고, 삼성전자는 소자 플랫폼을 제공해 실제 산업계 소자에서 실증할 수 있었다고 강조했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/단체사진800.jpg",
+      "caption": "원문 그림 30",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 앞으로도 대학과 긴밀히 협력해 미래 기술 난제의 해법을 모색하고 지속 가능한 반도체 연구 생태계 기반을 만들어 가겠다고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "BSPDN",
+      "후면전력공급 기술(Back Side Power Delivery Network). 웨이퍼 뒷면으로 전력을 공급하는 방식입니다."
+    ],
+    [
+      "CPO",
+      "Co-Packaged Optics. 광학 소자를 칩과 같은 패키지에 함께 집적하는 기술입니다."
+    ],
+    [
+      "PIC",
+      "광 집적 회로(Photonic Integrated Circuit). 빛을 다루는 소자를 하나의 칩에 집적한 회로입니다."
+    ],
+    [
+      "EIC",
+      "전자 집적 회로(Electronic Integrated Circuit). 전기 신호를 처리하는 집적 회로입니다."
+    ],
+    [
+      "이종 집적",
+      "서로 다른 종류의 소자나 칩을 하나의 시스템으로 묶는 기술입니다."
+    ],
+    [
+      "월드 모델",
+      "차세대 AI의 핵심 기술로 주목받는 접근으로, 현실과 상호작용하는 에이전틱 AI 연구와 연결됩니다."
+    ],
+    [
+      "MILC",
+      "3D 낸드 채널 결정화에서 언급된 결정 성장 방식입니다. 결정들이 서로 충돌하는 문제가 지적됐습니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-1",
+    "4-6",
+    "4-7",
+    "4-4"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

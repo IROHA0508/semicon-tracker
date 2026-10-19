@@ -1,0 +1,198 @@
+{
+  "id": "samsung-aac1657e2a",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자 V10 BV-NAND가 FMS 2026 Best of Show Awards의 3D & NAND Innovation Award를 수상했습니다. 400단 이상의 WL을 구현했고, 이전 세대 대비 비트 밀도 58% 이상 향상, I/O 속도 4.8Gbps 이상(33% 이상 향상), 전력 25% 이상 절감을 달성했다고 밝혔습니다. 상품기획 담당 김병희 PL·신지연 TL과 개발 담당 박상수 PL·정다운 PL의 인터뷰로, 개발 배경과 핵심 기술, 협업 과정, 수상 의미를 다룬 기술 해설 글입니다.",
+  "keyPoints": [
+    "V10은 3D 본딩 V낸드 구조로 400단 이상 WL을 구현해 비트 밀도 58% 이상, I/O 속도 33% 이상 향상, 전력 25% 이상 절감을 달성했다고 밝혔습니다.",
+    "핵심 기술은 3-stack 기반 HARC Merge와 셀·페리를 따로 만들어 접합하는 웨이퍼 본딩이며, 풀 캡핑과 Warpage·신뢰성 문제를 극복했습니다.",
+    "수백 명의 엔지니어가 TF 회의체로 부서 간 협업해 개발했으며, 128TB SSD와 PCIe Gen7 SSD 등 AI 인프라를 겨냥합니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/사진-01.-단체사진.jpg",
+      "caption": "(왼쪽부터) 신지연 TL, 김병희 PL, 정다운 PL, 박상수 PL",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "V10 BV-NAND는 어떤 제품인가"
+    },
+    {
+      "t": "p",
+      "text": "AI 발전으로 처리할 데이터가 폭발적으로 늘면서 스토리지에는 더 높은 용량과 성능, 전력 효율이 요구됩니다. V10은 이런 요구에 대응해 개발된 삼성전자의 최신 3D 낸드 플래시 메모리입니다."
+    },
+    {
+      "t": "p",
+      "text": "3D 본딩 기술을 적용한 V낸드 구조를 기반으로 400단 이상의 WL(Word Line)을 구현했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "비트 밀도(단위 면적당 저장되는 비트 수): 이전 세대 대비 58% 이상 향상",
+        "I/O 속도: 4.8Gbps 이상, 이전 세대 대비 33% 이상 향상",
+        "전력: 25% 이상 절감"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "128TB 초고용량 SSD와 차세대 PCIe Gen7 SSD 등 AI 인프라용 핵심 낸드 솔루션이 될 것으로 기대한다고 밝혔습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/사진-02.-FMS-Award-상패.jpg",
+      "caption": "FMS 2026 3D & NAND Innovation Award 상패",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "시장 변화와 상품기획 방향"
+    },
+    {
+      "t": "p",
+      "text": "AI 시스템이 생성·처리하는 데이터가 늘면서 스토리지에 더 높은 용량과 I/O 대역폭이 요구됩니다. 데이터센터에서는 전력 소비가 시스템 효율과 TCO(Total Cost of Ownership)를 결정하는 요소로 부상했습니다."
+    },
+    {
+      "t": "p",
+      "text": "그래서 단순히 단수를 쌓거나 용량을 높이는 데 그치지 않고 고집적·고성능·저전력을 동시에 달성하는 것을 핵심 방향으로 잡았습니다. 데이터센터뿐 아니라 PC, 모바일, 엣지 AI의 AI 워크로드에 대응하는 것도 목표였습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/2-2.jpg",
+      "caption": "(왼쪽부터) 상품기획팀 김병희 PL, 신지연 TL",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "두 가지 핵심 기술 혁신"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "HARC Merge: 3-stack(셀을 3개 Stack으로 나눠 각각 제조한 뒤 수직으로 연결) 기반 기술로, 단수 증가에 따른 공정 스텝·제조 비용·난이도를 개선합니다. Multi Hole과 Zero Dummy Hole 기술을 접목해 비트 밀도를 58% 향상시켰습니다.",
+        "웨이퍼 본딩: 두 웨이퍼에서 셀과 페리(주변회로)를 독립적으로 제작한 뒤 접합합니다. 페리 소자의 성능을 극대화해 고성능·저전력 제품을 구현했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/사진-05.-V10-부스-목업.jpg",
+      "caption": "V10 BV-NAND 목업",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "I/O 성능과 전력 효율"
+    },
+    {
+      "t": "p",
+      "text": "저온 공정으로 페리의 Scaling이 가능해져 트랜지스터 특성과 I/O 성능이 개선됐습니다. 삼성전자 고유의 Pin-ODT 기술로 SCA(Separate Command and Address) 기술을 혁신해 I/O 효율을 75% 이상 향상시켰습니다. 고속 전송의 ISI(Inter-Symbol Interference)를 줄이기 위해 DFE와 RDCA 기술도 적용했습니다."
+    },
+    {
+      "t": "p",
+      "text": "전력 절감을 위해서는 페리의 공급 전압(VCC)을 낮추는 저전력 회로 설계, 외부 전원을 직접 활용하는 e-PIN 구조, Word Line 충·방전 전력을 줄이는 WL 제어 기술을 적용했습니다. 고속 I/O 동작에서는 Channel Voltage를 낮추는 PI-LTT 기술로 인터페이스 전력을 추가로 줄였습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/3-2.jpg",
+      "caption": "(왼쪽부터) Flash개발실 박상수 PL, 정다운 PL",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "400단 구현의 기술적 난관"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "극한의 칩 사이즈 감소: 셀 어레이를 구동하려면 주변 회로 면적이 늘어나는데, 하판 구동 회로를 상판 셀 어레이와 같은 크기로 설계해야 했습니다. 차세대 칩 아키텍처 도출, 디자인 룰 타이트 관리, 유사 회로 병합·최적화로 '풀 캡핑'을 달성했습니다.",
+        "Word Line 증가에 따른 전기적 특성 저하: 적층이 늘면 Word Line Capacitance가 커져 전력 소모 증가, 성능 저하, 셀 신뢰성 열화로 이어집니다. Multi-Stack 정밀 제어 설계로 쓰기 시 비선택 Stack의 Word Line 인가 전압을 70% 이상 낮췄고, BER(Bit Error Rate)을 4% 개선했습니다.",
+        "Warpage: 막질 스트레스로 웨이퍼가 휘는 문제입니다. 신공정 도입, 설비 한계 극복, 전체 공정 Heat 최적화, 신규 막질 도입으로 스트레스를 낮췄습니다.",
+        "Cell 신뢰성: 채널 길이 증가에 따른 문제입니다. 에치는 Channel Hole Profile·산포를, 디퓨전은 Step Coverage와 막질 특성을, 클리닝은 표면적 증가에도 균일하게 식각하는 신기술을 확보했고, PA 부서는 공정 통합을 최적화해 신뢰성 목표를 조기에 달성했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/사진-08.-FMS-삼성전자-V10-키노트.jpg",
+      "caption": "FMS 2026 삼성전자 키노트 발표",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "조직 간 협업"
+    },
+    {
+      "t": "p",
+      "text": "수백 명의 엔지니어가 매일 토론하며 문제를 해결했습니다. HARC Merge와 웨이퍼 본딩은 독립적이던 기술을 융합한 것이어서 여러 기술이 얽힌 불량이 늘었고, 서로의 업무를 이해하는 협업이 중요했습니다. TF 형태의 회의체를 만들어 논의 기회를 늘렸습니다."
+    },
+    {
+      "t": "p",
+      "text": "제조는 개발 Lot의 TAT를 지원했고, CIS는 본딩 설비 인프라와 기술 자문을 제공했으며, A-FAB 기술팀 YES 부서는 방대한 팹 데이터 분석을 도왔다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/사진-09.-V10-보도사진.jpg",
+      "caption": "V10 BV-NAND",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "고객 가치와 수상의 의미"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "고객 가치: 높은 비트 밀도로 128TB SSD를, 4.8Gbps 이상 I/O로 PCIe Gen7 SSD를 지원하고, 전력 효율로 AI 데이터센터의 전력 소비와 TCO 개선에 기여합니다.",
+        "수상 의미(김병희): AI 시대 NAND의 방향성과 V10의 기술적·상품적 가치를 인정받았습니다.",
+        "수상 의미(정다운): 기존 세대별 추세를 벗어난 Bit Density·신뢰성·성능·전력을 구현했고 협업을 인정받았습니다.",
+        "수상 의미(박상수): 고집적·고성능·저전력을 동시에 해결했음을 인정받았으며, V낸드는 AI 시스템 병목을 해결하는 핵심 인프라로 진화할 것이라고 밝혔습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/08/사진-10.-단체사진2.jpg",
+      "caption": "(왼쪽부터) 신지연 TL, 김병희 PL, 정다운 PL, 박상수 PL",
+      "credit": "삼성전자 반도체 뉴스룸"
+    }
+  ],
+  "terms": [
+    [
+      "비트 밀도",
+      "단위 면적당 저장되는 비트의 수입니다."
+    ],
+    [
+      "웨이퍼 본딩",
+      "두 장 이상의 웨이퍼를 3D(수직)로 접합해 고집적 NAND를 구현하는 기술입니다."
+    ],
+    [
+      "페리(Peri)",
+      "주변 회로로, 셀의 동작을 관장하는 각종 회로로 구성됩니다."
+    ],
+    [
+      "3 Stack 기술",
+      "V-NAND 셀을 3개의 Stack으로 나누어 각각 제조한 뒤 수직으로 연결하는 적층 기술입니다."
+    ],
+    [
+      "TCO",
+      "Total Cost of Ownership로, 시스템 소유에 드는 총비용입니다."
+    ],
+    [
+      "Warpage",
+      "막질의 스트레스로 웨이퍼가 휘는 현상입니다."
+    ],
+    [
+      "BER",
+      "Bit Error Rate로, 비트 오류율입니다."
+    ]
+  ],
+  "studyUnits": [
+    "2-8",
+    "4-4",
+    "3-16",
+    "2-11"
+  ],
+  "generatedAt": "2026-10-19T10:32:41+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}
