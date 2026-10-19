@@ -2097,7 +2097,22 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/etching-film.html",
+     "title": "식각 RIE·고종횡비: 이온과 라디칼로 곧게 파 내려가는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "습식·건식",
+      "RIE",
+      "선택비",
+      "고종횡비",
+      "첨단 기술",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/etching.html",
@@ -3995,6 +4010,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 14
+  "films": 15
  }
 }
