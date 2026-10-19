@@ -44,6 +44,32 @@ def feed_dir():
     return config.MANIFEST.parent / "feed"
 
 
+def detail_dir():
+    return config.MANIFEST.parent / "detail"
+
+
+DETAIL_BLOCKS = {"h", "p", "ul", "table", "img", "fig"}
+
+
+def check_detail(d: dict, stem: str, ids: set[str]) -> list[str]:
+    out = []
+    if d.get("id") != stem or stem not in ids:
+        out.append("id가 파일 이름과 다르거나 data/news에 없는 기사")
+    if not str(d.get("lead", "")).strip() or not isinstance(d.get("keyPoints"), list):
+        out.append("lead·keyPoints 없음")
+    for b in d.get("blocks", []):
+        t = b.get("t")
+        if t not in DETAIL_BLOCKS:
+            out.append(f"모르는 블록: {t}")
+        elif t == "img" and not str(b.get("src", "")).startswith("https://"):
+            out.append(f"그림 주소가 https가 아님: {b.get('src')}")
+        elif t == "fig" and not (config.MANIFEST.parent.parent / b.get("file", "")).exists():
+            out.append(f"그림 파일 없음: {b.get('file')}")
+        elif t in ("h", "p") and LIST_TEXT.match(str(b.get("text", ""))):
+            out.append("글이 배열을 글자로 적은 모양")
+    return out
+
+
 def manifest_data(articles: list[dict]) -> tuple[dict, dict[str, dict]]:
     """(manifest, {year: year file}) for the given cards, newest first."""
     unit_index = tags.units()
@@ -68,7 +94,8 @@ def manifest_data(articles: list[dict]) -> tuple[dict, dict[str, dict]]:
                     for s in config.SOURCES],
         "linkOnly": [{"name": name, "url": url} for name, url in config.LINK_ONLY],
         "years": [{"year": y, "file": f"feed/{y}.json", "count": years[y]["count"]} for y in sorted(years, reverse=True)],
-        "index": [{k: c[k] for k in INDEX_FIELDS if k in c} for c in items],
+        "index": [{**{k: c[k] for k in INDEX_FIELDS if k in c}, **({"detail": True} if (detail_dir() / f"{c['id']}.json").exists() else {})}
+                  for c in items],
     }
     return manifest, years
 
@@ -195,6 +222,15 @@ def validate() -> list[str]:
             if url in urls:
                 problems.append(f"news/{path.name}: {urls[url]}와 같은 주소")
             urls[url] = path.name
+
+    if detail_dir().exists():
+        for path in sorted(detail_dir().glob("*.json")):
+            try:
+                d = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as exc:
+                problems.append(f"detail/{path.name}: JSON 오류 {exc}")
+                continue
+            problems += [f"detail/{path.name}: {p}" for p in check_detail(d, path.stem, ids)]
 
     if config.MANIFEST.exists():
         m = json.loads(config.MANIFEST.read_text(encoding="utf-8"))

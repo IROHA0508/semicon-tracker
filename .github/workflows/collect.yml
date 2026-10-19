@@ -9,12 +9,12 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "update(수집+요약+반영) / collect(수집만) / detect(수집 결과만 보기, 파일 변경 없음) / selftest(출처 점검)"
+        description: "update(수집+요약+자세한 요약+반영) / details(자세한 요약만) / collect(수집만) / detect(수집 결과만 보기, 파일 변경 없음) / selftest(출처 점검)"
         type: choice
-        options: [update, collect, detect, selftest]
+        options: [update, details, collect, detect, selftest]
         default: update
       limit:
-        description: "이번에 요약할 최대 기사 수(비우면 10). 밀린 기사를 빨리 줄일 때만 늘리세요"
+        description: "이번에 요약할 최대 기사 수(비우면 10). details에서는 자세한 요약을 쓸 기사 수. 밀린 기사를 빨리 줄일 때만 늘리세요"
         required: false
         default: ""
   push:
@@ -59,7 +59,7 @@ jobs:
   update:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
-    timeout-minutes: 40   # 요약은 25분이 지나면 새 기사를 시작하지 않음(ST_TIME_BUDGET)
+    timeout-minutes: 55   # 요약은 25분, 자세한 요약은 실행 시작부터 40분이 지나면 새 기사를 시작하지 않음
     env:
       COMMAND: ${{ github.event.inputs.command || 'update' }}
       HAS_SUBSCRIPTION_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
@@ -74,7 +74,7 @@ jobs:
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
       - name: Claude Code CLI 설치 (구독 토큰으로 요약)
-        if: env.COMMAND == 'update' && env.HAS_SUBSCRIPTION_TOKEN == 'true'
+        if: (env.COMMAND == 'update' || env.COMMAND == 'details') && env.HAS_SUBSCRIPTION_TOKEN == 'true'
         run: npm install -g @anthropic-ai/claude-code
       - name: 실행
         env:
@@ -88,9 +88,13 @@ jobs:
           [ -z "$ANTHROPIC_API_KEY" ] && unset ANTHROPIC_API_KEY
           [ -z "$ST_MODEL" ] && unset ST_MODEL
           [ -n "$LIMIT" ] && export ST_SUMMARY_LIMIT="$LIMIT"
-          python -m backend "$COMMAND"
+          if [ "$COMMAND" = "details" ] && [ -n "$LIMIT" ]; then
+            python -m backend details --limit "$LIMIT"
+          else
+            python -m backend "$COMMAND"
+          fi
       - name: 바뀐 데이터 커밋
-        if: env.COMMAND == 'update' || env.COMMAND == 'collect'
+        if: env.COMMAND == 'update' || env.COMMAND == 'collect' || env.COMMAND == 'details'
         run: |
           git config user.name "semicon-tracker-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -106,6 +110,8 @@ jobs:
           if "summary" in r:
               parts.append(f"요약 {len(r['summary'].get('summarized', []))}건")
               parts.append(f"대기 {r['summary'].get('queueLeft', 0)}건")
+          if "details" in r and "detailed" in r["details"]:
+              parts.append(f"자세한 요약 {len(r['details']['detailed'])}건(남은 {r['details'].get('left', 0)}건)")
           print("기사 수집·요약: " + ", ".join(parts))
           EOF
           )
@@ -114,7 +120,7 @@ jobs:
           git pull --rebase -X theirs origin main
           git push origin HEAD:main
       - name: 결과 확인
-        if: env.COMMAND == 'update' || env.COMMAND == 'collect'
+        if: env.COMMAND == 'update' || env.COMMAND == 'collect' || env.COMMAND == 'details'
         run: |
           python - <<'EOF'
           import json, sys
@@ -139,5 +145,15 @@ jobs:
               for g in s.get("gaveUp") or []:
                   print(f"::warning title=요약 포기 {g['id']}::3번 실패해 대기열에서 뺐습니다: {g['title']} ({g['reason']})")
               print(f"요약 {len(s.get('summarized', []))}건, 대기 {s.get('queueLeft', 0)}건, 멈춘 이유: {s.get('stoppedBy')}")
+          d = r.get("details")
+          if d and "left" in d:
+              if d.get("authError"):
+                  print("::error title=Claude 인증 실패(자세한 요약)::" + d.get("message", ""))
+                  failed = True
+              if d.get("limitHit"):
+                  print("::warning title=사용량 한도(자세한 요약)::다음 실행에서 이어 합니다. " + d.get("message", ""))
+              for aid, reason in (d.get("failed") or {}).items():
+                  print(f"::warning title=자세한 요약 실패 {aid}::{reason}")
+              print(f"자세한 요약 {len(d.get('detailed', []))}건, 남은 {d.get('left', 0)}건, 멈춘 이유: {d.get('stoppedBy')}")
           sys.exit(1 if failed else 0)
           EOF

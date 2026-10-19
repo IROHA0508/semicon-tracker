@@ -3,6 +3,7 @@
   update     collect + summarize + publish, then write the run report (what the workflow runs)
   collect    Walk the feeds and queue new articles in backend/state/queue.json
   summarize  Summarize queued articles (newest first, --limit at most) and rebuild the manifest
+  details    Write long summaries (article pages) for articles that have none (--limit at most)
   publish    Rebuild data/manifest.json from data/news/*.json
   requeue    Put summarized articles back in the queue to redo them (--ids a,b | --outdated | --all)
   validate   Check data/ (tags, units, article files, manifest); exit 1 on any problem
@@ -20,17 +21,17 @@ import sys
 from . import collect, config, publish, store
 
 
-def _summarize(limit: int | None) -> dict:
+def _summarize(limit: int | None, finder=None) -> dict:
     from . import digest
 
-    return digest.run(limit=limit)
+    return digest.run(limit=limit, finder=finder)
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m backend", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["update", "collect", "summarize", "publish", "requeue", "validate",
-                                            "detect", "selftest"])
+    parser.add_argument("command", choices=["update", "collect", "summarize", "details", "publish", "requeue",
+                                            "validate", "detect", "selftest"])
     parser.add_argument("--limit", type=int, default=None,
                         help=f"articles to summarize in this run (default {config.SUMMARY_LIMIT})")
     parser.add_argument("--ids", default=None, help="requeue: comma-separated article ids")
@@ -68,11 +69,22 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(collect.run(), ensure_ascii=False, indent=2))
         return 0
 
+    import time
+
+    from . import bodies, detail, feeds
+
+    started = time.monotonic()
+    finder = bodies.BodyFinder(fetch_page_html=feeds.fetch_article_html)   # feed pages read once for both steps
     if args.command == "update":
         report = collect.run(save_report=False)
-    else:  # summarize only: keep the latest collect report and replace its summary part
+    else:  # summarize / details only: keep the latest report and replace its part
         report = json.loads(config.REPORT_FILE.read_text(encoding="utf-8")) if config.REPORT_FILE.exists() else {}
-    report["summary"] = _summarize(args.limit)
+    if args.command in ("update", "summarize"):
+        report["summary"] = _summarize(args.limit, finder)
+    if args.command == "update" or args.command == "details":
+        stop = (report.get("summary") or {}).get("stoppedBy") in ("auth error", "usage limit")
+        report["details"] = {"stoppedBy": "skipped (summary step stopped)"} if stop else detail.run(
+            finder=finder, limit=args.limit if args.command == "details" else None, started=started)
     report["manifest"] = publish.build()
     store.save_report(report)
     print(json.dumps(report, ensure_ascii=False, indent=2))

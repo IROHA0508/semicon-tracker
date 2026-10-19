@@ -312,6 +312,8 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
 .art-head { display: grid; gap: 10px; margin-bottom: 22px; }
 .art-head h1 { margin: 0; font-size: clamp(22px, 3vw, 29px); line-height: 1.35; letter-spacing: -0.015em; text-wrap: balance; }
 .art-lead { font-size: 17px; line-height: 1.8; }
+.art-toc { margin: 18px 0 16px; }
+.art-toc a { white-space: normal; }
 .keypts { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; }
 .keypts b { font-size: 12px; color: var(--accent-ink); letter-spacing: .04em; }
 .keypts ol { margin: 6px 0 0; padding-left: 1.3em; display: grid; gap: 4px; }
@@ -1159,7 +1161,8 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     if (idx < 0) { renderState("기사를 찾지 못했습니다.", "목록에서 다시 골라 주세요."); return; }
     view.textContent = "";
     view.appendChild(h("div", { class: "skeleton" }));
-    var detailP = fetch("data/detail/" + id + ".json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    var detailP = !S.items[idx].detail ? Promise.resolve(null)
+      : fetch("data/detail/" + id + ".json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
     Promise.all([cards([S.items[idx]]), detailP]).then(function (res) {
       if (location.hash !== "#article/" + id) return;
       var item = res[0][0], d = res[1];
@@ -1179,10 +1182,27 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       var body = h("article", { class: "md art" });
       if (d) {
         body.appendChild(h("p", { class: "art-lead", text: d.lead }));
+        // section shortcuts (above the key points): jump to each heading of the summary
+        var secEls = [], toc = h("nav", { class: "unit-toc art-toc", "aria-label": "이 기사 소제목" }, [h("b", { text: "소제목" })]);
+        body.appendChild(toc);
         body.appendChild(h("section", { class: "keypts" }, [h("b", { text: "핵심 3줄" }), h("ol", null, d.keyPoints.map(function (x) { return h("li", { text: x }); }))]));
-        d.blocks.forEach(function (b) { var el = detailBlock(b, item); if (el) body.appendChild(el); });
+        d.blocks.forEach(function (b) {
+          var el = detailBlock(b, item);
+          if (!el) return;
+          if (b.t === "h") { el.id = "art-sec-" + secEls.length; secEls.push(el); }
+          body.appendChild(el);
+        });
+        secEls.forEach(function (el, k) {
+          toc.appendChild(h("a", { href: "#art-sec-" + k, onclick: jump(el), text: (k + 1) + ". " + el.textContent }));
+        });
         if (d.terms && d.terms.length) {
-          body.appendChild(h("h3", { class: "sec", text: "이 기사의 용어" }));
+          var termsHead = h("h3", { class: "sec", text: "이 기사의 용어" });
+          toc.appendChild(h("a", { href: "#art-terms", onclick: jump(termsHead), text: "용어" }));
+          d.__termsHead = termsHead;
+        }
+        if (secEls.length < 2) toc.remove();
+        if (d.terms && d.terms.length) {
+          body.appendChild(d.__termsHead);
           body.appendChild(h("dl", { class: "terms" }, [].concat.apply([], d.terms.map(function (x) { return [h("dt", { text: x[0] }), h("dd", { text: x[1] })]; }))));
         }
       } else {
@@ -1285,7 +1305,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     if (!S.loaded) return;
     if (S.error) { renderState("데이터를 불러오지 못했습니다.", "잠시 뒤 새로고침해 주세요. 내 컴퓨터에서 열 때는 파일을 직접 열지 말고 저장소 폴더에서 python -m http.server 후 http://localhost:8000 으로 여세요. (" + S.error + ")"); return; }
     var hash = decodeURIComponent((location.hash || "").replace(/^#/, ""));
-    if (/^(sec-\d+|anim|unit-news|n-.+)$/.test(hash)) return; // in-page anchors
+    if (/^(sec-\d+|art-sec-\d+|art-terms|anim|film|unit-news|n-.+)$/.test(hash)) return; // in-page anchors
     var title = "반도체 뉴스 트래커";
     if (hash.indexOf("article/") === 0) { renderArticle(hash.slice(8)); }
     else if (hash.indexOf("unit/") === 0) { var c = hash.slice(5); renderUnit(c); if (S.units[c]) title = c + " " + shortTitle(S.units[c].title) + " · " + title; }

@@ -21,6 +21,7 @@
 |---|---|
 | `#news` (기본) | 시장 흐름(기사는 10건씩 보이고, 목록 끝에 다가가면 다음 10건을 불러옴. '더 보기' 버튼도 있음): 기사 카드(회사·채널·날짜·배지 → 한국어 제목·원제 → 요약 2문장 → 면접 한 줄 → 태그 → 관련 단원), 회사·종류·기간 거르기(기간은 연도별 줄에 1~12월, 월을 누르면 그 달 기사만, 다시 누르면 해제. 다음 해 기사가 생기면 그해 줄이 위에 자동으로 생김), 검색. 옆에 '이번 주 공부할 단원'(최근 7일 소식의 관련 단원, 3건 미만이면 최근 10건 기준), 자주 나온 태그, 공부 진도 |
 | `#tag/<태그>` | 그 표준 태그가 붙은 기사만 |
+| `#article/<기사 id>` | 기사 페이지(기사 제목을 누르면 열림): 개요, 소제목 바로가기, 핵심 3줄, 소제목별 자세한 요약(영어 기사는 한국어로), 원문 그림, 필요할 때 새로 그린 그림, 용어, 같이 공부할 단원, 앞뒤 기사. 자세한 요약이 아직 없으면 짧은 요약과 원문 링크 |
 | `#theory` | 이론 공부: 0~6층 층 지도, 단원마다 별·애니메이션·영상·이어진 소식 수·읽음 표시. ★★★만·애니메이션 있음·안 읽은 단원 거르기 |
 | `#unit/<단원>` | 단원 페이지: 원고 본문(마크다운을 화면에서 그림), 뉴스 태그·이어지는 단원, '면접 단골 질문' 앞에 애니메이션(`animations/<파일>?embed`를 iframe으로), 이 단원과 이어진 소식, 읽음 표시, 앞뒤 단원 |
 | `#guide` | 공부 안내(`theory/overview.md`: 읽는 법, 전체 지도, 학습 경로) |
@@ -46,6 +47,8 @@ backend/summarize.py     Claude 호출(구독 토큰 CLI 또는 API 키), 편집
 backend/guard.py         카드의 수치를 원문과 대조(단위 환산 실수 잡기)
 backend/tags.py          표준 태그 사전, 동의어 정리, 관련 단원 고르기
 backend/digest.py        요약 단계: 대기열 → 카드(data/news/<id>.json)
+backend/detail.py        자세한 요약 단계: 카드 → 기사 페이지(data/detail/<id>.json), 원문 그림 주소 찾기, 수치 점검
+backend/figures.py       자세한 요약의 새로 그린 그림(명세 → SVG, 두 가지 틀)
 backend/publish.py       data/manifest.json 만들기, 데이터 점검(validate)
 backend/store.py         상태 파일 읽기·쓰기
 backend/state/           seen.json(이미 본 기사), queue.json(요약 대기열), last-run.json(실행 보고서)
@@ -143,6 +146,7 @@ python -m backend selftest         # 실제 피드 첫 페이지 점검(파일 �
 python -m backend detect           # 새로 들어갈 기사만 출력(파일 변경 없음)
 python -m backend collect          # 수집하고 backend/state 갱신
 python -m backend summarize --limit 3   # 대기열에서 3건 요약(CLAUDE_CODE_OAUTH_TOKEN 필요)
+python -m backend details --limit 3     # 자세한 요약이 없는 기사 3건(최신부터)에 기사 페이지 내용 쓰기
 python -m backend update           # 수집 + 요약 + manifest(워크플로가 하는 일)
 python -m backend publish          # data/news로 manifest 다시 만들기
 python -m backend requeue --outdated    # 편집 원칙(RULES_VERSION)이 바뀐 뒤 옛 카드를 대기열로 되돌려 다시 요약

@@ -80,6 +80,36 @@
 
 연도 파일의 카드 필드는 요약 카드와 같고, `checks`, `model`, `rules`, `summarizedAt`, `bodyVia`, `categories`는 넣지 않습니다. 내용이 바뀐 파일만 다시 쓰고(`generatedAt`만 바뀌는 커밋을 막기 위해), 카드가 없어진 연도 파일은 지웁니다. `python -m backend validate`가 색인·연도 파일·`data/news`가 서로 맞는지 점검합니다.
 
+## `data/detail/<id>.json`: 자세한 요약(기사 페이지)
+
+기사 제목을 누르면 열리는 기사 페이지(`#article/<id>`)의 내용입니다. `backend/detail.py`가 기사 본문(메모리에서만 읽음)으로 만들고, 영어 기사는 한국어로 옮깁니다. 이 파일이 있는 기사는 manifest 색인에 `"detail": true`가 붙습니다.
+
+```json
+{
+  "id": "skhynix-research-inside-ep2", "level": "mid", "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. …",
+  "lead": "무엇에 관한 글인지 3~4문장",
+  "keyPoints": ["핵심 1", "핵심 2", "핵심 3"],
+  "blocks": [
+    {"t": "h", "text": "소제목"}, {"t": "p", "text": "문단"}, {"t": "ul", "items": ["…"]},
+    {"t": "table", "head": ["공항", "연구에서는"], "rows": [["…", "…"]]},
+    {"t": "img", "src": "https://…/원문그림.jpg", "caption": "원문 그림 1", "credit": "SK하이닉스 뉴스룸"},
+    {"t": "fig", "file": "data/detail/figs/<id>-1.svg", "caption": "새로 그린 개념도 설명"}
+  ],
+  "terms": [["A-CiM", "한 줄 풀이"]],
+  "studyUnits": ["4-4", "4-7"],
+  "generatedAt": "…", "model": "claude-sonnet-5-5", "rules": "2026-10-19",
+  "checks": {"retriedFor": ["…"], "removed": ["…"], "figureDropped": "…"}
+}
+```
+
+- 분량: 읽는 데 4~5분(본문 3,000~4,500자 안팎, 원문 길이의 절반 이하). 소제목은 원문 흐름을 따라 3~8개.
+- `img`: 원문 그림. 파일은 복사하지 않고 원문 서버 주소만 둡니다. 본문의 모든 그림이 원문 위치 가까이에 한 번씩 들어가고(Claude가 빠뜨리면 끝에 붙임), 캡션은 원문 캡션·대체 텍스트를 옮긴 것만 씁니다(없으면 '원문 그림 n').
+- `fig`: 새로 그린 그림. 꼭 도움이 되는 글에만 하나. Claude는 그림 명세(`columns`: 여러 수치를 한눈에, `flow`: A→B→C 흐름)만 쓰고, `backend/figures.py`가 이론 도식과 같은 색·글꼴로 SVG를 그립니다. 글이 상자에 안 맞으면 그림을 뺍니다(`checks.figureDropped`).
+- 수치 점검: 카드와 같은 방식으로 모든 문장·표·그림 글자를 원문과 대조 → 한 번 다시 쓰게 함 → 그래도 안 맞는 문장·항목·행은 지우고, 그림은 통째로 뺍니다.
+- 실패 기록: `backend/state/details.json`(기사별 시도 횟수와 마지막 오류). 3번 실패하면 더 시도하지 않습니다.
+- 시험용으로 손으로 쓴 두 건(`skhynix-research-inside-ep2`, `samsung-41d8ce6f78`)은 `generatedAt`·`model`이 없습니다.
+
 ## `data/tags.json`, `data/units.json`
 
 - `tags.json`: `groups[].tags[]`마다 `name`(표준 태그), `synonyms`(한국어 동의어), `keywords`(영문 키워드). 요약할 때 Claude에게 목록으로 주고, 받은 태그를 이 사전으로 표준 이름에 맞춥니다.

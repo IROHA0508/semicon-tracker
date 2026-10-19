@@ -158,13 +158,13 @@ class ClaudeAPI:
         try:
             try:
                 msg = self.client.messages.create(
-                    model=model, max_tokens=2000, system=system, messages=[{"role": "user", "content": user}],
+                    model=model, max_tokens=8000, system=system, messages=[{"role": "user", "content": user}],
                     output_config={"format": {"type": "json_schema", "schema": schema}},
                 )
             except a.BadRequestError as exc:  # structured output not supported: ask for plain JSON
                 log.warning("structured output rejected (%s); retrying with plain JSON", exc)
                 msg = self.client.messages.create(
-                    model=model, max_tokens=2000, system=system + "\n\n출력은 JSON 객체 하나만, 다른 글 없이.",
+                    model=model, max_tokens=8000, system=system + "\n\n출력은 JSON 객체 하나만, 다른 글 없이.",
                     messages=[{"role": "user", "content": user + "\n\nJSON 스키마:\n" + json.dumps(schema, ensure_ascii=False)}],
                 )
         except a.AuthenticationError as exc:

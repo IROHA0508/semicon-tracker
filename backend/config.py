@@ -11,10 +11,12 @@ STATE_DIR = ROOT / "backend" / "state"
 SEEN_FILE = STATE_DIR / "seen.json"        # every article URL the collector has looked at
 QUEUE_FILE = STATE_DIR / "queue.json"      # collected articles waiting for the summary step
 REPORT_FILE = STATE_DIR / "last-run.json"  # what the latest run did
+DETAIL_STATE = STATE_DIR / "details.json"  # long summaries that failed (attempts, last error)
 
 DATA = ROOT / "data"
 NEWS_DIR = DATA / "news"                   # one summarized article = one JSON file
 MANIFEST = DATA / "manifest.json"          # card list for the site, rebuilt after every change
+DETAIL_DIR = DATA / "detail"                # long summary of one article = one JSON file (+ figs/)
 TAGS_FILE = DATA / "tags.json"             # standard tag dictionary (55 tags, 9 groups)
 UNITS_FILE = DATA / "units.json"           # theory units with their standard tags
 
@@ -29,6 +31,11 @@ BODY_CHAR_LIMIT = 15_000                   # article text sent to Claude (two se
 MIN_BODY_CHARS = 200                       # shorter text means the body was not found
 # Stop starting new summaries after this many seconds so the workflow can still commit its work.
 SUMMARY_TIME_BUDGET = int(os.environ.get("ST_TIME_BUDGET", "1500"))
+# Long summaries (article page): at most DETAIL_LIMIT articles per run, newest first, and no new one
+# after DETAIL_TIME_BUDGET seconds of the run (summary step included).
+DETAIL_LIMIT = int(os.environ.get("ST_DETAIL_LIMIT", "10"))
+DETAIL_TIME_BUDGET = int(os.environ.get("ST_DETAIL_TIME_BUDGET", "2400"))
+DETAIL_CHAR_LIMIT = 30_000                 # article text sent to Claude for the long summary
 
 # Keep articles published on or after this date (Korean time). Older pages are not walked.
 START_DATE = date.fromisoformat(os.environ.get("ST_START_DATE", "2026-01-01"))

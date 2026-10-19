@@ -125,6 +125,91 @@ def html_to_text(html: str, limit: int | None = None) -> str:
     return text[:limit] if limit else text
 
 
+# Pictures that are part of the page chrome, not the article.
+_SKIP_IMG = re.compile(r"emoji|smiley|avatar|gravatar|logo|icon|sprite|blank\.|spacer|pixel|badge|button|share", re.I)
+
+
+def _img_src(tag) -> str:
+    src = tag.get("data-src") or tag.get("data-lazy-src") or tag.get("src") or ""
+    srcset = tag.get("srcset") or tag.get("data-srcset") or ""
+    if srcset:  # the widest candidate
+        best, width = src, -1
+        for part in srcset.split(","):
+            bits = part.strip().split()
+            if not bits:
+                continue
+            w = int(bits[1][:-1]) if len(bits) > 1 and bits[1].endswith("w") and bits[1][:-1].isdigit() else 0
+            if w > width:
+                best, width = bits[0], w
+        src = best or src
+    return src.strip()
+
+
+def html_to_marked(html: str, base_url: str = "", limit: int | None = None) -> tuple[str, list[dict]]:
+    """Article text like html_to_text, with a line '[그림 n]' where the n-th picture of the article sits,
+    and the pictures as [{"n", "src", "alt", "caption"}] (absolute https addresses, chrome left out).
+    Only the addresses are kept; the pictures stay on the newsroom's server."""
+    from urllib.parse import urljoin
+
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html or "", "lxml")
+    for tag in soup(["script", "style", "noscript", "iframe", "svg", "form", "button", "video", "audio", "source"]):
+        tag.decompose()
+    images: list[dict] = []
+    seen: set[str] = set()
+    for tag in soup.find_all("img"):
+        src = _img_src(tag)
+        alt = (tag.get("alt") or "").strip()
+        small = any(str(tag.get(a, "")).isdigit() and int(tag.get(a)) < 160 for a in ("width", "height"))
+        if src.startswith("//"):
+            src = "https:" + src
+        src = urljoin(base_url, src) if base_url else src
+        ok = (src.startswith("http") and not small and not _SKIP_IMG.search(src) and not src.lower().endswith((".svg", ".gif"))
+              and src not in seen)
+        if not ok:
+            tag.decompose()
+            continue
+        seen.add(src)
+        fig = tag.find_parent("figure")
+        cap = fig.find("figcaption") if fig else None
+        caption = re.sub(r"\s+", " ", cap.get_text()).strip() if cap else ""
+        n = len(images) + 1
+        images.append({"n": n, "src": "https://" + src.split("://", 1)[1], "alt": alt, "caption": caption})
+        tag.replace_with(f"\n[그림 {n}]\n")
+    for tag in soup.find_all(_BLOCKS):
+        tag.insert_before("\n")
+    lines = []
+    for raw in soup.get_text().splitlines():
+        line = re.sub(r"\s+", " ", raw).strip()
+        if line and not _NOISE_LINE.match(line) and (not lines or lines[-1] != line):
+            lines.append(line)
+    text = "\n".join(lines)
+    if limit and len(text) > limit:
+        text = text[:limit]
+        images = [i for i in images if f"[그림 {i['n']}]" in text]
+    return text, images
+
+
+def page_node_html(html: str) -> str:
+    """HTML of the main article part of a web page."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html or "", "lxml")
+    for tag in soup(["nav", "header", "footer", "aside"]):
+        tag.decompose()
+    node = (soup.select_one(".entry-content") or soup.select_one(".post-content") or soup.find("article")
+            or soup.find("main") or soup.body or soup)
+    return str(node)
+
+
+def fetch_article_html(url: str) -> str:
+    resp = requests.get(url, headers={"User-Agent": config.USER_AGENT, "Accept": "text/html,*/*;q=0.8"},
+                        timeout=config.HTTP_TIMEOUT)
+    resp.raise_for_status()
+    return page_node_html(resp.text)
+
+
 def page_text(html: str) -> str:
     """Main text of an article web page (fallback when the feed no longer carries the article)."""
     from bs4 import BeautifulSoup

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import logging
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, timedelta
 from typing import Callable
 
@@ -22,13 +22,16 @@ class Body:
     text: str
     author: str   # feed author ("" when unknown)
     via: str      # feed | page
+    html: str = field(default="", repr=False)   # article HTML, in memory only (pictures for the long summary)
 
 
 class BodyFinder:
     def __init__(self, fetch=feeds.fetch_page, fetch_page_text: Callable[[str], str] = feeds.fetch_article_page,
-                 sleep: Callable[[float], None] | None = time.sleep):
+                 sleep: Callable[[float], None] | None = time.sleep,
+                 fetch_page_html: Callable[[str], str] | None = None):
         self.fetch = fetch
         self.fetch_page_text = fetch_page_text
+        self.fetch_page_html = fetch_page_html
         self.sleep = sleep
         self.pages: dict[tuple[str, int], list[feeds.Item] | None] = {}
         self.broken: set[str] = set()   # sources whose feed failed in this run
@@ -59,7 +62,7 @@ class BodyFinder:
             for it in items:
                 if it.key == target:
                     text = feeds.html_to_text(it.body, config.BODY_CHAR_LIMIT)
-                    return Body(text, it.author, "feed") if len(text) >= config.MIN_BODY_CHARS else None
+                    return Body(text, it.author, "feed", it.body) if len(text) >= config.MIN_BODY_CHARS else None
             if min(i.published.date() for i in items) < oldest_useful:
                 return None
         return None
@@ -69,8 +72,12 @@ class BodyFinder:
         if body:
             return body
         try:
-            text = self.fetch_page_text(item["url"])[: config.BODY_CHAR_LIMIT]
+            if self.fetch_page_html:   # the long summary also needs the pictures
+                html = self.fetch_page_html(item["url"])
+                text = feeds.html_to_text(html, config.BODY_CHAR_LIMIT)
+            else:
+                html, text = "", self.fetch_page_text(item["url"])[: config.BODY_CHAR_LIMIT]
         except Exception as exc:  # noqa: BLE001
             log.warning("article page failed: %s (%s)", item["url"], exc)
             return None
-        return Body(text, "", "page") if len(text) >= config.MIN_BODY_CHARS else None
+        return Body(text, "", "page", html) if len(text) >= config.MIN_BODY_CHARS else None
