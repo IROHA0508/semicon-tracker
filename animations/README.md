@@ -43,6 +43,7 @@
 | `metal-interconnect-film.html` | 3-9 | 영상: 컨택·금속선·비아 구조와 RC 지연, 구리 다마신 4단계와 듀얼 다마신, W 플러그와 배리어, EM·살리사이드(두 번 RTP), HKMG, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `cmos-process-film.html` | 3-14 | 영상: 10개 모듈이 NMOS·PMOS 단면에 차례로 쌓이는 CMOS 공정 흐름, 자기 정렬(스페이서·살리사이드), FEOL·MOL·BEOL과 열 이력, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `euv-film.html` | 4-2 | 영상: R = k₁λ/NA와 하프피치, 주석 방울 EUV 광원과 반사 거울, 확률적 결함, LELE·SADP·SAQP, High-NA(절반 필드), 약 2분 (장면 7개, 자막, 소리 없음) |
+| `doping-implant-film.html` | 3-8 | 도핑 → PN 접합 → 이온주입기 → 깊이 분포·채널링 → 열처리의 흐름을 117초 영상으로 정리했습니다. |
 | `nand-ispp.html` | 2-11 | 낸드 ISPP와 문턱전압 분포 (모드 4개: 쓰기(ISPP), 쓰기 금지, 읽기, 분포가 무너질 때) |
 | `fab-intro.html` | 3-0 | 팹 입문: 8대 공정, FEOL·BEOL, 클린룸 (모드 2개: 공정 흐름, 클린룸) |
 | `wafer-making.html` | 3-1 | 웨이퍼 제조: 잉곳에서 웨이퍼까지 (모드 2개: 만드는 순서, 웨이퍼 크기·구조) |

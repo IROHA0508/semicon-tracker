@@ -2284,7 +2284,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/doping-implant-film.html",
+     "title": "도핑·PN 접합·이온주입 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "도핑",
+      "PN 접합",
+      "이온주입기",
+      "깊이·채널링",
+      "열처리",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/ion-implant.html",
@@ -4055,6 +4070,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 18
+  "films": 19
  }
 }
