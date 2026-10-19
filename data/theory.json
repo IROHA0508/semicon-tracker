@@ -2176,7 +2176,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/deposition-film.html",
+     "title": "증착 CVD·ALD: 홈 속까지, 한 층씩 정확하게 쌓는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "단차 피복",
+      "CVD",
+      "발전 순서",
+      "ALD",
+      "비교",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/deposition.html",
@@ -3980,6 +3995,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 13
+  "films": 14
  }
 }
