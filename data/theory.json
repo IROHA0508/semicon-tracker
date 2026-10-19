@@ -235,7 +235,22 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 교수 강의로 공정 순서를 정리"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/chip-life-film.html",
+     "title": "칩의 일생: 설계에서 출하까지 한눈에",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "큰 그림",
+      "앞단",
+      "전공정",
+      "뒷단",
+      "분류",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/chip-life.html",
@@ -3905,6 +3920,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 8
+  "films": 9
  }
 }
