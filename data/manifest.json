@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-16T09:18:21+09:00",
-  "count": 149,
+  "generatedAt": "2026-10-19T09:08:14+09:00",
+  "count": 150,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -62,6 +62,34 @@
     }
   ],
   "items": [
+    {
+      "id": "samsung-5d0d6d1fd1",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "삼성전자, 글로벌 랜드마크에서 SSD 브랜드 캠페인 전개",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ea%b8%80%eb%a1%9c%eb%b2%8c-%eb%9e%9c%eb%93%9c%eb%a7%88%ed%81%ac%ec%97%90%ec%84%9c-ssd-%eb%b8%8c%eb%9e%9c%eb%93%9c-%ec%ba%a0%ed%8e%98%ec%9d%b8-%ec%a0%84%ea%b0%9c/",
+      "published": "2026-10-19T18:01:09+09:00",
+      "date": "2026-10-19",
+      "summary": [
+        "삼성전자가 미국 뉴욕 타임스 스퀘어, 영국 런던 피카딜리 광장, 홍콩 센트럴 엔터테인먼트 빌딩 등에서 SSD 브랜드 캠페인 'Choose the Sure Thing'을 옥외광고로 진행했습니다.",
+        "삼성전자는 성능과 신뢰성을 기반으로 한 프리미엄 스토리지 브랜드 이미지를 강화할 예정이며, Samsung.com과 디지털·소셜미디어 채널로도 캠페인 메시지를 확산할 계획입니다."
+      ],
+      "interview": "SSD를 성능과 신뢰성 중심의 프리미엄 스토리지로 내세우는 캠페인은 저장장치 경쟁이 제품 사양뿐 아니라 브랜드 신뢰로도 이어짐을 보여 줍니다.",
+      "tags": [
+        "eSSD·SSD"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-8"
+      ]
+    },
     {
       "id": "samsung-017e6bd8f4",
       "company": "samsung",

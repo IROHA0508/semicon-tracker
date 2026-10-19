@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-19T03:35:06+09:00",
+  "startedAt": "2026-10-19T09:08:03+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,30 +41,43 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-5d0d6d1fd1",
+      "date": "2026-10-19",
+      "source": "samsung-newsroom",
+      "title": "삼성전자, 글로벌 랜드마크에서 SSD 브랜드 캠페인 전개"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-19T03:35:15+09:00",
+  "finishedAt": "2026-10-19T09:08:07+09:00",
   "summary": {
-    "startedAt": "2026-10-19T03:35:15+09:00",
-    "backend": null,
+    "startedAt": "2026-10-19T09:08:07+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-5d0d6d1fd1",
+        "title": "삼성전자, 글로벌 랜드마크에서 SSD 브랜드 캠페인 전개"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-10-19T09:08:14+09:00"
   },
   "manifest": {
-    "count": 149,
-    "changed": false
+    "count": 150,
+    "changed": true
   }
 }
