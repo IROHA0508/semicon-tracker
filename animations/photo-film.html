@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>포토 공정 순서와 해상도 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-4</span><span>포토 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>포토 공정 순서와 해상도: 빛으로 무늬를 옮기기 (약 2분 영상)</h1>
+    <p class="lead">감광액을 바르고 빛을 쪼이고 씻어 내는 여덟 단계, 빛이 퍼져서 작은 무늬를 못 그리는 이유(회절), 레일리 식의 세 손잡이, k₁을 줄이는 기술, 그리고 EUV가 DUV와 다른 점을 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="포토 공정 순서와 해상도 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="감광액 코팅부터 검사까지의 포토 공정 여덟 단계, 회절과 레일리 식, OAI·OPC·PSM·멀티 패터닝, EUV 장비 안의 빛의 길을 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">3-4 · 포토(리소그래피)</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">회로 무늬를 빛으로</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">웨이퍼에 옮기려면?</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">필름 사진 인화처럼 · 감광액을 바르고 · 빛을 쪼이고 · 씻어 내기</text>
+        </g>
+
+        <!-- ===== Scene A: the eight steps ===== -->
+        <g id="g-a">
+          <rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect>
+          <text x="60" y="130" class="lbl-s">웨이퍼 단면 (개념도)</text>
+          <g id="a-light"></g>
+          <g id="a-mask"></g>
+          <g id="a-rays"></g>
+          <rect class="si" x="150" y="404" width="520" height="70"></rect>
+          <rect class="cu" x="150" y="380" width="520" height="24"></rect>
+          <rect id="a-barc" class="nit" x="150" y="380" width="520" height="0"></rect>
+          <g id="pr-g"></g>
+          <g id="a-hmds"></g>
+          <g id="a-sol"></g>
+          <circle id="a-drop" cx="410" cy="236" r="10" style="fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5"></circle>
+          <g id="a-dev"></g>
+          <rect id="a-plate" x="150" y="478" width="520" height="12" rx="3" style="fill: var(--bad)"></rect>
+          <g id="a-heat"></g>
+          <g id="a-cd">
+            <line class="dim" x1="300" y1="284" x2="390" y2="284"></line>
+            <line class="dim" x1="300" y1="276" x2="300" y2="292"></line>
+            <line class="dim" x1="390" y1="276" x2="390" y2="292"></line>
+          </g>
+          <g id="a-insp">
+            <text x="80" y="548" style="font-size:22px;font-weight:700">불량이면 PR을 벗기고 다시</text>
+            <text x="80" y="578" class="lbl-s">리워크(재작업)가 가능한 것이 포토의 특징</text>
+            <rect class="card" x="446" y="516" width="222" height="72" rx="10"></rect>
+            <text x="462" y="544" style="font-size:20px;font-weight:700">오버레이</text>
+            <text x="462" y="570" class="lbl-s" style="font-size:16px">중심 어긋남 X·Y</text>
+            <rect x="606" y="522" width="48" height="48" style="fill: none; stroke: var(--ink); stroke-width: 3"></rect>
+            <rect x="624" y="535" width="20" height="20" style="fill: none; stroke: var(--accent); stroke-width: 3"></rect>
+          </g>
+          <g id="a-rows"></g>
+        </g>
+
+        <!-- ===== Scene B: diffraction ===== -->
+        <g id="g-b">
+          <rect class="card" x="40" y="100" width="640" height="496" rx="12"></rect>
+          <g id="b-light"></g>
+          <g id="b-mask"></g>
+          <line id="b-r0" x1="380" y1="166" x2="380" y2="500" style="stroke: var(--ink); stroke-width: 3"></line>
+          <line id="b-l1" x1="380" y1="166" x2="380" y2="340" style="stroke: var(--accent); stroke-width: 3"></line>
+          <line id="b-r1" x1="380" y1="166" x2="380" y2="340" style="stroke: var(--accent); stroke-width: 3"></line>
+          <line id="b-l2" x1="380" y1="340" x2="350" y2="500" style="stroke: var(--accent); stroke-width: 3"></line>
+          <line id="b-r2" x1="380" y1="340" x2="410" y2="500" style="stroke: var(--accent); stroke-width: 3"></line>
+          <line id="b-l3" x1="380" y1="340" x2="380" y2="380" style="stroke: var(--bad); stroke-width: 3; stroke-dasharray: 6 5"></line>
+          <line id="b-r3" x1="380" y1="340" x2="380" y2="380" style="stroke: var(--bad); stroke-width: 3; stroke-dasharray: 6 5"></line>
+          <text id="b-xl" x="380" y="400" text-anchor="middle" class="bad-t" style="font-size:30px">✕</text>
+          <text id="b-xr" x="380" y="400" text-anchor="middle" class="bad-t" style="font-size:30px">✕</text>
+          <ellipse id="b-lens" cx="380" cy="340" rx="120" ry="11" style="fill: var(--low-soft); stroke: var(--low); stroke-width: 3"></ellipse>
+          <path id="b-cur" d="" style="fill: none; stroke: var(--accent); stroke-width: 3"></path>
+          <rect x="220" y="552" width="320" height="10" rx="3" class="si"></rect>
+          <g id="b-rows"></g>
+          <rect class="card" x="720" y="430" width="520" height="160" rx="12"></rect>
+          <text x="742" y="464" style="font-size:22px;font-weight:700">웨이퍼에 맺힌 상</text>
+          <rect class="meter-bg" x="742" y="480" width="476" height="24" rx="6"></rect>
+          <rect id="b-meter" x="744" y="482" width="0" height="20" rx="5" style="fill: var(--ok)"></rect>
+          <text id="b-st" x="742" y="556" style="font-size:32px;font-weight:700"></text>
+        </g>
+
+        <!-- ===== Scene C: Rayleigh ===== -->
+        <g id="g-c">
+          <g id="c-f">
+            <text x="640" y="170" text-anchor="middle" style="font-size:62px;font-weight:700"><tspan>R = </tspan><tspan id="c-tk">k₁</tspan><tspan> × </tspan><tspan id="c-tl">λ</tspan><tspan> ÷ </tspan><tspan id="c-tn">NA</tspan></text>
+            <text x="640" y="208" text-anchor="middle" class="lbl">R = 구별할 수 있는 가장 작은 간격 (작을수록 좋다)</text>
+          </g>
+          <g id="c-cards"></g>
+          <g id="c-chart"></g>
+          <g id="c-dof"></g>
+        </g>
+
+        <!-- ===== Scene D: lowering k1 ===== -->
+        <g id="g-d">
+          <text x="1240" y="68" text-anchor="end" class="mono lbl" style="font-size:20px">k₁ ≥ 0.25 (한 번 노광의 한계)</text>
+          <g id="d-cells"></g>
+        </g>
+
+        <!-- ===== Scene E: EUV ===== -->
+        <g id="g-e1">
+          <rect class="card" x="40" y="100" width="1200" height="496" rx="12"></rect>
+          <text x="60" y="128" class="lbl-s">EUV 장비 안에서 빛이 가는 길 (개념도)</text>
+          <rect x="52" y="140" width="1176" height="190" rx="14" style="fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 8 6"></rect>
+          <text x="640" y="160" text-anchor="middle" class="lbl-s">진공 (EUV는 거의 모든 물질에 흡수된다)</text>
+          <g id="e-chain"></g>
+          <g id="e-bars"></g>
+        </g>
+        <g id="g-e2"></g>
+
+        <!-- ===== Scene F: closing ===== -->
+        <g id="g-f"></g>
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 크기와 각도, 수치는 이해를 돕기 위해 단순화한 값이고(해상도 비교는 k₁ = 0.3 가정), 실제 장비와 공정에서는 다릅니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>포토 순서는 <b>전처리(HMDS·BARC) → PR 코팅 → 소프트 베이크 → 정렬·노광 → PEB → 현상 → 하드 베이크 → 검사(CD·오버레이)</b>입니다. 노광만 스캐너에서, 나머지는 트랙(코터·디벨로퍼)에서 하고, 불량이면 PR을 벗겨 다시 할 수 있습니다.</li>
+      <li>해상도는 <b>R = k₁λ/NA</b>입니다. 파장을 줄이고(KrF → ArF → EUV), NA를 키우고(이머전, High-NA), k₁을 줄입니다(OAI·OPC·PSM·멀티 패터닝). NA를 키우면 초점 여유(DOF)가 제곱으로 줄어드는 맞바꿈을 같이 말합니다.</li>
+      <li>EUV는 파장 13.5 nm의 플라즈마 광원, 거울(반사형) 광학계, 반사형 마스크, 진공 환경, 고감도 PR을 씁니다. 거울을 거칠 때마다 빛이 줄고 광자 수가 적어 선 거칠기가 늘어, 해상도·거칠기·감도(RLS)는 맞바꿈 관계입니다.</li>
+    </ul>
+    <p class="foot">원고 3-4를 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="photo.html">포토 공정(photo)</a>, <a href="euv-litho.html">EUV 노광 심화(euv-litho)</a> 애니메이션을 보세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "순서"], [38, "회절"], [52, "레일리"], [68, "k₁ 줄이기"], [90, "EUV"], [108, "마무리"],
+  ];
+  const TITLES = [
+    [6, "무늬를 옮기는 여덟 단계"], [38, "작은 무늬는 빛이 퍼져서 그리기 어렵다"], [52, "해상도: 레일리 식"],
+    [68, "k₁ 줄이기: 같은 장비로 더 작게"], [90, "EUV: 거울과 진공으로 빛을 보낸다"], [99.6, "EUV와 DUV, 무엇이 다른가"], [108, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "반도체 회로는 어떻게 웨이퍼에 그려질까요? 필름 사진을 <b>인화</b>하는 것과 닮았습니다."],
+    [3, 6, "감광액을 바르고, 빛을 쪼이고, 씻어 냅니다. 얼마나 작게 그리느냐(<b>해상도</b>)가 미세화의 한계를 정합니다."],
+    [6, 8, "인화지(PR)에 필름(마스크)을 대고 빛을 비춘 뒤 현상액에 담그는 것과 같은 순서입니다."],
+    [8, 11.2, "<b>1. 전처리</b> 수분을 날리고 HMDS로 접착을 높인 뒤, 반사를 막는 BARC를 바릅니다."],
+    [11.2, 14.4, "<b>2. PR 코팅</b> 웨이퍼를 돌려 감광액을 고르게 폅니다. 두께는 점도와 회전 속도가 정합니다."],
+    [14.4, 17.6, "<b>3. 소프트 베이크</b> 용매를 날려 PR을 굳히고, 아래막과 잘 붙게 합니다."],
+    [17.6, 20.6, "<b>4. 정렬·노광</b> 마스크를 아래층 패턴에 맞춘 뒤(오버레이) 빛을 쪼입니다. 이 단계만 스캐너가 합니다."],
+    [20.6, 22.6, "빛을 받은 PR에서는 <b>산</b>이 생깁니다. 아직 눈에 보이는 변화는 없습니다."],
+    [22.6, 26.6, "<b>5. PEB</b> 가열하면 산이 퍼지며 반응이 연쇄로 증폭되고, 물결무늬(정재파)가 매끈해집니다."],
+    [26.6, 30.2, "<b>6. 현상</b> 현상액이 산을 받은 부분(양성 PR)을 녹여 냅니다. 무늬가 드러납니다."],
+    [30.2, 33.8, "<b>7. 하드 베이크</b> 남은 용매를 날려 PR을 단단하게 합니다. 과하면 나중에 벗기기 어렵습니다."],
+    [33.8, 38, "<b>8. 검사</b> 선폭(CD), 아래층과의 정렬(오버레이), 결함을 잽니다. 불량이면 PR을 벗기고 다시(리워크) 합니다."],
+    [38, 40.6, "마스크의 좁은 틈을 지나면 빛은 퍼집니다(<b>회절</b>). 직진하는 0차와 비스듬한 ±1차로 나뉩니다."],
+    [40.6, 44, "무늬가 작아질수록 더 크게 꺾여 ±1차가 <b>렌즈 밖</b>으로 나갑니다. 두 개 이상 들어와야 상이 맺힙니다."],
+    [44, 47.6, "해법 ① <b>파장을 짧게</b>. 꺾이는 각도가 줄어 다시 렌즈에 들어옵니다."],
+    [47.6, 50.8, "해법 ② <b>렌즈를 크게</b>(NA 상승). 더 넓게 받아들입니다."],
+    [50.8, 52, "이 두 손잡이에 하나를 더한 것이 레일리 식입니다."],
+    [52, 54.5, "<b>R = k₁ × λ ÷ NA</b> 구별할 수 있는 가장 작은 간격 R은 작을수록 좋습니다."],
+    [54.5, 56.8, "<b>λ 파장</b>은 짧게. KrF 248 nm에서 ArF 193 nm, EUV 13.5 nm로 줄어 왔습니다."],
+    [56.8, 59, "<b>NA</b>는 렌즈가 모으는 각도. 렌즈와 웨이퍼 사이를 물로 채우면(이머전) 1.35까지 올라갑니다."],
+    [59, 61, "<b>k₁</b>은 공정 상수. 작을수록 좋고, 한 번 노광의 물리적 한계는 0.25입니다."],
+    [61, 65.2, "k₁을 0.3으로 두고 계산하면, 파장과 NA에 따라 이만큼 달라집니다."],
+    [65.2, 68, "다만 NA를 키우면 초점이 맞는 깊이(<b>DOF</b>)가 제곱으로 줄어, 해상도와 맞바꿉니다."],
+    [68, 73, "<b>OAI</b> 빛을 비스듬히 넣으면 회절광이 렌즈 안으로 더 많이 들어와, 같은 렌즈로 더 작은 무늬를 그립니다."],
+    [73, 78.5, "<b>OPC</b> 빛이 번져 모서리가 뭉툭해지니, 마스크 모양을 미리 보정해 원하는 모양을 얻습니다."],
+    [78.5, 84, "<b>PSM</b> 이웃 무늬의 빛 위상을 반대로 만들어, 사이에서 상쇄 간섭이 일어나 경계가 또렷해집니다."],
+    [84, 87.2, "<b>멀티 패터닝(SADP)</b> 맨드릴 옆면에 스페이서를 입힌 뒤,"],
+    [87.2, 90, "맨드릴을 빼면 스페이서만 남아 <b>피치가 절반</b>이 됩니다. 대신 공정 수와 원가가 늘어납니다."],
+    [90, 93, "<b>EUV</b>는 파장이 13.5 nm. 주석 방울에 레이저를 쏘아 만든 플라즈마가 빛을 냅니다."],
+    [93, 97.4, "EUV는 거의 모든 물질이 흡수해 렌즈를 못 씁니다. <b>진공</b> 속에서 <b>거울</b>로만 빛을 보냅니다."],
+    [97.4, 99.8, "거울 한 장이 60~70%만 반사해, 10장이 넘으면 빛은 1% 안팎. 그래서 광원 출력이 핵심입니다."],
+    [99.8, 104.8, "DUV와 비교하면 <b>광원·광학계·마스크·환경·감광액</b>이 모두 다릅니다."],
+    [104.8, 108, "광자가 적으면 선이 거칠어져 해상도·거칠기·감도는 <b>RLS 맞바꿈</b>. High-NA는 NA를 0.55로 키웠습니다."],
+    [108, 110.6, "정리하면 세 가지입니다. <b>① 순서</b> 전처리부터 코팅, 소프트 베이크, 노광, PEB, 현상, 하드 베이크, 검사."],
+    [110.6, 113, "<b>② 해상도</b> R = k₁λ/NA. 파장을 줄이고, NA를 키우고, k₁을 줄입니다."],
+    [113, 115, "<b>③ EUV</b> 13.5 nm, 거울과 진공. 대신 빛이 적어 선 거칠기가 숙제입니다."],
+    [115, 117, "면접에서는 <b>NA를 키우면 초점 여유(DOF)가 줄어드는 맞바꿈</b>까지 말하세요."],
+  ];
+
+  // ---------- tracks (all functions of the film time t, in seconds) ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gA = K([[5.8, 0], [6.6, 1], [37.4, 1], [38.2, 0]]);
+  const gB = K([[37.8, 0], [38.6, 1], [51.4, 1], [52.2, 0]]);
+  const gC = K([[51.8, 0], [52.6, 1], [67.4, 1], [68.2, 0]]);
+  const gD = K([[67.8, 0], [68.6, 1], [89.4, 1], [90.2, 0]]);
+  const gE1 = K([[89.8, 0], [90.6, 1], [99.0, 1], [99.7, 0]]);
+  const gE2 = K([[99.4, 0], [100.0, 1], [107.4, 1], [108.2, 0]]);
+  const gF = K([[107.8, 0], [108.6, 1]]);
+
+  // A: the eight steps
+  const ST = [8, 11.2, 14.4, 17.6, 22.6, 26.6, 30.2, 33.8, 38];
+  const barcH = K([[8.6, 0], [10.6, 14]]);
+  const hmV = K([[8.1, 0], [8.5, 1], [10.8, 1], [11.2, 0]]);
+  const dropV = K([[11.3, 0], [11.5, 1], [11.9, 1], [12.0, 0]]), dropY = K([[11.3, 236], [12.0, 290]]);
+  const prVis = K([[11.9, 0], [12.0, 1]]);
+  const coatX = K([[12.0, 0.2], [13.9, 1]]), coatY = K([[12.0, 1.5], [14.2, 1]]);
+  const bakeY = K([[15.0, 1], [17.0, 0.9]]);
+  const solV = K([[14.8, 0], [15.2, 1], [16.8, 1], [17.4, 0]]);
+  const HEAT = [K([[14.4, 0], [15, 1], [17, 1], [17.6, 0]]), K([[22.6, 0], [23.2, 1], [26, 1], [26.6, 0]]), K([[30.2, 0], [30.8, 1], [33.2, 1], [33.8, 0]])];
+  const maskX = K([[17.6, -46], [19.6, 0]]), maskV = K([[17.4, 0], [18, 1], [22.0, 1], [22.7, 0]]);
+  const lightV = K([[19.8, 0], [20.4, 1], [21.6, 1], [22.1, 0]]);
+  const expoV = K([[20.4, 0], [21.2, 1]]);
+  const ewAmp = K([[19.8, 0], [21.2, 6], [22.6, 6], [25.4, 0.2], [26.6, 0]]), ewV = K([[20.2, 0], [20.8, 1], [26.0, 1], [26.6, 0]]);
+  const dvV = K([[27.0, 0], [29.6, 1]]);
+  const devArrV = K([[26.8, 0], [27.3, 1], [29.4, 1], [29.8, 0]]);
+  const hbV = K([[30.6, 0], [33.0, 1]]);
+  const cdV = K([[34.2, 0], [34.8, 1]]), inspV = K([[35.2, 0], [35.9, 1]]);
+  const ROWS = [
+    ["1. 전처리", "수분 제거 · HMDS · BARC", "트랙"], ["2. PR 코팅", "스핀으로 고르게 펴기", "트랙"],
+    ["3. 소프트 베이크", "용매를 날려 굳히기", "트랙"], ["4. 정렬·노광", "마스크를 맞추고 빛 쪼이기", "스캐너"],
+    ["5. PEB", "산이 퍼지며 반응 증폭", "트랙"], ["6. 현상", "빛 받은 곳이 녹아 나감", "트랙"],
+    ["7. 하드 베이크", "단단하게, 접착 강화", "트랙"], ["8. 검사 (ADI)", "CD · 오버레이 · 결함", "계측"],
+  ];
+  const XO = [230, 390, 550];          // exposed (opened) regions, 70 wide
+  const LN = [[150, 80], [300, 90], [460, 90], [620, 50]];   // PR lines that stay
+
+  // B: diffraction
+  const bP = K([[38, 3.0], [40.6, 3.0], [43.6, 1.6], [47.6, 1.6], [49.0, 0.95]]);
+  const bL = K([[38, 1], [44, 1], [47.0, 0.55]]);
+  const bW = K([[38, 120], [49.2, 120], [50.8, 170]]);
+  const BT = [38.6, 40.8, 44.0, 47.6, 51.0];
+  const BROWS = [
+    ["빛은 좁은 틈에서 퍼진다", "직진하는 0차, 비스듬한 ±1차 (회절)"],
+    ["무늬가 작으면 더 많이 꺾인다", "±1차가 렌즈 밖으로 나가면 상이 없다"],
+    ["해법 ① 파장을 짧게", "꺾이는 각도가 줄어 다시 들어온다"],
+    ["해법 ② 렌즈를 크게 (NA 상승)", "더 넓은 각도의 빛을 받아들인다"],
+  ];
+
+  // C: Rayleigh
+  const cF = K([[52.4, 0], [53.0, 1]]);
+  const CK = [54.5, 56.8, 59.0];
+  const cKV = CK.map((x) => K([[x - 0.1, 0], [x + 0.7, 1]]));
+  const CB = [61.2, 62.4, 63.6, 64.8];
+  const cBV = CB.map((x) => K([[x - 0.2, 0], [x + 1.0, 1]]));
+  const cD = K([[65.4, 0], [66.0, 1]]), dofA = K([[66.0, 0], [66.8, 1]]), dofB = K([[66.4, 0], [67.4, 1]]);
+  const RES = [["ArF 건식 · NA 0.93", 0.3 * 193 / 0.93], ["ArF 이머전 · NA 1.35", 0.3 * 193 / 1.35], ["EUV · NA 0.33", 0.3 * 13.5 / 0.33], ["High-NA EUV · NA 0.55", 0.3 * 13.5 / 0.55]];
+
+  // D: lowering k1
+  const dS = [68.6, 73.0, 78.5, 84.0, 90.0];
+  const oaiSh = K([[69.4, 0], [71.6, -45]]);
+  const opcA = K([[74.4, 0], [76.6, 1]]);
+  const psmS = K([[79.8, 1], [80.6, 1], [82.8, -1]]);
+  const sdMan = K([[84.3, 0], [85.1, 1]]), sdSpc = K([[85.8, 0], [87.2, 1]]), sdRem = K([[88.0, 0], [89.2, 1]]), sdQ = K([[89.2, 0], [89.8, 1]]);
+
+  // E: EUV
+  const eMir = K([[90.9, 0], [91.7, 1]]);
+  const srcV = K([[90.8, 0], [91.4, 1], [98.8, 1], [99.4, 0]]);
+  const BEAM0 = 92.4, BDT = 0.42;
+  const eBeam = (i) => K([[BEAM0 + BDT * i, 0], [BEAM0 + BDT * (i + 1), 1]]);
+  const eBar = (k) => K([[BEAM0 + BDT * k - 0.1, 0], [BEAM0 + BDT * k + 0.3, 1]]);
+  const eTxt = K([[97.6, 0], [98.4, 1]]);
+  const etRow = (i) => K([[100.2 + 0.9 * i, 0], [100.8 + 0.9 * i, 1]]);
+  const etNote = K([[105.2, 0], [105.9, 1]]), etNote2 = K([[106.4, 0], [107.1, 1]]);
+  const REM = (k) => Math.pow(0.65, k);
+
+  // F: closing cards
+  const FT = [108.8, 110.6, 113.0];
+  const fV = (i) => K([[FT[i], 0], [FT[i] + 0.8, 1]]);
+  const fF = K([[115, 0], [115.8, 1]]);
+
+  // callouts: [from, to, x, y (screen), anchor, text, class]
+  const LABELS = [
+    [8.4, 38, 142, 376, "end", "BARC", "lbl-s"],
+    [8.2, 38, 142, 399, "end", "식각할 막", "lbl-s"],
+    [8.2, 38, 142, 446, "end", "실리콘", "lbl-s"],
+    [8.2, 11.0, 142, 330, "end", "HMDS", "lbl-s acc-t"],
+    [11.5, 14.2, 142, 310, "end", "스핀 코팅", "lbl-s acc-t"],
+    [14.2, 38, 142, 335, "end", "PR", "lbl-s"],
+    [14.6, 17.4, 142, 490, "end", "핫플레이트", "lbl-s"],
+    [22.8, 26.4, 142, 490, "end", "핫플레이트", "lbl-s"],
+    [30.4, 33.6, 142, 490, "end", "핫플레이트", "lbl-s"],
+    [17.8, 22.4, 142, 188, "end", "마스크", "lbl-s"],
+    [19.8, 22.2, 142, 160, "end", "빛", "lbl-s acc-t"],
+    [26.9, 29.6, 142, 274, "end", "현상액", "lbl-s"],
+    [23.0, 26.3, 410, 258, "middle", "산이 퍼지고 반응이 증폭된다", "lbl-c acc-t"],
+    [30.6, 33.6, 410, 258, "middle", "단단하게 굳는다", "lbl-c acc-t"],
+    [34.8, 38, 345, 268, "middle", "CD", "lbl-b acc-t"],
+    [38.4, 52, 566, 165, "start", "마스크", "lbl-s"],
+    [38.4, 52, 566, 345, "start", "렌즈", "lbl-s"],
+    [38.4, 52, 566, 560, "start", "웨이퍼", "lbl-s"],
+    [91.2, 99.4, 150, 196, "start", "주석 방울", "lbl-s"],
+    [91.2, 99.4, 52, 232, "start", "레이저", "lbl-s acc-t"],
+  ];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  const frac = (x) => x - Math.floor(x);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+
+  // A: light arrows, mask, rays
+  s = ""; for (let i = 0; i < 6; i++) { const x = 190 + 84 * i; s += `<line x1="${x}" y1="150" x2="${x}" y2="190" style="stroke: var(--accent); stroke-width: 4" marker-end="url(#arr-a)"></line>`; }
+  $("a-light").innerHTML = s;
+  s = `<rect class="ox" x="140" y="196" width="540" height="14"></rect>`;
+  LN.forEach((l) => { s += `<rect class="chrome" x="${l[0]}" y="196" width="${l[1]}" height="14"></rect>`; });
+  $("a-mask").innerHTML = s;
+  s = ""; XO.forEach((x) => { for (let k = 0; k < 4; k++) { const xx = x + 11 + 16 * k; s += `<line class="chan" x1="${xx}" y1="212" x2="${xx}" y2="292"></line>`; } });
+  $("a-rays").innerHTML = s;
+
+  // A: PR layer (full layer before develop, lines and openings after)
+  s = `<rect id="pr-full" class="prr" x="150" y="288" width="520" height="78"></rect><g id="pr-seg">`;
+  LN.forEach((l) => { s += `<rect class="prr" x="${l[0]}" y="288" width="${l[1]}" height="78"></rect>`; });
+  XO.forEach((x, i) => { s += `<rect id="px${i}" class="prr" x="${x}" y="288" width="70" height="78"></rect>`; });
+  s += `</g>`;
+  LN.forEach((l, i) => { s += `<rect id="hb${i}" x="${l[0]}" y="288" width="${l[1]}" height="78" style="fill: var(--ink); opacity: 0"></rect>`; });
+  XO.forEach((x, i) => { s += `<rect id="xo${i}" class="xo" x="${x}" y="288" width="70" height="78"></rect>`; });
+  for (let i = 0; i < 6; i++) s += `<path id="we${i}" class="wave" d=""></path>`;
+  const ACT = [];
+  for (let i = 0; i < 18; i++) {
+    const r = i % 3, j = Math.floor(i / 3);
+    const x = XO[r] + 70 * (0.12 + 0.76 * frac(j * 0.618 + r * 0.37)), y = 366 - 78 * (0.12 + 0.76 * frac(j * 0.754 + r * 0.21 + 0.1));
+    ACT.push(i < 6 ? 20.7 + 0.22 * i : 23.2 + 0.2 * (i - 6));
+    s += `<circle id="ac${i}" class="acid" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5"></circle>`;
+  }
+  $("pr-g").innerHTML = s;
+  s = ""; for (let i = 0; i < 10; i++) s += `<circle id="hm${i}" cx="0" cy="0" r="4" style="fill: var(--low)"></circle>`;
+  $("a-hmds").innerHTML = s;
+  s = ""; for (let i = 0; i < 14; i++) s += `<circle id="sv${i}" cx="0" cy="0" r="4" style="fill: var(--muted)"></circle>`;
+  $("a-sol").innerHTML = s;
+  s = ""; [265, 425, 585].forEach((x) => { s += `<line x1="${x}" y1="246" x2="${x}" y2="288" style="stroke: var(--low); stroke-width: 4" marker-end="url(#arr-b)"></line>`; });
+  $("a-dev").innerHTML = s;
+  s = ""; for (let i = 0; i < 6; i++) { const x = 190 + 60 * i; s += `<path d="M${x},520 q6,-6.5 0,-13 q-6,-6.5 0,-13" style="fill: none; stroke: var(--bad); stroke-width: 3; stroke-linecap: round"></path>`; }
+  $("a-heat").innerHTML = s;
+  s = ""; ROWS.forEach((r, i) => {
+    const y = 104 + 61 * i;
+    s += `<g id="arow${i}" class="row" data-s="idle"><rect x="720" y="${y}" width="520" height="54" rx="10"></rect>`
+      + `<text x="742" y="${y + 24}" style="font-size:22px;font-weight:700">${r[0]}</text>`
+      + `<text x="742" y="${y + 46}" class="lbl-s">${r[1]}</text>`
+      + `<text x="1218" y="${y + 33}" text-anchor="end" class="mono lbl-s" style="font-size:17px">${r[2]}</text></g>`;
+  });
+  $("a-rows").innerHTML = s;
+
+  // B: light arrows, mask blocks, step rows
+  s = ""; for (let i = 0; i < 5; i++) { const x = 240 + 70 * i; s += `<line x1="${x}" y1="108" x2="${x}" y2="148" style="stroke: var(--accent); stroke-width: 4" marker-end="url(#arr-a)"></line>`; }
+  $("b-light").innerHTML = s;
+  s = ""; for (let k = 0; k < 15; k++) s += `<rect id="bm${k}" class="chrome" x="0" y="154" width="10" height="12"></rect>`;
+  $("b-mask").innerHTML = s;
+  s = ""; BROWS.forEach((r, i) => {
+    const y = 112 + 74 * i;
+    s += `<g id="brow${i}" class="row" data-s="idle"><rect x="720" y="${y}" width="520" height="66" rx="10"></rect>`
+      + `<text x="742" y="${y + 29}" style="font-size:22px;font-weight:700">${r[0]}</text>`
+      + `<text x="742" y="${y + 54}" class="lbl-s">${r[1]}</text></g>`;
+  });
+  $("b-rows").innerHTML = s;
+
+  // C: term cards, bar chart, DOF
+  s = "";
+  [["λ 광원 파장", "KrF 248 → ArF 193 → EUV 13.5 nm", "짧을수록 작은 무늬를 그린다"],
+   ["NA 렌즈가 모으는 각도", "공기 0.93 → 물(이머전) 1.35", "EUV 0.33 → High-NA 0.55"],
+   ["k₁ 공정 상수", "작을수록 좋다 (OAI·OPC·PSM…)", "한 번 노광의 한계는 0.25"]].forEach((c, i) => {
+    const x = 40 + 410 * i;
+    s += `<g id="cc${i}"><rect class="card" x="${x}" y="226" width="380" height="104" rx="12"></rect>`
+      + `<text x="${x + 18}" y="258" class="acc-t" style="font-size:24px">${c[0]}</text>`
+      + `<text x="${x + 18}" y="288" style="font-size:19px;font-weight:700">${c[1]}</text>`
+      + `<text x="${x + 18}" y="314" class="lbl-s">${c[2]}</text></g>`;
+  });
+  $("c-cards").innerHTML = s;
+  s = `<text x="60" y="366" style="font-size:22px;font-weight:700">k₁ = 0.3일 때의 R (단순 계산, 파랑 = DUV, 주황 = EUV)</text>`;
+  RES.forEach((r, i) => {
+    const y = 392 + 52 * i, v = r[1];
+    s += `<text id="cbl${i}" x="60" y="${y + 25}" style="font-size:21px;font-weight:700">${r[0]}</text>`
+      + `<rect id="cb${i}" x="330" y="${y}" width="0" height="34" rx="4" style="fill: ${i < 2 ? "var(--low)" : "var(--accent)"}"></rect>`
+      + `<text id="cbv${i}" x="340" y="${y + 25}" class="mono" style="font-size:22px;font-weight:600">${v < 10 ? v.toFixed(1) : Math.round(v)} nm</text>`;
+  });
+  $("c-chart").innerHTML = s;
+  $("c-dof").innerHTML = `<rect class="card" x="830" y="345" width="410" height="245" rx="12"></rect>`
+    + `<text x="850" y="376" style="font-size:20px;font-weight:700">렌즈를 키우면 초점 여유가 줄어든다</text>`
+    + `<text x="850" y="404" class="mono acc-t" style="font-size:21px">DOF = k₂ × λ ÷ NA²</text>`
+    + `<line class="axis" x1="860" y1="556" x2="1210" y2="556"></line>`
+    + `<rect id="dfa" x="890" y="456" width="80" height="100" rx="4" style="fill: var(--low)"></rect><rect id="dfb" x="1080" y="520" width="80" height="36" rx="4" style="fill: var(--accent)"></rect>`
+    + `<text id="dfav" x="930" y="446" text-anchor="middle" class="lbl-b">100%</text><text id="dfbv" x="1120" y="510" text-anchor="middle" class="lbl-b acc-t">약 36%</text>`
+    + `<text x="930" y="580" text-anchor="middle" class="lbl-s">NA 0.33</text><text x="1120" y="580" text-anchor="middle" class="lbl-s">NA 0.55</text>`;
+
+  // D: four cells
+  const CX = [40, 650, 40, 650], CY = [100, 100, 358, 358];
+  const DT = [["OAI: 빛을 비스듬히 넣기", "회절광을 렌즈 안으로 더 많이"], ["OPC: 모양을 미리 보정", "번짐을 계산해 마스크를 고친다"], ["PSM: 위상을 반대로", "이웃 사이에서 빛이 상쇄된다"], ["멀티 패터닝: 피치 절반", "SADP: 스페이서를 패턴으로 쓴다"]];
+  s = "";
+  for (let i = 0; i < 4; i++) {
+    s += `<g id="dt${i}"><rect id="dcd${i}" class="cellc" x="${CX[i]}" y="${CY[i]}" width="590" height="238" rx="12"></rect>`
+      + `<text x="${CX[i] + 20}" y="${CY[i] + 34}" style="font-size:24px;font-weight:700">${DT[i][0]}</text>`
+      + `<text x="${CX[i] + 20}" y="${CY[i] + 60}" class="lbl-s">${DT[i][1]}</text></g><g id="dc${i}"></g>`;
+  }
+  $("d-cells").innerHTML = s;
+  // D0: pupil plane
+  $("dc0").innerHTML = `<text x="240" y="186" text-anchor="middle" class="lbl-s">렌즈 입구</text>`
+    + `<circle cx="240" cy="258" r="64" style="fill: var(--low-soft); stroke: var(--low); stroke-width: 3"></circle>`
+    + [0, 1, 2].map((k) => `<circle id="od-d${k}" cx="240" cy="258" r="9" style="fill: var(--bad)"></circle><text id="od-t${k}" x="240" y="288" text-anchor="middle" class="lbl-c" style="font-size:17px">${["−1차", "0차", "+1차"][k]}</text>`).join("")
+    + `<line id="od-in" x1="440" y1="190" x2="440" y2="244" style="stroke: var(--accent); stroke-width: 4" marker-end="url(#arr-a)"></line>`
+    + `<text x="440" y="272" text-anchor="middle" class="lbl-s">입사광</text>`
+    + `<text id="od-n" x="300" y="320" style="font-size:21px;font-weight:700"></text>`;
+  // D1: OPC shapes
+  $("dc1").innerHTML = `<rect class="chrome" x="695" y="223" width="70" height="70"></rect>`
+    + [[695, 223], [765, 223], [695, 293], [765, 293]].map((p, k) => `<rect id="oc-s${k}" class="chrome" x="${p[0]}" y="${p[1]}" width="0" height="0"></rect>`).join("")
+    + `<line x1="810" y1="258" x2="940" y2="258" style="stroke: var(--accent); stroke-width: 4" marker-end="url(#arr-a)"></line><text x="875" y="246" text-anchor="middle" class="lbl-s">빛</text>`
+    + `<rect id="oc-p" class="prr" x="975" y="223" width="70" height="70" rx="26" style="stroke-width: 3"></rect>`
+    + `<rect x="975" y="223" width="70" height="70" style="fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 6 5"></rect>`
+    + `<text x="730" y="326" text-anchor="middle" class="lbl-s">마스크</text><text x="1010" y="326" text-anchor="middle" class="lbl-s">웨이퍼에 찍힌 모양 (점선 = 원하는 모양)</text>`
+    + `<text id="oc-st" x="1010" y="196" text-anchor="middle" style="font-size:21px;font-weight:700"></text>`;
+  // D2: PSM curve
+  $("dc2").setAttribute("transform", "translate(0 -10)");
+  $("dc2").innerHTML = `<path id="ps-c" d="" style="fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round"></path>`
+    + `<line class="axis" x1="140" y1="530" x2="520" y2="530"></line>`
+    + `<rect x="282" y="538" width="16" height="10" style="fill: var(--accent)"></rect><rect x="362" y="538" width="16" height="10" style="fill: var(--accent)"></rect>`
+    + `<text x="290" y="568" text-anchor="middle" class="lbl-s">0°</text><text id="ps-ph" x="370" y="568" text-anchor="middle" class="lbl-s">0°</text>`
+    + `<text id="ps-st" x="330" y="590" text-anchor="middle" style="font-size:20px;font-weight:700"></text>`;
+  // D3: SADP strip
+  const MX = [700, 840, 980];
+  s = `<rect class="cu" x="660" y="534" width="400" height="20"></rect>`;
+  MX.forEach((m, k) => { s += `<rect id="sd-m${k}" class="poly" x="${m}" y="490" width="35" height="44"></rect>`; });
+  MX.forEach((m, k) => { s += `<rect id="sd-l${k}" class="ox" x="${m - 35}" y="490" width="35" height="44" style="stroke-width: 2"></rect><rect id="sd-r${k}" class="ox" x="${m + 35}" y="490" width="35" height="44" style="stroke-width: 2"></rect>`; });
+  s += `<g id="sd-d1"><line class="dim" x1="700" y1="470" x2="840" y2="470"></line><line class="dim" x1="700" y1="462" x2="700" y2="478"></line><line class="dim" x1="840" y1="462" x2="840" y2="478"></line><text x="770" y="456" text-anchor="middle" class="lbl-b">피치 P</text></g>`
+    + `<g id="sd-d2"><line class="dim" x1="665" y1="470" x2="735" y2="470"></line><line class="dim" x1="665" y1="462" x2="665" y2="478"></line><line class="dim" x1="735" y1="462" x2="735" y2="478"></line><text x="665" y="456" class="lbl-b acc-t">피치 P/2</text></g>`
+    + `<text id="sd-q" x="900" y="442" text-anchor="middle" class="lbl-s">한 번 더 하면(SAQP) 피치는 1/4</text>`
+    + `<text id="sd-st" x="860" y="584" text-anchor="middle" style="font-size:20px;font-weight:700"></text>`;
+  $("dc3").innerHTML = s;
+
+  // E: EUV chain
+  const XK = (k) => 130 + 87.5 * k, YK = (k) => (k === 0 || k === 12) ? 250 : (k % 2 ? 214 : 286);
+  s = `<line id="e-las" x1="50" y1="250" x2="116" y2="250" style="stroke: var(--accent); stroke-width: 5; stroke-dasharray: 10 6"></line>`
+    + `<circle id="e-dr" cx="130" cy="172" r="7" style="fill: var(--m-tin)"></circle>`
+    + `<ellipse id="e-fl" cx="130" cy="250" rx="7" ry="7" style="fill: var(--m-tin)"></ellipse>`
+    + `<circle id="e-fh" cx="130" cy="250" r="6" style="fill: var(--accent)"></circle>`;
+  for (let i = 0; i < 12; i++) {
+    const r = REM(i);
+    s += `<line id="eb${i}" class="beam" x1="${XK(i)}" y1="${YK(i)}" x2="${XK(i)}" y2="${YK(i)}" style="stroke-width: ${(2 + 7 * Math.sqrt(r)).toFixed(1)}; opacity: ${(0.45 + 0.55 * Math.sqrt(r)).toFixed(2)}"></line>`;
+  }
+  for (let k = 1; k <= 11; k++) {
+    const w = k === 1 ? 56 : k === 5 ? 46 : 38, rot = (k % 2 ? 1 : -1) * 28;
+    s += `<g transform="translate(${XK(k)} ${YK(k)}) rotate(${rot})"><rect class="mirror" x="${-w / 2}" y="-4" width="${w}" height="8" style="${k === 5 ? "fill: var(--m-cu)" : ""}"></rect></g>`;
+  }
+  s += `<rect class="si" x="${XK(12) - 38}" y="256" width="76" height="12"></rect>`;
+  [[1, 1, "콜렉터"], [2, 4, "조명 거울 3장"], [5, 5, "반사형 마스크"], [6, 11, "투영 거울 6장"], [12, 12, "웨이퍼"]].forEach((g) => {
+    const x1 = XK(g[0]) - 30, x2 = XK(g[1]) + 30;
+    s += `<line class="dim" x1="${x1}" y1="318" x2="${x2}" y2="318"></line><text x="${(XK(g[0]) + XK(g[1])) / 2}" y="352" text-anchor="middle" class="lbl-s">${g[2]}</text>`;
+  });
+  $("e-chain").innerHTML = s;
+  s = `<text x="640" y="392" text-anchor="middle" class="lbl">남은 빛의 양 (거울 한 장 반사율 65% 가정, 개념 계산)</text>`;
+  for (let k = 0; k <= 11; k++) {
+    const h = 150 * REM(k);
+    s += `<rect id="ebar${k}" x="${XK(k) - 18}" y="${560 - h}" width="36" height="${h}" rx="3" style="fill: var(--accent)"></rect>`;
+  }
+  [[0, "100%"], [1, "65%"], [5, "12%"], [11, "0.9%"]].forEach((v) => { s += `<text id="ebv${v[0]}" x="${XK(v[0])}" y="${552 - 150 * REM(v[0])}" text-anchor="middle" class="lbl-s">${v[1]}</text>`; });
+  s += `<g id="e-fin"><text x="1000" y="452" text-anchor="middle" class="acc-t" style="font-size:30px">웨이퍼에 닿는 빛은</text><text x="1000" y="492" text-anchor="middle" class="acc-t" style="font-size:30px">처음의 1% 안팎</text></g>`;
+  $("e-bars").innerHTML = s;
+
+  // E2: comparison table
+  const TB = [["파장", "193 nm", "13.5 nm"], ["광원", "엑시머 레이저", "주석 플라즈마 (CO₂ 레이저로 생성)"], ["광학계", "렌즈 수십 장 (투과형)", "거울 (반사형, Mo/Si 다층막)"],
+    ["마스크", "투과형", "반사형 · 6°로 비스듬히 입사"], ["환경", "대기압", "진공"], ["감광액", "화학증폭형(CAR)", "고감도 CAR · 무기(금속산화물) PR"]];
+  s = `<rect class="card" x="40" y="100" width="1200" height="496" rx="12"></rect>`
+    + `<rect class="tbl-h" x="60" y="112" width="1160" height="34" rx="6"></rect>`
+    + `<text x="80" y="136" style="font-size:22px;font-weight:700">구분</text><text x="300" y="136" style="font-size:22px;font-weight:700">DUV (ArF)</text><text x="740" y="136" class="acc-t" style="font-size:22px">EUV</text>`;
+  TB.forEach((r, i) => {
+    const y = 154 + 58 * i;
+    s += `<g id="et${i}"><rect class="tbl-r" x="60" y="${y}" width="1160" height="50" rx="6"></rect><rect class="tbl-e" x="720" y="${y + 1}" width="499" height="48" rx="5"></rect>`
+      + `<text x="80" y="${y + 33}" style="font-size:22px;font-weight:700">${r[0]}</text><text x="300" y="${y + 33}" style="font-size:22px">${r[1]}</text><text x="740" y="${y + 33}" style="font-size:22px;font-weight:600">${r[2]}</text></g>`;
+  });
+  s += `<text id="et-n1" x="640" y="540" text-anchor="middle" style="font-size:22px;font-weight:700">해상도(R) · 거칠기(L) · 감도(S): 하나를 좋게 하면 다른 것이 나빠진다 (RLS)</text>`
+    + `<text id="et-n2" x="640" y="578" text-anchor="middle" class="lbl" style="font-size:21px">High-NA EUV: NA 0.33 → 0.55, 가로·세로 축소 배율을 다르게 하는 아나모픽 광학</text>`;
+  $("g-e2").innerHTML = s;
+
+  // F: closing cards
+  (function () {
+    const cards = [
+      { h: "포토 순서", l: ["전처리 → 코팅 → 베이크", "노광 → PEB → 현상", "하드 베이크 → 검사", "불량이면 PR을 벗겨 다시"] },
+      { h: "해상도", l: ["R = k₁ × λ ÷ NA", "파장↓ · NA↑ · k₁↓", "k₁↓ = OAI·OPC·PSM·멀티", "NA↑ → 초점 여유(DOF)↓"] },
+      { h: "EUV", l: ["13.5 nm · 거울 · 진공", "플라즈마 광원, 반사형 마스크", "광자가 적어 선 거칠기 숙제", "해상도·거칠기·감도 (RLS)"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="f-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>`
+        + `<g class="mk"><circle cx="${x + 44}" cy="188" r="24"></circle><text x="${x + 44}" y="197" text-anchor="middle" style="font-size:26px">${i + 1}</text></g>`
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="f-f" x="640" y="500" text-anchor="middle" class="mono acc-t" style="font-size:26px">R = k₁λ / NA  ·  DOF = k₂λ / NA²</text>`;
+    $("g-f").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  const HL = [];
+  const FV = [0, 1, 2].map(fV);
+  let hlOn = new Set();
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-a", gA(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e1", gE1(t)); op("g-e2", gE2(t)); op("g-f", gF(t));
+
+    // A: the eight steps
+    { const bh = barcH(t); setAttr("a-barc", "y", (380 - bh).toFixed(1)); setAttr("a-barc", "height", bh.toFixed(1)); }
+    setAttr("pr-g", "transform", `translate(410 366) scale(${coatX(t).toFixed(3)} ${(coatY(t) * bakeY(t)).toFixed(3)}) translate(-410 -366)`);
+    op("pr-g", prVis(t));
+    op("pr-full", t < 26.6 ? 1 : 0); op("pr-seg", t < 26.6 ? 0 : 1);
+    { const hh = 78 * (1 - dvV(t));
+      for (let i = 0; i < 3; i++) {
+        setAttr("px" + i, "y", (366 - hh).toFixed(1)); setAttr("px" + i, "height", hh.toFixed(1));
+        setAttr("xo" + i, "y", (366 - hh).toFixed(1)); setAttr("xo" + i, "height", hh.toFixed(1));
+        op("xo" + i, expoV(t));
+      } }
+    for (let i = 0; i < 4; i++) setStyle("hb" + i, "opacity", (0.3 * hbV(t)).toFixed(3));
+    { const A = ewAmp(t), wv = ewV(t);
+      for (let e = 0; e < 6; e++) {
+        const x0 = XO[Math.floor(e / 2)] + (e % 2 ? 70 : 0);
+        let d = "";
+        for (let y = 288; y <= 366; y += 6) d += (y === 288 ? "M" : "L") + (x0 + A * Math.sin(0.42 * y + e * 1.7)).toFixed(1) + "," + y;
+        setAttr("we" + e, "d", d); op("we" + e, wv);
+      }
+      for (let i = 0; i < 18; i++) op("ac" + i, clamp((t - ACT[i]) / 0.4, 0, 1) * clamp((29 - t) / 1, 0, 1)); }
+    { const heat = Math.max(HEAT[0](t), HEAT[1](t), HEAT[2](t)); op("a-plate", 0.15 + 0.7 * heat); op("a-heat", heat); }
+    for (let i = 0; i < 10; i++) {
+      const u = frac((t - 8.0) * 0.9 + i * 0.173);
+      setAttr("hm" + i, "cx", (170 + 480 * frac(i * 0.43 + 0.13)).toFixed(1)); setAttr("hm" + i, "cy", (300 + 72 * u).toFixed(1));
+      op("hm" + i, hmV(t) * Math.sin(Math.PI * u));
+    }
+    for (let i = 0; i < 14; i++) {
+      const u = frac((t - 14.8) * 0.55 + i * 0.137);
+      setAttr("sv" + i, "cx", (160 + 500 * frac(i * 0.618 + 0.1)).toFixed(1)); setAttr("sv" + i, "cy", (350 - 80 * u).toFixed(1));
+      op("sv" + i, solV(t) * Math.sin(Math.PI * u));
+    }
+    setAttr("a-drop", "cy", dropY(t).toFixed(1)); op("a-drop", dropV(t));
+    op("a-dev", devArrV(t));
+    setAttr("a-mask", "transform", `translate(${maskX(t).toFixed(1)} 0)`); op("a-mask", maskV(t));
+    op("a-rays", lightV(t)); op("a-light", lightV(t));
+    op("a-cd", cdV(t)); op("a-insp", inspV(t));
+    for (let i = 0; i < 8; i++) setAttr("arow" + i, "data-s", t < ST[i] ? "idle" : t < ST[i + 1] ? "on" : "done");
+
+    // B: diffraction
+    { const P = bP(t), Lm = bL(t), W = bW(t), pp = P * 28;
+      const off = 180 * Math.tan(Math.asin(Math.min(0.97, Lm / P)));
+      const c = clamp((W - off) / 14 + 0.5, 0, 1);
+      for (let k = 0; k < 15; k++) {
+        const kk = k - 7, xk = 380 + kk * pp;
+        setAttr("bm" + k, "x", (xk - pp / 4).toFixed(1)); setAttr("bm" + k, "width", (pp / 2).toFixed(1));
+        op("bm" + k, clamp((176 - Math.abs(kk * pp)) / 8, 0, 1));
+      }
+      setAttr("b-l1", "x2", (380 - off).toFixed(1)); setAttr("b-r1", "x2", (380 + off).toFixed(1));
+      setAttr("b-l2", "x1", (380 - off).toFixed(1)); setAttr("b-r2", "x1", (380 + off).toFixed(1)); op("b-l2", c); op("b-r2", c);
+      setAttr("b-l3", "x1", (380 - off).toFixed(1)); setAttr("b-l3", "x2", (380 - off * 1.3).toFixed(1));
+      setAttr("b-r3", "x1", (380 + off).toFixed(1)); setAttr("b-r3", "x2", (380 + off * 1.3).toFixed(1));
+      op("b-l3", 1 - c); op("b-r3", 1 - c);
+      setAttr("b-xl", "x", (380 - off * 1.3).toFixed(1)); setAttr("b-xr", "x", (380 + off * 1.3).toFixed(1)); op("b-xl", 1 - c); op("b-xr", 1 - c);
+      setAttr("b-lens", "rx", W.toFixed(1));
+      let d = "";
+      for (let x = 230; x <= 530; x += 3) { const I = 0.5 + 0.5 * c * Math.cos(2 * Math.PI * (x - 380) / pp); d += (x === 230 ? "M" : "L") + x + "," + (548 - 40 * I).toFixed(1); }
+      setAttr("b-cur", "d", d);
+      setAttr("b-meter", "width", (472 * c).toFixed(1)); setStyle("b-meter", "fill", c > 0.5 ? "var(--ok)" : "var(--bad)");
+      setText("b-st", c > 0.75 ? "선명하다" : c > 0.25 ? "흐려진다" : "맺히지 않는다"); setStyle("b-st", "fill", c > 0.5 ? "var(--ok)" : "var(--bad)");
+      for (let i = 0; i < 4; i++) setAttr("brow" + i, "data-s", t < BT[i] ? "idle" : t < BT[i + 1] ? "on" : "done"); }
+
+    // C: Rayleigh
+    op("c-f", cF(t));
+    { const act = t < CK[0] ? -1 : t < CK[1] ? 0 : t < CK[2] ? 1 : t < 61 ? 2 : -1;
+      setStyle("c-tl", "fill", act === 0 ? "var(--accent)" : "var(--ink)"); setStyle("c-tn", "fill", act === 1 ? "var(--accent)" : "var(--ink)"); setStyle("c-tk", "fill", act === 2 ? "var(--accent)" : "var(--ink)"); }
+    for (let i = 0; i < 3; i++) op("cc" + i, cKV[i](t));
+    for (let i = 0; i < 4; i++) {
+      const p = cBV[i](t), w = RES[i][1] * 6.4 * p;
+      setAttr("cb" + i, "width", w.toFixed(1)); setAttr("cbv" + i, "x", (342 + w).toFixed(1)); op("cbv" + i, p); op("cbl" + i, p);
+    }
+    op("c-dof", cD(t));
+    { const ha = 100 * dofA(t), hb = 36 * dofB(t);
+      setAttr("dfa", "y", (556 - ha).toFixed(1)); setAttr("dfa", "height", ha.toFixed(1)); setAttr("dfb", "y", (556 - hb).toFixed(1)); setAttr("dfb", "height", hb.toFixed(1));
+      setAttr("dfav", "y", (546 - ha).toFixed(1)); setAttr("dfbv", "y", (546 - hb).toFixed(1)); op("dfav", dofA(t)); op("dfbv", dofB(t)); }
+
+    // D: lowering k1
+    for (let i = 0; i < 4; i++) {
+      const on = t >= dS[i] && t < dS[i + 1];
+      op("dt" + i, 0.45 + 0.55 * clamp((t - (dS[i] - 0.3)) / 0.6, 0, 1));
+      setStyle("dcd" + i, "stroke", on ? "var(--accent)" : "var(--line)");
+      op("dc" + i, K([[dS[i] - 0.2, 0], [dS[i] + 0.5, 1]])(t));
+    }
+    { const sh = oaiSh(t); let n = 0;
+      for (let k = 0; k < 3; k++) {
+        const x = 240 + sh + (k - 1) * 80, inside = Math.abs(x - 240) <= 64; if (inside) n++;
+        setAttr("od-d" + k, "cx", x.toFixed(1)); setStyle("od-d" + k, "fill", inside ? "var(--ok)" : "var(--bad)"); setAttr("od-t" + k, "x", x.toFixed(1));
+      }
+      const tilt = -sh / 40;
+      setAttr("od-in", "x1", (440 - 46 * tilt).toFixed(1));
+      setText("od-n", n >= 2 ? "회절광 " + n + "개 → 상이 맺힌다" : "회절광 " + n + "개 → 상이 없다");
+      setStyle("od-n", "fill", n >= 2 ? "var(--ok)" : "var(--bad)"); }
+    { const a = opcA(t), sz = 22 * a;
+      [[695, 223], [765, 223], [695, 293], [765, 293]].forEach((p, k) => {
+        setAttr("oc-s" + k, "x", (p[0] - sz / 2).toFixed(1)); setAttr("oc-s" + k, "y", (p[1] - sz / 2).toFixed(1)); setAttr("oc-s" + k, "width", sz.toFixed(1)); setAttr("oc-s" + k, "height", sz.toFixed(1));
+      });
+      setAttr("oc-p", "rx", (26 - 22 * a).toFixed(1)); setStyle("oc-p", "stroke", a > 0.5 ? "var(--ok)" : "var(--bad)");
+      setText("oc-st", a > 0.5 ? "OPC 보정: 모서리가 살아난다" : "보정 없음: 모서리가 둥글어진다"); setStyle("oc-st", "fill", a > 0.5 ? "var(--ok)" : "var(--bad)"); }
+    { const sg = psmS(t); let d = "M140,530";
+      for (let x = -190; x <= 190; x += 4) { const g1 = Math.exp(-0.5 * Math.pow((x - 40) / 36, 2)), g2 = Math.exp(-0.5 * Math.pow((x + 40) / 36, 2)); const A = g1 + sg * g2; d += " L" + (330 + x) + "," + (530 - 85 * A * A).toFixed(1); }
+      d += " L520,530 Z"; setAttr("ps-c", "d", d);
+      setText("ps-ph", sg < 0 ? "180°" : "0°");
+      setText("ps-st", sg > 0.5 ? "위상이 같으면: 사이가 번져 한 덩어리" : sg < -0.5 ? "위상을 반대로: 사이가 0이 되어 또렷하게 갈라진다" : "위상을 돌리는 중…"); }
+    { const man = sdMan(t), spc = sdSpc(t), rem = sdRem(t);
+      for (let k = 0; k < 3; k++) {
+        op("sd-m" + k, man * (1 - rem)); op("sd-l" + k, spc); op("sd-r" + k, spc);
+      }
+      op("sd-d1", K([[85.0, 0], [85.6, 1], [88.4, 1], [89.0, 0]])(t)); op("sd-d2", K([[89.0, 0], [89.6, 1]])(t)); op("sd-q", sdQ(t));
+      setText("sd-st", t < 85.8 ? "① 맨드릴(심) 만들기" : t < 88 ? "② 양옆에 스페이서 입히기" : "③ 맨드릴 제거 → 스페이서가 패턴"); }
+
+    // E: EUV
+    op("e-chain", eMir(t));
+    { const u = frac((t - 90.9) / 1.6), sv = srcV(t);
+      if (u < 0.62) {
+        setAttr("e-dr", "cy", (172 + 78 * (u / 0.62)).toFixed(1)); op("e-dr", sv); op("e-fl", 0); op("e-las", 0); op("e-fh", 0);
+      } else {
+        const sp = clamp((u - 0.62) / 0.12, 0, 1);
+        op("e-dr", 0);
+        setAttr("e-fl", "rx", (7 + 14 * sp).toFixed(1)); setAttr("e-fl", "ry", (7 - 4 * sp).toFixed(1)); op("e-fl", u < 0.8 ? sv : 0);
+        op("e-las", u < 0.9 ? sv : 0);
+        if (u >= 0.8) { const f = (u - 0.8) / 0.2; setAttr("e-fh", "r", (6 + 34 * f).toFixed(1)); op("e-fh", (1 - f) * 0.9 * sv); } else op("e-fh", 0);
+      } }
+    for (let i = 0; i < 12; i++) {
+      const p = eBeam(i)(t), x1 = XK(i), y1 = YK(i), x2 = XK(i + 1), y2 = YK(i + 1);
+      setAttr("eb" + i, "x2", (x1 + (x2 - x1) * p).toFixed(1)); setAttr("eb" + i, "y2", (y1 + (y2 - y1) * p).toFixed(1));
+    }
+    for (let k = 0; k <= 11; k++) { const h = 150 * REM(k) * eBar(k)(t); setAttr("ebar" + k, "y", (560 - h).toFixed(1)); setAttr("ebar" + k, "height", h.toFixed(1)); }
+    [0, 1, 5, 11].forEach((k) => op("ebv" + k, eBar(k)(t)));
+    op("e-fin", eTxt(t));
+    for (let i = 0; i < 6; i++) op("et" + i, etRow(i)(t));
+    op("et-n1", etNote(t)); op("et-n2", etNote2(t));
+
+    // F: closing
+    for (let i = 0; i < 3; i++) op("f-" + i, FV[i](t));
+    op("f-f", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+</script>
+</body>
+</html>

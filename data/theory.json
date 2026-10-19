@@ -1869,7 +1869,22 @@
      "note": "삼성전자 반도체 뉴스룸 · 심화. 마스크 패턴을 미리 보정하는 OPC"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/photo-film.html",
+     "title": "포토 공정 순서와 해상도: 빛으로 무늬를 옮기기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "순서",
+      "회절",
+      "레일리",
+      "k₁ 줄이기",
+      "EUV",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/photo.html",
@@ -3860,6 +3875,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 5
+  "films": 6
  }
 }
