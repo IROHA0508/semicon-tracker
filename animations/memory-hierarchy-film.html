@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>메모리 계층과 SRAM·DRAM 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-7</span><span>메모리 계층 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>메모리 계층과 SRAM·DRAM: 책상 · 책장 · 창고 (약 2분 영상)</h1>
+    <p class="lead">캐시(SRAM) – 메인 메모리(DRAM) – 저장장치(NAND)로 쌓이는 메모리 계층, 서로를 붙드는 SRAM 래치, 구멍 난 물컵 같은 DRAM 셀과 리프레시, 세 메모리의 비교표와 DRAM 제품 갈래를 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="메모리 계층과 SRAM·DRAM 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="캐시, 메인 메모리, 저장장치로 이루어진 메모리 계층과 SRAM 래치, DRAM 1T1C 셀의 누설과 리프레시, SRAM·DRAM·NAND 비교를 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">2-7 · 메모리 계층</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">책상 · 책장 · 창고,</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">그리고 SRAM과 DRAM</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">캐시 · 메인 메모리 · 저장장치 · 1T1C · 리프레시</text>
+        </g>
+        <g id="g-b"><g id="b-art"></g></g>
+        <g id="g-c"><g id="c-art"></g></g>
+        <g id="g-d"><g id="d-art"></g></g>
+        <g id="g-e"><g id="e-art"></g></g>
+        <g id="g-f"><g id="f-art"></g></g>
+        <g id="g-g"></g>
+
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 접근 시간, 용량, 셀 크기, 수위 변화는 이해를 돕기 위해 단순화한 값이고(캐시 약 1 ns, DRAM 약 100 ns, SSD 약 100 µs, 리프레시 64 ms 기준), 실제 제품에서는 다릅니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>메모리는 <b>책상(캐시, SRAM) – 책장(DRAM) – 창고(NAND SSD)</b>로 쌓습니다. 위로 갈수록 빠르고 비싸고 작으며, CPU가 찾는 데이터가 윗층에 있을 확률(적중률)이 성능을 좌우합니다.</li>
+      <li><b>SRAM</b>은 트랜지스터 6개의 래치라 전원만 있으면 값이 유지되고 가장 빠르지만 셀이 커서 캐시로만 씁니다. <b>DRAM</b>은 1T1C(구멍 난 물컵)라 면적이 작은 대신 누설 때문에 64 ms마다 <b>리프레시</b>가 필요합니다.</li>
+      <li>NAND는 전원을 꺼도 남고 집적도가 높습니다. DRAM은 쓰임에 따라 <b>DDR·LPDDR·GDDR·HBM</b>으로 갈래가 나뉘며, 같은 1T1C 셀을 쓰지만 입출력 방식과 전압이 다릅니다.</li>
+    </ul>
+    <p class="foot">원고 2-7을 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="memory-hierarchy.html">메모리 계층(memory-hierarchy)</a>, DRAM 읽기·쓰기·리프레시는 <a href="dram-film.html">D램 읽기·쓰기·리프레시 영상(dram-film)</a>을 보세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "계층"], [30, "SRAM"], [52, "DRAM"], [76, "비교"], [92, "제품"], [104, "마무리"],
+  ];
+  const TITLES = [
+    [6, "메모리 계층: 책상 · 책장 · 창고"], [30, "SRAM: 서로를 붙드는 래치 6개"], [52, "DRAM: 구멍 난 물컵과 리프레시"],
+    [76, "한 표로 비교: SRAM · DRAM · NAND"], [92, "DRAM의 제품 갈래"], [104, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "CPU는 데이터를 어디에서 꺼내 쓸까요? 같은 메모리라도 빠른 것, 큰 것, 오래 남는 것이 따로 있습니다."],
+    [3, 6, "메모리를 층으로 쌓아 쓰는 이유와 <b>SRAM·DRAM</b>의 차이를 이어서 봅니다."],
+    [6, 9.5, "컴퓨터 속 메모리는 층으로 쌓입니다. 비유하면 <b>책상 – 책장 – 창고</b>입니다."],
+    [9.5, 13, "맨 위는 CPU 바로 옆의 <b>캐시(SRAM)</b>. 아주 빠르지만 비싸서 조금만 둡니다. 책상 위에 올려 둔 책입니다."],
+    [13, 16.5, "가운데는 <b>메인 메모리(DRAM)</b>. 적당히 빠르고 용량이 큽니다. 이번 주에 볼 책을 꽂아 둔 책장입니다."],
+    [16.5, 20, "맨 아래는 <b>저장장치(NAND SSD)</b>. 느리지만 싸고 크며, 전원이 꺼져도 남습니다. 창고입니다."],
+    [20, 22.2, "CPU가 데이터를 찾는 길을 따라가 봅니다. 캐시에 있으면 약 <b>1 ns</b> 만에 끝납니다."],
+    [22.2, 25.4, "캐시에 없으면 한 층 내려가 DRAM에서 찾습니다. 약 <b>100 ns</b>, 100배 느립니다."],
+    [25.4, 30, "DRAM에도 없으면 SSD까지 가야 합니다. 약 <b>100 µs</b>, 다시 1000배 느립니다. 그래서 윗층에 있을 확률(적중률)이 성능을 좌우합니다."],
+    [30, 34, "<b>SRAM</b>은 캐시로 쓰는 메모리입니다. 한 칸(1비트)이 트랜지스터 <b>6개</b>로 이루어져 있습니다."],
+    [34, 40, "인버터 두 개가 서로의 출력을 입력으로 받는 <b>래치</b>입니다. 서로를 붙들고 있어 전원만 있으면 값이 그대로 유지됩니다."],
+    [40, 46, "쓸 때는 워드라인(WL)으로 스위치 두 개를 켜고, 비트라인(BL)으로 값을 밀어 넣어 래치를 뒤집습니다."],
+    [46, 49, "그래서 <b>리프레시가 필요 없고</b> 가장 빠릅니다."],
+    [49, 52, "대신 셀 하나가 DRAM의 수십 배 면적을 차지해 비쌉니다. 그래서 CPU·GPU 안의 캐시로만 씁니다."],
+    [52, 56, "<b>DRAM</b>은 한 칸이 트랜지스터 1개 + 커패시터 1개(<b>1T1C</b>)입니다. 커패시터가 물컵입니다."],
+    [56, 60, "물이 차 있으면 1, 비어 있으면 0. 트랜지스터는 컵으로 가는 물길을 여닫는 문입니다."],
+    [60, 64, "문을 열고 비트라인으로 물을 채우면 쓰기입니다. 읽기의 자세한 순서는 D램 읽기·쓰기·리프레시 영상에서 봅니다."],
+    [64, 68.5, "그런데 컵 바닥에 아주 작은 구멍이 있습니다. 전하가 접합 누설·GIDL·트랜지스터 누설로 조금씩 샙니다."],
+    [68.5, 72.5, "수위가 기준선 아래로 내려가면 0과 구분할 수 없습니다. 그래서 <b>64 ms마다</b> 모든 셀을 읽고 다시 채웁니다(리프레시)."],
+    [72.5, 76, "작은 면적에 큰 용량을 담으려고 커패시터를 높은 원통으로 세우고 High-k 유전막을 씁니다. 셀 면적은 <b>6F²</b>입니다."],
+    [76, 78.5, "세 메모리를 한 표로 비교해 봅니다."],
+    [78.5, 81.5, "<b>셀 구성</b> SRAM은 트랜지스터 6개, DRAM은 트랜지스터 1개와 커패시터 1개, NAND는 전자를 가두는 트랜지스터 하나가 여러 비트를 담습니다."],
+    [81.5, 84.5, "<b>속도</b> SRAM이 가장 빠르고, DRAM은 약 100 ns, NAND는 읽기에 수십 µs가 걸립니다."],
+    [84.5, 87.5, "<b>전원을 끄면</b> SRAM과 DRAM은 사라지고(DRAM은 켜 두어도 리프레시 필요), NAND만 남습니다."],
+    [87.5, 90, "<b>집적도와 가격</b> NAND가 가장 촘촘하고 싸고, SRAM이 가장 성기고 비쌉니다."],
+    [90, 92, "그래서 쓰임도 캐시 · 메인 메모리 · 저장장치로 나뉩니다."],
+    [92, 95, "DRAM은 쓰임에 따라 제품 갈래가 나뉩니다. PC와 서버의 표준 <b>DDR</b>, 모바일용 저전력 <b>LPDDR</b>."],
+    [95, 98.3, "그래픽용 고대역폭 <b>GDDR</b>, 그리고 칩을 수직으로 쌓아 대역폭을 극대화한 <b>HBM</b>이 있습니다."],
+    [98.3, 101.5, "모두 같은 1T1C 셀을 쓰지만 입출력 방식과 전압이 다릅니다."],
+    [101.5, 104, "자세한 내용은 3D DRAM(4-3), HBM(4-5) 단원에서 이어집니다."],
+    [104, 107.4, "정리합니다. <b>① 계층</b> 책상(캐시, SRAM) – 책장(DRAM) – 창고(NAND). 윗층일수록 빠르고 비쌉니다."],
+    [107.4, 110.6, "<b>② 셀</b> SRAM은 6T 래치, DRAM은 1T1C와 리프레시, NAND는 전원을 꺼도 남습니다."],
+    [110.6, 113.4, "<b>③ 제품</b> 같은 1T1C 셀로 DDR·LPDDR·GDDR·HBM을 만듭니다."],
+    [113.4, 117, "면접에서 DRAM 동작은 <b>1T1C → 쓰기 → 읽기(프리차지, 전하 공유, 감지, 다시 쓰기) → 리프레시</b> 순서로 말하세요."],
+  ];
+
+  // ---------- tracks ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gB = K([[5.8, 0], [6.6, 1], [29.4, 1], [30.2, 0]]);
+  const gC = K([[29.8, 0], [30.6, 1], [51.4, 1], [52.2, 0]]);
+  const gD = K([[51.8, 0], [52.6, 1], [75.4, 1], [76.2, 0]]);
+  const gE = K([[75.8, 0], [76.6, 1], [91.4, 1], [92.2, 0]]);
+  const gF = K([[91.8, 0], [92.6, 1], [103.4, 1], [104.2, 0]]);
+  const gG = K([[103.8, 0], [104.6, 1]]);
+  const frac = (x) => x - Math.floor(x);
+  const trap = (a, b) => K([[a - 0.01, 0], [a + 0.4, 1], [b - 0.4, 1], [b, 0]]);
+  const rise = (a) => K([[a, 0], [a + 0.6, 1]]);
+
+  // B: hierarchy
+  const BR = [9.4, 12.9, 16.4];
+  const BLV = [["캐시·레지스터 (SRAM)", "책상 · 약 1 ns · 수 MB"], ["메인 메모리 (DRAM)", "책장 · 약 100 ns · 수십 GB"], ["저장장치 (NAND SSD)", "창고 · 약 100 µs · 수 TB"]];
+  const bandV = (i) => rise(BR[i] - 0.2);
+  const upDown = rise(18);
+  const reqV = rise(19.6);
+  const REQ = K([[19.8, 170], [20.5, 251], [20.9, 251], [21.6, 170], [22.3, 170], [22.9, 251], [23.3, 251], [23.8, 331], [24.3, 331], [25.1, 170], [25.6, 170], [26.1, 251], [26.5, 251], [27.0, 331], [27.4, 331], [27.9, 411], [28.4, 411], [29.2, 170]]);
+  const BARV = [rise(20.5), rise(23.9), rise(27.9)];
+  const HITV = [trap(20.5, 21.7), trap(23.8, 25.2), trap(27.9, 29.3)];
+  const MISS = [[23.0, 30], [27.1, 30]];
+  const missV = (i) => K([[MISS[i][0], 0], [MISS[i][0] + 0.4, 1]]);
+  const noteB = rise(28.9);
+
+  // C: SRAM
+  const QV = K([[41.9, 1], [42.6, 0]]);
+  const WLV = K([[40.6, 0], [41, 1], [44, 1], [44.4, 0]]);
+  const BLVAL = K([[40.7, 0], [41.1, 1], [44, 1], [44.4, 0]]);
+  const LOOPV = K([[34, 0], [34.6, 1], [40.4, 1], [40.8, 0], [43.4, 0], [43.9, 1]]);
+  const cardCV = rise(30.4), cntV = rise(31.2);
+  const SROWS = [["전원만 있으면 값 유지", "래치가 서로를 붙들고 있다"], ["WL로 열고 BL로 쓴다", "스위치 두 개로 래치를 뒤집는다"], ["리프레시 필요 없음", "가장 빠르다 (캐시)"], ["면적이 크다 → 비싸다", "셀 하나가 DRAM의 수십 배"]];
+  const ST = [34, 40, 46, 49, 52];
+  const areaV = rise(48.8);
+
+  // D: DRAM
+  const LV = K([[52, 1], [56.4, 1], [57.0, 1], [57.8, 0], [60.4, 0], [62.2, 1], [64, 1], [66, 0.78], [68.4, 0.56], [68.5, 0.56], [69.4, 1], [70.8, 0.8], [72.3, 0.6], [72.5, 0.6], [73.3, 1], [76, 1]]);
+  const DOOR = K([[56.9, 0], [57.1, 1], [57.7, 1], [57.9, 0], [60.2, 0], [60.5, 1], [62.3, 1], [62.6, 0], [68.3, 0], [68.6, 1], [69.5, 1], [69.8, 0], [72.3, 0], [72.6, 1], [73.4, 1], [73.7, 0]]);
+  const FILLAV = K([[60.5, 0], [60.8, 1], [62.2, 1], [62.5, 0], [68.6, 0], [68.9, 1], [69.5, 1], [69.8, 0], [72.6, 0], [72.9, 1], [73.4, 1], [73.7, 0]]);
+  const LEAKV = K([[64, 0], [64.6, 1], [73.5, 1], [74, 0]]);
+  const chartV = rise(63.6);
+  const rf1 = rise(69.6), rf2 = rise(73.4), brV = rise(73.6), bottomV = rise(72.8), cupV = rise(52.4);
+  const CX0 = 700, CWD = 500, CY1 = 190, CY0 = 460;
+
+  // E: comparison table
+  const COLS = [60, 270, 585, 900];
+  const TROWS = [
+    ["셀 구성", ["6T 래치", "트랜지스터 6개"], ["1T1C", "트랜지스터 1 + 커패시터 1"], ["트랜지스터 1개", "전자를 가두어 여러 비트"]],
+    ["속도", ["가장 빠름", "약 1 ns"], ["빠름", "약 100 ns"], ["느림", "읽기 수십 µs"]],
+    ["전원을 끄면", ["사라짐", "래치가 풀림"], ["사라짐", "켜 두어도 리프레시 필요"], ["남음", "전자가 갇혀 있음"]],
+    ["집적도 · 가격", ["낮음 · 비쌈", "셀이 큼"], ["중간", "셀 6F²"], ["높음 · 쌈", "3D로 쌓아 집적"]],
+    ["쓰임", ["CPU · GPU 캐시", "L1 · L2 · L3"], ["메인 메모리", "모바일 · HBM"], ["SSD", "스마트폰 저장장치"]],
+  ];
+  const TT = [78.5, 81.5, 84.5, 87.5, 90, 92];
+  const hdrV = rise(76.6);
+  const trV = (i) => rise(TT[i] - 0.3);
+
+  // F: products
+  const PRODS = [["DDR5", "PC · 서버용 표준", "범용 표준,", "모듈로 꽂아 씀"], ["LPDDR5X", "모바일용 저전력", "낮은 전압,", "기판에 직접 장착"], ["GDDR", "그래픽용 고대역폭", "빠른 속도,", "그래픽카드에 장착"], ["HBM", "AI · 서버 가속기용", "칩을 수직으로 쌓아", "대역폭을 극대화"]];
+  const PT = [92.6, 94.4, 96.2, 98];
+  const prV = (i) => rise(PT[i]);
+  const banV = rise(98.5);
+
+  // G: closing
+  const FT = [104.6, 107.8, 110.8];
+  const fV = (i) => K([[FT[i], 0], [FT[i] + 0.8, 1]]);
+  const fF = K([[113.6, 0], [114.4, 1]]);
+
+  const LABELS = [];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+  const LN = "stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none";
+  const badge = (x, y, n, r) => `<g class="mk"><circle cx="${x}" cy="${y}" r="${r || 20}"></circle><text x="${x}" y="${y + 8}" text-anchor="middle" style="font-size:${r ? 26 : 20}px">${n}</text></g>`;
+  const rowsHtml = (pfx, x, y0, dy, w, h, rows, sz) => rows.map((r, i) => {
+    const y = y0 + dy * i;
+    return `<g id="${pfx}${i}" class="row" data-s="idle"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"></rect>`
+      + `<text x="${x + 22}" y="${y + 26}" style="font-size:${sz}px;font-weight:700">${r[0]}</text>`
+      + `<text x="${x + 22}" y="${y + 50}" class="lbl-s">${r[1]}</text></g>`;
+  }).join("");
+  const mkPath = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, cum, total: cum[cum.length - 1] }; };
+  const posAt = (P, u) => { const d = frac(u) * P.total; let i = 1; while (i < P.cum.length - 1 && P.cum[i] < d) i++; const a = P.pts[i - 1], b = P.pts[i], k = (d - P.cum[i - 1]) / (P.cum[i] - P.cum[i - 1] || 1); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; };
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  // B: pyramid and access-time race
+  const hw = (y) => 150 * (y - 140) / 340;
+  const BANDS = [[140, 250], [255, 365], [370, 480]], BCOL = ["var(--accent)", "var(--low)", "var(--muted)"];
+  s = `<rect class="card" x="40" y="100" width="620" height="496" rx="12"></rect><rect class="card" x="680" y="100" width="560" height="496" rx="12"></rect>`;
+  BANDS.forEach((b, i) => {
+    const pts = [[210 - hw(b[0]), b[0]], [210 + hw(b[0]), b[0]], [210 + hw(b[1]), b[1]], [210 - hw(b[1]), b[1]]].map((p) => p[0].toFixed(1) + "," + p[1]).join(" ");
+    s += `<g id="pb${i}"><polygon points="${pts}" style="fill:${BCOL[i]};fill-opacity:.35;stroke:${BCOL[i]};stroke-width:3"></polygon>`
+      + `<text x="385" y="${(b[0] + b[1]) / 2 - 2}" style="font-size:22px;font-weight:700">${BLV[i][0]}</text><text x="385" y="${(b[0] + b[1]) / 2 + 26}" class="lbl-s">${BLV[i][1]}</text></g>`;
+  });
+  s += `<g id="b-ud"><text x="62" y="532" class="lbl-s">▲ 빠르고 · 비싸고 · 작다</text><text x="62" y="558" class="lbl-s">▼ 느리고 · 싸고 · 크다</text></g>`;
+  const LBY = [251, 331, 411], LBN = ["캐시 (SRAM)", "DRAM", "SSD (NAND)"], BARW = [14, 80, 170], TLAB = ["약 1 ns", "약 100 ns", "약 100 µs"];
+  s += `<g id="b-req"><text x="702" y="134" class="lbl-b">CPU가 데이터를 찾는 길</text>`
+    + `<rect x="760" y="148" width="150" height="44" rx="8" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"></rect><text x="835" y="178" text-anchor="middle" style="font-size:22px;font-weight:700">CPU</text>`
+    + `<line x1="725" y1="170" x2="725" y2="411" style="stroke:var(--line-strong);stroke-width:3;stroke-dasharray:6 6"></line><path d="M725,170 H760" style="stroke:var(--line-strong);stroke-width:3;stroke-dasharray:6 6"></path>`;
+  LBY.forEach((y, i) => {
+    s += `<path d="M725,${y} H760" style="stroke:var(--line-strong);stroke-width:3;stroke-dasharray:6 6"></path><rect x="760" y="${y - 27}" width="150" height="54" rx="8" style="fill:var(--surface);stroke:${BCOL[i]};stroke-width:3"></rect><text x="835" y="${y + 7}" text-anchor="middle" style="font-size:19px;font-weight:700">${LBN[i]}</text>`
+      + `<g id="bar${i}"><rect x="930" y="${y - 20}" width="${BARW[i]}" height="22" rx="5" style="fill:${BCOL[i]};fill-opacity:.8"></rect><text x="${930 + BARW[i] + 10}" y="${y - 2}" style="font-size:19px;font-weight:700">${TLAB[i]}</text></g>`
+      + `<text id="hit${i}" x="930" y="${y + 28}" class="ok-t" style="font-size:19px">찾았다 ✓</text>`;
+  });
+  [0, 1].forEach((i) => { s += `<text id="miss${i}" x="930" y="${LBY[i] + 28}" class="bad-t" style="font-size:19px">여기엔 없다 ✗</text>`; });
+  s += `<circle id="b-dot" cx="725" cy="170" r="11" style="fill:var(--accent);stroke:var(--surface);stroke-width:2"></circle>`
+    + `<text id="b-note" x="960" y="496" text-anchor="middle" class="lbl">한 층 내려갈 때마다 100~1000배 느려진다</text></g>`;
+  $("b-art").innerHTML = s;
+  // (miss text positioned right of box; hit0 sits after the first bar)
+
+  // C: SRAM latch
+  const PLOOP = mkPath([[150, 260], [190, 260], [269, 260], [400, 260], [400, 400], [360, 400], [281, 400], [150, 400], [150, 260]]);
+  const TRI = (pts) => `<polygon points="${pts}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3.5"></polygon>`;
+  s = `<rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect>`
+    + `<g id="c-cnt"><text x="370" y="568" text-anchor="middle" class="lbl-b">트랜지스터 6개 = 래치 4개 + 스위치 2개</text></g>`
+    + `<line x1="70" y1="196" x2="70" y2="486" style="${LN}"></line><line x1="490" y1="196" x2="490" y2="486" style="${LN}"></line>`
+    + `<text x="70" y="184" text-anchor="middle" class="lbl-b">BLb</text><text x="490" y="184" text-anchor="middle" class="lbl-b">BL</text>`
+    + `<path id="wl-line" d="M112,160 H458 M112,160 V316 M458,160 V316" style="fill:none;stroke:var(--muted);stroke-width:5;stroke-linecap:round"></path><text x="285" y="146" text-anchor="middle" class="lbl-b">WL (워드라인)</text>`
+    + `<path d="M70,330 H96 M128,330 H150 M400,330 H442 M474,330 H490" style="${LN}"></path>`
+    + `<rect id="sw-l" x="96" y="316" width="32" height="28" rx="4" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"></rect><rect id="sw-r" x="442" y="316" width="32" height="28" rx="4" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"></rect>`
+    + `<path id="sq" d="M269,260 H400 V400 H360" style="fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-linejoin:round"></path>`
+    + `<path id="sqb" d="M281,400 H150 V260 H190" style="fill:none;stroke:var(--muted);stroke-width:6;stroke-linecap:round;stroke-linejoin:round"></path>`
+    + TRI("190,225 190,295 255,260") + `<circle cx="262" cy="260" r="7" style="fill:var(--surface);stroke:var(--ink);stroke-width:3.5"></circle>`
+    + TRI("360,365 360,435 295,400") + `<circle cx="288" cy="400" r="7" style="fill:var(--surface);stroke:var(--ink);stroke-width:3.5"></circle>`
+    + `<text id="sq-v" x="335" y="240" text-anchor="middle" class="mono acc-t" style="font-size:24px"></text><text id="sqb-v" x="215" y="440" text-anchor="middle" class="mono" style="font-size:24px"></text>`
+    + `<text id="bl-v" x="490" y="516" text-anchor="middle" class="mono acc-t" style="font-size:22px"></text><text id="blb-v" x="52" y="516" class="mono acc-t" style="font-size:22px"></text>`;
+  for (let i = 0; i < 10; i++) s += `<circle id="sd${i}" r="7" style="fill:var(--accent);stroke:var(--surface);stroke-width:1.5;opacity:0"></circle>`;
+  s += `<rect class="card" x="720" y="100" width="520" height="496" rx="12"></rect>` + rowsHtml("srow", 740, 116, 70, 480, 60, SROWS, 20)
+    + `<g id="c-area"><text x="742" y="428" class="lbl-b">셀 면적 비교 (개념도)</text><rect x="770" y="442" width="132" height="132" rx="6" style="fill:var(--accent);fill-opacity:.25;stroke:var(--accent);stroke-width:3"></rect><text x="836" y="514" text-anchor="middle" style="font-size:20px;font-weight:700">SRAM 셀</text>`
+    + `<rect x="1000" y="552" width="22" height="22" rx="3" style="fill:var(--low);fill-opacity:.4;stroke:var(--low);stroke-width:3"></rect><text x="1034" y="570" style="font-size:18px;font-weight:700">DRAM 셀 (약 1/수십)</text></g>`;
+  $("c-art").innerHTML = s;
+
+  // D: DRAM 1T1C cell and level chart
+  const PBL = mkPath([[100, 191], [300, 191], [300, 340], [300, 380]]);
+  s = `<rect class="card" x="40" y="100" width="580" height="496" rx="12"></rect><rect class="card" x="640" y="100" width="600" height="496" rx="12"></rect>`
+    + `<g id="d-cell"><rect x="80" y="180" width="480" height="22" rx="4" style="fill:var(--low-soft);stroke:var(--low);stroke-width:2.5"></rect><text x="92" y="170" class="lbl-b">비트라인 BL (물길)</text>`
+    + `<path d="M300,202 V250 M300,330 V352" style="${LN}"></path>`
+    + `<line id="d-lv" x1="300" y1="250" x2="338" y2="318" style="stroke:var(--muted);stroke-width:8;stroke-linecap:round"></line><circle cx="300" cy="250" r="5" style="fill:var(--ink)"></circle><circle cx="300" cy="330" r="5" style="fill:var(--ink)"></circle>`
+    + `<text x="352" y="282" class="lbl-s">워드라인 WL (문 손잡이)</text><text id="d-door" x="352" y="308" class="lbl-s" style="font-weight:700"></text>`
+    + `<rect x="240" y="352" width="120" height="160" rx="6" style="fill:var(--surface);stroke:var(--ink);stroke-width:3.5"></rect>`
+    + `<rect id="d-water" x="243" y="509" width="114" height="0" style="fill:var(--low);fill-opacity:.6"></rect>`
+    + `<line x1="236" y1="432" x2="364" y2="432" style="stroke:var(--bad);stroke-width:2.5;stroke-dasharray:6 5"></line><text x="372" y="438" class="lbl-s" style="fill:var(--bad)">← 최소 수위</text>`
+    + `<text x="228" y="436" text-anchor="end" class="lbl-s">커패시터</text><text x="228" y="458" text-anchor="end" class="lbl-s">(물컵)</text>`
+    + `<circle cx="300" cy="512" r="5" style="fill:var(--bad)"></circle><text id="d-bit" x="372" y="392" class="mono acc-t" style="font-size:24px"></text>`;
+  for (let i = 0; i < 3; i++) s += `<circle id="dr${i}" cx="300" cy="520" r="5" style="fill:var(--low);opacity:0"></circle>`;
+  for (let i = 0; i < 6; i++) s += `<circle id="bd${i}" r="6" style="fill:var(--low);stroke:var(--surface);stroke-width:1.5;opacity:0"></circle>`;
+  s += `</g><g id="d-chart"><text x="662" y="134" class="lbl-b">물컵 수위의 변화</text>`
+    + `<path d="M${CX0},${CY0} H${CX0 + CWD} M${CX0},${CY0} V${CY1 - 14}" style="${LN}"></path>`
+    + `<line x1="${CX0}" y1="${CY0 - (CY0 - CY1) * 0.5}" x2="${CX0 + CWD}" y2="${CY0 - (CY0 - CY1) * 0.5}" style="stroke:var(--bad);stroke-width:2.5;stroke-dasharray:7 6"></line>`
+    + `<text x="${CX0 + CWD}" y="${CY0 - (CY0 - CY1) * 0.5 - 8}" text-anchor="end" class="lbl-s" style="fill:var(--bad)">읽을 수 있는 최소 수위</text>`
+    + `<text x="${CX0 - 8}" y="${CY1 + 6}" text-anchor="end" class="lbl-s">가득</text><text x="${CX0 - 8}" y="${CY0 + 6}" text-anchor="end" class="lbl-s">0</text><text x="${CX0 + CWD}" y="${CY0 + 26}" text-anchor="end" class="lbl-s">시간 →</text>`
+    + `<path id="d-curve" d="" style="fill:none;stroke:var(--low);stroke-width:5;stroke-linejoin:round"></path><circle id="d-cdot" r="8" cx="${CX0}" cy="${CY1}" style="fill:var(--low)"></circle>`
+    + `<text id="rf1" x="${CX0 + 50 * 4.9}" y="${CY1 - 14}" text-anchor="middle" class="acc-t" style="font-size:19px">리프레시 ↑</text><text id="rf2" x="${CX0 + 50 * 8.9}" y="${CY1 - 14}" text-anchor="middle" class="acc-t" style="font-size:19px">리프레시 ↑</text>`
+    + `<g id="d-br"><path d="M${CX0 + 50 * 5.3},498 V508 H${CX0 + 50 * 8.9} V498" style="${LN}"></path><text x="${CX0 + 50 * 7.1}" y="534" text-anchor="middle" class="mono acc-t" style="font-size:22px">64 ms마다</text></g></g>`
+    + `<g id="d-bot"><text x="662" y="560" class="lbl-s">커패시터: 높은 원통 + High-k 유전막 · 셀 면적 6F² (F = 최소 선폭)</text></g>`;
+  $("d-art").innerHTML = s;
+
+  // E: comparison table
+  const TRY = 186;
+  s = `<rect class="card" x="40" y="100" width="1200" height="496" rx="12"></rect><g id="e-hd">`
+    + [["구분", 0], ["SRAM", 1], ["DRAM", 2], ["NAND", 3]].map((h) => `<text x="${COLS[h[1]] + (h[1] ? 14 : 10)}" y="156" style="font-size:24px;font-weight:700" class="${h[1] ? "acc-t" : ""}">${h[0]}</text>`).join("") + `</g>`;
+  TROWS.forEach((r, i) => {
+    const y = TRY + 80 * i;
+    s += `<g id="tr${i}" class="row" data-s="idle"><rect x="60" y="${y}" width="1160" height="72" rx="10"></rect><text x="76" y="${y + 44}" style="font-size:22px;font-weight:700">${r[0]}</text>`
+      + [1, 2, 3].map((c) => `<text x="${COLS[c] + 14}" y="${y + 31}" style="font-size:20px;font-weight:700">${r[c][0]}</text><text x="${COLS[c] + 14}" y="${y + 56}" class="lbl-s">${r[c][1]}</text>`).join("") + `</g>`;
+  });
+  $("e-art").innerHTML = s;
+
+  // F: product lines
+  s = "";
+  PRODS.forEach((p, i) => {
+    const x = 40 + i * 306;
+    s += `<g id="pr${i}"><rect class="card" x="${x}" y="130" width="280" height="262" rx="14"></rect>`
+      + `<text x="${x + 22}" y="190" class="acc-t" style="font-size:38px">${p[0]}</text><text x="${x + 22}" y="236" style="font-size:22px;font-weight:700">${p[1]}</text>`
+      + `<text x="${x + 22}" y="290" class="lbl">${p[2]}</text><text x="${x + 22}" y="322" class="lbl">${p[3]}</text></g>`;
+  });
+  s += `<g id="f-ban"><rect class="card" x="40" y="428" width="1198" height="120" rx="14"></rect><text x="639" y="482" text-anchor="middle" class="acc-t" style="font-size:30px">같은 1T1C 셀 · 다른 입출력 방식과 전압</text><text x="639" y="522" text-anchor="middle" class="lbl">DDR(표준) → LPDDR(전력 ↓) → GDDR(속도 ↑) → HBM(적층으로 대역폭 ↑)</text></g>`;
+  $("f-art").innerHTML = s;
+
+  // G: closing cards
+  (function () {
+    const cards = [
+      { h: "계층", l: ["책상 · 책장 · 창고", "캐시(SRAM) → DRAM → NAND", "윗층일수록 빠르고 비쌈", "적중률이 성능을 좌우"] },
+      { h: "셀", l: ["SRAM: 트랜지스터 6개 래치", "DRAM: 1T1C + 리프레시 64 ms", "NAND: 전원을 꺼도 남음", "DRAM 셀 6F² → 4F² (VCT)"] },
+      { h: "제품", l: ["DDR: PC · 서버 표준", "LPDDR: 모바일 저전력", "GDDR: 그래픽 고대역폭", "HBM: 수직 적층 고대역폭"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="gc-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>`
+        + badge(x + 44, 188, i + 1, 24)
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="g-form" x="640" y="500" text-anchor="middle" class="acc-t" style="font-size:26px">면접: 1T1C → 쓰기 → 읽기(프리차지·전하 공유·감지·재기록) → 리프레시</text>`;
+    $("g-g").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  const HL = [];
+  const FV = [0, 1, 2].map(fV);
+  let hlOn = new Set();
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t)); op("g-f", gF(t)); op("g-g", gG(t));
+
+    // B: hierarchy
+    for (let i = 0; i < 3; i++) op("pb" + i, bandV(i)(t));
+    op("b-ud", upDown(t)); op("b-req", reqV(t));
+    setAttr("b-dot", "cy", REQ(t).toFixed(1)); op("b-dot", reqV(t));
+    for (let i = 0; i < 3; i++) { op("bar" + i, BARV[i](t)); op("hit" + i, HITV[i](t)); }
+    for (let i = 0; i < 2; i++) op("miss" + i, missV(i)(t));
+    op("b-note", noteB(t));
+
+    // C: SRAM
+    { const qv = QV(t), q = qv > 0.5, wl = WLV(t), blv = BLVAL(t);
+      setStyle("sq", "stroke", q ? "var(--accent)" : "var(--muted)"); setStyle("sqb", "stroke", q ? "var(--muted)" : "var(--accent)");
+      setText("sq-v", "Q = " + (q ? 1 : 0)); setText("sqb-v", "Qb = " + (q ? 0 : 1));
+      setStyle("wl-line", "stroke", wl > 0.5 ? "var(--accent)" : "var(--muted)");
+      setStyle("sw-l", "fill", wl > 0.5 ? "var(--accent)" : "var(--surface)"); setStyle("sw-r", "fill", wl > 0.5 ? "var(--accent)" : "var(--surface)");
+      setText("bl-v", t >= 40.7 && t < 44.4 ? "BL = 0" : ""); setText("blb-v", t >= 40.7 && t < 44.4 ? "BLb = 1" : "");
+      const lp = LOOPV(t);
+      for (let i = 0; i < 10; i++) { const p = posAt(PLOOP, i / 10 + t * 0.35); setAttr("sd" + i, "cx", p[0].toFixed(1)); setAttr("sd" + i, "cy", p[1].toFixed(1)); op("sd" + i, lp); }
+      op("c-cnt", cntV(t)); op("c-area", areaV(t));
+      for (let i = 0; i < 4; i++) setAttr("srow" + i, "data-s", t < ST[i] ? "idle" : t < ST[i + 1] ? "on" : "done"); }
+
+    // D: DRAM
+    { const lv = LV(t), dr = DOOR(t), fa = FILLAV(t);
+      setAttr("d-lv", "x2", lerp(338, 300, dr).toFixed(1)); setAttr("d-lv", "y2", lerp(318, 330, dr).toFixed(1));
+      setStyle("d-lv", "stroke", dr > 0.5 ? "var(--accent)" : "var(--muted)");
+      setText("d-door", dr > 0.5 ? "문 열림 (트랜지스터 ON)" : "문 닫힘 (OFF)"); setStyle("d-door", "fill", dr > 0.5 ? "var(--ok)" : "var(--muted)");
+      const wh = 154 * lv;
+      setAttr("d-water", "y", (509 - wh).toFixed(1)); setAttr("d-water", "height", wh.toFixed(1));
+      setText("d-bit", "저장 = " + (lv > 0.5 ? 1 : 0)); setStyle("d-bit", "fill", lv > 0.5 ? "var(--accent)" : "var(--muted)");
+      const lk = LEAKV(t) * (lv > 0.02 ? 1 : 0);
+      for (let i = 0; i < 3; i++) { const u = frac(i / 3 + t * 0.9); setAttr("dr" + i, "cy", (520 + 40 * u).toFixed(1)); op("dr" + i, lk * (1 - u)); }
+      for (let i = 0; i < 6; i++) { const p = posAt(PBL, i / 6 + t * 0.5); setAttr("bd" + i, "cx", p[0].toFixed(1)); setAttr("bd" + i, "cy", p[1].toFixed(1)); op("bd" + i, fa); }
+      op("d-cell", cupV(t)); op("d-chart", chartV(t));
+      let d = "";
+      if (t > 64.05) { for (let k = 0; ; k++) { const s_ = Math.min(64 + 0.1 * k, Math.min(t, 74)); d += (k ? " L" : "M") + (CX0 + 50 * (s_ - 64)).toFixed(1) + "," + (CY0 - (CY0 - CY1) * LV(s_)).toFixed(1); if (s_ >= Math.min(t, 74)) break; } }
+      setAttr("d-curve", "d", d);
+      const tc = clamp(t, 64, 74);
+      setAttr("d-cdot", "cx", (CX0 + 50 * (tc - 64)).toFixed(1)); setAttr("d-cdot", "cy", (CY0 - (CY0 - CY1) * LV(tc)).toFixed(1));
+      op("rf1", rf1(t)); op("rf2", rf2(t)); op("d-br", brV(t)); op("d-bot", bottomV(t)); }
+
+    // E: comparison table
+    op("e-hd", hdrV(t));
+    for (let i = 0; i < 5; i++) { op("tr" + i, trV(i)(t)); setAttr("tr" + i, "data-s", t < TT[i] ? "idle" : t < TT[i + 1] ? "on" : "done"); }
+
+    // F: products
+    for (let i = 0; i < 4; i++) op("pr" + i, prV(i)(t));
+    op("f-ban", banV(t));
+
+    // G: closing
+    for (let i = 0; i < 3; i++) op("gc-" + i, FV[i](t));
+    op("g-form", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+
+</script>
+</body>
+</html>

@@ -1199,7 +1199,22 @@
      "note": "Branch Education · 영어, 약 35분. 애니메이션. D램 셀과 배열은 12:09~17:41(2-10과 이어짐)"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/memory-hierarchy-film.html",
+     "title": "메모리 계층과 SRAM·DRAM: 책상·책장·창고",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "계층",
+      "SRAM",
+      "DRAM",
+      "비교",
+      "제품",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/memory-hierarchy.html",
@@ -3920,6 +3935,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 9
+  "films": 10
  }
 }
