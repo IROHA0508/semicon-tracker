@@ -1133,7 +1133,22 @@
      "note": "Applied Materials · 영어. 장비 회사의 GAA 설명 영상과 해설 글"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/transistor-structure-film.html",
+     "title": "플래너·FinFET·GAA: 게이트가 채널을 감싸는 면이 늘어난 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "비유",
+      "FinFET",
+      "GAA",
+      "공정·CFET",
+      "비교",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/transistor-evolution.html",
@@ -2082,7 +2097,22 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/etching-film.html",
+     "title": "식각 RIE·고종횡비: 이온과 라디칼로 곧게 파 내려가는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "습식·건식",
+      "RIE",
+      "선택비",
+      "고종횡비",
+      "첨단 기술",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/etching.html",
@@ -2161,7 +2191,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/deposition-film.html",
+     "title": "증착 CVD·ALD: 홈 속까지, 한 층씩 정확하게 쌓는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "단차 피복",
+      "CVD",
+      "발전 순서",
+      "ALD",
+      "비교",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/deposition.html",
@@ -3032,7 +3077,22 @@
     }
    ],
    "videos": [],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/dram-generation-film.html",
+     "title": "D램 세대와 4F², 3D D램: 세우거나 쌓거나",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "세대",
+      "난관",
+      "4F²",
+      "3D",
+      "비교",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/dram-evolution.html",
@@ -3355,7 +3415,22 @@
      "note": "Onur Mutlu · 영어, 심화. 메모리 중심 컴퓨팅(PIM) 강연"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/ai-memory-wall-film.html",
+     "title": "AI 반도체와 메모리 벽: 가깝게·넓게·안에서·새 계층",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "메모리 벽",
+      "이동 비용",
+      "해법",
+      "비교",
+      "수요",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/ai-memory.html",
@@ -3935,6 +4010,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 10
+  "films": 15
  }
 }

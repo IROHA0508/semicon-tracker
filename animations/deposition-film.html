@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>증착 CVD·ALD 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-7</span><span>증착 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>증착: 홈 속까지, 한 층씩 정확하게 (CVD · ALD · PVD, 약 2분 영상)</h1>
+    <p class="lead">좋은 막의 조건인 단차 피복에서 시작해, 기체가 표면에서 반응하는 CVD의 여섯 단계, APCVD에서 ALD까지 단점을 고치며 발전한 순서, 자기 제한 반응으로 한 층씩 쌓는 ALD와 ALD 윈도우, 방식별 비교표까지 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="증착 CVD·ALD 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="홈이 있는 표면에서 단차 피복을 비교하고 CVD의 성장 순서와 발전 순서, ALD 사이클을 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">3-7 · 증착</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">홈 속까지, 한 층씩</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">정확하게 쌓습니다</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">CVD · ALD · PVD</text>
+        </g>
+        <g id="g-b"><g id="b-art"></g></g>
+        <g id="g-c"><g id="c-art"></g></g>
+        <g id="g-d"><g id="d-art"></g></g>
+        <g id="g-e"><g id="e-art"></g></g>
+        <g id="g-f"><g id="f-art"></g></g>
+        <g id="g-g"></g>
+
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 홈 단면, 두께 비율, 사이클 수와 ALD 윈도우 곡선은 이해를 돕기 위해 단순화한 값입니다. 조건(압력·온도)은 원고 기준의 대략적인 범위입니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>좋은 막의 첫째 조건은 <b>단차 피복</b>입니다. 곧게 날아가 붙으면 입구가 먼저 두꺼워져 속에 보이드가 남고, 컨포멀하게 쌓이면 옆면과 바닥도 윗면과 비슷한 두께가 됩니다. 부착 계수를 낮추고 압력을 낮춰 MFP를 늘리면 좋아집니다.</li>
+      <li>CVD는 전구체가 표면에서 흡착·반응해 막이 되고 부산물이 배기되는 여섯 단계입니다. APCVD → LPCVD → PECVD → HDP-CVD → ALD 순서로 <b>앞 세대의 단점을 고치며</b> 발전했습니다.</li>
+      <li>ALD는 전구체 → 퍼지 → 반응물 → 퍼지를 한 사이클로 반복하며 <b>자기 제한 반응</b>으로 한 층씩 쌓습니다. 단차 피복과 두께 제어가 뛰어나지만 느리고, 적정 온도 구간(ALD 윈도우)을 지켜야 합니다.</li>
+    </ul>
+    <p class="foot">원고 3-7을 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="deposition.html">증착(deposition)</a>, 이어지는 공정은 <a href="etching.html">식각(etching)</a>과 <a href="transistor-evolution.html">트랜지스터 구조 진화(transistor-evolution)</a>를 보세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const frac = (x) => x - Math.floor(x);
+  const trap = (a, b) => K([[a - 0.01, 0], [a + 0.4, 1], [b - 0.4, 1], [b, 0]]);
+  const rise = (a) => K([[a, 0], [a + 0.6, 1]]);
+  const sm = (a, b) => K([[a, 0], [b, 1]]);
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "단차 피복"], [24, "CVD"], [44, "발전 순서"], [64, "ALD"], [88, "비교"], [106, "마무리"],
+  ];
+  const TITLES = [
+    [6, "좋은 막의 조건: 홈 속까지 고르게"], [24, "CVD: 기체가 표면에서 반응해 막이 된다"], [44, "CVD는 단점을 고치며 발전했다"],
+    [64, "ALD: 한 층씩, 자기 제한 반응"], [88, "증착 방식을 한 표로"], [106, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "반도체는 얇은 막을 수십 번 쌓아 올립니다. 그 막을 웨이퍼 위에 입히는 공정이 증착입니다."],
+    [3, 6, "기체의 화학 반응을 쓰는 CVD·ALD, 원자를 날려 붙이는 PVD. 먼저 좋은 막이 무엇인지부터 봅니다."],
+    [6, 9, "좋은 막의 첫째 조건은 홈 속까지 고르게 덮이는 것입니다. 홈이 좁고 깊을수록 어렵습니다."],
+    [9, 13.2, "스프레이 페인트처럼 곧게 날아가 붙으면 입구가 먼저 두꺼워지고 옆면과 바닥은 얇습니다. 입구가 막히면 속에 <b>보이드</b>가 남습니다."],
+    [13.2, 17.6, "서리가 모든 면에 고르게 내리듯 쌓이면 옆면과 바닥도 윗면과 비슷합니다. 이 두께 비율이 <b>단차 피복</b>입니다."],
+    [17.6, 21.2, "단차 피복을 높이려면 원자가 이동할 수 있게 <b>부착 계수</b>가 작아야 하고, 압력이 낮아 <b>MFP</b>가 길어야 합니다."],
+    [21.2, 24, "그리고 ALD처럼 한 층씩 쌓는 방식이면 거의 100%에 가깝습니다."],
+    [24, 28, "<b>CVD</b>는 반응 기체(전구체)가 웨이퍼 표면에서 반응해 막이 되는 증착입니다."],
+    [28, 34, "막이 자라는 순서는 여섯 단계입니다. 주입·분해, 이동, 흡착, 표면 확산, 표면 반응, 부산물 배기."],
+    [34, 39.2, "기체 공간에서 반응하면(균일 반응) 입자가 생겨 떨어집니다. 표면에 붙은 뒤 반응해야(불균일 반응) 좋은 막이 됩니다."],
+    [39.2, 44, "속도를 정하는 것은 둘 중 느린 쪽입니다. 기체 공급이 느리면 압력·유량에, 표면 반응이 느리면 온도에 민감합니다."],
+    [44, 47.8, "CVD는 앞 세대의 단점을 고치며 발전했습니다. 상압의 <b>APCVD</b>는 빠르고 단순하지만 파티클과 단차 피복이 나쁩니다."],
+    [47.8, 52.2, "그래서 압력을 낮춘 <b>LPCVD</b>. MFP가 길어져 피복이 좋아지지만 반응이 느려 온도를 올렸습니다."],
+    [52.2, 56.6, "고온에서는 알루미늄(녹는점 약 660 °C)과 아래 배선이 녹습니다. 그래서 플라즈마로 저온에서 활성화하는 <b>PECVD</b>."],
+    [56.6, 60.6, "PECVD는 MFP가 짧아 깊은 홈에 불리해, 고밀도 플라즈마와 바이어스로 증착과 식각을 반복하는 <b>HDP-CVD</b>가 나왔습니다."],
+    [60.6, 64, "마지막은 원자층 정밀도의 <b>ALD</b>. 이제 ALD를 자세히 봅니다."],
+    [64, 68.6, "<b>ALD</b>는 원료를 한 종류씩 번갈아 넣습니다. 전구체 → 퍼지 → 반응물 → 퍼지가 한 사이클입니다."],
+    [68.6, 74, "표면을 한 층 덮으면 더 붙지 않습니다(<b>자기 제한 반응</b>). 그래서 사이클 수가 곧 두께입니다."],
+    [74, 80, "CVD는 원료를 동시에 넣어 기체 공간에서도 반응하지만, ALD는 표면에서만 반응해 단차 피복과 두께 제어가 뛰어납니다."],
+    [80, 85.2, "적정 온도 구간(<b>ALD 윈도우</b>)이 있습니다. 낮으면 전구체가 반응 없이 쌓이고, 높으면 탈착이나 기체 반응이 일어납니다."],
+    [85.2, 88, "느린 생산성은 공간 분할 ALD로, 열 부담은 플라즈마를 쓰는 PEALD로 보완합니다."],
+    [88, 91.6, "여섯 방식을 한 표로 봅니다. <b>APCVD</b>는 상압에서 빠르고 단순하지만 파티클과 피복이 나쁩니다."],
+    [91.6, 94.6, "<b>LPCVD</b>는 저압·고온이라 막질과 피복이 좋지만 느리고 열 부담이 큽니다. 폴리실리콘과 질화막에 씁니다."],
+    [94.6, 97.6, "<b>PECVD</b>는 플라즈마로 약 400 °C 저온에서 배선 위에도 쌓지만 막질과 피복은 낮습니다."],
+    [97.6, 100.6, "<b>HDP-CVD</b>는 증착과 스퍼터 식각을 함께 해 STI 같은 좁은 갭을 채웁니다."],
+    [100.6, 103.6, "<b>ALD</b>는 원자층 두께와 거의 완벽한 피복. High-k, 배리어 메탈, D램 커패시터, GAA에 씁니다."],
+    [103.6, 106, "<b>PVD</b>는 화학 반응 없이 곧게 날아가 깨끗하지만 피복이 나빠 금속 배선에 씁니다."],
+    [106, 108.8, "정리합니다. <b>① 좋은 막</b>은 단차 피복이 100%에 가깝고 보이드·응력이 적어야 합니다."],
+    [108.8, 111.8, "<b>② CVD → ALD</b> 단점을 고치며 발전했고, ALD는 자기 제한 반응으로 표면에서만 자랍니다. 대가는 느림."],
+    [111.8, 117, "<b>③ 골라 쓰기</b> 절연막은 CVD, 금속 배선은 PVD, High-k와 배리어는 ALD. 면접에서는 <b>CVD vs ALD → 자기 제한 반응 → 속도의 대가</b> 순서로."],
+  ];
+
+  // ---------- tracks ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gB = K([[5.8, 0], [6.6, 1], [23.4, 1], [24.2, 0]]);
+  const gC = K([[23.8, 0], [24.6, 1], [43.4, 1], [44.2, 0]]);
+  const gD = K([[43.8, 0], [44.6, 1], [63.4, 1], [64.2, 0]]);
+  const gE = K([[63.8, 0], [64.6, 1], [87.4, 1], [88.2, 0]]);
+  const gF = K([[87.8, 0], [88.6, 1], [105.4, 1], [106.2, 0]]);
+  const gG = K([[105.8, 0], [106.6, 1]]);
+
+  // B: step coverage
+  const lV = rise(8.2), rV = rise(13.0);
+  const gL = K([[9.2, 0], [13.2, 1]]);
+  const gR = K([[13.6, 0], [17.4, 1]]);
+  const mL = rise(12.6), mR = rise(17.0);
+  const CT = [17.8, 19.6, 21.6];
+  const CHIPS = [["① 부착 계수 ↓", "원자가 이동해 깊은 곳까지"], ["② 압력 ↓ (MFP ↑)", "반응물이 바닥까지 도달"], ["③ ALD", "한 층씩 컨포멀하게"]];
+
+  // C: CVD
+  const SROWS = [["① 전구체 주입 · 분해", "반응 기체가 반응실로 들어옴"], ["② 표면으로 이동", "대류와 확산"], ["③ 흡착", "표면에 달라붙음"], ["④ 표면 확산", "자리를 찾아 이동"], ["⑤ 표면 반응", "막이 만들어짐"], ["⑥ 부산물 탈착 · 배기", "펌프로 빼냄"]];
+  const STC = [28, 29.2, 30.4, 31.6, 32.8, 34.0];
+  const STEPN = ["① 주입 · 분해", "② 이동", "③ 흡착", "④ 표면 확산", "⑤ 표면 반응", "⑥ 배기"];
+  const CROWS2 = [["기체 공간 반응(균일) ✗", "입자(파티클)가 생겨 떨어짐"], ["표면 반응(불균일) ✓", "표면에 붙은 뒤 반응 → 좋은 막"], ["확산 율속: 압력 · 유량에 민감", "기체 공급이 느림 (APCVD)"], ["반응 율속: 온도에 민감", "표면 반응이 느림 (LPCVD)"]];
+  const DTC2 = [34, 36.6, 39.2, 41.6, 44];
+  const filmC = K([[26, 0], [33, 22], [44, 44]]);
+  const cL = rise(24.6), rowsA = K([[24.8, 0], [25.4, 1], [33.4, 1], [34.2, 0]]), rowsB = K([[34.2, 0], [34.8, 1]]);
+  const ptV = K([[34.4, 0], [35, 1], [38.8, 1], [39.4, 0]]);
+
+  // D: development order
+  const DCARDS = [
+    ["APCVD", "상압 · 약 400 °C", ["✓ 장치 단순", "✓ 속도 빠름"], ["✗ 파티클 많음", "✗ 단차 피복 불량"], "→ 압력을 낮추자"],
+    ["LPCVD", "저압 · 600~900 °C", ["✓ 막질 · 균일도", "✓ 단차 피복 우수"], ["✗ 반응이 느려", "✗ 온도를 올림"], "→ 저온 플라즈마로"],
+    ["PECVD", "플라즈마 · 약 400 °C", ["✓ 저온 → BEOL", "✓ 변수 많아 유연"], ["✗ MFP가 짧아", "✗ 깊은 홈 불리"], "→ 고밀도 + 바이어스"],
+    ["HDP-CVD", "ICP · 바이어스", ["✓ 증착 + 식각 반복", "✓ 갭 채우기 우수"], ["✗ 플라즈마 손상", "✗ 도넛형 불균일"], "→ 원자층 단위로"],
+    ["ALD", "원료를 번갈아 주입", ["✓ 자기 제한 반응", "✓ 거의 100% 피복"], ["✗ 느리다", "✗ 보완: PEALD 등"], "→ High-k · GAA"],
+  ];
+  const DT = [44.2, 47.8, 52.2, 56.6, 60.6];
+  const dcV = (i) => rise(DT[i]);
+  const dBanner = rise(62.2);
+
+  // E: ALD
+  const ECS = 66, ECL = 5.2;
+  const ESTAGE = ["① 전구체 주입", "② 퍼지", "③ 반응물 주입", "④ 퍼지"];
+  const eLV = rise(64.8), eRV = rise(66.0);
+  const AROWS = [["자기 제한 반응", "한 층을 덮으면 더 붙지 않음"], ["두께 = 사이클 수", "원자층 단위로 제어"], ["CVD: 동시 주입 → 기체 반응", "ALD: 번갈아 → 표면에서만 반응"], ["느림은 이렇게 보완", "공간 분할 ALD · PEALD(저온)"]];
+  const ATE = [68.6, 71.3, 74, 85.2, 88];
+  const winV = rise(80);
+  const winZ = [80.4, 81.6, 83];
+  const peV = rise(85.4);
+
+  // F: comparison table
+  const COLS = [60, 214, 430, 706, 968];
+  const TROWS = [
+    ["APCVD", ["상압", "약 400 °C"], ["장치 단순", "속도 빠름"], ["파티클·피복 불량", "가스 소모 큼"], ["PSG 절연막", "(과거)"]],
+    ["LPCVD", ["0.1~10 Torr", "600~900 °C"], ["막질·균일도·피복 우수", "배치 처리"], ["느림 · 고온 부담", "저융점 재료 불가"], ["폴리실리콘", "질화막"]],
+    ["PECVD", ["플라즈마", "약 400 °C"], ["저온 → BEOL 가능", "변수가 많아 유연"], ["막질·피복 낮음", "플라즈마 손상"], ["보호막", "배선 절연막"]],
+    ["HDP-CVD", ["ICP 고밀도", "+ 기판 바이어스"], ["저압 고밀도", "증착+식각 갭필"], ["플라즈마 손상", "도넛형 불균일"], ["STI", "좁은 갭 채우기"]],
+    ["ALD", ["원료 번갈아", "저온 가능"], ["원자층 두께", "거의 완벽한 피복"], ["느림", "공간 분할·PEALD로 보완"], ["High-k · 배리어", "D램 커패시터 · GAA"]],
+    ["PVD", ["고진공", "화학 반응 없음"], ["깨끗 · 접착 좋음", "독성 가스 없음"], ["곧게 날아가", "단차 피복 불량"], ["금속 배선", "시드층 (3-9)"]],
+  ];
+  const TT = [88.6, 91.6, 94.6, 97.6, 100.6, 103.6, 106];
+  const hdrV = rise(88.4);
+  const trV = (i) => rise(TT[i] - 0.3);
+
+  // G: closing
+  const FT = [106.6, 109.4, 112];
+  const fV = (i) => K([[FT[i], 0], [FT[i] + 0.8, 1]]);
+  const fF = K([[114.6, 0], [115.4, 1]]);
+
+  const LABELS = [];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+  const LN = "stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none";
+  const badge = (x, y, n, r) => `<g class="mk"><circle cx="${x}" cy="${y}" r="${r || 20}"></circle><text x="${x}" y="${y + 8}" text-anchor="middle" style="font-size:${r ? 26 : 20}px">${n}</text></g>`;
+  const rowsHtml = (pfx, x, y0, dy, w, h, rows, sz) => rows.map((r, i) => {
+    const y = y0 + dy * i;
+    return `<g id="${pfx}${i}" class="row" data-s="idle"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"></rect>`
+      + `<text x="${x + 22}" y="${y + 26}" style="font-size:${sz}px;font-weight:700">${r[0]}</text>`
+      + `<text x="${x + 22}" y="${y + 50}" class="lbl-s">${r[1]}</text></g>`;
+  }).join("");
+  const mkPath = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, cum, total: cum[cum.length - 1] }; };
+  const posAt = (P, u) => { const d = frac(u) * P.total; let i = 1; while (i < P.cum.length - 1 && P.cum[i] < d) i++; const a = P.pts[i - 1], b = P.pts[i], k = (d - P.cum[i - 1]) / (P.cum[i] - P.cum[i - 1] || 1); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; };
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  const txt = (x, y, str, cls, sz, anchor, id, bold) => `<text${id ? ` id="${id}"` : ""} x="${x}" y="${y}"${anchor ? ` text-anchor="${anchor}"` : ""}${cls ? ` class="${cls}"` : ""}${sz || bold ? ` style="${sz ? `font-size:${sz}px;` : ""}${bold ? "font-weight:700" : ""}"` : ""}>${str}</text>`;
+  const SIF = "fill:var(--m-si);stroke:var(--ink);stroke-width:2.5";
+  const MXL = 60, MXR = 660; // B card x
+
+  // B: step coverage
+  const subPath = (X0) => `M${X0 + 30},270 H${X0 + 240} V430 H${X0 + 320} V270 H${X0 + 530} V462 H${X0 + 30} Z`;
+  s = `<g id="b-l"><rect class="card" x="${MXL}" y="100" width="560" height="400" rx="14"></rect>`
+    + txt(MXL + 24, 140, "곧게 날아가 붙는 경우 (스프레이)", "lbl-b") + txt(MXL + 24, 166, "부착 계수 큼 · 압력 높음 → 입구부터 쌓임", "lbl-s", 16)
+    + `<path d="${subPath(MXL)}" style="${SIF}"></path>`
+    + `<polygon id="pl-a" points="" style="fill:var(--accent)"></polygon><polygon id="pl-b" points="" style="fill:var(--accent)"></polygon><rect id="pl-bot" x="${MXL + 240}" y="430" width="80" height="0" style="fill:var(--accent)"></rect>`;
+  [70, 135, 200, 370, 440, 500].forEach((dx, k) => { s += `<circle id="sp${k}" cx="${MXL + dx}" cy="200" r="6" style="fill:var(--accent)"></circle>`; });
+  s += txt(MXL + 336, 372, "← 보이드(빈 공간)", "bad-t", 18, "", "pl-void", true)
+    + txt(MXL + 280, 490, "윗면 100% · 옆면 약 40% · 바닥 약 15%", "mono bad-t", 18, "middle", "m-l") + `</g>`;
+  s += `<g id="b-r"><rect class="card" x="${MXR}" y="100" width="560" height="400" rx="14"></rect>`
+    + txt(MXR + 24, 140, "고르게 쌓이는 경우 (컨포멀)", "lbl-b") + txt(MXR + 24, 166, "원자가 이동하거나 한 층씩 → 모든 면에 비슷하게", "lbl-s", 16)
+    + `<path id="cf-film" d="M${MXR + 30},270 H${MXR + 240} V430 H${MXR + 320} V270 H${MXR + 530}" style="fill:none;stroke:var(--accent);stroke-width:0;stroke-linejoin:miter"></path>`
+    + `<path d="${subPath(MXR)}" style="${SIF}"></path>`
+    + txt(MXR + 280, 490, "윗면 · 옆면 · 바닥 모두 약 100%", "mono ok-t", 18, "middle", "m-r") + `</g>`;
+  CHIPS.forEach((c, i) => {
+    const x = 60 + i * 392;
+    s += `<g id="chip${i}"><rect class="card" x="${x}" y="516" width="376" height="70" rx="12"></rect>` + txt(x + 188, 546, c[0], "acc-t", 22, "middle", "", true) + txt(x + 188, 572, c[1], "lbl-s", 17, "middle") + `</g>`;
+  });
+  $("b-art").innerHTML = s;
+
+  // C: CVD
+  const CXS = [130, 210, 290, 370, 450, 530, 590, 170, 330, 490];
+  s = `<rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect><rect class="card" x="720" y="100" width="520" height="496" rx="12"></rect>`
+    + txt(62, 134, "", "lbl-b acc-t", 24, "", "cur-step", true)
+    + `<rect x="100" y="154" width="520" height="14" rx="4" style="fill:var(--muted);fill-opacity:.55"></rect>`;
+  for (let k = 0; k < 11; k++) s += `<rect x="${112 + k * 47}" y="168" width="10" height="5" style="fill:var(--ink)"></rect>`;
+  s += txt(640, 150, "가스 공급", "lbl-s", 15, "end")
+    + `<rect x="100" y="500" width="520" height="40" style="${SIF}"></rect>` + txt(360, 526, "웨이퍼", "lbl-s", 17, "middle")
+    + `<rect id="cfilm" x="100" y="500" width="520" height="0" style="fill:var(--accent)"></rect>`;
+  for (let k = 0; k < 10; k++) s += `<circle id="cp${k}" r="7" style="fill:var(--low)"></circle>`;
+  for (let k = 0; k < 3; k++) s += `<circle id="sd${k}" r="6" style="fill:var(--low)"></circle>`;
+  for (let k = 0; k < 6; k++) s += `<circle id="cb${k}" r="5" style="fill:var(--muted)"></circle>`;
+  for (let k = 0; k < 4; k++) s += `<circle id="pt${k}" r="12" style="fill:var(--bad)"></circle>`;
+  s += txt(360, 300, "기체 공간에서 반응 → 파티클", "bad-t", 20, "middle", "ptl", true)
+    + `<circle cx="72" cy="574" r="7" style="fill:var(--low)"></circle>` + txt(88, 580, "전구체 (반응 기체)", "lbl-s", 16)
+    + `<circle cx="282" cy="574" r="5" style="fill:var(--muted)"></circle>` + txt(296, 580, "부산물", "lbl-s", 16)
+    + `<rect x="396" y="566" width="16" height="16" style="fill:var(--accent)"></rect>` + txt(420, 580, "막", "lbl-s", 16)
+    + `<g id="c-rowsA">` + rowsHtml("sr", 742, 116, 72, 476, 56, SROWS, 20) + `</g>`
+    + `<g id="c-rowsB">` + rowsHtml("sq", 742, 116, 100, 476, 56, CROWS2, 20) + `</g>`;
+  $("c-art").innerHTML = s;
+
+  // D: development order
+  s = "";
+  DCARDS.forEach((c, i) => {
+    const x = 40 + i * 246;
+    s += `<g id="dc${i}"><rect id="dcr${i}" class="card" x="${x}" y="116" width="216" height="354" rx="12"></rect>`
+      + txt(x + 108, 160, c[0], "acc-t", 28, "middle", "", true) + txt(x + 108, 192, c[1], "lbl-s", 17, "middle")
+      + `<line x1="${x + 20}" y1="210" x2="${x + 196}" y2="210" style="stroke:var(--line-strong);stroke-width:1.5"></line>`
+      + c[2].map((l, j) => txt(x + 16, 248 + j * 34, l, "ok-t", 18, "", "", true)).join("")
+      + c[3].map((l, j) => txt(x + 16, 328 + j * 34, l, "bad-t", 18, "", "", true)).join("")
+      + `<line x1="${x + 20}" y1="388" x2="${x + 196}" y2="388" style="stroke:var(--line-strong);stroke-width:1.5"></line>`
+      + txt(x + 108, 436, c[4], "acc-t", 20, "middle", "", true) + `</g>`;
+    if (i < 4) s += `<g id="da${i}">` + txt(x + 231, 300, "▶", "acc-t", 22, "middle") + `</g>`;
+  });
+  s += `<g id="d-banner"><rect class="card" x="40" y="490" width="1200" height="90" rx="14"></rect>` + txt(640, 544, "단점을 고치면 새 단점이 생기고, 그것을 또 고치며 ALD까지 왔습니다", "acc-t", 26, "middle") + `</g>`;
+  $("d-art").innerHTML = s;
+
+  // E: ALD
+  const SX = [0, 1, 2, 3, 4, 5, 6, 7].map((i) => 132 + i * 68);
+  s = `<rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect><rect class="card" x="720" y="100" width="520" height="496" rx="12"></rect>`
+    + txt(62, 134, "", "lbl-b acc-t", 24, "", "e-stage", true)
+    + `<rect x="100" y="500" width="520" height="40" style="${SIF}"></rect>` + txt(360, 526, "웨이퍼", "lbl-s", 17, "middle");
+  for (let k = 0; k < 4; k++) s += `<rect id="ly${k}" x="100" y="${500 - 18 * (k + 1)}" width="520" height="18" style="fill:var(--accent);fill-opacity:.88;stroke:var(--surface);stroke-width:1.5"></rect>`;
+  for (let i = 0; i < 8; i++) s += `<circle id="fA${i}" r="7" style="fill:var(--low)"></circle>`;
+  for (let i = 0; i < 8; i++) s += `<circle id="fB${i}" r="7" style="fill:var(--ok)"></circle>`;
+  for (let i = 0; i < 5; i++) s += `<circle id="xA${i}" r="7" style="fill:var(--low)"></circle><circle id="xB${i}" r="7" style="fill:var(--ok)"></circle>`;
+  s += `<circle cx="72" cy="574" r="7" style="fill:var(--low)"></circle>` + txt(88, 580, "전구체 (원료 A)", "lbl-s", 16)
+    + `<circle cx="262" cy="574" r="7" style="fill:var(--ok)"></circle>` + txt(278, 580, "반응물 (원료 B)", "lbl-s", 16)
+    + `<rect x="456" y="566" width="16" height="16" style="fill:var(--accent)"></rect>` + txt(480, 580, "쌓인 막 한 층", "lbl-s", 16)
+    + txt(742, 138, "", "mono acc-t", 22, "", "e-cnt", true)
+    + rowsHtml("ar", 742, 156, 60, 476, 56, AROWS, 19)
+    + `<g id="e-win">` + txt(742, 422, "ALD 윈도우: 사이클당 성장 vs 온도", "lbl-b", 18)
+    + `<rect id="wz0" x="760" y="438" width="90" height="108" style="fill:var(--bad);fill-opacity:.14"></rect><rect id="wz1" x="850" y="438" width="260" height="108" style="fill:var(--ok);fill-opacity:.18"></rect><rect id="wz2" x="1110" y="438" width="90" height="108" style="fill:var(--bad);fill-opacity:.14"></rect>`
+    + `<polyline points="760,546 1200,546" style="stroke:var(--ink);stroke-width:2;fill:none"></polyline><polyline points="760,438 760,546" style="stroke:var(--ink);stroke-width:2;fill:none"></polyline>`
+    + `<polyline id="wcurve" points="760,458 805,500 850,522 980,524 1110,522 1155,500 1200,458" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linejoin:round;stroke-linecap:round"></polyline>`
+    + txt(805, 570, "응축", "bad-t", 16, "middle", "wl0", true) + txt(980, 570, "ALD 윈도우", "ok-t", 18, "middle", "wl1", true) + txt(1155, 570, "분해·탈착", "bad-t", 16, "middle", "wl2", true)
+    + txt(1200, 432, "온도 →", "lbl-s", 14, "end") + `</g>`;
+  $("e-art").innerHTML = s;
+
+  // F: comparison table
+  s = `<rect class="card" x="40" y="100" width="1200" height="496" rx="12"></rect><g id="e-hd">`
+    + [["방식", 0], ["조건", 1], ["강점", 2], ["약점", 3], ["쓰임", 4]].map((h) => `<text x="${COLS[h[1]] + (h[1] ? 14 : 16)}" y="136" style="font-size:22px;font-weight:700" class="${h[1] ? "acc-t" : ""}">${h[0]}</text>`).join("") + `</g>`;
+  TROWS.forEach((r, i) => {
+    const y = 152 + 72 * i;
+    s += `<g id="tr${i}" class="row" data-s="idle"><rect x="56" y="${y}" width="1168" height="64" rx="10"></rect><text x="76" y="${y + 40}" style="font-size:22px;font-weight:700">${r[0]}</text>`
+      + [1, 2, 3, 4].map((c) => `<text x="${COLS[c] + 14}" y="${y + 28}" style="font-size:19px;font-weight:700">${r[c][0]}</text><text x="${COLS[c] + 14}" y="${y + 52}" class="lbl-s" style="font-size:16px">${r[c][1]}</text>`).join("") + `</g>`;
+  });
+  $("f-art").innerHTML = s;
+
+  // G: closing cards
+  (function () {
+    const cards = [
+      { h: "좋은 막", l: ["단차 피복 ≈ 100%", "부착 계수 ↓ · 압력 ↓", "보이드 · 응력 주의", "에피: SiGe로 이동도 ↑"] },
+      { h: "CVD → ALD", l: ["AP → LP → PE → HDP → ALD", "자기 제한 반응", "표면에서만 반응", "대가: 느림"] },
+      { h: "골라 쓰기", l: ["절연막 · 플러그: CVD", "금속 배선: PVD", "High-k · 배리어: ALD", "HBM TSV: 피복 · 균일도"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="gc-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>`
+        + badge(x + 44, 188, i + 1, 24)
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="g-form" x="640" y="500" text-anchor="middle" class="acc-t" style="font-size:26px">면접: CVD vs ALD → 자기 제한 반응 → 단차 피복 → 속도의 대가</text>`;
+    $("g-g").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  const HL = [];
+  const FV = [0, 1, 2].map(fV);
+  let hlOn = new Set();
+  const rowState = (id, T, i, t) => setAttr(id + i, "data-s", t < T[i] ? "idle" : t < T[i + 1] ? "on" : "done");
+  const pts = (P, M) => P.map((p) => ((M === undefined ? p[0] : M - p[0]).toFixed(1)) + "," + p[1].toFixed(1)).join(" ");
+  const STCx = STC.concat([36]);
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t)); op("g-f", gF(t)); op("g-g", gG(t));
+
+    // B: step coverage
+    op("b-l", lV(t)); op("b-r", rV(t));
+    { const g = gL(t), X0 = MXL, M = 2 * X0 + 560;
+      const Tt = 44 * g, ov = 36 * Math.pow(g, 1.3), sw0 = 18 * g, sw1 = 5 * g, bt = 5 * g;
+      const P = [[X0 + 30, 270], [X0 + 30, 270 - Tt], [X0 + 240 + ov, 270 - Tt * 0.75], [X0 + 240 + ov, 270], [X0 + 240 + sw0, 306], [X0 + 240 + sw1, 430], [X0 + 240, 430], [X0 + 240, 270]];
+      setAttr("pl-a", "points", pts(P)); setAttr("pl-b", "points", pts(P, M));
+      setAttr("pl-bot", "y", (430 - bt).toFixed(1)); setAttr("pl-bot", "height", bt.toFixed(1));
+      op("pl-void", clamp((g - 0.85) / 0.15, 0, 1));
+      for (let k = 0; k < 6; k++) { const u = frac(t * 0.9 + k * 0.17); setAttr("sp" + k, "cy", (190 + (270 - Tt - 6 - 190) * u).toFixed(1)); op("sp" + k, win(t, 9.0, 13.6)); } }
+    op("m-l", mL(t));
+    { const g2 = gR(t); setStyle("cf-film", "strokeWidth", (44 * g2).toFixed(1) + "px"); }
+    op("m-r", mR(t));
+    for (let i = 0; i < 3; i++) op("chip" + i, rise(CT[i])(t));
+
+    // C: CVD
+    { const fh = filmC(t), sy = 500 - fh, cv = cL(t);
+      setAttr("cfilm", "y", sy.toFixed(1)); setAttr("cfilm", "height", fh.toFixed(1));
+      for (let k = 0; k < 10; k++) { const u = frac(t * 0.28 + k * 0.097);
+        setAttr("cp" + k, "cx", (CXS[k] + 6 * Math.sin(t * 1.7 + k)).toFixed(1)); setAttr("cp" + k, "cy", (182 + (sy - 14 - 182) * u).toFixed(1));
+        op("cp" + k, cv * (1 - Math.pow(u, 10))); }
+      for (let k = 0; k < 3; k++) { setAttr("sd" + k, "cx", (200 + 130 * k + 40 * Math.sin(t * 1.8 + k * 2)).toFixed(1)); setAttr("sd" + k, "cy", (sy - 7).toFixed(1)); op("sd" + k, win(t, 31.4, 33.8)); }
+      for (let k = 0; k < 6; k++) { const u = frac(t * 0.2 + k / 6);
+        setAttr("cb" + k, "cx", (130 + k * 88 + 14 * Math.sin(t * 2 + k)).toFixed(1)); setAttr("cb" + k, "cy", (sy - 8 - 190 * u).toFixed(1));
+        op("cb" + k, rise(32.4)(t) * (1 - u)); }
+      const PX = [200, 330, 460, 560];
+      for (let k = 0; k < 4; k++) { const u = frac(t * 0.18 + k * 0.25);
+        setAttr("pt" + k, "cx", PX[k]); setAttr("pt" + k, "cy", (210 + (sy - 14 - 210) * u).toFixed(1)); op("pt" + k, ptV(t)); }
+      op("ptl", ptV(t)); }
+    { let cs = "";
+      if (t >= 28 && t < 34) { let k = 0; for (let i = 0; i < 6; i++) if (t >= STC[i]) k = i; cs = STEPN[k]; }
+      else if (t >= 34 && t < 39.2) cs = "기체 공간 반응 ✗ · 표면 반응 ✓";
+      else if (t >= 39.2 && t < 44) cs = "속도를 정하는 것: 느린 쪽";
+      setText("cur-step", cs); }
+    op("c-rowsA", rowsA(t)); op("c-rowsB", rowsB(t));
+    for (let i = 0; i < 6; i++) { op("sr" + i, rise(25 + 0.2 * i)(t)); rowState("sr", STCx, i, t); }
+    for (let i = 0; i < 4; i++) { op("sq" + i, rise(DTC2[i] - 0.2)(t)); rowState("sq", DTC2, i, t); }
+
+    // D: development order
+    { let act = -1; for (let i = 0; i < 5; i++) if (t >= DT[i]) act = i;
+      for (let i = 0; i < 5; i++) { op("dc" + i, dcV(i)(t));
+        setStyle("dcr" + i, "stroke", i === act ? "var(--accent)" : ""); setStyle("dcr" + i, "strokeWidth", i === act ? "3.5px" : ""); }
+      for (let i = 0; i < 4; i++) op("da" + i, rise(DT[i + 1] - 0.4)(t));
+      op("d-banner", dBanner(t)); }
+
+    // E: ALD
+    { const T0 = t - ECS; let c, p;
+      if (T0 < 0) { c = -1; p = 0; } else if (T0 >= 4 * ECL) { c = 4; p = 0; } else { c = Math.floor(T0 / ECL); p = T0 - c * ECL; }
+      const act = c >= 0 && c < 4, topY = 500 - 18 * Math.max(0, Math.min(c, 4)), sy = topY - 8;
+      for (let k = 0; k < 4; k++) op("ly" + k, k < c ? 1 : k === c ? smooth(clamp((p - 3.7) / 0.5, 0, 1)) : 0);
+      for (let i = 0; i < 8; i++) { const si = i * 0.03, x = SX[i];
+        const ea = 1 - Math.pow(1 - clamp((p - si) / 1.05, 0, 1), 2);
+        setAttr("fA" + i, "cx", x); setAttr("fA" + i, "cy", (172 + (sy - 172) * ea).toFixed(1));
+        op("fA" + i, act ? (p < 3.7 ? 1 : clamp(1 - (p - 3.7) / 0.3, 0, 1)) : 0);
+        const eb = 1 - Math.pow(1 - clamp((p - 2.6 - si) / 1.05, 0, 1), 2);
+        setAttr("fB" + i, "cx", x); setAttr("fB" + i, "cy", (172 + (sy - 18 - 172) * eb).toFixed(1));
+        op("fB" + i, act && p >= 2.6 ? clamp((p - 2.6) / 0.15, 0, 1) * (p < 3.7 ? 1 : clamp(1 - (p - 3.7) / 0.2, 0, 1)) : 0); }
+      for (let k = 0; k < 5; k++) {
+        setAttr("xA" + k, "cx", (160 + k * 100 + 20 * Math.sin(t * 2 + k)).toFixed(1)); setAttr("xA" + k, "cy", (232 + 18 * Math.sin(t * 1.6 + k * 1.3) - (p > 1.4 ? (p - 1.4) * 40 : 0)).toFixed(1));
+        op("xA" + k, act ? clamp((p - 0.3) / 0.4, 0, 1) * (p < 1.4 ? 1 : clamp(1 - (p - 1.4) / 1.0, 0, 1)) : 0);
+        setAttr("xB" + k, "cx", (190 + k * 100 + 20 * Math.sin(t * 2.2 + k)).toFixed(1)); setAttr("xB" + k, "cy", (262 + 18 * Math.sin(t * 1.7 + k * 1.1) - (p > 4.0 ? (p - 4.0) * 40 : 0)).toFixed(1));
+        op("xB" + k, act ? clamp((p - 2.9) / 0.4, 0, 1) * (p < 4.0 ? 1 : clamp(1 - (p - 4.0) / 1.0, 0, 1)) : 0); }
+      const ph = p < 1.4 ? 0 : p < 2.6 ? 1 : p < 4.0 ? 2 : 3;
+      setText("e-stage", act ? ESTAGE[ph] : T0 >= 0 ? "4사이클 완료: 막 4층" : "");
+      const N = act ? c + (p >= 3.7 ? 1 : 0) : T0 >= 0 ? 4 : 0;
+      setText("e-cnt", T0 >= 0 ? "사이클 " + N + " → 막 " + N + "층" : ""); }
+    for (let i = 0; i < 4; i++) { op("ar" + i, rise(ATE[i] - 0.2)(t)); rowState("ar", ATE, i, t); }
+    op("e-win", winV(t));
+    for (let i = 0; i < 3; i++) { op("wz" + i, rise(winZ[i])(t)); op("wl" + i, rise(winZ[i])(t)); }
+
+    // F
+    op("e-hd", hdrV(t));
+    for (let i = 0; i < 6; i++) { op("tr" + i, trV(i)(t)); rowState("tr", TT, i, t); }
+
+    // G
+    for (let i = 0; i < 3; i++) op("gc-" + i, FV[i](t));
+    op("g-form", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+
+</script>
+</body>
+</html>

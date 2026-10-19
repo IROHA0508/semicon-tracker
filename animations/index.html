@@ -45,7 +45,7 @@
   </header>
 
   <nav class="toc" aria-label="층 바로가기">
-    <a href="#films">영상<span>10</span></a>
+    <a href="#films">영상<span>15</span></a>
     <a href="#floor-0">0층 · 입문<span>4</span></a>
     <a href="#floor-1">1층 · 기초 전기와 물리<span>6</span></a>
     <a href="#floor-2">2층 · 소자<span>11</span></a>
@@ -56,7 +56,7 @@
   </nav>
 
   <section class="floor" id="films">
-    <h2>영상 <span>10개</span></h2>
+    <h2>영상 <span>15개</span></h2>
     <div class="cards">
       <a class="card" href="chip-life-film.html">
         <div class="top"><span class="unit">0-2</span><span class="meta">약 1분 57초</span></div>
@@ -75,6 +75,12 @@
         <h3>CMOS 인버터: 입력이 바뀔 때 전류는 어디로 흐를까</h3>
         <p>PMOS와 NMOS가 번갈아 켜져 출력을 0과 1로 뒤집는 CMOS 인버터의 구조와 정지 상태에서 전류가 거의 없는 이유, 입력이 바뀌는 순간 출력 물탱크(부하 커패시터)를 채우고 비우는 전류와 둘 다 잠깐 켜질 때 흐르는 단락 전류, 입력을 천천히 올릴 때 출력이 급격히 뒤집히는 전달 특성(VTC)과 전환점 VM, 동적(αCV²f)·단락·누설 세 가지 전력과 전압 제곱의 효과, 그리고 정공이 느려 PMOS 폭을 2~3배로 넓혀 상승·하강 시간과 전환점을 맞추는 이유를 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
         <div class="modes"><span>시작</span><span>구조</span><span>전환</span><span>전달 특성</span><span>전력</span><span>대칭</span><span>마무리</span></div>
+      </a>
+      <a class="card" href="transistor-structure-film.html">
+        <div class="top"><span class="unit">2-6</span><span class="meta">약 1분 57초</span></div>
+        <h3>플래너·FinFET·GAA: 게이트가 채널을 감싸는 면이 늘어난 이야기</h3>
+        <p>물이 새는 호스를 손바닥·세 손가락·손 전체로 막는 비유로 시작해, 게이트가 채널을 1면(플래너)·3면(FinFET)·4면(GAA)으로 감쌀수록 누설이 줄어드는 과정을 보여 주고, 핀 높이로 채널 폭을 늘리는 FinFET과 핀 개수 단위로만 전류를 조절하는 양자화 한계, 시트 폭을 바꿀 수 있는 GAA 나노시트, Si/SiGe 적층·선택적 식각·ALD로 이어지는 GAA 공정과 N·P를 위아래로 쌓는 CFET, 네 구조 비교표와 삼성·TSMC·Intel의 도입 시기까지 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
+        <div class="modes"><span>시작</span><span>비유</span><span>FinFET</span><span>GAA</span><span>공정·CFET</span><span>비교</span><span>마무리</span></div>
       </a>
       <a class="card" href="memory-hierarchy-film.html">
         <div class="top"><span class="unit">2-7</span><span class="meta">약 1분 57초</span></div>
@@ -100,6 +106,18 @@
         <p>웨이퍼에 감광액(PR)을 바르고 노광·현상까지 거치는 포토 공정 여덟 단계(전처리, 코팅, 소프트 베이크, 정렬·노광, PEB, 현상, 하드 베이크, 검사), 좁은 틈에서 빛이 퍼지는 회절과 렌즈에 두 개 이상의 회절광이 들어와야 상이 맺히는 이유, 레일리 식 R = k₁λ/NA의 세 손잡이와 NA·DOF 맞바꿈, k₁을 줄이는 OAI·OPC·PSM·멀티 패터닝(SADP), 그리고 거울과 진공으로 빛을 보내는 EUV와 DUV의 차이를 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
         <div class="modes"><span>시작</span><span>순서</span><span>회절</span><span>레일리</span><span>k₁ 줄이기</span><span>EUV</span><span>마무리</span></div>
       </a>
+      <a class="card" href="etching-film.html">
+        <div class="top"><span class="unit">3-6</span><span class="meta">약 1분 57초</span></div>
+        <h3>식각 RIE·고종횡비: 이온과 라디칼로 곧게 파 내려가는 이야기</h3>
+        <p>판화에 비유한 식각의 목적에서 시작해, 등방성 습식(언더컷)과 이방성 건식의 단면 차이와 이온 밀링 → 플라즈마 식각 → RIE의 발전, RIE의 여섯 단계와 이온·라디칼·측벽 폴리머, CF 계열 가스에서 SiO₂ &gt; Si₃N₄ &gt; Si 순인 식각 속도와 H₂·O₂·Ar의 역할, 깊고 좁을수록 커지는 마이크로·매크로 로딩과 마스크 손실·차징(보잉), 펄스 플라즈마·극저온 식각·ALE·보쉬 공정까지 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
+        <div class="modes"><span>시작</span><span>습식·건식</span><span>RIE</span><span>선택비</span><span>고종횡비</span><span>첨단 기술</span><span>마무리</span></div>
+      </a>
+      <a class="card" href="deposition-film.html">
+        <div class="top"><span class="unit">3-7</span><span class="meta">약 1분 57초</span></div>
+        <h3>증착 CVD·ALD: 홈 속까지, 한 층씩 정확하게 쌓는 이야기</h3>
+        <p>좋은 막의 첫째 조건인 단차 피복을 곧게 날아가 붙는 경우와 고르게 쌓이는 경우의 홈 단면으로 비교하고(보이드, 부착 계수, 압력과 MFP), CVD의 여섯 단계와 기체 공간 반응(파티클)·확산 율속·반응 율속, APCVD → LPCVD → PECVD → HDP-CVD → ALD로 이어진 단점 보완의 순서, 전구체·퍼지·반응물·퍼지 사이클로 한 층씩 쌓는 ALD의 자기 제한 반응과 ALD 윈도우, 여섯 증착 방식 비교표와 쓰임까지 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
+        <div class="modes"><span>시작</span><span>단차 피복</span><span>CVD</span><span>발전 순서</span><span>ALD</span><span>비교</span><span>마무리</span></div>
+      </a>
       <a class="card" href="dram-process-film.html">
         <div class="top"><span class="unit">3-15</span><span class="meta">약 1분 57초</span></div>
         <h3>D램 공정 흐름: 활성영역에서 커패시터까지</h3>
@@ -112,11 +130,23 @@
         <p>주변 회로, 산화막·질화막 몰드 적층, 채널홀 식각과 셀 세 겹 채움, 계단, 슬릿과 질화막을 금속 워드라인으로 바꾸는 게이트 교체, 콘택·비트라인까지 3D 낸드 단면이 만들어지는 과정을 약 2분 동안 이어서 보는 가로 영상. 셀 하나 확대와 웨이퍼 본딩 소개로 마무리한다. 자막과 장면 버튼이 있고 소리는 없다.</p>
         <div class="modes"><span>시작</span><span>큰 그림</span><span>쌓기</span><span>뚫기</span><span>계단</span><span>바꾸기</span><span>마무리</span></div>
       </a>
+      <a class="card" href="dram-generation-film.html">
+        <div class="top"><span class="unit">4-3</span><span class="meta">약 1분 57초</span></div>
+        <h3>D램 세대와 4F², 3D D램: 세우거나 쌓거나</h3>
+        <p>10nm급 D램 6세대(1x → 1c, 1a부터 EUV, 1c 16Gb DDR5, HBM은 검증된 1b 기반)를 시간선으로 보여 주고, 셀이 작아질수록 어려워지는 세 가지(높고 가는 커패시터와 ALD 고유전율막·지지막, 채널을 길게 돌리는 매몰 게이트 BCAT, 주변 회로의 HKMG와 저저항 배선, 로우해머 대응), 셀을 6F²(3F×2F)에서 4F²(2F×2F)로 세워 같은 면적에 약 1.5배를 넣는 VG·VCT와 웨이퍼 본딩, 셀을 눕혀 낸드처럼 층층이 쌓는 3D D램과 그 과제, 세 구조 비교표를 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
+        <div class="modes"><span>시작</span><span>세대</span><span>난관</span><span>4F²</span><span>3D</span><span>비교</span><span>마무리</span></div>
+      </a>
       <a class="card" href="hbm-film.html">
         <div class="top"><span class="unit">4-5</span><span class="meta">약 1분 57초</span></div>
         <h3>HBM: TSV 적층과 본딩</h3>
         <p>HBM이 GPU 옆에 놓이는 구조, 입출력 수로 넓힌 대역폭, TSV 만드는 순서, 본딩 3가지, 적층 수율까지 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
         <div class="modes"><span>시작</span><span>구조</span><span>대역폭</span><span>TSV</span><span>본딩</span><span>수율</span><span>정리</span></div>
+      </a>
+      <a class="card" href="ai-memory-wall-film.html">
+        <div class="top"><span class="unit">4-7</span><span class="meta">약 1분 57초</span></div>
+        <h3>AI 반도체와 메모리 벽: 가깝게·넓게·안에서·새 계층</h3>
+        <p>2년마다 연산 약 3배·D램 대역폭 약 1.6배·칩 간 연결 약 1.4배로 벌어지는 메모리 벽을 로그 눈금 그래프와 요리사 비유로 보여 주고, 단어 하나를 만들 때마다 가중치를 읽어야 하는 LLM 추론의 병목과 연산보다 훨씬 큰 데이터 이동 에너지, 가깝게(HBM)·넓게(CXL 확장·풀링)·안에서(PIM, GDDR6-AiM)·새 계층(HBF)이라는 네 가지 해법, HBM4·GDDR7·LPDDR·DDR5·CXL·HBF 비교표, 학습과 추론의 수요 차이와 제품군 확대까지 약 2분 동안 이어서 보는 가로 영상. 자막과 장면 버튼이 있고 소리는 없다.</p>
+        <div class="modes"><span>시작</span><span>메모리 벽</span><span>이동 비용</span><span>해법</span><span>비교</span><span>수요</span><span>마무리</span></div>
       </a>
     </div>
   </section>

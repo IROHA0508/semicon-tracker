@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>식각 RIE·고종횡비 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-6</span><span>식각 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>식각: 이온과 라디칼로 곧게 파 내려가는 이야기 (습식 · RIE · 고종횡비, 약 2분 영상)</h1>
+    <p class="lead">판화에 비유한 식각의 목적에서 시작해, 등방성 습식과 이방성 건식의 차이, 이온과 라디칼이 함께 일하는 RIE와 측벽 폴리머, 가스와 막질이 정하는 선택비, 고종횡비에서 커지는 로딩 효과와 마스크·차징 문제, 펄스·극저온·ALE·보쉬 같은 첨단 기술까지 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="식각 RIE·고종횡비 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="습식과 건식 식각 단면, RIE의 이온과 라디칼, 막질별 식각 속도, 고종횡비 식각 문제와 첨단 식각 기술을 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">3-6 · 식각</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">이온과 라디칼로</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">곧게 파 내려갑니다</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">습식 · RIE · 고종횡비</text>
+        </g>
+        <g id="g-b"><g id="b-art"></g></g>
+        <g id="g-c"><g id="c-art"></g></g>
+        <g id="g-d"><g id="d-art"></g></g>
+        <g id="g-e"><g id="e-art"></g></g>
+        <g id="g-f"><g id="f-art"></g></g>
+        <g id="g-g"></g>
+
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 단면 모양, 식각 깊이, 막질별 속도 비율은 이해를 돕기 위해 단순화한 값입니다. 조건과 순서는 원고 기준입니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li><b>습식</b>은 빠르고 선택비가 높지만 모든 방향으로 깎여(등방성) 마스크 아래를 파먹는 언더컷이 생깁니다. <b>건식(RIE)</b>은 이온이 수직으로 때려 곧은 측벽을 만듭니다. 이온 밀링 → 플라즈마 식각 → RIE로 발전했습니다.</li>
+      <li>RIE는 이온 충돌(물리)과 라디칼 반응(화학)의 시너지이고, 측벽 폴리머가 옆으로 깎이는 것을 막습니다. CF 계열 가스에서는 <b>SiO₂ &gt; Si₃N₄ &gt; Si</b> 순으로 깎이며 H₂와 O₂로 F 비율과 폴리머를 조절합니다.</li>
+      <li>깊고 좁아질수록 <b>로딩 효과</b>, 마스크 손실, 차징이 문제가 됩니다. 펄스 플라즈마, 극저온 식각, 원자층 식각(ALE), 보쉬 공정이 해법으로 쓰입니다.</li>
+    </ul>
+    <p class="foot">원고 3-6을 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="etching.html">식각(etching)</a>, 앞뒤 공정은 <a href="deposition-film.html">증착 영상</a>과 <a href="transistor-structure-film.html">트랜지스터 구조 영상</a>을 보세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const frac = (x) => x - Math.floor(x);
+  const trap = (a, b) => K([[a - 0.01, 0], [a + 0.4, 1], [b - 0.4, 1], [b, 0]]);
+  const rise = (a) => K([[a, 0], [a + 0.6, 1]]);
+  const sm = (a, b) => K([[a, 0], [b, 1]]);
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "습식·건식"], [24, "RIE"], [46, "선택비"], [68, "고종횡비"], [90, "첨단 기술"], [106, "마무리"],
+  ];
+  const TITLES = [
+    [6, "습식은 등방성, 건식은 이방성"], [24, "RIE: 이온 + 라디칼의 시너지"], [46, "막질과 가스가 선택비를 정한다"],
+    [68, "깊고 좁을수록 어렵다"], [90, "첨단 식각 기술 네 가지"], [106, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "식각은 포토로 그린 PR 무늬를 마스크 삼아, 아래 막의 필요 없는 부분을 깎아 내는 공정입니다."],
+    [3, 6, "판화에서 조각칼로 파 내듯, 미세 공정에서는 곧게 파는 이온과 녹이는 약품을 함께 씁니다."],
+    [6, 10, "<b>습식</b> 식각은 용액이 막을 녹입니다. 빠르고 선택비가 높고 처리량이 크지만 모든 방향으로 깎입니다(등방성)."],
+    [10, 15.2, "마스크 아래까지 파먹는 <b>언더컷</b>이 생겨서 미세 패턴에는 한계가 있습니다."],
+    [15.2, 20, "<b>건식</b> 식각은 플라즈마의 이온이 위에서 수직으로 날아와 곧은 측벽을 만듭니다(이방성)."],
+    [20, 24, "이온 밀링(수직, 선택비 낮음) → 플라즈마 식각(선택비 좋음, 등방성) → 둘을 합친 <b>RIE</b>로 발전했습니다."],
+    [24, 28, "<b>RIE</b>는 물리(이온 충돌)와 화학(라디칼 반응)의 시너지입니다. 여섯 단계로 봅니다."],
+    [28, 36, "플라즈마가 만든 반응종이 표면에 흡착하고, 이온이 때린 바닥에서만 결합이 약해져 휘발성 화합물이 되어 빠져나갑니다."],
+    [36, 42.6, "라디칼이 등방성이어도 바닥만 빨리 깎이니 결과는 수직입니다. 측벽에는 폴리머 보호막이 남아 옆 식각을 막습니다."],
+    [42.6, 46, "RF 파워가 약하면 폴리머만 쌓이고(증착), 강하면 이온이 문턱을 넘어 식각이 일어납니다."],
+    [46, 51, "식각 속도는 막마다 다릅니다. CF 계열 가스에서는 <b>SiO₂ &gt; Si₃N₄ &gt; Si</b> 순입니다."],
+    [51, 56.5, "SiO₂는 막 속 산소가 C를 CO·CO₂로 소모해 폴리머가 얇게 남아 잘 깎이고, Si는 폴리머가 쌓여 식각이 멈춥니다."],
+    [56.5, 59.6, "그래서 Si를 마스크로 SiO₂를 높은 <b>선택비</b>로 깎을 수 있습니다."],
+    [59.6, 62.6, "<b>H₂</b>를 넣으면 H가 F와 결합해 HF가 되어 화학 식각이 느려지고 수직 프로파일에 유리합니다."],
+    [62.6, 65.4, "<b>O₂</b>를 넣으면 C가 소모돼 F 비율이 늘고 식각 속도가 오르며 폴리머가 얇아집니다."],
+    [65.4, 68, "Ar·N₂·He는 직접 반응하지 않고 플라즈마를 안정·균일하게 합니다."],
+    [68, 72, "깊고 좁아질수록 종횡비(높이÷폭)가 커집니다. 좁고 깊은 홈은 같은 시간에 덜 깎입니다(<b>마이크로 로딩</b>)."],
+    [72, 74.4, "부산물이 못 빠져나오고 반응종도 덜 들어가서입니다. 압력↓·유속↑·펄스 플라즈마로 줄입니다."],
+    [74.4, 78, "패턴 밀도에 따라 반응종 소모가 달라 생기는 불균일은 <b>매크로 로딩</b>. 더미 패턴으로 밀도를 고릅니다."],
+    [78, 82.4, "고종횡비 식각이 어려운 첫째 이유: 반응종 공급과 부산물 배출이 어렵습니다."],
+    [82.4, 86, "둘째, 오래 깎는 동안 마스크가 닳아 사라집니다. 선택비가 높은 하드마스크가 필요합니다."],
+    [86, 90, "셋째, 전하가 쌓여 이온 경로가 휘면 측벽이 부풀거나(보잉) 식각이 멈춥니다. 3D 낸드는 수백 단을 한 번에 뚫습니다."],
+    [90, 94.2, "<b>펄스 플라즈마</b>: 파워를 켰다 껐다 합니다. 꺼진 동안 부산물이 빠지고 전하가 해소돼 마이크로 로딩과 트렌칭이 줄어듭니다."],
+    [94.2, 98.2, "<b>극저온 식각</b>: 웨이퍼를 −100 °C 이하로 식혀 옆 반응을 막습니다. 보호막 없이 이방성을 얻어 3D 낸드 채널 홀에서 주목받습니다."],
+    [98.2, 102.2, "<b>원자층 식각(ALE)</b>: 표면 한 층만 반응시키고 그 층만 떼어 냅니다. 정밀하고 매끈하지만 느려 PE-ALE로 발전 중입니다."],
+    [102.2, 106, "<b>보쉬 공정</b>: 등방성 식각, 측벽 보호막, 바닥만 뚫기를 빠르게 반복해 깊은 수직 홀을 만듭니다. MEMS와 TSV에 씁니다."],
+    [106, 108.8, "정리합니다. <b>① 방향</b> 습식은 등방성이라 언더컷, 건식은 RIE로 이온과 라디칼이 만든 수직 측벽."],
+    [108.8, 111.8, "<b>② 선택비</b> 가스와 막질이 정합니다. SiO₂ &gt; Si₃N₄ &gt; Si, H₂와 O₂로 F와 폴리머를 조절합니다."],
+    [111.8, 117, "<b>③ 고종횡비</b> 로딩, 마스크 손실, 차징이 난제이고 펄스·극저온·ALE·보쉬가 해법. 면접에서는 <b>습식/건식 → RIE → 선택비 → 로딩</b> 순서로."],
+  ];
+
+  // ---------- tracks ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gB = K([[5.8, 0], [6.6, 1], [23.4, 1], [24.2, 0]]);
+  const gC = K([[23.8, 0], [24.6, 1], [45.4, 1], [46.2, 0]]);
+  const gD = K([[45.8, 0], [46.6, 1], [67.4, 1], [68.2, 0]]);
+  const gE = K([[67.8, 0], [68.6, 1], [89.4, 1], [90.2, 0]]);
+  const gF = K([[89.8, 0], [90.6, 1], [105.4, 1], [106.2, 0]]);
+  const gG = K([[105.8, 0], [106.6, 1]]);
+
+  // B: wet vs dry
+  const wV = rise(7.6), dV = rise(15.0);
+  const eW = K([[8.2, 0], [14.2, 110]]);
+  const dW = K([[15.8, 0], [20.4, 120]]);
+  const uV = K([[11.2, 0], [12, 1]]);
+  const mWV = rise(14.4), mDV = rise(20.0);
+  const bnV = [rise(10), rise(20)];
+
+  // C: RIE
+  const SROWS = [["① 플라즈마 형성", "글로우 방전으로 반응종 생성"], ["② 반응종 확산", "에천트가 표면으로 이동"], ["③ 흡착", "표면에 달라붙음"], ["④ 이온 충돌 · 반응", "결합이 약해진 곳에서 휘발성 화합물"], ["⑤ 탈착", "생성물이 떨어져 나옴"], ["⑥ 확산 · 배출", "펌프로 빠져나감"]];
+  const STC = [28, 29.3, 30.6, 31.9, 33.2, 34.5, 36];
+  const STEPN = ["① 플라즈마 형성", "② 반응종 확산", "③ 흡착", "④ 이온 충돌 · 반응", "⑤ 탈착", "⑥ 확산 · 배출"];
+  const CROWS2 = [["바닥의 폴리머", "이온이 때려 없앰 → 식각 계속"], ["측벽의 폴리머", "이온이 덜 닿아 남음 → 옆 식각 방지"], ["RF 약 = 증착 · RF 강 = 식각", "이온이 문턱 에너지를 넘어야 식각"]];
+  const DTC2 = [36, 39.4, 42.8, 46];
+  const cL = rise(24.6), plV = rise(25.2);
+  const rowsA = K([[24.8, 0], [25.4, 1], [35.4, 1], [36.2, 0]]), rowsB = K([[36.2, 0], [36.8, 1]]);
+  const cDep = K([[31.9, 0], [45, 110]]);
+  const ionV = rise(31.6), polyV = K([[37, 0], [38, 1]]);
+
+  // D: selectivity
+  const BARS = [["SiO₂", 1.0], ["Si₃N₄", 0.6], ["Si", 0.2]];
+  const barG = K([[46.8, 0], [50.4, 1]]);
+  const polyT = [4, 12, 30];
+  const minV = rise(51.2);
+  const DROWS = [["SiO₂ > Si₃N₄ > Si", "CF 계열 가스에서의 식각 속도 순서"], ["SiO₂는 폴리머가 얇다", "막 속 산소가 C를 CO·CO₂로 소모"], ["Si 마스크로 SiO₂ 식각", "폴리머가 쌓인 Si는 식각 멈춤 → 높은 선택비"], ["H₂ 첨가", "F를 HF로 → 화학 식각 느림 → 수직 유리"], ["O₂ 첨가", "C 소모 → F 비율↑ · 속도↑ · 폴리머 얇아짐"], ["Ar · N₂ · He", "희석해 플라즈마를 안정·균일하게"]];
+  const DTD = [46, 51, 56.5, 59.6, 62.6, 65.4, 68];
+
+  // E: high aspect ratio
+  const p1V = K([[68.4, 0], [69.2, 1], [77.4, 1], [78, 0]]);
+  const p2V = K([[77.8, 0], [78.6, 1], [89.4, 1], [90.2, 0]]);
+  const hNar = K([[69, 0], [77, 120]]), hWide = K([[69, 0], [77, 205]]);
+  const ELR1 = [["마이크로 로딩", "좁고 깊은 홈이 덜 깎임 (부산물 배출 곤란)"], ["→ 개선", "압력↓ (MFP↑) · 유속↑ · 펄스 플라즈마"], ["매크로 로딩", "패턴 밀도에 따라 식각 불균일"], ["→ 개선", "더미 패턴으로 밀도 균일화 · 압력↑ · 바이어스↓"]];
+  const ET1 = [68.6, 72, 74.4, 76.4, 78];
+  const ELR2 = [["① 공급 · 배출이 어렵다", "반응종은 덜 들어가고 부산물은 못 나옴"], ["② 마스크가 닳는다", "오래 깎는 동안 PR · 하드마스크 손실"], ["③ 차징 → 보잉 · 멈춤", "이온 경로가 휘어 측벽이 부풀거나 식각이 멈춤"]];
+  const ET2 = [78, 82.4, 86, 90];
+  const gHole = K([[78.4, 0], [89, 270]]);
+  const mskT = K([[78.4, 40], [88, 8]]);
+  const bowG = K([[84.4, 0], [88.6, 16]]);
+  const chV = K([[86, 0], [86.8, 1]]);
+
+  // F: advanced tech
+  const FCARDS = [
+    ["펄스 플라즈마", ["꺼진 동안 부산물 배출", "마이크로 로딩 · 트렌칭 ↓"]],
+    ["극저온 식각", ["옆 화학 반응을 억제", "보호막 없이 이방성 ✓"]],
+    ["원자층 식각 (ALE)", ["한 층씩 제거 · 매끈", "느림 → PE-ALE로 발전"]],
+    ["보쉬 공정 (DRIE)", ["식각 → 보호막 → 바닥 뚫기", "MEMS · TSV에 사용"]],
+  ];
+  const FT = [90.4, 94.4, 98.4, 102.4];
+  const fcV = (i) => rise(FT[i]);
+  const cryoM = K([[94.6, 0], [97.6, 1]]);
+
+  // G: closing
+  const GT = [106.6, 109.4, 112];
+  const fV = (i) => K([[GT[i], 0], [GT[i] + 0.8, 1]]);
+  const fF = K([[114.6, 0], [115.4, 1]]);
+
+  const LABELS = [];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+  const LN = "stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none";
+  const badge = (x, y, n, r) => `<g class="mk"><circle cx="${x}" cy="${y}" r="${r || 20}"></circle><text x="${x}" y="${y + 8}" text-anchor="middle" style="font-size:${r ? 26 : 20}px">${n}</text></g>`;
+  const rowsHtml = (pfx, x, y0, dy, w, h, rows, sz) => rows.map((r, i) => {
+    const y = y0 + dy * i;
+    return `<g id="${pfx}${i}" class="row" data-s="idle"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"></rect>`
+      + `<text x="${x + 22}" y="${y + 26}" style="font-size:${sz}px;font-weight:700">${r[0]}</text>`
+      + `<text x="${x + 22}" y="${y + 50}" class="lbl-s">${r[1]}</text></g>`;
+  }).join("");
+  const mkPath = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, cum, total: cum[cum.length - 1] }; };
+  const posAt = (P, u) => { const d = frac(u) * P.total; let i = 1; while (i < P.cum.length - 1 && P.cum[i] < d) i++; const a = P.pts[i - 1], b = P.pts[i], k = (d - P.cum[i - 1]) / (P.cum[i] - P.cum[i - 1] || 1); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; };
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  const txt = (x, y, str, cls, sz, anchor, id, bold) => `<text${id ? ` id="${id}"` : ""} x="${x}" y="${y}"${anchor ? ` text-anchor="${anchor}"` : ""}${cls ? ` class="${cls}"` : ""}${sz || bold ? ` style="${sz ? `font-size:${sz}px;` : ""}${bold ? "font-weight:700" : ""}"` : ""}>${str}</text>`;
+  const SIF = "fill:var(--m-si);stroke:var(--ink);stroke-width:2.5";
+  const PRF = "fill:var(--low-soft);stroke:var(--low);stroke-width:2.5";
+  const MXL = 60, MXR = 660;
+
+  // B: wet vs dry
+  const bCard = (X0, id, title, sub, metric, mcls) => {
+    let o = `<g id="${id}"><rect class="card" x="${X0}" y="100" width="560" height="400" rx="14"></rect>` + txt(X0 + 24, 140, title, "lbl-b") + txt(X0 + 24, 166, sub, "lbl-s", 16)
+      + `<rect x="${X0 + 30}" y="420" width="500" height="30" style="${SIF}"></rect>`
+      + `<path id="${id}-film" d="" style="fill:var(--accent);fill-opacity:.88"></path>`
+      + `<rect x="${X0 + 30}" y="270" width="160" height="30" style="${PRF}"></rect><rect x="${X0 + 370}" y="270" width="160" height="30" style="${PRF}"></rect>`
+      + txt(X0 + 110, 291, "PR", "lbl-s", 15, "middle") + txt(X0 + 450, 291, "PR", "lbl-s", 15, "middle")
+      + txt(X0 + 280, 478, metric, mcls, 18, "middle", id + "-m");
+    return o;
+  };
+  s = bCard(MXL, "b-l", "습식 식각 (용액)", "확산 → 표면 반응 → 생성물 이탈", "빠름 · 선택비 높음 · 처리량 큼 / 등방성", "mono bad-t");
+  for (let k = 0; k < 6; k++) s += `<circle id="wd${k}" r="5" style="fill:var(--low)"></circle>`;
+  s += txt(MXL + 280, 255, "PR 아래까지 파먹는 언더컷 ✗", "bad-t", 18, "middle", "unc", true) + `</g>`;
+  s += bCard(MXR, "b-r", "건식 식각 (플라즈마)", "이온이 수직으로 → 이방성", "방향성 있음 → 미세 패턴 가능", "mono ok-t");
+  for (let k = 0; k < 5; k++) s += `<circle id="io${k}" r="6" style="fill:var(--bad)"></circle>`;
+  s += txt(MXR + 280, 255, "수직 측벽 ✓", "ok-t", 18, "middle", "vert", true) + `</g>`;
+  [["습식: 용액이 녹임", "빠르지만 모든 방향으로"], ["건식: 이온 + 라디칼", "이온 밀링 → 플라즈마 → RIE"]].forEach((c, i) => {
+    const x = 60 + i * 600;
+    s += `<g id="bn${i}"><rect class="card" x="${x}" y="516" width="560" height="70" rx="12"></rect>` + txt(x + 280, 546, c[0], "acc-t", 22, "middle", "", true) + txt(x + 280, 572, c[1], "lbl-s", 17, "middle") + `</g>`;
+  });
+  $("b-art").innerHTML = s;
+
+  // C: RIE
+  const IXS = [270, 300, 330, 370, 400, 430];
+  const RXS = [130, 170, 200, 300, 360, 420, 480, 540, 590];
+  s = `<rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect><rect class="card" x="720" y="100" width="520" height="496" rx="12"></rect>`
+    + txt(62, 134, "", "lbl-b acc-t", 24, "", "cur-step", true)
+    + `<g id="c-plasma"><rect x="100" y="150" width="520" height="34" rx="10" style="fill:var(--low);fill-opacity:.18;stroke:var(--low);stroke-width:2"></rect>` + txt(360, 173, "플라즈마 (이온 + 라디칼)", "lbl-s", 16, "middle") + `</g>`
+    + `<rect x="100" y="500" width="520" height="40" style="${SIF}"></rect>` + txt(360, 526, "Si 기판", "lbl-s", 16, "middle")
+    + `<path id="c-film" d="" style="fill:var(--accent);fill-opacity:.88"></path>`
+    + `<rect x="100" y="350" width="150" height="30" style="${PRF}"></rect><rect x="450" y="350" width="170" height="30" style="${PRF}"></rect>` + txt(175, 371, "PR", "lbl-s", 15, "middle") + txt(535, 371, "PR", "lbl-s", 15, "middle")
+    + `<g id="c-poly"><polyline id="pw-l" points="" style="fill:none;stroke:var(--ink);stroke-width:5"></polyline><polyline id="pw-r" points="" style="fill:none;stroke:var(--ink);stroke-width:5"></polyline><line id="pw-b" x1="252" x2="448" y1="0" y2="0" style="stroke:var(--ink);stroke-width:4;stroke-dasharray:6 6"></line></g>`;
+  for (let k = 0; k < 9; k++) s += `<circle id="rd${k}" r="6" style="fill:var(--ok)"></circle>`;
+  for (let k = 0; k < 6; k++) s += `<circle id="in${k}" r="6" style="fill:var(--bad)"></circle>`;
+  s += `<circle cx="72" cy="574" r="6" style="fill:var(--bad)"></circle>` + txt(86, 580, "이온", "lbl-s", 16)
+    + `<circle cx="172" cy="574" r="6" style="fill:var(--ok)"></circle>` + txt(186, 580, "라디칼 (반응종)", "lbl-s", 16)
+    + `<line x1="340" y1="574" x2="372" y2="574" style="stroke:var(--ink);stroke-width:5"></line>` + txt(380, 580, "측벽 폴리머", "lbl-s", 16)
+    + `<g id="c-rowsA">` + rowsHtml("sr", 742, 116, 72, 476, 56, SROWS, 20) + `</g>`
+    + `<g id="c-rowsB">` + rowsHtml("sq", 742, 116, 100, 476, 56, CROWS2, 20) + `</g>`;
+  $("c-art").innerHTML = s;
+
+  // D: selectivity
+  s = `<rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect><rect class="card" x="720" y="100" width="520" height="496" rx="12"></rect>`
+    + txt(62, 134, "CF 계열 가스에서 식각 속도 (개념도)", "lbl-b");
+  BARS.forEach((b, i) => {
+    const y = 160 + 66 * i;
+    s += txt(62, y + 29, b[0], "", 22, "", "", true) + `<rect x="170" y="${y}" width="420" height="40" rx="6" style="fill:var(--accent);fill-opacity:.12"></rect><rect id="bar${i}" x="170" y="${y}" width="0" height="40" rx="6" style="fill:var(--accent)"></rect>`
+      + txt(170 + 420 * b[1] + 12, y + 28, ["빠름", "중간", "느림"][i], i === 2 ? "bad-t" : i === 0 ? "ok-t" : "lbl", 18, "", "bt" + i, true);
+  });
+  s += `<g id="d-min">` + txt(62, 388, "표면에 남는 폴리머 (두께 비교)", "lbl-b", 18);
+  [[70, "SiO₂", "폴리머 얇음 → 식각 ✓", "ok-t"], [280, "Si₃N₄", "중간", "lbl"], [490, "Si", "폴리머 쌓임 → 식각 멈춤 ✗", "bad-t"]].forEach((m, i) => {
+    s += `<rect x="${m[0]}" y="470" width="190" height="40" style="fill:var(--muted);fill-opacity:.38;stroke:var(--ink);stroke-width:2"></rect>` + txt(m[0] + 95, 497, m[1], "lbl-s", 17, "middle")
+      + `<rect id="pol${i}" x="${m[0]}" y="470" width="190" height="0" style="fill:var(--ok);fill-opacity:.9"></rect>` + txt(m[0] + 95, 540, m[2], m[3], 16, "middle", "", true);
+  });
+  s += `</g>` + rowsHtml("dr", 742, 116, 62, 476, 56, DROWS, 20);
+  $("d-art").innerHTML = s;
+
+  // E: high aspect ratio
+  s = `<rect class="card" x="40" y="100" width="660" height="496" rx="12"></rect><rect class="card" x="720" y="100" width="520" height="496" rx="12"></rect>`
+    + `<g id="e-p1"><rect x="80" y="500" width="580" height="30" style="${SIF}"></rect><path id="p1-film" d="" style="fill:var(--accent);fill-opacity:.88"></path>`
+    + `<rect x="80" y="220" width="85" height="30" style="${PRF}"></rect><rect x="215" y="220" width="145" height="30" style="${PRF}"></rect><rect x="560" y="220" width="100" height="30" style="${PRF}"></rect>`
+    + txt(190, 200, "좁은 홈 (AR ↑)", "lbl-b", 18, "middle") + txt(460, 200, "넓은 홈", "lbl-b", 18, "middle");
+  for (let k = 0; k < 4; k++) s += `<circle id="sb${k}" r="5" style="fill:var(--ink)"></circle>`;
+  s += txt(370, 566, "같은 시간 → 좁은 홈이 덜 깎입니다", "bad-t", 20, "middle", "p1-cap", true) + `</g>`
+    + `<g id="e-p2"><rect x="80" y="520" width="580" height="30" style="${SIF}"></rect><path id="p2-film" d="" style="fill:var(--accent);fill-opacity:.88"></path>`
+    + `<rect id="p2-pl" x="80" y="200" width="260" height="40" style="${PRF}"></rect><rect id="p2-pr" x="400" y="200" width="260" height="40" style="${PRF}"></rect>`
+    + `<path id="p2-ion" d="M372,190 C372,270 372,310 346,372" style="fill:none;stroke:var(--bad);stroke-width:3;stroke-dasharray:7 6"></path>`;
+  for (let k = 0; k < 6; k++) s += txt(k % 2 ? 392 : 340, 292 + 28 * Math.floor(k / 2), "+", "bad-t", 22, "middle", "ch" + k, true);
+  s += txt(370, 572, "종횡비 AR = 깊이 ÷ 폭", "lbl-b", 19, "middle", "p2-ar")
+    + txt(212, 188, "마스크가 닳는다 ↓", "bad-t", 18, "middle", "p2-m", true) + txt(530, 188, "차징 → 이온 경로 휨 → 보잉", "bad-t", 18, "middle", "p2-c", true) + `</g>`
+    + `<g id="e-r1">` + rowsHtml("lr", 742, 116, 84, 476, 56, ELR1, 20) + `</g><g id="e-r2">` + rowsHtml("hr", 742, 116, 100, 476, 56, ELR2, 20) + `</g>`;
+  $("e-art").innerHTML = s;
+
+  // F: advanced tech
+  s = "";
+  FCARDS.forEach((c, i) => {
+    const x = 40 + i * 306;
+    s += `<g id="fc${i}"><rect id="fcr${i}" class="card" x="${x}" y="116" width="282" height="354" rx="12"></rect>` + txt(x + 141, 158, c[0], "acc-t", 24, "middle", "", true)
+      + `<line x1="${x + 20}" y1="346" x2="${x + 262}" y2="346" style="stroke:var(--line-strong);stroke-width:1.5"></line>`
+      + c[1].map((l, j) => txt(x + 141, 384 + j * 34, l, j ? "lbl" : "", 19, "middle", "", !j)).join("");
+    if (i === 0) {
+      let d = ""; for (let k = 0; k < 4; k++) { const xs = x + 24 + k * 58; d += (k ? " L" : "M") + `${xs},300 L${xs},230 L${xs + 29},230 L${xs + 29},300 L${xs + 58},300`; }
+      s += `<path d="${d}" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linejoin:round"></path><circle id="pw-c" r="8" style="fill:var(--bad)"></circle>`
+        + txt(x + 70, 214, "켜짐: 식각", "ok-t", 16, "middle", "", true) + txt(x + 190, 326, "꺼짐: 배출 · 전하 해소", "lbl-s", 15, "middle");
+    } else if (i === 1) {
+      s += `<rect x="${x + 24}" y="236" width="234" height="28" rx="8" style="fill:var(--low);fill-opacity:.15;stroke:var(--low);stroke-width:2"></rect><rect id="cry-b" x="${x + 24}" y="236" width="0" height="28" rx="8" style="fill:var(--low)"></rect>`
+        + txt(x + 24, 224, "상온", "lbl-s", 16) + txt(x + 258, 224, "−100 °C 이하", "lbl-s", 16, "end") + txt(x + 141, 306, "", "mono acc-t", 24, "middle", "cry-t", true) + txt(x + 141, 330, "웨이퍼 온도", "lbl-s", 15, "middle");
+    } else if (i === 2) {
+      for (let k = 0; k < 4; k++) s += `<rect id="al${k}" x="${x + 56}" y="${298 - 24 * k}" width="170" height="22" style="fill:var(--accent);fill-opacity:.88;stroke:var(--surface);stroke-width:1.5"></rect>`;
+      for (let k = 0; k < 6; k++) s += `<circle id="ad${k}" r="5" style="fill:var(--low)"></circle>`;
+      for (let k = 0; k < 3; k++) s += txt(x + 86 + 56 * k, 218, "↓", "bad-t", 24, "middle", "ai" + k, true);
+      s += txt(x + 141, 192, "", "lbl-b", 16, "middle", "ale-s");
+    } else {
+      s += `<path id="bo-f" d="" style="fill:var(--accent);fill-opacity:.88"></path>` + txt(x + 141, 192, "스캘럽 (물결무늬)", "lbl-s", 15, "middle");
+    }
+    s += `</g>`;
+  });
+  $("f-art").innerHTML = s;
+
+  // G: closing cards
+  (function () {
+    const cards = [
+      { h: "방향", l: ["습식 = 등방성 → 언더컷", "건식(RIE) = 이온 + 라디칼", "측벽 폴리머가 옆 식각 방지", "이온 밀링 → 플라즈마 → RIE"] },
+      { h: "선택비", l: ["SiO₂ > Si₃N₄ > Si", "H₂: F↓ · 수직 유리", "O₂: F↑ · 폴리머 얇게", "Ar·N₂·He: 플라즈마 안정"] },
+      { h: "고종횡비", l: ["마이크로 · 매크로 로딩", "마스크 손실 · 차징(보잉)", "펄스 · 극저온 · ALE", "보쉬(DRIE): MEMS · TSV"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="gc-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>`
+        + badge(x + 44, 188, i + 1, 24)
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="g-form" x="640" y="500" text-anchor="middle" class="acc-t" style="font-size:26px">면접: 습식/건식 → RIE 6단계 → 선택비 → 로딩 · 고종횡비</text>`;
+    $("g-g").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  const HL = [];
+  const GV = [0, 1, 2].map(fV);
+  let hlOn = new Set();
+  const rowState = (id, T, i, t) => setAttr(id + i, "data-s", t < T[i] ? "idle" : t < T[i + 1] ? "on" : "done");
+  const f1 = (v) => v.toFixed(1);
+  const STCx = STC;
+  const wetPath = (X0, e) => `M${X0 + 30},300 H${f1(X0 + 190 - e)} A${f1(e)},${f1(e)} 0 0 0 ${X0 + 190},${f1(300 + e)} H${X0 + 370} A${f1(e)},${f1(e)} 0 0 0 ${f1(X0 + 370 + e)},300 H${X0 + 530} V420 H${X0 + 30} Z`;
+  const dryPath = (X0, d) => `M${X0 + 30},300 H${X0 + 190} V${f1(300 + d)} H${X0 + 370} V300 H${X0 + 530} V420 H${X0 + 30} Z`;
+  // Bosch wall profile
+  const BOSCH = []; for (let s2 = 0; s2 < 5; s2++) { BOSCH.push([0, 24 * s2], [-9, 24 * s2 + 12]); } BOSCH.push([0, 120]);
+  const boschPts = (d) => { const o = []; for (let i = 0; i < BOSCH.length; i++) { const p = BOSCH[i]; if (p[1] <= d) o.push(p); else { const q = BOSCH[i - 1], k = (d - q[1]) / (p[1] - q[1]); o.push([q[0] + (p[0] - q[0]) * k, d]); break; } } if (!o.length) o.push([0, 0]); return o; };
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t)); op("g-f", gF(t)); op("g-g", gG(t));
+
+    // B
+    op("b-l", wV(t)); op("b-r", dV(t));
+    { const e = eW(t); setAttr("b-l-film", "d", wetPath(MXL, e));
+      op("unc", uV(t)); op("b-l-m", mWV(t));
+      for (let k = 0; k < 6; k++) { const w = 180 + 2 * e, cx = MXL + 280;
+        setAttr("wd" + k, "cx", f1(cx + Math.max(0, w / 2 - 14) * Math.sin(t * 1.3 + k * 1.9) * 0.9)); setAttr("wd" + k, "cy", f1(304 + Math.max(0, e - 12) * (0.5 + 0.4 * Math.sin(t * 1.7 + k * 2.3))));
+        op("wd" + k, e > 10 ? wV(t) * 0.9 : 0); } }
+    { const d = dW(t); setAttr("b-r-film", "d", dryPath(MXR, d));
+      op("vert", rise(19.6)(t)); op("b-r-m", mDV(t));
+      for (let k = 0; k < 5; k++) { const u = frac(t * 0.5 + k * 0.37);
+        setAttr("io" + k, "cx", MXR + 205 + k * 40); setAttr("io" + k, "cy", f1(190 + (300 + d - 8 - 190) * u)); op("io" + k, dW(t) > 0.5 && dW(t) < 119 ? dV(t) * (1 - Math.pow(u, 10)) : 0); } }
+    for (let i = 0; i < 2; i++) op("bn" + i, bnV[i](t));
+
+    // C
+    { const d = cDep(t), cv = cL(t);
+      setAttr("c-film", "d", `M100,380 H250 V${f1(380 + d)} H450 V380 H620 V500 H100 Z`);
+      op("c-plasma", plV(t));
+      for (let k = 0; k < 6; k++) { const u = frac(t * 0.45 + k * 0.41);
+        setAttr("in" + k, "cx", IXS[k]); setAttr("in" + k, "cy", f1(192 + (380 + d - 8 - 192) * u)); op("in" + k, ionV(t) * (1 - Math.pow(u, 12))); }
+      for (let k = 0; k < 9; k++) { const u = frac(t * 0.22 + k * 0.37), inGap = RXS[k] > 255 && RXS[k] < 445, yg = inGap ? 380 + d - 8 : 342;
+        setAttr("rd" + k, "cx", f1(RXS[k] + 12 * Math.sin(t * 1.5 + k))); setAttr("rd" + k, "cy", f1(192 + (yg - 192) * u)); op("rd" + k, rise(28)(t) * (1 - Math.pow(u, 10))); }
+      setAttr("pw-l", "points", `252,380 252,${f1(380 + d)}`); setAttr("pw-r", "points", `448,380 448,${f1(380 + d)}`);
+      setAttr("pw-b", "y1", f1(380 + d)); setAttr("pw-b", "y2", f1(380 + d)); op("c-poly", polyV(t));
+      op("pw-b", 0.5 + 0.5 * Math.sin(t * 7)); }
+    { let cs = "";
+      if (t >= 28 && t < 36) { let k = 0; for (let i = 0; i < 6; i++) if (t >= STC[i]) k = i; cs = STEPN[k]; }
+      else if (t >= 36 && t < 46) cs = "측벽 폴리머가 옆 식각을 막는다";
+      setText("cur-step", cs); }
+    op("c-rowsA", rowsA(t)); op("c-rowsB", rowsB(t));
+    for (let i = 0; i < 6; i++) { op("sr" + i, rise(25 + 0.2 * i)(t)); rowState("sr", STCx, i, t); }
+    for (let i = 0; i < 3; i++) { op("sq" + i, rise(DTC2[i] - 0.2)(t)); rowState("sq", DTC2, i, t); }
+
+    // D
+    for (let i = 0; i < 3; i++) { setAttr("bar" + i, "width", f1(420 * BARS[i][1] * barG(t))); op("bt" + i, rise(50.2 + 0.2 * i)(t)); }
+    op("d-min", minV(t));
+    { const g2 = K([[51.4, 0], [54.5, 1]])(t); for (let i = 0; i < 3; i++) { const h = polyT[i] * g2; setAttr("pol" + i, "y", f1(470 - h)); setAttr("pol" + i, "height", f1(h)); } }
+    for (let i = 0; i < 6; i++) { op("dr" + i, rise(DTD[i] - 0.2)(t)); rowState("dr", DTD, i, t); }
+
+    // E
+    op("e-p1", p1V(t)); op("e-p2", p2V(t)); op("e-r1", p1V(t)); op("e-r2", p2V(t));
+    { const dn = hNar(t), dw = hWide(t);
+      setAttr("p1-film", "d", `M80,250 H165 V${f1(250 + dn)} H215 V250 H360 V${f1(250 + dw)} H560 V250 H660 V500 H80 Z`);
+      for (let k = 0; k < 4; k++) { setAttr("sb" + k, "cx", f1(190 + 9 * Math.sin(t * 2.1 + k * 1.7))); setAttr("sb" + k, "cy", f1(250 + dn - 10 - 16 * k + 3 * Math.sin(t * 3 + k))); op("sb" + k, dn > 40 + 16 * k ? 1 : 0); }
+      op("p1-cap", rise(75.4)(t)); }
+    { const gh = gHole(t), mt = mskT(t), bw = bowG(t), tp = 12 * gh / 270, L = [], R = [];
+      for (let j = 0; j <= 10; j++) { const y = 240 + gh * j / 10, xl = 340 + tp * (j / 10) - bw * Math.sin(Math.PI * j / 10) * (1 - 0.3 * j / 10); L.push([xl, y]); R.push([740 - xl, y]); }
+      const P = (a) => a.map((p) => f1(p[0]) + "," + f1(p[1])).join(" L");
+      setAttr("p2-film", "d", `M80,240 H${f1(340)} L${P(L)} L${P(R.slice().reverse())} H660 V520 H80 Z`);
+      setAttr("p2-pl", "y", f1(240 - mt)); setAttr("p2-pl", "height", f1(mt)); setAttr("p2-pr", "y", f1(240 - mt)); setAttr("p2-pr", "height", f1(mt));
+      op("p2-ar", rise(78.8)(t)); op("p2-m", rise(82.6)(t)); op("p2-c", chV(t)); op("p2-ion", chV(t));
+      for (let k = 0; k < 6; k++) op("ch" + k, chV(t) * (240 + gh > 292 + 28 * Math.floor(k / 2) ? 1 : 0)); }
+    for (let i = 0; i < 4; i++) { op("lr" + i, rise(ET1[i] - 0.2)(t)); rowState("lr", ET1, i, t); }
+    for (let i = 0; i < 3; i++) { op("hr" + i, rise(ET2[i] - 0.2)(t)); rowState("hr", ET2, i, t); }
+
+    // F
+    { let act = -1; for (let i = 0; i < 4; i++) if (t >= FT[i]) act = i;
+      for (let i = 0; i < 4; i++) { op("fc" + i, fcV(i)(t)); setStyle("fcr" + i, "stroke", i === act ? "var(--accent)" : ""); setStyle("fcr" + i, "strokeWidth", i === act ? "3.5px" : ""); }
+      // pulse
+      { const ph = frac(t * 0.35) * 4, x0 = 40; setAttr("pw-c", "cx", f1(x0 + 24 + 232 * frac(t * 0.35))); setAttr("pw-c", "cy", (ph % 1) < 0.5 ? 230 : 300); }
+      // cryo
+      { const m = cryoM(t); setAttr("cry-b", "width", f1(234 * m)); setText("cry-t", Math.round(25 - 125 * m) + " °C"); }
+      // ALE
+      { const T0 = t - 98.6, CYC = 1.9; let c, p;
+        if (T0 < 0) { c = -1; p = 0; } else if (T0 >= 2 * CYC) { c = 2; p = 0; } else { c = Math.floor(T0 / CYC); p = T0 - c * CYC; }
+        for (let k = 0; k < 4; k++) { const r = 3 - k; op("al" + k, c < 0 ? 1 : r < c ? 0 : r === c ? 1 - smooth(clamp((p - 1.0) / 0.5, 0, 1)) : 1); }
+        const topK = c < 0 ? 3 : c >= 2 ? 1 : 3 - c, topY = 298 - 24 * topK;
+        for (let k = 0; k < 6; k++) { setAttr("ad" + k, "cx", f1(40 + 612 + 56 + 14 + k * 27)); setAttr("ad" + k, "cy", f1(topY - 8)); op("ad" + k, c >= 0 && c < 2 && p < 1.0 ? 1 : 0); }
+        for (let k = 0; k < 3; k++) op("ai" + k, c >= 0 && c < 2 && p >= 1.0 && p < 1.5 ? 1 : 0);
+        const ph = p < 0.5 ? 0 : p < 1.0 ? 1 : p < 1.5 ? 2 : 3;
+        setText("ale-s", c >= 0 && c < 2 ? ["① 흡착", "② 퍼지", "③ 이온 조사: 그 층만 제거", "④ 퍼지"][ph] : c >= 2 ? "두 사이클: 두 층 제거" : "");
+      }
+      // Bosch
+      { const bd = K([[102.6, 0], [105.4, 120]])(t), x = 40 + 3 * 306, cx = x + 141;
+        const W = boschPts(bd), Lp = W.map((p) => [x + 120 + p[0], 210 + p[1]]), Rp = W.map((p) => [2 * cx - (x + 120 + p[0]), 210 + p[1]]);
+        const Q = (a) => a.map((p) => f1(p[0]) + "," + f1(p[1])).join(" L");
+        setAttr("bo-f", "d", `M${x + 24},210 H${x + 120} L${Q(Lp)} L${f1(x + 120)},${f1(210 + bd)} H${x + 162} L${Q(Rp.slice().reverse())} H${x + 258} V330 H${x + 24} Z`); } }
+
+    // G
+    for (let i = 0; i < 3; i++) op("gc-" + i, GV[i](t));
+    op("g-form", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+
+</script>
+</body>
+</html>
