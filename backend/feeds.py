@@ -126,7 +126,9 @@ def html_to_text(html: str, limit: int | None = None) -> str:
 
 
 # Pictures that are part of the page chrome, not the article.
-_SKIP_IMG = re.compile(r"emoji|smiley|avatar|gravatar|logo|icon|sprite|blank\.|spacer|pixel|badge|button|share", re.I)
+# Matched against the file name only, as whole parts ("semiconductor" must not match "icon").
+_SKIP_IMG = re.compile(r"(?:^|[-_.])(?:emoji|smiley|avatar|gravatar|logo|icon|sprite|blank|spacer|pixel|badge|button|share)(?:[-_.\d]|$)", re.I)
+_SKIP_HOST = re.compile(r"(?:^|\.)(?:s\.w\.org|gravatar\.com)$", re.I)
 
 
 def _img_src(tag) -> str:
@@ -165,7 +167,10 @@ def html_to_marked(html: str, base_url: str = "", limit: int | None = None) -> t
         if src.startswith("//"):
             src = "https:" + src
         src = urljoin(base_url, src) if base_url else src
-        ok = (src.startswith("http") and not small and not _SKIP_IMG.search(src) and not src.lower().endswith((".svg", ".gif"))
+        parts = urlsplit(src)
+        name = parts.path.rsplit("/", 1)[-1]
+        ok = (src.startswith("http") and not small and not _SKIP_IMG.search(name) and not _SKIP_HOST.search(parts.netloc)
+              and "wp-smiley" not in (tag.get("class") or []) and not name.lower().endswith((".svg", ".gif"))
               and src not in seen)
         if not ok:
             tag.decompose()

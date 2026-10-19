@@ -16,8 +16,15 @@ HTML = ("<p>SK hynix announced today that it will invest $15 billion in its new 
         "<figcaption>The M15X fab</figcaption></figure>"
         "<p>The company began supplying 12-high HBM4 samples to customers, with bandwidth above 2 TB/s.</p>"
         "<img src='https://news.skhynix.com/logo.png'><img src='https://cdn.example.com/emoji.gif'>"
+        "<img src='https://s.w.org/images/core/emoji/16.0.1/72x72/1f4a1.png' class='wp-smiley'>"
         "<img src='https://cdn.example.com/tiny.jpg' width='20'><img src='https://cdn.example.com/chart.png'>"
         "<p>Operating profit rose 263% year over year to KRW 21.6 trillion in the third quarter.</p>") * 1
+
+
+def test_picture_filter_looks_at_the_file_name_only():
+    html = "<img src='//news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/sedex-booth.jpg'><img src='/x/site-logo.png'>"
+    _, images = feeds.html_to_marked(html, "https://news.samsungsemiconductor.com/kr/a/")
+    assert [i["src"] for i in images] == ["https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/10/sedex-booth.jpg"]
 
 
 def test_marked_text_keeps_article_pictures_in_place():
