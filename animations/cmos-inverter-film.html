@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CMOS 인버터 스위칭 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">2-4</span><span>CMOS 인버터 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>CMOS 인버터: 입력이 바뀔 때 전류는 어디로 흐를까 (약 2분 영상)</h1>
+    <p class="lead">NMOS와 PMOS가 번갈아 켜지며 0과 1을 뒤집는 과정, 입력이 바뀌는 순간 흐르는 충·방전 전류와 단락 전류, 전달 특성(VTC), 전력 소모 세 가지, 그리고 PMOS를 크게 만드는 이유를 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="CMOS 인버터 스위칭 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="PMOS와 NMOS가 번갈아 켜지며 출력을 뒤집는 CMOS 인버터의 전류 흐름, 전달 특성, 전력 소모, PMOS 폭 비를 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">2-4 · CMOS 인버터</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">0과 1을 뒤집는</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">두 문지기, CMOS</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">전환 · 전류 · 전달 특성 · 전력 · PMOS 폭</text>
+        </g>
+        <g id="g-bc">
+          <rect class="card" x="40" y="100" width="560" height="496" rx="12"></rect>
+          <g id="circ"></g>
+        </g>
+        <g id="g-b">
+          <g id="b-rows"></g>
+          <rect class="card" x="620" y="352" width="620" height="244" rx="12"></rect>
+          <text x="642" y="386" style="font-size:22px;font-weight:700">입력과 출력의 전압</text>
+          <text x="642" y="440" class="lbl-b">Vin</text>
+          <rect class="meter-bg" x="730" y="422" width="360" height="22" rx="6"></rect>
+          <rect id="b-vin" x="732" y="424" width="0" height="18" rx="5" style="fill: var(--accent)"></rect>
+          <text id="b-vint" x="1108" y="441" class="mono" style="font-size:22px"></text>
+          <text x="642" y="490" class="lbl-b">Vout</text>
+          <rect class="meter-bg" x="730" y="472" width="360" height="22" rx="6"></rect>
+          <rect id="b-vout" x="732" y="474" width="0" height="18" rx="5" style="fill: var(--low)"></rect>
+          <text id="b-voutt" x="1108" y="491" class="mono" style="font-size:22px"></text>
+          <text id="b-st" x="642" y="552" style="font-size:23px;font-weight:700"></text>
+        </g>
+        <g id="g-c">
+          <rect class="card" x="620" y="100" width="620" height="496" rx="12"></rect>
+          <g id="c-plot"></g>
+        </g>
+        <g id="g-d">
+          <rect class="card" x="40" y="100" width="620" height="496" rx="12"></rect>
+          <g id="d-plot"></g>
+          <rect class="card" x="680" y="100" width="560" height="262" rx="12"></rect>
+          <g id="d-plot2"></g>
+          <g id="d-rows"></g>
+        </g>
+        <g id="g-e">
+          <rect class="card" x="40" y="100" width="700" height="496" rx="12"></rect>
+          <g id="e-art"></g>
+          <g id="e-rows"></g>
+          <g id="e-form">
+            <rect class="card" x="760" y="436" width="480" height="160" rx="12"></rect>
+            <text x="1000" y="490" text-anchor="middle" class="mono acc-t" style="font-size:36px;font-weight:700">P = α · C · V² · f</text>
+            <text x="782" y="534" class="lbl-s">α 활동률(얼마나 자주 뒤집히나) · C 부하 용량(물탱크)</text>
+            <text x="782" y="562" class="lbl-s">V 전압(제곱으로 들어감) · f 클록 주파수</text>
+          </g>
+        </g>
+        <g id="g-f">
+          <rect class="card" x="40" y="100" width="620" height="496" rx="12"></rect>
+          <g id="f-art"></g>
+          <rect id="f-card2" class="card" x="680" y="100" width="560" height="496" rx="12"></rect>
+          <g id="f-art2"></g>
+        </g>
+        <g id="g-g"></g>
+
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 전압, 전류, 시간 축은 이해를 돕기 위해 단순화해 늘려 그린 값이고(VDD = 1, 전력 비중은 예시), 실제 회로에서는 다릅니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>입력 0이면 PMOS가 켜져 출력이 <b>1(VDD)</b>, 입력 1이면 NMOS가 켜져 출력이 <b>0(GND)</b>이 됩니다. 한쪽만 켜지므로 전원에서 접지로 가는 직통 길이 없어 <b>정지 상태 전류가 거의 없습니다</b>.</li>
+      <li>전환 순간에는 출력의 부하 커패시터(물탱크)를 <b>채우고 비우는 전류</b>와 둘 다 잠깐 켜지는 <b>단락 전류</b>가 흐릅니다. 출력이 뒤집히는 전환점(VM)은 VDD의 절반 근처가 되도록 맞춥니다.</li>
+      <li>전력은 <b>동적(αCV²f, 대부분)</b>·단락·누설 세 가지입니다. 전압은 제곱으로 들어가 낮추는 효과가 크고, 정공이 느려 PMOS의 폭(W)을 2~3배로 넓혀 상승·하강 시간을 맞춥니다.</li>
+    </ul>
+    <p class="foot">원고 2-4를 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="cmos-inverter.html">CMOS 인버터(cmos-inverter)</a>, <a href="cmos-flow.html">CMOS 공정 흐름(cmos-flow)</a> 애니메이션을 보세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "구조"], [30, "전환"], [54, "전달 특성"], [70, "전력"], [90, "대칭"], [103, "마무리"],
+  ];
+  const TITLES = [
+    [6, "CMOS 인버터: 두 문지기의 교대"], [30, "입력이 바뀌는 순간: 전류의 길"], [54, "전달 특성(VTC): 어디서 뒤집히나"],
+    [70, "전력 소모: 채우고 비우는 비용"], [90, "PMOS를 크게 만드는 이유"], [103, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "컴퓨터의 모든 논리는 0을 1로, 1을 0으로 뒤집는 작은 회로에서 시작합니다. 이것이 <b>인버터</b>입니다."],
+    [3, 6, "NMOS와 PMOS를 위아래로 짝지은 CMOS 인버터가 입력이 바뀔 때 전류를 어떻게 흘리는지 봅니다."],
+    [6, 10, "<b>구조</b> 위에는 PMOS, 아래에는 NMOS. 둘의 게이트를 입력(Vin)에 함께 묶고, 가운데 연결점이 출력(Vout)입니다."],
+    [10, 14, "위쪽 끝은 전원 <b>VDD(1)</b>, 아래쪽 끝은 접지 <b>GND(0)</b>입니다. 출력에는 다음 회로가 만드는 작은 물탱크, 부하 커패시터(CL)가 달려 있습니다."],
+    [14, 18.2, "<b>입력 0</b> PMOS는 켜지고 NMOS는 꺼집니다. 출력이 전원 쪽에 연결되어 <b>1</b>이 됩니다."],
+    [18.2, 24, "<b>입력 1</b> 이제 반대입니다. NMOS가 켜지고 PMOS는 꺼져 출력이 접지로 빠져 <b>0</b>이 됩니다."],
+    [24, 30, "두 문지기가 번갈아 문을 열기 때문에 전원에서 접지로 곧장 이어지는 길이 없습니다. 그래서 가만히 있을 때는 전류가 거의 흐르지 않습니다."],
+    [30, 33.5, "이번에는 입력이 바뀌는 순간을 시간 축으로 길게 늘려 봅니다. 위는 입력과 출력의 전압, 아래는 전류입니다."],
+    [33.5, 37, "입력이 <b>0 → 1</b>로 오르는 순간, 잠깐 둘 다 켜져 전원에서 접지로 짧은 <b>단락 전류</b>가 흐르고, 곧 NMOS만 남아 출력이 <b>내려갑니다</b>."],
+    [37, 41.5, "출력이 내려가는 동안 흐르는 전류는 물탱크(CL)에 모였던 전하가 접지로 빠지는 것입니다. 전원에서 새로 가져오는 전류가 아닙니다."],
+    [41.5, 47, "입력이 <b>1 → 0</b>으로 내려오면 PMOS가 켜지고 전원이 물탱크를 <b>다시 채웁니다</b>. 전원에서 전류가 크게 빠져나가는 순간입니다."],
+    [47, 50, "이 충전과 방전이 0과 1이 바뀔 때마다 반복됩니다. 인버터가 쓰는 전기의 대부분이 여기서 나옵니다."],
+    [50, 54, "올라가는 쪽이 조금 더 느린 점도 보세요. PMOS의 전류가 약하기 때문이고, 뒤에서 바로잡습니다."],
+    [54, 57.5, "이번에는 입력을 0에서 1까지 <b>천천히</b> 올리며 출력이 어떻게 바뀌는지 봅니다. 이것이 <b>전달 특성(VTC)</b>입니다."],
+    [57.5, 60, "입력이 낮을 때는 PMOS가 이겨 출력이 1에 가깝고, 입력이 높으면 NMOS가 이겨 0에 가깝습니다."],
+    [60, 64.5, "가운데에서 출력이 1에서 0으로 <b>급격히</b> 떨어집니다. 이 전환점(VM)이 <b>VDD의 절반</b> 근처에 오도록 두 소자의 세기를 맞춥니다."],
+    [64.5, 70, "전환점 근처에서는 둘 다 반쯤 켜져 전원에서 접지로 <b>단락 전류</b>가 흐릅니다. 입력이 천천히 바뀔수록 이 시간이 길어집니다."],
+    [70, 73, "전력은 세 가지로 나눠 생각합니다. 가장 큰 몫은 <b>동적 전력</b>입니다."],
+    [73, 79, "출력 물탱크를 채웠다 비우는 한 사이클마다, 전원에서 가져온 전하가 접지로 버려집니다. 이 낭비가 곧 <b>P = α·C·V²·f</b>입니다."],
+    [79, 82.5, "α는 얼마나 자주 바뀌는지(활동률), C는 물탱크 크기, f는 주파수, 그리고 <b>V는 제곱</b>으로 들어갑니다."],
+    [82.5, 86, "그래서 전압을 1.0 V에서 0.7 V로 낮추면 전력이 약 <b>절반(0.49배)</b>으로 줄어듭니다."],
+    [86, 90, "나머지는 전환 순간의 <b>단락 전력</b>과 꺼진 트랜지스터로 새는 <b>누설 전력</b>입니다. 미세화로 누설의 비중이 커졌습니다."],
+    [90, 93.5, "앞에서 올라가는 쪽이 느렸던 이유는 정공이 전자보다 느리기 때문입니다(이동도 약 1/3)."],
+    [93.5, 98, "PMOS의 폭(W)을 넓혀 전류를 키웁니다. 폭이 1배일 때는 올라가는 시간이 내려가는 시간의 약 3배입니다."],
+    [98, 101, "폭을 약 <b>2~3배</b>로 넓히면 올라가는 시간과 내려가는 시간이 같아지고, 전환점 VM도 <b>VDD/2</b>에 옵니다."],
+    [101, 103, "그래서 CMOS 인버터에서 PMOS는 NMOS보다 크게 만듭니다."],
+    [103, 107, "<b>① 동작</b> 입력 0이면 PMOS가 켜져 출력 1, 입력 1이면 NMOS가 켜져 출력 0. 번갈아 켜지므로 정지 전류가 거의 없습니다."],
+    [107, 110.6, "<b>② 전력</b> 대부분은 충·방전의 동적 전력 αCV²f. 전압을 낮추는 것이 가장 효과적이고, 단락·누설이 나머지입니다."],
+    [110.6, 113.5, "<b>③ 설계</b> PMOS 폭을 2~3배 넓혀 상승·하강 시간과 전환점(VDD/2)을 맞춥니다."],
+    [113.5, 117, "면접에서는 <b>“왜 CMOS는 대기 전력이 작은가?”</b> → 정지 상태에는 전원에서 접지로 가는 길이 없기 때문이라고 답하세요."],
+  ];
+
+  // ---------- tracks ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gBC = K([[5.8, 0], [6.6, 1], [53.2, 1], [54, 0]]);
+  const gB = K([[5.8, 0], [6.6, 1], [29.4, 1], [30.2, 0]]);
+  const gC = K([[29.8, 0], [30.6, 1], [53.4, 1], [54.2, 0]]);
+  const gD = K([[53.8, 0], [54.6, 1], [69.4, 1], [70.2, 0]]);
+  const gE = K([[69.8, 0], [70.6, 1], [89.4, 1], [90.2, 0]]);
+  const gF = K([[89.8, 0], [90.6, 1], [102.4, 1], [103.2, 0]]);
+  const gG = K([[102.8, 0], [103.6, 1]]);
+
+  // circuit model (film-time driven)
+  const TF = 0.55, TR = 1.0;
+  const EDG = [[18.25, 1], [26.25, 0], [34.25, 1], [42.25, 0]];
+  const VIN = K([[0, 0], [18, 0], [18.5, 1], [26, 1], [26.5, 0], [34, 0], [34.5, 1], [42, 1], [42.5, 0]]);
+  const VOUT = (t) => {
+    let v = 1;
+    for (let i = 0; i < EDG.length; i++) {
+      const te = EDG[i][0]; if (t <= te) break;
+      const tend = i + 1 < EDG.length ? Math.min(EDG[i + 1][0], t) : t, dt = tend - te;
+      v = EDG[i][1] === 1 ? v * Math.exp(-dt / TF) : 1 - (1 - v) * Math.exp(-dt / TR);
+    }
+    return v;
+  };
+  const ISC = (t) => { let a = 0; for (let i = 0; i < EDG.length; i++) a += 0.5 * Math.exp(-Math.pow((t - EDG[i][0]) / 0.2, 2)); return a; };
+  const ICH = (t) => (VIN(t) < 0.5 ? (1 - VOUT(t)) / TR : 0);
+  const IDIS = (t) => (VIN(t) > 0.5 ? VOUT(t) / TF : 0);
+  const BROWS = [["① 입력 0: PMOS 켜짐", "NMOS는 꺼짐 → 출력이 VDD(1)에 연결"], ["② 입력 1: NMOS 켜짐", "PMOS는 꺼짐 → 출력이 GND(0)에 연결"], ["③ 둘 중 하나만 켜짐", "VDD → GND 직통 길이 없어 정지 전류 ≈ 0"]];
+  const BT = [14, 18.25, 24, 30];
+
+  // C: waveform plot geometry
+  const CX0 = 700, CW = 510, CS0 = 31, CS1 = 52, CVY0 = 330, CVH = 170, CIY0 = 560, CIH = 150, INORM = 1.9;
+  const cx_ = (s) => CX0 + CW * (s - CS0) / (CS1 - CS0);
+  const cvy = (v) => CVY0 - CVH * v, ciy = (i) => CIY0 - CIH * i / INORM;
+  const cCur = K([[31, 0], [31.6, 1]]);
+
+  // D: VTC
+  const vtc = (vin, vm) => 1 / (1 + Math.exp(16 * (vin - vm)));
+  const isc = (vin, vm) => Math.exp(-Math.pow((vin - vm) / 0.17, 2));
+  const VMS = 0.5;
+  const VS = (t) => clamp((t - 55) / 10, 0, 1);
+  const DROWS = [["Vin < VM: PMOS 우세", "PMOS만 켜져 출력 ≈ 1, 전류 없음"], ["Vin ≈ VM: 둘 다 켜짐", "전원 → 접지 단락 전류가 흐름 (최대)"], ["Vin > VM: NMOS 우세", "NMOS만 켜져 출력 ≈ 0, 전류 없음"]];
+  const dBump = K([[64.4, 0], [65.1, 1]]);
+
+  // E: power
+  const ECYC = 4, ET0 = 72;
+  const eP = (t) => (t - ET0) / ECYC - Math.floor((t - ET0) / ECYC);
+  const eLevel = (t) => { if (t < ET0) return 1; const p = eP(t); return p < 0.5 ? 1 - smooth(p / 0.5) : smooth((p - 0.5) / 0.5); };
+  const EV = K([[82.5, 1.0], [84.8, 0.7]]);
+  const eFormV = K([[78.6, 0], [79.2, 1]]);
+  const eBarV = K([[81.8, 0], [82.4, 1]]);
+  const EROWS = [["① 동적 전력 α·C·V²·f", "출력 물탱크를 채우고 비울 때", "가장 큰 몫"], ["② 단락 전력", "전환 순간 둘 다 켜져 전원 → 접지로 직통", "입력이 느리게 바뀔수록 커짐"], ["③ 누설 전력", "꺼진 트랜지스터로 새는 전류", "미세화로 비중이 커짐 (2-2)"]];
+  const ERT = [73, 86, 88, 90];
+
+  // F: symmetry
+  const WPK = K([[93.8, 1], [99, 3]]);
+  const TR_ = (W) => 3 / W;
+  const fArtV = K([[90.4, 0], [91.2, 1]]), fArt2V = K([[93.2, 0], [94, 1]]);
+
+  // G: closing
+  const FT = [103.6, 107, 110.6];
+  const fV = (i) => K([[FT[i], 0], [FT[i] + 0.8, 1]]);
+  const fF = K([[113.8, 0], [114.6, 1]]);
+
+  const LABELS = [
+    [14.2, 18, 318, 300, "start", "PMOS 켜짐 → Vout = 1", "lbl-c acc-t"],
+    [19, 24, 318, 300, "start", "NMOS 켜짐 → Vout = 0", "lbl-c acc-t"],
+    [24.4, 29.7, 318, 300, "start", "한쪽만 켜짐: 직통 길 없음", "lbl-c ok-t"],
+    [35, 38.8, 812, 236, "start", "NMOS 켜짐: 출력이 내려감", "lbl-c acc-t"],
+    [34.6, 38.2, 815, 506, "start", "짧은 단락 전류", "lbl-c bad-t"],
+    [42.8, 47.4, 1000, 446, "start", "전원이 물탱크를 채움", "lbl-c acc-t"],
+    [59.9, 64, 392, 322, "start", "급격히 뒤집힘", "lbl-c acc-t"],
+    [64.6, 69.8, 1000, 214, "start", "둘 다 켜진 구간", "lbl-c bad-t"],
+    [73.4, 79, 206, 262, "start", "채우고 비우는 낭비", "lbl-c acc-t"],
+  ];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  const frac = (x) => x - Math.floor(x);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+  const rowsHtml = (pfx, x, y0, dy, w, h, rows, sz) => rows.map((r, i) => {
+    const y = y0 + dy * i;
+    return `<g id="${pfx}${i}" class="row" data-s="idle"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"></rect>`
+      + `<text x="${x + 22}" y="${y + 26}" style="font-size:${sz}px;font-weight:700">${r[0]}</text>`
+      + `<text x="${x + 22}" y="${y + 50}" class="lbl-s">${r[1]}</text>`
+      + (r[2] ? `<text x="${x + 22}" y="${y + 76}" class="lbl-s acc-t" style="font-size:19px">${r[2]}</text>` : "") + `</g>`;
+  }).join("");
+  const mkPath = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, cum, total: cum[cum.length - 1] }; };
+  const posAt = (P, u) => { const d = frac(u) * P.total; let i = 1; while (i < P.cum.length - 1 && P.cum[i] < d) i++; const a = P.pts[i - 1], b = P.pts[i], k = (d - P.cum[i - 1]) / (P.cum[i] - P.cum[i - 1] || 1); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; };
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const PCH = mkPath([[300, 140], [300, 350], [520, 350], [520, 400]]);
+  const PDIS = mkPath([[520, 400], [520, 350], [300, 350], [300, 545]]);
+  const PSH = mkPath([[300, 140], [300, 545]]);
+  const LN = "stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none";
+
+  // circuit (B and C)
+  s = `<line x1="220" y1="140" x2="420" y2="140" style="stroke:var(--ink);stroke-width:6;stroke-linecap:round"></line><text x="220" y="124" class="lbl-b">VDD (1)</text>`
+    + `<line x1="220" y1="545" x2="560" y2="545" style="stroke:var(--ink);stroke-width:6;stroke-linecap:round"></line><text x="220" y="574" class="lbl-b">GND (0)</text>`
+    + `<path d="M300,140 V165 M300,250 V450 M300,530 V545 M300,350 H520 M520,350 V380 M520,520 V545" style="${LN}"></path>`
+    + `<path d="M100,350 H180 M180,210 H258 M180,490 H277" style="${LN}"></path>`
+    + `<line id="c-bus" x1="180" y1="210" x2="180" y2="490" style="stroke:var(--muted);stroke-width:6;stroke-linecap:round"></line>`
+    + `<circle cx="265" cy="210" r="7" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"></circle>`
+    + `<path d="M277,185 V235 M277,465 V515" style="${LN}"></path>`
+    + `<line id="lv-p" x1="300" y1="165" x2="338" y2="238" style="stroke:var(--muted);stroke-width:8;stroke-linecap:round"></line>`
+    + `<line id="lv-n" x1="300" y1="530" x2="338" y2="458" style="stroke:var(--muted);stroke-width:8;stroke-linecap:round"></line>`
+    + [[300, 165], [300, 250], [300, 450], [300, 530], [300, 350]].map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="${i === 4 ? 6 : 5}" style="fill:var(--ink)"></circle>`).join("")
+    + `<text x="352" y="188" class="lbl-b">PMOS</text><text id="p-st" x="352" y="214" class="lbl-s" style="font-weight:700"></text>`
+    + `<text x="352" y="468" class="lbl-b">NMOS</text><text id="n-st" x="352" y="494" class="lbl-s" style="font-weight:700"></text>`
+    + `<text x="100" y="336" class="lbl-b">Vin</text><text id="o-vin" x="100" y="380" class="mono" style="font-size:20px"></text>`
+    + `<text x="316" y="338" class="lbl-b">Vout</text><text id="o-v" x="316" y="376" class="mono" style="font-size:20px"></text>`
+    + `<rect x="490" y="380" width="60" height="140" rx="6" style="fill:none;stroke:var(--ink);stroke-width:3"></rect>`
+    + `<rect id="c-water" x="492" y="382" width="56" height="0" style="fill:var(--low);fill-opacity:.55"></rect>`
+    + `<text x="478" y="408" text-anchor="end" class="lbl-s">부하 CL</text><text x="478" y="430" text-anchor="end" class="lbl-s">(물탱크)</text>`;
+  for (let i = 0; i < 8; i++) s += `<circle id="dc${i}" r="6" style="fill:var(--accent);opacity:0"></circle><circle id="dd${i}" r="6" style="fill:var(--low);stroke:var(--surface);stroke-width:1.5;opacity:0"></circle>`;
+  for (let i = 0; i < 6; i++) s += `<circle id="ds${i}" r="6" style="fill:var(--bad);opacity:0"></circle>`;
+  $("circ").innerHTML = s;
+  $("b-rows").innerHTML = rowsHtml("brow", 620, 112, 78, 620, 68, BROWS, 21);
+
+  // C: waveform plot
+  s = `<path d="M${CX0},${cvy(0)} H${CX0 + CW} M${CX0},${cvy(0)} V${cvy(1) - 12}" style="${LN}"></path>`
+    + `<line x1="${CX0}" y1="${cvy(1)}" x2="${CX0 + CW}" y2="${cvy(1)}" style="stroke:var(--line-strong);stroke-width:1.5;stroke-dasharray:6 6"></line>`
+    + `<text x="${CX0 - 8}" y="${cvy(1) + 6}" text-anchor="end" class="lbl-s">1 (VDD)</text><text x="${CX0 - 8}" y="${cvy(0) + 6}" text-anchor="end" class="lbl-s">0</text>`
+    + `<text x="642" y="134" class="lbl-b">전압</text>`
+    + `<line x1="1060" y1="126" x2="1090" y2="126" style="stroke:var(--ink);stroke-width:4"></line><text x="1098" y="133" class="lbl-s">Vin</text>`
+    + `<line x1="1140" y1="126" x2="1170" y2="126" style="stroke:var(--low);stroke-width:5"></line><text x="1178" y="133" class="lbl-s">Vout</text>`
+    + `<path d="M${CX0},${CIY0} H${CX0 + CW} M${CX0},${CIY0} V${CIY0 - CIH - 8}" style="${LN}"></path>`
+    + `<text x="642" y="392" class="lbl-b">전류</text>`
+    + `<line x1="722" y1="386" x2="752" y2="386" style="stroke:var(--accent);stroke-width:5"></line><text x="760" y="392" class="lbl-s">전원에서 나오는 전류</text>`
+    + `<line x1="970" y1="386" x2="1000" y2="386" style="stroke:var(--low);stroke-width:4;stroke-dasharray:7 5"></line><text x="1008" y="392" class="lbl-s">물탱크 → 접지 방전</text>`
+    + `<text x="${CX0 + CW}" y="${CIY0 + 22}" text-anchor="end" class="lbl-s">시간 →</text>`
+    + `<line id="c-cur" x1="${CX0}" y1="${cvy(1) - 10}" x2="${CX0}" y2="${CIY0}" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:5 5"></line>`
+    + `<path id="c-pvin" d="" style="fill:none;stroke:var(--ink);stroke-width:4;stroke-linejoin:round"></path>`
+    + `<path id="c-pvout" d="" style="fill:none;stroke:var(--low);stroke-width:5;stroke-linejoin:round"></path>`
+    + `<path id="c-pd" d="" style="fill:none;stroke:var(--low);stroke-width:4;stroke-dasharray:7 5"></path>`
+    + `<path id="c-pi" d="" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linejoin:round"></path>`
+    + `<circle id="c-dv" r="8" cx="${CX0}" cy="${cvy(1)}" style="fill:var(--low)"></circle><circle id="c-di" r="7" cx="${CX0}" cy="${CIY0}" style="fill:var(--accent)"></circle>`;
+  $("c-plot").innerHTML = s;
+
+  // D: voltage transfer curve
+  const D0X = 130, D0Y = 540, DPW = 480, DPH = 380;
+  const dvx = (v) => D0X + DPW * v, dvy = (v) => D0Y - DPH * v;
+  let dp = "";
+  for (let k = 0; k <= 80; k++) { const v = k / 80; dp += (k ? " L" : "M") + dvx(v).toFixed(1) + "," + dvy(vtc(v, VMS)).toFixed(1); }
+  s = `<path d="M${D0X},${D0Y} H${D0X + DPW} M${D0X},${D0Y} V${dvy(1) - 14}" style="${LN}"></path>`
+    + `<line x1="${dvx(0.5)}" y1="${D0Y}" x2="${dvx(0.5)}" y2="${dvy(0.5)}" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:6 5"></line>`
+    + `<line x1="${D0X}" y1="${dvy(0.5)}" x2="${dvx(0.5)}" y2="${dvy(0.5)}" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:6 5"></line>`
+    + `<text x="${D0X}" y="${D0Y + 24}" text-anchor="middle" class="lbl-s">0</text><text x="${dvx(0.5)}" y="${D0Y + 24}" text-anchor="middle" class="lbl-s">VM ≈ VDD/2</text><text x="${dvx(1)}" y="${D0Y + 24}" text-anchor="middle" class="lbl-s">VDD</text>`
+    + `<text x="${D0X - 10}" y="${dvy(1) + 6}" text-anchor="end" class="lbl-s">VDD</text><text x="${D0X - 10}" y="${dvy(0.5) + 6}" text-anchor="end" class="lbl-s">VDD/2</text><text x="${D0X - 10}" y="${D0Y + 6}" text-anchor="end" class="lbl-s">0</text>`
+    + `<text x="62" y="134" class="lbl-b">출력 Vout ↑</text><text x="${D0X + DPW}" y="${D0Y + 50}" text-anchor="end" class="lbl-b">입력 Vin →</text>`
+    + `<text x="${D0X + 24}" y="${dvy(1) + 130}" class="lbl">PMOS가 이김</text><text x="${D0X + 24}" y="${dvy(1) + 158}" class="lbl">→ 출력 1</text><text x="${D0X + DPW}" y="${D0Y - 130}" text-anchor="end" class="lbl">NMOS가 이김</text><text x="${D0X + DPW}" y="${D0Y - 102}" text-anchor="end" class="lbl">→ 출력 0</text>`
+    + `<path d="${dp}" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linejoin:round"></path><circle id="d-dot" r="9" cx="${D0X}" cy="${dvy(1)}" style="fill:var(--accent);stroke:var(--surface);stroke-width:2"></circle>`;
+  $("d-plot").innerHTML = s;
+  const I0X = 740, I0Y = 322, IPW = 460, IPH = 150;
+  const ivx = (v) => I0X + IPW * v, ivy = (i) => I0Y - IPH * i;
+  let ip = "";
+  for (let k = 0; k <= 80; k++) { const v = k / 80; ip += (k ? " L" : "M") + ivx(v).toFixed(1) + "," + ivy(isc(v, VMS)).toFixed(1); }
+  s = `<path d="M${I0X},${I0Y} H${I0X + IPW} M${I0X},${I0Y} V${ivy(1) - 12}" style="${LN}"></path>`
+    + `<text x="702" y="134" class="lbl-b">단락 전류 (전원 → 접지)</text>`
+    + `<path d="${ip} L${ivx(1)},${I0Y} L${I0X},${I0Y} Z" style="fill:var(--bad);fill-opacity:.16;stroke:none"></path>`
+    + `<path d="${ip}" style="fill:none;stroke:var(--bad);stroke-width:4;stroke-linejoin:round"></path>`
+    + `<text x="${I0X}" y="${I0Y + 24}" text-anchor="middle" class="lbl-s">0</text><text x="${ivx(0.5)}" y="${I0Y + 24}" text-anchor="middle" class="lbl-s">VDD/2</text><text x="${ivx(1)}" y="${I0Y + 24}" text-anchor="middle" class="lbl-s">VDD</text>`
+    + `<text x="${I0X + IPW}" y="${I0Y - 8}" text-anchor="end" class="lbl-s">Vin →</text>`
+    + `<circle id="d-dot2" r="8" cx="${I0X}" cy="${I0Y}" style="fill:var(--bad);stroke:var(--surface);stroke-width:2"></circle>`;
+  $("d-plot2").innerHTML = s;
+  $("d-rows").innerHTML = rowsHtml("drow", 680, 378, 74, 560, 64, DROWS, 20);
+
+  // E: charge and discharge cycle, voltage-squared bar
+  const EWX = 430, EWW = 270, EWY0 = 320, EWH = 134;
+  s = `<line x1="90" y1="160" x2="190" y2="160" style="stroke:var(--ink);stroke-width:6;stroke-linecap:round"></line><text x="140" y="146" text-anchor="middle" class="lbl-b">VDD</text>`
+    + `<line x1="90" y1="346" x2="190" y2="346" style="stroke:var(--ink);stroke-width:6;stroke-linecap:round"></line><text x="140" y="372" text-anchor="middle" class="lbl-b">GND</text>`
+    + `<rect x="90" y="205" width="100" height="100" rx="6" style="fill:none;stroke:var(--ink);stroke-width:3"></rect>`
+    + `<rect id="e-water" x="92" y="207" width="96" height="0" style="fill:var(--low);fill-opacity:.55"></rect>`
+    + `<line id="e-in" x1="140" y1="164" x2="140" y2="198" style="stroke:var(--accent);stroke-width:5" marker-end="url(#arr-a)"></line>`
+    + `<line id="e-out" x1="140" y1="308" x2="140" y2="340" style="stroke:var(--low);stroke-width:5" marker-end="url(#arr-b)"></line>`
+    + `<path d="M${EWX},${EWY0} H${EWX + EWW} M${EWX},${EWY0} V${EWY0 - EWH - 10}" style="${LN}"></path>`
+    + `<text x="${EWX - 8}" y="${EWY0 - EWH + 6}" text-anchor="end" class="lbl-s">1</text><text x="${EWX - 8}" y="${EWY0 + 6}" text-anchor="end" class="lbl-s">0</text>`
+    + `<text x="${EWX}" y="146" class="lbl-s">출력 전압 (물탱크 수위)</text><text x="${EWX + EWW}" y="${EWY0 + 24}" text-anchor="end" class="lbl-s">시간 →</text>`
+    + `<path id="e-wave" d="" style="fill:none;stroke:var(--low);stroke-width:5;stroke-linejoin:round"></path>`
+    + `<text id="e-st" x="70" y="410" style="font-size:22px;font-weight:700"></text>`
+    + `<g id="e-bar"><text x="70" y="452" class="lbl-b">전압을 낮추면</text>`
+    + `<rect class="meter-bg" x="70" y="470" width="490" height="34" rx="8"></rect><rect id="e-barf" x="72" y="472" width="486" height="30" rx="6" style="fill:var(--accent)"></rect>`
+    + `<text id="e-vt" x="70" y="534" class="mono" style="font-size:22px"></text><text id="e-pt" x="580" y="496" class="mono acc-t" style="font-size:24px"></text>`
+    + `<text id="e-x" x="70" y="572" class="mono acc-t" style="font-size:26px"></text></g>`;
+  $("e-art").innerHTML = s;
+  $("e-rows").innerHTML = rowsHtml("erow", 760, 112, 104, 480, 92, EROWS, 21);
+
+  // F: symmetry (rise vs fall time, transfer curve)
+  const F0X = 100, F0Y = 480, FPW = 500, FPH = 290, FTAU = 5;
+  const ftx = (tau) => F0X + FPW * tau / FTAU, fty = (v) => F0Y - FPH * v;
+  let fp = "";
+  for (let k = 0; k <= 60; k++) { const tau = FTAU * k / 60; fp += (k ? " L" : "M") + ftx(tau).toFixed(1) + "," + fty(Math.exp(-tau)).toFixed(1); }
+  s = `<path d="M${F0X},${F0Y} H${F0X + FPW} M${F0X},${F0Y} V${fty(1) - 10}" style="${LN}"></path>`
+    + `<line x1="${F0X}" y1="${fty(0.5)}" x2="${F0X + FPW}" y2="${fty(0.5)}" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:6 6"></line>`
+    + `<text x="${F0X - 8}" y="${fty(1) + 6}" text-anchor="end" class="lbl-s">1</text><text x="${F0X - 8}" y="${fty(0.5) + 6}" text-anchor="end" class="lbl-s">½</text><text x="${F0X - 8}" y="${F0Y + 6}" text-anchor="end" class="lbl-s">0</text>`
+    + `<text x="62" y="134" class="lbl-b">출력이 뒤집히는 데 걸리는 시간</text><text id="f-w" x="62" y="168" class="mono acc-t" style="font-size:22px"></text>`
+    + `<text x="${F0X + FPW}" y="150" text-anchor="end" class="lbl-s" style="fill:var(--low);font-weight:700">내려감: NMOS가 방전</text><text x="${F0X + FPW}" y="174" text-anchor="end" class="lbl-s" style="fill:var(--accent);font-weight:700">올라감: PMOS가 충전</text>`
+    + `<text x="${F0X + FPW}" y="${F0Y + 50}" text-anchor="end" class="lbl-s">시간 →</text>`
+    + `<path d="${fp}" style="fill:none;stroke:var(--low);stroke-width:5"></path>`
+    + `<path id="f-cr" d="" style="fill:none;stroke:var(--accent);stroke-width:5"></path>`
+    + `<line id="f-lf" x1="0" y1="${fty(0.5)}" x2="0" y2="${F0Y}" style="stroke:var(--low);stroke-width:2;stroke-dasharray:5 5"></line><line id="f-lr" x1="0" y1="${fty(0.5)}" x2="0" y2="${F0Y}" style="stroke:var(--accent);stroke-width:2;stroke-dasharray:5 5"></line>`
+    + `<circle id="f-mf" r="8" cx="0" cy="${fty(0.5)}" style="fill:var(--low);stroke:var(--surface);stroke-width:2"></circle><circle id="f-mr" r="8" cx="0" cy="${fty(0.5)}" style="fill:var(--accent);stroke:var(--surface);stroke-width:2"></circle>`
+    + `<text id="f-tf" x="0" y="${F0Y + 26}" text-anchor="end" class="lbl-s" style="fill:var(--low);font-weight:700">tf</text><text id="f-tr" x="0" y="${F0Y + 26}" text-anchor="start" class="lbl-s" style="fill:var(--accent);font-weight:700">tr</text>`
+    + `<text id="f-tt" x="62" y="568" class="mono" style="font-size:20px"></text>`;
+  $("f-art").innerHTML = s;
+  const G0X = 760, G0Y = 470, GPW = 420, GPH = 290;
+  const gvx = (v) => G0X + GPW * v, gvy = (v) => G0Y - GPH * v;
+  let gp = "";
+  for (let k = 0; k <= 80; k++) { const v = k / 80; gp += (k ? " L" : "M") + gvx(v).toFixed(1) + "," + gvy(vtc(v, 0.5)).toFixed(1); }
+  s = `<path d="M${G0X},${G0Y} H${G0X + GPW} M${G0X},${G0Y} V${gvy(1) - 10}" style="${LN}"></path>`
+    + `<text x="702" y="134" class="lbl-b">전달 특성과 전환점 VM</text><text id="f-vm" x="702" y="168" class="mono acc-t" style="font-size:22px"></text>`
+    + `<text x="${G0X}" y="${G0Y + 26}" text-anchor="middle" class="lbl-s">0</text><text x="${gvx(0.5)}" y="${G0Y + 26}" text-anchor="middle" class="lbl-s">VDD/2</text><text x="${gvx(1)}" y="${G0Y + 26}" text-anchor="middle" class="lbl-s">VDD</text>`
+    + `<text x="${G0X - 8}" y="${gvy(1) + 6}" text-anchor="end" class="lbl-s">VDD</text><text x="${G0X - 8}" y="${G0Y + 6}" text-anchor="end" class="lbl-s">0</text>`
+    + `<text x="${G0X + GPW}" y="${G0Y + 54}" text-anchor="end" class="lbl-b">입력 Vin →</text>`
+    + `<text x="1176" y="232" text-anchor="end" class="lbl-s">점선: 이상적 (VM = VDD/2)</text><text x="1176" y="258" text-anchor="end" class="lbl-s" style="fill:var(--accent);font-weight:700">실선: 지금의 PMOS 폭</text>`
+    + `<line x1="${gvx(0.5)}" y1="${G0Y}" x2="${gvx(0.5)}" y2="${gvy(0.5)}" style="stroke:var(--muted);stroke-width:2;stroke-dasharray:5 5"></line>`
+    + `<path d="${gp}" style="fill:none;stroke:var(--muted);stroke-width:3;stroke-dasharray:8 6"></path>`
+    + `<line id="f-vml" x1="0" y1="${G0Y}" x2="0" y2="${gvy(0.5)}" style="stroke:var(--accent);stroke-width:2;stroke-dasharray:5 5"></line>`
+    + `<path id="f-va" d="" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linejoin:round"></path>`;
+  $("f-art2").innerHTML = s;
+
+  // G: closing cards
+  (function () {
+    const cards = [
+      { h: "동작", l: ["입력 0 → PMOS ON → 출력 1", "입력 1 → NMOS ON → 출력 0", "둘 중 하나만 켜짐", "정지 전류 ≈ 0"] },
+      { h: "전력", l: ["동적 αCV²f가 대부분", "전압은 제곱으로 효과", "단락: 전환 순간의 직통", "누설: 꺼져도 새는 전류"] },
+      { h: "설계", l: ["정공 이동도 ≈ 전자의 1/3", "PMOS 폭을 2~3배로", "상승·하강 시간 대칭", "전환점 VM ≈ VDD/2"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="gc-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>`
+        + `<g class="mk"><circle cx="${x + 44}" cy="188" r="24"></circle><text x="${x + 44}" y="197" text-anchor="middle" style="font-size:26px">${i + 1}</text></g>`
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="g-form" x="640" y="500" text-anchor="middle" class="acc-t" style="font-size:28px">대기 전력이 작은 이유: 정지 상태에는 VDD → GND 길이 없다</text>`;
+    $("g-g").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  const HL = [];
+  const FV = [0, 1, 2].map(fV);
+  let hlOn = new Set();
+  const LN2 = Math.LN2;
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-bc", gBC(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t)); op("g-f", gF(t)); op("g-g", gG(t));
+
+    // circuit (scenes B and C)
+    { const vin = VIN(t), vo = VOUT(t);
+      const cp = smooth(clamp((0.72 - vin) / 0.44, 0, 1)), cn = smooth(clamp((vin - 0.28) / 0.44, 0, 1));
+      setAttr("lv-p", "x2", lerp(338, 300, cp).toFixed(1)); setAttr("lv-p", "y2", lerp(238, 250, cp).toFixed(1));
+      setAttr("lv-n", "x2", lerp(338, 300, cn).toFixed(1)); setAttr("lv-n", "y2", lerp(458, 450, cn).toFixed(1));
+      setStyle("lv-p", "stroke", cp > 0.5 ? "var(--accent)" : "var(--muted)"); setStyle("lv-n", "stroke", cn > 0.5 ? "var(--accent)" : "var(--muted)");
+      setStyle("c-bus", "stroke", vin > 0.5 ? "var(--accent)" : "var(--muted)");
+      setText("p-st", cp > 0.5 ? "ON (켜짐)" : "OFF (꺼짐)"); setStyle("p-st", "fill", cp > 0.5 ? "var(--ok)" : "var(--muted)");
+      setText("n-st", cn > 0.5 ? "ON (켜짐)" : "OFF (꺼짐)"); setStyle("n-st", "fill", cn > 0.5 ? "var(--ok)" : "var(--muted)");
+      setText("o-vin", vin.toFixed(2)); setText("o-v", vo.toFixed(2));
+      const wh = 136 * vo;
+      setAttr("c-water", "y", (518 - wh).toFixed(1)); setAttr("c-water", "height", wh.toFixed(1));
+      const nch = clamp(ICH(t) / 0.8, 0, 1), ndis = clamp(IDIS(t) / 1.2, 0, 1), nsh = clamp(ISC(t) / 0.4, 0, 1);
+      for (let i = 0; i < 8; i++) {
+        const a = posAt(PCH, i / 8 + t * 0.45), b = posAt(PDIS, i / 8 + t * 0.45);
+        setAttr("dc" + i, "cx", a[0].toFixed(1)); setAttr("dc" + i, "cy", a[1].toFixed(1)); op("dc" + i, nch);
+        setAttr("dd" + i, "cx", b[0].toFixed(1)); setAttr("dd" + i, "cy", b[1].toFixed(1)); op("dd" + i, ndis);
+      }
+      for (let i = 0; i < 6; i++) { const c = posAt(PSH, i / 6 + t * 0.9); setAttr("ds" + i, "cx", c[0].toFixed(1)); setAttr("ds" + i, "cy", c[1].toFixed(1)); op("ds" + i, nsh); }
+      // B: readouts
+      setAttr("b-vin", "width", (356 * vin).toFixed(1)); setAttr("b-vout", "width", (356 * vo).toFixed(1));
+      setText("b-vint", vin.toFixed(2) + " V"); setText("b-voutt", vo.toFixed(2) + " V");
+      setText("b-st", cp > 0.5 && cn < 0.5 ? "PMOS 켜짐 · NMOS 꺼짐 → 출력 1" : cn > 0.5 && cp < 0.5 ? "NMOS 켜짐 · PMOS 꺼짐 → 출력 0" : "전환 중: 잠깐 둘 다 켜짐");
+      setStyle("b-st", "fill", cp > 0.5 && cn < 0.5 || cn > 0.5 && cp < 0.5 ? "var(--ok)" : "var(--bad)");
+      for (let i = 0; i < 3; i++) setAttr("brow" + i, "data-s", t < BT[i] ? "idle" : t < BT[i + 1] ? "on" : "done");
+    }
+
+    // C: waveform
+    { const s2 = clamp(t, CS0, CS1); let a = "", b = "", c = "", d = "";
+      if (s2 > CS0 + 0.05) {
+        for (let k = 0; ; k++) {
+          const s_ = Math.min(CS0 + 0.2 * k, s2), pre = k ? " L" : "M", x = cx_(s_).toFixed(1);
+          a += pre + x + "," + cvy(VIN(s_)).toFixed(1); b += pre + x + "," + cvy(VOUT(s_)).toFixed(1);
+          c += pre + x + "," + ciy(ICH(s_) + ISC(s_)).toFixed(1); d += pre + x + "," + ciy(IDIS(s_)).toFixed(1);
+          if (s_ >= s2) break;
+        }
+      }
+      setAttr("c-pvin", "d", a); setAttr("c-pvout", "d", b); setAttr("c-pi", "d", c); setAttr("c-pd", "d", d);
+      const xc = cx_(s2).toFixed(1);
+      setAttr("c-cur", "x1", xc); setAttr("c-cur", "x2", xc);
+      setAttr("c-dv", "cx", xc); setAttr("c-dv", "cy", cvy(VOUT(s2)).toFixed(1));
+      setAttr("c-di", "cx", xc); setAttr("c-di", "cy", ciy(ICH(s2) + ISC(s2)).toFixed(1)); }
+
+    // D: transfer curve
+    { const vs = VS(t), vo = vtc(vs, VMS);
+      setAttr("d-dot", "cx", dvx(vs).toFixed(1)); setAttr("d-dot", "cy", dvy(vo).toFixed(1));
+      setAttr("d-dot2", "cx", ivx(vs).toFixed(1)); setAttr("d-dot2", "cy", ivy(isc(vs, VMS)).toFixed(1));
+      const rk = t < 55.5 ? -1 : t < 64.5 ? (vs < 0.36 ? 0 : vs < 0.64 ? 1 : 2) : 1;
+      for (let i = 0; i < 3; i++) setAttr("drow" + i, "data-s", i === rk ? "on" : "idle"); }
+
+    // E: power
+    { const lv = eLevel(t), p = eP(t), act = t >= ET0, chg = act && p >= 0.5;
+      setAttr("e-water", "y", (303 - 96 * lv).toFixed(1)); setAttr("e-water", "height", (96 * lv).toFixed(1));
+      op("e-in", act ? (chg ? 1 : 0.12) : 0.12); op("e-out", act ? (chg ? 0.12 : 1) : 0.12);
+      setText("e-st", !act ? "" : chg ? "충전: 전원에서 전하(C·V)를 가져옴" : "방전: 가져온 전하를 접지로 버림 → 열");
+      setStyle("e-st", "fill", chg ? "var(--accent)" : "var(--low)");
+      let w = "";
+      for (let k = 0; k <= 60; k++) w += (k ? " L" : "M") + (EWX + EWW * k / 60).toFixed(1) + "," + (EWY0 - EWH * eLevel(t - 8 + 8 * k / 60)).toFixed(1);
+      setAttr("e-wave", "d", w);
+      op("e-form", eFormV(t)); op("e-bar", eBarV(t));
+      const V = EV(t);
+      setAttr("e-barf", "width", (486 * V * V).toFixed(1));
+      setText("e-vt", "전압 V = " + V.toFixed(2) + " V"); setText("e-pt", "전력 " + Math.round(V * V * 100) + "%");
+      setText("e-x", V < 0.995 ? "전압 ×" + V.toFixed(2) + " → 전력 ×" + (V * V).toFixed(2) : "전압 1.0 V 기준 (전력 100%)");
+      for (let i = 0; i < 3; i++) setAttr("erow" + i, "data-s", t < ERT[i] ? "idle" : t < ERT[i + 1] ? "on" : "done"); }
+
+    // F: symmetry
+    { const W = WPK(t), tr = TR_(W), xf = ftx(LN2), xr = ftx(LN2 * tr), vm = 0.5 - 0.12 * (3 - W) / 2;
+      op("f-art", fArtV(t)); op("f-card2", fArt2V(t)); op("f-art2", fArt2V(t));
+      let a = "", b = "";
+      for (let k = 0; k <= 60; k++) { const tau = FTAU * k / 60; a += (k ? " L" : "M") + ftx(tau).toFixed(1) + "," + fty(1 - Math.exp(-tau / tr)).toFixed(1); }
+      for (let k = 0; k <= 80; k++) { const v = k / 80; b += (k ? " L" : "M") + gvx(v).toFixed(1) + "," + gvy(vtc(v, vm)).toFixed(1); }
+      setAttr("f-cr", "d", a); setAttr("f-va", "d", b);
+      for (const [id, x] of [["f-lf", xf], ["f-lr", xr]]) { setAttr(id, "x1", x.toFixed(1)); setAttr(id, "x2", x.toFixed(1)); }
+      setAttr("f-mf", "cx", xf.toFixed(1)); setAttr("f-mr", "cx", xr.toFixed(1));
+      setAttr("f-tf", "x", (xf - 8).toFixed(1)); setAttr("f-tr", "x", (xr + 8).toFixed(1));
+      setText("f-w", "PMOS 폭 W = " + W.toFixed(1) + "배");
+      setText("f-tt", "올라가는 tr = " + (LN2 * tr).toFixed(1) + " · 내려가는 tf = " + LN2.toFixed(1) + " (상대값)");
+      setAttr("f-vml", "x1", gvx(vm).toFixed(1)); setAttr("f-vml", "x2", gvx(vm).toFixed(1));
+      setText("f-vm", "VM = " + vm.toFixed(2) + " × VDD"); }
+
+    // G: closing
+    for (let i = 0; i < 3; i++) op("gc-" + i, FV[i](t));
+    op("g-form", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+
+</script>
+</body>
+</html>

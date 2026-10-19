@@ -973,7 +973,22 @@
     }
    ],
    "videos": [],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/cmos-inverter-film.html",
+     "title": "CMOS 인버터: 입력이 바뀔 때 전류는 어디로 흐를까",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "구조",
+      "전환",
+      "전달 특성",
+      "전력",
+      "대칭",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/cmos-inverter.html",
@@ -3890,6 +3905,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 7
+  "films": 8
  }
 }
