@@ -3370,7 +3370,22 @@
      "note": "Onur Mutlu · 영어, 심화. 메모리 중심 컴퓨팅(PIM) 강연"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/ai-memory-wall-film.html",
+     "title": "AI 반도체와 메모리 벽: 가깝게·넓게·안에서·새 계층",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "메모리 벽",
+      "이동 비용",
+      "해법",
+      "비교",
+      "수요",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/ai-memory.html",
@@ -3950,6 +3965,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 11
+  "films": 12
  }
 }
