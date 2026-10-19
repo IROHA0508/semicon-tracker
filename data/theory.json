@@ -2685,7 +2685,22 @@
      "note": "SK하이닉스 · 짧은 영상. 321단 개발 이야기"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/nand-process-film.html",
+     "title": "3D 낸드 공정 흐름: 쌓고, 뚫고, 바꾸기",
+     "seconds": 118,
+     "chapters": [
+      "시작",
+      "큰 그림",
+      "쌓기",
+      "뚫기",
+      "계단",
+      "바꾸기",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/nand-process.html",
@@ -3830,6 +3845,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 3
+  "films": 4
  }
 }
