@@ -2710,7 +2710,22 @@
      "note": "EBS 클래스e 「특집 반도체개론」 · 기본. 전체 흐름 복습"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/cmos-process-film.html",
+     "title": "CMOS 전체 공정 흐름: 10개 모듈로 칩 하나 완성하기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "소자 분리·웰",
+      "게이트·소스/드레인",
+      "살리사이드·콘택",
+      "배선·보호막",
+      "순서와 온도",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/cmos-flow.html",
@@ -4025,6 +4040,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 16
+  "films": 17
  }
 }
