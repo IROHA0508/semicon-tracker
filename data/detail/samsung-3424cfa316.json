@@ -1,0 +1,159 @@
+{
+  "id": "samsung-3424cfa316",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자가 업계 최초로 HBM4를 양산 출하했다고 밝히며, 그 성능과 아키텍처 혁신, 기술적 의미를 영상(인포그래픽)으로 소개한 글입니다. 핵심은 I/O 핀 2,048개, 동작 속도 11.7 Gbps(최대 13 Gbps), 단일 스택당 최대 3.3 TB/s 대역폭입니다. 코어 다이에 1c D램, 베이스 다이에 4나노 로직 공정을 적용했고, 전력 소모는 이전 세대 대비 약 40% 줄였다고 합니다. 짧은 영상 소개형 기술 해설입니다.",
+  "keyPoints": [
+    "HBM4는 I/O 핀을 2,048개로 늘리고 11.7 Gbps(최대 13 Gbps)로 동작해 스택당 최대 3.3 TB/s 대역폭을 구현했으며, HBM3E 대비 약 2.7배라고 합니다.",
+    "코어 다이에 1c D램(10나노급 6세대), 베이스 다이에 4나노 로직 공정을 적용해 메모리와 파운드리 역량을 결합했습니다.",
+    "12단 적층으로 24GB~36GB 용량을 구성하고 향후 16단을 계획하며, 전력 소모 약 40% 감소, 열 저항 약 10% 개선, 방열 약 30% 강화를 내세웠습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/1.png",
+      "caption": "원문 그림 1",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "차세대 AI를 위한 대역폭의 재정의"
+    },
+    {
+      "t": "p",
+      "text": "HBM4는 HBM3E의 데이터 전송 I/O(Input/Output) 핀 1,024개보다 두 배로 늘어난 2,048개의 I/O 핀 인터페이스를 적용합니다. 삼성전자 HBM4의 동작 속도는 11.7 Gbps를 안정적으로 확보했고 최대로는 13 Gbps에 달합니다."
+    },
+    {
+      "t": "p",
+      "text": "이를 바탕으로 단일 스택당 최대 3.3 TB/s의 메모리 대역폭을 구현했습니다. HBM3E 대비 약 2.7배 향상된 수준이며, 4 GB 영화 파일 750편을 1초 만에 전송할 수 있는 속도라고 설명합니다. 대규모 AI 모델의 학습과 추론에서 요구되는 방대한 데이터 처리 수요에 대응하도록 설계됐다고 밝혔습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/2.png",
+      "caption": "원문 그림 2",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/3.png",
+      "caption": "원문 그림 3",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/4.png",
+      "caption": "원문 그림 4",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "메모리와 파운드리 기술의 결합"
+    },
+    {
+      "t": "p",
+      "text": "HBM4는 코어 다이에 삼성전자의 1c D램(10나노급 6세대)을, 베이스 다이에 4나노 로직 공정을 적용해 메모리와 파운드리의 기술 역량을 결합했습니다."
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 이를 업계를 선도하는 IDM(Integrated Device Manufacturer, 종합 반도체 기업)만의 차별화된 경쟁력이 만든 결과라고 밝혔으며, 덕분에 메모리와 로직 간 인터페이스를 더욱 정교하게 구현했다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/5.png",
+      "caption": "원문 그림 5",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "더 높은 적층과 용량 확장 로드맵"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자 HBM4 라인업은 12단 적층 구조를 기반으로 24GB부터 36GB까지의 용량으로 구성됩니다. 향후 16단 적층 기술을 적용해 메모리 용량 증가 요구에도 대응할 계획입니다."
+    },
+    {
+      "t": "p",
+      "text": "이런 고용량 HBM 구현은 TSV(Through Silicon Via, 실리콘 관통 전극)를 활용한 삼성전자의 첨단 패키징 기술로 가능하다고 설명합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/6.png",
+      "caption": "원문 그림 6",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/7.png",
+      "caption": "원문 그림 7",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/8.png",
+      "caption": "원문 그림 8",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "전력 효율과 발열 관리"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "전력 소모: 이전 세대 대비 약 40% 감소해 AI 인프라의 에너지 부담을 낮췄습니다.",
+        "열 저항 특성: 약 10% 개선됐습니다.",
+        "방열 성능: 약 30% 강화됐습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "이를 통해 열 부하가 높은 AI 데이터센터 환경에서도 안정적인 성능을 유지할 수 있다고 밝혔습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/9.png",
+      "caption": "원문 그림 9",
+      "credit": "삼성전자 반도체 뉴스룸"
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "D램을 수직으로 쌓아 넓은 대역폭을 내는 고대역폭 메모리입니다."
+    ],
+    [
+      "I/O 핀",
+      "데이터를 주고받는 입출력 연결 단자로, HBM4는 2,048개입니다."
+    ],
+    [
+      "대역폭",
+      "단위 시간당 전송할 수 있는 데이터량입니다(예: TB/s)."
+    ],
+    [
+      "코어 다이",
+      "HBM 스택에서 데이터를 저장하는 D램 칩입니다."
+    ],
+    [
+      "베이스 다이",
+      "HBM 스택 맨 아래에서 인터페이스를 맡는 칩으로, HBM4에는 4나노 로직 공정이 적용됐습니다."
+    ],
+    [
+      "IDM",
+      "Integrated Device Manufacturer, 종합 반도체 기업입니다."
+    ],
+    [
+      "TSV",
+      "Through Silicon Via, 실리콘 관통 전극으로 적층된 칩을 수직으로 연결합니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "4-6",
+    "2-7"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

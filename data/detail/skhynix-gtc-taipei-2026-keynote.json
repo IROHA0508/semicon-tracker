@@ -1,0 +1,134 @@
+{
+  "id": "skhynix-gtc-taipei-2026-keynote",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK그룹 최태원 회장이 GTC Taipei 2026에서 열린 엔비디아 젠슨 황 CEO의 기조연설에 참석했다는 SK하이닉스 뉴스룸 글입니다. 3월 샌호제이 GTC 2026에 이은 참석으로, 엔비디아와의 파트너십을 더 굳혔다고 밝혔습니다. SK하이닉스는 단순 HBM 공급사를 넘어 'Full-Stack AI Memory Creator'로 역할을 재정의하고, HBM4 이후 HBF와 3D Stacked DRAM on Logic으로 확장하겠다는 전략을 소개했습니다. 기술 해설 성격의 보도형 글입니다.",
+  "keyPoints": [
+    "최태원 회장은 곽노정 사장과 함께 GTC Taipei 2026 젠슨 황 기조연설에 참석해 엔비디아와의 협력을 재확인했습니다.",
+    "SK하이닉스는 고객의 AI 시스템 설계 초기부터 참여하는 Full-Stack AI Memory Creator로 나아가며, 그 중심에 cHBM이 있다고 밝혔습니다.",
+    "메모리와 로직 기술의 통합은 HBM4에서 시작해 HBF와 3D Stacked DRAM on Logic으로 확장될 예정입니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "GTC Taipei 2026 기조연설 참석"
+    },
+    {
+      "t": "p",
+      "text": "최태원 SK그룹 회장은 지난 3월 샌호제이 GTC 2026에 참석한 데 이어 몇 달 만에 GTC Taipei 2026을 찾았습니다. SK하이닉스는 이를 통해 엔비디아와의 파트너십을 더 공고히 하고, 글로벌 AI 생태계를 이끄는 역할을 하겠다는 뜻을 보였다고 밝혔습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/02050942/SK-Group-Chairman-Chey-Tae-won-Attends-GTC-Taipei-2026-Keynote-01-photo-2026.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "최 회장은 곽노정 SK하이닉스 사장(CEO)과 함께 젠슨 황 엔비디아 CEO의 기조연설을 들었습니다. 황 CEO는 GPU 기반 가속 컴퓨팅의 발전과 주요 AI 혁신을 되짚고, 차세대 플랫폼 Vera Rubin의 양산 로드맵과 아시아·태평양 파트너와의 협력 소식을 소개했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "자율주행, 산업용 로봇 등 피지컬 AI 플랫폼에서 글로벌 자동차·제조 기업과의 협력 진행 상황을 공유했습니다.",
+        "AI 팩토리와 오픈소스 AI 모델 전반에서 파트너와 통합 생태계를 만드는 청사진을 제시했습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "최 회장은 AI 환경이 유례없는 속도로 변하는 가운데 SK하이닉스가 해야 할 역할을 직접 가늠했다고 합니다. 회사는 HBM 기술로 핵심 고객과의 파트너십을 강화하고, 차세대 메모리 솔루션을 선제적으로 확보한다는 방향을 재확인했습니다."
+    },
+    {
+      "t": "h",
+      "text": "만남으로 쌓은 파트너십"
+    },
+    {
+      "t": "p",
+      "text": "올해 최 회장과 젠슨 황 CEO의 만남은 특히 의미가 컸다고 합니다. 2월 실리콘밸리에서 이른바 '치맥 회동'을 갖고 HBM4와 AI 칩 협력을 깊이 논의했습니다. 3월 샌호제이 GTC 2026에서 다시 만나 공동 기술 로드맵을 다듬었고, 이번 GTC Taipei가 그 대화를 이어 갔습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/02050943/SK-Group-Chairman-Chey-Tae-won-Attends-GTC-Taipei-2026-Keynote-02-photo-2026.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/02050944/SK-Group-Chairman-Chey-Tae-won-Attends-GTC-Taipei-2026-Keynote-03-photo-2026.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "공급사와 고객의 관계로 시작해 AI 인프라의 중심에서 '원팀' 파트너십으로 발전했으며, 각자 분야를 이끄는 두 회사가 하나의 AI 아키텍처를 함께 완성하고 있다고 글은 설명합니다."
+    },
+    {
+      "t": "h",
+      "text": "Full-Stack AI Memory Creator 전략"
+    },
+    {
+      "t": "p",
+      "text": "최 회장은 대만 출장 중 핵심 파트너에게 SK하이닉스의 진화한 전략 비전을 직접 소개할 예정입니다. 회사는 기존 HBM 공급사를 넘어, 고객의 AI 시스템 설계 초기 단계부터 참여해 최적화된 end-to-end 솔루션을 함께 개발하는 Full-Stack AI Memory Creator로 역할을 재정의하고 있습니다. 그 중심에는 D램과 낸드 전반에 걸쳐 AI 시스템의 성능과 효율을 높이는 전략인 cHBM(Customized HBM)이 있습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/02050946/SK-Group-Chairman-Chey-Tae-won-Attends-GTC-Taipei-2026-Keynote-04-photo-2026.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/02050935/SK-Group-Chairman-Chey-Tae-won-Attends-GTC-Taipei-2026-Keynote-05-photo-2026.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "메모리와 로직의 통합"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 메모리와 로직 기술을 통합해 기존 메모리 구조의 한계를 넘고 있습니다. HBM4에서 처음 반영된 이 혁신은 HBM을 넘어 HBF와 3D Stacked DRAM on Logic으로 확장되어 차세대 AI 아키텍처의 요구에 선제 대응하게 됩니다."
+    },
+    {
+      "t": "p",
+      "text": "AI가 모든 산업의 기반 인프라가 될수록 이를 뒷받침하는 메모리 솔루션은 더 중요해집니다. 글은 SK하이닉스가 AI 시대를 단지 가능하게 하는 데 그치지 않고 엔비디아와 함께 만들어 가고 있다고 맺습니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "여러 D램 다이를 수직으로 쌓아 용량과 데이터 처리량을 크게 높인 고성능 메모리. HBM부터 HBM4까지 6세대로 발전했습니다."
+    ],
+    [
+      "cHBM",
+      "Customized HBM. 고객 AI 시스템에 맞춰 D램·낸드 전반에서 성능과 효율을 높이는 전략입니다."
+    ],
+    [
+      "HBF",
+      "High Bandwidth Flash. KV 캐시 처리 같은 대규모 AI 작업을 위해 고속 전송을 겨냥한 차세대 낸드 솔루션으로, HBM처럼 베이스 다이에 로직 공정 기술을 넣습니다."
+    ],
+    [
+      "3D Stacked DRAM on Logic",
+      "SoC 같은 로직 반도체 위에 D램을 수직으로 직접 집적하는 적층 기술로, I/O 대역폭을 크게 늘리고 지연을 줄여 온디바이스 AI에 적합합니다."
+    ],
+    [
+      "Vera Rubin",
+      "엔비디아가 양산 로드맵을 소개한 차세대 AI 플랫폼입니다."
+    ],
+    [
+      "피지컬 AI",
+      "자율주행, 산업용 로봇처럼 물리 세계에서 동작하는 AI 플랫폼을 가리킵니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "5-4",
+    "4-6"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

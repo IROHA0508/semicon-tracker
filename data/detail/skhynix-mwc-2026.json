@@ -1,0 +1,249 @@
+{
+  "id": "skhynix-mwc-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 3월 2~5일 스페인 바르셀로나에서 열린 MWC 2026에 참가해 AI·자동차용 핵심 메모리 솔루션을 전시했습니다. 'Full Stack AI Memory Creator'라는 비전을 내세워 HBM4, 데이터센터용 DDR5 모듈과 eSSD, 온디바이스 AI 메모리, 차량용 메모리를 네 구역으로 나눠 선보였다고 밝혔습니다. HBM4는 I/O 2,048개로 이전 세대 대비 대역폭 2.54배, 전력 효율 40% 이상 개선이 핵심입니다. 전시 참가를 알리는 뉴스룸 기술 해설 글입니다.",
+  "keyPoints": [
+    "SK하이닉스는 MWC 2026에서 HBM, AI 데이터센터 메모리, 온디바이스 AI 메모리, 자동차의 네 구역으로 전시관을 꾸렸습니다.",
+    "HBM4는 I/O 2,048개로 이전 세대 대비 대역폭 2.54배, 전력 효율 40% 이상 개선이며, 12단 HBM3E도 함께 전시했습니다.",
+    "10나노급 6세대(1c) 공정 기반 DDR5·차량용 LPDDR 제품과 LPDDR6, UFS 4.1, 차량용 낸드 등 폭넓은 라인업을 선보였습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "MWC 2026과 SK하이닉스의 참가"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161049/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_01_2026-1.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 3월 2~5일 스페인 바르셀로나에서 열린 MWC 2026(Mobile World Congress)에서 최신 AI 역량과 핵심 메모리 솔루션을 선보였습니다. 전시 기간에는 글로벌 모바일 업계 주요 파트너와 만나 향후 협력도 논의했습니다."
+    },
+    {
+      "t": "p",
+      "text": "MWC는 GSMA(Global System for Mobile Communications Association)가 주최하는 세계 최대 모바일 산업 전시회입니다. 예전에는 모바일 기술 기반의 연결성이 중심이었지만, 올해는 기기에 AI가 결합되는 흐름을 반영해 'The IQ Era'를 주제로 내걸었고, 모바일·네트워크를 넘어 AI와 자동차까지 범위를 넓혔습니다."
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 이 방향에 맞춰 AI·자동차용 핵심 메모리 솔루션을 전시장 곳곳에 배치하고, Full Stack AI Memory Creator로서의 비전을 제시하는 데 집중했다고 밝혔습니다. 핵심 파트너와의 소통을 강화해 최신 기술 동향과 고객 요구, 시장 상황도 살폈습니다."
+    },
+    {
+      "t": "h",
+      "text": "웨이퍼를 닮은 부스 구성"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160942/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_02_2026-2.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160946/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_03_2026.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160952/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_04_2026.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160956/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_05_2026.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스는 반도체 제조의 출발점인 웨이퍼의 원형을 모티브로 설계했습니다. 돌 소재의 견고함과 흐르는 곡선을 결합해 몰입감 있는 첫인상을 만들었고, 겹겹의 원형 조명 구조물과 대형 디스플레이로 관람객의 시선을 끌었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161002/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_06_2026.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161006/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_07_2026.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161011/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_08_2026.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161015/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_09_2026.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "1층 주 전시 공간은 HBM, AI Datacenter Memory, On-Device AI 메모리, Automotive의 네 구역으로 나뉘었고, 2층에는 미팅룸과 라운지가 있었습니다."
+    },
+    {
+      "t": "h",
+      "text": "HBM 구역: HBM4와 12단 HBM3E"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161054/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_10_2026.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "HBM4는 차세대 AI 데이터센터 서버 플랫폼에 채택되는 제품입니다. I/O가 2,048개이며 이전 세대 대비 대역폭이 2.54배, 전력 효율은 40% 이상 개선되어 초고성능 AI 컴퓨팅에 적합하다고 소개했습니다. 또 글로벌 고객의 최신 AI 데이터센터 GPU 모듈에 쓰이는 12단 HBM3E도 전시했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "HBM: 여러 DRAM 칩을 수직으로 연결해 기존 DRAM보다 데이터 처리 속도를 크게 높인 고부가·고성능 메모리",
+        "세대: HBM, HBM2, HBM2E, HBM3, HBM3E, HBM4의 6세대"
+      ]
+    },
+    {
+      "t": "h",
+      "text": "AI 데이터센터 메모리 구역"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161059/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_11-1_2026.jpg",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "데이터센터·서버 시장을 겨냥한 DDR5 기반 모듈과 대용량·고성능 eSSD를 선보였습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "DDR5 RDIMM(64GB): 세계 최초의 10나노급 6세대(1c) 공정 기반으로 더 빠른 속도와 개선된 전력 효율을 구현했다고 밝혔습니다.",
+        "3DS DDR5 RDIMM(256GB): AI 환경 수요에 맞춰 밀도를 높인 제품입니다.",
+        "DDR5 MRDIMM(96GB): AI 워크로드를 위한 고용량·고대역폭 제품입니다.",
+        "SOCAMM2(192GB): LPDDR5X의 저전력 특성과 고성능 AI 모듈을 결합해 효율을 높인 차세대 메모리 모듈입니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161105/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_12-2_2026.jpg",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI 데이터센터용 eSSD로는 직접 액체 냉각(DLC)을 지원하는 PEB210 E1.S(9.5mm), NVMe E3.S 규격에 맞춰 고성능에 최적화한 PS1110 E3.S, QLC 낸드 기반으로 최대 122TB 용량을 제공하는 PS1101 E3.S를 선보였습니다."
+    },
+    {
+      "t": "h",
+      "text": "온디바이스 AI 메모리 구역"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161021/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_13_2026.jpg",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161025/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_14_2026.jpg",
+      "caption": "원문 그림 14",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 AI 데이터센터를 넘어 온디바이스 AI, 자율주행, 커넥티드 카까지 전시 범위를 넓혔습니다. 이 구역에서는 LPDDR 라인업의 최신 제품 LPDDR6가 주목받았습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "UFS 4.1(1TB): 이전 세대보다 성능과 전력 효율을 개선했습니다.",
+        "uMCP 4.1: LPDDR5X 16GB와 UFS 512GB를 결합했습니다.",
+        "ZUFS 4.1: 이전 버전보다 패키지 크기를 줄였습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "자동차(Auto) 구역"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161031/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_15_2026.jpg",
+      "caption": "원문 그림 15",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26161036/SK-hynix-Unveils-Latest-AI-Memory-Solutions-at-MWC-2026-Showcasing-Its-Technological-Capabilities-as-a-Full-Stack-AI-Memory-Creator_16_2026.jpg",
+      "caption": "원문 그림 16",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "고도화되는 자율주행을 뒷받침하는 메모리 솔루션을 선보였습니다. DRAM으로는 Automotive LPDDR6와 Auto/Robotics LPDDR5/5X 두 제품을 10나노급 6세대(1c) 공정으로 만들어 데이터 전송 속도와 성능을 높였습니다. 낸드로는 Auto UFS 3.1, Auto eMMC 5.1, Auto SSD PA101, Auto SSD PA201을 전시했으며, 자율주행 단계가 높아질수록 필요한 대용량 데이터의 고속 처리에 대응하도록 설계했다고 합니다."
+    },
+    {
+      "t": "h",
+      "text": "회사 측 소감"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스 관계자는 AI 인프라, 온디바이스, 자동차에 걸친 폭넓은 메모리 솔루션으로 브랜드 가치와 비전을 직접 체험하게 했다고 밝혔습니다. 빠르게 변하는 환경에서 앞선 기술 개발에 집중해 AI 시대 글로벌 반도체 시장의 선도 위치를 강화하겠다고 했습니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "여러 DRAM 칩을 수직으로 연결해 기존 DRAM보다 데이터 처리 속도를 크게 높인 고성능 메모리입니다."
+    ],
+    [
+      "온디바이스 AI",
+      "서버를 거치지 않고 기기 자체에서 AI 기능을 구현하는 기술입니다."
+    ],
+    [
+      "RDIMM",
+      "여러 DRAM 칩을 탑재한 서버용 메모리 모듈입니다."
+    ],
+    [
+      "3DS",
+      "둘 이상의 DRAM 칩을 TSV 기술로 연결한 고성능 메모리입니다."
+    ],
+    [
+      "MRDIMM",
+      "모듈의 기본 동작 단위인 랭크 두 개를 동시에 동작시켜 속도를 높인 제품입니다."
+    ],
+    [
+      "SOCAMM",
+      "저전력 DRAM 기반의 AI 서버 특화 메모리 모듈로, 기존 서버 메모리보다 작고 전력 효율이 높습니다."
+    ],
+    [
+      "UFS",
+      "읽기와 쓰기를 동시에 할 수 있는 플래시 메모리로, 저전력·고성능이라 모바일 기기에 널리 쓰입니다."
+    ],
+    [
+      "QLC",
+      "셀 하나에 4비트를 저장하는 낸드 플래시 방식입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "2-8",
+    "4-3"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

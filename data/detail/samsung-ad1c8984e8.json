@@ -1,0 +1,160 @@
+{
+  "id": "samsung-ad1c8984e8",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자가 3월 16일부터 19일까지(현지시간) 미국 새너제이에서 열리는 엔비디아 GTC에 참가해 HBM4E 실물 칩과 코어 다이 웨이퍼를 최초로 공개했다고 밝혔습니다. HBM4E는 핀당 16Gbps 속도와 4.0TB/s 대역폭을 지원할 예정이라고 합니다. 또 Vera Rubin 플랫폼의 모든 메모리와 스토리지를 적기에 공급할 수 있는 유일한 메모리 토털 솔루션 역량을 내세웠습니다. 전시 내용과 발표 계획을 소개한 보도자료입니다.",
+  "keyPoints": [
+    "삼성전자는 1c D램과 Foundry 4나노 베이스 다이 기반 HBM4E 실물 칩과 코어 다이 웨이퍼를 GTC에서 최초로 공개했습니다.",
+    "HBM4E는 핀당 16Gbps, 4.0TB/s 대역폭을 지원할 예정이며, TCB 대비 열 저항을 20% 이상 개선하고 16단 이상을 지원하는 HCB 기술도 영상으로 공개했습니다.",
+    "삼성전자는 Rubin GPU용 HBM4, Vera CPU용 SOCAMM2, 스토리지 PM1763 등 Vera Rubin 플랫폼 전체 메모리·스토리지를 공급할 수 있다고 강조했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "GTC 2026 참가 개요"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 3월 16일부터 19일까지(현지시간) 미국 새너제이에서 열리는 엔비디아 GTC에 참가했습니다. 차세대 HBM4E 기술력과 Vera Rubin 플랫폼을 구현하는 메모리 토털 솔루션을 유일하게 공급할 수 있는 역량을 앞세워 글로벌 AI 리더십을 강화한다는 계획입니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "‘HBM4 Hero Wall’: HBM4부터 핵심 경쟁력이 된 메모리, 로직 설계, Foundry, 첨단 패키징을 아우르는 종합반도체 기업(IDM)의 강점을 부각했습니다.",
+        "‘Nvidia Gallery’: AI 플랫폼을 함께 완성해 나가는 양사의 전략적 파트너십을 강조했습니다.",
+        "전시 공간은 AI Factories(AI Data Center), Local AI(On-device AI), Physical AI 세 개의 존으로 구성했습니다. 여기서 기술력을 공식적으로 인정받은 GDDR7, LPDDR6, PM9E1 등 차세대 메모리 아키텍처를 소개했습니다.",
+        "행사 둘째 날인 3월 17일(현지시간)에는 엔비디아의 특별 초청으로 송용호 삼성전자 AI센터장이 발표합니다. 엔비디아 차세대 시스템의 중요성과 삼성의 메모리 토털 솔루션 비전을 제시하고, 양사 협력이 AI 인프라 전반으로 확대되고 있음을 보여줄 예정입니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "HBM4E 칩과 코어 다이 웨이퍼 최초 공개"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 HBM4 양산으로 축적한 1c D램 공정 기반 기술 경쟁력과 삼성 Foundry 4나노 베이스 다이 설계 역량을 바탕으로 HBM4E 개발을 가속화하고 있습니다. 이번에 HBM4E 실물 칩과 코어 다이 웨이퍼를 최초로 공개했고, 전시 동선도 HBM 기술 리더십을 가장 먼저 보여 주도록 구성했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-①-삼성전자-HBM4-제품-사진-1024x731.jpg",
+      "caption": "삼성전자 HBM4 제품 사진",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "HBM4E는 메모리, 자체 Foundry와 로직 설계, 첨단 패키징 등 부문 내 모든 역량을 결집한 최적화 협업을 통해 핀당 16Gbps 속도와 4.0TB/s 대역폭을 지원할 예정입니다."
+    },
+    {
+      "t": "h",
+      "text": "패키징 기술: HCB"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 영상을 통해 TCB 대비 열 저항을 20% 이상 개선하고 16단 이상 고적층을 지원하는 HCB 기술을 공개했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "TCB(Thermal Compression Bonding): 열과 압력으로 칩과 칩을 접합하는 패키징 기술로, HBM 적층 구조 구현에 쓰이는 대표적 본딩 방식입니다.",
+        "HCB(Hybrid Copper Bonding): 구리 접합을 기반으로 칩을 직접 연결하는 차세대 패키징 기술로, 열 저항을 낮추고 고적층 HBM 구현에 유리합니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Vera Rubin 플랫폼에 탑재될 HBM4 칩과 Foundry 4나노 베이스 다이 웨이퍼도 전면에 배치해 HBM 라인업을 한눈에 볼 수 있게 했습니다. 삼성전자는 IDM만의 토털 솔루션으로 개발 효율을 높여 성능과 품질을 압도하는 기술 선순환 구조를 구축할 계획입니다."
+    },
+    {
+      "t": "h",
+      "text": "Vera Rubin용 메모리 토털 솔루션"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 전 세계에서 유일하게 Vera Rubin 플랫폼의 모든 메모리와 스토리지를 적기에 공급할 수 있다고 부각했습니다. Nvidia Gallery에서는 Rubin GPU용 HBM4, Vera CPU용 SOCAMM2, 스토리지 PM1763을 플랫폼과 함께 전시했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-②-삼성전자-SOCAMM2-제품-사진-1024x683.jpg",
+      "caption": "삼성전자 SOCAMM2 제품 사진",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "SOCAMM2: LPDDR 기반 서버용 메모리 모듈로, 품질 검증을 완료하고 업계 최초로 양산 출하를 시작했다고 밝혔습니다.",
+        "PM1763: PCIe Gen6 기반 서버용 SSD로 Vera Rubin 플랫폼의 메인 스토리지입니다. 부스에서 PM1763 탑재 서버로 엔비디아 SCADA 워크로드를 직접 시연했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-③-삼성전자-PM1763-제품-사진-1024x683.jpg",
+      "caption": "삼성전자 PM1763 제품 사진",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "추론 성능과 전력 효율 개선을 위해 Vera Rubin에 새로 도입된 CMX 플랫폼에는 PCIe Gen5 기반 서버용 SSD PM1753을 공급할 계획이며, AI Factories존에서 볼 수 있습니다. 삼성전자는 AI Factory 혁신에 필요한 고성능 메모리 솔루션을 지속 공급하고, 양사가 글로벌 AI 인프라 패러다임 전환을 함께 이끌겠다고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "부스 현장"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/5-6.jpg",
+      "caption": "삼성전자 GTC 부스 사진",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/7-8.jpg",
+      "caption": "삼성전자 HBM4E 제품 전시 사진",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-⑨-삼성전자-GTC-부스-사진-1024x819.jpg",
+      "caption": "엔비디아 젠슨 황 CEO가 GTC 2026 현장에서 삼성전자 부스를 방문해 기념촬영을 하고 있는 모습. 사진 좌측부터 황상준 메모리개발담당 부사장, 엔비디아 젠슨 황 CEO, 한진만 Foundry사업부장 사장. 제품은 사진 좌측부터 삼성전자 HBM4 코어다이 웨이퍼와 그록(Groq) LPU 파운드리 4나노 웨이퍼. 각 웨이퍼에는 ‘AMAZING HBM4’와 ‘Groq Super FAST’라는 젠슨 황 CEO의 친필 서명이 적혀 있음",
+      "credit": "삼성전자 반도체 뉴스룸"
+    }
+  ],
+  "terms": [
+    [
+      "HBM4E",
+      "HBM4의 차세대 제품으로, 삼성전자는 핀당 16Gbps와 4.0TB/s 대역폭을 지원할 예정이라고 밝혔습니다."
+    ],
+    [
+      "IDM",
+      "설계부터 제조까지 직접 하는 종합반도체 기업으로, 삼성은 메모리·로직 설계·Foundry·첨단 패키징을 아우른다고 강조했습니다."
+    ],
+    [
+      "TCB",
+      "열과 압력으로 칩과 칩을 접합하는 패키징 기술로, HBM 적층 구현에 쓰이는 대표적 본딩 방식입니다."
+    ],
+    [
+      "HCB",
+      "구리 접합 기반으로 칩을 직접 연결하는 차세대 패키징 기술로, 열 저항을 낮추고 고적층에 유리합니다."
+    ],
+    [
+      "SOCAMM2",
+      "LPDDR 기반 서버용 메모리 모듈로, Vera CPU용으로 소개되었습니다."
+    ],
+    [
+      "SCADA",
+      "GPU가 CPU 병목을 우회해 스토리지 I/O를 직접 시작하고 제어할 수 있게 한 기술입니다."
+    ],
+    [
+      "CMX",
+      "AI 추론 중 생성되는 KV Cache 데이터를 GPU 메모리 밖의 스토리지로 확장해 활용하는 메모리 확장 기술입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-6",
+    "4-7",
+    "5-4"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

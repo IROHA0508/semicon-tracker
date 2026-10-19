@@ -1,0 +1,102 @@
+{
+  "id": "skhynix-computex-2026-booth-tour",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "6월 2일(현지 시간) SK그룹 최태원 회장과 NVIDIA의 젠슨 황 CEO가 COMPUTEX Taipei 2026에서 만나 SK하이닉스 전시 부스를 함께 둘러보았습니다. 두 사람은 핵심 AI 메모리 기술과 전시물을 살펴보았습니다. 원문은 행사 현장을 사진 중심으로 전하는 짧은 뉴스룸 기사이며, 구체적인 기술 사양이나 수치는 담고 있지 않습니다.",
+  "keyPoints": [
+    "최태원 SK그룹 회장과 젠슨 황 NVIDIA CEO가 COMPUTEX Taipei 2026에서 만나 SK하이닉스 부스를 함께 둘러봤습니다.",
+    "두 사람은 핵심 AI 메모리 기술과 전시물을 함께 확인했습니다.",
+    "젠슨 황 CEO는 양사 협업 제품 전시물에 서명했고, 곽노정 SK하이닉스 CEO와 함께 기념 촬영도 했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "부스에서 만난 두 CEO"
+    },
+    {
+      "t": "p",
+      "text": "6월 2일(현지 시간) 대만에서 열린 COMPUTEX Taipei 2026에서 SK그룹 최태원 회장과 NVIDIA 젠슨 황 CEO가 만났습니다. 두 사람은 SK하이닉스 전시 부스를 함께 돌며 핵심 AI 메모리 기술과 전시물을 살펴보았습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/11064237/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_%EB%B6%80%EC%8A%A4%ED%88%AC%EC%96%B4_1000_01-1.jpg",
+      "caption": "SK하이닉스 전시 부스에 선 최태원 SK그룹 회장(왼쪽)과 젠슨 황 NVIDIA CEO(오른쪽)",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/11064329/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_%EB%B6%80%EC%8A%A4%ED%88%AC%EC%96%B4_1000_04-1.jpg",
+      "caption": "SK하이닉스 전시 부스를 둘러보는 최태원 회장과 젠슨 황 CEO",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "협업 제품 전시물 서명"
+    },
+    {
+      "t": "p",
+      "text": "젠슨 황 CEO는 SK하이닉스 부스에 마련된, 양사의 공동 작업을 보여 주는 협업 제품 전시물에 서명했습니다. 전시된 SK하이닉스 제품에는 “JENSEN ♡ SK HYNIX”라는 서명이 남았습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/11064343/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_%EB%B6%80%EC%8A%A4%ED%88%AC%EC%96%B4_1000_03-1.jpg",
+      "caption": "SK하이닉스 부스에서 양사 협업 제품 전시물에 서명하는 젠슨 황 CEO",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/12024246/COMPUTEX_BOOTH_05.jpg",
+      "caption": "SK하이닉스 전시 제품에 남긴 젠슨 황 CEO의 “JENSEN ♡ SK HYNIX” 서명",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "기념 촬영"
+    },
+    {
+      "t": "p",
+      "text": "행사 마지막에 젠슨 황 CEO, 최태원 회장, 곽노정 SK하이닉스 CEO(왼쪽에서 7번째, 8번째, 9번째)가 부스를 찾은 참석자들과 함께 기념 사진을 찍었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/12024247/COMPUTEX_BOOTH_06.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/12024245/COMPUTEX_BOOTH_07.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/11064458/%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_%EB%B6%80%EC%8A%A4%ED%88%AC%EC%96%B4_08.jpg",
+      "caption": "SK하이닉스 부스에서 참석자들과 기념 촬영을 하는 젠슨 황 CEO, 최태원 회장, 곽노정 CEO",
+      "credit": "SK하이닉스 뉴스룸"
+    }
+  ],
+  "terms": [
+    [
+      "COMPUTEX",
+      "대만 타이베이에서 열리는 IT·컴퓨팅 전시회입니다."
+    ],
+    [
+      "AI 메모리",
+      "AI 연산에 필요한 대용량 데이터를 빠르게 공급하는 고성능 메모리를 가리킵니다."
+    ],
+    [
+      "HBM",
+      "D램을 수직으로 쌓아 대역폭을 높인 고대역폭 메모리로, AI 가속기에 쓰입니다."
+    ],
+    [
+      "NVIDIA",
+      "AI 가속기용 GPU를 설계하는 미국 팹리스 기업입니다."
+    ]
+  ],
+  "studyUnits": [],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

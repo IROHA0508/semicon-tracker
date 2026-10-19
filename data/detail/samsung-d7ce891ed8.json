@@ -1,0 +1,197 @@
+{
+  "id": "samsung-d7ce891ed8",
+  "level": "mid",
+  "translated": false,
+  "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "삼성전자 반도체가 미국 캘리포니아주 새너제이에서 3월 16일(현지 기준) 열린 엔비디아의 연례 기술 콘퍼런스 'GTC 2026'에 참가했습니다. 업계 최초로 양산을 개시했다고 밝힌 HBM4와 함께 차세대 HBM4E 칩 실물을 처음 공개했고, 엔비디아 Vera Rubin 플랫폼을 위한 메모리·스토리지 '토털 솔루션' 제품군을 선보였습니다. 젠슨 황 CEO가 기조연설에서 삼성전자와의 협력을 직접 언급했고, 삼성전자 파운드리에서 그록3 LPU를 생산할 계획도 밝혔습니다. 행사 참관 소식을 전하는 기술 해설 성격의 뉴스룸 글입니다.",
+  "keyPoints": [
+    "삼성전자는 GTC 2026에서 양산 중인 HBM4와 차세대 HBM4E 실물 칩, 코어 다이 웨이퍼를 처음으로 공개했습니다.",
+    "젠슨 황 CEO는 기조연설에서 HBM4 중심의 메모리·스토리지 협력과 삼성전자 파운드리의 그록3 LPU 생산 계획을 직접 언급했습니다.",
+    "삼성전자는 Rubin GPU용 HBM4, Vera CPU용 SOCAMM2, 스토리지 PM1763, CMX 기술 등 Vera Rubin 플랫폼용 토털 솔루션을 전시했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-⑤-삼성전자-GTC-부스-사진.jpg",
+      "caption": "원문 그림 1",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "GTC 2026 참가 개요"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자 반도체는 미국 캘리포니아주 새너제이에서 3월 16일(현지 기준) 개최된 엔비디아의 연례 기술 콘퍼런스 GTC 2026에 참가해 AI 반도체의 미래 비전을 제시했습니다."
+    },
+    {
+      "t": "p",
+      "text": "올해 삼성전자는 최근 업계 최초로 양산을 개시했다고 밝힌 HBM4와 함께 차세대 HBM4E 칩 실물을 처음으로 공개했습니다. 또 엔비디아 Vera Rubin 플랫폼을 위한 메모리와 스토리지 '토털 솔루션' 제품군을 선보이며 엔비디아와의 협력을 강조했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-⑥-삼성전자-GTC-부스-사진.jpg",
+      "caption": "원문 그림 2",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "기조연설에서 강조된 양사 파트너십"
+    },
+    {
+      "t": "p",
+      "text": "참석자들의 시선은 먼저 젠슨 황 CEO의 기조연설에 집중됐습니다. 황 CEO는 블랙웰(Blackwell)과 루빈(Rubin)을 중심으로 한 차세대 AI 칩 시장 규모 비전을 제시했습니다. 최신 Vera Rubin 플랫폼과 네트워크, 소프트웨어 등 AI 산업 혁신을 앞당길 엔비디아의 컴퓨팅 플랫폼 전략과 기술도 공개했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/KakaoTalk_20260317_163021413.jpg",
+      "caption": "원문 그림 3",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/KakaoTalk_20260317_163021413_01.jpg",
+      "caption": "원문 그림 4",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "특히 황 CEO는 삼성전자 반도체와의 협력을 직접 언급했습니다. HBM4를 중심으로 한 메모리·스토리지 솔루션 협력은 물론, 삼성전자 파운드리를 통해 그록3 언어처리장치(Groq 3 LPU) 칩을 생산할 계획을 밝혔고, 이로써 양사 파트너십의 중요성이 그 어느 때보다 부각됐다고 원문은 전했습니다."
+    },
+    {
+      "t": "h",
+      "text": "삼성전자의 AI 메모리 토털 솔루션 전시"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자는 전시 부스에 'HBM4 Hero Wall'을 마련해 HBM 기술 리더십을 조명했습니다. 지난달 양산 출하를 발표한 HBM4와 함께 차세대 HBM4E 실물 칩과 코어 다이 웨이퍼를 최초로 공개했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/추가_01.jpg",
+      "caption": "원문 그림 5",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/4.jpg",
+      "caption": "원문 그림 6",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "별도로 구성한 'Nvidia Gallery'에서는 Vera Rubin 플랫폼과 함께 다음 제품을 전시했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "Rubin GPU용 HBM4",
+        "Vera CPU용 SOCAMM2",
+        "스토리지 PM1763"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "기조연설에서 언급돼 관심이 집중된 그록3 LPU 4나노 웨이퍼 실물도 일반에 공개했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/GTC-NVIDIA-Gallery_800-624x1024.jpg",
+      "caption": "원문 그림 7",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/13.jpg",
+      "caption": "원문 그림 8",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Vera Rubin 플랫폼에 새로 도입된 CMX(Context Memory eXtension) 기술은 AI Factories존에 공개돼 많은 관심을 받았습니다. CMX는 AI 추론 과정에서 생성되는 KV Cache 데이터를 GPU 메모리 밖의 스토리지로 확장해 활용하는 메모리 확장 기술입니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/추가_02.jpg",
+      "caption": "원문 그림 9",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "젠슨 황 CEO의 부스 방문"
+    },
+    {
+      "t": "p",
+      "text": "황 CEO는 올해도 삼성전자 반도체 부스를 찾았습니다. 전시된 HBM4 코어 다이 웨이퍼와 그록3 LPU 4나노 웨이퍼에 각각 'AMAZING HBM4'와 'GROQ SUPER FAST'라는 문구를 적고 서명했습니다. 이어 한진만 삼성전자 Foundry사업부장 사장, 황상준 메모리개발담당 부사장과 기념 촬영을 하며 양사의 협력 관계를 보여줬습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/사진-⑨-삼성전자-GTC-부스-사진-1.jpg",
+      "caption": "사진 좌측부터 황상준 삼성전자 메모리개발담당 부사장, 엔비디아 젠슨 황 CEO, 한진만 삼성전자 Foundry사업부장 사장",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/27-1-1.jpg",
+      "caption": "원문 그림 11",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://news.samsungsemiconductor.com/kr/wp-content/uploads/2026/03/28.jpg",
+      "caption": "원문 그림 12",
+      "credit": "삼성전자 반도체 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "맺음"
+    },
+    {
+      "t": "p",
+      "text": "삼성전자 반도체는 GTC 2026에서 앞선 AI 메모리 기술 경쟁력과 엔비디아와의 전략적 파트너십을 다시 한 번 대중에 각인시켰다고 밝혔습니다. 양사는 글로벌 AI 인프라 발전을 위한 비전을 공유하며 계속 긴밀히 협력해 나갈 계획입니다."
+    }
+  ],
+  "terms": [
+    [
+      "GTC",
+      "엔비디아가 매년 여는 연례 기술 콘퍼런스입니다."
+    ],
+    [
+      "HBM4",
+      "고대역폭 메모리(HBM)의 한 세대로, 삼성전자가 업계 최초로 양산을 개시했다고 밝힌 제품입니다."
+    ],
+    [
+      "HBM4E",
+      "HBM4의 차세대 제품으로, 이번에 실물 칩이 처음 공개됐습니다."
+    ],
+    [
+      "코어 다이",
+      "HBM을 구성하는 D램 다이로, 이번에 웨이퍼 형태로 전시됐습니다."
+    ],
+    [
+      "Vera Rubin 플랫폼",
+      "엔비디아의 최신 AI 컴퓨팅 플랫폼으로, Rubin GPU와 Vera CPU로 구성됩니다."
+    ],
+    [
+      "SOCAMM2",
+      "Vera CPU용으로 전시된 메모리 모듈 제품입니다."
+    ],
+    [
+      "Groq 3 LPU",
+      "그록3 언어처리장치로, 삼성전자 파운드리에서 생산될 계획인 칩입니다."
+    ],
+    [
+      "CMX(Context Memory eXtension)",
+      "AI 추론 중 생성되는 KV Cache 데이터를 GPU 메모리 밖의 스토리지로 확장해 활용하는 메모리 확장 기술입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "5-1",
+    "5-4"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

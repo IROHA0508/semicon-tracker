@@ -1,0 +1,314 @@
+{
+  "id": "skhynix-gtc-2026-exhibition-booth",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 3월 16~19일 미국 캘리포니아 새너제이에서 열린 NVIDIA GTC 2026에 참가해 NVIDIA와의 협력 관계를 다시 확인하고 최신 AI 메모리 제품군을 선보였습니다. 부스는 'Spotlight on AI Memory'를 콘셉트로 NVIDIA 협업, 제품 포트폴리오, HBM 체험의 세 구역으로 꾸며졌습니다. 맞춤형 HBM, HBM4, SOCAMM2, LPDDR6 등 다양한 제품이 소개됐고 임원 두 명이 컨퍼런스 세션도 진행했습니다. 전시와 발표를 정리한 현장 소개 기사입니다.",
+  "keyPoints": [
+    "SK하이닉스는 GTC 2026에서 'Spotlight on AI Memory' 콘셉트로 NVIDIA 협업 구역, 제품 포트폴리오 구역, HBM 체험 구역을 운영했습니다.",
+    "NVIDIA GB300용 HBM3E와 차세대 HBM4, Vera Rubin 200과 함께 전시된 SOCAMM2·HBM4, 그리고 Stream DQ 기반 맞춤형 HBM이 주목받았다고 밝혔습니다.",
+    "도승용 부사장(DT 담당)과 문동욱 팀장(AI Platform Software)이 각각 제조 혁신과 HBM4 기반 LLM 추론 효율을 주제로 발표했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160639/GTC-2026_Sketch_01.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "GTC 2026 참가 개요"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 3월 16~19일 미국 캘리포니아 새너제이에서 열린 NVIDIA GPU Technology Conference(GTC) 2026에 참가해 NVIDIA와의 파트너십을 재확인하고 최신 AI 메모리 제품군을 선보였습니다. GTC는 NVIDIA가 매년 개최하는 세계 최대 규모의 AI 컨퍼런스 중 하나입니다. 올해는 미래 산업을 바꿀 AI 아키텍처인 피지컬 AI, 에이전틱 AI, AI 팩토리를 중심으로 AI 기반 혁신을 조명했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "피지컬 AI: 화면 속 텍스트·이미지 생성을 넘어 로봇, 자율주행차, 스마트 제조 시스템 같은 하드웨어에 탑재돼 현실 세계를 인식하고 작동하는 AI입니다.",
+        "에이전틱 AI: 사람의 지시를 바탕으로 스스로 판단하고 문제를 해결하는 AI 시스템입니다.",
+        "AI 팩토리: 공장이 원자재를 제품으로 바꾸듯 데이터로 가치를 만들어 내는 데이터센터 인프라입니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160646/GTC-2026_19.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "부스 콘셉트와 구성"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 'Spotlight on AI Memory' 콘셉트로 AI 시대를 이끌 핵심 메모리 솔루션을 소개했습니다. 부스 곳곳에 체험형 설치물을 두어 방문객이 제품을 보는 데 그치지 않고 상세 정보를 검색하고 구조 모형을 직접 살펴볼 수 있게 했습니다. 부스는 NVIDIA Collaboration, Product Portfolio, HBM Experience의 세 구역으로 구성됐습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160654/GTC-2026_Sketch_02.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "NVIDIA 협업 구역"
+    },
+    {
+      "t": "p",
+      "text": "부스 앞쪽에 놓인 NVIDIA 협업 구역에서는 NVIDIA 주요 솔루션에 들어가는 SK하이닉스 제품을 전시했습니다. 실제 제품과 구조 모형을 함께 보여 내부 구조를 이해하도록 했고, 두 회사의 제품을 나란히 놓아 기술 협력을 시각적으로 드러냈습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160439/GTC-2026_Sketch_03.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160445/GTC-2026_Sketch_04_1.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160451/GTC-2026_Sketch_04.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "가장 왼쪽에는 NVIDIA GB300 시스템에 쓰이는 HBM3E와 차세대 AI 메모리로 평가받는 HBM4의 구조 모형이 있었습니다. 실제 HBM 소자를 크게 확대한 구조 모형으로 HBM 기술을 설명했고, 제품을 직접 장착해 보는 체험 모형으로 HBM3E가 GB300에 어떻게 통합되는지 직관적으로 이해하게 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160503/GTC-2026_Sketch_05.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160511/GTC-2026_Sketch_06.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160517/GTC-2026_Sketch_07.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "오른쪽에는 NVIDIA의 최신 슈퍼컴퓨터 DGX Spark가 시스템에 들어가는 LPDDR5X와 함께 전시됐습니다. 이 DGX Spark는 APEC 정상회의 때 젠슨 황 NVIDIA CEO가 최태원 SK그룹 회장에게 서명해 전달한 것입니다. NVIDIA의 차기 슈퍼칩 Vera Rubin 200은 SK하이닉스의 SOCAMM2, HBM4와 함께 선보였습니다. 고성능 AI 워크로드의 열을 효율적으로 관리하기 위해 NVIDIA가 개발한 Cold Plate Test Fixture와, 이런 환경에 맞춰 최적화된 구조로 설계한 SK하이닉스의 PEB210 E1.S eSSD도 볼 수 있었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160524/GTC-2026_Sketch_08-768x432.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160530/GTC-2026_Sketch_09-768x432.jpg",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "전시의 하이라이트 중 하나는 방문객의 관심을 끈 '맞춤형 HBM'이었습니다. SK하이닉스는 Stream DQ(Data Queue) 아키텍처를 기반으로 시스템 수준의 성능과 효율을 극대화하도록 설계한 맞춤형 HBM 개념을 모형과 제품 영상으로 소개하며, 변화하는 고객 요구에 대응하는 역량을 보여 줬다고 밝혔습니다. 또한 공동 집필한 백서 'AI-Based Etch Simulator Development'를 소개해, AI가 반도체 제조 공정 혁신을 이끄는 구체적 사례를 제시했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "HBM(High Bandwidth Memory): 여러 D램 칩을 수직으로 쌓아 용량을 늘리고 데이터 처리 속도를 크게 높인 고성능·고부가 메모리입니다. HBM, HBM2, HBM2E, HBM3, HBM3E, HBM4로 발전해 왔습니다.",
+        "Stream DQ 아키텍처: 데이터를 연속 스트림으로 관리하고 큐 구조로 ALU·NPU 같은 연산 장치에 끊김 없이 공급해, 프로세서와 메모리·가속기 간 데이터 흐름을 최적화하는 기술입니다.",
+        "식각(Etch): 화학적 또는 물리적 방법으로 웨이퍼 위 박막의 불필요한 부분을 제거해 원하는 회로 패턴을 만드는 공정입니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "제품 포트폴리오 구역"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160705/GTC-2026_Sketch_10.jpg",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "이 구역은 Collaboration, DRAM, NAND 세 부문으로 나뉘었습니다. Collaboration 부문은 NVIDIA와 개발한 제품 8종을, DRAM과 NAND 부문은 각각 핵심 제품 8종을 소개했습니다. 전시 공간은 웨이퍼를 모티프로 해 반도체 내부를 확대해 보는 듯한 느낌을 줬고, 어느 방향에서나 정보를 볼 수 있게 배치했습니다. 검색형 인터페이스에 익숙한 디지털 네이티브 방문객을 고려해 조이스틱으로 제품 정보를 탐색하는 방식도 넣었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160723/GTC-2026_Sketch_11.jpg",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Collaboration 부문에는 NVIDIA 협업 구역에도 나온 HBM3E, HBM4, LPDDR5X, SOCAMM2, PEB210 E1.S eSSD가 소개됐습니다. NVIDIA의 GB200·GB300 AI GPU 시스템에 들어가는 PEB110 E1.S와 PE9010 M.2 eSSD도 포함됐고, NVIDIA GeForce RTX 50 소비자용 그래픽카드의 메모리로 채택된 GDDR7(2GB) 사양도 확인할 수 있었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160728/GTC-2026_Sketch_12.jpg",
+      "caption": "원문 그림 14",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "DRAM 부문에서는 고성능 컴퓨팅 환경에 널리 쓰이는 제품이 소개됐습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "GDDR7(3GB): 영상·그래픽 작업에 최적화된 제품입니다.",
+        "3DS RDIMM(256GB): AI 워크로드를 위해 대용량으로 설계됐습니다.",
+        "RDIMM(64GB): 세계 최초의 10나노급 6세대(1c) 공정으로 만들어 더 빠른 속도와 개선된 전력 효율을 낸다고 밝혔습니다.",
+        "DDR5 MRDIMM(96GB): AI 워크로드에 높은 대역폭과 강한 성능을 제공합니다.",
+        "LPCAMM2(96GB): 여러 LPDDR5X를 하나의 모듈로 묶어 저전력 환경에서도 고속·고효율을 냅니다.",
+        "LPDDR6(16GB): LPDDR 범주의 새로운 성능 기준을 세운 제품입니다.",
+        "차량용 LPDDR5X/LPDDR6: ISO 26262 ASIL-D 인증을 받았습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160734/GTC-2026_Sketch_13.jpg",
+      "caption": "원문 그림 15",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "NAND 부문에서는 대용량·고성능 eSSD인 PS1010 E3.S(16TB), PS1101 ES.L(245TB), PEB210 E1.S 15 mm(16TB)가 소개됐습니다. 랜덤 읽기 성능을 높이고 거대언어모델(LLM) 로딩 시간을 줄이는 ZUFS 4.1도 전시됐습니다. 차량 전장 시스템용 저장장치인 Auto V7 UFS 3.1, Auto eMMC 5.1, Auto SSD PA101, Auto SSD PA201은 사양을 비교해 볼 수 있었습니다."
+    },
+    {
+      "t": "h",
+      "text": "HBM 체험 구역"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160536/GTC-2026_Sketch_14.jpg",
+      "caption": "원문 그림 16",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160548/GTC-2026_Sketch_16.jpg",
+      "caption": "원문 그림 17",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160554/GTC-2026_16.jpg",
+      "caption": "원문 그림 18",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160600/GTC-2026_14.jpg",
+      "caption": "원문 그림 19",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "마지막 구역은 대형 웨이퍼 타워 안에 만든 체험 공간으로, 방문객이 미니 게임에 참여할 수 있었습니다. 게임을 통해 반도체 적층 개념을 배우고 최대 16단까지 쌓아 보면서 HBM 제품의 구조와 특성을 직관적으로 이해하도록 했습니다."
+    },
+    {
+      "t": "h",
+      "text": "컨퍼런스 세션"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160740/GTC-2026_Presentation_eng-1-1024x576-1.jpg",
+      "caption": "원문 그림 20",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 전시와 함께 컨퍼런스 세션으로 기술 인사이트도 공유했습니다. DT(디지털 전환) 담당 도승용 부사장은 3월 17일 'Building the Future of Manufacturing' 세션에 공동 연사로 참여했습니다. AI 같은 신기술이 제조 공정 혁신에 적용되는 실제 사례를 살피고, AI 인프라를 활용해 더 스마트하고 지속 가능한 제조 환경을 만드는 방안을 제안한다고 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160610/GTC-2026_17-998x562-1.jpg",
+      "caption": "원문 그림 21",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160614/GTC-2026_18-998x562-1.jpg",
+      "caption": "원문 그림 22",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI Platform Software 팀장 문동욱은 3월 19일 'How HBM4 Unlocks Efficient LLM Serving at Scale' 세션을 발표합니다. LLM 추론의 핵심 제약으로 메모리 대역폭과 용량을 짚고, 실제 데이터를 바탕으로 HBM4를 활용한 해결 방안을 논의한다고 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160621/GTC-2026_20.jpg",
+      "caption": "원문 그림 23",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/26160625/GTC-2026_21.jpg",
+      "caption": "원문 그림 24",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 \"GTC 2026에서 글로벌 빅테크 파트너와의 전략적 협력을 모색하고, 미래 AI 솔루션을 뒷받침할 AI 중심 제품 포트폴리오를 소개하는 데 집중했다\"고 밝혔습니다. 앞으로도 여러 기회를 통해 풀스택 AI 메모리 크리에이터로서의 기술 준비 상태를 적극 알리겠다는 계획입니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "여러 D램 칩을 수직으로 쌓아 용량과 데이터 처리 속도를 높인 고대역폭 메모리입니다."
+    ],
+    [
+      "SOCAMM",
+      "저전력 D램 기반의 AI 서버 최적화 메모리 모듈(Small Outline Compression Attached Memory Module)입니다."
+    ],
+    [
+      "LPDDR",
+      "저전력 동작을 위해 설계된 모바일용 D램입니다."
+    ],
+    [
+      "Stream DQ",
+      "데이터를 연속 스트림으로 관리하고 큐 구조로 연산 장치에 끊김 없이 공급해 데이터 흐름을 최적화하는 기술입니다."
+    ],
+    [
+      "MRDIMM",
+      "모듈의 기본 동작 단위인 랭크 두 개를 동시에 동작시켜 속도를 크게 높인 메모리 모듈입니다."
+    ],
+    [
+      "3DS",
+      "TSV로 여러 D램 칩을 수직 연결한 고성능 메모리(3D Stacked Memory)입니다."
+    ],
+    [
+      "ZUFS",
+      "UFS에서 파생된 플래시 메모리로, 비슷한 특성의 데이터를 같은 영역(zone)에 저장해 관리 효율을 높입니다."
+    ],
+    [
+      "ASIL-D",
+      "자동차 기능안전 국제표준 ISO 26262에서 가장 높은 등급입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "2-7",
+    "4-3"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19",
+  "checks": {
+    "retriedFor": [
+      "100만 배"
+    ]
+  }
+}

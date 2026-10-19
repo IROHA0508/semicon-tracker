@@ -1,0 +1,270 @@
+{
+  "id": "skhynix-computex-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 대만 타이베이 난강 전시센터에서 6월 2~5일(현지 시간) 열린 COMPUTEX Taipei 2026에 참가해 부스를 꾸린 내용을 소개한 전시 참관 기사입니다. 부스 주제는 \"At the core of the AI wave – Memory!\"이며, NVIDIA와 협력한 제품을 전면에 내세우고 HBM을 비롯한 AI 메모리와 차세대 메모리 솔루션을 선보였습니다. 올해 전시에는 4일간 약 10만 명이 방문했습니다. 기술 해설 형식으로 부스의 구역별 전시 제품을 차례로 설명합니다.",
+  "keyPoints": [
+    "SK하이닉스는 COMPUTEX 2026에서 'AI 물결의 중심 – 메모리'를 주제로 NVIDIA와 협력한 제품을 전면에 내세운 부스를 꾸렸습니다.",
+    "AI Factory Zone에서는 DGX Spark, GB300, Vera Rubin 200 등 NVIDIA 제품과 그 안에 들어가는 LPDDR5X, HBM3E, SOCAMM2, HBM4를 함께 전시했습니다.",
+    "Product Portfolio Zone에서는 HBM3E·HBM4·HBM4E, 서버 DRAM, eSSD, 그리고 HBF·ZUFS 4.1·LPCAMM2·CMM-DDR5 등 차세대 제품을 선보였습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "COMPUTEX 2026과 SK하이닉스 부스"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10070510/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_01-1.png",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "COMPUTEX는 세계 최대 규모의 ICT·컴퓨터 부품 전시회 중 하나로, 올해는 6월 2~5일(현지 시간) 대만 타이베이 난강 전시센터에서 열렸습니다. 최근 AI 관련 기술의 비중이 커진 흐름을 반영해 AI 산업 전반에 큰 비중을 두었고, 4일간 약 10만 명이 방문해 AI 분야에 대한 세계적 관심을 보여 주었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10070512/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_01-2.png",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10070813/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_02-1.png",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10070811/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_02-2.png",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 부스 주제 \"At the core of the AI wave – Memory!\"로 메모리가 AI 산업을 휩쓰는 거대한 물결의 중심에 있다는 메시지를 전했습니다. 부스 전면의 대형 LED 패널은 AI 산업의 확장을 상징하는 물결 이미지와 메모리 회로의 연결 구조를 보여 주었습니다. NVIDIA와 함께 개발한 협업 제품을 중앙에 놓고, HBM을 비롯한 주력 AI 메모리와 차세대 메모리 솔루션을 전시해 관련 업계 관계자가 꾸준히 찾았다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10070812/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_02-3.png",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "실제 AI 솔루션 속의 메모리: AI Factory Zone"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10071258/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_03.png",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스에 들어서면 오른쪽 벽면을 따라 \"AI Factory Zone\"이 이어집니다. SK하이닉스와 NVIDIA의 파트너십을 보여 주려는 공간으로, NVIDIA의 주요 제품과 그 안에 실제로 들어가는 SK하이닉스 AI 메모리를 나란히 두어 두 회사 기술의 연결 관계를 한눈에 볼 수 있게 했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "DGX Spark: NVIDIA의 최신 슈퍼컴퓨터와 여기에 탑재된 LPDDR5X를 함께 전시해, 초고속 연산이 필요한 AI 환경에서 LPDDR5X가 주는 성능 가치를 부각했습니다.",
+        "Bluefield4-DPU 모델과 Cold Plate Test Fixture: 고성능 AI 워크로드의 방열 문제를 해결하려고 개발된 실물 Cold Plate Test Fixture와 함께, 이런 환경을 위해 설계된 eSSD PEB210 E1.S를 놓았습니다.",
+        "GB300: NVIDIA의 최신 AI 가속기 실물과 탑재된 HBM3E를 전시했습니다. 젠슨 황 NVIDIA CEO의 서명이 담긴 \"NVIDIA Partner Sign\"도 두었고, 아래에는 내부 구조를 자세히 볼 수 있는 1.5배 확대 모델을 두었습니다.",
+        "Vera Rubin 200: NVIDIA의 차세대 슈퍼칩 모델을 SK하이닉스의 SOCAMM2, HBM4와 함께 전시했습니다. 전시 문구 \"Scalable AI with Confidence\"는 차세대 AI 인프라를 향한 두 회사의 협력이 이미 구체화되고 있음을 보여 준다고 합니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080417/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_04-3-1.png",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080416/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_04-2-1.png",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080628/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_05-1-1.png",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080629/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_05-2-1.png",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "전시대 아래쪽에는 SK하이닉스의 HBM 개발 역사를 시간순으로 보여 주는 디자인 작품 \"Chronicle of SK hynix’s HBM\"이 있어, 오늘날 HBM 시장에서 독보적 위치에 오르기까지의 여정과 기술 이정표를 따라가 볼 수 있습니다. 그 옆에는 HBM4E 구조 모델을 두어 SK하이닉스 HBM에 적용된 핵심 기술을 자세히 볼 수 있게 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10072223/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_06-1.png",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10072224/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_06-2.png",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "Product Portfolio Zone: 주력 제품"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10072414/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_07.png",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "중앙 대형 LED 패널 아래의 \"Product Portfolio Zone\"은 부스의 중심 공간입니다. \"AI Frontier & Industry Standards\"와 \"Infrastructure & Next-Gen\" 두 구역으로 나뉘며, 현재 AI 생태계를 이끄는 주력 제품부터 미래 AI 인프라를 뒷받침할 차세대 메모리까지 보여 줍니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080952/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_08-1-1.png",
+      "caption": "원문 그림 14",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI Frontier & Industry Standards 구역에서는 현재 주력 AI 메모리를 전시했습니다. 12단 36GB HBM3E, 16단 48GB HBM4, 12단 48GB HBM4E를 나란히 둔 전시가 가장 큰 주목을 받았습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "3DS RDIMM(256GB): AI 워크로드를 위한 대용량 서버 DRAM입니다.",
+        "RDIMM(64GB): 6세대(1c) 10nm 공정을 세계 최초로 적용해 더 빠른 속도와 높은 전력 효율을 낸다고 밝혔습니다.",
+        "DDR5 MRDIMM(128GB): AI 워크로드에 적합한 높은 대역폭을 제공합니다.",
+        "eSSD: 직접 액체 냉각(DLC)을 지원하는 PEB210 E1.S, NVMe E3.S 폼팩터로 대용량·저전력을 겨냥한 PS1110 E3.S, SK하이닉스 최초의 QLC 기반 eSSD인 PS1101 E3.S를 전시했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080953/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_08-2-1.png",
+      "caption": "원문 그림 15",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080954/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_08-3-1.png",
+      "caption": "원문 그림 16",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10080955/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_08-4-1.png",
+      "caption": "원문 그림 17",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "Product Portfolio Zone: 차세대 솔루션"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10081123/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_09-1-1.png",
+      "caption": "원문 그림 18",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Infrastructure & Next-Gen 구역의 첫 제품은 HBF(High Bandwidth Flash)였습니다. HBM처럼 TSV 기술로 NAND를 수직으로 쌓는 새로운 개념의 메모리로, AI 인프라의 패러다임 전환을 이끌 차세대 기술로 큰 관심을 받았습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "ZUFS 4.1: 랜덤 읽기 성능을 높이고 LLM 로딩 시간을 줄입니다.",
+        "LPCAMM2: 여러 개의 LPDDR5X 칩을 하나의 모듈로 묶어 저전력 환경에서 고속·전력 효율을 냅니다.",
+        "소비자용 SSD: AI PC 환경을 겨냥한 PQC21, PVF01, PCB01입니다.",
+        "CMM-DDR5: CXL 2.0+ 기술을 담은 제품입니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10081124/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_09-2-1.png",
+      "caption": "원문 그림 19",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10081125/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_09-3-1.png",
+      "caption": "원문 그림 20",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "AI 타로 이벤트와 비즈니스 공간"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/06/10073757/SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4_%EC%BB%B4%ED%93%A8%ED%85%8D%EC%8A%A4_1000_10-1.png",
+      "caption": "원문 그림 21",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Product Portfolio Zone 왼쪽의 Tarot Event Zone도 붐볐습니다. 방문객이 셀카를 찍으면 AI가 한국 전통 의상과 디자인 요소를 섞고 운세 메시지를 담은 타로 카드 이미지를 만들어 주는 체험으로, 한류에 관심 있는 아시아 방문객에게 특히 인기를 끌었습니다."
+    },
+    {
+      "t": "p",
+      "text": "중앙 LED 패널 뒤의 라운지와 VIP 미팅룸에서는 주요 파트너와 활발한 비즈니스 미팅이 이어져, AI 트렌드에 대한 의견을 나누고 SK하이닉스의 미래 비전을 소개하는 자리가 되었습니다."
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 \"전 세계 방문객에게 기술 리더십을 보여 주고 핵심 파트너와 AI 기술의 미래를 함께 선보이는 데 집중했다\"며, \"AI 트렌드 변화에 계속 귀 기울이며 다가올 AI 시대에도 글로벌 메모리 시장의 리더십을 이어가겠다\"고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "HBM",
+      "여러 DRAM 칩을 수직으로 쌓아 용량을 늘리고 데이터 처리 속도를 크게 높인 고성능 메모리입니다."
+    ],
+    [
+      "LPDDR",
+      "저전력 동작을 위해 설계된 모바일 DRAM입니다."
+    ],
+    [
+      "SOCAMM",
+      "저전력 DRAM 기반의 AI 서버용 메모리 모듈입니다."
+    ],
+    [
+      "RDIMM / MRDIMM",
+      "여러 DRAM 칩을 기판에 얹은 서버 메모리 모듈입니다. MRDIMM은 두 개의 랭크를 동시에 동작시켜 속도를 높입니다."
+    ],
+    [
+      "QLC",
+      "NAND 플래시에서 셀 하나에 4비트를 저장하는 방식입니다."
+    ],
+    [
+      "CXL",
+      "고성능 컴퓨팅 시스템에서 CPU, GPU, 메모리 등을 효율적으로 연결하는 차세대 인터페이스입니다."
+    ],
+    [
+      "HBF",
+      "HBM처럼 TSV 기술로 NAND를 수직으로 쌓는 새로운 개념의 메모리입니다."
+    ],
+    [
+      "ZUFS",
+      "UFS에서 파생된 플래시 메모리로, 비슷한 특성의 데이터를 같은 영역에 저장·관리해 효율을 높입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "2-8",
+    "4-3"
+  ],
+  "generatedAt": "2026-10-19T14:11:11+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}
