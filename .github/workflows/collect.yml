@@ -105,9 +105,11 @@ jobs:
           fi
           msg=$(python - <<'EOF'
           import json
+          import os
           r = json.load(open("backend/state/last-run.json"))
-          parts = [f"새 기사 {len(r.get('added', []))}건"]
-          if "summary" in r:
+          only_details = os.environ["COMMAND"] == "details"   # last-run.json keeps the last collect's numbers
+          parts = [] if only_details else [f"새 기사 {len(r.get('added', []))}건"]
+          if "summary" in r and not only_details:
               parts.append(f"요약 {len(r['summary'].get('summarized', []))}건")
               parts.append(f"대기 {r['summary'].get('queueLeft', 0)}건")
           if "details" in r and "detailed" in r["details"]:
