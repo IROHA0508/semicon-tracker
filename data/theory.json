@@ -1133,7 +1133,22 @@
      "note": "Applied Materials · 영어. 장비 회사의 GAA 설명 영상과 해설 글"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/transistor-structure-film.html",
+     "title": "플래너·FinFET·GAA: 게이트가 채널을 감싸는 면이 늘어난 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "비유",
+      "FinFET",
+      "GAA",
+      "공정·CFET",
+      "비교",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/transistor-evolution.html",
@@ -3965,6 +3980,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 12
+  "films": 13
  }
 }

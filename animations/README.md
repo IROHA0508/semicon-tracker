@@ -37,6 +37,7 @@
 | `memory-hierarchy-film.html` | 2-7 | 영상: 메모리 계층(책상·책장·창고), SRAM 6T 래치, DRAM 1T1C·리프레시, SRAM·DRAM·NAND 비교, DDR·LPDDR·GDDR·HBM 갈래, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `dram-generation-film.html` | 4-3 | 영상: D램 세대(1a~1c), 미세화의 세 가지 난관, 6F²→4F² VG·VCT, 3D D램, 구조 비교, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `ai-memory-wall-film.html` | 4-7 | 영상: 메모리 벽, 데이터 이동 비용, HBM·CXL·PIM·HBF 해법, 메모리 종류 비교, 학습·추론 수요, 약 2분 (장면 7개, 자막, 소리 없음) |
+| `transistor-structure-film.html` | 2-6 | 영상: 1면→3면→4면 게이트 구조, FinFET 핀 높이와 양자화, GAA 나노시트, SiGe 선택적 식각, CFET, 구조 비교표, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `nand-ispp.html` | 2-11 | 낸드 ISPP와 문턱전압 분포 (모드 4개: 쓰기(ISPP), 쓰기 금지, 읽기, 분포가 무너질 때) |
 | `fab-intro.html` | 3-0 | 팹 입문: 8대 공정, FEOL·BEOL, 클린룸 (모드 2개: 공정 흐름, 클린룸) |
 | `wafer-making.html` | 3-1 | 웨이퍼 제조: 잉곳에서 웨이퍼까지 (모드 2개: 만드는 순서, 웨이퍼 크기·구조) |
