@@ -84,203 +84,138 @@
     "limit": 40,
     "detailed": [
       {
-        "id": "skhynix-computex-2026",
-        "title": "SK하이닉스, COMPUTEX 2026에서 엔비디아 협업 AI 메모리 제품군 전시",
+        "id": "samsung-9d22c5a871",
+        "title": "미래를 설계하는 젊은 과학도들이 모인 현장! 수상자 2인과 함께하는 제32회 삼성휴먼테크논문대상",
         "figure": false
       },
       {
-        "id": "skhynix-computex-2026-booth-tour",
-        "title": "최태원 SK그룹 회장·젠슨 황 엔비디아 CEO, COMPUTEX Taipei 2026서 재회",
+        "id": "skhynix-global-big-tech-ai-partnership-meta",
+        "title": "최태원 회장, 저커버그와 회동... AI 칩부터 AI 글래스까지 메모리로 협력 확대",
         "figure": false
       },
       {
-        "id": "skhynix-gtc-taipei-2026-keynote",
-        "title": "SK 최태원 회장, GTC Taipei 2026 기조연설 참석…엔비디아와 협력 강조",
+        "id": "skhynix-global-big-tech-ai-partnership-ms",
+        "title": "SK 최태원 회장, 시애틀서 MS 나델라 CEO 만나 AI 협력 확대",
         "figure": false
       },
       {
-        "id": "samsung-36184c3b19",
-        "title": "삼성전자, 세계 최초 HBM4E 12단 샘플 출하",
+        "id": "skhynix-global-big-tech-ai-partnership-broadcom",
+        "title": "“AI 칩의 미래를 함께 설계”… 최태원 회장·혹 탄 CEO, ‘원팀’ 선언",
         "figure": false
       },
       {
-        "id": "samsung-a8f6bf571d",
-        "title": "삼성전자 사장단 메시지",
+        "id": "skhynix-global-big-tech-ai-partnership-nvidia",
+        "title": "SK 최태원 회장, 엔비디아 젠슨 황 CEO와 만나 AI 협력 논의",
         "figure": false
       },
       {
-        "id": "samsung-fe1d60645c",
-        "title": "삼성전자 노사, 2026년 임금협약 체결",
+        "id": "samsung-59d5098f17",
+        "title": "삼성전자, 세계 최초 업계 최고 성능의 HBM4 양산 출하",
         "figure": false
       },
       {
-        "id": "skhynix-ihbm-solution",
-        "title": "SK하이닉스, HBM 패키지에 냉각 소자 넣은 iHBM 솔루션 공개",
-        "figure": true
-      },
-      {
-        "id": "skhynix-dtw-2026",
-        "title": "SK하이닉스, 델 테크놀로지스 월드 2026에서 HBM부터 cSSD까지 AI 메모리 선보여",
+        "id": "skhynix-4f58978fe1",
+        "title": "SK하이닉스, SEMICON Korea 2026서 AI 기반 R&D 혁신 비전 발표",
         "figure": false
       },
       {
-        "id": "skhynix-tech-note-series-ep1",
-        "title": "[Tech Note EP.1] ‘It’s the Memory’, AI의 미래는 메모리가 결정한다",
+        "id": "samsung-4770a91895",
+        "title": "이론으로만 알고 있던 D램의 ‘휘발성’, 유튜버 발명킹밥테일과 함께 실험으로 알아보기",
         "figure": false
       },
       {
-        "id": "samsung-4a595dac76",
-        "title": "삼성전자, 2026년 1분기 실적 발표",
+        "id": "samsung-6d235e9363",
+        "title": "삼성전자, 2025년 4분기 실적 발표",
         "figure": false
       },
       {
-        "id": "samsung-c83c777ceb",
-        "title": "삼성전자 4나노 파운드리 공정: 안정성 위에 확장성을 더한 최적의 공정 솔루션",
+        "id": "skhynix-sk-hynix-to-establish-ai-solutions-arm-in-us",
+        "title": "SK하이닉스, 미국에 AI 솔루션 전문 법인 설립 추진",
         "figure": false
       },
       {
-        "id": "samsung-e6157b1683",
-        "title": "삼성, 2026년 상반기 삼성직무적성검사(GSAT)실시",
+        "id": "skhynix-sk-hynix-launches-ai-company-focusing-on-ai-solutions",
+        "title": "SK하이닉스, AI 솔루션 중심 'AI Company' 출범 발표",
         "figure": false
       },
       {
-        "id": "skhynix-opinion-local-economy-pt7",
-        "title": "기업 주도 지역 활성화의 경제학: SK하이닉스 청주 P&T7 사례",
+        "id": "skhynix-sk-hynix-announces-fy25-financial-results",
+        "title": "SK하이닉스, 2025년 매출 97조 1,467억 원·영업이익 47조 206억 원 기록",
         "figure": false
       },
       {
-        "id": "skhynix-2026-ieee-awards-recipient",
-        "title": "SK하이닉스, HBM 기반 AI 컴퓨팅 확대 공로로 2026 IEEE 기업혁신상 수상",
+        "id": "skhynix-q4-2025-earnings-conference-call-invitation",
+        "title": "SK하이닉스, 2025년 4분기 실적 컨퍼런스콜 초청 안내",
         "figure": false
       },
       {
-        "id": "skhynix-tsmc-technology-symposium-2026",
-        "title": "“메모리와 로직의 통합이 한계 돌파 열쇠”: SK하이닉스, TSMC 심포지엄서 비전 발표",
+        "id": "skhynix-sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating",
+        "title": "SK하이닉스 LPDDR5X, 차량용 메모리 최고 안전 등급 ASIL-D 인증 획득",
         "figure": false
       },
       {
-        "id": "skhynix-q1-2026-business-results",
-        "title": "SK하이닉스, 1분기 영업이익 37조 6103억 원…분기 최대 실적 달성",
+        "id": "samsung-48c6128d1a",
+        "title": "[CES 2026 혁신상 수상작] T7 Resurrected: 100% 재활용 알루미늄 외장 케이스를 적용한 자원 선순환 포터블 SSD",
         "figure": false
       },
       {
-        "id": "skhynix-q1-2026-earnings-conference-call-invitation",
-        "title": "SK하이닉스, 2026년 1분기 실적 컨퍼런스콜 초청 안내",
+        "id": "samsung-3e8a03ba02",
+        "title": "[CES 2026 혁신상 수상작] Detachable AutoSSD: 업계 최초의 탈부착 가능한 최고 성능의 차량용 SSD",
         "figure": false
       },
       {
-        "id": "skhynix-skhynix-chungju-pt7",
-        "title": "SK하이닉스, 청주 P&T7 착공… AI 메모리 후공정 생산 거점 조성",
+        "id": "samsung-65ae652d0b",
+        "title": "[CES 2026 혁신상 수상작] PM9E1 M.2 22×42: 초소형·고성능의 AI 최적화 PCIe Gen5 NVMe SSD",
         "figure": false
       },
       {
-        "id": "skhynix-mass-production-socamm2-192gb",
-        "title": "SK하이닉스, 192GB SOCAMM2 양산 시작",
+        "id": "samsung-5c9d1e5725",
+        "title": "[CES 2026 혁신상 수상작] 아이소셀 HP5: 더 많은 빛을 담은 0.5㎛픽셀 이미지 센서",
         "figure": false
       },
       {
-        "id": "samsung-54afdd7f38",
-        "title": "[2026 삼성 명장 인터뷰] CMP 설비 국산화의 꿈 실현! 제조 혁신을 이끈 이동우 명장",
+        "id": "samsung-c23119a1a2",
+        "title": "[CES 2026 혁신상 수상작] LPDDR6: 고성능 온디바이스 AI에 최적화된 세계 최초의 차세대 저전력 DRAM",
         "figure": false
       },
       {
-        "id": "samsung-618f6e3081",
-        "title": "[2026 삼성 명장 인터뷰] 정확한 계측으로 HBM 불량률 제로에 도전하는 김주우 명장",
+        "id": "samsung-94ab7e1144",
+        "title": "삼성전자, 2025년 4분기 잠정실적 발표",
         "figure": false
       },
       {
-        "id": "skhynix-begin-supply-321-layer-qlc-nand-cssd",
-        "title": "SK하이닉스, 321단 QLC 낸드 기반 cSSD 공급 시작",
+        "id": "samsung-ad1f050795",
+        "title": "[CES 2026 혁신상 수상작] S3SSE2A: 양자 보안의 미래를 여는 하드웨어 PQC",
         "figure": false
       },
       {
-        "id": "samsung-fb59c49113",
-        "title": "삼성전자, 2026년 1분기 잠정실적 발표",
+        "id": "skhynix-4e6f0a2527",
+        "title": "SK하이닉스 곽노정 CEO, CES 2026 현장에서 AI 메모리 협력 방안 모색",
         "figure": false
       },
       {
-        "id": "samsung-5027c646a9",
-        "title": "삼성전자, DS부문 ‘2026년 상생협력 DAY’ 개최",
+        "id": "skhynix-d5f0dc6ce1",
+        "title": "SK하이닉스, CES 2026에서 16단 48GB HBM4 첫 공개",
         "figure": false
       },
       {
-        "id": "samsung-7921c1df10",
-        "title": "[DS 딕셔너리]현직자가 직접 설명하는 ‘HBM’ 개념과 기술 알아보기",
+        "id": "skhynix-2026-market-outlook-focus-on-the-hbm-led-memory-supercycle",
+        "title": "2026 시장 전망: HBM이 이끄는 메모리 슈퍼사이클에 주목",
         "figure": false
       },
       {
-        "id": "skhynix-gtc-2026-review",
-        "title": "GTC 2026 후기: AI 경쟁 무게가 인프라로 이동, SK하이닉스 부스 분석",
+        "id": "samsung-29c7865ed3",
+        "title": "삼성, ‘2026 삼성 명장’ 선정",
         "figure": false
       },
       {
-        "id": "samsung-1398a16b89",
-        "title": "삼성전자·AMD, 차세대 AI 메모리 솔루션 협력 확대",
+        "id": "samsung-d2b24031d7",
+        "title": "삼성전자 2026년 신년사",
         "figure": false
       },
       {
-        "id": "samsung-349771373e",
-        "title": "삼성전자, 제57기 정기 주주총회 개최",
-        "figure": false
-      },
-      {
-        "id": "samsung-d7ce891ed8",
-        "title": "GTC 2026에서 만난 삼성전자 AI 반도체의 미래",
-        "figure": false
-      },
-      {
-        "id": "samsung-ad1c8984e8",
-        "title": "삼성전자, GTC서 HBM4E 최초 공개…‘토털 솔루션’으로 엔비디아와 AI 동맹 고도화",
-        "figure": false
-      },
-      {
-        "id": "skhynix-gtc-2026-ai-partnership",
-        "title": "최태원 SK그룹 회장, 처음으로 GTC 2026 참석... AI 생태계 파트너십 강화",
-        "figure": false
-      },
-      {
-        "id": "skhynix-gtc-2026-exhibition-booth",
-        "title": "SK하이닉스, GTC 2026에서 엔비디아와 협력 재확인하며 AI 메모리 포트폴리오 공개",
-        "figure": false
-      },
-      {
-        "id": "skhynix-skhynix-at-gtc2026",
-        "title": "SK하이닉스, 3월 16~19일 엔비디아 GTC 2026에서 AI 메모리 전시",
-        "figure": false
-      },
-      {
-        "id": "samsung-3424cfa316",
-        "title": "[영상] 인포그래픽으로 보는 HBM4",
-        "figure": false
-      },
-      {
-        "id": "skhynix-1c-lpddr6-development-2026",
-        "title": "SK하이닉스, 6세대 10나노급 1c 기반 LPDDR6 개발",
-        "figure": false
-      },
-      {
-        "id": "samsung-6c8944a05e",
-        "title": "삼성, 2026년 상반기 공채 실시",
-        "figure": false
-      },
-      {
-        "id": "skhynix-mwc-2026",
-        "title": "SK하이닉스, MWC 2026에서 AI 메모리 솔루션 공개",
-        "figure": false
-      },
-      {
-        "id": "skhynix-74668435d9",
-        "title": "SK하이닉스·샌디스크, 차세대 메모리 HBF 글로벌 표준화 착수",
-        "figure": false
-      },
-      {
-        "id": "skhynix-new-facility-investment-for-yongin-semiconductor-cluster",
-        "title": "용인 반도체 클러스터 첫 번째 팹 신규 시설에 21조 6천억 원 투자",
-        "figure": false
-      },
-      {
-        "id": "skhynix-86c18348f2",
-        "title": "SK하이닉스·가우스랩스, SPIE AL 2026에서 AI 가상계측 연구 발표",
+        "id": "skhynix-ceo-2026-new-year-message",
+        "title": "SK하이닉스 곽노정 CEO, 2026년 신년사 발표",
         "figure": false
       }
     ],
@@ -288,7 +223,7 @@
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "limit",
-    "left": 27
+    "stoppedBy": "all done",
+    "left": 0
   }
 }

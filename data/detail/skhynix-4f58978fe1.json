@@ -1,0 +1,198 @@
+{
+  "id": "skhynix-4f58978fe1",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 2026년 2월 11~13일 열린 SEMICON Korea 2026에서 R&D 역량과 기술 혁신 로드맵을 선보였습니다. 키노트 1건, STS 6개 주제 발표, 튜토리얼 3개 주제를 진행했습니다. 키노트에서는 이성훈 R&D 공정 담당 SVP가 AI 기반 R&D 혁신과 새로운 협업 모델을 제시했습니다. 행사 소식과 발표 내용을 정리한 뉴스룸 기술 해설 글입니다.",
+  "keyPoints": [
+    "SK하이닉스는 SEMICON Korea 2026에서 키노트, STS 6개 주제 발표, 튜토리얼 3개 주제로 메모리 기술 리더십을 강조했습니다.",
+    "이성훈 SVP는 2027년 이후 또 한 번의 기술 변곡점이 예상된다며, 인력 투입 중심의 'man-month' R&D에서 AI 기반 R&D로 전환해야 한다고 말했습니다.",
+    "STS에서는 High-NA EUV, 초고적층 NAND, HARC, CMP 오버레이, VFO 패키징 등 공정 기술을 공유했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "SEMICON Korea 2026 개요"
+    },
+    {
+      "t": "p",
+      "text": "SEMI가 주최하는 SEMICON Korea는 국내 대표 반도체 전시회입니다. 올해는 역대 최대 규모로, 주 전시장 밖으로 전시 공간을 넓혔습니다. 550개 기업이 2,411개 부스를 운영하며 첨단 반도체 기술과 솔루션을 선보이고 있습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125651/SEMICON-Venue-1-1.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125656/SEMICON-Venue-2.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "글로벌 반도체 기업의 경영진과 기술 리더들이 키노트에서 AI 시대에 필요한 기술 혁신과 공정 최적화 방안, 산업의 중장기 방향, 공급망 구축, 협력 전략을 다룹니다. 전시와 함께 열리는 SEMI Technology Symposium(STS)에서는 엔지니어들이 공정 분야별 최신 기술 동향과 R&D의 주요 난제 해결책을 공유합니다. 초급 엔지니어와 학생에게 기초 공정 지식과 최신 통찰을 전하는 튜토리얼 세션도 함께 열렸습니다."
+    },
+    {
+      "t": "h",
+      "text": "키노트: AI 기반 R&D 혁신"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 키노트 1건, STS 6개 주제 발표, 튜토리얼 3개 주제를 맡았습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125701/Lee-Sunghoon-Keynote-Address-1.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125706/Lee-Sunghoon-Keynote-Address-2.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "이성훈 R&D 공정 담당 SVP는 'The Inflection Point Has Arrived: Driving Innovation Towards the Future of Memory Technology'라는 제목의 키노트에서 AI를 활용한 R&D 혁신을 소개했습니다."
+    },
+    {
+      "t": "h",
+      "text": "기술 난이도 상승과 플랫폼 개념"
+    },
+    {
+      "t": "p",
+      "text": "공정이 복잡해지면서 적용 기술도 정교해지고 있습니다. D램은 이미 10nm 미만 노드에 들어섰고 NAND는 2D에서 3D 구조로 전환했습니다. 기술 난이도가 이전보다 가파르게 오르고, 차세대 기술 확보에 드는 시간과 자원도 늘고 있습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "SK하이닉스는 기술 난이도를 체계적으로 예측하고 파트너와 협력해 핵심 기술을 제때 확보했다고 밝혔습니다.",
+        "제품별 개발 방식에서 벗어나 여러 세대에 공통 적용할 수 있는 플랫폼 개념을 도입해 개발 과정을 간소화하고 개발 주기(development cadence)의 증가를 억제했다고 설명했습니다.",
+        "development cadence는 하나의 기술이 완성되고 다음 기술이 완성되기까지의 간격입니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "그러나 D램 미세화의 한계가 드러나고 NAND는 초고적층으로 가고 있어 2027년 이후 또 다른 기술 변곡점이 올 것으로 예상됩니다. 이 성훈 SVP는 기술 난제를 넘을 구조적 진보와 복잡성 증가에 대응할 소재 혁신이 필요하며, 기술 융합과 새로운 AI 기반 협업 모델을 적극 모색해야 한다고 말했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125735/Resized-Industry-Collaboration-with-AI.png",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "AI가 바꾸는 R&D 방식"
+    },
+    {
+      "t": "p",
+      "text": "이 SVP는 AI가 새 구조 탐색이나 신소재의 공정 적합성 평가에 드는 시간과 노력을 크게 줄일 수 있다고 강조했습니다. 활용 사례로 NVIDIA와 협력해 개발한 공정 시뮬레이션을 최적화한 사례를 소개했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "AI 모델은 기존 방식보다 짧은 기간에 훨씬 넓은 범위의 소재를 평가하게 하고, 더 적은 실험으로 최적 공정 조건을 찾기 쉽게 합니다.",
+        "업계는 인력을 늘리는 전통적 'man-month' 기반 R&D에서 시간 효율을 키우는 AI 기반 R&D로 나아가야 합니다.",
+        "핵심 요소로 데이터 관리와 AI 모델을 꼽았습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "AI 기반 R&D는 SK하이닉스만의 과제가 아니라 반도체 업계 전체가 함께 풀 과제라고 말했습니다. 지식재산 보호 때문에 제약받아 온 협력사 간 데이터 공유 문제와, 공통 AI 모델을 활용하는 협업 체계 구축 방안을 업계 차원에서 논의해야 한다고 제기했습니다. 파트너와 공유할 AI 생태계를 만들고 기존 협업 체계와 통합하면, 기술 복잡도가 급증할 가까운 미래에도 현재의 개발 주기를 유지할 수 있다고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "STS: 첨단 공정 기술과 제조 노하우"
+    },
+    {
+      "t": "p",
+      "text": "2월 11~12일 STS에서 SK하이닉스 구성원들이 6개 기술 세션에서 최신 공정 기술과 제조 노하우를 발표했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125711/Kim-Hongik.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125716/Oh-Jinho.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125721/Noh-Yoohyun-1.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "Advanced Lithography: DRAM Track Photo의 김홍익이 High-NA EUV 노광 장비를 효과적으로 활용하는 방안을 발표했습니다.",
+        "Advanced Materials & Process Technology: 미래기술연구원의 오진호가 NAND 초고적층의 기술 과제와 대응 노력을 다뤘습니다.",
+        "Device Technology: NAND TD의 노유현이 차세대 NAND 구현을 위해 확보 중인 소자·공정 기술을 공유했습니다.",
+        "Plasma Science and Etching Technology: Plug Etch의 박상욱이 HARC 기술의 최신 동향을 짚었습니다.",
+        "CMP & Cleaning Technology: DRAM C&C의 이혁중이 효과적인 CMP 공정을 위한 최적 오버레이(O/L) 제어 조건을 다뤘습니다.",
+        "Advanced Packaging: PKG Innovation의 성기준이 온디바이스 AI를 위한 VFO 기술을 자세히 설명했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/05/27125740/SEMICON-Korea.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "회사 입장"
+    },
+    {
+      "t": "p",
+      "text": "회사 관계자는 SEMICON Korea를 통해 우수한 기술 역량과 조직 전반의 혁신 노력을 보여 줄 수 있었다고 밝혔습니다. 또한 풀스택 AI 메모리 크리에이터로서 고객 요구에 맞춰 기술 리더십을 강화하고 AI 메모리 시장의 경쟁력을 지켜 가겠다고 말했습니다."
+    }
+  ],
+  "terms": [
+    [
+      "STS",
+      "SEMI Technology Symposium. 엔지니어들이 공정 분야별 최신 기술 동향과 R&D 난제 해결책을 공유하는 행사입니다."
+    ],
+    [
+      "Development cadence",
+      "하나의 기술이 완성되고 다음 기술이 완성되기까지의 간격입니다."
+    ],
+    [
+      "High-NA EUV",
+      "기존 EUV보다 높은 개구수(NA)를 채택해, 웨이퍼에 회로를 새기는 장비의 해상도를 크게 높인 차세대 노광 기술입니다."
+    ],
+    [
+      "HARC",
+      "High aspect ratio contact. 종횡비가 큰 미세 콘택 홀을 만드는 식각 기술입니다."
+    ],
+    [
+      "CMP",
+      "화학적·기계적 방법으로 표면의 요철을 연마해 웨이퍼의 박막을 평탄화하는 공정입니다."
+    ],
+    [
+      "VFO",
+      "Vertical wire fan-out. 와이어 본딩을 수직으로 연결해 공간을 최소화하고 전력 소모를 줄이는 기술입니다."
+    ],
+    [
+      "오버레이(O/L)",
+      "CMP 공정의 최적 제어 조건을 논의하는 맥락에서 쓰인 공정 제어 항목입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-2",
+    "3-6",
+    "3-10",
+    "4-6"
+  ],
+  "generatedAt": "2026-10-19T14:27:56+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

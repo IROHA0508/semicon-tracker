@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T14:26:38+09:00",
+  "generatedAt": "2026-10-19T14:38:53+09:00",
   "count": 150,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
@@ -2214,7 +2214,8 @@
       "relatedUnits": [
         "3-16",
         "3-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-global-big-tech-ai-partnership-meta",
@@ -2231,7 +2232,8 @@
       "relatedUnits": [
         "5-2",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-global-big-tech-ai-partnership-ms",
@@ -2248,7 +2250,8 @@
       "relatedUnits": [
         "0-4",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-global-big-tech-ai-partnership-broadcom",
@@ -2265,7 +2268,8 @@
       "relatedUnits": [
         "5-2",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-global-big-tech-ai-partnership-nvidia",
@@ -2282,7 +2286,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-59d5098f17",
@@ -2299,7 +2304,8 @@
       "relatedUnits": [
         "2-7",
         "4-9"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-4f58978fe1",
@@ -2316,7 +2322,8 @@
       "relatedUnits": [
         "3-15",
         "4-3"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-4770a91895",
@@ -2331,7 +2338,8 @@
       "relatedUnits": [
         "2-10",
         "4-9"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-6d235e9363",
@@ -2348,7 +2356,8 @@
       "relatedUnits": [
         "0-3",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-sk-hynix-to-establish-ai-solutions-arm-in-us",
@@ -2365,7 +2374,8 @@
       "relatedUnits": [
         "0-4",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-sk-hynix-launches-ai-company-focusing-on-ai-solutions",
@@ -2382,7 +2392,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-sk-hynix-announces-fy25-financial-results",
@@ -2399,7 +2410,8 @@
       "relatedUnits": [
         "5-6",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-q4-2025-earnings-conference-call-invitation",
@@ -2414,7 +2426,8 @@
       "relatedUnits": [
         "5-6",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating",
@@ -2431,7 +2444,8 @@
       "relatedUnits": [
         "2-10",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-48c6128d1a",
@@ -2447,7 +2461,8 @@
       "relatedUnits": [
         "4-7",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-3e8a03ba02",
@@ -2464,7 +2479,8 @@
       "relatedUnits": [
         "2-8",
         "4-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-65ae652d0b",
@@ -2481,7 +2497,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-5c9d1e5725",
@@ -2495,7 +2512,8 @@
       ],
       "relatedUnits": [
         "2-9"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-c23119a1a2",
@@ -2512,7 +2530,8 @@
       "relatedUnits": [
         "4-7",
         "4-3"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-94ab7e1144",
@@ -2527,7 +2546,8 @@
       "relatedUnits": [
         "5-6",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-ad1f050795",
@@ -2542,7 +2562,8 @@
       "relatedUnits": [
         "2-6",
         "2-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-4e6f0a2527",
@@ -2559,7 +2580,8 @@
       "relatedUnits": [
         "0-4",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-d5f0dc6ce1",
@@ -2577,7 +2599,8 @@
       "relatedUnits": [
         "4-7",
         "2-10"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-2026-market-outlook-focus-on-the-hbm-led-memory-supercycle",
@@ -2594,7 +2617,8 @@
       "relatedUnits": [
         "5-3",
         "4-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-29c7865ed3",
@@ -2611,7 +2635,8 @@
       "relatedUnits": [
         "3-16",
         "3-6"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-d2b24031d7",
@@ -2628,7 +2653,8 @@
       "relatedUnits": [
         "0-3",
         "4-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ceo-2026-new-year-message",
@@ -2643,7 +2669,8 @@
       "relatedUnits": [
         "4-7",
         "0-4"
-      ]
+      ],
+      "detail": true
     }
   ]
 }
