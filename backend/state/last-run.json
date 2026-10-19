@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-19T09:08:03+09:00",
+  "startedAt": "2026-10-19T18:48:39+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,189 +41,40 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "samsung-5d0d6d1fd1",
-      "date": "2026-10-19",
-      "source": "samsung-newsroom",
-      "title": "삼성전자, 글로벌 랜드마크에서 SSD 브랜드 캠페인 전개"
-    }
-  ],
-  "queueSize": 1,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-19T09:08:07+09:00",
+  "finishedAt": "2026-10-19T18:48:43+09:00",
   "summary": {
-    "startedAt": "2026-10-19T09:08:07+09:00",
-    "backend": "cli",
+    "startedAt": "2026-10-19T18:48:43+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "samsung-5d0d6d1fd1",
-        "title": "삼성전자, 글로벌 랜드마크에서 SSD 브랜드 캠페인 전개"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-10-19T09:08:14+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
+  },
+  "details": {
+    "limit": 10,
+    "detailed": [],
+    "failed": {},
+    "gaveUp": [],
+    "authError": false,
+    "limitHit": false,
+    "stoppedBy": "nothing to do",
+    "left": 0
   },
   "manifest": {
     "count": 150,
-    "changed": true
-  },
-  "details": {
-    "limit": 40,
-    "detailed": [
-      {
-        "id": "samsung-9d22c5a871",
-        "title": "미래를 설계하는 젊은 과학도들이 모인 현장! 수상자 2인과 함께하는 제32회 삼성휴먼테크논문대상",
-        "figure": false
-      },
-      {
-        "id": "skhynix-global-big-tech-ai-partnership-meta",
-        "title": "최태원 회장, 저커버그와 회동... AI 칩부터 AI 글래스까지 메모리로 협력 확대",
-        "figure": false
-      },
-      {
-        "id": "skhynix-global-big-tech-ai-partnership-ms",
-        "title": "SK 최태원 회장, 시애틀서 MS 나델라 CEO 만나 AI 협력 확대",
-        "figure": false
-      },
-      {
-        "id": "skhynix-global-big-tech-ai-partnership-broadcom",
-        "title": "“AI 칩의 미래를 함께 설계”… 최태원 회장·혹 탄 CEO, ‘원팀’ 선언",
-        "figure": false
-      },
-      {
-        "id": "skhynix-global-big-tech-ai-partnership-nvidia",
-        "title": "SK 최태원 회장, 엔비디아 젠슨 황 CEO와 만나 AI 협력 논의",
-        "figure": false
-      },
-      {
-        "id": "samsung-59d5098f17",
-        "title": "삼성전자, 세계 최초 업계 최고 성능의 HBM4 양산 출하",
-        "figure": false
-      },
-      {
-        "id": "skhynix-4f58978fe1",
-        "title": "SK하이닉스, SEMICON Korea 2026서 AI 기반 R&D 혁신 비전 발표",
-        "figure": false
-      },
-      {
-        "id": "samsung-4770a91895",
-        "title": "이론으로만 알고 있던 D램의 ‘휘발성’, 유튜버 발명킹밥테일과 함께 실험으로 알아보기",
-        "figure": false
-      },
-      {
-        "id": "samsung-6d235e9363",
-        "title": "삼성전자, 2025년 4분기 실적 발표",
-        "figure": false
-      },
-      {
-        "id": "skhynix-sk-hynix-to-establish-ai-solutions-arm-in-us",
-        "title": "SK하이닉스, 미국에 AI 솔루션 전문 법인 설립 추진",
-        "figure": false
-      },
-      {
-        "id": "skhynix-sk-hynix-launches-ai-company-focusing-on-ai-solutions",
-        "title": "SK하이닉스, AI 솔루션 중심 'AI Company' 출범 발표",
-        "figure": false
-      },
-      {
-        "id": "skhynix-sk-hynix-announces-fy25-financial-results",
-        "title": "SK하이닉스, 2025년 매출 97조 1,467억 원·영업이익 47조 206억 원 기록",
-        "figure": false
-      },
-      {
-        "id": "skhynix-q4-2025-earnings-conference-call-invitation",
-        "title": "SK하이닉스, 2025년 4분기 실적 컨퍼런스콜 초청 안내",
-        "figure": false
-      },
-      {
-        "id": "skhynix-sk-hynix-lpddr5x-earns-top-automotive-memory-safety-rating",
-        "title": "SK하이닉스 LPDDR5X, 차량용 메모리 최고 안전 등급 ASIL-D 인증 획득",
-        "figure": false
-      },
-      {
-        "id": "samsung-48c6128d1a",
-        "title": "[CES 2026 혁신상 수상작] T7 Resurrected: 100% 재활용 알루미늄 외장 케이스를 적용한 자원 선순환 포터블 SSD",
-        "figure": false
-      },
-      {
-        "id": "samsung-3e8a03ba02",
-        "title": "[CES 2026 혁신상 수상작] Detachable AutoSSD: 업계 최초의 탈부착 가능한 최고 성능의 차량용 SSD",
-        "figure": false
-      },
-      {
-        "id": "samsung-65ae652d0b",
-        "title": "[CES 2026 혁신상 수상작] PM9E1 M.2 22×42: 초소형·고성능의 AI 최적화 PCIe Gen5 NVMe SSD",
-        "figure": false
-      },
-      {
-        "id": "samsung-5c9d1e5725",
-        "title": "[CES 2026 혁신상 수상작] 아이소셀 HP5: 더 많은 빛을 담은 0.5㎛픽셀 이미지 센서",
-        "figure": false
-      },
-      {
-        "id": "samsung-c23119a1a2",
-        "title": "[CES 2026 혁신상 수상작] LPDDR6: 고성능 온디바이스 AI에 최적화된 세계 최초의 차세대 저전력 DRAM",
-        "figure": false
-      },
-      {
-        "id": "samsung-94ab7e1144",
-        "title": "삼성전자, 2025년 4분기 잠정실적 발표",
-        "figure": false
-      },
-      {
-        "id": "samsung-ad1f050795",
-        "title": "[CES 2026 혁신상 수상작] S3SSE2A: 양자 보안의 미래를 여는 하드웨어 PQC",
-        "figure": false
-      },
-      {
-        "id": "skhynix-4e6f0a2527",
-        "title": "SK하이닉스 곽노정 CEO, CES 2026 현장에서 AI 메모리 협력 방안 모색",
-        "figure": false
-      },
-      {
-        "id": "skhynix-d5f0dc6ce1",
-        "title": "SK하이닉스, CES 2026에서 16단 48GB HBM4 첫 공개",
-        "figure": false
-      },
-      {
-        "id": "skhynix-2026-market-outlook-focus-on-the-hbm-led-memory-supercycle",
-        "title": "2026 시장 전망: HBM이 이끄는 메모리 슈퍼사이클에 주목",
-        "figure": false
-      },
-      {
-        "id": "samsung-29c7865ed3",
-        "title": "삼성, ‘2026 삼성 명장’ 선정",
-        "figure": false
-      },
-      {
-        "id": "samsung-d2b24031d7",
-        "title": "삼성전자 2026년 신년사",
-        "figure": false
-      },
-      {
-        "id": "skhynix-ceo-2026-new-year-message",
-        "title": "SK하이닉스 곽노정 CEO, 2026년 신년사 발표",
-        "figure": false
-      }
-    ],
-    "failed": {},
-    "gaveUp": [],
-    "authError": false,
-    "limitHit": false,
-    "stoppedBy": "all done",
-    "left": 0
+    "changed": false
   }
 }
