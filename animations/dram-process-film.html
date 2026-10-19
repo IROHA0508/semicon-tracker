@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D램 공정 흐름 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-15</span><span>D램 공정 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>D램 공정 흐름: 땅속에서 하늘까지 (약 2분 영상)</h1>
+    <p class="lead">활성영역 → 매립 워드라인 → 비트라인 → 스토리지 노드 콘택 → 커패시터 → 주변회로·배선 순서로, 셀 단면이 아래에서 위로 쌓이는 모습을 자막과 함께 이어서 봅니다. 소리는 없고, 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="D램 공정 흐름 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="D램 셀 단면이 활성영역, 매립 워드라인, 비트라인, 스토리지 노드 콘택, 커패시터, 배선 순서로 아래에서 위로 쌓이는 영상">
+        <defs>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <clipPath id="ins-clip"><rect x="704" y="434" width="512" height="150"></rect></clipPath>
+          <clipPath id="rv-clip"><rect id="rv" x="0" y="600" width="760" height="30"></rect></clipPath>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+
+        <!-- ===== Opening title ===== -->
+        <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">3-15 · D램 공정</text>
+          <text x="640" y="244" text-anchor="middle" style="font-size:54px;font-weight:700">D램 셀은 어떻게</text>
+          <text x="640" y="316" text-anchor="middle" style="font-size:54px;font-weight:700">만들어질까?</text>
+          <text x="640" y="382" text-anchor="middle" class="lbl" style="font-size:30px">땅속 수도관 · 그 위의 도로 · 그 위의 고층 물탱크</text>
+        </g>
+
+        <!-- ===== Cell cross-section (inner units of the A-A' cut; screen x = 20 + .92 x, y = 84 + .92 y) ===== -->
+        <g id="cell" transform="translate(20,84) scale(.92)">
+          <g id="g-base">
+            <rect class="si" x="40" y="330" width="660" height="170"></rect>
+          </g>
+          <g id="g-build" clip-path="url(#rv-clip)">
+            <!-- 1. active region and STI -->
+            <rect id="hm" class="nit" x="130" y="318" width="500" height="12"></rect>
+            <rect id="stv-l" class="voidr" x="40" y="330" width="90" height="0"></rect>
+            <rect id="stv-r" class="voidr" x="630" y="330" width="70" height="0"></rect>
+            <rect id="sto-l" class="ox" x="40" y="430" width="90" height="0"></rect>
+            <rect id="sto-r" class="ox" x="630" y="430" width="70" height="0"></rect>
+            <!-- 2. buried word line and junctions -->
+            <rect id="j-l" class="inter" x="130" y="330" width="120" height="20"></rect>
+            <rect id="j-m" class="inter" x="290" y="330" width="180" height="20"></rect>
+            <rect id="j-r" class="inter" x="510" y="330" width="120" height="20"></rect>
+            <rect id="wv-l" class="voidr" x="250" y="330" width="40" height="0"></rect>
+            <rect id="wv-r" class="voidr" x="470" y="330" width="40" height="0"></rect>
+            <path id="wl-l" class="liner" d="M252,331 V408 H288 V331"></path>
+            <path id="wl-r" class="liner" d="M472,331 V408 H508 V331"></path>
+            <rect id="wm-l" class="w" x="257" y="406" width="26" height="0"></rect>
+            <rect id="wm-r" class="w" x="477" y="406" width="26" height="0"></rect>
+            <rect id="wc-l" class="nit" x="257" y="372" width="26" height="0"></rect>
+            <rect id="wc-r" class="nit" x="477" y="372" width="26" height="0"></rect>
+            <path id="ch-l" class="chan" d="M244,338 V416 H296 V338"></path>
+            <path id="ch-r" class="chan" d="M464,338 V416 H516 V338"></path>
+            <g id="implant">
+              <line class="imp" x1="150" y1="262" x2="150" y2="318" marker-end="url(#arr-b)"></line>
+              <line class="imp" x1="210" y1="262" x2="210" y2="318" marker-end="url(#arr-b)"></line>
+              <line class="imp" x1="330" y1="262" x2="330" y2="318" marker-end="url(#arr-b)"></line>
+              <line class="imp" x1="380" y1="262" x2="380" y2="318" marker-end="url(#arr-b)"></line>
+              <line class="imp" x1="430" y1="262" x2="430" y2="318" marker-end="url(#arr-b)"></line>
+              <line class="imp" x1="550" y1="262" x2="550" y2="318" marker-end="url(#arr-b)"></line>
+              <line class="imp" x1="610" y1="262" x2="610" y2="318" marker-end="url(#arr-b)"></line>
+            </g>
+            <!-- 3. bit line -->
+            <rect id="ild1" class="ox" x="40" y="330" width="660" height="0"></rect>
+            <rect id="ild2" class="ox" x="40" y="300" width="660" height="0"></rect>
+            <rect id="blc" class="poly" x="362" y="330" width="36" height="0"></rect>
+            <rect id="blm" class="w" x="345" y="300" width="70" height="0"></rect>
+            <rect id="blcap" class="nit" x="345" y="262" width="70" height="0"></rect>
+            <g id="sp-l"><rect class="nit" x="333" y="240" width="12" height="60"></rect><rect id="air-l" class="air" x="336" y="246" width="6" height="50"></rect></g>
+            <g id="sp-r"><rect class="nit" x="415" y="240" width="12" height="60"></rect><rect id="air-r" class="air" x="418" y="246" width="6" height="50"></rect></g>
+            <!-- 4. storage node contact and landing pad -->
+            <rect id="snc-l" class="poly" x="165" y="330" width="30" height="0"></rect>
+            <rect id="snc-r" class="poly" x="565" y="330" width="30" height="0"></rect>
+            <rect id="lp-l" class="w" x="150" y="230" width="60" height="0"></rect>
+            <rect id="lp-r" class="w" x="550" y="230" width="60" height="0"></rect>
+            <!-- 5. capacitor -->
+            <rect id="mold" class="ox" x="40" y="214" width="660" height="0"></rect>
+            <rect id="plate" class="plate" x="40" y="214" width="660" height="0"></rect>
+            <rect id="sup-m" class="nit" x="40" y="136" width="660" height="10"></rect>
+            <rect id="sup-t" class="nit" x="40" y="60" width="660" height="10"></rect>
+            <rect id="hole-l" class="voidr" x="158" y="60" width="44" height="0"></rect>
+            <rect id="hole-r" class="voidr" x="558" y="60" width="44" height="0"></rect>
+            <rect id="hole-b" class="voidr voidbad" x="358" y="60" width="44" height="0"></rect>
+            <path id="hko-l" class="l-hk" d="M154,58 V216 H206 V58"></path>
+            <path id="hko-r" class="l-hk" d="M554,58 V216 H606 V58"></path>
+            <path id="tin-l" class="l-tin" d="M160,60 V212 H200 V60"></path>
+            <path id="tin-r" class="l-tin" d="M560,60 V212 H600 V60"></path>
+            <path id="hki-l" class="l-hk" d="M166,60 V207 H194 V60"></path>
+            <path id="hki-r" class="l-hk" d="M566,60 V207 H594 V60"></path>
+            <!-- 6. interlayer and metal -->
+            <rect id="ild3" class="ox" x="40" y="40" width="660" height="0"></rect>
+            <g id="metal">
+              <rect class="cu" x="70" y="8" width="80" height="14"></rect>
+              <rect class="cu" x="300" y="8" width="120" height="14"></rect>
+              <rect class="w" x="354" y="22" width="12" height="18"></rect>
+              <rect class="cu" x="560" y="8" width="90" height="14"></rect>
+            </g>
+            <!-- annotations drawn on the cell -->
+            <g id="g-dim">
+              <line class="dim" x1="138" y1="60" x2="138" y2="214"></line>
+              <line class="dim" x1="130" y1="60" x2="146" y2="60"></line>
+              <line class="dim" x1="130" y1="214" x2="146" y2="214"></line>
+              <line class="dim" x1="158" y1="50" x2="202" y2="50"></line>
+              <line class="dim" x1="158" y1="43" x2="158" y2="57"></line>
+              <line class="dim" x1="202" y1="43" x2="202" y2="57"></line>
+            </g>
+            <g id="g-badx" class="xmark"><line x1="368" y1="138" x2="392" y2="162"></line><line x1="392" y1="138" x2="368" y2="162"></line></g>
+            <rect id="hl-ul" class="hlr" x="238" y="330" width="64" height="92" rx="4"></rect>
+            <rect id="hl-ur" class="hlr" x="458" y="330" width="64" height="92" rx="4"></rect>
+            <rect id="hl-spl" class="hlr" x="328" y="236" width="22" height="68" rx="3"></rect>
+            <rect id="hl-spr" class="hlr" x="410" y="236" width="22" height="68" rx="3"></rect>
+            <rect id="hl-hole-l" class="hlr" x="150" y="54" width="60" height="166" rx="4"></rect>
+            <rect id="hl-hole-r" class="hlr" x="550" y="54" width="60" height="166" rx="4"></rect>
+            <rect id="hl-supm" class="hlr" x="34" y="131" width="672" height="20" rx="3"></rect>
+            <rect id="hl-supt" class="hlr" x="34" y="55" width="672" height="20" rx="3"></rect>
+            <rect id="hl-cyl-l" class="hlr" x="146" y="50" width="68" height="172" rx="4"></rect>
+            <rect id="hl-cyl-r" class="hlr" x="546" y="50" width="68" height="172" rx="4"></rect>
+            <g id="mk1" class="mk"><circle cx="545" cy="392" r="15"></circle><text x="545" y="399" text-anchor="middle">1</text></g>
+            <g id="mk2" class="mk"><circle cx="446" cy="270" r="15"></circle><text x="446" y="277" text-anchor="middle">2</text></g>
+            <g id="mk3" class="mk"><circle cx="232" cy="150" r="15"></circle><text x="232" y="157" text-anchor="middle">3</text></g>
+          </g>
+        </g>
+        <g id="g-labels"></g>
+
+        <!-- ===== Scene 1: analogy cards (right) ===== -->
+        <g id="g-city">
+          <g id="city-2">
+            <line class="lead-l" x1="668" y1="200" x2="700" y2="200"></line>
+            <rect class="card" x="700" y="148" width="520" height="104" rx="12"></rect>
+            <text x="724" y="192" class="acc-t" style="font-size:30px">고층 물탱크</text>
+            <text x="936" y="192" style="font-size:24px;font-weight:700">= 커패시터</text>
+            <text x="724" y="228" class="lbl" style="font-size:21px">전하를 담아 0과 1을 저장합니다.</text>
+          </g>
+          <g id="city-1">
+            <line class="lead-l" x1="668" y1="332" x2="700" y2="332"></line>
+            <rect class="card" x="700" y="280" width="520" height="104" rx="12"></rect>
+            <text x="724" y="324" class="acc-t" style="font-size:30px">도로</text>
+            <text x="936" y="324" style="font-size:24px;font-weight:700">= 비트라인</text>
+            <text x="724" y="360" class="lbl" style="font-size:21px">데이터가 오가는 길입니다.</text>
+          </g>
+          <g id="city-0">
+            <line class="lead-l" x1="668" y1="440" x2="700" y2="454"></line>
+            <rect class="card" x="700" y="400" width="520" height="104" rx="12"></rect>
+            <text x="724" y="444" class="acc-t" style="font-size:30px">땅속 수도관</text>
+            <text x="936" y="444" style="font-size:24px;font-weight:700">= 매립 워드라인</text>
+            <text x="724" y="480" class="lbl" style="font-size:21px">셀을 열고 닫는 문 역할입니다.</text>
+          </g>
+          <text id="city-note" x="700" y="556" class="lbl" style="font-size:22px">땅이 좁아질수록 물탱크는 더 높고 가늘게.</text>
+        </g>
+
+        <!-- ===== Scenes 2-6: step list and top view (right) ===== -->
+        <g id="g-rows"></g>
+        <g id="g-ins-frame"><rect class="card" x="700" y="398" width="520" height="192" rx="12"></rect></g>
+        <g id="g-ins-top">
+          <text x="718" y="426" class="lbl-s">위에서 본 배치(개념)</text>
+          <text id="ins-note" x="1204" y="426" text-anchor="end" class="lbl-s acc-t"></text>
+          <g clip-path="url(#ins-clip)">
+            <g id="ins-act" class="ins-act"></g>
+            <g id="ins-wl" class="ins-wl"></g>
+            <g id="ins-bl" class="ins-bl"></g>
+            <g id="ins-sn" class="ins-sn"></g>
+            <g id="ins-cut"><line class="cut" x1="780.4" y1="534.5" x2="891.6" y2="489.5"></line></g>
+          </g>
+          <text id="ins-a" x="764" y="552" class="mono acc-t" style="font-size:20px">A</text>
+          <text id="ins-a2" x="896" y="486" class="mono acc-t" style="font-size:20px">A′</text>
+        </g>
+        <g id="g-per">
+          <text x="718" y="426" class="lbl-s">주변 회로(같은 웨이퍼의 셀 바깥)</text>
+          <text x="718" y="452" class="lbl-s">감지 증폭기 · 행·열 디코더 · 입출력 회로</text>
+          <rect class="si" x="716" y="530" width="488" height="56"></rect>
+          <rect class="ox" x="716" y="530" width="34" height="34"></rect>
+          <rect class="ox" x="1170" y="530" width="34" height="34"></rect>
+          <rect class="inter" x="790" y="530" width="82" height="14"></rect>
+          <rect class="inter" x="1048" y="530" width="82" height="14"></rect>
+          <rect class="nit" x="872" y="496" width="10" height="34"></rect>
+          <rect class="nit" x="1038" y="496" width="10" height="34"></rect>
+          <rect class="w" x="882" y="496" width="156" height="30"></rect>
+          <rect class="hk" x="882" y="526" width="156" height="5"></rect>
+          <text x="960" y="486" text-anchor="middle" style="font-size:24px;font-weight:700">HKMG 트랜지스터</text>
+          <text x="1062" y="498" class="lbl-s">금속 게이트</text>
+          <text x="1062" y="527" class="lbl-s">고유전막(high-k)</text>
+        </g>
+
+        <!-- ===== Closing cards ===== -->
+        <g id="g-sum"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 두께와 폭의 비율은 실제와 다르고, 실제 공정은 이보다 훨씬 많은 단계(세정, 계측, 열처리 등)를 거칩니다. 단계 순서와 재료는 회사와 세대마다 조금씩 다릅니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>큰 흐름은 <b>활성영역·STI → 매립 워드라인(+ 이온 주입) → 비트라인 → 스토리지 노드 콘택·랜딩 패드 → 커패시터 → 주변회로·배선</b>입니다. 아래에서 위로, 트랜지스터를 먼저 만들고 커패시터를 그 위에 세웁니다.</li>
+      <li>매립 워드라인은 채널이 홈을 따라 U자로 길어져 <b>누설</b>을 줄이고, 에어갭 스페이서는 비트라인 용량 <b>Cb</b>를, 높은 실린더와 high-k는 셀 용량 <b>Cs</b>를 정합니다. 감지 신호는 Cs ÷ (Cs + Cb)에 비례합니다.</li>
+      <li>커패시터 구멍이 덜 뚫리면(Not Open) 그 셀은 동작하지 않고, 실린더가 쓰러져 붙으면 이웃 셀과 단락됩니다. 서포터가 이를 막아 줍니다.</li>
+    </ul>
+    <p class="foot">원고 3-15를 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보고 싶으면 <a href="dram-process.html">단계별 애니메이션(dram-process)</a>을 보세요.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "큰 그림"], [20, "활성영역"], [33, "워드라인"], [52, "비트라인"], [72, "커패시터"], [100, "마무리"],
+  ];
+  const TITLES = [
+    [6, "큰 그림: 땅속에서 위로 쌓는다"], [20, "① 활성영역과 STI"], [33, "② 매립 워드라인"], [52, "③ 비트라인"],
+    [64.5, "④ 스토리지 노드 콘택"], [72, "⑤ 커패시터: 높고 가늘게"], [100, "⑥ 주변 회로와 배선"], [106.4, "정리: 공정이 성능으로"],
+  ];
+  const SUBS = [
+    [0, 3, "D램 셀은 어떻게 만들어질까요? <b>땅속에서 하늘 쪽으로</b> 쌓아 올립니다."],
+    [3, 6, "활성영역에서 커패시터까지, 공정 순서를 2분 안에 따라갑니다."],
+    [6, 10.5, "완성된 셀을 옆에서 자른 모습입니다. 아래부터 <b>수도관</b>, <b>도로</b>, 고층 <b>물탱크</b> 순서로 쌓입니다."],
+    [10.5, 14, "땅이 좁아질수록 물탱크는 <b>더 높고 가늘게</b> 세워야 해서, 쓰러지지 않게 <b>받침대</b>로 붙잡습니다."],
+    [14, 17.5, "공정은 여섯 단계입니다. 활성영역 → 워드라인 → 비트라인 → 노드 콘택 → 커패시터 → 주변회로."],
+    [17.5, 20, "이제 맨 실리콘 웨이퍼에서 하나씩 쌓아 봅니다."],
+    [20, 23.5, "<b>① 활성영역</b> 트랜지스터가 놓일 실리콘 섬을 새깁니다. 위에서 보면 비스듬히 누운 막대입니다."],
+    [23.5, 27.2, "하드마스크를 씌우고 둘레를 깊게 <b>식각</b>합니다. 선폭이 작아 EUV나 멀티 패터닝을 씁니다."],
+    [27.2, 30.4, "파낸 홈을 <b>산화막</b>으로 채우고 CMP로 평평하게 갈아냅니다."],
+    [30.4, 33, "이렇게 묻힌 산화막이 이웃 셀을 떼어 놓는 <b>STI</b>, 소자 분리입니다."],
+    [33, 36.2, "<b>② 매립 워드라인</b> 활성영역을 가로지르는 좁고 깊은 홈을 팝니다."],
+    [36.2, 40.2, "홈 안쪽에 <b>게이트 산화막</b>을 입히고 금속(TiN·W)으로 채웁니다."],
+    [40.2, 43.6, "금속을 깎아 내리고 <b>질화막 뚜껑</b>을 덮어, 게이트를 땅속에 묻습니다."],
+    [43.6, 47.6, "전류는 홈을 따라 <b>U자</b>로 돌아가 채널이 길어지고, 셀을 줄여도 <b>누설</b>을 막을 수 있습니다."],
+    [47.6, 52, "이어서 <b>이온 주입</b>으로 n+ 접합을 만듭니다. 커패시터 쪽 접합의 누설이 <b>리텐션</b>을 좌우합니다."],
+    [52, 56, "<b>③ 비트라인</b> 절연막을 덮고, 가운데 접합 위에 <b>비트라인 콘택</b>을 뚫어 채웁니다."],
+    [56, 60.2, "그 위에 텅스텐 <b>비트라인</b>과 질화막 뚜껑을 만들고, 옆벽에 스페이서를 입힙니다."],
+    [60.2, 64.5, "스페이서 속 <b>에어갭</b>: 공기는 유전율이 가장 낮아 비트라인 용량 <b>Cb</b>가 줄고 감지 여유가 커집니다."],
+    [64.5, 68, "<b>④ 스토리지 노드 콘택</b> 비트라인 사이 좁은 틈으로 양 끝 접합까지 기둥을 세웁니다."],
+    [68, 72, "그 위에 넓은 <b>랜딩 패드</b>를 얹어, 커패시터가 정확히 앉을 자리를 만듭니다."],
+    [72, 77.4, "<b>⑤ 커패시터</b> 높이만큼 두꺼운 산화막, <b>몰드</b>를 쌓고 중간에 질화막 <b>서포터</b>를 끼웁니다."],
+    [77.4, 82.2, "플라즈마로 몰드를 뚫어 깊은 구멍을 냅니다. 폭의 수십 배 깊이, 종횡비 <b>수십 : 1</b>입니다."],
+    [82.2, 87.4, "구멍이 덜 뚫리면(Not Open) 그 셀은 동작하지 않습니다. D램에서 가장 어려운 식각입니다."],
+    [87.4, 91.2, "구멍 안벽에 <b>TiN</b>을 원자층 단위로 얇게 입혀 컵 모양 하부 전극을 만듭니다."],
+    [91.2, 95, "약액으로 몰드만 녹여 내면 속이 빈 <b>실린더</b>가 남습니다. 서포터가 쓰러지지 않게 잡아 줍니다."],
+    [95, 100, "실린더 안팎에 <b>고유전막</b>을 입히고 상부 전극으로 덮으면 커패시터 <b>Cs</b>가 완성됩니다."],
+    [100, 104.2, "<b>⑥ 주변 회로</b> 셀 바깥에 감지 증폭기와 디코더를 만듭니다. 빠르게 동작하도록 <b>HKMG</b>를 쓰기도 합니다."],
+    [104.2, 106.4, "마지막으로 금속 <b>배선</b>을 쌓아 셀과 주변 회로를 연결합니다."],
+    [106.4, 109.6, "공정이 성능으로 이어지는 세 곳입니다. <b>① 누설</b> U자 채널과 n+ 접합이 리텐션을 정합니다."],
+    [109.6, 112.2, "<b>② Cb</b> 에어갭이 비트라인 용량을 줄입니다."],
+    [112.2, 114.6, "<b>③ Cs</b> 높은 실린더와 high-k가 셀 용량을 키웁니다."],
+    [114.6, 117, "면접에서는 각 단계가 <b>누설, Cb, Cs</b> 중 무엇과 이어지는지 덧붙이세요."],
+  ];
+
+  // ---------- tracks (all functions of the film time t, in seconds) ----------
+  // Scene 1 shows the finished cell: every "kept" part is forced to its final state in that window (ALL).
+  const ALL = (t) => (t >= 6.2 && t < 19.9 ? 1 : 0);
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gBase = K([[5.8, 0], [6.6, 1]]);
+  const gBuild = K([[6, 0], [6.2, 1], [19.2, 1], [19.9, 0], [20.1, 0], [20.3, 1]]);
+  const rvY = K([[6.4, 600], [10.6, -30]]);
+  const cityV = (i) => K([[7.4 + i * 1.6, 0], [8.2 + i * 1.6, 1], [13.4, 1], [14.1, 0]]);
+  const cityNote = K([[11, 0], [11.8, 1], [13.4, 1], [14.1, 0]]);
+
+  const gRows = K([[14, 0], [14.6, 1], [105.6, 1], [106.3, 0]]);
+  const rowIn = (i) => K([[14.2 + i * 0.45, 0], [14.8 + i * 0.45, 1]]);
+  const ROWS = [["① 활성영역·STI", "섬을 새기고 분리"], ["② 매립 워드라인", "홈 속에 게이트"], ["③ 비트라인", "콘택·에어갭"], ["④ 노드 콘택·패드", "커패시터로 가는 길"], ["⑤ 커패시터", "쌓고 뚫고 세우기"], ["⑥ 주변회로·배선", "회로와 금속선"]];
+  const ROW_T = [20.4, 33.2, 52.2, 64.6, 72.2, 100.2];
+  const insFrame = K([[20.2, 0], [20.9, 1], [105.6, 1], [106.3, 0]]);
+  const insTop = K([[20.4, 0], [21, 1], [99.6, 1], [100.3, 0]]);
+  const gPer = K([[100.4, 0], [101.2, 1], [105.6, 1], [106.3, 0]]);
+  const insAct = K([[21.6, 0], [22.4, 1]]), insWl = K([[34.6, 0], [35.4, 1]]), insBl = K([[53, 0], [53.8, 1]]), insSn = K([[66, 0], [66.8, 1]]);
+
+  // 1. active region and STI
+  const hmOp = K([[20.6, 0], [21.4, 1], [29.8, 1], [30.6, 0]]);
+  const cmp = K([[29.8, 0], [30.6, 1]]);
+  const stEtch = K([[23.6, 0], [26.4, 1]]);
+  const stTop = K([[27.4, 430], [29.4, 318], [29.8, 318], [30.6, 330]]);
+  // 2. buried word line, junctions
+  const wEtch = K([[34.4, 0], [36.4, 1]]);
+  const liner0 = K([[36.6, 0], [37.4, 1]]);
+  const wmTop = K([[37.6, 406], [39.6, 331], [40.4, 331], [41.8, 372]]);
+  const wc0 = K([[41.8, 0], [43.2, 1]]);
+  const chA = K([[43.8, 0], [44.6, 1], [48, 1], [48.8, 0]]), chB = K([[106.4, 0], [107.1, 1]]);
+  const impOp = K([[47.8, 0], [48.4, 1], [51, 1], [51.6, 0]]);
+  const jOp = K([[48.8, 0], [50, 1]]);
+  // 3. bit line
+  const ild1T = K([[52.4, 0], [53.8, 1]]), blcT = K([[54.2, 0], [55.4, 1]]), blmT = K([[56.2, 0], [57.4, 1]]), blcapT = K([[57.5, 0], [58.5, 1]]);
+  const spOp = K([[58.8, 0], [59.8, 1]]), airOp = K([[60.4, 0], [61.4, 1]]);
+  // 4. storage node contact, landing pad
+  const ild2T = K([[64.8, 0], [66, 1]]), sncT = K([[66, 0], [68, 1]]), lpT = K([[68.4, 0], [69.6, 1]]);
+  // 5. capacitor
+  const moldP = K([[72.4, 0], [75.2, 1]]), moldRem = K([[91.2, 0], [94.4, 1]]);
+  const supOp = K([[75.4, 0], [76.4, 1]]);
+  const holeEtch = K([[77.8, 0], [82, 1]]);
+  const holeV = K([[77.6, 0], [78, 1], [94.4, 1], [95, 0]]);
+  const holeStroke = K([[87.4, 1], [88.6, 0]]);
+  const badEtch = K([[82.4, 0], [84.6, 1]]), badV = K([[82.2, 0], [82.6, 1], [86.4, 1], [87.2, 0]]), badX = K([[84.8, 0], [85.4, 1], [86.4, 1], [87.2, 0]]);
+  const dimV = K([[78.2, 0], [78.8, 1], [82.6, 1], [83.2, 0]]);
+  const tinOp = K([[87.6, 0], [89, 1]]);
+  const hkOp = K([[95.2, 0], [96.4, 1]]);
+  const plateT = K([[96.8, 0], [99.2, 1]]);
+  // 6. interlayer and metal, then summary
+  const ild3T = K([[104.2, 0], [105.4, 1]]), metalOp = K([[105, 0], [106, 1]]);
+  const SUM_T = [106.6, 109.7, 112.3];
+  const sumV = (i) => K([[SUM_T[i], 0], [SUM_T[i] + 0.8, 1]]);
+  const sumF = K([[113.4, 0], [114.2, 1]]);
+
+  // callouts on the cell: [from, to, x, y (cell units), anchor, text, class]
+  const LABELS = [
+    [6.6, 999, 60, 488, "start", "실리콘 기판(p형)", "lbl-s"],
+    [6.6, 999, 44, 514, "start", "A", "lbl-s mono"],
+    [6.6, 999, 696, 514, "end", "A′", "lbl-s mono"],
+    [20.6, 24.6, 380, 310, "middle", "하드마스크(질화막)", "lbl-c"],
+    [24.4, 33, 380, 398, "middle", "활성 영역(트랜지스터가 놓일 섬)", "lbl-c"],
+    [24.8, 27.6, 85, 384, "middle", "홈", "lbl-c"],
+    [28.2, 33, 85, 384, "middle", "STI", "lbl-c"],
+    [34.4, 41, 270, 448, "middle", "매립 워드라인", "lbl-c"],
+    [37.4, 41.2, 270, 314, "middle", "게이트 금속", "lbl-c"],
+    [41.6, 44.8, 270, 314, "middle", "질화막 뚜껑", "lbl-c"],
+    [43.8, 48, 490, 448, "middle", "채널: 홈을 따라 U자", "lbl-c acc-t"],
+    [47.8, 52, 380, 384, "middle", "n+ 접합", "lbl-c"],
+    [47.8, 52, 380, 410, "middle", "소스·드레인", "lbl-c"],
+    [47.8, 51.4, 380, 248, "middle", "n형 불순물(인·비소) 이온", "lbl-c"],
+    [52.4, 56.4, 60, 320, "start", "절연막", "lbl-c"],
+    [54.4, 58, 410, 322, "start", "비트라인 콘택", "lbl-c"],
+    [56.2, 60.4, 432, 284, "start", "텅스텐 비트라인", "lbl-c"],
+    [60.4, 64.6, 432, 252, "start", "에어갭", "lbl-c acc-t"],
+    [64.8, 68.6, 152, 262, "end", "스토리지", "lbl-c"],
+    [64.8, 68.6, 152, 288, "end", "노드 콘택", "lbl-c"],
+    [68.4, 72, 216, 224, "start", "랜딩 패드", "lbl-c"],
+    [72.8, 77.4, 380, 196, "middle", "몰드 산화막(거푸집)", "lbl-c"],
+    [75.8, 77.6, 380, 126, "middle", "서포터(질화막)", "lbl-c"],
+    [77.8, 82.4, 380, 196, "middle", "깊은 구멍: 종횡비 수십 : 1", "lbl-c acc-t"],
+    [78.4, 83, 180, 36, "middle", "폭 수십 nm", "lbl-c"],
+    [78.4, 83, 100, 128, "middle", "깊이는", "lbl-c"],
+    [78.4, 83, 100, 154, "middle", "수십 배", "lbl-c"],
+    [84.2, 87.2, 412, 96, "start", "덜 뚫림", "lbl-c bad-t"],
+    [84.2, 87.2, 412, 122, "start", "(Not Open)", "lbl-c bad-t"],
+    [84.2, 87.2, 412, 148, "start", "→ 셀 불량", "lbl-c bad-t"],
+    [87.6, 91.2, 214, 106, "start", "하부 전극(TiN)", "lbl-c"],
+    [93.6, 95.4, 380, 196, "middle", "몰드를 녹여 낸 빈 공간", "lbl-c acc-t"],
+    [95.4, 97.6, 214, 106, "start", "고유전막(high-k)", "lbl-c"],
+    [97.8, 100.4, 380, 196, "middle", "상부 전극(플레이트)", "lbl-c"],
+    [104.8, 106.4, 430, 17, "start", "금속 배선", "lbl-c"],
+  ];
+
+  const HL = [
+    [60.4, 64.6, "hl-spl"], [60.4, 64.6, "hl-spr"],
+    [78, 82.2, "hl-hole-l"], [78, 82.2, "hl-hole-r"],
+    [91.4, 94.6, "hl-supm"], [91.4, 94.6, "hl-supt"],
+    [95.4, 99.6, "hl-cyl-l"], [95.4, 99.6, "hl-cyl-r"],
+    [106.6, 109.6, "hl-ul"], [106.6, 109.6, "hl-ur"],
+    [109.7, 112.2, "hl-spl"], [109.7, 112.2, "hl-spr"],
+    [112.3, 116.9, "hl-cyl-l"], [112.3, 116.9, "hl-cyl-r"],
+  ];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  const px = (x) => 20 + 0.92 * x, py = (y) => 84 + 0.92 * y;
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${px(L[2]).toFixed(1)}" y="${py(L[3]).toFixed(1)}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+
+  s = ""; ROWS.forEach((r, i) => {
+    const y = 104 + i * 47;
+    s += `<g id="row${i}" class="row" data-s="idle"><rect x="700" y="${y}" width="520" height="41" rx="10"></rect>`
+      + `<text x="722" y="${y + 27}" style="font-size:21px;font-weight:700">${r[0]}</text>`
+      + `<text x="960" y="${y + 26}" class="lbl-s">${r[1]}</text>`
+      + `<text id="rowck${i}" x="1184" y="${y + 28}" class="ok-t" style="font-size:24px">✓</text></g>`;
+  });
+  $("g-rows").innerHTML = s;
+
+  // top view: staggered slanted active regions, word lines (vertical), bit lines (horizontal), storage nodes
+  const NS = "http://www.w3.org/2000/svg";
+  const mkn = (parent, tag, attrs) => { const n = document.createElementNS(NS, tag); Object.keys(attrs).forEach((k) => n.setAttribute(k, attrs[k])); $(parent).appendChild(n); };
+  const centers = [];
+  [464, 512, 560].forEach((y, ri) => { for (let i = 0; i < 6; i++) centers.push([(ri % 2 === 0 ? 756 : 796) + 80 * i, y]); });
+  centers.forEach(([x, y]) => {
+    mkn("ins-act", "rect", { x: x - 40, y: y - 7, width: 80, height: 14, rx: 7, transform: `rotate(-22 ${x} ${y})`, class: x === 836 && y === 512 ? "main" : "" });
+    mkn("ins-sn", "circle", { cx: (x + 30.6).toFixed(1), cy: (y - 12.4).toFixed(1), r: 7 });
+    mkn("ins-sn", "circle", { cx: (x - 30.6).toFixed(1), cy: (y + 12.4).toFixed(1), r: 7 });
+  });
+  for (let k = 0; k < 12; k++) mkn("ins-wl", "rect", { x: 736 + 40 * k - 3.5, y: 434, width: 7, height: 152 });
+  [464, 512, 560].forEach((y) => mkn("ins-bl", "rect", { x: 704, y: y - 3, width: 512, height: 6 }));
+
+  // closing cards
+  (function () {
+    const cards = [
+      { h: "누설", l1: "매립 워드라인의 U자 채널 · n+ 접합", l2: "→ 리텐션·리프레시와 직결" },
+      { h: "Cb · 비트라인 용량", l1: "에어갭 스페이서로 줄인다", l2: "→ 감지 마진이 커진다" },
+      { h: "Cs · 셀 용량", l1: "높은 실린더 + high-k로 키운다", l2: "→ 감지 마진·리텐션이 좋아진다" },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const y = 112 + i * 150;
+      o += `<g id="sum-${i}"><rect class="card" x="700" y="${y}" width="520" height="130" rx="14"></rect>`
+        + `<g class="mk"><circle cx="748" cy="${y + 65}" r="24"></circle><text x="748" y="${y + 74}" text-anchor="middle" style="font-size:26px">${i + 1}</text></g>`
+        + `<text x="796" y="${y + 48}" class="acc-t" style="font-size:28px">${c.h}</text>`
+        + `<text x="796" y="${y + 84}" style="font-size:22px;font-weight:700">${c.l1}</text>`
+        + `<text x="796" y="${y + 114}" class="lbl" style="font-size:20px">${c.l2}</text></g>`;
+    });
+    o += `<text id="sum-f" x="960" y="584" text-anchor="middle" class="mono acc-t" style="font-size:28px">ΔV ∝ Cs ÷ (Cs + Cb)</text>`;
+    $("g-sum").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const up = (id, bottom, full, p) => { const h = full * p; setAttr(id, "y", (bottom - h).toFixed(1)); setAttr(id, "height", h.toFixed(1)); };
+  const each = (name, fn) => { fn(name + "-l"); fn(name + "-r"); };
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+
+  // ---------- render ----------
+  let hlOn = new Set();
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+
+    op("g-title", gTitle(t));
+    const A = ALL(t), pp = (f) => Math.max(f(t), A);
+    op("g-base", gBase(t)); op("g-build", gBuild(t));
+    const ry = rvY(t); setAttr("rv", "y", ry.toFixed(1)); setAttr("rv", "height", (630 - ry).toFixed(1));
+
+    // scene 1: analogy cards
+    for (let i = 0; i < 3; i++) op("city-" + i, cityV(i)(t));
+    op("city-note", cityNote(t));
+
+    // step list and top view
+    op("g-rows", gRows(t));
+    let rk = -1; for (let i = 0; i < ROW_T.length; i++) if (t >= ROW_T[i]) rk = i;
+    for (let i = 0; i < ROWS.length; i++) {
+      const st = rk < 0 ? "idle" : i < rk ? "done" : i === rk ? "on" : "idle";
+      setAttr("row" + i, "data-s", st); op("row" + i, rowIn(i)(t)); op("rowck" + i, st === "done" ? 1 : 0);
+    }
+    op("g-ins-frame", insFrame(t)); op("g-ins-top", insTop(t)); op("g-per", gPer(t));
+    op("ins-act", insAct(t)); op("ins-cut", insAct(t)); op("ins-a", insAct(t)); op("ins-a2", insAct(t));
+    op("ins-wl", insWl(t)); op("ins-bl", insBl(t)); op("ins-sn", insSn(t));
+    setText("ins-note", t < 21.6 ? "" : t < 34.6 ? "활성 영역(비스듬한 막대)" : t < 53 ? "워드라인(세로줄)" : t < 66 ? "비트라인(가로줄)" : "커패시터 자리(원)");
+
+    // 1. active region and STI
+    op("hm", hmOp(t)); { const c = cmp(t); setAttr("hm", "y", (318 + 12 * c).toFixed(1)); setAttr("hm", "height", (12 * (1 - c)).toFixed(1)); }
+    const se = A ? 0 : stEtch(t);
+    each("stv", (id) => setAttr(id, "height", (100 * se).toFixed(1)));
+    const sTop = A ? 330 : stTop(t);
+    each("sto", (id) => { setAttr(id, "y", sTop.toFixed(1)); setAttr(id, "height", (430 - sTop).toFixed(1)); });
+
+    // 2. buried word line and junctions
+    const we = A ? 0 : wEtch(t), l0 = liner0(t), lp0 = pp(liner0);
+    each("wv", (id) => { setAttr(id, "height", (80 * we).toFixed(1)); op(id, 1 - l0); });
+    each("wl", (id) => op(id, lp0));
+    const wt = A ? 372 : wmTop(t);
+    each("wm", (id) => { setAttr(id, "y", wt.toFixed(1)); setAttr(id, "height", (406 - wt).toFixed(1)); });
+    const wcp = pp(wc0); each("wc", (id) => up(id, 372, 41, wcp));
+    const chv = Math.max(chA(t), chB(t)); each("ch", (id) => op(id, chv));
+    op("implant", impOp(t));
+    const jp = pp(jOp); op("j-l", jp); op("j-m", jp); op("j-r", jp);
+
+    // 3. bit line
+    up("ild1", 330, 30, pp(ild1T)); up("blc", 330, 30, pp(blcT)); up("blm", 300, 38, pp(blmT)); up("blcap", 262, 22, pp(blcapT));
+    op("sp-l", pp(spOp)); op("sp-r", pp(spOp)); op("air-l", pp(airOp)); op("air-r", pp(airOp));
+
+    // 4. storage node contact and landing pad
+    up("ild2", 300, 86, pp(ild2T)); each("snc", (id) => up(id, 330, 100, pp(sncT))); each("lp", (id) => up(id, 230, 16, pp(lpT)));
+
+    // 5. capacitor
+    { const mtop = 214 - 144 * moldP(t) + 144 * moldRem(t); setAttr("mold", "y", mtop.toFixed(1)); setAttr("mold", "height", Math.max(0, 214 - mtop).toFixed(1)); }
+    up("plate", 214, 174, pp(plateT));
+    op("sup-m", pp(supOp)); op("sup-t", pp(supOp));
+    const he = holeEtch(t), hv = holeV(t), hs = holeStroke(t).toFixed(2);
+    each("hole", (id) => { setAttr(id, "height", (154 * he).toFixed(1)); op(id, hv); setStyle(id, "strokeOpacity", hs); });
+    setAttr("hole-b", "height", (90 * badEtch(t)).toFixed(1)); op("hole-b", badV(t)); op("g-badx", badX(t));
+    const tp = pp(tinOp), kp = pp(hkOp);
+    each("tin", (id) => op(id, tp)); each("hko", (id) => op(id, kp)); each("hki", (id) => op(id, kp));
+    op("g-dim", dimV(t));
+
+    // 6. interlayer, metal, summary
+    up("ild3", 40, 18, pp(ild3T)); op("metal", pp(metalOp));
+    for (let i = 0; i < 3; i++) { op("sum-" + i, sumV(i)(t)); op("mk" + (i + 1), sumV(i)(t)); }
+    op("sum-f", sumF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+</script>
+</body>
+</html>

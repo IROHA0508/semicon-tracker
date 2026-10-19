@@ -2609,7 +2609,22 @@
     }
    ],
    "videos": [],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/dram-process-film.html",
+     "title": "D램 공정 흐름: 활성영역에서 커패시터까지",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "큰 그림",
+      "활성영역",
+      "워드라인",
+      "비트라인",
+      "커패시터",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/dram-process.html",
@@ -2670,7 +2685,22 @@
      "note": "SK하이닉스 · 짧은 영상. 321단 개발 이야기"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/nand-process-film.html",
+     "title": "3D 낸드 공정 흐름: 쌓고, 뚫고, 바꾸기",
+     "seconds": 118,
+     "chapters": [
+      "시작",
+      "큰 그림",
+      "쌓기",
+      "뚫기",
+      "계단",
+      "바꾸기",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/nand-process.html",
@@ -3815,6 +3845,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 2
+  "films": 4
  }
 }
