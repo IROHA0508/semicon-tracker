@@ -3032,7 +3032,22 @@
     }
    ],
    "videos": [],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/dram-generation-film.html",
+     "title": "D램 세대와 4F², 3D D램: 세우거나 쌓거나",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "세대",
+      "난관",
+      "4F²",
+      "3D",
+      "비교",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/dram-evolution.html",
@@ -3935,6 +3950,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 10
+  "films": 11
  }
 }
