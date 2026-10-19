@@ -1,0 +1,299 @@
+{
+  "id": "skhynix-fms-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 8월 4~6일(현지 시간) 미국 캘리포니아 산타클라라 컨벤션센터에서 열린 메모리·스토리지 전시회 'FMS 2026'에 참가해, 티어드 메모리(Tiered Memory) 기반의 차세대 AI 메모리 구조 방향을 제시했습니다. 첫날 기조연설에서 에이전틱 AI 시대의 AI 인프라 최적화 전략을 발표했고, 총 12건의 기술 세션 발표와 HBF 패널 토론에도 참여했습니다. 부스에서는 HBM4E, 서버 DRAM, 375단 4D 낸드, eSSD, 모바일 제품과 CXL 기반 시연을 선보였다고 밝혔습니다. 행사 참관기 형식의 기술 해설 글입니다.",
+  "keyPoints": [
+    "SK하이닉스는 AI가 추론과 에이전틱 AI로 확장되면서 경쟁력이 개별 메모리 성능이 아니라, 각 메모리 계층의 배치와 연결을 통한 데이터 이동 최소화에 달려 있다고 기조연설에서 강조했습니다.",
+    "부스는 파트너십 존, The Smart Edge, Next-Generation Tech, 기술 세션 공간으로 구성되어 HBM4E부터 375단 낸드, eSSD, LPDDR6·UFS까지 전 계층 제품을 전시했습니다.",
+    "가장 관심을 끈 Next-Generation Tech 존에서는 CXL Pooled Memory, CMM-Hybrid, CMM-Ax로 KV 캐시 재사용과 긴 컨텍스트 LLM 서빙 성능을 시연했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120431/SK-hynix-Charts-the-Direction-at-FMS-2026_01_photo_2026.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120433/SK-hynix-Charts-the-Direction-at-FMS-2026_02-1_photo_2026.jpg.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "FMS 2026 개요와 SK하이닉스의 방향"
+    },
+    {
+      "t": "p",
+      "text": "FMS 2026(Future of Memory and Storage)은 메모리·스토리지 분야 세계 최대 전시·콘퍼런스로, 8월 4일부터 6일(현지 시간)까지 미국 캘리포니아 산타클라라 컨벤션센터에서 열렸습니다. 올해도 350명 이상의 AI 전문가가 모여 최신 기술 동향을 나눴습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120403/SK-hynix-Charts-the-Direction-at-FMS-2026_02-2_photo_2026.jpg.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI가 일상 깊숙이 들어오며 데이터센터 수요가 급증했고, 이번 행사도 AI 인프라 전반에 대한 관심이 높았습니다. SK하이닉스는 HBM을 앞세운 고성능 AI 메모리, 최신 낸드 기반 서버 메모리, CXL 기반 메모리 확장 기술을 선보이며 'Full-Stack AI Memory Creator'로서의 기술력을 보였다고 밝혔습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "HBM: 여러 DRAM 칩을 수직으로 연결해 용량을 늘리고 데이터 처리 속도를 크게 높인 제품",
+        "CXL: 시스템 안에서 메모리·프로세서 등을 효율적으로 연결해 대역폭과 용량의 한계를 넓히는 인터페이스",
+        "티어드 메모리: 속도·용량·비용이 다른 메모리를 계층으로 구성해 유기적으로 연결·최적화하는 구조"
+      ]
+    },
+    {
+      "t": "h",
+      "text": "기조연설: 에이전틱 AI 시대의 티어드 메모리"
+    },
+    {
+      "t": "p",
+      "text": "첫날 김천성 부사장(Solution Development 담당)과 강욱성 부사장(Next Generation Product Planning 담당)이 세 번째 기조연설자로 나섰습니다. 주제는 '에이전틱 AI 시대, 티어드 메모리로 효율적인 AI 인프라 구성'입니다. AI 에이전트가 빠르게 상용화되며 처리할 데이터가 기하급수적으로 늘고 있어 단일 메모리 제품만으로는 대응하기 어렵다고 지적하고, 특성이 다른 메모리를 유기적으로 연결하는 티어드 메모리 기반 차세대 구조를 해법으로 제안했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120405/SK-hynix-Charts-the-Direction-at-FMS-2026_03-1_photo_2026.jpg.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120407/SK-hynix-Charts-the-Direction-at-FMS-2026_03-2_photo_2026.jpg.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "김천성: AI가 학습 중심에서 대규모 추론, 에이전틱 AI로 확산되면서 인프라 경쟁력은 개별 메모리 성능만으로 정해지지 않습니다. HBM, DRAM, 낸드(HBF), SSD 각 계층을 어디에 두고 데이터 이동을 최소화하도록 어떻게 연결하느냐가 전체 효율을 좌우하며, 모든 계층을 아우르는 최적 구조의 구현 능력이 핵심이라고 강조했습니다.",
+        "강욱성: SK하이닉스는 HBM부터 CXL 기반 메모리, eSSD까지 AI 인프라 전 계층의 폭넓은 포트폴리오를 갖고 있으며, 앞으로 제품 설계 단계부터 고객과 협력해 최적의 솔루션을 찾고 제공하겠다고 밝혔습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 3일간 공동 발표 2건을 포함해 총 12건의 기술 세션 발표를 진행했습니다."
+    },
+    {
+      "t": "h",
+      "text": "HBF 패널 토론"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120409/SK-hynix-Charts-the-Direction-at-FMS-2026_04_photo_2026.jpg.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "마지막 날 오전, 임의철 부사장(Solution AT 담당)이 'High Bandwidth Flash로 메모리 벽 넘기'를 주제로 한 패널 토론에 구글, 샌디스크 등과 함께 참여해 HBF의 개발 로드맵과 기술 가능성을 논의했습니다. HBF는 초고속 데이터 전송을 강화한 차세대 낸드 솔루션으로, HBM처럼 베이스 다이에 로직 공정을 적용해 성능을 높입니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "임 부사장은 HBF가 HBM과 유사한 TSV 기술로 기존 스토리지의 대용량과 DRAM에 견줄 높은 대역폭을 함께 얻는 새로운 메모리 개념이라고 설명했습니다.",
+        "초고속 HBM과 대용량 SSD 사이의 새로운 메모리 계층으로 자리 잡을 잠재력이 크다고 했습니다.",
+        "AI 시스템 확장성을 높이고 운영 비용을 줄일 핵심 솔루션이며, 하드웨어와 소프트웨어를 함께 개발하는 공동 설계가 중요하다고 강조했습니다.",
+        "주요 파트너와 협력해 차세대 기술 확보와 표준화에 힘쓰고 있다고 밝혔습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "TSV(Through Silicon Via)는 칩을 수직으로 연결하는 패키징 기술로, 신호 전달 거리와 전력 소모를 크게 줄이고 대역폭을 높입니다."
+    },
+    {
+      "t": "h",
+      "text": "부스 구성: 파트너십 존과 서버 메모리"
+    },
+    {
+      "t": "p",
+      "text": "부스는 파트너십 존, The Smart Edge, Next-Generation Tech, 기술 세션 구역으로 나뉘었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120410/SK-hynix-Charts-the-Direction-at-FMS-2026_05_photo_2026.jpg.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "파트너십 존은 엔비디아, 델 등 AI 기술을 이끄는 기업과의 협력 관계를 보여 줬습니다. 오른쪽에는 HBM4 모형과 엔비디아의 차세대 AI 가속기 Vera Rubin 모형이 나란히 놓였고, 12단 48GB HBM4E, 16단 48GB HBM4, 12단 36GB HBM3E, SOCAMM2 실물이 차례로 전시됐습니다. SOCAMM2는 저전력 DRAM 기반의 AI 서버용 메모리 모듈이며, 1cnm 기반 LPDDR5X를 적용한 192GB SOCAMM2의 양산을 발표했다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120412/SK-hynix-Charts-the-Direction-at-FMS-2026_06-1_photo_2026.jpg.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120413/SK-hynix-Charts-the-Direction-at-FMS-2026_06-2_photo_2026.jpg.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "왼쪽에는 델의 'R7625' 서버 시스템이 SK하이닉스의 '64GB DDR5 RDIMM'과 eSSD 'PS1110 E3.S'를 탑재한 채 전시됐습니다. 주변에는 AI 워크로드에 적합한 대용량 '256GB DDR5 RDIMM', 높은 대역폭의 '128GB DDR5 RDIMM'과 PEB210 E1.S 9.5mm, PEB210 M.2 2280, PS1101 E3.S 등 eSSD가 놓여 사양을 비교할 수 있었습니다."
+    },
+    {
+      "t": "p",
+      "text": "PS1101 대용량 eSSD는 QLC 기반으로 이전 176단 세대보다 약 55% 높은 성능을 내며 폼팩터별로 순차 개발 중입니다. 2026년 8월부터 주요 CSP 고객에게 샘플을 출하할 계획입니다."
+    },
+    {
+      "t": "h",
+      "text": "The Smart Edge: 낸드와 엣지 제품"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120415/SK-hynix-Charts-the-Direction-at-FMS-2026_07_photo_2026.jpg.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "중앙의 '375단 4D NAND 웨이퍼'는 SK하이닉스 최초로 웨이퍼 본딩을 적용한 낸드로, 고성능과 저전력을 함께 갖췄다고 합니다. 그 아래에는 TLC 제품 중 처음으로 2채널 32-Die 패키지를 지원하는 '375단 1Tb TLC 154B 32DP'와, 기존 4채널 패키지(14 × 18 mm)보다 작은 13.5 × 12.5 mm로 공간 효율을 높인 '375단 1Tb TLC 334B QDP'가 전시됐습니다."
+    },
+    {
+      "t": "p",
+      "text": "375단 4D 낸드는 이전 세대보다 와트당 성능이 2.5배 높아 전력 효율과 성능이 모두 필요한 데이터센터에 적합합니다. SK하이닉스는 내년 상반기 고성능 eSSD 양산을 시작할 계획이며, IOPS 최적화, 고대역폭, Adaptive Media Storage 등 특화 기능을 고객과 상용화할 준비를 하고 있습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120417/SK-hynix-Charts-the-Direction-at-FMS-2026_08-1_photo_2026.jpg.jpg",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120418/SK-hynix-Charts-the-Direction-at-FMS-2026_08-2_photo_2026.jpg.jpg",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "뒤편에는 PCB01, PVF01, PQF02 등 5세대 PCIe 기반 SSD와 다양한 사양의 LPDDR, UFS가 소개됐습니다. 모바일·cSSD 제품에 데이터 인지 배치(data-aware placement), 미디어 인지 티어링(media-aware tiering) 같은 방식을 적용해 AI 엣지 추론 시장을 공략할 계획입니다. LPDDR6, LPDDR5/5X, UFS 4.1, UFS 5.0은 배터리로 동작하는 엣지 기기의 저전력 환경에서도 대용량 데이터를 오류·지연 없이 처리하는 피지컬 AI용 핵심 솔루션으로 소개됐습니다."
+    },
+    {
+      "t": "h",
+      "text": "Next-Generation Tech: CXL 기반 시연"
+    },
+    {
+      "t": "p",
+      "text": "가장 뜨거운 관심을 받은 구역입니다. 세 가지 시연이 있었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120419/SK-hynix-Charts-the-Direction-at-FMS-2026_09_photo_2026.jpg.jpg",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120424/SK-hynix-Charts-the-Direction-at-FMS-2026_11_photo_2026.jpg.jpg",
+      "caption": "원문 그림 14",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120422/SK-hynix-Charts-the-Direction-at-FMS-2026_10_photo_2026.jpg.jpg",
+      "caption": "원문 그림 15",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "ReAct AI Agent Serving(Pooled Memory): 여러 서버와 GPU를 Pooled Memory로 연결한 분산 AI 에이전트 서빙 시스템입니다. CXL Pooled Memory 기반으로 KV 캐시를 전달·재사용하면 네트워크 통신에 의존하는 기존 시스템보다 성능을 크게 높일 수 있음을 보였습니다.",
+        "ReAct AI Agent Serving(CMM-Hybrid): 지속적으로 생성되는 대량의 KV 캐시를 효율적으로 저장하고 빠르게 재사용할 수 있음을 확인했습니다. 이전 대화·작업 이력으로 필요한 KV 캐시를 빠르게 예측하고 DRAM에 미리 가져오는(prefetch) 성능을 보였으며, 전체 KV 캐시를 SSD에 저장해도 빠른 읽기와 대용량 저장을 동시에 얻을 수 있음을 입증했다고 합니다.",
+        "Efficient Long Context LLM Serving: 메모리 안에 연산 기능을 넣은 CMM-Ax로 기존 GPU 기반 시스템에서 다루기 어려웠던 LLM의 긴 컨텍스트를 효율적으로 가속하는 새로운 접근을 보였습니다. 이 연구는 컴퓨터 구조 분야 최고 권위 학회인 MICRO 2026에 채택됐습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "기술 세션과 맺음말"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120425/SK-hynix-Charts-the-Direction-at-FMS-2026_12-1_photo_2026.jpg.jpg",
+      "caption": "원문 그림 16",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120426/SK-hynix-Charts-the-Direction-at-FMS-2026_12-2_photo_2026.jpg.jpg",
+      "caption": "원문 그림 17",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/08/07120428/SK-hynix-Charts-the-Direction-at-FMS-2026_12-3_photo_2026.jpg.jpg",
+      "caption": "원문 그림 18",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스 가장 안쪽에서는 12건의 기술 세션 중 5건을 다시 볼 수 있었습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "첫째 날: 조민정 Diffusion Technology 기술리더, 'Autonomous Fab Journey: AI 보조 의사결정에서 에이전틱 제조까지'",
+        "둘째 날: 김경태 eSSD Quality Engineering 기술리더, '공랭을 넘어: 액침 냉각에서 SSD 안정성 평가'",
+        "둘째 날: 조정현 Solution Development 팀장, 'Why, What, How HBF?'",
+        "마지막 날: 황민순 Solution Development 기술리더, 'AI 메모리 응용을 위한 칩렛 기반 메모리 확장성의 새 시대'",
+        "마지막 날: 심응보 Next-Gen Product Planning 팀장, 'CXL 풀링을 활용한 AI 영역 접근'"
+      ]
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 FMS 2026에서 차세대 AI 메모리 구조의 방향을 제시하고 HBM, 서버 DRAM, 낸드, CXL에 이르는 AI 인프라 전반의 기술 리더십을 보였다며, 고객·파트너에 맞는 AI 메모리 솔루션을 계속 개발·공급하겠다고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "티어드 메모리",
+      "속도·용량·비용이 다른 메모리를 계층으로 구성해 연결·최적화하는 구조입니다."
+    ],
+    [
+      "HBM",
+      "여러 DRAM 칩을 수직으로 연결해 용량과 처리 속도를 높인 고성능 제품입니다."
+    ],
+    [
+      "HBF(High Bandwidth Flash)",
+      "초고속 전송을 강화한 차세대 낸드 솔루션으로, 베이스 다이에 로직 공정을 적용합니다."
+    ],
+    [
+      "TSV",
+      "칩을 수직으로 연결하는 패키징 기술로 신호 거리와 전력을 줄이고 대역폭을 높입니다."
+    ],
+    [
+      "CXL",
+      "메모리·프로세서 등을 효율적으로 연결해 대역폭과 용량 한계를 넓히는 인터페이스입니다."
+    ],
+    [
+      "KV 캐시",
+      "LLM 기반 AI가 텍스트를 생성할 때 이전 계산 결과를 저장하는 임시 메모리입니다."
+    ],
+    [
+      "Pooled Memory",
+      "여러 CXL 메모리를 풀로 묶어 여러 호스트가 용량을 공유하게 하는 기술입니다."
+    ],
+    [
+      "CMM-Hybrid",
+      "DRAM과 SSD를 결합한 CXL 기반 하이브리드 메모리 솔루션입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-7",
+    "2-8",
+    "4-4"
+  ],
+  "generatedAt": "2026-10-19T10:45:37+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

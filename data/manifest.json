@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T10:43:44+09:00",
+  "generatedAt": "2026-10-19T10:50:14+09:00",
   "count": 150,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
@@ -654,7 +654,8 @@
       "relatedUnits": [
         "0-2",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-share-buyback-and-retirement",
@@ -669,7 +670,8 @@
       "relatedUnits": [
         "5-6",
         "5-2"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ai-ecosystem-series-ep1",
@@ -685,7 +687,8 @@
       "relatedUnits": [
         "4-7",
         "5-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-16aff0671c",
@@ -695,7 +698,8 @@
       "source": "samsung-newsroom",
       "kind": "press",
       "tags": [],
-      "relatedUnits": []
+      "relatedUnits": [],
+      "detail": true
     },
     {
       "id": "skhynix-ai-infrastructure-insigh-ep1",
@@ -712,7 +716,8 @@
       "relatedUnits": [
         "4-9",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-fab-facility-investment-2026",
@@ -729,7 +734,8 @@
       "relatedUnits": [
         "5-3",
         "4-7"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-fms-2026",
@@ -746,7 +752,8 @@
       "relatedUnits": [
         "4-7",
         "4-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-5776fb690f",
@@ -763,7 +770,8 @@
       "relatedUnits": [
         "4-7",
         "4-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-80c99a7b56",
@@ -780,7 +788,8 @@
       "relatedUnits": [
         "4-5",
         "3-16"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-3848c95f45",
@@ -797,7 +806,8 @@
       "relatedUnits": [
         "0-2",
         "4-5"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-hbf-at-fms-2026",
