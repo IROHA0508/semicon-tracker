@@ -846,7 +846,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 반전층이 생기는 과정"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/mosfet-film.html",
+     "title": "MOSFET이 켜지는 과정: 게이트 전압으로 채널 만들기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "채널",
+      "전류",
+      "문턱",
+      "누설",
+      "PMOS",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/mosfet.html",
@@ -3875,6 +3890,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 6
+  "films": 7
  }
 }
