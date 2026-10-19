@@ -78,17 +78,217 @@
   },
   "manifest": {
     "count": 150,
-    "changed": false
+    "changed": true
   },
   "details": {
-    "limit": 30,
-    "detailed": [],
+    "limit": 40,
+    "detailed": [
+      {
+        "id": "skhynix-hbf-at-fms-2026",
+        "title": "SK하이닉스, 샌디스크와 첫 HBF 표준 규격 공개… FMS 2026에서 AI 메모리 솔루션 선보여",
+        "figure": false
+      },
+      {
+        "id": "samsung-795c75a829",
+        "title": "삼성, ‘청년희망배움터’ 개강식 개최",
+        "figure": false
+      },
+      {
+        "id": "samsung-47d70bc35a",
+        "title": "삼성전자, 2026년 2분기 실적 발표",
+        "figure": false
+      },
+      {
+        "id": "skhynix-q2-2026-business-results",
+        "title": "SK하이닉스, 2분기 매출 79조 3187억 원·영업이익 60조 5426억 원 기록",
+        "figure": false
+      },
+      {
+        "id": "skhynix-q2-2026-earnings-conference-call-invitation",
+        "title": "SK하이닉스, 2026년 2분기 실적 컨퍼런스콜 초청 안내",
+        "figure": false
+      },
+      {
+        "id": "samsung-1d5ab7e684",
+        "title": "HBM 성공의 또 다른 주역, 삼성 파운드리가 열어갈 AI 혁신",
+        "figure": false
+      },
+      {
+        "id": "samsung-5c7ee13166",
+        "title": "삼성전자·브로드컴, 2,000억 달러 규모 ‘전략적 협력’",
+        "figure": false
+      },
+      {
+        "id": "skhynix-skhynix-nvidia-partnership-2026",
+        "title": "SK그룹·엔비디아, 5,000억 달러 이상 AI 팩토리·차세대 메모리 협력 확대",
+        "figure": false
+      },
+      {
+        "id": "samsung-d8e72fb6d4",
+        "title": "HBM4 베이스 다이 경쟁력을 높인 4나노 초저전력 공정, 대한민국 엔지니어상 수상자 인터뷰",
+        "figure": false
+      },
+      {
+        "id": "skhynix-research-inside-ep1",
+        "title": "[연구 속으로] SK하이닉스 CTI, 176단 3D 낸드 양산 가능성 높여",
+        "figure": false
+      },
+      {
+        "id": "skhynix-fact-09",
+        "title": "SK하이닉스 곽노정 CEO, 미국 나스닥 개장 벨 행사에서 기념사 발표",
+        "figure": false
+      },
+      {
+        "id": "skhynix-skhynix-lists-adrs-on-nasdaq",
+        "title": "SK하이닉스, 나스닥에 ADR 상장하고 개장 종 행사 개최",
+        "figure": false
+      },
+      {
+        "id": "samsung-4a202a7566",
+        "title": "[인포그래픽] 차세대 AI 플랫폼의 핵심 솔루션, 삼성전자 SSD PM1763",
+        "figure": false
+      },
+      {
+        "id": "samsung-702582ea33",
+        "title": "삼성전자, AI 인프라에 최적화된 기업용 SSD PM1763 양산",
+        "figure": false
+      },
+      {
+        "id": "skhynix-hbm-to-essd",
+        "title": "HBM부터 eSSD까지, SK하이닉스가 그리는 풀스택 AI 메모리 전략",
+        "figure": false
+      },
+      {
+        "id": "samsung-5ad1339171",
+        "title": "삼성전자, 2026년 2분기 잠정실적 발표",
+        "figure": false
+      },
+      {
+        "id": "skhynix-2026-expert-column-series-ep4",
+        "title": "AI 반도체에서 AI 서비스로, 생태계가 바뀌고 있다",
+        "figure": false
+      },
+      {
+        "id": "skhynix-ai-competition-next-challenge",
+        "title": "AI 인프라 시대, 컴퓨팅에서 데이터 흐름 중심의 메모리 경쟁으로",
+        "figure": false
+      },
+      {
+        "id": "samsung-f9798edab5",
+        "title": "삼성, 미래 성장 위해 충청에 140조 원 투자 계획",
+        "figure": false
+      },
+      {
+        "id": "skhynix-fact-07",
+        "title": "SK하이닉스, 청주에 100조 원 투자 계획 발표",
+        "figure": false
+      },
+      {
+        "id": "samsung-96f4e6997d",
+        "title": "[인포그래픽] 첨단 반도체 생산을 위한 팀플레이, 삼성 파운드리가 구축한 시스템반도체 생태계 ‘SAFE™’",
+        "figure": false
+      },
+      {
+        "id": "samsung-41173b90c7",
+        "title": "삼성전자, ‘세이프 포럼 2026’ 한국 개최…AI 반도체 생태계 지속 확대",
+        "figure": false
+      },
+      {
+        "id": "samsung-a7d639418e",
+        "title": "삼성, 미래 성장 위해 호남에 425조원 투자",
+        "figure": false
+      },
+      {
+        "id": "skhynix-fact-06",
+        "title": "SK하이닉스, 약 400조 원 규모 서남권 반도체 클러스터 투자 계획 발표",
+        "figure": false
+      },
+      {
+        "id": "samsung-972586d584",
+        "title": "삼성, 미래 성장 위해 2,655조원 투자",
+        "figure": false
+      },
+      {
+        "id": "samsung-6d7836eeeb",
+        "title": "삼성, 협력회사와 상생 생태계 조성을 위한 협약 체결",
+        "figure": false
+      },
+      {
+        "id": "skhynix-fact-05",
+        "title": "SK하이닉스 해명: 용인·청주·서남권에 1,100조 원 중장기 투자",
+        "figure": false
+      },
+      {
+        "id": "skhynix-2026-expert-column-series-ep3",
+        "title": "AI 반도체 경쟁의 승부처는 자본과 에너지 인프라",
+        "figure": false
+      },
+      {
+        "id": "skhynix-5-things-about-skhynix",
+        "title": "SK하이닉스가 말하는 AI 메모리의 미래, 알아야 할 다섯 가지",
+        "figure": false
+      },
+      {
+        "id": "samsung-8b0bad143c",
+        "title": "[인포그래픽] 온디바이스 AI 구현할 최적의 솔루션 UFS 5.0 메모리",
+        "figure": false
+      },
+      {
+        "id": "samsung-aec769deec",
+        "title": "삼성전자, 업계 최초 온디바이스 AI 최적화 UFS 5.0 개발",
+        "figure": false
+      },
+      {
+        "id": "skhynix-hpe-discover-2026",
+        "title": "SK하이닉스, HPED 2026에서 '풀스택 AI 메모리 크리에이터' 기술력 선보여",
+        "figure": false
+      },
+      {
+        "id": "samsung-068fe1b361",
+        "title": "삼성, 미취업 청년 1,000명 직무교육 지원… ‘청년희망배움터’ 교육생 모집",
+        "figure": false
+      },
+      {
+        "id": "skhynix-sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
+        "title": "SK하이닉스, 12단 차세대 HBM4E 샘플 주요 고객에 출하",
+        "figure": false
+      },
+      {
+        "id": "samsung-817c3cebb3",
+        "title": "수평의 한계를 수직으로 돌파하다! 2026 VLSI Symposium 최고 논문상 수상자 인터뷰",
+        "figure": false
+      },
+      {
+        "id": "skhynix-computex-2026-review",
+        "title": "[SOD's Review] COMPUTEX 2026: 메모리를 넘어 AI 팩토리로 가는 SK하이닉스",
+        "figure": false
+      },
+      {
+        "id": "samsung-eeec4c9ea7",
+        "title": "전원을 꺼도 데이터를 기억하는 메모리! 과학 유튜버 발명킹밥테일이 실험으로 재현한 낸드플래시의 원리",
+        "figure": false
+      },
+      {
+        "id": "skhynix-multi-year-tech-partnership-with-nvidia",
+        "title": "SK하이닉스·엔비디아, AI 팩토리용 차세대 메모리 다년 기술 협력 발표",
+        "figure": false
+      },
+      {
+        "id": "skhynix-ai-partnership-foxconn-2026",
+        "title": "최태원 SK그룹 회장, 대만서 폭스콘 회장 만나 AI 인프라 협력 강화",
+        "figure": false
+      },
+      {
+        "id": "skhynix-ai-partnership-tsmc-2026",
+        "title": "최태원 SK그룹 회장, 대만서 TSMC 웨이 회장 만나 AI 칩 협력 강화",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
-    "limitHit": true,
-    "stoppedBy": "usage limit",
-    "left": 107,
-    "message": "claude CLI 실패(1): \",\"fallback_credit\":null},\"modelUsage\":{},\"permission_denials\":[],\"terminal_reason\":\"api_error\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"m"
+    "limitHit": false,
+    "stoppedBy": "limit",
+    "left": 67
   }
 }
