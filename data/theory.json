@@ -2580,7 +2580,22 @@
      "note": "SK하이닉스 · 입문. 패키지 공정과 HBM"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/packaging-film.html",
+     "title": "패키징·첨단 패키징 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "역할·구조",
+      "조립 순서",
+      "연결과 보호",
+      "칩렛·2.5D",
+      "3D·하이브리드",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/packaging.html",
@@ -4070,6 +4085,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 19
+  "films": 20
  }
 }
