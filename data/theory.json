@@ -3042,7 +3042,22 @@
      "note": "삼성전자 반도체 뉴스룸 · EUV 스캐너를 다루는 현장"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/euv-film.html",
+     "title": "EUV 노광 심화: 주석 방울에서 High-NA까지 더 작게 찍는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "파장과 NA",
+      "EUV 빛",
+      "확률적 결함",
+      "멀티 패터닝",
+      "High-NA",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/euv-litho.html",
@@ -4040,6 +4055,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 17
+  "films": 18
  }
 }
