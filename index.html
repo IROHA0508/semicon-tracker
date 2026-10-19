@@ -308,6 +308,19 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
 .md h3 { font-size: 17px; margin: 28px 0 10px; }
 .md h3.sec { font-size: 18px; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 30px; }
 .md h3.sub { font-size: 15.5px; margin: 24px 0 8px; }
+/* article page */
+.art-head { display: grid; gap: 10px; margin-bottom: 22px; }
+.art-head h1 { margin: 0; font-size: clamp(22px, 3vw, 29px); line-height: 1.35; letter-spacing: -0.015em; text-wrap: balance; }
+.art-lead { font-size: 17px; line-height: 1.8; }
+.keypts { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; }
+.keypts b { font-size: 12px; color: var(--accent-ink); letter-spacing: .04em; }
+.keypts ol { margin: 6px 0 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.md figure.drawn { border-color: var(--accent); }
+.drawn-tag { font-size: 11px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); border-radius: 4px; padding: 1px 6px; margin-right: 8px; }
+.terms { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; margin: 0; font-size: 15px; }
+.terms dt { font-weight: 700; }
+.terms dd { margin: 0; color: var(--muted); }
+@media (max-width: 599px) { .terms { grid-template-columns: minmax(0, 1fr); gap: 2px; } .terms dd { margin-bottom: 8px; } }
 .md strong.lab { display: inline-block; font-size: 12px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); border-radius: 4px; padding: 1px 7px; margin-right: 6px; transform: translateY(-1px); letter-spacing: .02em; }
 .md ol, .md ul { padding-left: 1.4em; }
 .md li { margin: 6px 0; }
@@ -608,7 +621,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
           h("span", { class: "co", text: CO[item.company] || item.company }),
           h("span", { class: "channel", text: item.channel + (also.length ? " · " + also.join("·") + "에도" : "") })
         ].concat(badges(item))),
-        h("h3", { class: "e-title" }, [h("a", { href: item.url, target: "_blank", rel: "noopener", text: item.title })]),
+        h("h3", { class: "e-title" }, [h("a", { href: "#article/" + item.id, title: "자세한 요약 보기", text: item.title })]),
         item.originalTitle ? h("p", { class: "orig", text: "원제 " + item.originalTitle }) : null,
         h("ul", { class: "e-sum" }, (item.summary || []).map(function (t) { return h("li", { text: t }); })),
         item.interview ? h("p", { class: "say" }, [h("b", { text: "면접 한 줄" }), item.interview]) : null,
@@ -1117,6 +1130,83 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       article.appendChild(h("div", { class: "state" }, [h("b", { text: "문서를 불러오지 못했습니다." }), h("span", { text: String(err && err.message || err) })]));
     });
   }
+  /* ---------- article page: a longer summary of one article (data/detail/<id>.json) ---------- */
+  function detailBlock(b, item) {
+    if (b.t === "h") return h("h3", { class: "sec", text: b.text });
+    if (b.t === "p") return h("p", { text: b.text });
+    if (b.t === "ul") return h("ul", null, b.items.map(function (x) { return h("li", { text: x }); }));
+    if (b.t === "table") return h("div", { class: "tbl" }, [h("table", null, [
+      h("thead", null, [h("tr", null, b.head.map(function (x) { return h("th", { text: x }); }))]),
+      h("tbody", null, b.rows.map(function (r) { return h("tr", null, r.map(function (x) { return h("td", { text: x }); })); }))])]);
+    if (b.t === "img") {
+      var cap = h("figcaption", null, [b.caption + " · 출처 ", h("a", { href: item.url, target: "_blank", rel: "noopener", text: b.credit || "원문" })]);
+      var img = h("img", { src: b.src, alt: b.alt || (b.caption + " (" + (b.credit || "원문") + ")"), loading: "lazy", referrerpolicy: "no-referrer" });
+      var fig = h("figure", { class: "src-fig" }, [img, cap]);
+      img.addEventListener("error", function () {
+        fig.replaceChild(h("p", { class: "note" }, ["원문 그림을 불러오지 못했습니다. ", h("a", { href: item.url, target: "_blank", rel: "noopener", text: "원문에서 보기 ↗" })]), img);
+      });
+      return fig;
+    }
+    if (b.t === "fig") return h("figure", { class: "drawn" }, [
+      h("img", { src: b.file, alt: b.caption, loading: "lazy" }),
+      h("figcaption", null, [h("span", { class: "drawn-tag", text: "새로 그린 그림" }), b.caption])]);
+    return null;
+  }
+  function renderArticle(id) {
+    setTab("news");
+    var idx = -1;
+    S.items.forEach(function (x, k) { if (x.id === id) idx = k; });
+    if (idx < 0) { renderState("기사를 찾지 못했습니다.", "목록에서 다시 골라 주세요."); return; }
+    view.textContent = "";
+    view.appendChild(h("div", { class: "skeleton" }));
+    var detailP = fetch("data/detail/" + id + ".json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    Promise.all([cards([S.items[idx]]), detailP]).then(function (res) {
+      if (location.hash !== "#article/" + id) return;
+      var item = res[0][0], d = res[1];
+      var prev = S.items[idx + 1], next = S.items[idx - 1];
+      var frag = document.createDocumentFragment();
+      frag.appendChild(h("div", { class: "eyebrow", style: "margin-bottom:10px" }, [h("a", { href: "#news", text: "시장 흐름" }), h("span", { text: "/ " + fmtDate(item.date) + " " + weekday(item.date) })]));
+      var head = h("header", { class: "art-head" }, [
+        h("div", { class: "e-meta" }, [h("span", { class: "co", text: CO[item.company] || item.company }), h("span", { class: "channel", text: item.channel })].concat(badges(item))),
+        h("h1", { text: item.title }),
+        item.originalTitle ? h("p", { class: "orig", text: "원제 " + item.originalTitle }) : null,
+        h("div", { class: "unit-actions" }, [
+          h("a", { class: "btn", href: item.url, target: "_blank", rel: "noopener", text: "원문 보기 ↗" }),
+          d && d.translated ? h("span", { class: "note", text: "영어 원문을 한국어로 옮겨 요약했습니다" }) : null
+        ])
+      ]);
+      frag.appendChild(head);
+      var body = h("article", { class: "md art" });
+      if (d) {
+        body.appendChild(h("p", { class: "art-lead", text: d.lead }));
+        body.appendChild(h("section", { class: "keypts" }, [h("b", { text: "핵심 3줄" }), h("ol", null, d.keyPoints.map(function (x) { return h("li", { text: x }); }))]));
+        d.blocks.forEach(function (b) { var el = detailBlock(b, item); if (el) body.appendChild(el); });
+        if (d.terms && d.terms.length) {
+          body.appendChild(h("h3", { class: "sec", text: "이 기사의 용어" }));
+          body.appendChild(h("dl", { class: "terms" }, [].concat.apply([], d.terms.map(function (x) { return [h("dt", { text: x[0] }), h("dd", { text: x[1] })]; }))));
+        }
+      } else {
+        body.appendChild(h("ul", { class: "e-sum" }, (item.summary || []).map(function (x) { return h("li", { text: x }); })));
+        body.appendChild(h("p", { class: "note", text: "이 기사의 자세한 요약은 아직 없습니다. 원문에서 전체 내용을 보세요." }));
+      }
+      if (item.interview) body.appendChild(h("p", { class: "say" }, [h("b", { text: "면접 한 줄" }), item.interview]));
+      var units = (d && d.studyUnits && d.studyUnits.length ? d.studyUnits : item.relatedUnits) || [];
+      body.appendChild(h("div", { class: "e-foot", style: "margin-top:16px" }, [
+        (item.tags || []).length ? h("div", { class: "e-tags" }, item.tags.map(function (t) { return h("a", { class: "tag", href: "#tag/" + encodeURIComponent(t), text: t }); })) : null,
+        unitLinks(units)
+      ]));
+      if (d && d.basis) body.appendChild(h("p", { class: "note", style: "margin-top:18px", text: d.basis }));
+      frag.appendChild(body);
+      frag.appendChild(h("nav", { class: "pager", "aria-label": "앞뒤 기사" }, [
+        prev ? h("a", { href: "#article/" + prev.id }, [h("small", { text: "← 이전 기사 " + fmtDate(prev.date) }), h("span", { text: (S.full[prev.id] || {}).title || "이전 기사" })]) : null,
+        next ? h("a", { class: "next", href: "#article/" + next.id }, [h("small", { text: fmtDate(next.date) + " 다음 기사 →" }), h("span", { text: (S.full[next.id] || {}).title || "다음 기사" })]) : null
+      ]));
+      view.textContent = "";
+      view.appendChild(frag);
+      document.title = shortTitle(item.title) + " · 반도체 뉴스 트래커";
+    }).catch(function (err) { renderState("기사를 불러오지 못했습니다.", String(err && err.message || err)); });
+  }
+
   function renderGuide() {
     renderDoc(S.theory.overview.file, "theory/", "theory", [h("a", { href: "#theory", text: "이론 공부" }), h("span", { text: "/ 공부 안내" })]);
   }
@@ -1197,7 +1287,8 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     var hash = decodeURIComponent((location.hash || "").replace(/^#/, ""));
     if (/^(sec-\d+|anim|unit-news|n-.+)$/.test(hash)) return; // in-page anchors
     var title = "반도체 뉴스 트래커";
-    if (hash.indexOf("unit/") === 0) { var c = hash.slice(5); renderUnit(c); if (S.units[c]) title = c + " " + shortTitle(S.units[c].title) + " · " + title; }
+    if (hash.indexOf("article/") === 0) { renderArticle(hash.slice(8)); }
+    else if (hash.indexOf("unit/") === 0) { var c = hash.slice(5); renderUnit(c); if (S.units[c]) title = c + " " + shortTitle(S.units[c].title) + " · " + title; }
     else if (hash.indexOf("tag/") === 0) { renderNews(hash.slice(4)); title = "#" + hash.slice(4) + " · " + title; }
     else if (hash === "theory") { renderTheory(); title = "이론 공부 · " + title; }
     else if (hash === "guide") { renderGuide(); title = "공부 안내 · " + title; }
