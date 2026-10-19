@@ -1,0 +1,301 @@
+{
+  "id": "skhynix-ocp-global-summit-2026",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 10월 12~15일 미국 캘리포니아 새너제이에서 열린 OCP Global Summit 2026에 참가해 차세대 메모리 솔루션과 메모리 중심 서버 시스템 구상을 선보였습니다. CXL 풀드 메모리 기반의 CMM-DDR5(2세대, 256GB)는 이전 세대보다 대역폭이 두 배 넘게 늘어난 80GB/s이고 에너지 효율은 약 30% 개선됐다고 밝혔습니다. 또 MARS 랙 시스템, CMM-Ax, HBM4·HBF 등을 실제 시스템 수준에서 시연했고 임원 발표와 패널, 브레이크아웃 세션도 진행했습니다. SK하이닉스 뉴스룸의 현장 소개 기술 해설 글입니다.",
+  "keyPoints": [
+    "SK하이닉스는 CXL 풀드 메모리 기반 CMM-DDR5 2세대(256GB)를 공개했고, 이전 세대 대비 대역폭은 두 배 넘게 늘어 80GB/s, 에너지 효율은 약 30% 개선됐다고 밝혔습니다.",
+    "메모리 중심 AI 랙 시스템 MARS와 연산 기능을 갖춘 CMM-Ax를 파트너사와 함께 시연해 KV 캐시 공유·재사용과 긴 컨텍스트 LLM 처리의 효과를 보였습니다.",
+    "HBM4E·HBM4·HBM3, 차세대 낸드 HBF, eSSD·서버 DRAM 제품군을 함께 전시하고, 메모리 월 해결을 위한 메모리 중심 서버 비전을 발표했습니다."
+  ],
+  "blocks": [
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145353/01_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "h",
+      "text": "행사 개요: AI 데이터 병목에 대한 답"
+    },
+    {
+      "t": "p",
+      "text": "AI가 다루는 데이터량이 폭발적으로 늘면서 데이터 병목이 새로운 과제로 떠올랐습니다. SK하이닉스는 10월 12일부터 15일까지 미국 캘리포니아 새너제이에서 열린 OCP Global Summit 2026에 참가해 다양한 차세대 메모리 솔루션을 공개하고, AI 시대 메모리 기술이 나아갈 방향을 제시했습니다."
+    },
+    {
+      "t": "p",
+      "text": "OCP Global Summit은 데이터센터 하드웨어의 설계와 사양을 공유하고 표준화하는 기술 콘퍼런스입니다. 올해는 AI 발전을 뒷받침할 인프라 기술이 중심 주제였고, SK하이닉스가 제안한 새 서버 시스템이 큰 주목을 받았습니다. 회사는 서버용으로 준비 중인 차세대 솔루션을 실제 시스템 수준에서 시연해 실현 가능성을 입증했다고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "부스 구성과 CMM-DDR5"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145428/02_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 2",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스는 단단한 회색 프레임과 네온 블루 조명으로 차세대 메모리 솔루션의 핵심 가치인 '신뢰성'과 '효율성'을 표현했습니다. 앞쪽에는 현재 주력 제품을 보여 주는 'Memory Section', 뒤쪽에는 차세대 서버 생태계를 구성할 솔루션을 살펴보는 'System Demo' 공간이 있었습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145507/03-1_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 3",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "System Demo에서는 왼쪽부터 CMM-DDR5, MARS, CMM-Ax 세 가지 솔루션을 차례로 소개했습니다. CMM(CXL Memory Module)-DDR5는 CXL 인터페이스 표준을 바탕으로 여러 서버가 메모리 풀을 공유하며 필요한 만큼 쓰게 해 자원 활용 효율을 높이는 솔루션입니다. 이번에 CXL 3.2 기반으로 AI 워크로드에 최적화한 2세대 제품(256GB)을 공개했습니다. 이전 세대 대비 대역폭은 두 배 넘게 늘어난 80GB/s이고, 에너지 효율은 약 30% 개선됐습니다. CXL Pooled 기능도 적용돼 데이터 집약적이고 부하가 큰 환경의 병목을 해소할 제품으로 주목받고 있다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145526/03-2_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 4",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 지난해 9월 NAVER Cloud와 사업 협약을 맺고 CXL 기반 메모리 솔루션으로 클라우드 AI 서비스의 병목을 함께 풀고 있습니다. 이번 시연에서는 에이전틱 AI 환경의 KV 캐시 공유 솔루션과, 옴니모달 서비스 'OmniServe'의 임베딩 공유 솔루션이 실제로 동작하는지 PoC 수준에서 검증한 결과를 소개했습니다. 실제 고객 시스템과 워크로드를 분석해 적용 가능성을 확인함으로써 본격 확대의 기반을 마련했다고 설명했습니다."
+    },
+    {
+      "t": "h",
+      "text": "MARS: 메모리 중심 AI 랙 시스템 시연"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145556/04_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 5",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "MARS(Memory Centric AI Rack System)는 파트너사의 솔루션을 메모리 중심으로 하나의 랙에 통합해 효율을 극대화하는 차세대 시스템입니다. 이번에 여러 파트너와 세 가지 시연을 선보였습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145615/05_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 6",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145639/06_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145659/07_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 8",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "ul",
+      "items": [
+        "AI 에이전트 서빙(CXL 풀드 메모리): Arcee, Liqid, Marvell과 함께 풀드 메모리로 여러 서버와 GPU를 연결했습니다. CXL 풀드 메모리 기반 KV 캐시 전달·재사용이 네트워크 통신에 의존하는 기존 방식보다 시스템 성능을 크게 높인다는 것을 보였습니다.",
+        "AI 에이전트 서빙(CXL 하이브리드 메모리): AMD, Penguin, Xcena, Arcee와 함께 CXL 메모리와 CXL 하이브리드 메모리(DRAM과 SSD를 결합)를 쓴 메모리 랙의 효과를 확인했습니다. 대화·작업 이력으로 필요한 KV 캐시를 빠르게 예측해 DRAM에 미리 올려 처리하고, 전체 KV 캐시를 SSD에 저장해 빠른 읽기 성능과 대용량 저장을 함께 제공함을 입증했습니다.",
+        "응답 지연 단축: 개인 AI 에이전트 서비스 업체 Pickle과 풀드 메모리 기반 스트리밍으로 여러 AI 모델 간 데이터 전송을 가속해 최종 결과가 사용자에게 더 빨리 도달함을 확인했습니다."
+      ]
+    },
+    {
+      "t": "h",
+      "text": "CMM-Ax: 메모리 안에서 연산"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145719/08_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 9",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "CMM-Ax는 메모리에 연산 기능을 결합한 차세대 솔루션입니다. 데이터를 옮기지 않고 메모리 안에서 직접 연산해 데이터센터의 전력·비용 부담을 줄일 수 있습니다. 차세대 AI 추론 시스템 'Efficient Long Context LLM Serving' 시연으로, 기존 GPU 기반 시스템에서 처리하기 어려웠던 긴 컨텍스트를 CMM-Ax가 효율적으로 가속함을 보였습니다. 이 연구는 컴퓨터 아키텍처 분야 최고 권위 학회인 'MICRO 2026'에 게재되어 기술력을 공식 인정받았다고 합니다."
+    },
+    {
+      "t": "h",
+      "text": "제품 포트폴리오: eSSD에서 HBM, HBF까지"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145803/09-1_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 10",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15145806/09-2_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 11",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Memory Section 왼쪽에는 AI 인프라용 eSSD와 서버 DRAM이 전시됐습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "eSSD: 폼팩터별로 고성능 'PS1010 U.2', 순차 개발 중인 고성능 'PS1110 E3.S'와 대용량 'PS1101 E3.S', 직접 액체 냉각(DLC)을 지원하는 'PEB210 E1.S'와 'PEB210 M.2 2280'을 소개했습니다.",
+        "서버 DRAM: AI용으로 업계 최대 용량이라는 '256GB 3DS RDIMM'을 필두로 96GB, 64GB까지 DDR5 RDIMM 라인업을 구성했고, 128GB DDR5 MRDIMM과 새 폼팩터로 전력·공간 효율을 높인 '192GB SOCAMM2'도 전시했습니다."
+      ]
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150014/10_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 12",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "실제 서버처럼 만든 터치스크린으로 제품 상세 정보를 확인할 수 있게 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150038/11_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 13",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "중앙의 HBM 전시 공간에서는 HBM 기술 리더십과 NVIDIA와의 협력을 보여 줬습니다. 왼쪽에는 NVIDIA Vera Rubin 슈퍼칩 모델이 있고 관람객이 서버 모델에 HBM4와 SOCAMM2를 직접 장착할 수 있었습니다. 오른쪽에는 크게 확대한 HBM 모델과 핵심 기술인 TSV, Advanced MR-MUF 영상이 있었습니다. 두 모델 사이에는 HBM4E, HBM4, HBM3 실물을 놓아 세대별 진화를 볼 수 있게 했습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150059/12_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 14",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "HBF(High Bandwidth Flash)는 HBM처럼 TSV 기술을 적용해 기존 스토리지의 대용량과 높은 대역폭을 결합한 차세대 낸드 솔루션입니다. 추론 중심의 에이전틱 AI 시대에 급증하는 데이터 사용량을 효율적으로 처리할 핵심 기술로 주목받습니다. 내부 시뮬레이션 기반 영상과 성능 그래프로, 빠른 응답이 중요한 환경에서는 HBM의 고속 처리를, 많은 사용자를 지원하는 대용량 메모리가 필요한 환경에서는 HBF의 대용량 특성을 활용할 수 있음을 보였습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15154049/13-1_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 15",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스 오른쪽 벽에는 메모리 계층 전반에 최적화된 솔루션을 제공한다는 비전 그래픽이 걸렸습니다. 2013년 세계 최초 HBM 개발부터 현재의 기술 리더십까지의 여정과 HBM, DRAM, NAND 분야별 최신 제품·개발 현황이 담겼습니다."
+    },
+    {
+      "t": "h",
+      "text": "발표 세션: 메모리 중심 AI 랙 시스템"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150204/14_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 16",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "첫날 오후 'Executive' 세션에서 메모리시스템연구 담당 김호식 부사장이 'Introduction to Memory-centric AI Rack Systems (MARS)'를 발표했습니다. 생성형 AI와 초대형 데이터센터가 빠르게 성장하며 CPU·GPU 중심 구조가 '메모리 월' 병목과 급증하는 전력 소모에 직면했다고 짚고, 해법으로 메모리 중심 AI 랙 시스템을 제시했습니다."
+    },
+    {
+      "t": "p",
+      "text": "김 부사장은 \"차세대 CXL로 CPU와 GPU를 연결해 랙 수준의 메모리 풀링과 동적 제로카피 데이터 공유를 구현하며, 부하가 큰 워크로드에서 데이터 이동 속도를 크게 높이는 구조\"라고 설명했습니다. 이를 통해 협업형 에이전틱 AI의 KV 캐시 재사용 효율을 높이고, 개인 에이전틱 AI 서비스에서 멀티모달 옴니 모델의 응답 속도를 높이며, 대규모 GNN 학습에서 생기는 불규칙한 메모리 접근 문제를 해결할 수 있다고 덧붙였습니다."
+    },
+    {
+      "t": "h",
+      "text": "패널 토론과 브레이크아웃 세션"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150228/15_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 17",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "셋째 날 오후 시스템아키텍처 담당 주영표 부사장이 \"Integrating SW frameworks and APIs across companies for PIM/PNM\"을 주제로 한 패널 토론에 참여했습니다. 경쟁과 협력이 얽힌 생태계에서 고객과 제품을 잇는 SW 프레임워크의 중요성과 표준화 필요성이 논의됐습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150312/16-1_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 18",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150313/16-2_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 19",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/15150317/16-3_Memory-Centric-Server-Systems-Are-the-Future-SK-hynix-Presents-Its-Next-Generation-AI-Infrastructure-Vision-at-OCP-Global-Summit-2026_techai_image_etc_2026.jpg",
+      "caption": "원문 그림 20",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "같은 날 Breakout 세션에서는 개발 담당 엔지니어들이 핵심 메모리 기술의 필요성, 개발 배경, 개발 과정과 현황을 발표했습니다."
+    },
+    {
+      "t": "ul",
+      "items": [
+        "AI System Infra 김종률 팀장, 'Agentic AI Serving System with Computational Shared Memory Pool': 토큰 공유가 CPU 기반 토큰화를 가속하고 KV 캐시 공유가 응답 속도와 자원 효율을 높인다고 설명했습니다. 토큰화와 실시간 KV 캐시 중요도 분석을 연산 공유 메모리로 오프로딩하면 성능을 더 높일 수 있다고 짚었습니다.",
+        "AI System Infra 민영훈 기술리더, 펜실베이니아주립대 맹기완 교수와 공동 발표, 'A System Architecture using Computational Memory for Differentially Private Training': 연산 기능을 갖춘 메모리로 차등 프라이버시 AI 학습을 효율화하는 구조입니다. 개인정보 보호 학습의 추가 연산 부담과 데이터 이동을 줄여 학습 속도와 에너지 효율을 높이는 핵심 기술을 소개했습니다.",
+        "AI Platform SW 이주희 기술리더: 'Storage as a Performance Tier for LLM Serving'을 발표했습니다."
+      ]
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 \"이번 OCP Global Summit에서 차세대 메모리 솔루션이 실제 시스템에서 어떻게 작동하는지 보여 줄 수 있어 특히 의미 있었다\"며 \"메모리를 중심으로 AI 기술이 계속 발전하도록 기술 혁신을 이어가겠다\"고 밝혔습니다."
+    }
+  ],
+  "terms": [
+    [
+      "CXL",
+      "CPU·GPU·메모리 등을 효율적으로 연결하는 차세대 솔루션으로, PCIe 기반이며 메모리를 효율적으로 쓰는 풀링 기능을 제공합니다."
+    ],
+    [
+      "풀드 메모리",
+      "여러 CXL 메모리를 하나의 풀로 묶어 여러 호스트가 용량을 나눠 쓰게 해 전체 활용률을 높이는 기술입니다."
+    ],
+    [
+      "KV 캐시",
+      "LLM 기반 AI 에이전트가 텍스트를 생성할 때 이전 계산 결과를 저장하는 임시 메모리로, 대화와 작업이 늘수록 크게 늘어납니다."
+    ],
+    [
+      "MARS",
+      "Memory Centric AI Rack System. 메모리를 중심으로 파트너 솔루션을 한 랙에 통합하는 차세대 시스템입니다."
+    ],
+    [
+      "CMM-Ax",
+      "메모리에 연산 기능을 결합해 데이터를 옮기지 않고 메모리 안에서 계산하는 차세대 메모리 솔루션입니다."
+    ],
+    [
+      "HBF",
+      "High Bandwidth Flash. HBM처럼 TSV를 적용해 대용량과 높은 대역폭을 결합한 차세대 낸드 솔루션입니다."
+    ],
+    [
+      "TSV",
+      "실리콘 기판을 수직으로 관통하는 전극으로 칩을 위아래로 연결하는 기술입니다."
+    ],
+    [
+      "메모리 월",
+      "CPU·GPU 중심 구조에서 메모리 쪽 데이터 이동이 성능을 가로막는 병목입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-7",
+    "4-5",
+    "2-7",
+    "4-9"
+  ],
+  "generatedAt": "2026-10-19T10:26:57+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19",
+  "checks": {
+    "retriedFor": [
+      "100만 배"
+    ]
+  }
+}

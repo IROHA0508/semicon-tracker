@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T10:25:16+09:00",
+  "generatedAt": "2026-10-19T10:29:10+09:00",
   "count": 150,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
@@ -82,7 +82,8 @@
       "relatedUnits": [
         "4-7",
         "2-8"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "samsung-017e6bd8f4",
@@ -99,7 +100,8 @@
       "relatedUnits": [
         "0-2",
         "0-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-ocp-global-summit-2026",
@@ -116,7 +118,8 @@
       "relatedUnits": [
         "4-7",
         "4-4"
-      ]
+      ],
+      "detail": true
     },
     {
       "id": "skhynix-research-inside-ep2",

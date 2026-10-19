@@ -79,5 +79,31 @@
   "manifest": {
     "count": 150,
     "changed": true
+  },
+  "details": {
+    "limit": 3,
+    "detailed": [
+      {
+        "id": "samsung-5d0d6d1fd1",
+        "title": "삼성전자, 글로벌 랜드마크에서 SSD 브랜드 캠페인 전개",
+        "figure": false
+      },
+      {
+        "id": "samsung-017e6bd8f4",
+        "title": "[칩스케치] AI 시대의 중심에 선 반도체! 삼성전자가 ‘SEDEX 2026’ 현장에서 제시한 미래는",
+        "figure": false
+      },
+      {
+        "id": "skhynix-ocp-global-summit-2026",
+        "title": "“메모리 중심 서버 시스템이 미래”: SK하이닉스, OCP 글로벌 서밋 2026에서 AI 인프라 비전 제시",
+        "figure": false
+      }
+    ],
+    "failed": {},
+    "gaveUp": [],
+    "authError": false,
+    "limitHit": false,
+    "stoppedBy": "limit",
+    "left": 145
   }
 }
