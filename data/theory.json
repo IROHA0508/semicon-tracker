@@ -2284,7 +2284,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/doping-implant-film.html",
+     "title": "도핑·PN 접합·이온주입 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "도핑",
+      "PN 접합",
+      "이온주입기",
+      "깊이·채널링",
+      "열처리",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/ion-implant.html",
@@ -2565,7 +2580,22 @@
      "note": "SK하이닉스 · 입문. 패키지 공정과 HBM"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/packaging-film.html",
+     "title": "패키징·첨단 패키징 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "역할·구조",
+      "조립 순서",
+      "연결과 보호",
+      "칩렛·2.5D",
+      "3D·하이브리드",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/packaging.html",
@@ -3042,7 +3072,22 @@
      "note": "삼성전자 반도체 뉴스룸 · EUV 스캐너를 다루는 현장"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/euv-film.html",
+     "title": "EUV 노광 심화: 주석 방울에서 High-NA까지 더 작게 찍는 이야기",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "파장과 NA",
+      "EUV 빛",
+      "확률적 결함",
+      "멀티 패터닝",
+      "High-NA",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/euv-litho.html",
@@ -4040,6 +4085,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 17
+  "films": 20
  }
 }
