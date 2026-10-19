@@ -2609,7 +2609,22 @@
     }
    ],
    "videos": [],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/dram-process-film.html",
+     "title": "D램 공정 흐름: 활성영역에서 커패시터까지",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "큰 그림",
+      "활성영역",
+      "워드라인",
+      "비트라인",
+      "커패시터",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/dram-process.html",
@@ -3815,6 +3830,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 2
+  "films": 3
  }
 }
