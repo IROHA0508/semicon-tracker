@@ -1,4 +1,25 @@
 {
-  "items": [],
-  "updatedAt": "2026-10-21T09:33:00+09:00"
+  "items": [
+    {
+      "id": "skhynix-q3-2026-earnings-conference-call-invitation",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "Q3 2026 Earnings Conference Call Invitation",
+      "url": "https://news.skhynix.com/en/q3-2026-earnings-conference-call-invitation/",
+      "published": "2026-10-21T09:59:02+09:00",
+      "date": "2026-10-21",
+      "categories": [
+        "IR",
+        "PRESS",
+        "Invitation Letter",
+        "Quartely Earnings"
+      ],
+      "alsoIn": [],
+      "collectedAt": "2026-10-21T18:18:16+09:00"
+    }
+  ],
+  "updatedAt": "2026-10-21T18:18:16+09:00"
 }

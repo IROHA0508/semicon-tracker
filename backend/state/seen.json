@@ -1508,6 +1508,16 @@
       "status": "summarized",
       "title": "Q2 2026 Earnings Conference Call Invitation"
     },
+    "https://news.skhynix.com/en/q3-2026-earnings-conference-call-invitation": {
+      "checkedAt": "2026-10-21",
+      "date": "2026-10-21",
+      "id": "skhynix-q3-2026-earnings-conference-call-invitation",
+      "sources": [
+        "sk-press"
+      ],
+      "status": "queued",
+      "title": "Q3 2026 Earnings Conference Call Invitation"
+    },
     "https://news.skhynix.com/en/q4-2025-earnings-conference-call-invitation": {
       "checkedAt": "2026-10-07",
       "date": "2026-01-22",
