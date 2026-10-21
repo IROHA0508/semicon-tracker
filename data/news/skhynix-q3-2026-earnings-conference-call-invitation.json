@@ -1,0 +1,35 @@
+{
+  "id": "skhynix-q3-2026-earnings-conference-call-invitation",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 2026년 3분기 실적 콘퍼런스콜 10월 28일 개최",
+  "originalTitle": "Q3 2026 Earnings Conference Call Invitation",
+  "url": "https://news.skhynix.com/en/q3-2026-earnings-conference-call-invitation/",
+  "published": "2026-10-21T09:59:02+09:00",
+  "date": "2026-10-21",
+  "summary": [
+    "SK하이닉스는 2026년 10월 28일 수요일에 2026년 3분기 실적을 발표한다고 밝혔습니다.",
+    "실적 보도자료는 당일 오전 9시 이전에 나오며, 콘퍼런스콜은 같은 날 오전 9시에 한국어-영어 순차통역으로 생중계됩니다."
+  ],
+  "interview": "분기 실적과 콘퍼런스콜 일정을 공개하는 것은 투자자와 시장에 사업 성과와 전망을 정기적으로 설명하는 IR 체계를 갖췄다는 점에서 의미가 있습니다.",
+  "tags": [
+    "실적"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "IR",
+    "PRESS",
+    "Invitation Letter",
+    "Quartely Earnings"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-22T00:06:06+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-21T09:33:46+09:00",
-  "count": 151,
+  "generatedAt": "2026-10-22T00:06:21+09:00",
+  "count": 152,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,26 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 151
+      "count": 152
     }
   ],
   "index": [
+    {
+      "id": "skhynix-q3-2026-earnings-conference-call-invitation",
+      "date": "2026-10-21",
+      "published": "2026-10-21T09:59:02+09:00",
+      "company": "skhynix",
+      "source": "sk-press",
+      "kind": "press",
+      "tags": [
+        "실적"
+      ],
+      "relatedUnits": [
+        "5-6",
+        "5-2"
+      ],
+      "detail": true
+    },
     {
       "id": "skhynix-ai-ecosystem-series-ep4",
       "date": "2026-10-21",
