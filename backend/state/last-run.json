@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-22T00:06:02+09:00",
+  "startedAt": "2026-10-22T05:04:07+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -42,51 +42,39 @@
   },
   "errors": {},
   "added": [],
-  "queueSize": 1,
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-22T00:06:06+09:00",
+  "finishedAt": "2026-10-22T05:04:13+09:00",
   "summary": {
-    "startedAt": "2026-10-22T00:06:06+09:00",
-    "backend": "cli",
+    "startedAt": "2026-10-22T05:04:13+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "skhynix-q3-2026-earnings-conference-call-invitation",
-        "title": "SK하이닉스, 2026년 3분기 실적 콘퍼런스콜 10월 28일 개최"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-10-22T00:06:12+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "details": {
     "limit": 10,
-    "detailed": [
-      {
-        "id": "skhynix-q3-2026-earnings-conference-call-invitation",
-        "title": "SK하이닉스, 2026년 3분기 실적 콘퍼런스콜 10월 28일 개최",
-        "figure": false
-      }
-    ],
+    "detailed": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "all done",
+    "stoppedBy": "nothing to do",
     "left": 0
   },
   "manifest": {
     "count": 152,
-    "changed": true
+    "changed": false
   }
 }
