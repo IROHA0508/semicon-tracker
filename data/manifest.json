@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-19T14:38:53+09:00",
-  "count": 150,
+  "generatedAt": "2026-10-21T09:33:46+09:00",
+  "count": 151,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,29 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 150
+      "count": 151
     }
   ],
   "index": [
+    {
+      "id": "skhynix-ai-ecosystem-series-ep4",
+      "date": "2026-10-21",
+      "published": "2026-10-21T08:59:57+09:00",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "kind": "tech",
+      "tags": [
+        "HBM",
+        "CXL·PIM",
+        "하이브리드 본딩",
+        "패키징"
+      ],
+      "relatedUnits": [
+        "4-5",
+        "0-2"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-5d0d6d1fd1",
       "date": "2026-10-19",

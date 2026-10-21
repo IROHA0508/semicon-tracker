@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-21T04:58:12+09:00",
+  "startedAt": "2026-10-21T09:32:55+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,59 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "skhynix-ai-ecosystem-series-ep4",
+      "date": "2026-10-21",
+      "source": "sk-tech",
+      "title": "[AI Ecosystem] The semiconductor paradigm shifts toward memory"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-21T04:58:17+09:00",
+  "finishedAt": "2026-10-21T09:33:00+09:00",
   "summary": {
-    "startedAt": "2026-10-21T04:58:17+09:00",
-    "backend": null,
+    "startedAt": "2026-10-21T09:33:00+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "skhynix-ai-ecosystem-series-ep4",
+        "title": "라자 코두리 \"AI 반도체 설계의 중심, 메모리로 이동 중\""
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-10-21T09:33:06+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "skhynix-ai-ecosystem-series-ep4",
+        "title": "라자 코두리 \"AI 반도체 설계의 중심, 메모리로 이동 중\"",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
+    "stoppedBy": "all done",
     "left": 0
   },
   "manifest": {
-    "count": 150,
-    "changed": false
+    "count": 151,
+    "changed": true
   }
 }
