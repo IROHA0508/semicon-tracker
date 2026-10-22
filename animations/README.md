@@ -120,3 +120,7 @@
 - 따로 열었을 때는 머리말의 단원 칩(예: `2-10`)이 사이트의 그 단원 페이지(`../index.html#unit/2-10`)로 가는 링크가 됩니다.
 
 렌더링은 헤드리스 브라우저로 단계마다 화면을 찍어 확인했습니다(밝은·어두운 테마, 폭 1280·390).
+
+## 문체
+
+설명·자막·그림 글자는 이론 원고와 같은 문체 규칙(`.claude/skills/humanize-korean-site/SKILL.md`, im-not-ai)을 따릅니다. 고친 뒤 `python tools/style_check.py --only animations --spans`로 확인합니다. 단계 제목("ACT: 워드라인을 켜면 …")의 콜론은 명령 이름을 붙인 형식이라 그대로 둡니다.

@@ -47,6 +47,7 @@ backend/summarize.py     Claude 호출(구독 토큰 CLI 또는 API 키), 편집
 backend/guard.py         카드의 수치를 원문과 대조(단위 환산 실수 잡기)
 backend/tags.py          표준 태그 사전, 동의어 정리, 관련 단원 고르기
 backend/digest.py        요약 단계: 대기열 → 카드(data/news/<id>.json)
+backend/humanize.py      문체 단계: im-not-ai 규칙을 요약 프롬프트에 넣고 쓴 뒤 연결어미 쉼표를 지우고 남은 신호가 있는 문장만 한 번 더 다듬기
 backend/detail.py        자세한 요약 단계: 카드 → 기사 페이지(data/detail/<id>.json), 원문 그림 주소 찾기, 수치 점검
 backend/figures.py       자세한 요약의 새로 그린 그림(명세 → SVG, 두 가지 틀)
 backend/publish.py       data/manifest.json 만들기, 데이터 점검(validate)
@@ -62,6 +63,9 @@ theory/                  이론 원고: 단원별 마크다운 59개, 층 소개
 animations/              단계별 애니메이션 49개와 공통 플레이어, catalog.json, 목록 페이지
 tools/build_theory.py    theory/ → data/theory.json·data/units.json
 tools/build_animation_index.py  catalog.json → animations/index.html
+tools/style_check.py     사이트 글의 'AI 티' 문체 점검(im-not-ai 규칙). --fix-c11로 연결어미 뒤 쉼표 지우기
+.claude/skills/humanize-korean-site/  사이트 문체 규칙 스킬(im-not-ai v2.3.2, MIT). 릴리스 레이더와 같은 룰북
+CLAUDE.md                Claude Code가 이 저장소에서 따를 규칙(볼 문서, 지킬 것, 함정)
 tests/                   오프라인 테스트(실제 피드 구조를 본뜬 예제, 가짜 Claude, 애니메이션 목록, 이론 원고 형식·링크·도식 점검, 화면 파일 점검)
 docs/DATA_SCHEMA.md      파일 형식 설명
 .github/workflows/       하루 4번 수집·요약하는 GitHub Actions 워크플로
@@ -112,6 +116,8 @@ SK하이닉스 한국어 뉴스룸은 자동 요청을 막아서 영문 피드�
 요약    Claude(구독 토큰)에게 카드 한 장을 받음: 한국어 제목, 요약 2문장(-습니다), 면접 한 줄, 표준 태그 1~4개, 언급 기업
 점검    카드의 단위 붙은 수치(150억 달러, 12단, 263% 등)를 원문과 대조
         → 원문에서 못 찾으면 그 목록을 주고 한 번 다시 쓰게 함 → 그래도 안 맞으면 그 문장을 지움
+문체    연결어미 뒤 쉼표를 지우고 'AI 티' 신호(콜론 부제, "A가 아니라 B" 반복, "핵심은 ~" 등)가 남으면
+        걸린 문장만 Claude에게 한 번 더 다듬게 함 → 수치·영문 표기·따옴표 안 글이 바뀌었거나 절반 넘게 바뀐 수정은 버림
 정리    태그는 표준 태그 이름으로 맞춤(동의어·영문 키워드도 인식), 한국어 기사 제목은 원제 그대로
 저장    data/news/<id>.json, 대기열에서 빼고 seen.json에 summarized 표시
 목록    data/manifest.json을 다시 만들며 카드마다 관련 단원 2개를 붙임
@@ -123,13 +129,22 @@ SK하이닉스 한국어 뉴스룸은 자동 요청을 막아서 영문 피드�
 - 한 번 실행에서 25분(ST_TIME_BUDGET)이 지나면 새 기사를 시작하지 않고 그때까지 한 것을 커밋합니다.
 - 2026년 1월 1일 이후 기사 146건(1월 2일~10월 8일)은 2026-10-13에 모두 요약했습니다(수동 실행 `limit` 100). 이후에는 새 기사만 하루 4번 실행에서 요약합니다. 밀린 기사가 많을 때는 수동 실행의 `limit`을 늘리면 한 번에 줄일 수 있습니다.
 
+## 문체
+
+사이트의 한국어 글은 [im-not-ai](https://github.com/epoko77-ai/im-not-ai)(humanize-korean)의 'AI 티' 규칙을 따릅니다. 릴리스 레이더와 같은 룰북을 `.claude/skills/humanize-korean-site/`에 두었고 이 사이트에 맞춘 적용 범위는 그 폴더의 `SKILL.md`에 있습니다.
+
+- **자동 요약:** 카드와 기사 페이지를 쓰는 프롬프트에 규칙을 함께 넣고 쓴 뒤 `backend/humanize.py`가 연결어미 뒤 쉼표를 지우고 남은 신호가 있는 문장만 한 번 더 다듬습니다. 결과는 카드·기사 페이지의 `checks.style`과 실행 보고서의 `styleNotes`에 남습니다.
+- **손으로 고칠 때:** `python tools/style_check.py --spans`로 걸린 문장을 보고 그 문장만 고칩니다. Claude Code는 `CLAUDE.md`와 스킬을 읽고 같은 규칙을 따릅니다.
+- **점검:** 푸시 테스트가 문체 신호를 경고로 보여 주고(`문체 점검` 단계), 연결어미 뒤 쉼표가 하나라도 있으면 테스트가 실패합니다(`tests/test_style.py`).
+- 2026-10-22에 기존 글 전체를 이 규칙으로 다듬었습니다(연결어미 뒤 쉼표 2,346개, 걸린 문장 300여 개). 따옴표 안 인용, 수치, 제품명, 영상·자료 제목, 원고의 단원·절 제목은 바꾸지 않았습니다.
+
 ## 자동 실행
 
 `.github/workflows/collect.yml` (이름: 기사 수집·요약)
 
 - **하루 4번(한국 시간 07:10·13:10·19:10·01:10):** 수집 → 요약 → manifest 갱신 후 바뀐 파일(`data`, `backend/state`)을 커밋합니다. 릴리스 레이더(00·06·12·18시)와 시간을 엇갈렸습니다.
 - **수동 실행:** **Actions → 기사 수집·요약 → Run workflow**에서 `update`(수집+요약), `collect`(수집만), `detect`(결과만 보기), `selftest`(출처 점검)를 고르고, `limit`에 이번에 요약할 건수를 넣을 수 있습니다.
-- **코드를 고쳐 main에 푸시하면:** 오프라인 테스트, 데이터 점검, 출처 점검만 돌고 수집·요약은 하지 않습니다(`backend/`, `tests/`, `index.html`, `theory/`, `animations/`, 태그·단원 파일, 워크플로를 고쳤을 때).
+- **코드를 고쳐 main에 푸시하면:** 오프라인 테스트, 데이터 점검, 문체 점검(경고만), 출처 점검만 돌고 수집·요약은 하지 않습니다(`backend/`, `tests/`, `index.html`, `theory/`, `animations/`, 태그·단원 파일, 문체 규칙·점검 도구, 워크플로를 고쳤을 때).
 - **실패로 표시되는 경우:** 출처를 못 읽었을 때, Claude 인증이 실패했을 때(토큰을 새로 만들어 Secret을 바꿔야 함). GitHub가 실패 알림 메일을 보냅니다.
 - **경고만 남기는 경우:** 기사 요약 실패·포기, 사용량 한도, 토큰이 없어 요약을 건너뜀. 실행 화면의 Annotations에서 볼 수 있습니다.
 
@@ -152,6 +167,8 @@ python -m backend publish          # data/news로 manifest 다시 만들기
 python -m backend requeue --outdated    # 편집 원칙(RULES_VERSION)이 바뀐 뒤 옛 카드를 대기열로 되돌려 다시 요약
 python -m backend validate         # 데이터 점검
 python tools/build_theory.py       # 이론 원고를 고친 뒤 data/theory.json·units.json 다시 만들기
+python tools/style_check.py --spans    # 사이트 글의 'AI 티' 문체 신호와 걸린 문장 보기(--only theory처럼 한 종류만도)
+python tools/style_check.py --fix-c11  # 연결어미 뒤 쉼표만 파일에서 지우기
 ```
 
 설정은 환경 변수로 바꿀 수 있습니다.

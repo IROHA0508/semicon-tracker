@@ -38,7 +38,7 @@ description: 반도체 뉴스 트래커의 한국어 글(data/ 아래 카드·�
 4. 바뀐 글자 비율은 문장마다 30% 안으로 둔다. 원문 대비 수치·영문 표기·URL이 하나라도 달라졌으면 그 수정은 되돌린다.
 5. 고친 곳에 맞춰 다시 만든다: 카드 → `python -m backend publish`, 원고 → `python tools/build_theory.py`, 애니메이션 목록 → `python tools/build_animation_index.py`. 그다음 `python -m backend validate`와 `python -m pytest tests -q`.
 
-자동 요약(`backend/`)은 카드와 기사 페이지를 쓸 때 `references/quick-rules.md`를 프롬프트에 함께 넣고, 쓴 뒤 연결어미 쉼표를 지우고, 다른 신호가 남으면 걸린 문장만 Claude에게 한 번 더 다듬게 한다(`backend/humanize.py`). 수치·영문 표기·URL이 바뀌었거나 절반 넘게 바뀐 수정은 버리고 원래 문장을 둔다.
+자동 요약(`backend/`)은 카드와 기사 페이지를 쓸 때 `references/quick-rules.md`를 프롬프트에 함께 넣고 쓴 뒤 연결어미 쉼표를 지우고 다른 신호가 남으면 걸린 문장만 Claude에게 한 번 더 다듬게 한다(`backend/humanize.py`). 수치·영문 표기·URL이 바뀌었거나 절반 넘게 바뀐 수정은 버리고 원래 문장을 둔다.
 
 전체 파이프라인(진단 → 윤문 → 검증)이 필요하면 원본 플러그인을 설치해 쓴다.
 
