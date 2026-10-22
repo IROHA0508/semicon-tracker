@@ -5,14 +5,14 @@
   "channel": "TECH&AI",
   "kind": "tech",
   "lang": "en",
-  "title": "GTC 2026 후기: AI 경쟁 무게가 인프라로 이동, SK하이닉스 부스 분석",
+  "title": "AI 경쟁 무게가 인프라로 옮겨 간 GTC 2026 후기와 SK하이닉스 부스 분석",
   "originalTitle": "[SOD’s Review] GTC 2026: From Models to Infrastructure – How the AI Race Is Shifting and What It Means for SK hynix",
   "url": "https://news.skhynix.com/en/gtc-2026-review/",
   "published": "2026-03-27T09:00:11+09:00",
   "date": "2026-03-27",
   "summary": [
     "과학·기술 크리에이터 SOD는 GTC 2026 현장 후기에서 AI 경쟁의 초점이 모델 규모에서 배포 비용과 인프라로 옮겨 가고 있다고 평가했습니다.",
-    "SK하이닉스는 cHBM이 베이스 다이에서 데이터 전처리를 맡아 최대 추론 처리량을 약 7배 개선할 수 있다고 밝혔고, 필자는 eSSD 전시와 함께 이를 주요 볼거리로 꼽았습니다."
+    "SK하이닉스는 cHBM이 베이스 다이에서 데이터 전처리를 맡아 최대 추론 처리량을 약 7배 개선할 수 있다고 밝혔고 필자는 eSSD 전시와 함께 이를 주요 볼거리로 꼽았습니다."
   ],
   "interview": "Vera Rubin 랙의 ICMS 계층에 대용량 eSSD가 쓰인다는 점은 AI 인프라에서 HBM뿐 아니라 낸드 수요도 함께 커질 수 있음을 보여 줍니다.",
   "tags": [

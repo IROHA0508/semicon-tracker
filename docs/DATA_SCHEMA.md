@@ -47,7 +47,7 @@
 | `author` | 피드의 필자가 회사 계정이 아닐 때만 있음(외부 기고 배지 판단용) |
 | `summarizedAt`, `model`, `rules` | 요약한 시각, 모델, 편집 원칙 버전(`summarize.RULES_VERSION`). 원칙을 고친 뒤 `requeue --outdated`로 옛 카드를 다시 요약 |
 | `bodyVia` | 본문을 읽은 곳: `feed`(RSS 본문) 또는 `page`(기사 페이지) |
-| `checks` | 점검 기록(있을 때만). `retriedFor`: 다시 쓰게 한 수치, `removed`: 수치가 원문과 안 맞아 지운 문장, `unknownTags`: 표준 태그가 아니라 버린 태그 |
+| `checks` | 점검 기록(있을 때만). `retriedFor`: 다시 쓰게 한 수치, `removed`: 수치가 원문과 안 맞아 지운 문장, `unknownTags`: 표준 태그가 아니라 버린 태그, `style`: 문체 단계 기록(`문체 수정: summary.0`처럼 고친 칸, `문체 수정 거부(이유): 칸`) |
 
 ## `data/manifest.json`과 `data/feed/<연도>.json`: 사이트가 읽는 목록
 
@@ -99,7 +99,7 @@
   "terms": [["A-CiM", "한 줄 풀이"]],
   "studyUnits": ["4-4", "4-7"],
   "generatedAt": "…", "model": "claude-sonnet-5-5", "rules": "2026-10-19",
-  "checks": {"retriedFor": ["…"], "removed": ["…"], "figureDropped": "…"}
+  "checks": {"retriedFor": ["…"], "removed": ["…"], "figureDropped": "…", "style": ["문체 수정: blocks.4.text"]}
 }
 ```
 
@@ -107,6 +107,7 @@
 - `img`: 원문 그림. 파일은 복사하지 않고 원문 서버 주소만 둡니다. 본문의 모든 그림이 원문 위치 가까이에 한 번씩 들어가고(Claude가 빠뜨리면 끝에 붙임), 캡션은 원문 캡션·대체 텍스트를 옮긴 것만 씁니다(없으면 '원문 그림 n').
 - `fig`: 새로 그린 그림. 꼭 도움이 되는 글에만 하나. Claude는 그림 명세(`columns`: 여러 수치를 한눈에, `flow`: A→B→C 흐름)만 쓰고, `backend/figures.py`가 이론 도식과 같은 색·글꼴로 SVG를 그립니다. 글이 상자에 안 맞으면 그림을 뺍니다(`checks.figureDropped`).
 - 수치 점검: 카드와 같은 방식으로 모든 문장·표·그림 글자를 원문과 대조 → 한 번 다시 쓰게 함 → 그래도 안 맞는 문장·항목·행은 지우고, 그림은 통째로 뺍니다.
+- 문체: 카드와 같은 문체 단계(`backend/humanize.py`)를 거칩니다. 개요·핵심 3줄·소제목·문단·목록·용어 풀이 가운데 신호가 걸린 칸만 다시 쓰고(`checks.style`), 그림 설명과 표는 연결어미 뒤 쉼표만 지웁니다.
 - 실패 기록: `backend/state/details.json`(기사별 시도 횟수와 마지막 오류). 3번 실패하면 더 시도하지 않습니다.
 - 시험용으로 손으로 쓴 두 건(`skhynix-research-inside-ep2`, `samsung-41d8ce6f78`)은 `generatedAt`·`model`이 없습니다.
 
@@ -184,6 +185,8 @@
 수집 부분: 출처별 읽은 페이지 수, 새 기사 수, 카테고리로 건너뛴 수, 멈춘 이유(`stoppedBy`), 오류(`errors`), 새로 넣은 기사 목록(`added`), 대기열 크기(`queueSize`), 출처별 첫 채우기 완료 여부(`backfillDone`).
 
 요약 부분(`summary`, `update` 실행 때): 쓴 방식(`backend`: `cli`/`api`), 모델, 한도(`limit`), 요약한 기사(`summarized`), 실패한 기사와 이유(`failed`), 포기한 기사(`gaveUp`), 인증 오류(`authError`), 사용량 한도(`limitHit`), 멈춘 이유(`stoppedBy`: `limit`, `queue done`, `time budget`, `auth error`, `usage limit`, `no credentials`, `nothing to do`), 남은 대기열(`queueLeft`).
+
+`styleNotes`(요약·자세한 요약 부분에 있을 때만): 기사별 문체 단계 기록. 카드·기사 페이지의 `checks.style`과 같습니다.
 
 `manifest`: 카드 수(`count`)와 이번에 manifest를 다시 썼는지(`changed`).
 

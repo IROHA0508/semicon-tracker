@@ -6,6 +6,8 @@ Per run, at most SUMMARY_LIMIT queued articles are taken, newest first. For each
    interviews, 1-4 standard tags, companies mentioned.
 3. Check every number with a unit against the article. If one cannot be found, ask Claude once more
    with the list; if a number is still unsupported, drop the sentence that holds it.
+   Then the im-not-ai style step (humanize.py): commas after connective endings are removed, and if other
+   AI-tell signals remain, Claude rewrites only those sentences once (numbers, names and quotes kept).
 4. Save the card and mark the article summarized. Failed articles stay queued and are retried on
    the next run, up to MAX_ATTEMPTS runs; then they are given up and recorded in seen.json.
 
@@ -20,7 +22,7 @@ import time
 from datetime import datetime
 from typing import Callable
 
-from . import bodies, collect, config, feeds, guard, store, summarize, tags
+from . import bodies, collect, config, feeds, guard, humanize, store, summarize, tags
 
 log = logging.getLogger(__name__)
 
@@ -142,6 +144,9 @@ def make_card(llm, item: dict, body: bodies.Body, book: tags.TagBook) -> tuple[d
         checks["removed"] = removed
     if not card["summary"]:
         raise CardError("쓸 수 있는 요약 문장이 없음")
+    style = humanize.polish_card(llm, card, item["lang"])   # im-not-ai style rules: numbers, names and quotes kept
+    if style:
+        checks["style"] = style
     if unknown:
         checks["unknownTags"] = unknown
     return card, checks
@@ -248,6 +253,8 @@ def run(*, llm=None, finder: bodies.BodyFinder | None = None, limit: int | None 
                 fail(item, str(exc) if isinstance(exc, CardError) else f"{type(exc).__name__}: {exc}")
                 continue
             write_article(article_record(item, card, checks, body, now))
+            if checks.get("style"):
+                report.setdefault("styleNotes", {})[item["id"]] = checks["style"]
             finish(item, "summarized")
             report["summarized"].append({"id": item["id"], "title": card["title"]})
             log.info("summarized %s: %s", item["id"], card["title"])

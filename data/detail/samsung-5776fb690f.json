@@ -3,10 +3,10 @@
   "level": "mid",
   "translated": false,
   "basis": "원문(한국어)을 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
-  "lead": "삼성전자가 8월 4일부터 6일까지 미국 산타클라라에서 열린 FMS(Future of Memory and Storage) 2026에 참가해 AI 시대를 위한 새로운 메모리 아키텍처를 선보였습니다. 기조연설에서는 zHBM, zNAND-O와 업계 최초의 V10 BV-NAND가 공개됐고, 약 20평 전시관에는 약 30개 제품이 나왔습니다. V10 BV-NAND와 LPDDR5X-PIM은 FMS Best of Show Award를 수상했습니다. 기조연설, 전시, 시상식을 차례로 소개하는 현장 스케치 기사입니다.",
+  "lead": "삼성전자가 8월 4일부터 6일까지 미국 산타클라라에서 열린 FMS(Future of Memory and Storage) 2026에 참가해 AI 시대를 위한 새로운 메모리 아키텍처를 선보였습니다. 기조연설에서는 zHBM, zNAND-O와 업계 최초의 V10 BV-NAND가 공개됐고 약 20평 전시관에는 약 30개 제품이 나왔습니다. V10 BV-NAND와 LPDDR5X-PIM은 FMS Best of Show Award를 수상했습니다. 기조연설, 전시, 시상식을 차례로 소개하는 현장 스케치 기사입니다.",
   "keyPoints": [
     "삼성전자는 FMS 2026 기조연설에서 zHBM, zNAND-O, 업계 최초의 V10 BV-NAND를 공개하며 3D 혁신 중심의 메모리 방향을 제시했습니다.",
-    "약 20평 전시관에서 하이라이트·Cloud AI·Edge AI 3개 존에 걸쳐 약 30개 제품을 선보였고, 400단 이상 V10 BV-NAND, HPB 적용 HBM5, LPDDR5X-PIM이 주목받았습니다.",
+    "약 20평 전시관에서 하이라이트·Cloud AI·Edge AI 3개 존에 걸쳐 약 30개 제품을 선보였고 400단 이상 V10 BV-NAND, HPB 적용 HBM5, LPDDR5X-PIM이 주목받았습니다.",
     "V10 BV-NAND와 LPDDR5X-PIM이 FMS Best of Show Award를 수상했습니다."
   ],
   "blocks": [
@@ -42,7 +42,7 @@
     },
     {
       "t": "p",
-      "text": "삼성전자 부스에는 행사 시작과 함께 관람객 발길이 이어졌습니다. 약 20평 규모의 공간은 하이라이트, Cloud AI, Edge AI 존으로 구성됐고, D램부터 낸드, 기업용 스토리지까지 약 30개의 메모리·스토리지 제품이 전시됐습니다."
+      "text": "삼성전자 부스에는 행사 시작과 함께 관람객 발길이 이어졌습니다. 약 20평 규모의 공간은 하이라이트, Cloud AI, Edge AI 존으로 구성됐고 D램부터 낸드, 기업용 스토리지까지 약 30개의 메모리·스토리지 제품이 전시됐습니다."
     },
     {
       "t": "img",
@@ -58,7 +58,7 @@
     },
     {
       "t": "h",
-      "text": "하이라이트 존: zHBM과 zNAND-O"
+      "text": "하이라이트 존의 zHBM과 zNAND-O"
     },
     {
       "t": "img",
@@ -68,7 +68,7 @@
     },
     {
       "t": "p",
-      "text": "하이라이트 존에서는 업계 최초로 공개된 zHBM, zNAND-O 목업이 시선을 모았습니다. 각 존에서 삼성전자 직원들이 제품의 구조와 적용 분야를 설명했고, 관람객과 업계 관계자들은 구조, 데이터 이동 방식, 향후 적용 가능성 등을 질문했습니다."
+      "text": "하이라이트 존에서는 업계 최초로 공개된 zHBM, zNAND-O 목업이 시선을 모았습니다. 각 존에서 삼성전자 직원들이 제품의 구조와 적용 분야를 설명했고 관람객과 업계 관계자들은 구조, 데이터 이동 방식, 향후 적용 가능성 등을 질문했습니다."
     },
     {
       "t": "img",
@@ -84,7 +84,7 @@
     },
     {
       "t": "h",
-      "text": "Cloud AI 존: V10 BV-NAND부터 HBM5까지"
+      "text": "Cloud AI 존의 V10 BV-NAND부터 HBM5까지"
     },
     {
       "t": "p",
@@ -108,11 +108,11 @@
     },
     {
       "t": "h",
-      "text": "Edge AI 존: LPDDR5X-PIM"
+      "text": "Edge AI 존의 LPDDR5X-PIM"
     },
     {
       "t": "p",
-      "text": "Edge AI 존에서 가장 관심을 받은 제품은 LPDDR5X-PIM입니다. 메모리 내부에서 일부 연산을 수행하는 PIM(Processing-In-Memory) 기술로 AI 연산 효율을 높이는 제품이며, AI 데이터 이동을 줄이는 새로운 접근이라는 점에서 관심이 집중됐습니다."
+      "text": "Edge AI 존에서 가장 관심을 받은 제품은 LPDDR5X-PIM입니다. 메모리 내부에서 일부 연산을 수행하는 PIM(Processing-In-Memory) 기술로 AI 연산 효율을 높이는 제품이며 AI 데이터 이동을 줄이는 새로운 접근이라는 점에서 관심이 집중됐습니다."
     },
     {
       "t": "img",
@@ -145,7 +145,7 @@
     },
     {
       "t": "p",
-      "text": "행사 첫날 저녁 FMS Award 시상식에서 삼성전자는 V10 BV-NAND와 LPDDR5X-PIM으로 FMS Best of Show Award를 수상했습니다. 이진엽 부사장과 김경륜 상무가 각각 대표로 수상했으며, 시상식 이후 수상 제품 전시 공간에는 관람객이 이어지고 연구원들과의 질의응답도 활발했습니다."
+      "text": "행사 첫날 저녁 FMS Award 시상식에서 삼성전자는 V10 BV-NAND와 LPDDR5X-PIM으로 FMS Best of Show Award를 수상했습니다. 이진엽 부사장과 김경륜 상무가 각각 대표로 수상했으며 시상식 이후 수상 제품 전시 공간에는 관람객이 이어지고 연구원들과의 질의응답도 활발했습니다."
     },
     {
       "t": "img",

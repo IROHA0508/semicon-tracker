@@ -28,6 +28,8 @@ on:
       - "theory/**"
       - "animations/**"
       - "vercel.json"
+      - "tools/style_check.py"
+      - ".claude/skills/**"
       - ".github/workflows/collect.yml"
 
 permissions:
@@ -53,6 +55,8 @@ jobs:
         run: python -m pytest tests -q
       - name: 데이터 점검 (태그 사전, 단원, 기사 파일, manifest)
         run: python -m backend validate
+      - name: 문체 점검 (im-not-ai 'AI 티' 신호, 경고만)
+        run: python tools/style_check.py
       - name: 실제 출처 점검 (각 피드 첫 페이지만 읽음, Claude 호출 없음)
         run: python -m backend selftest
 

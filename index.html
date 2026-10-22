@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="삼성전자·SK하이닉스 공식 뉴스룸 소식을 한국어로 요약하고, 기사마다 반도체 이론 단원을 이어 주는 개인 면접 공부 사이트">
+<meta name="description" content="삼성전자·SK하이닉스 공식 뉴스룸 소식을 한국어로 요약하고 기사마다 반도체 이론 단원을 이어 주는 개인 면접 공부 사이트">
 <title>반도체 뉴스 트래커</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -764,7 +764,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
 
     var head = h("div", { class: "page-head" }, [
       h("h1", { text: "시장 흐름" }),
-      h("p", { class: "lead", text: "삼성전자·SK하이닉스 공식 뉴스룸 소식을 두 문장으로 줄이고, 면접에서 쓸 한 줄과 이어서 공부할 단원을 붙였습니다." })
+      h("p", { class: "lead", text: "삼성전자·SK하이닉스 공식 뉴스룸 소식을 두 문장으로 줄이고 면접에서 쓸 한 줄과 이어서 공부할 단원을 붙였습니다." })
     ]);
 
     var listBox = h("div");
@@ -907,7 +907,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
     var top = S.order.filter(function (c) { return S.units[c].stars === 3; }), topDone = top.filter(isRead).length;
     frag.appendChild(h("div", { class: "page-head" }, [
       h("h1", { text: "이론 공부" }),
-      h("p", { class: "lead", text: "입문(0층)부터 면접 실전(6층)까지 7개 층, " + total + "개 단원입니다. 단원마다 한 줄 정의·비유·그림·원리·면접 질문이 같은 순서로 있고, " + S.theory.counts.animations + "개 단원은 단계별 애니메이션이 붙어 있습니다." })
+      h("p", { class: "lead", text: "입문(0층)부터 면접 실전(6층)까지 7개 층, " + total + "개 단원입니다. 단원마다 한 줄 정의·비유·그림·원리·면접 질문이 같은 순서로 있고 " + S.theory.counts.animations + "개 단원은 단계별 애니메이션이 붙어 있습니다." })
     ]));
     var filterRow = h("div", { class: "frow", role: "group", "aria-label": "단원 거르기" });
     var FILTERS = [["all", "전체"], ["star3", "★★★만"], ["anim", "애니메이션 있음"], ["unread", "안 읽은 단원"]];
@@ -1273,7 +1273,7 @@ details.alltags .grp b { display: block; font-size: 12px; color: var(--faint); m
       "기사마다 제목, 링크, 발행 날짜와 직접 쓴 한국어 요약만 저장합니다. 기사 본문은 요약하는 동안만 읽고 저장하지 않습니다.",
       "영문 기사는 제목과 요약만 한국어로 옮기고 원제를 함께 보여 줍니다. 본문 전체 번역은 하지 않습니다.",
       "요약은 Claude가 씁니다. 요약 2문장, 면접 한 줄, 표준 태그(55개 사전) 1~4개, 언급 기업을 받습니다.",
-      "카드의 단위 붙은 수치(억·조·%·단 등)는 원문과 대조합니다. 맞지 않으면 한 번 다시 쓰게 하고, 그래도 안 맞으면 그 문장을 지웁니다.",
+      "카드의 단위 붙은 수치(억·조·%·단 등)는 원문과 대조합니다. 맞지 않으면 한 번 다시 쓰게 하고 그래도 안 맞으면 그 문장을 지웁니다.",
       "관련 단원은 기사 태그와 단원 태그가 많이 겹치는 순서 → 면접 빈도 별이 많은 순서로 최대 2개를 고릅니다."
     ].map(function (t) { return h("li", { text: t }); })));
 

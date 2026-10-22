@@ -5,14 +5,14 @@
   "channel": "TECH&AI",
   "kind": "tech",
   "lang": "en",
-  "title": "“메모리 중심 서버 시스템이 미래”: SK하이닉스, OCP 글로벌 서밋 2026에서 AI 인프라 비전 제시",
+  "title": "SK하이닉스, OCP 글로벌 서밋 2026에서 “메모리 중심 서버 시스템이 미래”라는 AI 인프라 비전 제시",
   "originalTitle": "“Memory-Centric Server Systems Are the Future”: SK hynix Presents Its Next-Generation AI Infrastructure Vision at OCP Global Summit 2026",
   "url": "https://news.skhynix.com/en/ocp-global-summit-2026/",
   "published": "2026-10-16T09:00:16+09:00",
   "date": "2026-10-16",
   "summary": [
     "SK하이닉스는 12일부터 15일까지 미국 캘리포니아주 새너제이에서 열린 OCP Global Summit 2026에 참가해 차세대 메모리 솔루션과 AI 시대 메모리 기술의 방향을 제시했습니다.",
-    "CXL 풀드 메모리 기반 CMM-DDR5, MARS, CMM-Ax를 시스템 데모로 선보였고, HBM4, SOCAMM2, HBF, eSSD, 서버 D램 등 제품군도 전시했습니다."
+    "CXL 풀드 메모리 기반 CMM-DDR5, MARS, CMM-Ax를 시스템 데모로 선보였고 HBM4, SOCAMM2, HBF, eSSD, 서버 D램 등 제품군도 전시했습니다."
   ],
   "interview": "CXL 풀드 메모리로 KV 캐시 병목을 푸는 시연은 AI 시대 메모리가 단일 칩을 넘어 시스템 수준 설계로 확장된다는 점을 보여 줍니다.",
   "tags": [

@@ -2,3 +2,5 @@ backend/
 tests/
 tools/
 .github/
+.claude/
+CLAUDE.md

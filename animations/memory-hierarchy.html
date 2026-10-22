@@ -168,7 +168,7 @@
             <text x="580" y="340" class="lbl-s" text-anchor="middle">프리차지</text><text x="660" y="300" class="lbl-s" text-anchor="middle">전하 공유 +ΔV</text><text x="810" y="254" class="lbl-s" text-anchor="middle">증폭·재기록</text>
           </g>
           <g id="cap-tips" class="t">
-            <text x="540" y="236" class="lbl">작아져도 전하는 지키고, 누설은 줄이고</text>
+            <text x="540" y="236" class="lbl">작아져도 전하는 지키고 누설은 줄이고</text>
             <rect x="544" y="256" width="26" height="110" rx="12" style="fill: var(--m-tin)"></rect><rect x="550" y="262" width="14" height="98" rx="7" style="fill: var(--m-hk)"></rect>
             <text x="584" y="276" class="card-l">높고 가는 원통 커패시터</text><text x="584" y="296" class="card-m">High-k 유전막(ZrO₂ 계열), 약 10 fF 안팎</text>
             <text x="584" y="330" class="card-l">매립 채널 트랜지스터(BCAT)</text><text x="584" y="350" class="card-m">게이트를 실리콘 속에 묻어 채널 길이 확보</text>
@@ -176,7 +176,7 @@
           </g>
         </g>
       </svg>
-      <figcaption>개념도입니다. 회로는 셀 하나만 단순화했고, 셀 면적 그림은 비율을 과장했습니다.</figcaption>
+      <figcaption>개념도입니다. 회로는 셀 하나만 단순화했고 셀 면적 그림은 비율을 과장했습니다.</figcaption>
     </figure>
 
     <section class="panel">
@@ -224,10 +224,10 @@
     base: () => Object.assign(only(G, ["m-pyr"]), { lift: off, blk: off, "pyr-step": off, analogy: on, cmp: off }),
     steps: [
       { short: "피라미드", title: "빠르고 비싼 것은 조금, 느리고 싼 것은 많이", cmd: "계층",
-        text: `레지스터·캐시(<b>SRAM</b>) → 메인 메모리(<b>DRAM</b>) → 저장장치(<b>NAND SSD</b>). 위로 갈수록 빠르고 비싸고 작으며, 아래로 갈수록 느리고 싸고 큽니다. 책상(캐시)–책장(DRAM)–창고(SSD)와 같습니다.`,
+        text: `레지스터·캐시(<b>SRAM</b>) → 메인 메모리(<b>DRAM</b>) → 저장장치(<b>NAND SSD</b>). 위로 갈수록 빠르고 비싸고 작으며 아래로 갈수록 느리고 싸고 큽니다. 책상(캐시)–책장(DRAM)–창고(SSD)와 같습니다.`,
         set: {} },
       { short: "데이터가 올라온다", title: "없으면 아래층에서 가져와 위층에 올려 둔다", cmd: "요청",
-        text: `CPU는 먼저 캐시를 찾고, 없으면 DRAM(수십 ns), 그래도 없으면 SSD(읽기 수십 μs)에서 가져와 위층에 올려 둡니다. 원하는 데이터가 <b>윗층에 있을 확률</b>을 높이는 것이 시스템 성능의 핵심입니다.`,
+        text: `CPU는 먼저 캐시를 찾고 없으면 DRAM(수십 ns), 그래도 없으면 SSD(읽기 수십 μs)에서 가져와 위층에 올려 둡니다. 원하는 데이터가 <b>윗층에 있을 확률</b>을 높이는 것이 시스템 성능의 핵심입니다.`,
         set: { lift: on, blk: on, "pyr-step": on, analogy: off } },
       { short: "세 메모리 비교", title: "SRAM·DRAM·NAND 한눈에 비교", cmd: "비교",
         text: `SRAM은 트랜지스터 6개, DRAM은 트랜지스터 1개와 커패시터 1개(1T1C), NAND는 전자를 가두는 트랜지스터 하나에 여러 비트를 담습니다. DRAM 제품은 같은 1T1C 셀을 쓰지만 입출력 방식과 전압이 다른 DDR·LPDDR·GDDR·HBM으로 갈립니다.`,
@@ -259,13 +259,13 @@
         text: `DRAM 셀은 트랜지스터 1개와 커패시터 1개(<b>1T1C</b>)입니다. 워드라인(WL)으로 트랜지스터를 켜고 비트라인(BL) 전압으로 커패시터를 충전하면 1, 방전하면 0입니다. 물이 차 있으면 1, 비어 있으면 0인 물컵과 같습니다.`,
         set: Object.assign({ "d-wl": { s: "hi" }, "d-bl": { s: "hi" }, "d-tr": on, "d-flow": on, cq: on, "d-blv": txt("BL = VDD") }, cup(1, "가득 = 1"), dc(["1T1C", "WL: 스위치를 켬", "BL: 전하를 넣고 뺌", "충전 = 1, 방전 = 0", "물이 차 있으면 1"])) },
       { short: "읽기", title: "읽기: 아주 작은 차이를 키워 읽고 다시 쓴다", cmd: "READ",
-        text: `비트라인을 <b>VDD/2</b>로 맞춰 둔 뒤(프리차지) 워드라인을 켜면 셀 전하가 비트라인과 나눠지며 전압이 아주 조금 오르거나 내립니다(<b>전하 공유</b>). 감지 증폭기가 이 차이를 키워 0/1을 판별하고, 읽는 동안 셀 전하가 바뀌므로(<b>파괴적 읽기</b>) 곧바로 다시 써넣습니다. 자세한 과정은 2-10에서 봅니다.`,
+        text: `비트라인을 <b>VDD/2</b>로 맞춰 둔 뒤(프리차지) 워드라인을 켜면 셀 전하가 비트라인과 나눠지며 전압이 아주 조금 오르거나 내립니다(<b>전하 공유</b>). 감지 증폭기가 이 차이를 키워 0/1을 판별하고 읽는 동안 셀 전하가 바뀌므로(<b>파괴적 읽기</b>) 곧바로 다시 써넣습니다. 자세한 과정은 2-10에서 봅니다.`,
         set: Object.assign({ "d-wl": { s: "hi" }, "d-bl": { s: "on" }, "d-tr": on, "d-flow": off, cq: on, graph: on, "d-blv": txt("BL: ½VDD → +ΔV → VDD") }, cup(1, "읽고 다시 채움"), dc(["읽기 4단계", "① 프리차지(VDD/2)", "② 전하 공유(+ΔV)", "③ 감지 증폭", "④ 재기록(파괴적 읽기)"])) },
       { short: "리프레시", title: "리프레시: 새는 물을 주기적으로 다시 채운다", cmd: "REFRESH",
         text: `커패시터 전하는 접합 누설, GIDL, 트랜지스터(서브스레숄드) 누설, 유전막 누설로 조금씩 새어 나갑니다. 그래서 표준상 <b>64 ms</b>(고온에서는 32 ms) 안에 모든 셀을 한 번씩 읽고 다시 써야 합니다. 데이터를 오래 버티는 능력(<b>리텐션</b>)이 DRAM 품질의 핵심 지표입니다.`,
         set: Object.assign({ "d-wl": { s: "on" }, "d-bl": { s: "on" }, "d-tr": { s: "off-" }, "d-flow": off, cq: on, graph: off, leaks: on, drips: on, dr1: on, "d-blv": txt("") }, cup(0.55, "조금씩 샘"), dc(["리프레시", "64 ms 안에 모든 셀을 다시 씀", "(고온에서는 32 ms)", "리텐션 = 품질 핵심 지표", "새는 길: 접합·GIDL·트랜지스터·유전막"])) },
       { short: "크게, 덜 새게", title: "커패시터는 크게, 누설은 작게", cmd: "설계",
-        text: `셀이 작아져도 감지할 수 있는 전하(대략 <b>10 fF</b> 안팎)를 지키려고 커패시터를 <b>높고 가는 원통</b>으로 세우고 High-k 유전막(ZrO₂ 계열 등)을 씁니다. 셀 트랜지스터는 게이트를 실리콘 속에 묻은 <b>매립 채널(BCAT)</b>로 채널 길이를 확보해 누설을 줄입니다. 셀 면적은 6F²이고, 수직 채널 트랜지스터(VCT)로 4F²까지 줄일 수 있습니다(4-3).`,
+        text: `셀이 작아져도 감지할 수 있는 전하(대략 <b>10 fF</b> 안팎)를 지키려고 커패시터를 <b>높고 가는 원통</b>으로 세우고 High-k 유전막(ZrO₂ 계열 등)을 씁니다. 셀 트랜지스터는 게이트를 실리콘 속에 묻은 <b>매립 채널(BCAT)</b>로 채널 길이를 확보해 누설을 줄입니다. 셀 면적은 6F²이고 수직 채널 트랜지스터(VCT)로 4F²까지 줄일 수 있습니다(4-3).`,
         set: Object.assign({ leaks: off, drips: off, dr1: off, "cap-tips": on }, cup(1, ""), dc(["셀 설계의 두 축", "전하 확보: 커패시턴스 ↑", "누설 억제: 트랜지스터·유전막", "", "F = 최소 선폭"])) },
     ],
   };

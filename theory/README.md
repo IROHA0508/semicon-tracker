@@ -41,9 +41,12 @@ tags: [HBM, HBM 적층(TSV·MR-MUF), 하이브리드 본딩]
 ## 고친 뒤에 할 일
 
 ```
+python tools/style_check.py --only theory --spans   # 'AI 티' 문체 신호(im-not-ai 규칙) 확인, 걸린 문장만 고치기
 python tools/build_theory.py      # data/theory.json, data/units.json 다시 만들기
-python -m pytest -q               # 원고 형식·링크·그림 점검 포함
+python -m pytest -q               # 원고 형식·링크·그림 점검 포함(연결어미 뒤 쉼표가 있으면 실패)
 ```
+
+- 문체는 `.claude/skills/humanize-korean-site/SKILL.md`를 따릅니다. 단원 제목과 '① …: …' 같은 절 제목은 교재 절 제목이라 콜론을 그대로 둡니다.
 
 - `data/theory.json`: 사이트가 읽는 단원 목록(층, 제목, 별, 이어지는 단원, 표준 태그, 그림, 영상, 애니메이션). 애니메이션은 `animations/catalog.json`에서 같은 단원 코드를 찾아 붙입니다.
 - `data/units.json`: 기사 카드의 관련 단원을 고를 때 백엔드가 읽는 파일입니다. 직접 고치지 않고 이 도구로 만듭니다. 단원의 `tags`를 바꿨다면 이 파일의 `version`을 그날 날짜로 바꾸고 `python -m backend publish`로 기사 목록의 관련 단원도 다시 계산합니다.
