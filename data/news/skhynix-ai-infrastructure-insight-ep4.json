@@ -1,0 +1,40 @@
+{
+  "id": "skhynix-ai-infrastructure-insight-ep4",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "[AI 인프라 인사이트] 미래 AI 인프라는 어떻게 설계될 것인가",
+  "originalTitle": "[AI Infrastructure Insight] How AI infrastructure will be designed for the future",
+  "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep4/",
+  "published": "2026-10-22T15:00:37+09:00",
+  "date": "2026-10-22",
+  "summary": [
+    "SK하이닉스는 AI Infrastructure Insight 시리즈의 네 번째이자 마지막 글에서 AI 인프라 설계 범위가 서버에서 랙, 데이터센터 전체로 넓어지고 있다고 설명했습니다.",
+    "연산·메모리·스토리지·네트워크·전력·냉각을 초기 설계 단계부터 함께 고려하는 공동 설계가 확산되고 있으며, HBM은 고객 시스템 요구를 반영한 커스텀 설계 논의가 힘을 얻고 있다고 밝혔습니다."
+  ],
+  "interview": "메모리 업체의 경쟁력이 제품 성능뿐 아니라 고객 시스템 설계에 얼마나 일찍 참여하느냐에도 달려 있음을 보여 줍니다.",
+  "tags": [
+    "AI 서버·데이터센터",
+    "HBM",
+    "전력·냉각"
+  ],
+  "companies": [
+    "SK하이닉스"
+  ],
+  "categories": [
+    "TECH&AI",
+    "Agentic AI",
+    "AI data center",
+    "AI Infrastructure",
+    "AI Infrastructure Insight",
+    "HBM",
+    "Rack-scale Systems"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-22T18:21:04+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

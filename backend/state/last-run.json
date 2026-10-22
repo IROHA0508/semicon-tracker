@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-22T09:36:31+09:00",
+  "startedAt": "2026-10-22T18:21:01+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,59 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "skhynix-ai-infrastructure-insight-ep4",
+      "date": "2026-10-22",
+      "source": "sk-tech",
+      "title": "[AI Infrastructure Insight] How AI infrastructure will be designed for the future"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-22T09:36:35+09:00",
+  "finishedAt": "2026-10-22T18:21:04+09:00",
   "summary": {
-    "startedAt": "2026-10-22T09:36:35+09:00",
-    "backend": null,
+    "startedAt": "2026-10-22T18:21:04+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "skhynix-ai-infrastructure-insight-ep4",
+        "title": "[AI 인프라 인사이트] 미래 AI 인프라는 어떻게 설계될 것인가"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-10-22T18:21:13+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "skhynix-ai-infrastructure-insight-ep4",
+        "title": "[AI 인프라 인사이트] 미래 AI 인프라는 어떻게 설계될 것인가",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
+    "stoppedBy": "all done",
     "left": 0
   },
   "manifest": {
-    "count": 152,
-    "changed": false
+    "count": 153,
+    "changed": true
   }
 }

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-22T00:06:21+09:00",
-  "count": 152,
+  "generatedAt": "2026-10-22T18:21:42+09:00",
+  "count": 153,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,28 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 152
+      "count": 153
     }
   ],
   "index": [
+    {
+      "id": "skhynix-ai-infrastructure-insight-ep4",
+      "date": "2026-10-22",
+      "published": "2026-10-22T15:00:37+09:00",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "kind": "tech",
+      "tags": [
+        "AI 서버·데이터센터",
+        "HBM",
+        "전력·냉각"
+      ],
+      "relatedUnits": [
+        "4-9",
+        "0-4"
+      ],
+      "detail": true
+    },
     {
       "id": "skhynix-q3-2026-earnings-conference-call-invitation",
       "date": "2026-10-21",
