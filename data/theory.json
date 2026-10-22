@@ -18,7 +18,7 @@
    "floor": 0,
    "title": "0층 · 입문",
    "name": "입문",
-   "intro": "반도체가 무엇이고, 칩 하나가 어떻게 태어나 어디에 쓰이는지 큰 그림을 잡는 층입니다.",
+   "intro": "반도체가 무엇이고 칩 하나가 어떻게 태어나 어디에 쓰이는지 큰 그림을 잡는 층입니다.",
    "file": "theory/floors/0.md",
    "units": [
     "0-1",
@@ -2542,7 +2542,7 @@
   {
    "code": "3-12",
    "floor": 3,
-   "title": "패키징 공정: 자르고, 붙이고, 연결하고, 감싸기",
+   "title": "패키징 공정: 자르고 붙이고 연결하고 감싸기",
    "stars": 2,
    "freq": "★★(패키징·PKG 기술 직무는 ★★★)",
    "related": [
@@ -2599,7 +2599,7 @@
    "animations": [
     {
      "file": "animations/packaging.html",
-     "title": "패키징 공정: 자르고, 붙이고, 연결하고, 감싸기",
+     "title": "패키징 공정: 자르고 붙이고 연결하고 감싸기",
      "modes": [
       {
        "id": "flow",
@@ -2838,7 +2838,7 @@
   {
    "code": "3-16",
    "floor": 3,
-   "title": "3D 낸드 공정 흐름: 쌓고, 뚫고, 바꾸기",
+   "title": "3D 낸드 공정 흐름: 쌓고 뚫고 바꾸기",
    "stars": 3,
    "freq": "★★★(낸드·식각·증착 직무 단골)",
    "related": [
@@ -2883,7 +2883,7 @@
    "films": [
     {
      "file": "animations/nand-process-film.html",
-     "title": "3D 낸드 공정 흐름: 쌓고, 뚫고, 바꾸기",
+     "title": "3D 낸드 공정 흐름: 쌓고 뚫고 바꾸기",
      "seconds": 118,
      "chapters": [
       "시작",

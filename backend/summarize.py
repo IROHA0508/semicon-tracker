@@ -215,4 +215,12 @@ def write_card(llm, item: dict, text: str, author: str, book: tags.TagBook, *,
         user += ("\n\n# 수정 요청\n직전에 쓴 카드:\n" + json.dumps(previous, ensure_ascii=False, indent=1) +
                  "\n\n다음 수치를 원문에서 찾지 못했습니다: " + ", ".join(bad) +
                  "\n원문에 있는 그대로의 수치로 고치거나(단위 자릿수 주의) 그 수치를 빼고 카드를 다시 써라. 나머지 원칙은 같다.")
-    return llm.json_call(model=config.SUMMARY_MODEL, system=RULES, user=user, schema=card_schema(book.names))
+    return llm.json_call(model=config.SUMMARY_MODEL, system=system_prompt(RULES), user=user,
+                         schema=card_schema(book.names))
+
+
+def system_prompt(rules: str) -> str:
+    """Editing rules + the im-not-ai style rules (backend/humanize.py), for the card and the article page."""
+    from .humanize import style_rules
+
+    return rules + "\n\n# 문체 규칙\n" + style_rules()

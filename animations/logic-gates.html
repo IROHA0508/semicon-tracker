@@ -38,7 +38,7 @@
   <header class="anim-head">
     <div class="eyebrow"><span class="unit-chip">1-6</span><span>디지털 기초</span><a href="./">애니메이션 목록</a></div>
     <h1>0과 1의 세계</h1>
-    <p class="lead">디지털 칩은 트랜지스터를 전압으로 켜고 끄는 스위치로 써서 0과 1을 만들고, 스위치를 엮은 논리 게이트로 계산하고 저장합니다. 위의 A·B 버튼으로 입력을 바꿔 보세요.</p>
+    <p class="lead">디지털 칩은 트랜지스터를 전압으로 켜고 끄는 스위치로 써서 0과 1을 만들고 스위치를 엮은 논리 게이트로 계산하고 저장합니다. 위의 A·B 버튼으로 입력을 바꿔 보세요.</p>
   </header>
 
   <div class="bar">
@@ -194,7 +194,7 @@
           </g>
         </g>
       </svg>
-      <figcaption>개념도입니다. 회로 기호는 단순화했고, 전압 파형은 0.9 V 회로를 예로 든 모양입니다.</figcaption>
+      <figcaption>개념도입니다. 회로 기호는 단순화했고 전압 파형은 0.9 V 회로를 예로 든 모양입니다.</figcaption>
     </figure>
 
     <section class="panel">
@@ -283,7 +283,7 @@
         set: (c) => Object.assign(only(GROUPS, ["g-sp"]), { "lv-a1": A1(c) ? leverOn : leverOff, "lv-a2": A1(c) ? leverOn : leverOff, "lv-b1": B1(c) ? leverOn : leverOff, "lv-b2": B1(c) ? leverOn : leverOff,
           lamp1: { s: A1(c) && B1(c) ? "on" : "off-l" }, lamp2: { s: A1(c) || B1(c) ? "on" : "off-l" } }) },
       { short: "CMOS NAND", title: "CMOS NAND: 위는 병렬 PMOS, 아래는 직렬 NMOS", cmd: "NAND",
-        text: (c) => `PMOS 두 개를 <b>병렬</b>로 VDD에, NMOS 두 개를 <b>직렬</b>로 GND에 붙이면 NAND 게이트가 됩니다. 둘 다 1일 때만 NMOS 길이 이어져 출력이 0이고, 그 밖에는 PMOS 하나라도 켜져 1입니다. 어느 경우든 한쪽 길은 끊겨 있어 VDD에서 GND로 곧장 흐르는 전류가 거의 없습니다. 지금 A = ${c.a}, B = ${c.b} → Y = ${A1(c) && B1(c) ? 0 : 1}.`,
+        text: (c) => `PMOS 두 개를 <b>병렬</b>로 VDD에, NMOS 두 개를 <b>직렬</b>로 GND에 붙이면 NAND 게이트가 됩니다. 둘 다 1일 때만 NMOS 길이 이어져 출력이 0이고 그 밖에는 PMOS 하나라도 켜져 1입니다. 어느 경우든 한쪽 길은 끊겨 있어 VDD에서 GND로 곧장 흐르는 전류가 거의 없습니다. 지금 A = ${c.a}, B = ${c.b} → Y = ${A1(c) && B1(c) ? 0 : 1}.`,
         set: (c) => { const y = !(A1(c) && B1(c)); return Object.assign(only(GROUPS, ["g-nand"]), { pa: { s: A1(c) ? "cut" : "on" }, pb: { s: B1(c) ? "cut" : "on" }, na: { s: A1(c) ? "on" : "cut" }, nb: { s: B1(c) ? "on" : "cut" }, ny: { s: y ? "hi" : "lo" }, "ny-v": txt(y ? "1" : "0") },
           { nr0: { s: !A1(c) && !B1(c) ? "on" : "x" }, nr1: { s: !A1(c) && B1(c) ? "on" : "x" }, nr2: { s: A1(c) && !B1(c) ? "on" : "x" }, nr3: { s: A1(c) && B1(c) ? "on" : "x" } }); } },
       { short: "만능 게이트", title: "NAND만 있으면 모든 논리를 만든다", cmd: "만능",

@@ -20,7 +20,7 @@ import time
 from datetime import datetime
 from typing import Callable
 
-from . import bodies, collect, config, feeds, figures, guard, store, summarize, tags
+from . import bodies, collect, config, feeds, figures, guard, humanize, store, summarize, tags
 
 log = logging.getLogger(__name__)
 
@@ -149,7 +149,7 @@ def write(llm, article: dict, text: str, images: list[dict], author: str, *, fix
         user += ("\n\n# 수정 요청\n직전에 쓴 요약:\n" + json.dumps(previous, ensure_ascii=False) +
                  "\n\n다음 수치를 원문에서 찾지 못했습니다: " + ", ".join(bad) +
                  "\n원문에 있는 그대로의 수치로 고치거나(단위 자릿수 주의) 그 수치를 빼고 다시 써라. 나머지 원칙은 같다.")
-    return llm.json_call(model=config.SUMMARY_MODEL, system=RULES, user=user, schema=SCHEMA)
+    return llm.json_call(model=config.SUMMARY_MODEL, system=summarize.system_prompt(RULES), user=user, schema=SCHEMA)
 
 
 def _sentences(text: str) -> list[str]:
@@ -299,6 +299,9 @@ def make(llm, article: dict, body: bodies.Body) -> tuple[dict, dict | None, dict
             spec = None
     if not spec:
         detail["blocks"] = [b for b in detail["blocks"] if b["t"] != "fig"]
+    style = humanize.polish_detail(llm, detail)   # im-not-ai style rules: numbers, names and quotes kept
+    if style:
+        checks["style"] = style
     body_chars = sum(len(t) for t in _all_texts(detail, None))
     if not detail["lead"] or sum(1 for b in detail["blocks"] if b["t"] == "h") < 2 or body_chars < 500:
         raise DetailError(f"요약이 너무 짧거나 소제목이 부족함({body_chars}자)")
@@ -399,6 +402,8 @@ def run(*, llm=None, finder=None, limit: int | None = None, now: datetime | None
                 log.warning("detail %s: %s", article["id"], reason)
                 continue
             save(article, record(article, detail, spec, checks, now), spec)
+            if checks.get("style"):
+                report.setdefault("styleNotes", {})[article["id"]] = checks["style"]
             state.pop(article["id"], None)
             done += 1
             report["detailed"].append({"id": article["id"], "title": article["title"], "figure": bool(spec)})

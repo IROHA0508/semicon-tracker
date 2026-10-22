@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>패키징 공정: 자르고, 붙이고, 연결하고, 감싸기</title>
+<title>패키징 공정: 자르고 붙이고 연결하고 감싸기</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -29,7 +29,7 @@
 <main class="anim" id="app">
   <header class="anim-head">
     <div class="eyebrow"><span class="unit-chip">3-12</span><span>제조 공정</span><a href="./">애니메이션 목록</a></div>
-    <h1>패키징 공정: 자르고, 붙이고, 연결하고, 감싸기</h1>
+    <h1>패키징 공정: 자르고 붙이고 연결하고 감싸기</h1>
     <p class="lead">패키징은 웨이퍼에서 잘라 낸 칩을 기판에 붙이고 전기적으로 연결한 뒤 수지로 감싸, 외부와 신호·전원을 주고받고 열을 내보내며 충격·습기로부터 보호받는 완제품 부품으로 만드는 공정입니다. 예민한 엔진(칩)을 차체(메인보드)에 연결하는 배선·마운트·보닛을 한꺼번에 만드는 일과 같습니다.</p>
   </header>
 
@@ -41,7 +41,7 @@
   <div class="layout">
     <figure class="stage">
       <svg viewBox="0 0 880 440" role="img" aria-labelledby="svg-title">
-        <title id="svg-title">패키징 공정: 자르고, 붙이고, 연결하고, 감싸기</title>
+        <title id="svg-title">패키징 공정: 자르고 붙이고 연결하고 감싸기</title>
         <defs>
           <marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
           <marker id="ar-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
@@ -107,7 +107,7 @@
           <text x="440" y="408" class="card-l acc" text-anchor="middle">단자 수 ↑, 크기 ↓, 여러 칩을 하나로, 웨이퍼 상태로·수직으로(4-6)</text>
         </g>
       </svg>
-      <figcaption>개념도입니다. 와이어 본딩 BGA를 예로 들었고, 크기와 두께는 비율이 아닙니다.</figcaption>
+      <figcaption>개념도입니다. 와이어 본딩 BGA를 예로 들었고 크기와 두께는 비율이 아닙니다.</figcaption>
     </figure>
 
     <section class="panel">
@@ -173,16 +173,16 @@
         text: `칩을 기판이나 리드프레임에 붙입니다. 에폭시·은(Ag) 페이스트를 바르거나, 웨이퍼 뒷면에 미리 붙인 접착 필름(<b>DAF</b>)을 쓰거나, 금-실리콘 공정 접합을 씁니다. 칩 깨짐, 긁힘, 기울어짐이 대표 불량입니다.`,
         set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "die-t"]), tk(1), ff(["다이 어태치", "에폭시·Ag 페이스트", "DAF(접착 필름)", "금-실리콘 공정 접합", "불량: 깨짐·긁힘·기울어짐", "", ""])) },
       { short: "와이어 본딩", title: "③ 가는 금속선으로 칩과 기판을 잇는다", cmd: "W/B",
-        text: `칩 패드와 기판을 가는 금속선으로 잇습니다. 금선은 끝을 녹여 만든 둥근 볼을 칩 패드에 붙이고(<b>1차 볼 본딩</b>) 기판 쪽에서 눌러 끊습니다(<b>2차 스티치 본딩</b>). 금(Au)은 전도성이 좋고 산화되지 않지만 비싸고, 구리(Cu)는 싸고 전도성이 좋지만 단단하고 산화되기 쉬우며, 알루미늄(Al)은 싸서 웨지 본딩에 씁니다.`,
+        text: `칩 패드와 기판을 가는 금속선으로 잇습니다. 금선은 끝을 녹여 만든 둥근 볼을 칩 패드에 붙이고(<b>1차 볼 본딩</b>) 기판 쪽에서 눌러 끊습니다(<b>2차 스티치 본딩</b>). 금(Au)은 전도성이 좋고 산화되지 않지만 비싸고 구리(Cu)는 싸고 전도성이 좋지만 단단하고 산화되기 쉬우며 알루미늄(Al)은 싸서 웨지 본딩에 씁니다.`,
         set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "die-t", "wires"]), tk(2), ff(["와이어 본딩", "Au: 전도성·내산화, 비쌈", "Cu: 싸고 전도성 ↑, 단단·산화", "Al: 싸다, 웨지 본딩", "에너지: 열압착·초음파·열초음파", "", ""])) },
       { short: "몰딩", title: "④ EMC로 감싼다", cmd: "Mold",
-        text: `에폭시 수지에 실리카 필러를 섞은 <b>EMC</b>로 칩을 감쌉니다. 녹인 EMC를 금형에 밀어 넣는 <b>트랜스퍼 몰딩</b>은 널리 쓰이지만 와이어가 휘거나 기공이 생길 수 있고, 가루·과립 EMC를 깔고 눌러 굳히는 <b>컴프레션 몰딩</b>은 얇고 균일해 HBM·고적층 메모리에 씁니다. 재료 간 열팽창 차이로 생기는 휨을 관리해야 합니다.`,
+        text: `에폭시 수지에 실리카 필러를 섞은 <b>EMC</b>로 칩을 감쌉니다. 녹인 EMC를 금형에 밀어 넣는 <b>트랜스퍼 몰딩</b>은 널리 쓰이지만 와이어가 휘거나 기공이 생길 수 있고 가루·과립 EMC를 깔고 눌러 굳히는 <b>컴프레션 몰딩</b>은 얇고 균일해 HBM·고적층 메모리에 씁니다. 재료 간 열팽창 차이로 생기는 휨을 관리해야 합니다.`,
         set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "wires", "emc", "emc-t"]), tk(3), ff(["몰딩", "트랜스퍼: 밀어 넣기", "→ 와이어 휨·기공 위험", "컴프레션: 눌러 굳히기", "→ 얇고 균일, HBM", "휨(warpage) 관리", ""])) },
       { short: "마킹·솔더볼", title: "⑤ 마킹하고 솔더볼을 리플로로 붙인다", cmd: "S/B",
         text: `레이저로 제품명과 로트 정보를 새깁니다. 기판 아래에 <b>솔더볼</b>을 올리고 <b>리플로</b>(예열 → 유지 → 리플로 → 냉각)로 녹여 붙입니다. 볼끼리 붙는 브리지, 볼 누락, 피치 이상, 볼이 패드에 덜 붙는 헤드 인 필로가 대표 불량입니다.`,
         set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "wires", "emc", "mark", "balls", "reflow"]), tk(4), ff(["마킹 · 솔더볼", "레이저 마킹", "솔더볼 + 리플로", "불량: 브리지, 누락,", "헤드 인 필로", "", ""])) },
       { short: "싱귤레이션·출하", title: "⑥ 낱개로 자르고 테스트해 포장한다", cmd: "출하",
-        text: `여러 개가 붙은 기판(스트립)을 낱개 패키지로 자르고(<b>싱귤레이션</b>), 최종 테스트(3-11)와 외관 검사를 거쳐 포장합니다. 습기를 머금으면 리플로 때 수증기가 팽창해 터질 수 있어(<b>팝콘</b> 현상) 습기 민감도 등급(<b>MSL</b>)에 따라 방습 포장하고, 정전기(ESD)도 막습니다.`,
+        text: `여러 개가 붙은 기판(스트립)을 낱개 패키지로 자르고(<b>싱귤레이션</b>), 최종 테스트(3-11)와 외관 검사를 거쳐 포장합니다. 습기를 머금으면 리플로 때 수증기가 팽창해 터질 수 있어(<b>팝콘</b> 현상) 습기 민감도 등급(<b>MSL</b>)에 따라 방습 포장하고 정전기(ESD)도 막습니다.`,
         set: Object.assign({ dice: off, pkg: on }, pk(["daf", "die", "wires", "emc", "mark", "balls", "sing"]), tk(5), ff(["싱귤레이션 · 출하", "낱개 절단 → 최종 테스트", "→ 외관 검사 → 포장", "MSL: 방습 포장·HIC·베이킹", "ESD 모델: HBM·MM·CDM", "(여기 HBM은 사람 몸 모델)", ""])) },
     ],
   };
@@ -192,7 +192,7 @@
     base: () => Object.assign(only(G, ["m-flip"]), { uf: off, "uf-t": off }),
     steps: [
       { short: "범프·UBM", title: "칩을 뒤집어 범프로 바로 붙인다", cmd: "Flip chip",
-        text: `칩 패드 위에 <b>범프</b>(솔더, 금, 구리 기둥)를 만들고 칩을 뒤집어 기판에 바로 붙입니다. 범프 아래에는 접착·확산 방지·솔더가 잘 퍼지게 하는 젖음 역할의 <b>UBM</b> 층을 깝니다. 구리 기둥(Cu pillar) 범프는 간격을 좁힐 수 있어 미세 피치에 유리하고, HBM은 수십 μm 크기의 마이크로 범프를 씁니다.`,
+        text: `칩 패드 위에 <b>범프</b>(솔더, 금, 구리 기둥)를 만들고 칩을 뒤집어 기판에 바로 붙입니다. 범프 아래에는 접착·확산 방지·솔더가 잘 퍼지게 하는 젖음 역할의 <b>UBM</b> 층을 깝니다. 구리 기둥(Cu pillar) 범프는 간격을 좁힐 수 있어 미세 피치에 유리하고 HBM은 수십 μm 크기의 마이크로 범프를 씁니다.`,
         set: qq(["플립칩", "면 전체를 범프로 연결", "경로 짧고 단자 많음", "→ 고속·고성능", "비용·공정 난도 ↑", "HBM: 마이크로 범프"]) },
       { short: "언더필", title: "언더필로 범프의 응력을 나눈다", cmd: "Underfill",
         text: `칩과 기판 사이 틈을 수지로 채워(<b>언더필</b>), 열팽창계수(CTE) 차이 때문에 범프에 몰리는 응력을 나눠 받게 합니다. 언더필이 없으면 온도가 오르내릴 때마다 범프에 크랙이 생기기 쉽습니다.`,
