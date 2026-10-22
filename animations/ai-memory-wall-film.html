@@ -498,7 +498,7 @@
     s += `<g id="fd${i}"><rect class="card" x="${c[2]}" y="130" width="560" height="260" rx="14"></rect>` + txt(c[2] + 28, 190, c[0], "acc-t", 38)
       + c[1].map((t, j) => `<g class="mk"><circle cx="${c[2] + 44}" cy="${236 + j * 52}" r="13"></circle><text x="${c[2] + 44}" y="${236 + j * 52 + 6}" text-anchor="middle" style="font-size:16px">${j + 1}</text></g>` + txt(c[2] + 72, 244 + j * 52, t, "", 24, "", "", true)).join("") + `</g>`;
   });
-  s += `<g id="fd2"><rect class="card" x="60" y="420" width="1160" height="140" rx="14"></rect>` + txt(640, 480, "추론 시장이 커지면 HBM만이 아니라", "acc-t", 30, "middle") + txt(640, 528, "GDDR · LPDDR · 기업용 SSD(eSSD) · HBF 수요도 함께 늘어납니다", "", 24, "middle", "", true) + `</g>`;
+  s += `<g id="fd2"><rect class="card" x="60" y="420" width="1160" height="140" rx="14"></rect>` + txt(640, 480, "추론 시장이 커지면 HBM 말고도", "acc-t", 30, "middle") + txt(640, 528, "GDDR · LPDDR · 기업용 SSD(eSSD) · HBF 수요도 함께 늘어납니다", "", 24, "middle", "", true) + `</g>`;
   $("f-art").innerHTML = s;
 
   // G: closing cards

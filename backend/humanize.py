@@ -168,8 +168,7 @@ def accept(old: str, new: str) -> tuple[bool, str]:
 def signals(fields: dict[str, str], headings: list[str]) -> dict[str, list[str]]:
     """Signals over the whole card / page, without C-11 (already removed without Claude).
 
-    headings: titles where a 'X: Y' colon subtitle counts (a translated card title; article-page headings
-    only when two or more of them have one, as tools/style_check.py counts it)."""
+    headings: titles where a 'X: Y' colon subtitle counts (a translated card title, article-page headings)."""
     sc = checker()
     hits = sc.check_text("\n".join(fields.values()))
     hits.pop("C-11", None)
@@ -240,8 +239,7 @@ def polish_detail(llm, detail: dict) -> list[str]:
     fix_detail(detail)
     fields = detail_fields(detail)
     heads = [b.get("text", "") for b in detail.get("blocks") or [] if b.get("t") == "h"]
-    colon = [h for h in heads if checker().check_title(h)]
-    changes, notes = polish(llm, fields, colon if len(colon) >= 2 else [], "기사 페이지")
+    changes, notes = polish(llm, fields, heads, "기사 페이지")
     for path, text in changes.items():
         _set(detail, path, text)
     return notes
