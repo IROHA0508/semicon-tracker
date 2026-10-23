@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-22T23:02:11+09:00",
-  "count": 153,
+  "generatedAt": "2026-10-23T09:34:49+09:00",
+  "count": 154,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,28 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 153
+      "count": 154
     }
   ],
   "index": [
+    {
+      "id": "skhynix-fact-12",
+      "date": "2026-10-23",
+      "published": "2026-10-23T07:33:42+09:00",
+      "company": "skhynix",
+      "source": "sk-fact",
+      "kind": "fact",
+      "tags": [
+        "주주환원·자본",
+        "eSSD·SSD",
+        "팹 투자"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "2-8"
+      ],
+      "detail": true
+    },
     {
       "id": "skhynix-ai-infrastructure-insight-ep4",
       "date": "2026-10-22",

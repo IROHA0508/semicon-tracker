@@ -1,7 +1,39 @@
 {
   "year": "2026",
-  "count": 153,
+  "count": 154,
   "items": [
+    {
+      "id": "skhynix-fact-12",
+      "company": "skhynix",
+      "source": "sk-fact",
+      "channel": "FACT",
+      "kind": "fact",
+      "lang": "en",
+      "title": "솔리다임, 기업공개 추진 검토 중단 발표",
+      "originalTitle": "Solidigm to Discontinue Review of Potential IPO, Reaffirming Commitment to Long-Term Growth and Shareholder Value",
+      "url": "https://news.skhynix.com/en/fact-12/",
+      "published": "2026-10-23T07:33:42+09:00",
+      "date": "2026-10-23",
+      "summary": [
+        "SK하이닉스는 미국 신규 팹 건설 자금을 마련하려고 검토하던 솔리다임의 프리 IPO와 IPO 추진 검토를 중단한다고 밝혔습니다.",
+        "회사는 최근 자본시장 상황과 주가 흐름을 고려한 결정이며 솔리다임의 성장 전망과 투자 필요성에는 변화가 없다고 설명했습니다."
+      ],
+      "interview": "솔리다임 IPO 검토 중단은 AI 시대 메모리 증설에 큰 자금이 들고 그 조달 방식이 시장 환경에 좌우된다는 점을 보여 줍니다.",
+      "tags": [
+        "주주환원·자본",
+        "eSSD·SSD",
+        "팹 투자"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "솔리다임"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-8"
+      ]
+    },
     {
       "id": "skhynix-ai-infrastructure-insight-ep4",
       "company": "skhynix",

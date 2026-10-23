@@ -1268,6 +1268,16 @@
       "status": "summarized",
       "title": "Clarification Regarding Recent Media Reports on Solidigm"
     },
+    "https://news.skhynix.com/en/fact-12": {
+      "checkedAt": "2026-10-23",
+      "date": "2026-10-23",
+      "id": "skhynix-fact-12",
+      "sources": [
+        "sk-fact"
+      ],
+      "status": "summarized",
+      "title": "Solidigm to Discontinue Review of Potential IPO, Reaffirming Commitment to Long-Term Growth and Shareholder Value"
+    },
     "https://news.skhynix.com/en/fms-2026": {
       "checkedAt": "2026-10-07",
       "date": "2026-08-07",
