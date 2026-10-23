@@ -1,12 +1,12 @@
 {
-  "startedAt": "2026-10-23T09:34:24+09:00",
+  "startedAt": "2026-10-23T18:16:51+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
     "sk-fact": {
       "pages": 1,
       "items": 10,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,59 +41,40 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "skhynix-fact-12",
-      "date": "2026-10-23",
-      "source": "sk-fact",
-      "title": "Solidigm to Discontinue Review of Potential IPO, Reaffirming Commitment to Long-Term Growth and Shareholder Value"
-    }
-  ],
-  "queueSize": 1,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-23T09:34:27+09:00",
+  "finishedAt": "2026-10-23T18:16:57+09:00",
   "summary": {
-    "startedAt": "2026-10-23T09:34:27+09:00",
-    "backend": "cli",
+    "startedAt": "2026-10-23T18:16:57+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "skhynix-fact-12",
-        "title": "솔리다임, 기업공개 추진 검토 중단 발표"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-10-23T09:34:34+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "details": {
     "limit": 10,
-    "detailed": [
-      {
-        "id": "skhynix-fact-12",
-        "title": "솔리다임, 기업공개 추진 검토 중단 발표",
-        "figure": false
-      }
-    ],
+    "detailed": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "all done",
+    "stoppedBy": "nothing to do",
     "left": 0
   },
   "manifest": {
     "count": 154,
-    "changed": true
+    "changed": false
   }
 }
