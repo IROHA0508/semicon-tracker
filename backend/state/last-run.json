@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-24T17:49:23+09:00",
+  "startedAt": "2026-10-24T22:57:34+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -49,9 +49,9 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-24T17:49:27+09:00",
+  "finishedAt": "2026-10-24T22:57:37+09:00",
   "summary": {
-    "startedAt": "2026-10-24T17:49:27+09:00",
+    "startedAt": "2026-10-24T22:57:37+09:00",
     "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
