@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-23T09:34:49+09:00",
-  "count": 154,
+  "generatedAt": "2026-10-27T10:25:29+09:00",
+  "count": 155,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,25 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 154
+      "count": 155
     }
   ],
   "index": [
+    {
+      "id": "samsung-f29d8066c1",
+      "date": "2026-10-25",
+      "published": "2026-10-25T18:59:24+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "채용"
+      ],
+      "relatedUnits": [
+        "6-1"
+      ],
+      "detail": true
+    },
     {
       "id": "skhynix-fact-12",
       "date": "2026-10-23",

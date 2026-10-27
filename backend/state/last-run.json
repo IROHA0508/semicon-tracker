@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-27T01:44:23+09:00",
+  "startedAt": "2026-10-27T10:24:49+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,66 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-f29d8066c1",
+      "date": "2026-10-25",
+      "source": "samsung-newsroom",
+      "title": "삼성, 2026년 하반기 삼성직무적성검사(GSAT) 실시"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-27T01:44:27+09:00",
+  "finishedAt": "2026-10-27T10:24:53+09:00",
   "summary": {
-    "startedAt": "2026-10-27T01:44:27+09:00",
-    "backend": null,
+    "startedAt": "2026-10-27T10:24:53+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-f29d8066c1",
+        "title": "삼성, 2026년 하반기 삼성직무적성검사(GSAT) 실시"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-10-27T10:25:01+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "samsung-f29d8066c1",
+        "title": "삼성, 2026년 하반기 삼성직무적성검사(GSAT) 실시",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "left": 0
+    "stoppedBy": "all done",
+    "left": 0,
+    "styleNotes": {
+      "samsung-f29d8066c1": [
+        "문체 수정: blocks.1.text",
+        "문체 수정: blocks.18.items.1",
+        "문체 수정: blocks.18.items.2"
+      ]
+    }
   },
   "manifest": {
-    "count": 154,
-    "changed": false
+    "count": 155,
+    "changed": true
   }
 }
