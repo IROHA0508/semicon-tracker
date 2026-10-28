@@ -1,7 +1,70 @@
 {
   "year": "2026",
-  "count": 155,
+  "count": 157,
   "items": [
+    {
+      "id": "samsung-c605de467c",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "인공지능의 발전과 AI Chip, 이를 뒷받침하는 HBM",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b8%ea%b3%b5%ec%a7%80%eb%8a%a5%ec%9d%98-%eb%b0%9c%ec%a0%84%ea%b3%bc-ai-chip-%ec%9d%b4%eb%a5%bc-%eb%92%b7%eb%b0%9b%ec%b9%a8%ed%95%98%eb%8a%94-hbm/",
+      "published": "2026-10-28T18:00:02+09:00",
+      "date": "2026-10-28",
+      "summary": [
+        "삼성전자는 테크블로그 시리즈 1편에서 AI Chip의 진화와 메모리 월 문제, 이에 대응하는 HBM의 등장 배경과 발전 과정을 설명했습니다.",
+        "HBM은 수직 적층과 넓은 입출력 인터페이스로 대역폭과 용량, 전력 효율을 함께 높이며 삼성전자는 연산 장치와 메모리를 직접 적층하는 zHBM을 개발 중이라고 소개했습니다."
+      ],
+      "interview": "연산 성능이 높아져도 데이터 공급이 막히면 성능을 못 쓰기 때문에, HBM이 AI 시스템의 병목을 푸는 핵심 메모리라는 점을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "CXL·PIM",
+        "AI 가속기"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "4-5"
+      ]
+    },
+    {
+      "id": "skhynix-q3-2026-business-results",
+      "company": "skhynix",
+      "source": "sk-press",
+      "channel": "PRESS",
+      "kind": "press",
+      "lang": "en",
+      "title": "SK하이닉스, 3분기 매출 104조 6155억 원으로 처음 100조 원 넘어",
+      "originalTitle": "SK hynix Announces 3Q26 Financial Results",
+      "url": "https://news.skhynix.com/en/q3-2026-business-results/",
+      "published": "2026-10-28T08:29:15+09:00",
+      "date": "2026-10-28",
+      "summary": [
+        "SK하이닉스가 2026년 3분기 매출 104조 6155억 원, 영업이익 83조 3338억 원, 순이익 39조 7756억 원을 기록했다고 밝혔습니다.",
+        "영업이익률은 80%이며 HBM4 출하가 본격화되고 서버 DDR5 판매가 크게 늘었습니다."
+      ],
+      "interview": "장기공급계약에 시장 상황을 반영하는 가격 장치를 넣어 안정적 수익성과 유연성을 함께 노린다는 점은 메모리 사업 구조가 달라지고 있음을 보여 줍니다.",
+      "tags": [
+        "실적",
+        "HBM",
+        "공급 계약",
+        "주주환원·자본"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "키옥시아"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "5-2",
+        "5-6"
+      ]
+    },
     {
       "id": "samsung-f29d8066c1",
       "company": "samsung",

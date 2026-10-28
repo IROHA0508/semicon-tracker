@@ -1,0 +1,43 @@
+{
+  "id": "samsung-c605de467c",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "인공지능의 발전과 AI Chip, 이를 뒷받침하는 HBM",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b8%ea%b3%b5%ec%a7%80%eb%8a%a5%ec%9d%98-%eb%b0%9c%ec%a0%84%ea%b3%bc-ai-chip-%ec%9d%b4%eb%a5%bc-%eb%92%b7%eb%b0%9b%ec%b9%a8%ed%95%98%eb%8a%94-hbm/",
+  "published": "2026-10-28T18:00:02+09:00",
+  "date": "2026-10-28",
+  "summary": [
+    "삼성전자는 테크블로그 시리즈 1편에서 AI Chip의 진화와 메모리 월 문제, 이에 대응하는 HBM의 등장 배경과 발전 과정을 설명했습니다.",
+    "HBM은 수직 적층과 넓은 입출력 인터페이스로 대역폭과 용량, 전력 효율을 함께 높이며 삼성전자는 연산 장치와 메모리를 직접 적층하는 zHBM을 개발 중이라고 소개했습니다."
+  ],
+  "interview": "연산 성능이 높아져도 데이터 공급이 막히면 성능을 못 쓰기 때문에, HBM이 AI 시스템의 병목을 푸는 핵심 메모리라는 점을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "CXL·PIM",
+    "AI 가속기"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "AI",
+    "AIChip",
+    "ASIC",
+    "CPU",
+    "GPU",
+    "HBM",
+    "MemoryWall",
+    "Workload",
+    "zHBM"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-28T10:12:03+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

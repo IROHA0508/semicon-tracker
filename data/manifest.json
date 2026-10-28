@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-27T10:25:29+09:00",
-  "count": 155,
+  "generatedAt": "2026-10-28T10:13:33+09:00",
+  "count": 157,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,47 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 155
+      "count": 157
     }
   ],
   "index": [
+    {
+      "id": "samsung-c605de467c",
+      "date": "2026-10-28",
+      "published": "2026-10-28T18:00:02+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "tech",
+      "tags": [
+        "HBM",
+        "CXL·PIM",
+        "AI 가속기"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "4-5"
+      ],
+      "detail": true
+    },
+    {
+      "id": "skhynix-q3-2026-business-results",
+      "date": "2026-10-28",
+      "published": "2026-10-28T08:29:15+09:00",
+      "company": "skhynix",
+      "source": "sk-press",
+      "kind": "press",
+      "tags": [
+        "실적",
+        "HBM",
+        "공급 계약",
+        "주주환원·자본"
+      ],
+      "relatedUnits": [
+        "5-2",
+        "5-6"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-f29d8066c1",
       "date": "2026-10-25",

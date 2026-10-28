@@ -1,0 +1,42 @@
+{
+  "id": "skhynix-q3-2026-business-results",
+  "company": "skhynix",
+  "source": "sk-press",
+  "channel": "PRESS",
+  "kind": "press",
+  "lang": "en",
+  "title": "SK하이닉스, 3분기 매출 104조 6155억 원으로 처음 100조 원 넘어",
+  "originalTitle": "SK hynix Announces 3Q26 Financial Results",
+  "url": "https://news.skhynix.com/en/q3-2026-business-results/",
+  "published": "2026-10-28T08:29:15+09:00",
+  "date": "2026-10-28",
+  "summary": [
+    "SK하이닉스가 2026년 3분기 매출 104조 6155억 원, 영업이익 83조 3338억 원, 순이익 39조 7756억 원을 기록했다고 밝혔습니다.",
+    "영업이익률은 80%이며 HBM4 출하가 본격화되고 서버 DDR5 판매가 크게 늘었습니다."
+  ],
+  "interview": "장기공급계약에 시장 상황을 반영하는 가격 장치를 넣어 안정적 수익성과 유연성을 함께 노린다는 점은 메모리 사업 구조가 달라지고 있음을 보여 줍니다.",
+  "tags": [
+    "실적",
+    "HBM",
+    "공급 계약",
+    "주주환원·자본"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "키옥시아"
+  ],
+  "categories": [
+    "IR",
+    "PRESS",
+    "2026 Business Performance",
+    "Business performance",
+    "Earnings",
+    "financial results",
+    "Quarterly Earnings"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-28T10:12:03+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

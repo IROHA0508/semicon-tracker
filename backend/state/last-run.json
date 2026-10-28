@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-28T05:37:04+09:00",
+  "startedAt": "2026-10-28T10:11:58+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -24,7 +24,7 @@
     "sk-press": {
       "pages": 1,
       "items": 10,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,81 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-c605de467c",
+      "date": "2026-10-28",
+      "source": "samsung-newsroom",
+      "title": "인공지능의 발전과 AI Chip, 이를 뒷받침하는 HBM"
+    },
+    {
+      "id": "skhynix-q3-2026-business-results",
+      "date": "2026-10-28",
+      "source": "sk-press",
+      "title": "SK hynix Announces 3Q26 Financial Results"
+    }
+  ],
+  "queueSize": 2,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-28T05:37:07+09:00",
+  "finishedAt": "2026-10-28T10:12:03+09:00",
   "summary": {
-    "startedAt": "2026-10-28T05:37:07+09:00",
-    "backend": null,
+    "startedAt": "2026-10-28T10:12:03+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-c605de467c",
+        "title": "인공지능의 발전과 AI Chip, 이를 뒷받침하는 HBM"
+      },
+      {
+        "id": "skhynix-q3-2026-business-results",
+        "title": "SK하이닉스, 3분기 매출 104조 6155억 원으로 처음 100조 원 넘어"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-10-28T10:12:19+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "samsung-c605de467c",
+        "title": "인공지능의 발전과 AI Chip, 이를 뒷받침하는 HBM",
+        "figure": false
+      },
+      {
+        "id": "skhynix-q3-2026-business-results",
+        "title": "SK하이닉스, 3분기 매출 104조 6155억 원으로 처음 100조 원 넘어",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "left": 0
+    "stoppedBy": "all done",
+    "left": 0,
+    "styleNotes": {
+      "samsung-c605de467c": [
+        "문체 수정: blocks.5.text",
+        "문체 수정: blocks.11.text",
+        "문체 수정: blocks.19.items.3"
+      ]
+    }
   },
   "manifest": {
-    "count": 155,
-    "changed": false
+    "count": 157,
+    "changed": true
   }
 }
