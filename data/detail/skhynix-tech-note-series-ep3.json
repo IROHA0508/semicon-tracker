@@ -1,0 +1,223 @@
+{
+  "id": "skhynix-tech-note-series-ep3",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "한양대학교 ERICA 반도체융합공학부 김영현 교수가 SK하이닉스 뉴스룸 Tech Note에 쓴 기술 해설입니다. GPU를 수만 개 늘려도 데이터 통로가 좁으면 AI가 기다려야 하는 문제를 짚고 해법으로 실리콘 포토닉스와 CPO(Co-Packaged Optics)를 설명합니다. Meta가 ECOC 2025에서 발표한 CPO 스위치 평가에서는 광 연결 부분의 소비 전력이 비교 대상인 플러거블 구조보다 약 65% 낮았습니다. 외부 기고이며 글 끝에 SK하이닉스의 공식 입장과 다를 수 있다는 면책 문구가 붙어 있습니다.",
+  "keyPoints": [
+    "AI 팩토리의 성능은 GPU 연산 속도에 더해 데이터가 어디에 있고 얼마나 빨리 도착하느냐에 달려 있어서 데이터 통로가 전기에서 빛으로 옮겨 가고 있습니다.",
+    "CPO는 광엔진을 스위치 ASIC 바로 옆 같은 패키지 기판에 올려 전기 신호 이동 거리를 줄이며 Meta 평가에서 광 연결 부분 소비 전력이 플러거블 구조보다 약 65% 낮았습니다.",
+    "HBM은 GPU 곁의 메모리 거리를, CPO는 GPU 사이 네트워크 효율을 맡아 같은 병목을 다른 지점에서 줄이며 전기와 광 연결은 각자 강점이 있는 곳에서 함께 쓰입니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "GPU가 늘어도 데이터를 기다리는 이유"
+    },
+    {
+      "t": "p",
+      "text": "글은 공장 단지에 비유합니다. 기계가 아무리 빨라져도 공장 사이 도로가 왕복 1차로뿐이면 원자재 트럭은 창고 밖에 줄을 서고 완제품은 제때 다음 공정에 가지 못합니다. 단지 전체의 생산 속도는 결국 도로 용량이 정한다는 설명입니다. 'AI 팩토리'라 불리는 대형 AI 데이터센터에서 같은 일이 벌어지고 있다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/26145601/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_01-1.jpg",
+      "caption": "AI 팩토리에 연산 장치가 아무리 많아도 데이터 전송 통로가 좁으면 GPU는 데이터를 기다리게 됩니다.",
+      "credit": "SK하이닉스 뉴스룸",
+      "alt": "▲ No matter how many computing devices an AI factory has, GPUs will be left waiting for data if the data transfer pathways are too narrow."
+    },
+    {
+      "t": "p",
+      "text": "GPU는 AI에 필요한 방대한 계산을 동시에 처리하는 데 강하지만 필요한 데이터가 도착해야 계산을 시작할 수 있습니다. 학습 데이터와 가중치(학습 과정에서 AI 모델이 배운 값)를 메모리에서 가져와야 하고 여러 GPU가 한 모델을 함께 학습할 때는 계산 결과도 계속 주고받아야 합니다. GPU가 빨라질수록 주변 메모리와 네트워크의 데이터 전송 능력이 더 중요해집니다."
+    },
+    {
+      "t": "h",
+      "text": "전기 신호 자리에 빛이 필요한 이유"
+    },
+    {
+      "t": "p",
+      "text": "지금까지 서버 안 반도체 부품은 구리 배선으로 연결했습니다. 구리는 다루기 쉽고 같은 패키지 기판 위 칩 사이처럼 아주 짧은 거리에서는 신호를 효율적으로 전달합니다. 전송 속도가 빨라지고 거리가 길어지면 전기 신호는 약해지고 서로 간섭합니다. 약해진 신호를 되살리는 리피터(약해진 신호를 받아 증폭하거나 재생해 다시 보내는 장치)와 신호 보정 회로가 필요하고 이 회로가 전력을 더 쓰면서 열과 냉각 부담을 키웁니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/26145603/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_02-1.jpg",
+      "caption": "구리는 반도체 패키지 안 같은 짧은 거리에서 효율적이지만 속도와 거리가 늘면 신호 손실, 발열, 리피터 전력 소모가 함께 커져 광섬유 하나에 여러 파장을 싣는 광 연결이 점점 유리해집니다.",
+      "credit": "SK하이닉스 뉴스룸",
+      "alt": "▲ Copper is efficient over short distances, such as within semiconductor packages. However, as transmission speeds and distances increase, signal loss, heat generation, and repeater power consumption also rise, making optical interconnects that carry multiple wavelengths through a single fiber increasingly advantageous."
+    },
+    {
+      "t": "p",
+      "text": "광 연결은 빛으로 더 많은 데이터를 보냅니다. 광섬유 하나에 여러 파장의 빛을 동시에 실을 수 있고 파장분할다중화(WDM)로 데이터 흐름마다 다른 파장을 배정하면 광섬유를 늘리지 않고도 전송 용량을 키웁니다."
+    },
+    {
+      "t": "p",
+      "text": "그렇다고 구리가 사라지는 것은 아닙니다. 칩 내부와 아주 짧은 거리에서는 구리 전기 연결이 여전히 유리합니다. 데이터센터 랙 사이나 건물 사이 같은 장거리 연결에서는 광 연결이 이미 표준이 되었고 더 짧은 거리로 들어오는 중입니다. 전기와 빛은 경쟁하지 않고 역할을 나눕니다. 구리의 신호 손실·전력 소모·발열이 커지는 연결부터 '빛의 고속도로'를 놓는 것이 목표입니다."
+    },
+    {
+      "t": "h",
+      "text": "실리콘 포토닉스: 칩 위에 빛의 길 만들기"
+    },
+    {
+      "t": "p",
+      "text": "광섬유가 고속도로라면 데이터를 고속도로에 올리고 목적지로 보내고 반대편에서 꺼내는 시설도 필요합니다. 실리콘 포토닉스는 이 시설을 작은 칩 하나에 담습니다. 칩 안에는 광도파로라는 미세한 길이 있어, 도파로와 주변 물질의 굴절률 차이로 생기는 전반사 원리로 빛을 안내합니다. 그 곁에는 반도체 공정으로 만든 변조기와 광검출기가 있습니다. 변조기는 전기 데이터에 따라 빛의 세기 등을 바꿔 정보를 싣고 광검출기는 들어온 빛을 다시 전기 신호로 바꿔 정보를 꺼냅니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/26145605/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_03-1.jpg",
+      "caption": "실리콘 포토닉스는 광섬유로 들어온 빛을 실리콘 광집적회로(PIC)의 도파로로 보내고 링 공진기·변조기·광검출기 같은 집적 소자가 빛을 제어합니다. 이 작은 칩 안에서 전기 신호를 빛에 싣고 들어온 빛을 다시 전기 신호로 바꿔 정보를 꺼냅니다.",
+      "credit": "SK하이닉스 뉴스룸",
+      "alt": "▲ Silicon photonics directs light entering through an optical fiber into waveguides within a silicon photonic integrated circuit (PIC), where integrated components such as ring resonators, modulators, and photodetectors control the light. Within this small chip, electrical signals can be encoded ></p>\n<p class="
+    },
+    {
+      "t": "p",
+      "text": "'실리콘'의 의미는 소재에 그치지 않습니다. 반도체 산업이 쌓은 미세 가공과 양산 기술을 광소자에도 쓸 수 있어, 작은 면적에 수많은 광 경로를 정밀하게 반복 제작하고 전자회로 가까이에 집적하기에 알맞습니다."
+    },
+    {
+      "t": "p",
+      "text": "다만 빛을 제어하는 일과 빛을 만드는 일은 다른 과제입니다. 실리콘은 전류로 빛을 효율적으로 내는 데 적합하지 않아, 통신용 레이저에는 인화인듐(InP) 같은 화합물 반도체를 씁니다. 한 방식은 레이저를 실리콘 포토닉스 칩 밖에 두고 외부 레이저 광원(ELS)에서 빛을 공급하는 것입니다. 열을 많이 내는 전자 칩에서 레이저를 떼어 놓을 수 있고 모듈형 교체 구조라 유지보수도 쉽습니다."
+    },
+    {
+      "t": "h",
+      "text": "광모듈을 스위치 칩 옆에 놓는 CPO"
+    },
+    {
+      "t": "p",
+      "text": "데이터센터 스위치는 수많은 서버가 주고받는 데이터를 목적지로 보내는 교통 통제관입니다. 전면 패널에는 전기 신호와 빛을 서로 바꾸는 광트랜시버 모듈이 줄지어 있습니다. 이 '플러거블' 모듈은 필요할 때 꽂고 뺄 수 있어 고장 난 모듈만 쉽게 바꾸고 운영 경험도 풍부합니다. 하지만 스위치의 두뇌인 ASIC에서 전면 패널 광모듈까지 전기 신호가 회로 기판을 가로질러야 합니다. 스위치 용량과 포트 속도가 커질수록 이 짧아 보이는 전기 경로가 전력 소모와 신호 품질의 부담이 됩니다."
+    },
+    {
+      "t": "p",
+      "text": "CPO는 전기 신호와 빛을 바꾸는 핵심 부품인 광엔진을 스위치 ASIC 바로 옆, 같은 패키지 기판 위에 놓습니다. 물류 터미널을 먼 곳에서 공장 부지 안으로 옮기는 것과 같다고 비유합니다. 전기 신호가 가야 할 거리는 짧아지고 긴 구간은 광섬유가 맡습니다. 한정된 스위치 면적에서 더 많은 데이터를 보내는 대역폭 밀도를 높일 수 있고 고속 전기 신호 손실을 보상하느라 쓰던 전력도 줄입니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/26145606/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_04-1.jpg",
+      "caption": "왼쪽 플러거블 구조에서는 스위치 ASIC에서 전면 패널 광모듈까지 전기 신호가 이동하고 오른쪽 CPO 구조에서는 중앙의 스위치 ASIC과 주변 광엔진이 같은 패키지 기판에 놓여 전기 연결 거리가 크게 짧아집니다.",
+      "credit": "SK하이닉스 뉴스룸",
+      "alt": "▲ In the pluggable architecture ></p>\n<p class="
+    },
+    {
+      "t": "p",
+      "text": "CPO는 광소자와 이를 구동·처리하는 전자회로의 공동 설계가 필요합니다. 실리콘 포토닉스는 기존 반도체 제조 인프라와 첨단 패키징 기술을 활용해 전자 칩과 가깝게 집적하기에 유리합니다. 이는 소자·공정부터 패키징·시스템까지 함께 최적화하는 시스템-기술 공동 최적화(STCO)에도 맞습니다."
+    },
+    {
+      "t": "p",
+      "text": "과제도 있습니다. 칩에 레이저 빛을 공급하고 광섬유를 정밀하게 연결하는 일은 여전히 어렵습니다. 발열이 큰 ASIC 옆에서 광소자가 안정적으로 동작해야 합니다. 부품 하나의 불량이 패키지 전체에 영향을 주므로 수율(품질 요건을 충족하는 제품의 비율)을 높이고 불량을 쉽게 찾아 고칠 구조를 설계하는 것도 중요합니다."
+    },
+    {
+      "t": "h",
+      "text": "글로벌 기업의 대응과 대안 기술"
+    },
+    {
+      "t": "p",
+      "text": "AI 기업은 CPO에 주목합니다. GPU의 연산 능력을 온전히 쓰려면 네트워크 효율도 높여야 합니다. GPU를 하나의 큰 컴퓨터처럼 촘촘히 묶든 여러 서버에 걸쳐 연결해 확장하든, GPU를 늘릴수록 이들을 잇는 연결부의 부담이 커집니다. NVIDIA와 Broadcom 같은 글로벌 기업은 CPO 기술을 넣은 네트워크 제품을 내놓으며 상용화를 서두르고 있습니다."
+    },
+    {
+      "t": "p",
+      "text": "효과를 보여 주는 결과도 나왔습니다. Meta는 2025 유럽광통신학회(ECOC)에서 CPO 스위치 시스템 평가 결과를 발표했습니다. 시험에서 광 연결 부분의 소비 전력은 비교 대상 플러거블 구조보다 약 65% 낮았습니다. 장시간 운용에서도 해당 시험 조건에서는 연결 안정성이 확인되었습니다."
+    },
+    {
+      "t": "p",
+      "text": "CPO와 나란히 기존 구조의 장점을 살리는 대안도 개발되고 있습니다. LPO(Linear Pluggable Optics)는 탈착 가능한 광모듈 구조를 유지하되 신호 왜곡을 보정하던 디지털 신호 처리기(DSP)를 없애 전력을 줄입니다. NPO(Near-Packaged Optics)는 광엔진을 스위치 칩 가까이에 두지만 같은 패키지에 넣지는 않습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/26145608/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_05-1.jpg",
+      "caption": "LPO는 플러거블 광모듈 구조를 유지하면서 모듈 안의 DSP를 없애고 NPO는 광엔진을 스위치 칩 가까이에 두되 패키지 밖에 둡니다.",
+      "credit": "SK하이닉스 뉴스룸",
+      "alt": "▲ LPO retains the pluggable optical module architecture while eliminating the DSP inside the module, whereas NPO places optical engines close to the switch chip but outside its package."
+    },
+    {
+      "t": "p",
+      "text": "CPO, LPO, NPO는 성능, 전력 효율, 냉각, 유지보수 요건에 따라 고르는 서로 다른 접근으로, 기술 발전의 순차적 단계와는 다릅니다. 플러거블 구조는 교체가 쉽지만 대규모 AI 시스템이 더 큰 대역폭과 전력 효율을 요구할수록 전기 연결을 패키지 수준으로 줄이는 CPO가 중요해집니다. 이 방식들이 공존하는 가운데 CPO는 절전 효과와 운영 신뢰성이 실제 환경에서 입증된 분야부터 확산될 것으로 예상됩니다."
+    },
+    {
+      "t": "h",
+      "text": "HBM과 CPO가 푸는 같은 과제"
+    },
+    {
+      "t": "p",
+      "text": "HBM과 CPO는 시스템의 서로 다른 지점에서 GPU의 데이터 대기 시간을 줄입니다. HBM은 D램 다이를 여러 층 쌓아 GPU 바로 옆에 두고 같은 패키지 안에서 인터포저(한 패키지 안에서 CPU·GPU·메모리 같은 여러 칩을 잇는 중간 기판)를 통해 짧고 넓은 전기 경로로 GPU와 연결됩니다. CPO는 스위치 칩 가까이에서 전기 신호를 빛으로 바꿔, 여러 GPU 시스템을 잇는 네트워크의 데이터 전송 효율을 높입니다. HBM이 GPU에 데이터를 충분히 공급해도 GPU 사이 통신이 병목이면 전체 성능을 다 내지 못합니다. 그래서 메모리와 네트워크 능력이 함께 갖춰져야 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/26145610/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_06-1.jpg",
+      "caption": "HBM은 GPU와 같은 패키지 안에서 데이터가 이동할 거리를 줄이고 CPO는 여러 GPU 시스템을 잇는 네트워크의 데이터 전송 효율을 높입니다.",
+      "credit": "SK하이닉스 뉴스룸",
+      "alt": "▲ HBM reduces the distance that data must travel within the same package as the GPU, while CPO improves data transfer efficiency across networks connecting multiple GPU systems."
+    },
+    {
+      "t": "p",
+      "text": "데이터를 빠르게 전달하는 것 외에, 여러 시스템에 흩어진 메모리 용량을 효율적으로 쓰는 일도 중요합니다. 시스템마다 메모리를 따로 배정하면 어떤 곳은 용량이 모자라고 어떤 곳은 남습니다. 이를 푸는 방법의 하나가 메모리 풀링으로, 메모리 자원을 공유 풀로 묶어 여러 프로세서가 필요한 만큼 접근하게 합니다. CXL(Compute Express Link)은 메모리 확장과 풀링을 지원하는 인터커넥트 표준입니다. 빛의 역할은 GPU 사이 통신을 넘어 프로세서가 공유 메모리 풀에 접근하는 경로까지 넓어질 여지가 있습니다. 이 연결에 실리콘 포토닉스 기반 광 연결을 쓰면 더 먼 거리와 더 큰 대역폭을 가능하게 하면서 전력 소모를 줄일 수도 있습니다."
+    },
+    {
+      "t": "p",
+      "text": "GPU 바로 옆의 HBM까지 광 연결을 써야 하는 것은 아닙니다. 빠른 접근이 필요한 데이터는 짧고 넓은 전기 경로로 연결된 HBM에, 추가 용량이나 공유 접근이 필요한 데이터는 광으로 연결된 메모리 풀에 두는 하이브리드 구조가 가능합니다. 광 연결이 먼 메모리를 HBM과 같은 속도로 접근하게 해 주지는 않습니다. 그래서 데이터 종류별로 어디에 둘지, 언제 옮길지, 그 이동의 지연 시간과 전력 소모가 얼마인지를 따져야 합니다."
+    },
+    {
+      "t": "p",
+      "text": "앞으로 AI 반도체의 경쟁력은 개별 GPU의 연산 속도에 더해 GPU, 메모리, 네트워크를 이를 구현할 광·패키징·시스템 기술과 얼마나 긴밀히 함께 설계하고 통합하느냐에 달려 있다고 글은 말합니다. 전기와 광 연결은 각자 강점이 가장 잘 발휘되는 곳에서 공존합니다. 가장 강력한 AI 팩토리는 가장 빠른 GPU 하나를 가진 곳이 아니라 수많은 GPU와 메모리가 서로를 기다리지 않고 함께 일하는 곳이라는 결론입니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/10/23133347/Tech-Note-Why-does-AI-still-have-to-wait-with-tens-of-thousands-of-GPUs-How-silicon-photonics-and-CPO-are-building-the-%E2%80%98highways-of-light_etc_info_techai_07.jpg",
+      "caption": "원문 그림 7",
+      "credit": "SK하이닉스 뉴스룸"
+    }
+  ],
+  "terms": [
+    [
+      "실리콘 포토닉스",
+      "광도파로, 변조기, 광검출기 등 빛을 다루는 부품을 반도체 공정으로 작은 칩 위에 만드는 기술입니다."
+    ],
+    [
+      "CPO(Co-Packaged Optics)",
+      "전기 신호와 빛을 서로 바꾸는 광엔진을 스위치 ASIC 바로 옆, 같은 패키지 기판에 놓는 방식입니다."
+    ],
+    [
+      "WDM(파장분할다중화)",
+      "광섬유 하나로 서로 다른 파장(색)의 빛에 각각 다른 데이터를 실어 동시에 보내는 기술입니다."
+    ],
+    [
+      "플러거블 광트랜시버",
+      "스위치 전면 패널에 꽂고 뺄 수 있는, 전기 신호와 빛을 서로 바꾸는 모듈입니다."
+    ],
+    [
+      "LPO와 NPO",
+      "LPO는 모듈 안의 DSP를 없애 전력을 줄이는 방식이고 NPO는 광엔진을 스위치 칩 가까이에 두되 패키지 밖에 두는 방식입니다."
+    ],
+    [
+      "인터포저",
+      "한 패키지 안에서 CPU, GPU, 메모리 같은 여러 칩을 잇는 중간 기판입니다."
+    ],
+    [
+      "CXL(Compute Express Link)",
+      "메모리 확장과 풀링을 지원하는 인터커넥트 표준입니다."
+    ],
+    [
+      "STCO",
+      "소자와 공정부터 패키징, 시스템까지 함께 최적화하는 시스템-기술 공동 최적화 접근입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-5",
+    "4-6",
+    "4-7",
+    "2-7"
+  ],
+  "generatedAt": "2026-10-29T10:43:58+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19",
+  "checks": {
+    "style": [
+      "문체 수정: keyPoints.0",
+      "문체 수정: blocks.8.text",
+      "문체 수정 거부(50% 넘게 바뀜): blocks.9.text",
+      "문체 수정: blocks.12.text",
+      "문체 수정: blocks.14.text",
+      "문체 수정: blocks.18.text",
+      "문체 수정: blocks.21.text",
+      "문체 수정: blocks.25.text",
+      "문체 수정: blocks.29.text",
+      "문체 수정: blocks.31.text"
+    ]
+  }
+}

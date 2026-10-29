@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-28T10:13:33+09:00",
-  "count": 157,
+  "generatedAt": "2026-10-29T10:45:49+09:00",
+  "count": 160,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,64 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 157
+      "count": 160
     }
   ],
   "index": [
+    {
+      "id": "samsung-040a2339cd",
+      "date": "2026-10-29",
+      "published": "2026-10-29T19:12:29+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "실적",
+        "HBM",
+        "주주환원·자본"
+      ],
+      "relatedUnits": [
+        "5-6",
+        "5-2"
+      ],
+      "detail": true
+    },
+    {
+      "id": "samsung-941434e5e3",
+      "date": "2026-10-29",
+      "published": "2026-10-29T18:00:03+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "tech",
+      "tags": [
+        "HBM",
+        "하이브리드 본딩",
+        "전력·냉각"
+      ],
+      "relatedUnits": [
+        "4-5",
+        "4-9"
+      ],
+      "detail": true
+    },
+    {
+      "id": "skhynix-tech-note-series-ep3",
+      "date": "2026-10-29",
+      "published": "2026-10-29T09:00:21+09:00",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "kind": "tech",
+      "tags": [
+        "패키징",
+        "AI 서버·데이터센터",
+        "HBM"
+      ],
+      "relatedUnits": [
+        "0-2",
+        "0-4"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-c605de467c",
       "date": "2026-10-28",

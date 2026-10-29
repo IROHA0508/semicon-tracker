@@ -1,0 +1,43 @@
+{
+  "id": "skhynix-tech-note-series-ep3",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "한양대 김영현 교수가 설명하는 실리콘 포토닉스와 CPO, GPU 데이터 병목 해법",
+  "originalTitle": "[Tech Note] Why does AI still have to wait with tens of thousands of GPUs? How silicon photonics and CPO are building the ‘highways of light’",
+  "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
+  "published": "2026-10-29T09:00:21+09:00",
+  "date": "2026-10-29",
+  "summary": [
+    "한양대 ERICA 반도체융합공학부의 김영현 교수는 SK하이닉스 뉴스룸 Tech Note 기고에서 AI 팩토리의 데이터 병목과 이를 풀 기술로 실리콘 포토닉스, co-packaged optics(CPO)를 설명합니다.",
+    "CPO는 광엔진을 스위치 ASIC 바로 옆에 배치해 전기 신호 이동 거리를 줄이는 방식이며 메타는 ECOC 2025에서 광 인터커넥트 부분의 소비 전력이 비슷한 플러거블 구조보다 약 65% 낮았다고 발표했습니다."
+  ],
+  "interview": "HBM이 GPU 옆 데이터 공급을, CPO가 GPU 간 네트워크를 맡는다는 구분은 메모리 엔지니어도 시스템 전체 병목을 함께 봐야 함을 보여 줍니다.",
+  "tags": [
+    "패키징",
+    "AI 서버·데이터센터",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "엔비디아",
+    "브로드컴",
+    "메타"
+  ],
+  "author": "Professor Younghyun Kim, Hanyang University ERICA",
+  "categories": [
+    "TECH&AI",
+    "AI",
+    "CPO",
+    "Data centers",
+    "HBM",
+    "Silicon Photonics"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-29T10:43:39+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "samsung-941434e5e3",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "기술",
+  "kind": "tech",
+  "lang": "ko",
+  "title": "Data Movement 시대를 여는 차세대 메모리 zHBM",
+  "url": "https://news.samsungsemiconductor.com/kr/data-movement-%ec%8b%9c%eb%8c%80%eb%a5%bc-%ec%97%ac%eb%8a%94-%ec%b0%a8%ec%84%b8%eb%8c%80-%eb%a9%94%eb%aa%a8%eb%a6%ac-zhbm/",
+  "published": "2026-10-29T18:00:03+09:00",
+  "date": "2026-10-29",
+  "summary": [
+    "삼성전자가 개발 중인 zHBM은 메모리를 연산 장치 위에 직접 적층하는 차세대 AI 메모리 아키텍처입니다.",
+    "웨이퍼 온 웨이퍼와 하이브리드 카퍼 본딩, 분산형 입출력 구조로 짧고 촘촘한 연결을 구현해 대역폭과 에너지 효율을 함께 추구하며 스택 높이 최적화와 고객 공동 설계도 제시합니다."
+  ],
+  "interview": "zHBM은 AI 시대 메모리 경쟁이 대역폭뿐 아니라 전송 에너지와 발열까지 아우르는 데이터 이동 효율로 옮겨 간다는 점을 보여 줍니다.",
+  "tags": [
+    "HBM",
+    "하이브리드 본딩",
+    "전력·냉각"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "기술",
+    "반도체+",
+    "3DArchitecture",
+    "AI",
+    "AIChip",
+    "DataMovement",
+    "HBM",
+    "NextGenMemory",
+    "zHBM"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-10-29T10:43:39+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

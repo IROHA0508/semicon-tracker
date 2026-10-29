@@ -1,7 +1,102 @@
 {
   "year": "2026",
-  "count": 157,
+  "count": 160,
   "items": [
+    {
+      "id": "samsung-040a2339cd",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자, 2026년 3분기 실적 발표",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-3%eb%b6%84%ea%b8%b0-%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c/",
+      "published": "2026-10-29T19:12:29+09:00",
+      "date": "2026-10-29",
+      "summary": [
+        "삼성전자는 2026년 3분기 연결 기준 매출 195.3조원, 영업이익 107.4조원을 기록했다고 발표했으며 글로벌 테크 기업 중 최초로 분기 영업이익 100조원을 돌파했다고 밝혔습니다.",
+        "DS부문은 매출 147.1조원, 영업이익 106.5조원으로 HBM4 판매 확대와 서버용 SSD 수요 대응에 힘입어 역대 최대 분기 실적을 냈고 2027년에도 메모리 수요가 공급을 크게 상회할 것으로 전망했습니다."
+      ],
+      "interview": "삼성전자 영업이익 107.4조원 중 DS부문이 106.5조원을 차지한 점은 메모리, 특히 HBM4가 회사 수익을 좌우한다는 사실을 보여 줍니다.",
+      "tags": [
+        "실적",
+        "HBM",
+        "주주환원·자본"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "5-6",
+        "5-2"
+      ]
+    },
+    {
+      "id": "samsung-941434e5e3",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "기술",
+      "kind": "tech",
+      "lang": "ko",
+      "title": "Data Movement 시대를 여는 차세대 메모리 zHBM",
+      "url": "https://news.samsungsemiconductor.com/kr/data-movement-%ec%8b%9c%eb%8c%80%eb%a5%bc-%ec%97%ac%eb%8a%94-%ec%b0%a8%ec%84%b8%eb%8c%80-%eb%a9%94%eb%aa%a8%eb%a6%ac-zhbm/",
+      "published": "2026-10-29T18:00:03+09:00",
+      "date": "2026-10-29",
+      "summary": [
+        "삼성전자가 개발 중인 zHBM은 메모리를 연산 장치 위에 직접 적층하는 차세대 AI 메모리 아키텍처입니다.",
+        "웨이퍼 온 웨이퍼와 하이브리드 카퍼 본딩, 분산형 입출력 구조로 짧고 촘촘한 연결을 구현해 대역폭과 에너지 효율을 함께 추구하며 스택 높이 최적화와 고객 공동 설계도 제시합니다."
+      ],
+      "interview": "zHBM은 AI 시대 메모리 경쟁이 대역폭뿐 아니라 전송 에너지와 발열까지 아우르는 데이터 이동 효율로 옮겨 간다는 점을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "하이브리드 본딩",
+        "전력·냉각"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-5",
+        "4-9"
+      ]
+    },
+    {
+      "id": "skhynix-tech-note-series-ep3",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "한양대 김영현 교수가 설명하는 실리콘 포토닉스와 CPO, GPU 데이터 병목 해법",
+      "originalTitle": "[Tech Note] Why does AI still have to wait with tens of thousands of GPUs? How silicon photonics and CPO are building the ‘highways of light’",
+      "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
+      "published": "2026-10-29T09:00:21+09:00",
+      "date": "2026-10-29",
+      "summary": [
+        "한양대 ERICA 반도체융합공학부의 김영현 교수는 SK하이닉스 뉴스룸 Tech Note 기고에서 AI 팩토리의 데이터 병목과 이를 풀 기술로 실리콘 포토닉스, co-packaged optics(CPO)를 설명합니다.",
+        "CPO는 광엔진을 스위치 ASIC 바로 옆에 배치해 전기 신호 이동 거리를 줄이는 방식이며 메타는 ECOC 2025에서 광 인터커넥트 부분의 소비 전력이 비슷한 플러거블 구조보다 약 65% 낮았다고 발표했습니다."
+      ],
+      "interview": "HBM이 GPU 옆 데이터 공급을, CPO가 GPU 간 네트워크를 맡는다는 구분은 메모리 엔지니어도 시스템 전체 병목을 함께 봐야 함을 보여 줍니다.",
+      "tags": [
+        "패키징",
+        "AI 서버·데이터센터",
+        "HBM"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "엔비디아",
+        "브로드컴",
+        "메타"
+      ],
+      "author": "Professor Younghyun Kim, Hanyang University ERICA",
+      "alsoIn": [],
+      "relatedUnits": [
+        "0-2",
+        "0-4"
+      ]
+    },
     {
       "id": "samsung-c605de467c",
       "company": "samsung",

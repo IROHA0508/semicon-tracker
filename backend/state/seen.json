@@ -128,6 +128,16 @@
       "status": "summarized",
       "title": "[CES 2026 혁신상 수상작] 아이소셀 HP5: 더 많은 빛을 담은 0.5㎛픽셀 이미지 센서"
     },
+    "https://news.samsungsemiconductor.com/kr/data-movement-시대를-여는-차세대-메모리-zhbm": {
+      "checkedAt": "2026-10-29",
+      "date": "2026-10-29",
+      "id": "samsung-941434e5e3",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "summarized",
+      "title": "Data Movement 시대를 여는 차세대 메모리 zHBM"
+    },
     "https://news.samsungsemiconductor.com/kr/ds-딕셔너리현직자가-직접-설명하는-hbm-개념과-기": {
       "checkedAt": "2026-10-07",
       "date": "2026-04-02",
@@ -457,6 +467,16 @@
       ],
       "status": "summarized",
       "title": "삼성전자, 2026년 2분기 잠정실적 발표"
+    },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-3분기-실적-발표": {
+      "checkedAt": "2026-10-29",
+      "date": "2026-10-29",
+      "id": "samsung-040a2339cd",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "summarized",
+      "title": "삼성전자, 2026년 3분기 실적 발표"
     },
     "https://news.samsungsemiconductor.com/kr/삼성전자-2026년-3분기-잠정실적-발표": {
       "checkedAt": "2026-10-08",
@@ -1777,6 +1797,16 @@
       ],
       "status": "summarized",
       "title": "[Tech Note] Hybrid Bonding: Evolving into a Foundational Technology for Improving Semiconductor Performance"
+    },
+    "https://news.skhynix.com/en/tech-note-series-ep3": {
+      "checkedAt": "2026-10-29",
+      "date": "2026-10-29",
+      "id": "skhynix-tech-note-series-ep3",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "summarized",
+      "title": "[Tech Note] Why does AI still have to wait with tens of thousands of GPUs? How silicon photonics and CPO are building the ‘highways of light’"
     },
     "https://news.skhynix.com/en/tsmc-oip-conference-2026": {
       "checkedAt": "2026-10-07",
