@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-29T10:43:35+09:00",
+  "startedAt": "2026-10-29T19:50:16+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 2,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,109 +41,40 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "samsung-040a2339cd",
-      "date": "2026-10-29",
-      "source": "samsung-newsroom",
-      "title": "삼성전자, 2026년 3분기 실적 발표"
-    },
-    {
-      "id": "samsung-941434e5e3",
-      "date": "2026-10-29",
-      "source": "samsung-newsroom",
-      "title": "Data Movement 시대를 여는 차세대 메모리 zHBM"
-    },
-    {
-      "id": "skhynix-tech-note-series-ep3",
-      "date": "2026-10-29",
-      "source": "sk-tech",
-      "title": "[Tech Note] Why does AI still have to wait with tens of thousands of GPUs? How silicon photonics and CPO are building the ‘highways of light’"
-    }
-  ],
-  "queueSize": 3,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-29T10:43:39+09:00",
+  "finishedAt": "2026-10-29T19:50:19+09:00",
   "summary": {
-    "startedAt": "2026-10-29T10:43:39+09:00",
-    "backend": "cli",
+    "startedAt": "2026-10-29T19:50:19+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "samsung-040a2339cd",
-        "title": "삼성전자, 2026년 3분기 실적 발표"
-      },
-      {
-        "id": "samsung-941434e5e3",
-        "title": "Data Movement 시대를 여는 차세대 메모리 zHBM"
-      },
-      {
-        "id": "skhynix-tech-note-series-ep3",
-        "title": "한양대 김영현 교수가 설명하는 실리콘 포토닉스와 CPO, GPU 데이터 병목 해법"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-10-29T10:43:58+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "details": {
     "limit": 10,
-    "detailed": [
-      {
-        "id": "samsung-040a2339cd",
-        "title": "삼성전자, 2026년 3분기 실적 발표",
-        "figure": false
-      },
-      {
-        "id": "samsung-941434e5e3",
-        "title": "Data Movement 시대를 여는 차세대 메모리 zHBM",
-        "figure": false
-      },
-      {
-        "id": "skhynix-tech-note-series-ep3",
-        "title": "한양대 김영현 교수가 설명하는 실리콘 포토닉스와 CPO, GPU 데이터 병목 해법",
-        "figure": false
-      }
-    ],
+    "detailed": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "all done",
-    "left": 0,
-    "styleNotes": {
-      "samsung-941434e5e3": [
-        "문체 수정: blocks.8.text",
-        "문체 수정: blocks.10.text",
-        "문체 수정: blocks.15.text",
-        "문체 수정: blocks.16.text"
-      ],
-      "skhynix-tech-note-series-ep3": [
-        "문체 수정: keyPoints.0",
-        "문체 수정: blocks.8.text",
-        "문체 수정 거부(50% 넘게 바뀜): blocks.9.text",
-        "문체 수정: blocks.12.text",
-        "문체 수정: blocks.14.text",
-        "문체 수정: blocks.18.text",
-        "문체 수정: blocks.21.text",
-        "문체 수정: blocks.25.text",
-        "문체 수정: blocks.29.text",
-        "문체 수정: blocks.31.text"
-      ]
-    }
+    "stoppedBy": "nothing to do",
+    "left": 0
   },
   "manifest": {
     "count": 160,
-    "changed": true
+    "changed": false
   }
 }
