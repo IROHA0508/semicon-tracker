@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-30T06:01:17+09:00",
+  "startedAt": "2026-10-30T10:52:35+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -34,7 +34,7 @@
       "pages": 1,
       "items": 20,
       "new": 0,
-      "skippedByCategory": 0,
+      "skippedByCategory": 1,
       "older": 0,
       "stoppedBy": "reached known articles",
       "error": null
@@ -49,9 +49,9 @@
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-10-30T06:01:26+09:00",
+  "finishedAt": "2026-10-30T10:52:39+09:00",
   "summary": {
-    "startedAt": "2026-10-30T06:01:26+09:00",
+    "startedAt": "2026-10-30T10:52:39+09:00",
     "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
