@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-02T10:27:40+09:00",
+  "startedAt": "2026-11-02T21:15:50+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 2,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,79 +41,40 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "samsung-803916615e",
-      "date": "2026-11-01",
-      "source": "samsung-newsroom",
-      "title": "이재용 삼성전자 회장, 미래 반도체 패키징 기술 일본 현장 점검"
-    },
-    {
-      "id": "samsung-4c79643f13",
-      "date": "2026-10-31",
-      "source": "samsung-newsroom",
-      "title": "삼성, 샘 올트먼과 ‘AI 혁신’ 간담회 개최"
-    }
-  ],
-  "queueSize": 2,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-02T10:27:43+09:00",
+  "finishedAt": "2026-11-02T21:15:54+09:00",
   "summary": {
-    "startedAt": "2026-11-02T10:27:43+09:00",
-    "backend": "cli",
+    "startedAt": "2026-11-02T21:15:54+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "samsung-803916615e",
-        "title": "이재용 삼성전자 회장, 미래 반도체 패키징 기술 일본 현장 점검"
-      },
-      {
-        "id": "samsung-4c79643f13",
-        "title": "삼성, 샘 올트먼과 ‘AI 혁신’ 간담회 개최"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "styleNotes": {
-      "samsung-4c79643f13": [
-        "문체 수정: interview"
-      ]
-    },
-    "finishedAt": "2026-11-02T10:27:57+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "details": {
     "limit": 10,
-    "detailed": [
-      {
-        "id": "samsung-803916615e",
-        "title": "이재용 삼성전자 회장, 미래 반도체 패키징 기술 일본 현장 점검",
-        "figure": false
-      },
-      {
-        "id": "samsung-4c79643f13",
-        "title": "삼성, 샘 올트먼과 ‘AI 혁신’ 간담회 개최",
-        "figure": false
-      }
-    ],
+    "detailed": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "all done",
+    "stoppedBy": "nothing to do",
     "left": 0
   },
   "manifest": {
     "count": 162,
-    "changed": true
+    "changed": false
   }
 }
