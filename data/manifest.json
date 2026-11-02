@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-29T10:45:49+09:00",
-  "count": 160,
+  "generatedAt": "2026-11-02T10:28:36+09:00",
+  "count": 162,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,45 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 160
+      "count": 162
     }
   ],
   "index": [
+    {
+      "id": "samsung-803916615e",
+      "date": "2026-11-01",
+      "published": "2026-11-01T16:14:44+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "패키징",
+        "소부장",
+        "AI 가속기"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "3-3"
+      ],
+      "detail": true
+    },
+    {
+      "id": "samsung-4c79643f13",
+      "date": "2026-10-31",
+      "published": "2026-10-31T16:25:49+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "AI 서버·데이터센터",
+        "공급 계약"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "5-2"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-040a2339cd",
       "date": "2026-10-29",

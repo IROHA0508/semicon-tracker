@@ -1,7 +1,70 @@
 {
   "year": "2026",
-  "count": 160,
+  "count": 162,
   "items": [
+    {
+      "id": "samsung-803916615e",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "이재용 삼성전자 회장, 미래 반도체 패키징 기술 일본 현장 점검",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%9d%b4%ec%9e%ac%ec%9a%a9-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ed%9a%8c%ec%9e%a5-%eb%af%b8%eb%9e%98-%eb%b0%98%eb%8f%84%ec%b2%b4-%ed%8c%a8%ed%82%a4%ec%a7%95-%ea%b8%b0%ec%88%a0-%ec%9d%bc%eb%b3%b8/",
+      "published": "2026-11-01T16:14:44+09:00",
+      "date": "2026-11-01",
+      "summary": [
+        "이재용 삼성전자 회장이 1일 일본 요코하마의 첨단 반도체 패키징 연구거점 APL을 찾아 차세대 패키징 요소기술 연구 현황을 점검했습니다.",
+        "이 회장은 첨단 패키지 소재·공정 기술 개발 현황과 일본 소재·부품·장비 업계와의 협력 방안을 논의했으며 9월 8일 공식 개소한 APL의 개소 후 첫 점검입니다."
+      ],
+      "interview": "GPU·HBM 같은 칩을 하나로 묶는 패키징이 AI 시스템의 대역폭·전력 효율·발열을 좌우하므로, 메모리 엔지니어도 패키징 소재·공정을 함께 이해해야 한다는 점을 보여 줍니다.",
+      "tags": [
+        "패키징",
+        "소부장",
+        "AI 가속기"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "3-3"
+      ]
+    },
+    {
+      "id": "samsung-4c79643f13",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성, 샘 올트먼과 ‘AI 혁신’ 간담회 개최",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%ec%83%98-%ec%98%ac%ed%8a%b8%eb%a8%bc%ea%b3%bc-ai-%ed%98%81%ec%8b%a0-%ea%b0%84%eb%8b%b4%ed%9a%8c-%ea%b0%9c%ec%b5%9c/",
+      "published": "2026-10-31T16:25:49+09:00",
+      "date": "2026-10-31",
+      "summary": [
+        "삼성은 31일 경기도 용인 삼성인력개발원에서 삼성전자 등 관계사 사장단 50여 명을 대상으로 샘 올트먼 OpenAI CEO 초청 간담회를 열었습니다.",
+        "간담회는 ‘AI가 바꿀 다음 10년, 기업의 선택’을 주제로 열렸고 삼성은 지난 6월 이후 약 2,300명의 임원을 교육했으며 2027년 2월까지 전 임직원 AI 교육을 완료하겠다는 목표를 제시했습니다."
+      ],
+      "interview": "삼성전자가 OpenAI의 스타게이트 프로젝트에 필요한 메모리 반도체 공급을 추진해 왔다는 점은 AI 인프라 수요가 메모리 사업의 핵심 고객 관계와 맞닿아 있음을 보여 줍니다.",
+      "tags": [
+        "AI 서버·데이터센터",
+        "공급 계약"
+      ],
+      "companies": [
+        "삼성전자",
+        "오픈AI",
+        "삼성SDS",
+        "삼성물산",
+        "삼성중공업"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "5-2"
+      ]
+    },
     {
       "id": "samsung-040a2339cd",
       "company": "samsung",
