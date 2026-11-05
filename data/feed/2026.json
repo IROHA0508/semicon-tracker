@@ -1,7 +1,32 @@
 {
   "year": "2026",
-  "count": 162,
+  "count": 163,
   "items": [
+    {
+      "id": "samsung-95af2a38f6",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성, ‘미래기술육성사업 2026 애뉴얼 포럼’ 개최",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1-%eb%af%b8%eb%9e%98%ea%b8%b0%ec%88%a0%ec%9c%a1%ec%84%b1%ec%82%ac%ec%97%85-2026-%ec%95%a0%eb%89%b4%ec%96%bc-%ed%8f%ac%eb%9f%bc-%ea%b0%9c%ec%b5%9c/",
+      "published": "2026-11-05T23:00:04+09:00",
+      "date": "2026-11-05",
+      "summary": [
+        "삼성은 5일 서울 강남구 웨스틴 서울 파르나스에서 과학기술계 450여 명이 참석한 ‘삼성미래기술육성사업 2026 애뉴얼 포럼’을 열었습니다.",
+        "총 644개 연구 과제를 평가해 우수 연구자 10명을 처음 선정했고 사업에는 누적 1.2조 원의 연구비가 투입됐으며 총 916개 연구 과제가 진행됐다고 밝혔습니다."
+      ],
+      "interview": "",
+      "tags": [],
+      "companies": [
+        "삼성전자",
+        "AMD",
+        "인텔"
+      ],
+      "alsoIn": [],
+      "relatedUnits": []
+    },
     {
       "id": "samsung-803916615e",
       "company": "samsung",

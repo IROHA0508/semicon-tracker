@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-05T11:17:14+09:00",
+  "startedAt": "2026-11-05T21:11:06+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,59 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-95af2a38f6",
+      "date": "2026-11-05",
+      "source": "samsung-newsroom",
+      "title": "삼성, ‘미래기술육성사업 2026 애뉴얼 포럼’ 개최"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-05T11:17:17+09:00",
+  "finishedAt": "2026-11-05T21:11:09+09:00",
   "summary": {
-    "startedAt": "2026-11-05T11:17:17+09:00",
-    "backend": null,
+    "startedAt": "2026-11-05T21:11:09+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-95af2a38f6",
+        "title": "삼성, ‘미래기술육성사업 2026 애뉴얼 포럼’ 개최"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-11-05T21:11:22+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "samsung-95af2a38f6",
+        "title": "삼성, ‘미래기술육성사업 2026 애뉴얼 포럼’ 개최",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
+    "stoppedBy": "all done",
     "left": 0
   },
   "manifest": {
-    "count": 162,
-    "changed": false
+    "count": 163,
+    "changed": true
   }
 }
