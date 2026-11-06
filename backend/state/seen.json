@@ -188,6 +188,16 @@
       "status": "skipped",
       "title": "[거인의 도구들] 반도체 라인을 누비는 설비 엔지니어의 필수 아이템은? 이동식 사무실 ‘툴박스’ 이야기"
     },
+    "https://news.samsungsemiconductor.com/kr/거인의-도구들-반도체-품질-평가의-숨은-공신-엔지니": {
+      "checkedAt": "2026-11-06",
+      "date": "2026-11-06",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[거인의 도구들] 반도체 품질 평가의 숨은 공신, 엔지니어의 정교한 작업을 돕는 ‘시료 트레이’"
+    },
     "https://news.samsungsemiconductor.com/kr/거인의-도구들-안전은-발끝에서-시작된다-축구": {
       "checkedAt": "2026-10-07",
       "date": "2026-08-27",
