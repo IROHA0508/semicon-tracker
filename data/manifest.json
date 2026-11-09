@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-05T21:11:44+09:00",
-  "count": 163,
+  "generatedAt": "2026-11-09T21:45:37+09:00",
+  "count": 164,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,21 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 163
+      "count": 164
     }
   ],
   "index": [
+    {
+      "id": "samsung-c15f3c5be6",
+      "date": "2026-11-10",
+      "published": "2026-11-10T02:00:02+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [],
+      "relatedUnits": [],
+      "detail": true
+    },
     {
       "id": "samsung-95af2a38f6",
       "date": "2026-11-05",
