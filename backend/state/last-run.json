@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-09T21:45:09+09:00",
+  "startedAt": "2026-11-10T09:09:43+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,59 +41,40 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "samsung-c15f3c5be6",
-      "date": "2026-11-10",
-      "source": "samsung-newsroom",
-      "title": "삼성-현대차그룹, ‘원팀’으로 미래 첨단 산업 선점"
-    }
-  ],
-  "queueSize": 1,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-09T21:45:13+09:00",
+  "finishedAt": "2026-11-10T09:09:52+09:00",
   "summary": {
-    "startedAt": "2026-11-09T21:45:13+09:00",
-    "backend": "cli",
+    "startedAt": "2026-11-10T09:09:52+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "samsung-c15f3c5be6",
-        "title": "삼성-현대차그룹, ‘원팀’으로 미래 첨단 산업 선점"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-11-09T21:45:18+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "details": {
     "limit": 10,
-    "detailed": [
-      {
-        "id": "samsung-c15f3c5be6",
-        "title": "삼성-현대차그룹, ‘원팀’으로 미래 첨단 산업 선점",
-        "figure": false
-      }
-    ],
+    "detailed": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "all done",
+    "stoppedBy": "nothing to do",
     "left": 0
   },
   "manifest": {
     "count": 164,
-    "changed": true
+    "changed": false
   }
 }
