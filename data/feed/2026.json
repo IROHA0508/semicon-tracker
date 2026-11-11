@@ -1,7 +1,38 @@
 {
   "year": "2026",
-  "count": 164,
+  "count": 165,
   "items": [
+    {
+      "id": "skhynix-iec-61508-certification-2026",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, LPDDR5X로 IEC 61508 SIL 3·ISO/SAE 21434 CSMS 인증 획득",
+      "originalTitle": "‘Safeguarding against system failures and cyber threats’: SK hynix builds trust in physical AI memory",
+      "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
+      "published": "2026-11-11T08:59:29+09:00",
+      "date": "2026-11-11",
+      "summary": [
+        "SK하이닉스는 LPDDR5X D램이 산업용 기능안전 국제표준 IEC 61508의 SIL 3 인증과 ISO/SAE 21434 기반 사이버보안 관리체계(CSMS) 인증을 받았다고 밝혔습니다.",
+        "SIL 3은 단일 메모리 반도체가 받을 수 있는 최고 등급이라고 하며 LPDDR5X는 시스템을 멈추지 않고 안전을 유지하는 연속 모드를 지원하도록 설계·검증됐습니다."
+      ],
+      "interview": "제품뿐 아니라 개발 프로세스 전체가 인증을 받았다는 점은, 피지컬 AI 시대에 메모리 업체가 안전과 보안 요건을 설계 단계부터 갖춰야 한다는 것을 보여 줍니다.",
+      "tags": [
+        "LPDDR",
+        "신뢰성",
+        "온디바이스 AI"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "2-10"
+      ]
+    },
     {
       "id": "samsung-c15f3c5be6",
       "company": "samsung",

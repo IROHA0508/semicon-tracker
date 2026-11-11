@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-09T21:45:37+09:00",
-  "count": 164,
+  "generatedAt": "2026-11-11T10:52:14+09:00",
+  "count": 165,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,28 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 164
+      "count": 165
     }
   ],
   "index": [
+    {
+      "id": "skhynix-iec-61508-certification-2026",
+      "date": "2026-11-11",
+      "published": "2026-11-11T08:59:29+09:00",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "kind": "tech",
+      "tags": [
+        "LPDDR",
+        "신뢰성",
+        "온디바이스 AI"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "2-10"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-c15f3c5be6",
       "date": "2026-11-10",

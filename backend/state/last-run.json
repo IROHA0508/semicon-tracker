@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-11T06:45:55+09:00",
+  "startedAt": "2026-11-11T10:51:29+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,65 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "skhynix-iec-61508-certification-2026",
+      "date": "2026-11-11",
+      "source": "sk-tech",
+      "title": "‘Safeguarding against system failures and cyber threats’: SK hynix builds trust in physical AI memory"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-11T06:46:04+09:00",
+  "finishedAt": "2026-11-11T10:51:32+09:00",
   "summary": {
-    "startedAt": "2026-11-11T06:46:04+09:00",
-    "backend": null,
+    "startedAt": "2026-11-11T10:51:32+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "skhynix-iec-61508-certification-2026",
+        "title": "SK하이닉스, LPDDR5X로 IEC 61508 SIL 3·ISO/SAE 21434 CSMS 인증 획득"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-11-11T10:51:38+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "skhynix-iec-61508-certification-2026",
+        "title": "SK하이닉스, LPDDR5X로 IEC 61508 SIL 3·ISO/SAE 21434 CSMS 인증 획득",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "left": 0
+    "stoppedBy": "all done",
+    "left": 0,
+    "styleNotes": {
+      "skhynix-iec-61508-certification-2026": [
+        "문체 수정: blocks.16.text",
+        "문체 수정: blocks.20.items.3"
+      ]
+    }
   },
   "manifest": {
-    "count": 164,
-    "changed": false
+    "count": 165,
+    "changed": true
   }
 }
