@@ -2056,7 +2056,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 기본. 진공과 플라즈마"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/plasma-film.html",
+     "title": "플라즈마 기초 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "구성과 생성",
+      "충돌 결과",
+      "파셴 법칙",
+      "시스",
+      "전원과 소스",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/plasma.html",
@@ -4145,6 +4160,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 24
+  "films": 25
  }
 }

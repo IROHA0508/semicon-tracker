@@ -44,6 +44,7 @@
 | `cmos-process-film.html` | 3-14 | 영상: 10개 모듈이 NMOS·PMOS 단면에 차례로 쌓이는 CMOS 공정 흐름, 자기 정렬(스페이서·살리사이드), FEOL·MOL·BEOL과 열 이력, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `euv-film.html` | 4-2 | 영상: R = k₁λ/NA와 하프피치, 주석 방울 EUV 광원과 반사 거울, 확률적 결함, LELE·SADP·SAQP, High-NA(절반 필드), 약 2분 (장면 7개, 자막, 소리 없음) |
 | `packaging-film.html` | 3-12 | 영상: 패키지의 4가지 역할, 조립 순서 6단계, 와이어 본딩 vs 플립칩·언더필, 칩렛·2.5D·브리지, 3D 적층과 하이브리드 본딩, 약 2분 (장면 7개, 자막, 소리 없음) |
+| `plasma-film.html` | 3-5 | 플라즈마 기초 영상(plasma-film.html): 구성과 생성, 충돌 결과, 파셴 법칙, 시스, DC·RF 전원과 CCP·ICP의 7장면 |
 | `yield-film.html` | 3-13 | 수율·결함·계측 영상(yield-film.html): 데이터, SPC, 공정능력, 불량 유형, 수율 저하 대응의 7장면 |
 | `memory-cycle-film.html` | 5-3 | 메모리 사이클 영상(memory-cycle-film.html): 순환 구조, 공급·수요 변수, 지표, 최근 흐름, 두 가지 시각의 7장면 |
 | `oxidation-film.html` | 3-3 | 산화 공정 영상(oxidation-film.html): 산화 반응, 성장 속도, 건식과 습식, 쓰임과 품질, 평가 방법의 7장면 |
