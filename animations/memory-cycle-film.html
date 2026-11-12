@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>메모리 사이클 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">5-3</span><span>메모리 사이클 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>메모리 사이클: 수요·공급·재고와 가격이 도는 방식 (약 2분 영상)</h1>
+    <p class="lead">메모리 가격이 왜 오르내림을 반복하는지, 수요 증가에서 반등까지 이어지는 순환 구조, 공급과 수요를 움직이는 변수, 업황을 읽는 가격·재고 지표, 최근 흐름과 '사이클이 바뀌고 있나'에 대한 두 가지 시각을 자막과 함께 이어서 봅니다. 소리는 없고 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="메모리 사이클 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="수요, 재고, 가격, 투자, 공급이 돌며 호황과 불황이 반복되는 메모리 사이클과 업황 지표를 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+                <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">5-3 · 메모리 사이클</text>
+          <text x="640" y="250" text-anchor="middle" style="font-size:56px;font-weight:700">메모리 가격은 왜</text>
+          <text x="640" y="322" text-anchor="middle" style="font-size:56px;font-weight:700">올랐다 내렸다를 반복할까</text>
+          <text x="640" y="388" text-anchor="middle" class="lbl" style="font-size:30px">순환 구조 · 변수와 지표 · 최근 흐름 · 두 가지 시각</text>
+        </g>
+<g id="g-b"><g id="b-art"></g></g>
+        <g id="g-c"><g id="c-art"></g></g>
+        <g id="g-d"><g id="d-art"></g></g>
+        <g id="g-e"><g id="e-art"></g></g>
+        <g id="g-f"><g id="f-art"></g></g>
+        <g id="g-g"></g>
+
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 곡선의 모양은 이해를 돕기 위해 단순화했고 수치는 원고에 반영한 공개 자료(2026년 10월 기준) 그대로입니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>메모리는 표준 제품이 많아 수요와 공급의 작은 차이에도 가격이 크게 움직이고 공장을 짓는 데 <b>2년 안팎</b>이 걸려 공급이 늦게 따라옵니다. 그래서 호황과 불황이 반복됩니다.</li>
+      <li>업황은 하나만 보면 틀릴 수 있어 <b>수요·공급·재고·가격 지표를 묶어서</b> 봅니다. 현물가격은 고정거래가격보다 먼저 움직여 선행 지표입니다.</li>
+      <li>HBM은 장기 계약이라 사이클이 완만해졌다는 시각과, AI 투자 속도 조절·경쟁사 증산이 다시 흔들 수 있다는 시각이 있습니다. <b>두 관점</b>을 모두 말할 수 있어야 합니다.</li>
+    </ul>
+    <p class="foot">원고 5-3을 시간 순서로 이어 붙인 영상입니다. 최신 업황 숫자는 시장 흐름 페이지의 뉴스로 면접 직전에 확인하세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const frac = (x) => x - Math.floor(x);
+  const trap = (a, b) => K([[a - 0.01, 0], [a + 0.4, 1], [b - 0.4, 1], [b, 0]]);
+  const rise = (a) => K([[a, 0], [a + 0.6, 1]]);
+  const sm = (a, b) => K([[a, 0], [b, 1]]);
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "순환 구조"], [34, "공급·수요"], [52, "지표"], [68, "최근 흐름"], [86, "두 가지 시각"], [104, "마무리"],
+  ];
+  const TITLES = [
+    [6, "메모리 사이클: 돌고 도는 호황과 불황"], [34, "공급과 수요를 움직이는 변수"], [52, "업황을 읽는 가격과 재고 지표"],
+    [68, "최근 업황의 흐름"], [86, "사이클은 바뀌고 있나"], [104, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "메모리 가격은 왜 오르고 내리기를 반복할까요? 수요, 공급, 재고가 맞물려 도는 <b>메모리 사이클</b>을 봅니다."],
+    [3, 6, "순환 구조, 공급과 수요 변수, 가격 지표, 최근 흐름과 두 가지 시각을 이어서 봅니다."],
+    [6, 10.5, "돼지고기 값 파동과 같습니다. 값이 오르면 모두 늘려 키우지만 크는 데 시간이 걸려, 한꺼번에 출하될 때 값이 폭락합니다."],
+    [10.5, 14, "메모리는 표준 제품이 많아 작은 수급 차이에도 가격이 크게 움직이고 공장을 짓는 데 <b>2년 안팎</b>이 걸려 공급이 수요를 늦게 따라갑니다."],
+    [14, 19, "수요가 늘면 재고가 줄고 재고가 줄면 가격이 오릅니다."],
+    [19, 24, "이익과 투자가 늘고 1~2년 뒤 공급이 늘어납니다."],
+    [24, 29, "공급이 늘면 재고가 쌓이고 가격이 떨어집니다."],
+    [29, 34, "감산과 투자 축소로 재고가 소진되면 가격이 반등하고 사이클은 다시 처음으로 돌아갑니다."],
+    [34, 39.5, "<b>공급 변수</b>: 웨이퍼 투입량, 미세화 전환에 따른 비트 증가, 수율, 신규 팹 가동 시점, 감산입니다."],
+    [39.5, 45, "<b>수요 변수</b>: 스마트폰·PC 출하량, 기기당 메모리 탑재량, 서버 투자, 그리고 AI(HBM·고용량 서버 D램·eSSD)입니다."],
+    [45, 48.5, "HBM은 같은 비트를 만드는 데 일반 D램보다 웨이퍼를 몇 배 더 씁니다. HBM을 늘리면 범용 D램 공급이 줄어드는 효과가 있습니다."],
+    [48.5, 52, "수요와 공급을 비트 증가율로 비교해 보면 됩니다. 수요 비트 +20%, 공급 비트 +15%면 가격 상승 압력입니다."],
+    [52, 58, "<b>고정거래가격</b>은 대형 고객과의 계약 가격, <b>현물가격</b>은 유통 시장 거래가입니다. 현물은 보통 먼저 움직여 선행 지표로 봅니다."],
+    [58, 64, "그 밖에 재고 수준, 비트 출하 증가율, 설비 투자, 빅테크의 설비 투자, 매월 1일 발표되는 반도체 수출도 봅니다."],
+    [64, 68, "하나만 보면 틀릴 수 있어, 수요·공급·재고·가격 지표를 묶어서 판단합니다."],
+    [68, 73.5, "2022년 하반기~2023년에는 수요 부진과 재고 과잉으로 큰 하락이 있었고 SK하이닉스는 2023년 연간 영업적자를 냈습니다."],
+    [73.5, 79, "2024년부터는 AI 서버용 HBM과 고용량 D램 수요로 회복했습니다."],
+    [79, 83, "WSTS는 2026년 5월, 2026년 메모리 시장이 전년보다 약 250% 커져 8,000억 달러를 넘을 것으로 전망했습니다."],
+    [83, 86, "SK하이닉스의 2026년 2분기 영업이익률은 76%였습니다."],
+    [86, 93, "<b>완만해졌다는 시각</b>: HBM은 1년가량 앞서 물량과 가격을 정하는 장기 계약·고객 맞춤 제품이라 변동이 작고 공급사들이 투자 규율을 강조합니다."],
+    [93, 99.5, "<b>변동 요인이라는 시각</b>: AI 투자 속도 조절, 경쟁사의 HBM 공급 확대, 중국 업체의 범용 D램 증산이 사이클을 다시 흔들 수 있습니다."],
+    [99.5, 104, "면접에서는 <b>두 관점을 모두</b> 말할 수 있어야 합니다. 최신 숫자는 면접 직전에 뉴스 트래커로 확인하세요."],
+    [104, 107.4, "정리합니다. <b>① 사이클의 구조</b>: 수요 → 재고 → 가격 → 투자 → 공급이 1~2년 늦게 따라오며 호황과 불황이 반복됩니다."],
+    [107.4, 110.6, "<b>② 변수와 지표</b>: 공급·수요 변수를 보고 고정거래가격과 현물가격, 재고, 비트 출하, 수출을 묶어서 봅니다."],
+    [110.6, 117, "<b>③ 최근 흐름</b>은 2023년 하락 뒤 AI로 회복했고 사이클이 완만해졌는지는 두 관점이 갈립니다. 면접에서는 <b>사실 → 해석 → 회사·직무에 주는 의미</b> 순서로."],
+  ];
+
+  // ---------- tracks ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gB = K([[5.8, 0], [6.6, 1], [33.4, 1], [34.2, 0]]);
+  const gC = K([[33.8, 0], [34.6, 1], [51.4, 1], [52.2, 0]]);
+  const gD = K([[51.8, 0], [52.6, 1], [67.4, 1], [68.2, 0]]);
+  const gE = K([[67.8, 0], [68.6, 1], [85.4, 1], [86.2, 0]]);
+  const gF = K([[85.8, 0], [86.6, 1], [103.4, 1], [104.2, 0]]);
+  const gG = K([[103.8, 0], [104.6, 1]]);
+  const rnd = (i, s) => frac(Math.sin(i * 12.9898 + s * 78.233) * 43758.5453);
+  const stepTxt = (t, arr) => { let r = ""; for (const a of arr) if (t >= a[0]) r = a[1]; return r; };
+  const win2 = (a, b) => K([[a - 0.01, 0], [a + 0.5, 1], [b - 0.5, 1], [b, 0]]);
+
+  // B: cycle ring
+  const BROWS = [["비유", "돼지고기 값 파동"], ["메모리의 특성", "표준 제품 · 공장 2년 안팎"], ["순환 구조", "호황 → 증설 → 과잉 → 불황 → 감산"], ["다시 처음으로", "재고 소진 → 가격 반등"]];
+  const BT = [7, 10.5, 14, 29, 34];
+  const NT = [14.3, 15.8, 17.3, 19.3, 22, 24.3, 26.2, 29.3];
+  const ringV = K([[10.5, 0], [11.5, 1]]), ctrV = K([[10.8, 0], [11.6, 1]]), tagV = K([[21, 0], [21.8, 1]]), backV = K([[31.4, 0], [32.2, 1]]);
+  const nodeV = NT.map((a) => K([[a, 0], [a + 0.6, 1]]));
+  const actV = NT.map((a, i) => K([[a, 0], [a + 0.4, 1], [(NT[i + 1] || 34) - 0.3, 1], [(NT[i + 1] || 34), 0]]));
+
+  // C: variables
+  const CROWS = [["공급 변수", "웨이퍼 · 미세화 · 수율 · 신규 팹 · 감산"], ["수요 변수", "폰·PC · 탑재량 · 서버 투자 · AI"], ["HBM 효과", "웨이퍼를 몇 배 → 범용 D램 공급 ↓"], ["비트 증가율", "수요 +20% > 공급 +15% → 상승 압력"]];
+  const CT = [34.6, 39.5, 45, 48.5, 52];
+  const supT = [34.8, 35.7, 36.6, 37.5, 38.4], demT = [39.7, 40.6, 41.5, 42.4];
+  const supV = supT.map((a) => K([[a, 0], [a + 0.5, 1]])), demV = demT.map((a) => K([[a, 0], [a + 0.5, 1]]));
+  const hbmV = K([[44.6, 0], [45.4, 1], [48, 1], [48.6, 0]]), hb2V = K([[46.2, 0], [47, 1]]), hb3V = K([[47.4, 0], [48.1, 1]]);
+  const seeV = K([[48.4, 0], [49.2, 1]]), seeP = sm(49.2, 50.6), seeL = K([[50.8, 0], [51.6, 1]]);
+
+  // D: indicators
+  const DROWS = [["고정거래가격", "대형 고객과의 월·분기 계약가"], ["현물가격", "유통 시장 거래가 · 선행 지표"], ["그 밖의 지표", "재고 · 비트 출하 · 설비 투자 · 수출"], ["판단 방법", "지표를 묶어서 본다"]];
+  const DT = [52.6, 54.5, 58, 64, 68];
+  const dP = sm(52.8, 57), lagV = K([[55.2, 0], [56, 1]]), legV = K([[53, 0], [53.8, 1]]);
+  const dcT = [58.6, 59.8, 61, 62.2, 63.4], dcV = dcT.map((a) => K([[a, 0], [a + 0.6, 1]])), dbV = K([[64.2, 0], [65, 1]]);
+
+  // E: recent trend
+  const EROWS = [["하락(2022 하반기~2023)", "수요 부진 · 재고 과잉"], ["회복(2024~)", "AI 서버용 HBM · 고용량 D램"], ["시장 전망(WSTS)", "2026년 약 +250% · 8,000억 달러 초과"], ["수익성", "SK하이닉스 2026년 2분기 영업이익률 76%"]];
+  const ET = [68.6, 73.5, 79, 83, 86];
+  const yrK = K([[68.5, 2022.0], [73.5, 2023.9], [79, 2025.2], [83.5, 2026.4]]);
+  const crvV = K([[68.4, 0], [69.2, 1]]), dnV = K([[70.5, 0], [71.3, 1]]), upV = K([[75, 0], [75.8, 1]]), t1V = K([[79.4, 0], [80.2, 1]]), t2V = K([[83.2, 0], [84, 1]]);
+
+  // F: two views
+  const FROWS = [["완만해졌다는 시각", "HBM 장기 계약 · 투자 규율"], ["변동 요인이라는 시각", "AI 속도 · HBM 증산 · 중국 증산"], ["면접 답변", "두 관점 모두 + 최신 지표"]];
+  const FT = [86.6, 93, 99.5, 104];
+  const w1P = sm(86.8, 90.4), w2P = sm(93.2, 96.8), p2V = K([[92.8, 0], [93.6, 1]]);
+  const flT = [88, 89.4, 90.8], frT = [94.4, 95.8, 97.2];
+  const flV = flT.map((a) => K([[a, 0], [a + 0.5, 1]])), frV = frT.map((a) => K([[a, 0], [a + 0.5, 1]]));
+  const fbV = K([[99.8, 0], [100.6, 1]]);
+
+  // G
+  const GT = [104.6, 107.4, 110.6];
+  const fV = (i) => K([[GT[i], 0], [GT[i] + 0.8, 1]]);
+  const fF = K([[113.6, 0], [114.4, 1]]);
+
+  const LABELS = [];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+  const LN = "stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none";
+  const badge = (x, y, n, r) => `<g class="mk"><circle cx="${x}" cy="${y}" r="${r || 20}"></circle><text x="${x}" y="${y + 8}" text-anchor="middle" style="font-size:${r ? 26 : 20}px">${n}</text></g>`;
+  const rowsHtml = (pfx, x, y0, dy, w, h, rows, sz) => rows.map((r, i) => {
+    const y = y0 + dy * i;
+    return `<g id="${pfx}${i}" class="row" data-s="idle"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"></rect>`
+      + `<text x="${x + 22}" y="${y + 26}" style="font-size:${sz}px;font-weight:700">${r[0]}</text>`
+      + `<text x="${x + 22}" y="${y + 50}" class="lbl-s">${r[1]}</text></g>`;
+  }).join("");
+  const mkPath = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, cum, total: cum[cum.length - 1] }; };
+  const posAt = (P, u) => { const d = frac(u) * P.total; let i = 1; while (i < P.cum.length - 1 && P.cum[i] < d) i++; const a = P.pts[i - 1], b = P.pts[i], k = (d - P.cum[i - 1]) / (P.cum[i] - P.cum[i - 1] || 1); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; };
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  const txt = (x, y, str, cls, sz, anchor, id, bold) => `<text${id ? ` id="${id}"` : ""} x="${x}" y="${y}"${anchor ? ` text-anchor="${anchor}"` : ""}${cls ? ` class="${cls}"` : ""}${sz || bold ? ` style="${sz ? `font-size:${sz}px;` : ""}${bold ? "font-weight:700" : ""}"` : ""}>${str}</text>`;
+  const rect = (x, y, w, h, st, id, rx) => `<rect${id ? ` id="${id}"` : ""} x="${x}" y="${y}" width="${w}" height="${h}"${rx ? ` rx="${rx}"` : ""} style="${st}"></rect>`;
+  const line = (x1, y1, x2, y2, st, id) => `<line${id ? ` id="${id}"` : ""} x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="${st}"></line>`;
+  const circ = (cx, cy, r, st, id) => `<circle${id ? ` id="${id}"` : ""} cx="${cx}" cy="${cy}" r="${r}" style="${st}"></circle>`;
+  const pathEl = (id, d, st) => `<path id="${id}" d="${d}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="fill:none;${st}"></path>`;
+  const pill = (x, y, w, h, a, b) => `<rect class="card" x="${x}" y="${y}" width="${w}" height="${h}" rx="12"></rect>` + txt(x + w / 2, b ? y + 24 : y + h / 2 + 5, a, "acc-t", 18, "middle", "", true) + (b ? txt(x + w / 2, y + 45, b, "lbl-s", 14, "middle") : "");
+  const CARDS = `<rect class="card" x="40" y="100" width="720" height="496" rx="12"></rect><rect class="card" x="780" y="100" width="460" height="496" rx="12"></rect>`;
+  const ARR_R = "stroke:var(--bad);stroke-width:4;marker-end:url(#arr-r)";
+  const ARR_A = "stroke:var(--accent);stroke-width:4;marker-end:url(#arr-a)";
+  const SIF = "fill:var(--m-si);fill-opacity:.55;stroke:var(--ink);stroke-width:2.5";
+  const OXF = "fill:var(--m-ox);fill-opacity:.6;stroke:var(--ink);stroke-width:2";
+  const PPF = "fill:var(--m-pp);fill-opacity:.3;stroke:var(--ink);stroke-width:2.5";
+  const NNF = "fill:var(--m-nn);fill-opacity:.6;stroke:var(--ink);stroke-width:2";
+  const POLY = "fill:var(--m-poly);fill-opacity:.7;stroke:var(--ink);stroke-width:2.5";
+
+  const SH = "fill:none;stroke:var(--line-strong);stroke-width:2";
+  const chip = (x, y, w, h, str, id, sz) => `<g id="${id}"><rect class="card" x="${x}" y="${y}" width="${w}" height="${h}" rx="8"></rect>` + txt(x + 14, y + h / 2 + 5, str, "", sz || 15, "", "", true) + `</g>`;
+
+  // B: cycle ring
+  const NN = ["수요 증가", "재고 감소", "가격 상승", "이익·투자 증가", "공급 증가", "재고 증가", "가격 하락", "감산·투자 축소"];
+  const NP = NN.map((_, i) => { const a = (-90 + 45 * i) * Math.PI / 180; return [400 + 270 * Math.cos(a), 345 + 165 * Math.sin(a)]; });
+  const NW = 144, NH = 38;
+  const edge = (A, B) => { const dx = B[0] - A[0], dy = B[1] - A[1], tt = Math.min((NW / 2 + 6) / Math.max(Math.abs(dx), 1e-6), (NH / 2 + 6) / Math.max(Math.abs(dy), 1e-6)); return [[A[0] + dx * tt, A[1] + dy * tt], [B[0] - dx * tt, B[1] - dy * tt]]; };
+  s = CARDS + `<g id="ring"><ellipse cx="400" cy="345" rx="270" ry="165" style="fill:none;stroke:var(--line-strong);stroke-width:2;stroke-dasharray:6 7"></ellipse></g>`
+    + `<g id="ctr">` + txt(400, 332, "메모리 사이클", "lbl-b", 26, "middle", "", true) + txt(400, 364, "호황 → 증설 → 공급 과잉", "lbl", 17, "middle") + txt(400, 390, "→ 불황 → 감산 → 회복", "lbl", 17, "middle") + `</g>`;
+  for (let i = 0; i < 8; i++) {
+    const A = NP[i], B = NP[(i + 1) % 8], e = edge(A, B);
+    s += `<line id="ca${i}" x1="${e[0][0].toFixed(1)}" y1="${e[0][1].toFixed(1)}" x2="${e[1][0].toFixed(1)}" y2="${e[1][1].toFixed(1)}" style="stroke:var(--accent);stroke-width:3.5;marker-end:url(#arr-a)${i === 7 ? ";stroke-dasharray:7 5" : ""}"></line>`;
+  }
+  for (let i = 0; i < 8; i++) s += `<g id="cn${i}"><rect class="card" x="${(NP[i][0] - NW / 2).toFixed(1)}" y="${(NP[i][1] - NH / 2).toFixed(1)}" width="${NW}" height="${NH}" rx="10"></rect>` + `<rect id="cna${i}" x="${(NP[i][0] - NW / 2).toFixed(1)}" y="${(NP[i][1] - NH / 2).toFixed(1)}" width="${NW}" height="${NH}" rx="10" style="fill:var(--accent);fill-opacity:.2;stroke:var(--accent);stroke-width:3"></rect>` + txt(NP[i][0].toFixed(1), (NP[i][1] + 5).toFixed(1), NN[i], "", 16, "middle", "", true) + `</g>`;
+  s += txt(495, 546, "1~2년 뒤", "bad-t", 17, "middle", "ctag", true) + txt(110, 172, "재고 소진 → 가격 반등", "acc-t", 17, "", "cback", true)
+    + rowsHtml("br", 802, 116, 100, 416, 70, BROWS, 21);
+  $("b-art").innerHTML = s;
+
+  // C: variables, HBM effect, bit growth
+  const SUP = ["웨이퍼 투입량(생산 능력)", "미세화 전환에 따른 비트 증가", "수율", "신규 팹 가동 시점", "감산"], DEM = ["스마트폰 · PC 출하량", "기기당 메모리 탑재량", "서버 투자(빅테크 설비 투자)", "AI(HBM · 고용량 서버 D램 · eSSD)"];
+  s = CARDS + txt(60, 128, "공급 변수", "lbl-b", 20, "", "", true) + txt(400, 128, "수요 변수", "lbl-b", 20, "", "", true);
+  SUP.forEach((p, i) => { s += chip(60, 138 + 40 * i, 320, 34, p, "cs" + i); });
+  DEM.forEach((p, i) => { s += chip(400, 138 + 40 * i, 340, 34, p, "cd" + i); });
+  s += `<g id="hbm">` + txt(70, 372, "같은 비트를 만들 때 필요한 웨이퍼(개념도)", "lbl-b", 17, "", "", true)
+    + txt(70, 420, "일반 D램", "lbl", 17) + circ(230, 414, 20, "fill:var(--m-si);fill-opacity:.55;stroke:var(--ink);stroke-width:2.5")
+    + `<g id="hb2">` + txt(70, 478, "HBM", "lbl", 17) + [230, 280, 330, 380].map((x) => circ(x, 472, 20, "fill:var(--m-si);fill-opacity:.55;stroke:var(--ink);stroke-width:2.5")).join("") + txt(420, 478, "큰 다이 · 적층 · 누적 수율 → 웨이퍼 몇 배", "lbl-s", 15) + `</g>`
+    + `<g id="hb3">` + txt(400, 542, "HBM 증산 → 범용 D램 공급 ↓ → 가격을 받쳐 줌", "acc-t", 20, "middle", "", true) + `</g></g>`
+    + `<g id="see"><g id="ssb">` + rect(180, 510, 440, 10, "fill:var(--ink)") + rect(190, 458, 130, 48, "fill:var(--m-si);fill-opacity:.5;stroke:var(--ink);stroke-width:2.5", "", 8) + txt(255, 488, "공급 비트 +15%", "", 16, "middle", "", true)
+    + rect(480, 458, 130, 48, "fill:var(--accent);fill-opacity:.45;stroke:var(--ink);stroke-width:2.5", "", 8) + txt(545, 488, "수요 비트 +20%", "", 16, "middle", "", true) + `</g>`
+    + `<polygon points="380,566 420,566 400,520" style="fill:var(--muted);stroke:var(--ink);stroke-width:2"></polygon>` + txt(400, 400, "", "", 1) + `</g>`
+    + txt(400, 400, "수요 > 공급 → 가격 상승 압력 ↑", "ok-t", 22, "middle", "sel", true)
+    + rowsHtml("cr", 802, 116, 100, 416, 70, CROWS, 21);
+  $("c-art").innerHTML = s;
+
+  // D: price indicators
+  const wv = (x, lag) => 270 - 80 * Math.sin(2 * Math.PI * (x - lag - 90) / 420);
+  s = CARDS + txt(96, 170, "가격", "lbl-s", 14) + line(90, 380, 90, 160, "stroke:var(--ink);stroke-width:2.5") + line(90, 270, 720, 270, "stroke:var(--muted);stroke-width:2;stroke-dasharray:5 5") + txt(720, 396, "→ 시간", "lbl-s", 14, "end")
+    + `<polyline id="wf" points="" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round"></polyline><polyline id="wsp" points="" style="fill:none;stroke:var(--ink);stroke-width:3.5;stroke-dasharray:8 5;stroke-linecap:round"></polyline>`
+    + `<g id="lag">` + line(195, 176, 250, 176, "stroke:var(--bad);stroke-width:3.5;marker-end:url(#arr-r)") + txt(150, 160, "현물이 먼저 움직임 = 선행 지표", "bad-t", 16, "", "", true) + `</g>`
+    + `<g id="leg">` + txt(100, 408, "━ 고정거래가격(대형 고객 계약가)", "acc-t", 15, "", "", true) + txt(400, 408, "┅ 현물가격(유통 시장 거래가)", "lbl-b", 15, "", "", true) + `</g>`;
+  [["재고 수준", "몇 주치 재고인지"], ["비트 출하 증가율", "판매 물량 변화"], ["설비 투자", "미래의 공급"], ["빅테크 설비 투자", "AI 수요의 선행 지표"], ["반도체 수출", "국내 업황의 월간 체온계"]].forEach((p, i) => { s += `<g id="dc${i}">` + pill(62 + 224 * (i % 3), 436 + 62 * Math.floor(i / 3), 210, 54, p[0], p[1]) + `</g>`; });
+  s += `<g id="dbx">` + rect(510, 498, 210, 54, "fill:var(--accent);fill-opacity:.15;stroke:var(--accent);stroke-width:2.5", "", 12) + txt(615, 531, "묶어서 판단", "acc-t", 20, "middle", "", true) + `</g>`
+    + rowsHtml("dr", 802, 116, 100, 416, 70, DROWS, 21);
+  $("d-art").innerHTML = s;
+
+  // E: recent trend (concept)
+  const EK = [[2022.0, 0.62], [2022.5, 0.6], [2023.3, 0.12], [2023.8, 0.18], [2024.5, 0.45], [2025.3, 0.7], [2026.3, 0.95]];
+  const ev = (y) => { for (let i = 0; i < EK.length - 1; i++) if (y <= EK[i + 1][0]) { const u = clamp((y - EK[i][0]) / (EK[i + 1][0] - EK[i][0]), 0, 1), k = u * u * (3 - 2 * u); return EK[i][1] + (EK[i + 1][1] - EK[i][1]) * k; } return EK[EK.length - 1][1]; };
+  const ex = (y) => 110 + 131 * (y - 2022), ey = (v) => 400 - 230 * v;
+  s = CARDS + line(100, 400, 720, 400, "stroke:var(--ink);stroke-width:2.5") + line(100, 400, 100, 160, "stroke:var(--ink);stroke-width:2.5") + txt(106, 172, "업황(개념도)", "lbl-s", 14);
+  [2022, 2023, 2024, 2025, 2026].forEach((y) => { s += txt(ex(y), 420, String(y), "lbl-s", 13, "middle"); });
+  s += `<polyline id="ecv" points="" style="fill:none;stroke:var(--accent);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round"></polyline>` + circ(110, ey(0.62), 7, "fill:var(--accent);stroke:var(--surface);stroke-width:2", "emk")
+    + `<g id="edn">` + txt(120, 190, "2022 하반기~2023: 수요 부진 · 재고 과잉 → 큰 하락", "bad-t", 15, "", "", true) + txt(120, 214, "SK하이닉스 2023년 연간 영업적자", "lbl-b", 15, "", "", true) + `</g>`
+    + `<g id="eup">` + txt(480, 336, "2024~ 회복: AI 서버용 HBM ·", "ok-t", 15, "", "", true) + txt(480, 358, "고용량 D램 수요", "ok-t", 15, "", "", true) + `</g>`
+    + `<g id="et1">` + rect(60, 446, 340, 110, "fill:var(--accent);fill-opacity:.12;stroke:var(--accent);stroke-width:2.5", "", 12) + txt(78, 474, "WSTS 2026년 메모리 시장 전망(5월)", "lbl-b", 16, "", "", true) + txt(78, 512, "약 +250%", "acc-t", 34, "", "", true) + txt(250, 512, "전년 대비", "lbl-s", 15) + txt(78, 542, "8,000억 달러를 넘을 전망", "lbl-b", 17, "", "", true) + `</g>`
+    + `<g id="et2">` + rect(420, 446, 320, 110, "fill:var(--accent);fill-opacity:.12;stroke:var(--accent);stroke-width:2.5", "", 12) + txt(438, 474, "SK하이닉스 2026년 2분기", "lbl-b", 16, "", "", true) + txt(438, 520, "영업이익률 76%", "acc-t", 34, "", "", true) + `</g>`
+    + rowsHtml("er", 802, 116, 100, 416, 70, EROWS, 20);
+  $("e-art").innerHTML = s;
+
+  // F: two views
+  s = CARDS;
+  [[56, "완만해졌다는 시각", ["HBM: 1년가량 앞서 물량·가격 결정", "장기 계약 · 고객 맞춤 제품", "공급사들의 투자 규율 강조"], "l", "ok-t"], [414, "변동 요인이라는 시각", ["AI 투자 속도 조절", "경쟁사의 HBM 공급 확대", "중국 업체의 범용 D램 증산"], "r", "bad-t"]].forEach((P) => {
+    s += `<g id="${P[3]}pn">` + txt(P[0] + 165, 130, P[1], P[4], 20, "middle", "", true) + rect(P[0], 142, 330, 118, SH, "", 8) + `<polyline id="${P[3]}w" points="" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-linejoin:round"></polyline></g>`;
+    P[2].forEach((c, i) => { s += chip(P[0], 276 + 50 * i, 330, 40, c, P[3] + "c" + i); });
+  });
+  s += `<g id="fbn">` + rect(56, 440, 688, 112, "fill:var(--accent);fill-opacity:.12;stroke:var(--accent);stroke-width:2.5", "", 12) + txt(400, 490, "면접에서는 두 관점을 모두 말할 수 있어야 합니다", "acc-t", 22, "middle", "", true) + txt(400, 526, "최신 숫자는 뉴스 트래커로 면접 직전에 확인", "lbl", 18, "middle") + `</g>`
+    + rowsHtml("fr", 802, 116, 100, 416, 70, FROWS, 21);
+  $("f-art").innerHTML = s;
+
+  // G: closing cards
+  (function () {
+    const cards = [
+      { h: "사이클의 구조", l: ["수요↑ → 재고↓ → 가격↑", "이익·투자↑ → 1~2년 뒤 공급↑", "재고↑ → 가격↓ → 감산", "재고 소진 → 가격 반등"] },
+      { h: "변수와 지표", l: ["공급: 웨이퍼·수율·팹·감산", "수요: 폰·PC·서버·AI", "고정거래가 · 현물가(선행)", "재고 · 비트 출하 · 수출"] },
+      { h: "최근과 두 관점", l: ["2023 하락 → 2024 AI 회복", "완만해졌다: HBM 장기 계약", "변동 요인: AI 속도 · 증산", "사실 → 해석 → 의미"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="gc-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>` + badge(x + 44, 188, i + 1, 24)
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:26px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="g-form" x="640" y="500" text-anchor="middle" class="acc-t" style="font-size:23px">면접: 지표를 묶어서 → 두 관점(낙관·신중) → 회사·직무에 주는 의미</text>`;
+    $("g-g").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+  // ---------- render ----------
+  const HL = [];
+  let hlOn = new Set();
+  const rowState = (id, T, i, t) => setAttr(id + i, "data-s", t < T[i] ? "idle" : t < T[i + 1] ? "on" : "done");
+  const f1 = (v) => v.toFixed(1);
+  const GV = [0, 1, 2].map(fV);
+  const ptsOf = (n, fx, fy) => { let o = ""; for (let i = 0; i <= n; i++) o += fx(i / n).toFixed(1) + "," + fy(i / n).toFixed(1) + " "; return o; };
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t)); op("g-f", gF(t)); op("g-g", gG(t));
+
+    // B
+    op("ring", ringV(t)); op("ctr", ctrV(t)); op("ctag", tagV(t)); op("cback", backV(t));
+    for (let i = 0; i < 8; i++) {
+      op("cn" + i, 0.22 + 0.78 * nodeV[i](t)); op("cna" + i, actV[i](t));
+      op("ca" + i, i < 7 ? nodeV[i + 1](t) : backV(t));
+    }
+    for (let i = 0; i < 4; i++) { op("br" + i, rise(BT[i] - 0.2)(t)); rowState("br", BT, i, t); }
+
+    // C
+    for (let i = 0; i < 5; i++) op("cs" + i, supV[i](t));
+    for (let i = 0; i < 4; i++) op("cd" + i, demV[i](t));
+    op("hbm", hbmV(t)); op("hb2", hb2V(t)); op("hb3", hb3V(t));
+    { const sp = seeP(t); op("see", seeV(t)); setAttr("ssb", "transform", `rotate(${f1(7 * sp)} 400 515)`); op("sel", seeL(t)); }
+    for (let i = 0; i < 4; i++) { op("cr" + i, rise(CT[i] - 0.2)(t)); rowState("cr", CT, i, t); }
+
+    // D
+    { const p = dP(t);
+      setAttr("wsp", "points", ptsOf(60, (u) => 90 + 630 * u * p, (u) => wv(90 + 630 * u * p, 0)));
+      let fs = ""; const x1 = 90 + 630 * p; for (let x = 145; x <= x1; x += 10.5) fs += x.toFixed(1) + "," + wv(x, 55).toFixed(1) + " ";
+      setAttr("wf", "points", fs.trim() || "145,270 145,270");
+      op("lag", lagV(t)); op("leg", legV(t)); }
+    for (let i = 0; i < 5; i++) op("dc" + i, dcV[i](t));
+    op("dbx", dbV(t));
+    for (let i = 0; i < 4; i++) { op("dr" + i, rise(DT[i] - 0.2)(t)); rowState("dr", DT, i, t); }
+
+    // E
+    { const y = yrK(t), c = crvV(t); let o = ""; for (let k = 0; k <= 60; k++) { const yy = 2022 + (y - 2022) * k / 60; o += ex(yy).toFixed(1) + "," + ey(ev(yy)).toFixed(1) + " "; }
+      setAttr("ecv", "points", o); setAttr("emk", "cx", f1(ex(y))); setAttr("emk", "cy", f1(ey(ev(y)))); op("ecv", c); op("emk", c);
+      op("edn", dnV(t)); op("eup", upV(t)); op("et1", t1V(t)); op("et2", t2V(t)); }
+    for (let i = 0; i < 4; i++) { op("er" + i, rise(ET[i] - 0.2)(t)); rowState("er", ET, i, t); }
+
+    // F
+    { const a = w1P(t), b = w2P(t);
+      setAttr("lw", "points", ptsOf(60, (u) => 56 + 330 * u * a, (u) => 201 - 14 * Math.sin(2 * Math.PI * 3 * u * a)));
+      setAttr("rw", "points", ptsOf(80, (u) => 414 + 330 * u * b, (u) => 201 - 40 * (0.7 * Math.sin(2 * Math.PI * 2.4 * u * b) + 0.5 * Math.sin(2 * Math.PI * 5.3 * u * b + 1.2)) / 1.2));
+      op("lpn", 1); op("rpn", p2V(t)); for (let i = 0; i < 3; i++) { op("lc" + i, flV[i](t)); op("rc" + i, frV[i](t)); } op("fbn", fbV(t)); }
+    for (let i = 0; i < 3; i++) { op("fr" + i, rise(FT[i] - 0.2)(t)); rowState("fr", FT, i, t); }
+
+    // G
+    for (let i = 0; i < 3; i++) op("gc-" + i, GV[i](t));
+    op("g-form", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+
+</script>
+</body>
+</html>

@@ -44,6 +44,11 @@
 | `cmos-process-film.html` | 3-14 | 영상: 10개 모듈이 NMOS·PMOS 단면에 차례로 쌓이는 CMOS 공정 흐름, 자기 정렬(스페이서·살리사이드), FEOL·MOL·BEOL과 열 이력, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `euv-film.html` | 4-2 | 영상: R = k₁λ/NA와 하프피치, 주석 방울 EUV 광원과 반사 거울, 확률적 결함, LELE·SADP·SAQP, High-NA(절반 필드), 약 2분 (장면 7개, 자막, 소리 없음) |
 | `packaging-film.html` | 3-12 | 영상: 패키지의 4가지 역할, 조립 순서 6단계, 와이어 본딩 vs 플립칩·언더필, 칩렛·2.5D·브리지, 3D 적층과 하이브리드 본딩, 약 2분 (장면 7개, 자막, 소리 없음) |
+| `plasma-film.html` | 3-5 | 플라즈마 기초 영상(plasma-film.html): 구성과 생성, 충돌 결과, 파셴 법칙, 시스, DC·RF 전원과 CCP·ICP의 7장면 |
+| `yield-film.html` | 3-13 | 수율·결함·계측 영상(yield-film.html): 데이터, SPC, 공정능력, 불량 유형, 수율 저하 대응의 7장면 |
+| `memory-cycle-film.html` | 5-3 | 메모리 사이클 영상(memory-cycle-film.html): 순환 구조, 공급·수요 변수, 지표, 최근 흐름, 두 가지 시각의 7장면 |
+| `oxidation-film.html` | 3-3 | 산화 공정 영상(oxidation-film.html): 산화 반응, 성장 속도, 건식과 습식, 쓰임과 품질, 평가 방법의 7장면 |
+| `scaling-film.html` | 2-5 | 미세화와 한계 영상(scaling-film.html): 무어의 법칙, 데나드 스케일링, 단채널 효과, DIBL, 해법의 7장면 |
 | `doping-implant-film.html` | 3-8 | 도핑 → PN 접합 → 이온주입기 → 깊이 분포·채널링 → 열처리의 흐름을 117초 영상으로 정리했습니다. |
 | `nand-ispp.html` | 2-11 | 낸드 ISPP와 문턱전압 분포 (모드 4개: 쓰기(ISPP), 쓰기 금지, 읽기, 분포가 무너질 때) |
 | `fab-intro.html` | 3-0 | 팹 입문: 8대 공정, FEOL·BEOL, 클린룸 (모드 2개: 공정 흐름, 클린룸) |
