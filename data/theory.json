@@ -3734,7 +3734,22 @@
      "note": "삼성전자 반도체 뉴스룸 · 메모리 수요와 투자를 전망하는 일"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/memory-cycle-film.html",
+     "title": "메모리 사이클 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "순환 구조",
+      "공급·수요",
+      "지표",
+      "최근 흐름",
+      "두 가지 시각",
+      "마무리"
+     ]
+    }
+   ],
    "animations": []
   },
   {
@@ -4115,6 +4130,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 22
+  "films": 23
  }
 }

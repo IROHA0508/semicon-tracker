@@ -44,6 +44,7 @@
 | `cmos-process-film.html` | 3-14 | 영상: 10개 모듈이 NMOS·PMOS 단면에 차례로 쌓이는 CMOS 공정 흐름, 자기 정렬(스페이서·살리사이드), FEOL·MOL·BEOL과 열 이력, 약 2분 (장면 7개, 자막, 소리 없음) |
 | `euv-film.html` | 4-2 | 영상: R = k₁λ/NA와 하프피치, 주석 방울 EUV 광원과 반사 거울, 확률적 결함, LELE·SADP·SAQP, High-NA(절반 필드), 약 2분 (장면 7개, 자막, 소리 없음) |
 | `packaging-film.html` | 3-12 | 영상: 패키지의 4가지 역할, 조립 순서 6단계, 와이어 본딩 vs 플립칩·언더필, 칩렛·2.5D·브리지, 3D 적층과 하이브리드 본딩, 약 2분 (장면 7개, 자막, 소리 없음) |
+| `memory-cycle-film.html` | 5-3 | 메모리 사이클 영상(memory-cycle-film.html): 순환 구조, 공급·수요 변수, 지표, 최근 흐름, 두 가지 시각의 7장면 |
 | `oxidation-film.html` | 3-3 | 산화 공정 영상(oxidation-film.html): 산화 반응, 성장 속도, 건식과 습식, 쓰임과 품질, 평가 방법의 7장면 |
 | `scaling-film.html` | 2-5 | 미세화와 한계 영상(scaling-film.html): 무어의 법칙, 데나드 스케일링, 단채널 효과, DIBL, 해법의 7장면 |
 | `doping-implant-film.html` | 3-8 | 도핑 → PN 접합 → 이온주입기 → 깊이 분포·채널링 → 열처리의 흐름을 117초 영상으로 정리했습니다. |
