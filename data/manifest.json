@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-11T10:52:14+09:00",
-  "count": 165,
+  "generatedAt": "2026-11-12T21:33:26+09:00",
+  "count": 166,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,21 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 165
+      "count": 166
     }
   ],
   "index": [
+    {
+      "id": "samsung-7506fba1fd",
+      "date": "2026-11-12",
+      "published": "2026-11-12T23:00:05+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [],
+      "relatedUnits": [],
+      "detail": true
+    },
     {
       "id": "skhynix-iec-61508-certification-2026",
       "date": "2026-11-11",
