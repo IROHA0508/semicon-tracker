@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-12T21:32:52+09:00",
+  "startedAt": "2026-11-13T07:12:10+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 1,
+      "new": 0,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,59 +41,40 @@
     }
   },
   "errors": {},
-  "added": [
-    {
-      "id": "samsung-7506fba1fd",
-      "date": "2026-11-12",
-      "source": "samsung-newsroom",
-      "title": "삼성, ‘2026 나눔의 날’ 개최… ‘나눔가게’ 기부금 첫 전달식"
-    }
-  ],
-  "queueSize": 1,
+  "added": [],
+  "queueSize": 0,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-12T21:32:55+09:00",
+  "finishedAt": "2026-11-13T07:12:13+09:00",
   "summary": {
-    "startedAt": "2026-11-12T21:32:55+09:00",
-    "backend": "cli",
+    "startedAt": "2026-11-13T07:12:13+09:00",
+    "backend": null,
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [
-      {
-        "id": "samsung-7506fba1fd",
-        "title": "삼성, ‘2026 나눔의 날’ 개최… ‘나눔가게’ 기부금 첫 전달식"
-      }
-    ],
+    "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "queue done",
-    "queueLeft": 0,
-    "finishedAt": "2026-11-12T21:33:00+09:00"
+    "stoppedBy": "nothing to do",
+    "queueLeft": 0
   },
   "details": {
     "limit": 10,
-    "detailed": [
-      {
-        "id": "samsung-7506fba1fd",
-        "title": "삼성, ‘2026 나눔의 날’ 개최… ‘나눔가게’ 기부금 첫 전달식",
-        "figure": false
-      }
-    ],
+    "detailed": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "all done",
+    "stoppedBy": "nothing to do",
     "left": 0
   },
   "manifest": {
     "count": 166,
-    "changed": true
+    "changed": false
   }
 }
