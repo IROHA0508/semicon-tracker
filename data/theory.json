@@ -2689,7 +2689,22 @@
      "note": "삼성전자 반도체 뉴스룸 · 현장. 불량 원인 분석과 수율"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/yield-film.html",
+     "title": "수율·결함·계측 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "데이터",
+      "SPC",
+      "공정능력",
+      "불량 유형",
+      "수율 저하 대응",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/yield.html",
@@ -4130,6 +4145,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 23
+  "films": 24
  }
 }
