@@ -1879,7 +1879,22 @@
      "note": "Sungho Kim - 기초반도체공학 강의 · 심화. 산화막 두께가 자라는 속도"
     }
    ],
-   "films": [],
+   "films": [
+    {
+     "file": "animations/oxidation-film.html",
+     "title": "산화 공정 영상",
+     "seconds": 117,
+     "chapters": [
+      "시작",
+      "산화 반응",
+      "성장 속도",
+      "건식과 습식",
+      "쓰임과 품질",
+      "평가 방법",
+      "마무리"
+     ]
+    }
+   ],
    "animations": [
     {
      "file": "animations/oxidation.html",
@@ -4100,6 +4115,6 @@
   "videoUrls": 88,
   "unitsWithVideos": 48,
   "animations": 49,
-  "films": 21
+  "films": 22
  }
 }

@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>산화 공정 영상</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="player.css">
+<style>
+  /* ===== Film page: one 16:9 screen, subtitles, and a seek bar ===== */
+  .film { max-width: 1280px; }
+  .screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screen svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+  .subs {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 15.3%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3cqw;
+    text-align: center;
+    background: rgba(14, 18, 24, .9);
+    color: #fff;
+    font: 600 2.35cqw/1.4 var(--font-sans);
+    text-wrap: balance; word-break: keep-all;
+  }
+  .subs b { color: #ffc39a; font-weight: 700; }
+  .subs[hidden] { display: none; }
+  .bigplay {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 15.3%;
+    display: grid; place-items: end center; padding: 0 0 3.2cqw;
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .bigplay span {
+    display: grid; place-items: center;
+    width: 8.5cqw; height: 8.5cqw; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25);
+  }
+  .bigplay svg { width: 3.4cqw; height: 3.4cqw; margin-left: .5cqw; fill: #fff; }
+  .bigplay[hidden] { display: none; }
+
+  .ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ctrl button, .ctrl select {
+    font: 500 14px/1 var(--font-sans);
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; min-width: 44px;
+  }
+  .ctrl button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; min-width: 88px; }
+  .ctrl button[aria-pressed="false"] { color: var(--muted); }
+  .ctrl .time { font: 500 14px/1 var(--font-mono); color: var(--muted); min-width: 92px; }
+  .seekwrap { position: relative; flex: 1 1 280px; min-width: 200px; height: 28px; }
+  .seekwrap input { position: absolute; inset: 0; width: 100%; height: 28px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .marks { position: absolute; left: 7px; right: 7px; top: 0; bottom: 0; pointer-events: none; }
+  .marks i { position: absolute; top: 4px; bottom: 4px; width: 2px; margin-left: -1px; background: var(--line-strong); opacity: .7; }
+  .ctrl label { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+
+  .chap { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chap button {
+    width: 100%; text-align: left;
+    display: grid; gap: 2px;
+    font: 14px/1.35 var(--font-sans); color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .chap button .n { font: 500 12px/1.4 var(--font-mono); }
+  .chap button:hover { border-color: var(--line-strong); }
+  .chap button[aria-current="true"] { color: var(--ink); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+  .cap { font-size: 12px; color: var(--muted); margin: 0; }
+
+  #player:fullscreen { background: var(--bg); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  #player:fullscreen .screen { width: min(100%, calc((100vh - 150px) * 16 / 9)); align-self: center; }
+  #player:fullscreen .chap, #player:fullscreen .cap { display: none; }
+
+  /* ===== Drawing (units are the 1280 x 720 viewBox) ===== */
+  .film svg text { font-size: 22px; fill: var(--ink); }
+  .film svg .lbl { font-size: 22px; fill: var(--muted); }
+  .film svg .lbl-s { font-size: 18px; fill: var(--muted); }
+  .film svg .lbl-b { font-size: 24px; font-weight: 700; fill: var(--ink); }
+  .film svg .lbl-c { font-size: 21px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+  .film svg .mono { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+  .film svg .scene { font: 700 32px var(--font-sans); fill: var(--ink); }
+  .film svg .bad-t { fill: var(--bad); font-weight: 600; }
+  .film svg .ok-t { fill: var(--ok); font-weight: 700; }
+  .film svg .acc-t { fill: var(--accent); font-weight: 700; }
+  .film svg .on-dark { fill: var(--surface); font-weight: 600; }
+  .film svg .halo { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* materials (same tokens as the step animation) */
+  .film .si { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .inter { fill: var(--m-si-n); }
+  .film .ox { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .nit { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .poly { fill: var(--m-poly); stroke: var(--m-poly-line); stroke-width: 1; }
+  .film .w { fill: var(--m-w); }
+  .film .hk { fill: var(--m-hk); }
+  .film .plate { fill: var(--m-plate); }
+  .film .cu { fill: var(--m-cu); }
+  .film .air { fill: var(--m-air); }
+  .film .voidr { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .voidbad { stroke: var(--bad); stroke-width: 3; }
+  .film .liner { fill: none; stroke: var(--m-ox-line); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-tin { fill: none; stroke: var(--m-tin); stroke-width: 5; stroke-linejoin: round; }
+  .film .l-hk { fill: none; stroke: var(--m-hk); stroke-width: 5; stroke-linejoin: round; }
+  .film .hlr { fill: none; stroke: transparent; stroke-width: 3; }
+
+  /* flows and motion */
+  .film .chan { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 7 5; animation: fdash .9s linear infinite; }
+  .film .imp { fill: none; stroke: var(--low); stroke-width: 3; stroke-dasharray: 8 6; animation: fdash .6s linear infinite; }
+  @keyframes fdash { to { stroke-dashoffset: -34; } }
+  @keyframes hlpulse { 50% { stroke-opacity: .4; } }
+  .film svg [data-hl="1"] { stroke: var(--accent) !important; stroke-width: 5px !important; animation: hlpulse 1.2s ease-in-out infinite; }
+  .film.paused .chan, .film.paused .imp, .film.paused svg [data-hl="1"] { animation-play-state: paused; }
+
+  .film .card { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .grid-line { stroke: var(--line); stroke-dasharray: 4 5; stroke-width: 1.5; }
+  .film .lead-l { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .dim { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .film .xmark line { stroke: var(--bad); stroke-width: 6; stroke-linecap: round; }
+  .film .row rect { fill: var(--bg); stroke: var(--line); stroke-width: 2; transition: fill .2s, stroke .2s; }
+  .film .row[data-s="on"] rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .row[data-s="idle"] text { opacity: .55; }
+  .film .row[data-s="done"] text { opacity: .8; }
+  .film .mk circle { fill: var(--accent); }
+  .film svg .mk text { font: 700 19px var(--font-sans); fill: var(--surface); }
+  .film .ins-act rect { fill: var(--m-si); stroke: var(--m-si-line); stroke-width: 1.2; }
+  .film .ins-act rect.main { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+  .film .ins-wl rect { fill: var(--m-w); opacity: .55; }
+  .film .ins-bl rect { fill: var(--m-w); opacity: .9; }
+  .film .ins-sn circle { fill: var(--m-tin); stroke: var(--surface); stroke-width: 1; }
+  .film .cut { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .film .slitv { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+  .film .hvoid { fill: var(--surface); }
+  .film .acid line { stroke: var(--low); stroke-width: 3; }
+  .film .tv-h circle { fill: var(--m-poly); stroke: var(--m-ox-line); stroke-width: 1.5; }
+  .film .tv-h circle.main { stroke: var(--accent); stroke-width: 3; }
+  .film .tv-s rect { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .tv-b line { stroke: var(--m-cu); stroke-width: 3; opacity: .85; }
+  .film .sw rect { stroke: var(--line-strong); stroke-width: 1; }
+  .film .elec circle { fill: var(--low); }
+  .film .stk-s { fill: var(--m-ox); stroke: var(--m-ox-line); stroke-width: 1; }
+  .film .stk-n { fill: var(--m-nit); stroke: var(--m-nit-line); stroke-width: 1; }
+  .film .stk-p { fill: var(--m-cu); }
+  .film .cellbox { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+  .film .cellbox[data-s="on"] { fill: var(--accent-soft); stroke: var(--accent); }
+  .film .cellbox[data-s="blocked"] { fill: var(--surface); stroke: var(--bad); stroke-dasharray: 5 4; }
+  .film .wlline { stroke: var(--line-strong); stroke-width: 2; }
+  .film .wlsel { stroke: var(--accent); stroke-width: 4; }
+  .film .pbar { fill: var(--accent); }
+  .film .vbar { fill: var(--ok); }
+  .film .obar { fill: var(--bad); }
+  .film .axis { stroke: var(--ink); stroke-width: 2; fill: none; }
+  .film .refl { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; }
+  .film .refnow { stroke: var(--accent); stroke-width: 5; }
+  .film .hump { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+  .film .hump.e { fill: var(--m-si); stroke: var(--muted); }
+  .film .ovl { fill: var(--bad); }
+  .film .trapc { fill: none; stroke: var(--m-nit-line); stroke-width: 2; }
+  .film .chrect { fill: var(--accent); }
+  .film .barb { fill: var(--muted); }
+
+  /* ===== photo film additions ===== */
+  .film .prr { fill: var(--m-pr); stroke: var(--line-strong); stroke-width: 1.5; }
+  .film .xo { fill: var(--accent); fill-opacity: .4; }
+  .film .chrome { fill: var(--ink); opacity: .85; }
+  .film .mirror { fill: var(--m-w); stroke: var(--ink); stroke-width: 1; }
+  .film .acid { fill: var(--low); stroke: var(--surface); stroke-width: 1.2; }
+  .film .wave { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .film .beam { stroke: var(--accent); stroke-linecap: round; fill: none; }
+  .film .tbl-h { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .film .tbl-r { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .film .tbl-e { fill: var(--accent-soft); stroke: none; opacity: .55; }
+  .film .cellc { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+  .film .meter-bg { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+</style>
+</head>
+<body>
+<main class="anim film" id="app">
+  <header class="anim-head">
+    <div class="eyebrow"><span class="unit-chip">3-3</span><span>산화 · 영상</span><a href="./">애니메이션 목록</a></div>
+    <h1>산화: 실리콘 위에 절연막을 키우는 방법 (약 2분 영상)</h1>
+    <p class="lead">실리콘 웨이퍼가 고온에서 산소나 수증기와 반응해 SiO₂ 막을 키우는 과정, 두께가 자라는 속도(딜-그로브 모델), 건식과 습식의 차이, 산화막의 네 가지 쓰임과 평가 방법을 자막과 함께 이어서 봅니다. 소리는 없고 아래 막대나 장면 버튼으로 원하는 곳으로 건너뛸 수 있습니다.</p>
+  </header>
+
+  <section id="player" class="player" aria-label="산화 공정 영상">
+    <div class="screen" id="screen">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="실리콘 산화막이 자라는 과정, 성장 속도, 건식과 습식 산화, 산화막의 쓰임과 평가 방법을 보여 주는 영상">
+        <defs>
+          <marker id="arr-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"></path></marker>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--low)"></path></marker>
+          <marker id="arr-k" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"></path></marker>
+          <marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--bad)"></path></marker>
+        </defs>
+
+        <text id="scene-title" class="scene" x="60" y="68"></text>
+                <g id="g-title">
+          <text x="640" y="160" text-anchor="middle" class="mono acc-t" style="font-size:26px">3-3 · 산화</text>
+          <text x="640" y="250" text-anchor="middle" style="font-size:56px;font-weight:700">실리콘이 산소를 만나면</text>
+          <text x="640" y="322" text-anchor="middle" style="font-size:56px;font-weight:700">가장 좋은 절연막이 자란다</text>
+          <text x="640" y="388" text-anchor="middle" class="lbl" style="font-size:30px">반응 · 성장 속도 · 건식과 습식 · 쓰임과 평가</text>
+        </g>
+<g id="g-b"><g id="b-art"></g></g>
+        <g id="g-c"><g id="c-art"></g></g>
+        <g id="g-d"><g id="d-art"></g></g>
+        <g id="g-e"><g id="e-art"></g></g>
+        <g id="g-f"><g id="f-art"></g></g>
+        <g id="g-g"></g>
+
+        <g id="g-labels"></g>
+      </svg>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <button type="button" class="bigplay" id="bigplay" aria-label="영상 재생"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span></button>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" class="primary" id="play">재생</button>
+      <button type="button" id="restart" aria-label="처음부터">처음</button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <div class="seekwrap"><input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="재생 위치"><div class="marks" id="marks"></div></div>
+      <label>속도 <select id="speed" aria-label="재생 속도"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+      <button type="button" id="cc" aria-pressed="true">자막</button>
+      <button type="button" id="fs">전체 화면</button>
+    </div>
+    <ol class="chap" id="chap"></ol>
+    <p class="cap">개념도입니다. 곡선의 모양과 두께 비율은 이해를 돕기 위해 단순화했고 수치는 원고 기준입니다. 단축키: Space 재생·멈춤, ← → 5초 이동, F 전체 화면.</p>
+  </section>
+
+  <section class="notes">
+    <h2>기억할 점</h2>
+    <ul>
+      <li>산화막은 <b>실리콘을 먹어 들어가며</b> 자랍니다. 두께의 약 44%만큼 실리콘이 소모되고 나머지는 원래 표면 위로 올라옵니다.</li>
+      <li>두께는 얇을 때 <b>시간에 비례(선형)</b>하다가 두꺼워지면 확산이 느려져 <b>√t(포물선)</b>가 됩니다. 건식은 느리고 치밀해 게이트 산화막, 습식은 빨라서 두꺼운 필드 산화막에 씁니다.</li>
+      <li>산화막은 표면 보호·소자 분리·이온주입 마스크·<b>게이트 절연막</b>으로 쓰이고 두께는 간섭식 측정기·엘립소미터, 전기적 품질은 C-V·TDDB로 평가합니다.</li>
+    </ul>
+    <p class="foot">원고 3-3을 시간 순서로 이어 붙인 영상입니다. 단계별로 멈춰 보려면 <a href="oxidation.html">산화 공정</a> 단계 애니메이션을 보세요.</p>
+  </section>
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---------- embed (site unit page) and unit chip link: same behaviour as player.js ----------
+  if (/[?&]embed\b/.test(location.search)) {
+    document.documentElement.classList.add("embed");
+    const send = () => { try { window.parent.postMessage({ type: "st-anim-height", h: Math.ceil(document.documentElement.getBoundingClientRect().height) }, "*"); } catch (e) { /* ignore */ } };
+    window.addEventListener("load", send);
+    if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement); else window.addEventListener("resize", send);
+  } else {
+    const chip = document.querySelector(".anim-head .unit-chip");
+    if (chip && !chip.closest("a")) {
+      const a = document.createElement("a");
+      a.className = "unit-back"; a.href = "../index.html#unit/" + chip.textContent.trim(); a.title = "이 단원 원고 보기";
+      chip.parentNode.insertBefore(a, chip); a.appendChild(chip);
+    }
+  }
+
+  // ---------- helpers ----------
+  const DUR = 117;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const smooth = (p) => p * p * (3 - 2 * p);
+  /** Eased keyframes: [[t, v], ...]. Holds the first/last value outside the range. */
+  const K = (keys) => (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) { const a = keys[i - 1], b = keys[i]; return b[0] === a[0] ? b[1] : a[1] + (b[1] - a[1]) * smooth((t - a[0]) / (b[0] - a[0])); }
+    }
+    return keys[keys.length - 1][1];
+  };
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const frac = (x) => x - Math.floor(x);
+  const trap = (a, b) => K([[a - 0.01, 0], [a + 0.4, 1], [b - 0.4, 1], [b, 0]]);
+  const rise = (a) => K([[a, 0], [a + 0.6, 1]]);
+  const sm = (a, b) => K([[a, 0], [b, 1]]);
+  // ---------- script: scenes, subtitles ----------
+  const SCENES = [
+    [0, "시작"], [6, "산화 반응"], [24, "성장 속도"], [42, "건식과 습식"], [56, "쓰임과 품질"], [82, "평가 방법"], [104, "마무리"],
+  ];
+  const TITLES = [
+    [6, "산화 반응: 실리콘 위아래로 자라는 막"], [24, "성장 속도: 선형에서 포물선으로"], [42, "건식 산화와 습식 산화"],
+    [56, "산화막의 쓰임과 품질"], [82, "산화막을 평가하는 방법"], [104, "정리"],
+  ];
+  const SUBS = [
+    [0, 3, "실리콘 웨이퍼를 고온에서 산소나 수증기와 반응시키면 표면에 산화막이 자랍니다. 보호막이자 절연막이 되는 SiO₂입니다."],
+    [3, 6, "산화의 반응과 성장 속도, 건식과 습식의 차이, 산화막의 쓰임과 평가 방법을 이어서 봅니다."],
+    [6, 10.5, "<b>산화</b>는 실리콘 웨이퍼를 고온에서 산소나 수증기와 반응시켜 표면에 SiO₂ 막을 키우는 공정입니다. 계면 결함이 적은 고품질 절연막을 정밀한 두께로 만듭니다."],
+    [10.5, 15, "건식은 Si + O₂ → SiO₂, 습식은 Si + 2H₂O → SiO₂ + 2H₂ 반응입니다."],
+    [15, 19.5, "산화제가 이미 생긴 막을 뚫고 확산해 Si/SiO₂ 계면에서 반응합니다. 그래서 막은 실리콘 쪽으로 파고들며 자랍니다."],
+    [19.5, 24, "산화막 두께의 약 <b>44%</b>만큼 실리콘이 소모됩니다. 원래 표면(점선)의 위아래로 막이 자라는 셈입니다."],
+    [24, 29, "성장 속도는 <b>딜-그로브 모델</b>로 설명합니다. 막이 얇을 때는 계면 반응 속도가 결정해 두께가 시간에 비례(선형)합니다."],
+    [29, 34, "두꺼워지면 산화제가 막을 통과하는 확산이 느려져, 두께가 시간의 제곱근에 비례(포물선)합니다."],
+    [34, 38.5, "속도 요인: ① 습식이 건식보다 훨씬 빠름 ② 온도와 챔버 압력이 높을수록 빠름 ③ 불순물이 많이 주입된 영역은 빠름."],
+    [38.5, 42, "결정면도 영향을 줍니다. (111) 면이 (100) 면보다 빠릅니다."],
+    [42, 46.5, "<b>건식 산화</b>는 O₂ 기체를 씁니다. 느리지만 치밀하고 계면 특성이 좋아, 두께를 정밀하게 제어할 수 있습니다."],
+    [46.5, 51, "<b>습식 산화</b>는 수증기(H₂O)를 씁니다. 빠르고 두꺼운 막에 유리하지만 상대적으로 덜 치밀합니다."],
+    [51, 56, "얇고 정밀해야 하는 게이트 산화막·STI 라이너·패드 산화막은 건식, 두꺼운 필드 산화막과 세정용 희생 산화막은 습식으로 만듭니다."],
+    [56, 61, "<b>① 표면 보호</b>: 소자 특성에 가장 큰 영향을 주는 실리콘 표면을 긁힘과 먼지로부터 지킵니다."],
+    [61, 66, "<b>② 소자 분리</b>: 인접 소자를 물리적·전기적으로 떼어 놓습니다. 예전의 LOCOS는 버즈빅 때문에 미세화에 불리해 STI로 바뀌었습니다."],
+    [66, 71, "<b>③ 이온주입 마스크</b>: 산화막이 이온을 막아, 뚫어 둔 창으로만 불순물이 들어가게 합니다. 버퍼층과 하드마스크로도 씁니다."],
+    [71, 76, "<b>④ 게이트 절연막</b>: 채널과 게이트 사이의 산화막입니다. 문턱전압, 게이트 누설, 이동도, 신뢰성을 직접 결정해 가장 중요한 산화막입니다."],
+    [76, 82, "막 품질은 계면의 댕글링 본드(끊어진 결합)가 적을수록 좋습니다. 열산화막은 천천히 자라 결함이 적고 수소 열처리로 남은 결합을 막아 계면 트랩을 더 줄입니다."],
+    [82, 88, "두께는 색으로 대략 보는 커러 차트, 계면 반사광의 간섭을 쓰는 측정기, 편광 변화를 보는 엘립소미터로 잽니다. 단면은 FIB로 잘라 SEM으로 봅니다."],
+    [88, 94, "도핑 농도: 4-포인트 프로브는 면저항으로 활성화된 도펀트만, SIMS는 이온으로 깎아 비활성 불순물까지 깊이별로 봅니다. SRP는 비스듬히 연마해 깊이별 저항을 잽니다."],
+    [94, 99, "전기적 품질은 <b>C-V 곡선</b>으로 봅니다. 축적 영역의 최대 용량(Cox)에서 두께와 유전율을, 평탄대 전압의 이동에서 산화막 속 고정 전하를 읽습니다."],
+    [99, 104, "신뢰성은 전압을 올려 즉시 파괴되는 전압을 보는 <b>TZDB</b>, 일정 전기장에서 파괴까지 걸리는 시간을 보는 <b>TDDB</b>로 평가합니다."],
+    [104, 107.4, "정리합니다. <b>① 산화의 원리</b>: 산화제가 막을 뚫고 계면에서 반응해 실리콘을 약 44% 소모하며 자라고 두께는 선형에서 √t로 느려집니다."],
+    [107.4, 110.6, "<b>② 건식과 습식</b>: 건식은 느리고 치밀해 게이트 산화막에, 습식은 빨라서 두꺼운 필드·희생 산화막에 씁니다."],
+    [110.6, 117, "<b>③ 용도와 평가</b>: 보호·분리·마스크·게이트 절연막으로 쓰이고 그중 게이트 산화막이 가장 중요합니다. 면접에서는 <b>용도 → 건식 vs 습식 → 게이트 산화막이 중요한 이유</b> 순서로."],
+  ];
+
+  // ---------- tracks ----------
+  const gTitle = K([[0, 1], [5.2, 1], [6, 0]]);
+  const gB = K([[5.8, 0], [6.6, 1], [23.4, 1], [24.2, 0]]);
+  const gC = K([[23.8, 0], [24.6, 1], [41.4, 1], [42.2, 0]]);
+  const gD = K([[41.8, 0], [42.6, 1], [55.4, 1], [56.2, 0]]);
+  const gE = K([[55.8, 0], [56.6, 1], [81.4, 1], [82.2, 0]]);
+  const gF = K([[81.8, 0], [82.6, 1], [103.4, 1], [104.2, 0]]);
+  const gG = K([[103.8, 0], [104.6, 1]]);
+  const rnd = (i, s) => frac(Math.sin(i * 12.9898 + s * 78.233) * 43758.5453);
+  const stepTxt = (t, arr) => { let r = ""; for (const a of arr) if (t >= a[0]) r = a[1]; return r; };
+  const win2 = (a, b) => K([[a - 0.01, 0], [a + 0.5, 1], [b - 0.5, 1], [b, 0]]);
+
+  // B: reaction
+  const BROWS = [["산화란?", "고온에서 SiO₂ 막을 키우는 공정"], ["건식 산화", "Si + O₂ → SiO₂"], ["습식 산화", "Si + 2H₂O → SiO₂ + 2H₂"], ["성장 방향", "계면에서 반응, 실리콘 약 44% 소모"]];
+  const BT = [7, 10.5, 15, 19.5, 24];
+  const oxP = sm(10.5, 23), flowV = K([[7.5, 0], [8.5, 1], [22, 1], [23, 0]]), lblV = K([[7, 0], [8, 1]]);
+  const fd = K([[10.6, 0], [11.4, 1]]), fw = K([[12.6, 0], [13.4, 1]]), annV = K([[19.6, 0], [20.4, 1]]);
+
+  // C: growth rate
+  const CROWS = [["딜-그로브 모델", "산화막 성장 속도를 설명"], ["얇을 때", "계면 반응이 결정 → 선형"], ["두꺼울 때", "확산이 느려져 √t(포물선)"], ["속도 요인", "습식 · 온도·압력 · 도핑 · 결정면"]];
+  const CT = [24.6, 29, 34, 38.5, 42];
+  const cp = sm(24.8, 38.5), chV = K([[24.6, 0], [25.4, 1]]), lnV = K([[27, 0], [27.8, 1]]), sqV = K([[31.4, 0], [32.2, 1]]);
+  const fp = [34.6, 36.2, 37.6, 38.9].map((a) => K([[a, 0], [a + 0.7, 1]]));
+
+  // D: dry vs wet
+  const DROWS = [["건식 산화", "O₂ · 느리고 치밀 · 정밀"], ["습식 산화", "H₂O · 빠르고 두꺼운 막"], ["건식의 쓰임", "게이트 산화막 · STI 라이너 · 패드"], ["습식의 쓰임", "필드 산화막 · 세정용 희생 산화막"]];
+  const DT = [42.6, 46.5, 51, 53.5, 56];
+  const dgD = sm(42.8, 46.3), dgW = sm(46.8, 50.8), wetV = K([[46.5, 0], [47.3, 1]]), tagD = K([[45.6, 0], [46.4, 1]]), tagW = K([[50.4, 0], [51.2, 1]]);
+  const useD = K([[51.2, 0], [52, 1]]), useW = K([[53.2, 0], [54, 1]]);
+
+  // E: uses and quality
+  const EROWS = [["① 표면 보호", "긁힘·먼지로부터 보호"], ["② 소자 분리", "LOCOS → STI"], ["③ 이온주입 마스크", "블로킹 · 버퍼 · 하드마스크"], ["④ 게이트 절연막", "가장 중요한 산화막"], ["막 품질", "댕글링 본드 ↓ · 수소 열처리"]];
+  const ET = [56.6, 61, 66, 71, 76, 82];
+  const pv = [56, 61, 66, 71].map((a) => K([[a - 0.2, 0.25], [a + 0.5, 1]]));
+  const phV = [56, 61, 66, 71].map((a) => K([[a, 0], [a + 0.5, 1], [a + 4.4, 1], [a + 5, 0]]));
+  const locV = K([[61, 0], [61.6, 1], [63.4, 1], [64, 0]]), stiV = K([[63.8, 0], [64.4, 1]]);
+  const qV = K([[76, 0], [76.8, 1]]), hV = K([[79, 0], [80, 1]]);
+
+  // F: evaluation
+  const FROWS = [["두께 측정", "커러 차트 · 간섭식 · 엘립소미터 · FIB"], ["도핑 농도", "4-포인트 프로브 · SRP · SIMS"], ["전기적 품질", "C-V: Cox, 평탄대 전압 이동"], ["신뢰성", "TZDB · TDDB"]];
+  const FT = [82.6, 88, 94, 99, 104];
+  const f1V = win2(82.1, 88), f2V = win2(88.1, 94), f3V = K([[94.1, 0], [94.9, 1]]), f4V = K([[99, 0], [99.8, 1]]);
+  const rayP = sm(83, 85.6), intV = K([[85.6, 0], [86.4, 1]]), colV = K([[86.4, 0], [87.2, 1]]);
+  const d1P = sm(88.6, 91.4), d2P = sm(89.6, 92.4), gapV = K([[92.2, 0], [93, 1]]);
+  const cvP = sm(94.6, 97), shP = sm(96.6, 98.4), cvL = K([[97, 0], [97.8, 1]]);
+
+  // G
+  const GT = [104.6, 107.4, 110.6];
+  const fV = (i) => K([[GT[i], 0], [GT[i] + 0.8, 1]]);
+  const fF = K([[113.6, 0], [114.4, 1]]);
+
+  const LABELS = [];
+
+  // ---------- build the generated parts of the drawing ----------
+  const $ = (id) => document.getElementById(id);
+  let s = "";
+  LABELS.forEach((L, i) => { s += `<text id="lb${i}" x="${L[2]}" y="${L[3]}" text-anchor="${L[4]}" class="${L[6]}">${L[5]}</text>`; });
+  $("g-labels").innerHTML = s;
+  const LN = "stroke:var(--ink);stroke-width:3;stroke-linecap:round;fill:none";
+  const badge = (x, y, n, r) => `<g class="mk"><circle cx="${x}" cy="${y}" r="${r || 20}"></circle><text x="${x}" y="${y + 8}" text-anchor="middle" style="font-size:${r ? 26 : 20}px">${n}</text></g>`;
+  const rowsHtml = (pfx, x, y0, dy, w, h, rows, sz) => rows.map((r, i) => {
+    const y = y0 + dy * i;
+    return `<g id="${pfx}${i}" class="row" data-s="idle"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"></rect>`
+      + `<text x="${x + 22}" y="${y + 26}" style="font-size:${sz}px;font-weight:700">${r[0]}</text>`
+      + `<text x="${x + 22}" y="${y + 50}" class="lbl-s">${r[1]}</text></g>`;
+  }).join("");
+  const mkPath = (pts) => { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return { pts, cum, total: cum[cum.length - 1] }; };
+  const posAt = (P, u) => { const d = frac(u) * P.total; let i = 1; while (i < P.cum.length - 1 && P.cum[i] < d) i++; const a = P.pts[i - 1], b = P.pts[i], k = (d - P.cum[i - 1]) / (P.cum[i] - P.cum[i - 1] || 1); return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k]; };
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  const txt = (x, y, str, cls, sz, anchor, id, bold) => `<text${id ? ` id="${id}"` : ""} x="${x}" y="${y}"${anchor ? ` text-anchor="${anchor}"` : ""}${cls ? ` class="${cls}"` : ""}${sz || bold ? ` style="${sz ? `font-size:${sz}px;` : ""}${bold ? "font-weight:700" : ""}"` : ""}>${str}</text>`;
+  const rect = (x, y, w, h, st, id, rx) => `<rect${id ? ` id="${id}"` : ""} x="${x}" y="${y}" width="${w}" height="${h}"${rx ? ` rx="${rx}"` : ""} style="${st}"></rect>`;
+  const line = (x1, y1, x2, y2, st, id) => `<line${id ? ` id="${id}"` : ""} x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="${st}"></line>`;
+  const circ = (cx, cy, r, st, id) => `<circle${id ? ` id="${id}"` : ""} cx="${cx}" cy="${cy}" r="${r}" style="${st}"></circle>`;
+  const pathEl = (id, d, st) => `<path id="${id}" d="${d}" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="fill:none;${st}"></path>`;
+  const pill = (x, y, w, h, a, b) => `<rect class="card" x="${x}" y="${y}" width="${w}" height="${h}" rx="12"></rect>` + txt(x + w / 2, b ? y + 24 : y + h / 2 + 5, a, "acc-t", 18, "middle", "", true) + (b ? txt(x + w / 2, y + 45, b, "lbl-s", 14, "middle") : "");
+  const CARDS = `<rect class="card" x="40" y="100" width="720" height="496" rx="12"></rect><rect class="card" x="780" y="100" width="460" height="496" rx="12"></rect>`;
+  const ARR_R = "stroke:var(--bad);stroke-width:4;marker-end:url(#arr-r)";
+  const ARR_A = "stroke:var(--accent);stroke-width:4;marker-end:url(#arr-a)";
+  const SIF = "fill:var(--m-si);fill-opacity:.55;stroke:var(--ink);stroke-width:2.5";
+  const OXF = "fill:var(--m-ox);fill-opacity:.6;stroke:var(--ink);stroke-width:2";
+  const PPF = "fill:var(--m-pp);fill-opacity:.3;stroke:var(--ink);stroke-width:2.5";
+  const NNF = "fill:var(--m-nn);fill-opacity:.6;stroke:var(--ink);stroke-width:2";
+  const POLY = "fill:var(--m-poly);fill-opacity:.7;stroke:var(--ink);stroke-width:2.5";
+
+  const SH = "fill:none;stroke:var(--line-strong);stroke-width:2";
+  const G0 = (id, x, y) => `<g id="${id}" transform="translate(${x} ${y})">`;
+
+  // B: reaction and growth direction
+  s = CARDS + txt(70, 150, "건식: Si + O₂ → SiO₂", "acc-t", 21, "", "fdl", true) + txt(70, 182, "습식: Si + 2H₂O → SiO₂ + 2H₂", "acc-t", 21, "", "fwl", true)
+    + txt(690, 236, "산화제(O₂, H₂O)", "lbl-s", 15, "end", "bgl")
+    + rect(100, 400, 600, 140, SIF, "bsi") + rect(100, 400, 600, 0, OXF, "box") + line(80, 400, 720, 400, "stroke:var(--ink);stroke-width:2.5;stroke-dasharray:7 5")
+    + `<g id="blb">` + txt(110, 520, "실리콘(Si)", "lbl-b", 18, "", "", true) + txt(692, 392, "원래 표면", "lbl-s", 14, "end") + `</g>`
+    + txt(110, 332, "SiO₂ 막", "acc-t", 19, "", "bol", true)
+    + `<g id="ban">` + txt(400, 380, "위로 약 56%", "ok-t", 18, "middle", "", true) + txt(400, 436, "아래로 약 44%: 실리콘 소모", "bad-t", 18, "middle", "", true) + `</g>`;
+  for (let k = 0; k < 8; k++) s += circ(150 + 70 * k, 240, 7, "fill:var(--accent)", "bg" + k);
+  s += rowsHtml("br", 802, 116, 100, 416, 70, BROWS, 21);
+  $("b-art").innerHTML = s;
+
+  // C: Dennard-like growth chart (Deal-Grove)
+  const Tn = (x) => (Math.sqrt(1 + 12 * x) - 1) / 2.606;
+  s = CARDS + txt(96, 172, "산화막 두께", "lbl-s", 14) + line(90, 400, 410, 400, "stroke:var(--ink);stroke-width:2.5") + line(90, 400, 90, 180, "stroke:var(--ink);stroke-width:2.5") + txt(410, 420, "→ 시간", "lbl-s", 14, "end")
+    + `<g id="ctn"><line x1="90" y1="400" x2="210" y2="198" style="stroke:var(--muted);stroke-width:2.5;stroke-dasharray:6 5"></line></g>`
+    + `<polyline id="ccv" points="" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round"></polyline>` + circ(90, 400, 7, "fill:var(--accent);stroke:var(--surface);stroke-width:2", "cmk")
+    + txt(196, 350, "① 얇을 때: 선형(계면 반응)", "acc-t", 16, "", "cl1", true) + txt(196, 378, "② 두꺼울 때: √t(확산)", "ok-t", 16, "", "cl2", true)
+    + `<g id="csch">` + rect(470, 380, 260, 70, SIF) + rect(470, 380, 260, 0, OXF, "cox") + line(470, 380, 730, 380, "stroke:var(--ink);stroke-width:2;stroke-dasharray:6 4")
+    + line(600, 292, 600, 380, ARR_A, "carr") + txt(600, 280, "산화제가 지나는 거리", "acc-t", 15, "middle", "carl", true) + txt(600, 476, "두꺼울수록 거리 ↑ → 느려짐", "lbl", 16, "middle") + `</g>`;
+  [["습식 > 건식", "산화제 종류"], ["온도·압력 ↑", "빨라짐"], ["불순물 많음", "빨라짐"], ["(111) > (100)", "결정면"]].forEach((p, i) => { s += `<g id="cf${i}">` + pill(62 + 174 * i, 506, 160, 56, p[0], p[1]) + `</g>`; });
+  s += rowsHtml("cr", 802, 116, 100, 416, 70, CROWS, 21);
+  $("c-art").innerHTML = s;
+
+  // D: dry vs wet
+  s = CARDS + `<defs><pattern id="pdry" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.7" style="fill:var(--ink);fill-opacity:.6"></circle></pattern><pattern id="pwet" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="1.7" style="fill:var(--ink);fill-opacity:.6"></circle></pattern></defs>`
+    + txt(225, 146, "건식 산화", "lbl-b", 22, "middle", "", true) + txt(225, 176, "O₂ 기체", "lbl", 17, "middle")
+    + rect(80, 420, 290, 70, SIF) + rect(80, 420, 290, 0, OXF, "dox") + rect(80, 420, 290, 0, "fill:url(#pdry)", "dpa") + line(70, 420, 380, 420, "stroke:var(--ink);stroke-width:2;stroke-dasharray:6 4")
+    + line(225, 196, 225, 300, ARR_A)
+    + `<g id="wcol">` + txt(575, 146, "습식 산화", "lbl-b", 22, "middle", "", true) + txt(575, 176, "H₂O 수증기", "lbl", 17, "middle")
+    + rect(430, 420, 290, 70, SIF) + rect(430, 420, 290, 0, OXF, "wox") + rect(430, 420, 290, 0, "fill:url(#pwet)", "wpa") + line(420, 420, 730, 420, "stroke:var(--ink);stroke-width:2;stroke-dasharray:6 4")
+    + [535, 575, 615].map((x) => line(x, 196, x, 300, ARR_A)).join("") + `</g>`
+    + txt(225, 520, "느림 · 치밀 · 정밀", "acc-t", 17, "middle", "dtag", true) + txt(575, 520, "빠름 · 두꺼운 막 · 덜 치밀", "acc-t", 17, "middle", "wtag", true)
+    + `<g id="duse">` + txt(225, 552, "쓰임: 게이트 산화막(GOX)", "lbl-b", 16, "middle", "", true) + txt(225, 576, "STI 라이너 · 패드 산화막", "lbl", 16, "middle") + `</g>`
+    + `<g id="wuse">` + txt(575, 552, "쓰임: 필드 산화막", "lbl-b", 16, "middle", "", true) + txt(575, 576, "세정용 희생 산화막", "lbl", 16, "middle") + `</g>`
+    + rowsHtml("dr", 802, 116, 100, 416, 70, DROWS, 21);
+  $("d-art").innerHTML = s;
+
+  // E: four uses + quality
+  const PT = ["① 표면 보호", "② 소자 분리", "③ 이온주입 마스크", "④ 게이트 절연막"], PX = [[56, 116], [414, 116], [56, 306], [414, 306]];
+  const SL = rect(20, 130, 290, 40, SIF);
+  const panels = [
+    SL + rect(20, 116, 290, 14, OXF) + [60, 130, 200].map((x) => circ(x, 62, 8, "fill:var(--bad)") + line(x, 74, x, 108, ARR_R)).join("") + txt(110, 44, "긁힘 · 먼지", "bad-t", 15, "", "", true) + txt(306, 108, "산화막(보호층)", "acc-t", 14, "end", "", true),
+    SL + rect(40, 130, 70, 18, NNF) + rect(220, 130, 70, 18, NNF) + rect(50, 108, 50, 14, POLY) + rect(230, 108, 50, 14, POLY)
+      + `<g id="p2l"><path d="M135 130 C 145 106 185 106 195 130 C 185 154 145 154 135 130 Z" style="${OXF}"></path>` + txt(165, 96, "LOCOS: 옆으로 번지는 버즈빅", "bad-t", 14, "middle", "", true) + `</g>`
+      + `<g id="p2s">` + rect(145, 122, 40, 48, OXF) + txt(165, 96, "STI: 트렌치를 채움", "ok-t", 14, "middle", "", true) + `</g>`,
+    SL + rect(20, 112, 110, 18, OXF) + rect(200, 112, 110, 18, OXF) + rect(132, 130, 66, 20, "fill:var(--accent);fill-opacity:.45;stroke:none")
+      + [50, 90].map((x) => line(x, 50, x, 104, ARR_A) + txt(x, 100, "✕", "bad-t", 16, "middle", "", true)).join("") + [150, 165, 180].map((x) => line(x, 50, x, 146, ARR_A)).join("")
+      + txt(24, 126, "산화막 마스크", "lbl-s", 12) + txt(306, 62, "창으로만 주입", "acc-t", 14, "end", "", true),
+    SL + rect(20, 130, 70, 26, NNF) + rect(240, 130, 70, 26, NNF) + rect(100, 86, 100, 26, POLY) + rect(100, 112, 100, 18, "fill:var(--accent);fill-opacity:.5;stroke:var(--accent);stroke-width:2.5")
+      + txt(150, 78, "게이트", "lbl-s", 14, "middle") + txt(306, 124, "게이트 산화막", "acc-t", 15, "end", "", true) + txt(165, 52, "문턱전압 · 누설 · 이동도 · 신뢰성", "ok-t", 14, "middle", "", true),
+  ];
+  s = CARDS;
+  panels.forEach((pc, i) => { s += G0("ep" + i, PX[i][0], PX[i][1]) + rect(0, 0, 330, 180, SH, "", 8) + txt(14, 24, PT[i], "lbl-b", 17, "", "", true) + pc + rect(0, 0, 330, 180, "fill:none;stroke:var(--accent);stroke-width:4", "eh" + i, 8) + `</g>`; });
+  s += `<g id="eq">` + rect(56, 498, 688, 86, "fill:none;stroke:var(--accent);stroke-width:2.5", "", 8) + rect(76, 510, 250, 36, OXF) + rect(76, 546, 250, 30, SIF) + txt(84, 532, "SiO₂", "lbl-s", 14) + txt(84, 568, "Si", "lbl-s", 14)
+    + `<g id="dgd">` + Array.from({ length: 10 }, (_, k) => circ(100 + 24 * k, 546, 5, "fill:var(--bad);stroke:var(--surface);stroke-width:1.5")).join("") + `</g>`
+    + `<g id="hat">` + Array.from({ length: 10 }, (_, k) => circ(100 + 24 * k, 546, 5, "fill:var(--ok);stroke:var(--surface);stroke-width:1.5")).join("") + `</g>`
+    + txt(350, 534, "계면의 댕글링 본드가 적을수록 좋은 막", "acc-t", 18, "", "", true) + txt(350, 566, "수소 열처리로 결합을 막아 계면 트랩 ↓", "ok-t", 17, "", "qtx", true) + `</g>`
+    + rowsHtml("er", 802, 116, 82, 416, 64, EROWS, 20);
+  $("e-art").innerHTML = s;
+
+  // F: evaluation
+  const sr = (u) => 220 * Math.exp(-Math.pow(u / 0.5, 1.4)), us = Math.pow(Math.log(220 / 150), 1 / 1.4) * 0.5;
+  let gap = ""; for (let i = 0; i <= 20; i++) { const u = us * i / 20; gap += (100 + 600 * u).toFixed(1) + "," + (420 - sr(u)).toFixed(1) + " "; } gap += (100 + 600 * us).toFixed(1) + ",270 100,270";
+  s = CARDS
+    + `<g id="f1g">` + rect(150, 390, 320, 50, SIF) + rect(150, 366, 320, 24, OXF) + txt(160, 360, "SiO₂", "lbl-s", 14) + txt(160, 430, "Si", "lbl-s", 14)
+    + txt(330, 150, "두 계면에서 반사된 빛이 간섭", "acc-t", 18, "middle", "", true)
+    + pathEl("ri", "M170 200 L250 366", "stroke:var(--ink);stroke-width:4;stroke-linecap:round") + pathEl("ra", "M250 366 L330 200", "stroke:var(--accent);stroke-width:4;stroke-linecap:round")
+    + pathEl("rb", "M250 366 L262 390 L274 366 L354 200", "stroke:var(--accent);stroke-opacity:.55;stroke-width:4;stroke-linecap:round;stroke-linejoin:round")
+    + `<g id="ifl">` + txt(322, 188, "①", "acc-t", 18, "middle", "", true) + txt(366, 188, "②", "acc-t", 18, "middle", "", true) + txt(420, 214, "→ 간섭 → 두께", "ok-t", 17, "", "", true) + `</g>`
+    + `<g id="clr">` + ["#c9a96e", "#b8605a", "#4f6fb0", "#6fae7d", "#d8c85a"].map((c, i) => rect(560 + 34 * i, 250, 30, 100, `fill:${c};stroke:var(--ink);stroke-width:1.5`)).join("") + txt(645, 232, "커러 차트(간이)", "lbl-b", 16, "middle", "", true) + txt(645, 374, "색으로 두께를 어림", "lbl-s", 14, "middle") + `</g>`
+    + `<g id="mt1">` + txt(80, 478, "간섭식 측정기 · 엘립소미터: 빛으로 재는 비파괴 측정", "lbl-b", 16, "", "", true) + `</g>` + `<g id="mt2">` + txt(80, 508, "FIB 단면 + SEM: 잘라서 직접 관찰(파괴)", "lbl-b", 16, "", "", true) + `</g></g>`
+    + `<g id="f2g">` + line(100, 420, 700, 420, "stroke:var(--ink);stroke-width:2.5") + line(100, 420, 100, 160, "stroke:var(--ink);stroke-width:2.5") + txt(700, 442, "깊이 →", "lbl-s", 14, "end") + txt(106, 172, "농도", "lbl-s", 14)
+    + `<polygon id="dgap" points="${gap}" style="fill:var(--bad);fill-opacity:.18;stroke:none"></polygon>` + `<polyline id="d1" points="" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round"></polyline><polyline id="d2" points="" style="fill:none;stroke:var(--ink);stroke-width:3.5;stroke-dasharray:8 5"></polyline>`
+    + txt(330, 200, "SIMS: 활성 + 비활성 불순물 모두", "acc-t", 17, "", "", true) + txt(330, 232, "4-포인트 프로브: 활성화된 도펀트만", "lbl-b", 17, "", "", true)
+    + `<g id="dgl">` + txt(110, 236, "비활성 불순물", "bad-t", 13, "", "", true) + `</g>`
+    + txt(100, 472, "SRP: 비스듬히 연마해 두 프로브로 깊이별 저항 측정", "lbl", 16) + txt(100, 502, "SIMS: 이온으로 표면을 깎아 나온 2차 이온을 분석", "lbl", 16) + `</g>`
+    + `<g id="f3g">` + txt(106, 172, "용량 C", "lbl-s", 14) + line(100, 400, 420, 400, "stroke:var(--ink);stroke-width:2.5") + line(100, 400, 100, 180, "stroke:var(--ink);stroke-width:2.5") + txt(420, 420, "게이트 전압 →", "lbl-s", 14, "end")
+    + `<polyline id="cv1" points="" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round"></polyline><polyline id="cv2" points="" style="fill:none;stroke:var(--ink);stroke-width:3.5;stroke-dasharray:8 5"></polyline>`
+    + `<g id="cvl">` + txt(112, 198, "Cox(축적): 두께 · 유전율", "acc-t", 16, "", "", true) + line(244, 316, 206, 316, ARR_A) + txt(110, 450, "평탄대 전압 이동 = 산화막 속 고정 전하", "lbl-b", 16, "", "", true) + `</g></g>`
+    + `<g id="f4g">` + rect(470, 140, 270, 150, SH, "", 8) + txt(484, 166, "TZDB", "lbl-b", 17, "", "", true) + `<polyline points="490,266 690,196" style="fill:none;stroke:var(--ink);stroke-width:3.5"></polyline>` + txt(690, 200, "✕", "bad-t", 22, "middle", "", true) + txt(484, 284, "전압을 올려 즉시 파괴되는 전압", "lbl-s", 13)
+    + rect(470, 306, 270, 150, SH, "", 8) + txt(484, 332, "TDDB", "lbl-b", 17, "", "", true) + line(490, 380, 660, 380, "stroke:var(--accent);stroke-width:4") + txt(678, 386, "✕", "bad-t", 22, "middle", "", true)
+    + line(490, 404, 678, 404, "stroke:var(--ink);stroke-width:2;marker-end:url(#arr-k)") + txt(484, 440, "일정 전기장에서 파괴까지 시간", "lbl-s", 13) + `</g>`
+    + rowsHtml("fr", 802, 116, 100, 416, 70, FROWS, 21);
+  $("f-art").innerHTML = s;
+
+  // G: closing cards
+  (function () {
+    const cards = [
+      { h: "산화의 원리", l: ["Si + O₂ → SiO₂ (건식)", "실리콘 약 44% 소모", "선형 → √t(포물선)", "속도: 습식 · 온도 · 도핑 · 결정면"] },
+      { h: "건식 vs 습식", l: ["건식: 느리고 치밀 · 정밀", "습식: 빠르고 두꺼운 막", "건식 → 게이트 산화막", "습식 → 필드 · 희생 산화막"] },
+      { h: "용도와 평가", l: ["보호 · 분리 · 마스크 · 게이트", "게이트 산화막이 가장 중요", "두께: 간섭식 · 엘립소미터", "품질: C-V · TZDB · TDDB"] },
+    ];
+    let o = "";
+    cards.forEach((c, i) => {
+      const x = 60 + i * 395;
+      o += `<g id="gc-${i}"><rect class="card" x="${x}" y="140" width="370" height="290" rx="14"></rect>` + badge(x + 44, 188, i + 1, 24)
+        + `<text x="${x + 84}" y="198" class="acc-t" style="font-size:26px">${c.h}</text>`
+        + c.l.map((t, j) => `<text x="${x + 28}" y="${254 + j * 40}" style="font-size:19px;${j < 2 ? "font-weight:700" : ""}" class="${j < 2 ? "" : "lbl"}">${t}</text>`).join("") + `</g>`;
+    });
+    o += `<text id="g-form" x="640" y="500" text-anchor="middle" class="acc-t" style="font-size:23px">면접: 산화막의 용도 → 건식 vs 습식 → 게이트 산화막이 가장 중요한 이유</text>`;
+    $("g-g").innerHTML = o;
+  })();
+
+  // ---------- DOM cache and writers ----------
+  const el = {};
+  document.querySelectorAll("#app [id]").forEach((n) => { el[n.id] = n; });
+  const last = {};
+  const setAttr = (id, name, val) => { const key = id + "|" + name; if (last[key] !== val) { last[key] = val; el[id].setAttribute(name, val); } };
+  const setStyle = (id, name, val) => { const key = id + "|s|" + name; if (last[key] !== val) { last[key] = val; el[id].style[name] = val; } };
+  const setText = (id, val) => { const key = id + "|text"; if (last[key] !== val) { last[key] = val; el[id].textContent = val; } };
+  const op = (id, v) => setStyle(id, "opacity", (Math.round(clamp(v, 0, 1) * 200) / 200).toString());
+  const win = (t, a, b) => clamp((t - a) / 0.35, 0, 1) * clamp((b - t) / 0.35, 0, 1);
+  // ---------- render ----------
+  const HL = [];
+  let hlOn = new Set();
+  const rowState = (id, T, i, t) => setAttr(id + i, "data-s", t < T[i] ? "idle" : t < T[i + 1] ? "on" : "done");
+  const f1 = (v) => v.toFixed(1);
+  const GV = [0, 1, 2].map(fV);
+  const mt1V = K([[84.4, 0], [85.2, 1]]);
+  const sg = (x) => 1 / (1 + Math.exp(-x));
+  const ptsOf = (n, fx, fy) => { let o = ""; for (let i = 0; i <= n; i++) o += fx(i / n).toFixed(1) + "," + fy(i / n).toFixed(1) + " "; return o; };
+  function render(t) {
+    let ti = -1; for (let i = 0; i < TITLES.length; i++) if (t >= TITLES[i][0]) ti = i;
+    if (ti >= 0) { setText("scene-title", TITLES[ti][1]); op("scene-title", clamp((t - TITLES[ti][0]) / 0.4, 0, 1)); } else op("scene-title", 0);
+    op("g-title", gTitle(t)); op("g-b", gB(t)); op("g-c", gC(t)); op("g-d", gD(t)); op("g-e", gE(t)); op("g-f", gF(t)); op("g-g", gG(t));
+
+    // B
+    { const ox = oxP(t), intf = 400 + 44 * ox, fl = flowV(t);
+      setAttr("box", "y", f1(400 - 56 * ox)); setAttr("box", "height", f1(100 * ox));
+      op("blb", lblV(t)); op("bol", clamp((ox - 0.15) / 0.2, 0, 1)); op("ban", annV(t)); op("fdl", fd(t)); op("fwl", fw(t)); op("bgl", fl);
+      for (let k = 0; k < 8; k++) { const ph = frac(t * 0.35 + k / 8); setAttr("bg" + k, "cy", f1(lerp(240, intf, ph))); op("bg" + k, fl * (ph < 0.92 ? 1 : (1 - ph) / 0.08)); } }
+    for (let i = 0; i < 4; i++) { op("br" + i, rise(BT[i] - 0.2)(t)); rowState("br", BT, i, t); }
+
+    // C
+    { const xp = cp(t), d = 84 * Tn(xp), ch = chV(t);
+      setAttr("ccv", "points", ptsOf(30, (u) => 90 + 300 * u * xp, (u) => 400 - 220 * Tn(u * xp)));
+      setAttr("cmk", "cx", f1(90 + 300 * xp)); setAttr("cmk", "cy", f1(400 - 220 * Tn(xp)));
+      op("ccv", ch); op("cmk", ch); op("ctn", lnV(t)); op("cl1", lnV(t)); op("cl2", sqV(t)); op("csch", ch);
+      setAttr("cox", "y", f1(380 - 0.56 * d)); setAttr("cox", "height", f1(d)); setAttr("carr", "y2", f1(380 + 0.44 * d)); }
+    for (let i = 0; i < 4; i++) op("cf" + i, fp[i](t));
+    for (let i = 0; i < 4; i++) { op("cr" + i, rise(CT[i] - 0.2)(t)); rowState("cr", CT, i, t); }
+
+    // D
+    { const dd = 45 * dgD(t), dw = 105 * dgW(t);
+      for (const id of ["dox", "dpa"]) { setAttr(id, "y", f1(420 - 0.56 * dd)); setAttr(id, "height", f1(dd)); }
+      for (const id of ["wox", "wpa"]) { setAttr(id, "y", f1(420 - 0.56 * dw)); setAttr(id, "height", f1(dw)); }
+      op("wcol", wetV(t)); op("dtag", tagD(t)); op("wtag", tagW(t)); op("duse", useD(t)); op("wuse", useW(t)); }
+    for (let i = 0; i < 4; i++) { op("dr" + i, rise(DT[i] - 0.2)(t)); rowState("dr", DT, i, t); }
+
+    // E
+    for (let i = 0; i < 4; i++) { op("ep" + i, pv[i](t)); op("eh" + i, phV[i](t)); }
+    op("p2l", 1 - stiV(t)); op("p2s", stiV(t));
+    op("eq", qV(t)); op("dgd", 1 - hV(t)); op("hat", hV(t)); op("qtx", hV(t));
+    for (let i = 0; i < 5; i++) { op("er" + i, rise(ET[i] - 0.2)(t)); rowState("er", ET, i, t); }
+
+    // F
+    { const rp = rayP(t);
+      setAttr("ri", "stroke-dashoffset", f1(100 * (1 - Math.min(1, rp * 2)))); const r2 = clamp(rp * 2 - 1, 0, 1);
+      setAttr("ra", "stroke-dashoffset", f1(100 * (1 - r2))); setAttr("rb", "stroke-dashoffset", f1(100 * (1 - r2)));
+      op("ifl", intV(t)); op("clr", colV(t)); op("mt1", mt1V(t)); op("mt2", colV(t));
+      op("f1g", f1V(t)); op("f2g", f2V(t)); op("f3g", f3V(t)); op("f4g", f4V(t));
+      const a = d1P(t), b = d2P(t);
+      setAttr("d1", "points", ptsOf(40, (u) => 100 + 600 * u * a, (u) => 420 - sr(u * a)));
+      setAttr("d2", "points", ptsOf(40, (u) => 100 + 600 * u * b, (u) => 420 - Math.min(sr(u * b), 150)));
+      op("dgap", gapV(t)); op("dgl", gapV(t));
+      const c1 = cvP(t), c2 = shP(t), cvf = (u, vfb) => 400 - 190 * (0.3 + 0.7 * (1 - sg((u - vfb) / 0.09)));
+      setAttr("cv1", "points", ptsOf(40, (u) => 100 + 320 * u * c1, (u) => cvf(u * c1, 0.45)));
+      setAttr("cv2", "points", ptsOf(40, (u) => 100 + 320 * u * c2, (u) => cvf(u * c2, 0.32)));
+      op("cvl", cvL(t)); }
+    for (let i = 0; i < 4; i++) { op("fr" + i, rise(FT[i] - 0.2)(t)); rowState("fr", FT, i, t); }
+
+    // G
+    for (let i = 0; i < 3; i++) op("gc-" + i, GV[i](t));
+    op("g-form", fF(t));
+
+    // callouts
+    for (let i = 0; i < LABELS.length; i++) op("lb" + i, win(t, LABELS[i][0], LABELS[i][1]));
+    // highlights
+    const now = new Set();
+    for (const c of HL) if (t >= c[0] && t < c[1]) now.add(c[2]);
+    hlOn.forEach((id) => { if (!now.has(id) && el[id]) el[id].removeAttribute("data-hl"); });
+    now.forEach((id) => { if (!hlOn.has(id) && el[id]) el[id].setAttribute("data-hl", "1"); });
+    hlOn = now;
+
+    // subtitles
+    let si = -1; for (let i = 0; i < SUBS.length; i++) if (t >= SUBS[i][0] && t < SUBS[i][1]) { si = i; break; }
+    if (si !== subIdx) { subIdx = si; subsEl.innerHTML = si >= 0 ? "<span>" + SUBS[si][2] + "</span>" : ""; }
+
+    // controls
+    let ci = 0; for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) ci = i;
+    if (ci !== chapIdx) { chapIdx = ci; chapBtns.forEach((b, i) => { if (i === ci) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); }
+    seekEl.value = String(Math.round(t / DUR * 1000));
+    timeEl.textContent = fmt(t) + " / " + fmt(DUR);
+  }
+
+
+  // ---------- player ----------
+  const root = document.getElementById("app");
+  const subsEl = document.getElementById("subs"), seekEl = document.getElementById("seek"), timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("play"), bigBtn = document.getElementById("bigplay");
+  const fmt = (x) => { x = Math.floor(x); return Math.floor(x / 60) + ":" + String(x % 60).padStart(2, "0"); };
+  let subIdx = -2, chapIdx = -1, t = 0, playing = false, rate = 1, lastNow = 0, raf = 0;
+
+  const chapEl = document.getElementById("chap");
+  const chapBtns = SCENES.map((sc) => {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.innerHTML = `<span class="n">${fmt(sc[0])}</span>${sc[1]}`;
+    b.addEventListener("click", () => { seek(sc[0] + 0.05); });
+    li.appendChild(b); chapEl.appendChild(li); return b;
+  });
+  const marksEl = document.getElementById("marks");
+  SCENES.slice(1).forEach((sc) => { const i = document.createElement("i"); i.style.left = (sc[0] / DUR * 100) + "%"; marksEl.appendChild(i); });
+
+  function setPlaying(on) {
+    playing = on; root.classList.toggle("paused", !on);
+    playBtn.textContent = on ? "일시정지" : (t >= DUR ? "다시 재생" : "재생");
+    bigBtn.hidden = on || (t > 0.05 && t < DUR);
+    if (on) { lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    raf = 0;
+    if (!playing) return;
+    const d = Math.min(0.1, (now - lastNow) / 1000); lastNow = now;
+    t = Math.min(DUR, t + d * rate);
+    render(t);
+    if (t >= DUR) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function seek(x) { t = clamp(x, 0, DUR); render(t); if (!playing) setPlaying(false); }
+  function toggle() { if (!playing && t >= DUR) t = 0; setPlaying(!playing); }
+
+  playBtn.addEventListener("click", toggle);
+  bigBtn.addEventListener("click", toggle);
+  document.getElementById("screen").addEventListener("click", (e) => { if (e.target.closest("#bigplay")) return; toggle(); });
+  document.getElementById("restart").addEventListener("click", () => { seek(0); });
+  seekEl.addEventListener("input", () => { seek(+seekEl.value / 1000 * DUR); });
+  document.getElementById("speed").addEventListener("change", (e) => { rate = +e.target.value; });
+  const ccBtn = document.getElementById("cc");
+  ccBtn.addEventListener("click", () => { const on = ccBtn.getAttribute("aria-pressed") !== "true"; ccBtn.setAttribute("aria-pressed", String(on)); subsEl.hidden = !on; });
+  const fsBtn = document.getElementById("fs"), playerEl = document.getElementById("player");
+  const toggleFs = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (playerEl.requestFullscreen) playerEl.requestFullscreen(); };
+  fsBtn.addEventListener("click", toggleFs);
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === " " && tag !== "BUTTON" && tag !== "SELECT" && tag !== "INPUT") { e.preventDefault(); toggle(); }
+    else if (e.key === "ArrowRight" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t + 5); } }
+    else if (e.key === "ArrowLeft" && tag !== "SELECT") { if (tag !== "INPUT") { e.preventDefault(); seek(t - 5); } }
+    else if (e.key === "Home" && tag !== "INPUT") { seek(0); }
+    else if ((e.key === "f" || e.key === "F") && tag !== "SELECT") { toggleFs(); }
+  });
+
+  window.__film = { seek, play: () => setPlaying(true), pause: () => setPlaying(false), duration: DUR, time: () => t };
+  const m = /[#&]t=(\d+(?:\.\d+)?)/.exec(location.hash);
+  render(m ? clamp(+m[1], 0, DUR) : 0);
+  if (m) t = clamp(+m[1], 0, DUR);
+  setPlaying(false);
+})();
+
+</script>
+</body>
+</html>
