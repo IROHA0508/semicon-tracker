@@ -968,6 +968,16 @@
       "status": "skipped",
       "title": "첨단 반도체의 오늘을 만들고 미래를 준비하는 혁신의 중심지, 삼성전자 화성·기흥캠퍼스"
     },
+    "https://news.samsungsemiconductor.com/kr/칩스케치-ai-반도체-기술의-내일을-함께-열다-2026-반": {
+      "checkedAt": "2026-11-13",
+      "date": "2026-11-13",
+      "reason": "category",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "skipped",
+      "title": "[칩스케치] AI 반도체 기술의 내일을 함께 열다… ‘2026 반도체 테크 세미나’"
+    },
     "https://news.samsungsemiconductor.com/kr/칩스케치-ai-시대의-중심에-선-반도체-삼성전자가-sedex-20": {
       "checkedAt": "2026-10-16",
       "date": "2026-10-16",
