@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-12T21:33:26+09:00",
-  "count": 166,
+  "generatedAt": "2026-11-16T10:53:43+09:00",
+  "count": 167,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,28 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 166
+      "count": 167
     }
   ],
   "index": [
+    {
+      "id": "samsung-9ac0502a38",
+      "date": "2026-11-16",
+      "published": "2026-11-16T17:36:02+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "SOCAMM",
+        "서버 D램(DDR5)",
+        "온디바이스 AI"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "4-3"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-7506fba1fd",
       "date": "2026-11-12",

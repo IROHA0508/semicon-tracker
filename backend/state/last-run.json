@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-16T05:58:54+09:00",
+  "startedAt": "2026-11-16T10:53:18+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,59 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-9ac0502a38",
+      "date": "2026-11-16",
+      "source": "samsung-newsroom",
+      "title": "삼성전자, CES 2027 혁신상 수상"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-16T05:58:57+09:00",
+  "finishedAt": "2026-11-16T10:53:22+09:00",
   "summary": {
-    "startedAt": "2026-11-16T05:58:57+09:00",
-    "backend": null,
+    "startedAt": "2026-11-16T10:53:22+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-9ac0502a38",
+        "title": "삼성전자, CES 2027 혁신상 수상"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-11-16T10:53:27+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "samsung-9ac0502a38",
+        "title": "삼성전자, CES 2027 혁신상 수상",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
+    "stoppedBy": "all done",
     "left": 0
   },
   "manifest": {
-    "count": 166,
-    "changed": false
+    "count": 167,
+    "changed": true
   }
 }
