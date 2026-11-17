@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-16T10:53:43+09:00",
-  "count": 167,
+  "generatedAt": "2026-11-17T09:10:45+09:00",
+  "count": 168,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,28 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 167
+      "count": 168
     }
   ],
   "index": [
+    {
+      "id": "skhynix-ai-ecosystem-series-ep4-5",
+      "date": "2026-11-17",
+      "published": "2026-11-17T08:58:24+09:00",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "kind": "tech",
+      "tags": [
+        "온디바이스 AI",
+        "CXL·PIM",
+        "HBM"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "0-4"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-9ac0502a38",
       "date": "2026-11-16",

@@ -1,7 +1,39 @@
 {
   "year": "2026",
-  "count": 167,
+  "count": 168,
   "items": [
+    {
+      "id": "skhynix-ai-ecosystem-series-ep4-5",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "김남성 UIUC 교수가 말하는 피지컬 AI 시대 메모리의 역할",
+      "originalTitle": "[AI Ecosystem] Completing AI: Physical intelligence and the role of memory",
+      "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
+      "published": "2026-11-17T08:58:24+09:00",
+      "date": "2026-11-17",
+      "summary": [
+        "일리노이대 어바나-섐페인(UIUC)의 김남성 석좌교수는 SK하이닉스 뉴스룸 AI 생태계 연재 5편에서 AI가 데이터센터 밖 물리 세계로 확장될 때 메모리와 시스템 설계가 함께 진화해야 한다고 설명합니다.",
+        "로봇, 차량, 스마트 글라스 같은 기기는 전력, 발열, 응답 시간, 크기 제약이 커서 HBM, 3D 적층 D램, PIM, CXL, HBF, SSD를 workload에 맞게 조합해야 하며 SK하이닉스는 아키텍처 파트너를 지향한다고 밝혔습니다."
+      ],
+      "interview": "피지컬 AI에서는 연산 성능보다 데이터를 어디에 두고 얼마나 가까이서 처리하느냐가 성능을 좌우한다는 점에서, 메모리 엔지니어의 시스템 설계 역량이 중요해집니다.",
+      "tags": [
+        "온디바이스 AI",
+        "CXL·PIM",
+        "HBM"
+      ],
+      "companies": [
+        "SK하이닉스"
+      ],
+      "author": "Professor Nam-sung Kim, University of Illinois Urbana-Champaign (UIUC)",
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "0-4"
+      ]
+    },
     {
       "id": "samsung-9ac0502a38",
       "company": "samsung",
