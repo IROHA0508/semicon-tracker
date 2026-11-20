@@ -1,7 +1,69 @@
 {
   "year": "2026",
-  "count": 168,
+  "count": 170,
   "items": [
+    {
+      "id": "samsung-b33bd5e1ba",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "channel": "보도자료",
+      "kind": "press",
+      "lang": "ko",
+      "title": "삼성전자 사장단 인사",
+      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%82%ac%ec%9e%a5%eb%8b%a8-%ec%9d%b8%ec%82%ac-2/",
+      "published": "2026-11-20T19:06:39+09:00",
+      "date": "2026-11-20",
+      "summary": [
+        "삼성전자는 11월 20일 사장 승진 3명, 위촉업무 변경 3명 등 총 6명 규모의 '2027년 정기 사장단 인사'를 발표했습니다.",
+        "황상준 부사장이 메모리사업부장, 조상연 부사장이 System LSI사업부장, 이종명 부사장이 CTO 겸 반도체연구소장을 맡으며 회사는 반도체 최대 실적을 이끈 부사장들을 전면 배치해 세대교체를 꾀했다고 밝혔습니다."
+      ],
+      "interview": "메모리 개발을 이끈 황상준 사장이 메모리사업부장에 오른 인사는 삼성전자가 DRAM·HBM 개발 경쟁력을 사업 리더십의 핵심으로 본다는 점을 보여 줍니다.",
+      "tags": [
+        "HBM",
+        "파운드리",
+        "로직 미세화"
+      ],
+      "companies": [
+        "삼성전자"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "2-6",
+        "0-3"
+      ]
+    },
+    {
+      "id": "skhynix-sc26-ai-hpc-exhibition",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "channel": "TECH&AI",
+      "kind": "tech",
+      "lang": "en",
+      "title": "SK하이닉스, SC26에서 메모리 중심 AI 랙 시스템 MARS와 기술 비전 공개",
+      "originalTitle": "“Building the Future AI Ecosystem Around Memory”: SK hynix Presents Its Technology Vision at Supercomputing 2026",
+      "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
+      "published": "2026-11-20T08:57:22+09:00",
+      "date": "2026-11-20",
+      "summary": [
+        "SK하이닉스는 11월 15일부터 20일까지 미국 시카고에서 열린 Supercomputing 2026에 참가해 메모리 중심 AI 랙 시스템 MARS를 시연하고 기술 비전을 발표했습니다.",
+        "MARS 데모는 CXL 풀드 메모리로 랙 단위에서 KV 캐시를 공유하는 방식 등 세 가지였고 이 밖에 Compute-using-DRAM, Custom HBM Array와 HBM4E·HBM4, 서버 D램, eSSD 제품도 전시했습니다."
+      ],
+      "interview": "KV 캐시를 CXL 메모리 풀로 옮겨 공유하는 시연은 AI 추론에서 메모리가 용량과 효율을 좌우하는 핵심 변수가 됐음을 보여 줍니다.",
+      "tags": [
+        "CXL·PIM",
+        "AI 서버·데이터센터",
+        "HBM"
+      ],
+      "companies": [
+        "SK하이닉스",
+        "SK텔레콤"
+      ],
+      "alsoIn": [],
+      "relatedUnits": [
+        "4-7",
+        "0-4"
+      ]
+    },
     {
       "id": "skhynix-ai-ecosystem-series-ep4-5",
       "company": "skhynix",

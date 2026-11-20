@@ -1,0 +1,42 @@
+{
+  "id": "skhynix-sc26-ai-hpc-exhibition",
+  "company": "skhynix",
+  "source": "sk-tech",
+  "channel": "TECH&AI",
+  "kind": "tech",
+  "lang": "en",
+  "title": "SK하이닉스, SC26에서 메모리 중심 AI 랙 시스템 MARS와 기술 비전 공개",
+  "originalTitle": "“Building the Future AI Ecosystem Around Memory”: SK hynix Presents Its Technology Vision at Supercomputing 2026",
+  "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
+  "published": "2026-11-20T08:57:22+09:00",
+  "date": "2026-11-20",
+  "summary": [
+    "SK하이닉스는 11월 15일부터 20일까지 미국 시카고에서 열린 Supercomputing 2026에 참가해 메모리 중심 AI 랙 시스템 MARS를 시연하고 기술 비전을 발표했습니다.",
+    "MARS 데모는 CXL 풀드 메모리로 랙 단위에서 KV 캐시를 공유하는 방식 등 세 가지였고 이 밖에 Compute-using-DRAM, Custom HBM Array와 HBM4E·HBM4, 서버 D램, eSSD 제품도 전시했습니다."
+  ],
+  "interview": "KV 캐시를 CXL 메모리 풀로 옮겨 공유하는 시연은 AI 추론에서 메모리가 용량과 효율을 좌우하는 핵심 변수가 됐음을 보여 줍니다.",
+  "tags": [
+    "CXL·PIM",
+    "AI 서버·데이터센터",
+    "HBM"
+  ],
+  "companies": [
+    "SK하이닉스",
+    "SK텔레콤"
+  ],
+  "categories": [
+    "STORY",
+    "TECH&AI",
+    "CXL",
+    "DRAM",
+    "HBM",
+    "MARS",
+    "NAND",
+    "Supercomputing"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-11-20T21:44:32+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}

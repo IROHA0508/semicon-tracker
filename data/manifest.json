@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-17T09:10:45+09:00",
-  "count": 168,
+  "generatedAt": "2026-11-20T21:45:41+09:00",
+  "count": 170,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,46 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 168
+      "count": 170
     }
   ],
   "index": [
+    {
+      "id": "samsung-b33bd5e1ba",
+      "date": "2026-11-20",
+      "published": "2026-11-20T19:06:39+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "HBM",
+        "파운드리",
+        "로직 미세화"
+      ],
+      "relatedUnits": [
+        "2-6",
+        "0-3"
+      ],
+      "detail": true
+    },
+    {
+      "id": "skhynix-sc26-ai-hpc-exhibition",
+      "date": "2026-11-20",
+      "published": "2026-11-20T08:57:22+09:00",
+      "company": "skhynix",
+      "source": "sk-tech",
+      "kind": "tech",
+      "tags": [
+        "CXL·PIM",
+        "AI 서버·데이터센터",
+        "HBM"
+      ],
+      "relatedUnits": [
+        "4-7",
+        "0-4"
+      ],
+      "detail": true
+    },
     {
       "id": "skhynix-ai-ecosystem-series-ep4-5",
       "date": "2026-11-17",

@@ -1,0 +1,270 @@
+{
+  "id": "skhynix-sc26-ai-hpc-exhibition",
+  "level": "mid",
+  "translated": true,
+  "basis": "원문(영어)을 한국어로 옮겨 요약했습니다. 원문 그림은 원문 서버에서 그대로 불러옵니다.",
+  "lead": "SK하이닉스가 11월 15일부터 20일까지 미국 일리노이주 시카고에서 열린 Supercomputing 2026에 참가해 메모리 중심 AI 생태계에 대한 기술 비전을 소개했습니다. 부스에서는 메모리를 중심에 둔 차세대 서버 랙 시스템 'MARS'의 시연 세 건과 시스템 데모 세 건, HBM·서버 D램·eSSD 제품군을 선보였습니다. 발표 세션에서는 AI System Infra의 민영훈 Technical Leader가 CXL 메모리 풀 기반 KV 캐시 공유·재사용과 CPU 랙의 토큰 공유 기술을 설명했습니다. 행사 참관 소식을 전하는 기술 해설 글입니다.",
+  "keyPoints": [
+    "MARS는 파트너 솔루션을 랙 하나에 통합해 메모리를 중심으로 효율을 높이는 차세대 AI 랙 시스템이며 CXL 풀드 메모리로 KV 캐시와 토큰을 공유하는 시연 세 건이 공개됐습니다.",
+    "KV Cache Offloading over CXL, Compute-using-DRAM, Custom HBM Array 세 기술이 메모리의 용량 확장과 연산 기능 추가 방향을 보여 줬습니다.",
+    "HBM4E·HBM4·HBM3E, 256GB 3DS DDR5 RDIMM, 192GB SOCAMM2, PEB210 E1.S 등 AI 인프라용 핵심 제품군도 함께 전시됐습니다."
+  ],
+  "blocks": [
+    {
+      "t": "h",
+      "text": "행사 개요"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150525/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_01_photo_2026.jpg",
+      "caption": "원문 그림 1",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "AI가 다루는 데이터가 늘면서 데이터를 저장하고 처리하는 메모리 기술도 빠르게 바뀌고 있습니다. 사용 빈도에 따라 메모리를 계층으로 나누거나 여러 서버를 하나의 메모리 풀로 묶어 저장 장치와 시스템 사이의 전송 효율을 높이는 아이디어가 구체화되고 있습니다. 설계와 공정 혁신으로 용량과 처리 속도가 계속 개선되는 한편 업계는 연산 기능을 메모리에 넣어 역할을 넓히려 하고 있습니다."
+    },
+    {
+      "t": "p",
+      "text": "Supercomputing 2026은 고성능 컴퓨팅(HPC)과 AI의 최신 기술이 모이는 글로벌 콘퍼런스입니다. 올해 전시장에는 약 10,000명이 찾았고 약 500개 기업·기관이 참여했습니다. SK하이닉스는 라이브 시연으로 차세대 솔루션을 소개하고 메모리 중심으로 AI 생태계를 재편하겠다는 기술 비전을 발표했습니다. 글로벌 고객·파트너와 협력 관계도 다졌다고 밝혔습니다."
+    },
+    {
+      "t": "h",
+      "text": "MARS 랙 시스템 시연"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150527/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_02_photo_2026.jpg",
+      "caption": "SK하이닉스 전시 부스",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스는 거친 질감의 회색 벽을 네온 블루 조명이 따라 그리는 디자인이었습니다. 어두운 전시장에서도 눈에 띄어 지나가는 관람객의 시선을 끌었다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150530/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_03_photo_2026.jpg",
+      "caption": "MARS 구역을 둘러보는 관람객",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "입구에서 오른쪽 벽으로 가면 가장 먼저 MARS(Memory-centric AI Rack System) 구역이 나옵니다. MARS는 메모리를 중심에 두고 파트너 솔루션을 랙 하나에 통합해 효율을 극대화하는 차세대 시스템입니다. 랙은 데이터센터에서 서버·스토리지·네트워크 장비를 층층이 쌓는 표준 크기의 틀입니다. 이 구역에서는 관련 시연 세 건이 진행됐습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150532/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_05_photo_2026.jpg",
+      "caption": "랙 단위로 KV 캐시를 공유하는 풀드 메모리 시연",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "첫 번째 시연은 CXL 메모리와 CXL 하이브리드 메모리를 결합해 랙 단위로 KV 캐시를 공유하는 풀드 메모리입니다. 계속 생성되는 대규모 KV 캐시는 CXL 하이브리드 메모리 안의 SSD에 저장됩니다. 재사용할 때는 이전 대화와 작업 이력을 바탕으로 필요한 KV 캐시를 예측해 D램으로 빠르게 불러옵니다. AI 구동에 필요한 방대한 정보를 담을 고용량 저장 공간을 확보하면서 읽기 성능도 빠르다는 점을 보여 줬습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150535/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_06_photo_2026.jpg",
+      "caption": "연산형 풀드 메모리를 이용한 AI 에이전트 서빙 기술 시연",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "두 번째 시연은 연산 기능이 있는 메모리 풀로 여러 서버와 GPU를 연결해 효율을 높인 AI 에이전트 서빙 시스템입니다. CXL 기반 연산형 풀드 메모리로 KV 캐시를 선택적으로 전송하거나 재사용하면 네트워크 통신에 의존하는 기존 방식보다 시스템 성능이 크게 좋아진다는 점을 입증했다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150531/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_04_photo_2026.jpg",
+      "caption": "CXL 풀드 메모리 기반 토큰 공유 기술 시연",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "세 번째 시연은 CXL 풀드 메모리로 연결한 CPU 서버들이 자신이 만든 토큰을 서로 공유하는 방식입니다. 멀티모달 AI 서비스는 토큰화 시간이 성능에 크게 영향을 줍니다. CPU 전처리가 늦어지면 GPU 유휴 시간이 늘고 처리 효율이 떨어지기 때문입니다. 요청 데이터와 토큰을 CPU 서버끼리 공유하자 중복 처리가 줄어 CPU 자원 활용과 워커 스케줄링이 간소해졌고 전처리가 개선됐습니다. 그 결과 GPU 유휴 시간이 짧아져 서빙 성능이 더 좋아졌습니다."
+    },
+    {
+      "t": "h",
+      "text": "용량과 연산을 넓히는 시스템 데모"
+    },
+    {
+      "t": "p",
+      "text": "반대편 벽의 시스템 데모 구역에는 KV Cache Offloading over CXL, Compute-using-DRAM, Custom HBM Array 세 기술이 차례로 소개됐습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150537/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_07_photo_2026.jpg",
+      "caption": "KV Cache Offloading over CXL 구역에서 시연 영상을 보는 관람객",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "KV Cache Offloading over CXL은 AI 데이터센터가 수요에 맞춰 메모리를 효율적으로 배치하고 공유하도록 돕는 새 AI 메모리 기술입니다. 기존에 HBM과 D램뿐이던 AI 메모리 계층에 CXL 메모리 풀을 더했습니다. 곧 쓸 KV 캐시는 HBM과 D램에 먼저 두고 나중에 불러올 KV 캐시는 CXL 메모리 풀에 보관합니다. 재사용 빈도와 최근 사용 여부, 크기, 복원 비용을 따져 저장 위치를 정하므로 단순한 용량 증설 이상의 효과가 있습니다. 수요 변화에 맞춰 자원을 재배분하거나 여러 호스트가 용량을 공유하는 데도 메모리 풀을 쓸 수 있습니다. SK하이닉스는 AI 데이터센터 사업을 추진하는 SK텔레콤과 함께 실제 LLM 추론 환경에서 검증을 마쳤고 이번 전시에서 그 효율을 시연 영상으로 보여 줬습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150539/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_08_photo_2026.jpg",
+      "caption": "Compute-using-DRAM 솔루션 소개 책자를 보는 관람객",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "Compute-using-DRAM은 D램 셀 어레이가 지닌 전하 공유(charge sharing) 동작을 이용해 메모리 안에서 연산하는 기술입니다. 수천에서 수만 비트 단위로 행을 한꺼번에 활성화하는 D램 구조를 활용합니다. 행 사이 데이터 복사와 여러 행의 동시 활성화로 비트 단위 연산을 병렬로 처리합니다. 별도 연산 유닛 없이 상용 D램을 그대로 쓰므로 칩 면적과 용량 손실을 최소화하면서 대역폭과 전력 효율을 함께 높입니다. 논리 연산과 이를 바탕으로 한 산술 연산, 대규모 데이터 비교 같은 단순 연산을 메모리 안에서 처리하고 결과만 내보냅니다. AI 연산에서 생기는 대량 데이터를 연산 유닛의 캐시 계층까지 옮기지 않아도 되므로 데이터 전송 효율을 높일 차세대 솔루션으로 주목받았습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150541/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_09_photo_2026.jpg",
+      "caption": "Custom HBM Array 구조 모형을 살펴보는 관람객",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "기존 GPU 기반 시스템은 연결할 수 있는 HBM 수가 정해져 있어 대역폭 확장에 한계가 있습니다. LLM 디코딩(답변 생성) 때는 GPU 자원도 낭비됩니다. Custom HBM Array는 연산 기능을 갖춘 cHBM 여러 개를 연결하는 구조로 이 한계를 넘으려는 기술입니다. 기존 GPU 기반 시스템보다 응답이 빠르고 에너지 효율이 높으며 데이터 이동 병목도 완화할 것으로 기대됩니다. 관람객들은 제품 모형 앞에서 내부 구조를 하나하나 살펴보고 현장 직원에게 질문하며 오래 머물렀습니다."
+    },
+    {
+      "t": "h",
+      "text": "AI 인프라를 받치는 제품군"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150542/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_10_photo_2026.jpg",
+      "caption": "SK하이닉스 주요 HBM 제품",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스 뒤편 제품 포트폴리오 구역에서는 AI 인프라용 핵심 제품을 소개했습니다. HBM 구역에는 현재 HBM 시장을 이끄는 HBM3E와 함께 차세대 HBM4E, HBM4가 나란히 전시됐습니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150548/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_13_photo_2026.jpg",
+      "caption": "SK하이닉스 주요 서버 D램 제품",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150549/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_14_photo_2026.jpg",
+      "caption": "SK하이닉스 주요 eSSD 제품",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "table",
+      "head": [
+        "구역",
+        "전시 제품",
+        "원문 설명"
+      ],
+      "rows": [
+        [
+          "서버 D램",
+          "256GB 3DS DDR5 RDIMM",
+          "AI 워크로드용으로 업계 최대 용량"
+        ],
+        [
+          "서버 D램",
+          "128GB DDR5 MRDIMM",
+          "높은 대역폭"
+        ],
+        [
+          "서버 D램",
+          "96GB DDR5 RDIMM",
+          "범용성이 높음"
+        ],
+        [
+          "서버 D램",
+          "192GB SOCAMM2",
+          "새 폼팩터로 전력·공간 효율 개선"
+        ],
+        [
+          "eSSD",
+          "PEB210 E1.S",
+          "Direct Liquid Cooling(DLC) 지원"
+        ],
+        [
+          "eSSD",
+          "PS1110 E3.S",
+          "NVMe E3.S 규격에서 고용량·저전력"
+        ],
+        [
+          "eSSD",
+          "PS1010 U.2, PEB210 M.2 2280",
+          "다양한 용도의 고객 요구 충족"
+        ]
+      ]
+    },
+    {
+      "t": "p",
+      "text": "서버 D램 구역과 eSSD 구역에서는 위 제품이 소개됐습니다. eSSD 구역에서는 PEB210 E1.S와 PS1110 E3.S가 가장 큰 관심을 받았다고 합니다."
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150545/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_11_photo_2026.jpg",
+      "caption": "SK하이닉스의 역사와 비전, HBM 개발 여정, 최신 제품 현황을 소개하는 회사 소개 구역",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "부스 입구 벽 뒤쪽의 회사 소개 구역에서는 벽면 그래픽으로 SK하이닉스의 역사와 비전을 보여 줬습니다. HBM 개발 과정과 HBM·D램·낸드 분야의 최신 제품 현황도 한눈에 볼 수 있었습니다."
+    },
+    {
+      "t": "h",
+      "text": "MARS 발표 세션"
+    },
+    {
+      "t": "img",
+      "src": "https://d18r0a86za96sg.cloudfront.net/wp-content/uploads/2026/11/19150546/Building-the-Future-AI-Ecosystem-Around-Memory-SK-hynix-Presents-Its-Technology-Vision-at-Super-Computing-2026_12_photo_2026.jpg",
+      "caption": "발표하는 AI System Infra 민영훈 Technical Leader",
+      "credit": "SK하이닉스 뉴스룸"
+    },
+    {
+      "t": "p",
+      "text": "발표 세션에서는 AI System Infra의 민영훈 Technical Leader가 'Enabling Agentic AI Serving with Disaggregated Memory Pools'를 주제로 메모리 중심 AI 시스템 아키텍처 MARS를 자세히 소개했습니다. 핵심 기술로는 CXL 메모리 풀 기반 KV 캐시 공유·재사용과 CPU 랙의 토큰 공유를 꼽았습니다. 그는 이 기술들이 기존 방식보다 GPU와 CPU 활용률을 높여 멀티턴 에이전틱 AI 서빙 성능을 크게 개선한다고 설명했습니다."
+    },
+    {
+      "t": "p",
+      "text": "SK하이닉스는 메모리가 AI 인프라의 성능과 효율을 좌우하는 요소로 떠오르는 가운데 이번 전시로 AI 메모리 기술 경쟁력과 비전을 분명히 알렸다고 밝혔습니다. AI 컴퓨팅 성능을 높이는 핵심 기술 파트너로서 고객과 함께 성장하겠다는 계획도 덧붙였습니다."
+    }
+  ],
+  "terms": [
+    [
+      "CXL",
+      "CPU·GPU·메모리 등을 효율적으로 연결해 대용량·초고속 연산을 뒷받침하는 차세대 인터페이스입니다."
+    ],
+    [
+      "KV 캐시",
+      "대규모 언어 모델 기반 AI 에이전트가 글을 만들 때 앞서 계산한 결과를 담아 두는 임시 메모리입니다."
+    ],
+    [
+      "풀드 메모리",
+      "CXL 메모리 여러 개를 풀로 묶어 여러 호스트가 용량을 나눠 쓰게 하는 기술입니다."
+    ],
+    [
+      "연산형 메모리 풀",
+      "메모리 풀 안에 연산 기능을 넣어 CPU나 GPU로 보내기 전에 단순 연산을 처리하는 솔루션입니다."
+    ],
+    [
+      "전하 공유",
+      "D램 셀에 저장된 전하가 비트라인과 만나 전압이 바뀌는 현상이며 D램이 데이터를 읽는 기본 원리입니다."
+    ],
+    [
+      "cHBM",
+      "기존 HBM에 여러 기능을 추가하는 맞춤형 메모리 기술입니다. 연산 기능을 넣으면 메모리와 연산 유닛을 수직으로 쌓을 수 있습니다."
+    ],
+    [
+      "멀티모달",
+      "텍스트·이미지·음성·영상처럼 서로 다른 형태의 데이터를 함께 이해하고 처리하는 AI 기술입니다."
+    ],
+    [
+      "랙",
+      "데이터센터에서 서버·스토리지·네트워크 장비를 층층이 쌓는 표준 크기의 틀입니다."
+    ]
+  ],
+  "studyUnits": [
+    "4-7",
+    "4-5",
+    "2-7",
+    "2-10"
+  ],
+  "generatedAt": "2026-11-20T21:44:44+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-19"
+}

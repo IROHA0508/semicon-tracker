@@ -718,6 +718,16 @@
       "status": "summarized",
       "title": "삼성전자 사장단 메시지"
     },
+    "https://news.samsungsemiconductor.com/kr/삼성전자-사장단-인사-2": {
+      "checkedAt": "2026-11-20",
+      "date": "2026-11-20",
+      "id": "samsung-b33bd5e1ba",
+      "sources": [
+        "samsung-newsroom"
+      ],
+      "status": "summarized",
+      "title": "삼성전자 사장단 인사"
+    },
     "https://news.samsungsemiconductor.com/kr/삼성전자-세계-최초-hbm4e-12단-샘플-출하": {
       "checkedAt": "2026-10-07",
       "date": "2026-05-29",
@@ -1727,6 +1737,16 @@
       ],
       "status": "summarized",
       "title": "[Inside the Research] In the AI era, NAND moves beyond storage to computing… 3D FeNAND co-optimization at IEEE"
+    },
+    "https://news.skhynix.com/en/sc26-ai-hpc-exhibition": {
+      "checkedAt": "2026-11-20",
+      "date": "2026-11-20",
+      "id": "skhynix-sc26-ai-hpc-exhibition",
+      "sources": [
+        "sk-tech"
+      ],
+      "status": "summarized",
+      "title": "“Building the Future AI Ecosystem Around Memory”: SK hynix Presents Its Technology Vision at Supercomputing 2026"
     },
     "https://news.skhynix.com/en/share-buyback-and-retirement": {
       "checkedAt": "2026-10-07",

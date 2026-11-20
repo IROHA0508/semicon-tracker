@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-20T08:00:03+09:00",
+  "startedAt": "2026-11-20T21:44:28+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -15,7 +15,7 @@
     "sk-tech": {
       "pages": 1,
       "items": 10,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,40 +41,74 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-b33bd5e1ba",
+      "date": "2026-11-20",
+      "source": "samsung-newsroom",
+      "title": "삼성전자 사장단 인사"
+    },
+    {
+      "id": "skhynix-sc26-ai-hpc-exhibition",
+      "date": "2026-11-20",
+      "source": "sk-tech",
+      "title": "“Building the Future AI Ecosystem Around Memory”: SK hynix Presents Its Technology Vision at Supercomputing 2026"
+    }
+  ],
+  "queueSize": 2,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-20T08:00:07+09:00",
+  "finishedAt": "2026-11-20T21:44:32+09:00",
   "summary": {
-    "startedAt": "2026-11-20T08:00:07+09:00",
-    "backend": null,
+    "startedAt": "2026-11-20T21:44:32+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
-    "summarized": [],
+    "summarized": [
+      {
+        "id": "samsung-b33bd5e1ba",
+        "title": "삼성전자 사장단 인사"
+      },
+      {
+        "id": "skhynix-sc26-ai-hpc-exhibition",
+        "title": "SK하이닉스, SC26에서 메모리 중심 AI 랙 시스템 MARS와 기술 비전 공개"
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "stoppedBy": "queue done",
+    "queueLeft": 0,
+    "finishedAt": "2026-11-20T21:44:44+09:00"
   },
   "details": {
     "limit": 10,
-    "detailed": [],
+    "detailed": [
+      {
+        "id": "samsung-b33bd5e1ba",
+        "title": "삼성전자 사장단 인사",
+        "figure": false
+      },
+      {
+        "id": "skhynix-sc26-ai-hpc-exhibition",
+        "title": "SK하이닉스, SC26에서 메모리 중심 AI 랙 시스템 MARS와 기술 비전 공개",
+        "figure": false
+      }
+    ],
     "failed": {},
     "gaveUp": [],
     "authError": false,
     "limitHit": false,
-    "stoppedBy": "nothing to do",
+    "stoppedBy": "all done",
     "left": 0
   },
   "manifest": {
-    "count": 168,
-    "changed": false
+    "count": 170,
+    "changed": true
   }
 }
