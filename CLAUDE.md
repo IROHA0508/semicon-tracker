@@ -13,7 +13,7 @@
 - 사실·수치는 원문(공식 뉴스룸, 원고의 반영 자료)에 있는 것만. 기사 본문은 저장하지 않고 제목·링크·날짜·직접 쓴 요약만 둔다. 한국어 기사의 제목은 원제 그대로다.
 - 글을 고친 뒤 `python3 tools/style_check.py --spans`로 'AI 티' 신호를 확인하고 걸린 문장만 고친다. 연결어미(-고/-며/-지만/-면서/-아서/-어서) 바로 뒤 쉼표는 `python3 tools/style_check.py --fix-c11`이 지운다(테스트가 0건을 확인). 기사 제목·소제목에 "X: Y" 콜론 부제를 쓰지 않는다.
 - 고친 곳에 맞춰 다시 만든다: 카드 → `python -m backend publish`, 원고 → `python tools/build_theory.py`, 애니메이션 목록 → `python tools/build_animation_index.py`. 그다음 `python -m backend validate`와 `python -m pytest tests -q`가 모두 통과해야 커밋한다.
-- 큰 변경은 브랜치와 PR로. `main`에는 하루 4번 자동 커밋(`semicon-tracker-bot`)이 올라오므로 직접 푸시하지 않는다.
+- 큰 변경은 브랜치와 PR로. `main`에는 하루 한 번 자동 커밋(`semicon-tracker-bot`)이 올라오므로 직접 푸시하지 않는다.
 - 토큰·API 키는 GitHub Secrets에만. 요약은 구독 토큰(`CLAUDE_CODE_OAUTH_TOKEN`)을 쓰고 릴리스 레이더와 사용량을 나눠 쓴다.
 
 ## 함정
