@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-11-23T23:26:07+09:00",
+  "startedAt": "2026-11-24T11:51:48+09:00",
   "dryRun": false,
   "startDate": "2026-01-01",
   "sources": {
@@ -33,7 +33,7 @@
     "samsung-newsroom": {
       "pages": 1,
       "items": 20,
-      "new": 0,
+      "new": 1,
       "skippedByCategory": 0,
       "older": 0,
       "stoppedBy": "reached known articles",
@@ -41,37 +41,39 @@
     }
   },
   "errors": {},
-  "added": [],
-  "queueSize": 0,
+  "added": [
+    {
+      "id": "samsung-bc71514ddc",
+      "date": "2026-11-24",
+      "source": "samsung-newsroom",
+      "title": "삼성전자 2027년 정기 임원 인사"
+    }
+  ],
+  "queueSize": 1,
   "backfillDone": {
     "sk-fact": true,
     "sk-tech": true,
     "sk-press": true,
     "samsung-newsroom": true
   },
-  "finishedAt": "2026-11-23T23:26:11+09:00",
+  "finishedAt": "2026-11-24T11:51:53+09:00",
   "summary": {
-    "startedAt": "2026-11-23T23:26:11+09:00",
-    "backend": null,
+    "startedAt": "2026-11-24T11:51:53+09:00",
+    "backend": "cli",
     "model": "claude-sonnet-5-5",
     "limit": 10,
     "summarized": [],
     "failed": {},
     "gaveUp": [],
     "authError": false,
-    "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "queueLeft": 0
+    "limitHit": true,
+    "stoppedBy": "usage limit",
+    "queueLeft": 1,
+    "message": "claude CLI 실패(1): ge\":{},\"permission_denials\":[],\"terminal_reason\":\"api_error\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":",
+    "finishedAt": "2026-11-24T11:51:56+09:00"
   },
   "details": {
-    "limit": 10,
-    "detailed": [],
-    "failed": {},
-    "gaveUp": [],
-    "authError": false,
-    "limitHit": false,
-    "stoppedBy": "nothing to do",
-    "left": 0
+    "stoppedBy": "skipped (summary step stopped)"
   },
   "manifest": {
     "count": 170,
