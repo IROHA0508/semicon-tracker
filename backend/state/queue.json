@@ -1,25 +1,4 @@
 {
-  "items": [
-    {
-      "id": "samsung-bc71514ddc",
-      "company": "samsung",
-      "source": "samsung-newsroom",
-      "channel": "보도자료",
-      "kind": "press",
-      "lang": "ko",
-      "title": "삼성전자 2027년 정기 임원 인사",
-      "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2027%eb%85%84-%ec%a0%95%ea%b8%b0-%ec%9e%84%ec%9b%90-%ec%9d%b8%ec%82%ac/",
-      "published": "2026-11-24T18:30:07+09:00",
-      "date": "2026-11-24",
-      "categories": [
-        "보도자료",
-        "프레스센터",
-        "삼성전자 2027 정기 임원 인사",
-        "삼성전자 정기 임원"
-      ],
-      "alsoIn": [],
-      "collectedAt": "2026-11-24T11:51:48+09:00"
-    }
-  ],
-  "updatedAt": "2026-11-24T11:51:48+09:00"
+  "items": [],
+  "updatedAt": "2026-11-25T09:35:10+09:00"
 }

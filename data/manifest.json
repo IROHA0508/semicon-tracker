@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-20T21:45:41+09:00",
-  "count": 170,
+  "generatedAt": "2026-11-25T09:36:07+09:00",
+  "count": 171,
   "tagsVersion": "2026-10-06",
   "unitsVersion": "2026-10-13",
   "kinds": {
@@ -65,10 +65,28 @@
     {
       "year": "2026",
       "file": "feed/2026.json",
-      "count": 170
+      "count": 171
     }
   ],
   "index": [
+    {
+      "id": "samsung-bc71514ddc",
+      "date": "2026-11-24",
+      "published": "2026-11-24T18:30:07+09:00",
+      "company": "samsung",
+      "source": "samsung-newsroom",
+      "kind": "press",
+      "tags": [
+        "HBM",
+        "수율·품질",
+        "파운드리"
+      ],
+      "relatedUnits": [
+        "0-3",
+        "3-17"
+      ],
+      "detail": true
+    },
     {
       "id": "samsung-b33bd5e1ba",
       "date": "2026-11-20",

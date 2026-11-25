@@ -1,0 +1,36 @@
+{
+  "id": "samsung-bc71514ddc",
+  "company": "samsung",
+  "source": "samsung-newsroom",
+  "channel": "보도자료",
+  "kind": "press",
+  "lang": "ko",
+  "title": "삼성전자 2027년 정기 임원 인사",
+  "url": "https://news.samsungsemiconductor.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2027%eb%85%84-%ec%a0%95%ea%b8%b0-%ec%9e%84%ec%9b%90-%ec%9d%b8%ec%82%ac/",
+  "published": "2026-11-24T18:30:07+09:00",
+  "date": "2026-11-24",
+  "summary": [
+    "삼성전자는 24일 부사장 39명, 상무 78명, 펠로우 2명, 마스터 12명 등 총 131명을 승진시키는 2027년 정기 임원인사를 실시했습니다.",
+    "AI 메모리 시장을 주도하며 역대 최대 실적에 기여한 반도체 분야 인재를 중용했고 로봇·AI·Foundry 등 미래 성장동력 분야 인재도 발탁했으며 여성 임원은 역대 최대 규모로 승진시켰습니다."
+  ],
+  "interview": "HBM4 개발과 DRAM 수율 개선 담당자가 부사장으로 승진한 데서, 메모리 회로설계와 공정·수율 직무가 회사의 성과주의 인사에서 핵심 역할임을 알 수 있습니다.",
+  "tags": [
+    "HBM",
+    "수율·품질",
+    "파운드리"
+  ],
+  "companies": [
+    "삼성전자"
+  ],
+  "categories": [
+    "보도자료",
+    "프레스센터",
+    "삼성전자 2027 정기 임원 인사",
+    "삼성전자 정기 임원"
+  ],
+  "alsoIn": [],
+  "summarizedAt": "2026-11-25T09:35:10+09:00",
+  "model": "claude-sonnet-5-5",
+  "rules": "2026-10-12",
+  "bodyVia": "feed"
+}
